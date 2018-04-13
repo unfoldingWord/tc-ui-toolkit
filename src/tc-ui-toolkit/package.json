@@ -1,0 +1,27 @@
+{
+  "name": "tc-ui-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/translationCoreApps/tc-ui-toolkit.git"
+  },
+  "keywords": [
+    "translationCore",
+    "UI",
+    "toolkit"
+  ],
+  "author": "unfoldingWorld",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/translationCoreApps/tc-ui-toolkit/issues"
+  },
+  "homepage": "https://github.com/translationCoreApps/tc-ui-toolkit#readme",
+  "dependencies": {
+    "prop-types": "^15.6.1"
+  }
+}
