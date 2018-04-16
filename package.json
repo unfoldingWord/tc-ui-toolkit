@@ -30,7 +30,8 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
-    }
+    },
+    "modulePathIgnorePatterns": ["tc-ui-toolkit-test/"]
   },
   "dependencies": {
     "prop-types": "^15.6.1",
