@@ -16,7 +16,9 @@ import { CheckInfoCard } from 'tc-ui-toolkit';
 
 class App extends Component {
   render() {
-    return ()
+    return (
+      <CheckInfoCard />
+    )
     ;
   }
 }
@@ -25,29 +27,37 @@ class App extends Component {
 # Development
 ## Environment setup
 - Run `npm run setup`
-
   or
-
 - `npm i`
 - `npm run build`
 - `npm link`
 - `cd tc-ui-toolkit-test`
-- `npm link tc-ui-toolkit`
 - `npm i`
+- `npm link tc-ui-toolkit`
 
 Reference:
 https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce
+
 ## Component Development
 `tc-ui-toolkit` components should be developed inside their own folder in the `src` folder.
 
 Use the `CheckInfoCard` component as a guide to develop your own `tc-ui-toolkit` components.
 
 #### Commands to get your development rolling
-
-- `npm start` so that webpack watches your changes and reloads (Live hot reloading).
-- `npm build src` to build your components code without watching for changes.
+- Terminal 1
+    - In the root directory of `tc-ui-toolkit`
+        - `npm start` so that webpack watches your changes and reloads (Live hot reloading).
+        or
+        - `npm build src` to build your components code without watching for changes.
+- Terminal 2
+    - In the `tc-ui-toolkit-test` directory (To render the component in the browser)
+      - cd to `tc-ui-toolkit-test`
+      - run `npm start`
+      - Then the `tc-ui-toolkit-test` app should open in your default browser.
 
 #### Directory & file structure
+
+Root directory of `tc-ui-toolkit`
 
 ```
 src
@@ -76,9 +86,9 @@ src
     │   ...
 ```
 
-#### Testing your Component UI in the browser
+#### Rendering your Component UI in the browser
 
-- To test your Component UI in the browser edit the `App.js` file inside the `src` folder in `tc-ui-toolkit-test` by including/importing the component as follow:
+- To render your Component UI in the browser edit the `App.js` file inside the `src` folder in `tc-ui-toolkit-test` by including/importing the component as follow:
 
 ```js
 import { CheckInfoCard } from 'tc-ui-toolkit';
@@ -108,8 +118,3 @@ class App extends Component {
   }
 }
 ```
-
-- To run the code in the browser follow the next steps:
-  - cd to `tc-ui-toolkit-test`
-  - run `npm start`
-  - The `tc-ui-toolkit-test` app should open in your default browser.
