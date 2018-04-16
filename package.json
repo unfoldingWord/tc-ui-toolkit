@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "webpack --watch",
     "build": "webpack",
-    "setup": "npm i; npm run build; npm link; cd tc-ui-toolkit-test && npm link tc-ui-toolkit && npm i;"
+    "setup": "npm i; npm run build; npm link; cd tc-ui-toolkit-test && npm i; npm link tc-ui-toolkit;"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,9 @@
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
     },
-    "modulePathIgnorePatterns": ["tc-ui-toolkit-test/"]
+    "modulePathIgnorePatterns": [
+      "tc-ui-toolkit-test/"
+    ]
   },
   "dependencies": {
     "prop-types": "^15.6.1",
