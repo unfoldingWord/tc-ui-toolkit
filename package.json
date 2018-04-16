@@ -1,7 +1,7 @@
 {
   "name": "tc-ui-toolkit",
   "version": "1.0.0",
-  "description": "React components use to develop tools for the desktop app translationCore",
+  "description": "React components used to develop tools for the desktop app translationCore",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
