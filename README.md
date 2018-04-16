@@ -1,5 +1,5 @@
 # tc-ui-toolkit
-React components use to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
+React components used to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
 
 ## Usage
 
