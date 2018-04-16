@@ -99,7 +99,7 @@ If you want to add additional components then import them as follow:
 import { CheckInfoCard, OtherComponentName } from 'tc-ui-toolkit';
 ```
 
-Then use the UI compoent as follow:
+Then use the UI component as follow:
 
 ```js
 class App extends Component {
