@@ -10,7 +10,7 @@ class App extends Component {
           title="save, saves, saved, safe, salvation"
           phrase='The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.'
           seeMoreLabel="See More"
-          showSeeMoreButton={false}
+          showSeeMoreButton={true}
           onSeeMoreClick={() => console.log('clicked')}
         />
       </div>

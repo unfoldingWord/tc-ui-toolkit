@@ -166,7 +166,7 @@ var CheckInfoCard = function CheckInfoCard(_ref) {
       ),
       _react2.default.createElement(
         'div',
-        { onClick: showSeeMoreButton ? null : onSeeMoreClick, className: showSeeMoreButton ? 'linkInactive' : 'linkActive' },
+        { onClick: showSeeMoreButton ? null : onSeeMoreClick, className: showSeeMoreButton ? 'linkActive' : 'linkInactive' },
         seeMoreLabel
       )
     )
@@ -1137,7 +1137,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(16)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -1149,10 +1149,10 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-
+exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, "/* @import '../css/index.styles.css'; */\n:root {\n  --accent-color: #2196F3;\n  --accent-color-light: #44C6FF;\n  --accent-color-dark: #19579E;\n\n  --reverse-color: #FFFFFF;\n\n  --completed-color: #58C17A;\n  --warning-color: #F44336;\n  --highlight-color: #FDD910;\n\n  --text-color: #333333;\n  --text-color-light: #747474;\n  --text-color-dark: #000000;\n\n  --background-color: #747474;\n  --background-color-light: #EEEEEE;\n  --background-color-dark: #333333;\n\n  --border-color: #CCCCCC;\n}\n\n.handleIcon {\n  z-index: 999;\n  color: #FFFFFF;\n  background-color: #000000;\n  padding: 10px 0px;\n  border-radius: 5px 0px 0px 5px\n}\n\n.linkActive {\n  font-weight: bold;\n  display: flex;\n  justify-content: flex-end;\n  margin: 5px 20px;\n  cursor: pointer\n}\n\n.linkInactive {\n  font-weight: bold;\n  color: #333333;\n  margin: 5px 20px;\n  text-align: right;\n  cursor: default;\n}\n\n.checkInfo {\n  flex: 0 0 120px;\n  display: flex;\n  margin: 0 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.leftSide {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.rightSide {\n  flex: 2;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding-top: 10px;\n  border-left: 1px solid var(--reverse-color);\n}\n\n.title {\n  max-height: 100px;\n  overflow-y: auto;\n  padding: 0 20px;\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n}\n\n.phrase {\n  max-height: 80px;\n  overflow-y: auto;\n  padding: 0 20px;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, ".handleIcon {\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0px;\n  border-radius: 5px 0px 0px 5px\n}\n\n.linkActive {\n  font-weight: bold;\n  display: flex;\n  justify-content: flex-end;\n  margin: 5px 20px;\n  cursor: pointer\n}\n\n.linkInactive {\n  font-weight: bold;\n  color: var(--text-color);\n  margin: 5px 20px;\n  text-align: right;\n  cursor: default;\n}\n\n.checkInfo {\n  flex: 0 0 120px;\n  display: flex;\n  margin: 0 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.leftSide {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.rightSide {\n  flex: 2;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding-top: 10px;\n  border-left: 1px solid var(--reverse-color);\n}\n\n.title {\n  max-height: 100px;\n  overflow-y: auto;\n  padding: 0 20px;\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n}\n\n.phrase {\n  max-height: 80px;\n  overflow-y: auto;\n  padding: 0 20px;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -1243,6 +1243,20 @@ function toComment(sourceMap) {
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* Include here all css settings that should be part of multiple css stylesheets */\n\n:root {\n  --accent-color: #2196F3;\n  --accent-color-light: #44C6FF;\n  --accent-color-dark: #19579E;\n\n  --reverse-color: #FFFFFF;\n\n  --completed-color: #58C17A;\n  --warning-color: #F44336;\n  --highlight-color: #FDD910;\n\n  --text-color: #333333;\n  --text-color-light: #747474;\n  --text-color-dark: #000000;\n\n  --background-color: #747474;\n  --background-color-light: #EEEEEE;\n  --background-color-dark: #333333;\n\n  --border-color: #CCCCCC;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -1306,7 +1320,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(16);
+var	fixUrls = __webpack_require__(17);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1622,7 +1636,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 

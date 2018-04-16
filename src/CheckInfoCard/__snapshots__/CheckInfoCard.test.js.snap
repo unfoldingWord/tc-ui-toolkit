@@ -23,7 +23,7 @@ exports[`CheckInfoCard renders correctly 1`] = `
     </div>
     <div
       className="linkActive"
-      onClick={[Function]}
+      onClick={null}
     >
       See More
     </div>
