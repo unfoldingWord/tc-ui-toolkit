@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import './CheckInfoCard.styles.css';
+import './CheckInfoCard.styles.css';
 
 const CheckInfoCard = ({
   title,
