@@ -22,7 +22,7 @@ https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-
 
 ```
 src
-│   index.js
+│  index.js
 │  index.test.js
 │
 └───CheckInforCard
