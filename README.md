@@ -24,7 +24,7 @@ class App extends Component {
 }
 ```
 
-# Development
+# Contributing
 ## Environment setup
 - Run `npm run setup`
   or
