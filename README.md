@@ -52,3 +52,41 @@ src
     │   index.js
     │   ...
 ```
+
+#### Testing your Component UI in the browser
+
+- To test your Component UI in the browser edit the `App.js` file inside the `src` folder in `tc-ui-toolkit-test` by including/importing the component as follow:
+
+```js
+import { CheckInfoCard } from 'tc-ui-toolkit';
+```
+If you want to add additional components then import them as follow:
+
+```js
+import { CheckInfoCard, OtherComponentName } from 'tc-ui-toolkit';
+```
+
+Then use the UI compoent as follow:
+
+```js
+class App extends Component {
+  render() {
+    return (
+      <div style={{ padding: '10px' }}>
+        <CheckInfoCard
+          title="save, saves, saved, safe, salvation"
+          phrase='The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.'
+          seeMoreLabel="See More"
+          showSeeMoreButton={false}
+          onSeeMoreClick={() => console.log('clicked')}
+        />
+      </div>
+    );
+  }
+}
+```
+
+- To run the code in the browser follow the next steps:
+  - cd to `tc-ui-toolkit-test`
+  - run `npm start`
+  - The `tc-ui-toolkit-test` app should open in your default browser.
