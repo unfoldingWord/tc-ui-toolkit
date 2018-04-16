@@ -55,21 +55,21 @@ src
 └───CheckInforCard
 │   │   CheckInfoCard.js
 │   │   CheckInfoCard.test.js
-│   │   CheckInfoCard.style.css
+│   │   CheckInfoCard.styles.css
 │   │   index.js
 │   │   ...
 │
 └───ComponentName
 │   │   ComponentName.js
 │   │   ComponentName.test.js
-│   │   ComponentName.style.css
+│   │   ComponentName.styles.css
 │   │   index.js
 │   │   ...
 │
 └───ComponentName
     │   ComponentName.js
     │   ComponentName.test.js
-    │   ComponentName.style.css
+    │   ComponentName.styles.css
     │   index.js
     │   ...
 ```
