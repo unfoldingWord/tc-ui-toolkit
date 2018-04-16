@@ -4,7 +4,7 @@
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack --watch",
     "build": "webpack",
     "setup": "npm i; npm run build; npm link; cd tc-ui-toolkit-test && npm link tc-ui-toolkit && npm i;"
@@ -24,6 +24,15 @@
     "url": "https://github.com/translationCoreApps/tc-ui-toolkit/issues"
   },
   "homepage": "https://github.com/translationCoreApps/tc-ui-toolkit#readme",
+  "engines": {
+    "node": ">=6.11.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
+    },
+    "modulePathIgnorePatterns": ["tc-ui-toolkit-test/"]
+  },
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
@@ -31,12 +40,14 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.1",
     "css-loader": "^0.28.11",
+    "jest": "^22.4.3",
+    "jest-css-modules": "^1.1.0",
+    "react-test-renderer": "^16.3.2",
     "style-loader": "^0.20.3",
     "webpack-cli": "^2.0.14"
   }

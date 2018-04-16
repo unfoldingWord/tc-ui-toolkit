@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/translationCoreApps/tc-ui-toolkit.svg?branch=master)](https://travis-ci.org/translationCoreApps/tc-ui-toolkit)
+
 # tc-ui-toolkit
 React components used to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
 
@@ -55,21 +57,21 @@ src
 └───CheckInforCard
 │   │   CheckInfoCard.js
 │   │   CheckInfoCard.test.js
-│   │   CheckInfoCard.style.css
+│   │   CheckInfoCard.styles.css
 │   │   index.js
 │   │   ...
 │
 └───ComponentName
 │   │   ComponentName.js
 │   │   ComponentName.test.js
-│   │   ComponentName.style.css
+│   │   ComponentName.styles.css
 │   │   index.js
 │   │   ...
 │
 └───ComponentName
     │   ComponentName.js
     │   ComponentName.test.js
-    │   ComponentName.style.css
+    │   ComponentName.styles.css
     │   index.js
     │   ...
 ```

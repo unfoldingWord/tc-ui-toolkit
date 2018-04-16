@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './checkInfoCard.style.css';
+import './CheckInfoCard.styles.css';
 
 const CheckInfoCard = ({
   title,
@@ -21,7 +21,7 @@ const CheckInfoCard = ({
         <div className="phrase">
           {phrase}
         </div>
-        <div onClick={showSeeMoreButton ? null : onSeeMoreClick} className={showSeeMoreButton ? 'linkInactive' : 'linkActive'}>
+        <div onClick={showSeeMoreButton ? null : onSeeMoreClick} className={showSeeMoreButton ? 'linkActive' : 'linkInactive' }>
           {seeMoreLabel}
         </div>
       </div>

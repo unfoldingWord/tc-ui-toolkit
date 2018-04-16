@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckInfoCard renders correctly 1`] = `
+<div
+  className="checkInfo"
+>
+  <div
+    className="leftSide"
+  >
+    <div
+      className="title"
+    >
+      save, saves, saved, safe, salvation
+    </div>
+  </div>
+  <div
+    className="rightSide"
+  >
+    <div
+      className="phrase"
+    >
+      The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.
+    </div>
+    <div
+      className="linkActive"
+      onClick={null}
+    >
+      See More
+    </div>
+  </div>
+</div>
+`;

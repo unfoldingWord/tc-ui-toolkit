@@ -1,29 +1,9 @@
-:root {
-  --accent-color: #2196F3;
-  --accent-color-light: #44C6FF;
-  --accent-color-dark: #19579E;
-
-  --reverse-color: #FFFFFF;
-
-  --completed-color: #58C17A;
-  --warning-color: #F44336;
-  --highlight-color: #FDD910;
-
-  --text-color: #333333;
-  --text-color-light: #747474;
-  --text-color-dark: #000000;
-
-  --background-color: #747474;
-  --background-color-light: #EEEEEE;
-  --background-color-dark: #333333;
-
-  --border-color: #CCCCCC;
-}
+@import '../css/index.styles.css';
 
 .handleIcon {
   z-index: 999;
-  color: #FFFFFF;
-  background-color: #000000;
+  color: var(--reverse-color);
+  background-color: var(--text-color-dark);
   padding: 10px 0px;
   border-radius: 5px 0px 0px 5px
 }
@@ -38,7 +18,7 @@
 
 .linkInactive {
   font-weight: bold;
-  color: #333333;
+  color: var(--text-color);
   margin: 5px 20px;
   text-align: right;
   cursor: default;
