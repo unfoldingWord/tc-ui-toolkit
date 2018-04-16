@@ -27,6 +27,7 @@ class App extends Component {
 # Contributing
 ## Environment setup
 - Run `npm run setup`
+
   or
 - `npm i`
 - `npm run build`
@@ -34,9 +35,6 @@ class App extends Component {
 - `cd tc-ui-toolkit-test`
 - `npm i`
 - `npm link tc-ui-toolkit`
-
-Reference:
-https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce
 
 ## Component Development
 `tc-ui-toolkit` components should be developed inside their own folder in the `src` folder.
@@ -55,9 +53,7 @@ Use the `CheckInfoCard` component as a guide to develop your own `tc-ui-toolkit`
       - run `npm start`
       - Then the `tc-ui-toolkit-test` app should open in your default browser.
 
-#### Directory & file structure
-
-Root directory of `tc-ui-toolkit`
+#### Directory & file structure (Root directory of components within `tc-ui-toolkit`)
 
 ```
 src
@@ -118,3 +114,7 @@ class App extends Component {
   }
 }
 ```
+
+References:
+- https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce
+- https://codeburst.io/how-to-create-and-publish-your-first-node-js-module-444e7585b738
