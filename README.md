@@ -1,5 +1,26 @@
 # tc-ui-toolkit
+React components use to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
 
+## Usage
+
+First, install the package using npm:
+```
+  npm install tc-ui-toolkit --save
+```
+Then, require the package and use it like so:
+
+```js
+import { CheckInfoCard } from 'tc-ui-toolkit';
+
+class App extends Component {
+  render() {
+    return ()
+    ;
+  }
+}
+```
+
+# Development
 ## Environment setup
 - Run `npm run setup`
 
