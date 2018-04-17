@@ -166,7 +166,7 @@ var CheckInfoCard = function CheckInfoCard(_ref) {
       ),
       _react2.default.createElement(
         'div',
-        { onClick: showSeeMoreButton ? null : onSeeMoreClick, className: showSeeMoreButton ? 'linkActive' : 'linkInactive' },
+        { onClick: showSeeMoreButton ? onSeeMoreClick : null, className: showSeeMoreButton ? 'linkActive' : 'linkInactive' },
         seeMoreLabel
       )
     )

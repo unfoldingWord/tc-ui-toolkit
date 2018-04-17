@@ -21,7 +21,7 @@ const CheckInfoCard = ({
         <div className="phrase">
           {phrase}
         </div>
-        <div onClick={showSeeMoreButton ? null : onSeeMoreClick} className={showSeeMoreButton ? 'linkActive' : 'linkInactive' }>
+        <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive' }>
           {seeMoreLabel}
         </div>
       </div>
