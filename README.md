@@ -74,6 +74,11 @@ src
 │   │   index.js
 │   │   ...
 │   └───SubComponentName
+│   │    │   ComponentName.test.js
+│   │    │   ComponentName.styles.css
+│   │    │   index.js
+│   │    │   ...
+│   └───SubComponentName
 │       │   ComponentName.test.js
 │       │   ComponentName.styles.css
 │       │   index.js
