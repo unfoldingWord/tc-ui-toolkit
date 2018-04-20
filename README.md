@@ -73,6 +73,16 @@ src
 │   │   ComponentName.styles.css
 │   │   index.js
 │   │   ...
+│   └───SubComponentName
+│   │    │   ComponentName.test.js
+│   │    │   ComponentName.styles.css
+│   │    │   index.js
+│   │    │   ...
+│   └───SubComponentName
+│       │   ComponentName.test.js
+│       │   ComponentName.styles.css
+│       │   index.js
+│       │   ...
 │
 └───ComponentName
     │   ComponentName.js
@@ -118,3 +128,6 @@ class App extends Component {
 References:
 - https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce
 - https://codeburst.io/how-to-create-and-publish-your-first-node-js-module-444e7585b738
+
+For `material-ui-next` related questions go to the [material-ui-next website](https://material-ui-next.com/)
+

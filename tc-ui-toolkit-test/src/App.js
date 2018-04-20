@@ -30,7 +30,7 @@ class App extends Component {
           phrase='The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.'
           seeMoreLabel="See More"
           showSeeMoreButton={true}
-          onSeeMoreClick={() => console.log('clicked')}
+          onSeeMoreClick={() => console.log('CheckInfoCard clicked')}
           //onSeeMoreClick={() => TranslationHelps('Save') }
         />
         <TranslationHelps
