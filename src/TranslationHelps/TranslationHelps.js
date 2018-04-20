@@ -8,8 +8,15 @@
  */ 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Glyphicon} from 'react-bootstrap';
+//import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
+
+//<Glyphicon
+// onClick={openExpandedHelpsPane}
+// glyph={"fullscreen"}
+// style={{ cursor: "pointer" }}
+// title={expandedHelpsPaneIconTitle}
+ 
 
 const TranslationHelps = ({
   openExpandedHelpsPane,
@@ -19,12 +26,8 @@ const TranslationHelps = ({
   return (
     <div className="helps-sash-container">
       <div className="helps-title-bar">
-        <Glyphicon
-          onClick={openExpandedHelpsPane}
-          glyph={"fullscreen"}
-          style={{ cursor: "pointer" }}
-          title={expandedHelpsPaneIconTitle}
-        />
+        hello world
+       
       </div>
       <div className="helps"> 
         {article}
@@ -33,7 +36,7 @@ const TranslationHelps = ({
   )};
 
   TranslationHelps.propTypes = {
-    article: PropTypes.object, 
+    article: PropTypes.object
   }
 
   export default TranslationHelps
