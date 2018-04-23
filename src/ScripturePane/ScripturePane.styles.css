@@ -28,4 +28,5 @@
 .panes-container {
   flex: 1 1 140px;
   display: flex;
+  overflow-x: auto;
 }
