@@ -35,6 +35,8 @@ class App extends Component {
         />
         <TranslationHelps
           article={article} 
+          expandedScripturePaneIconTitle="Click to show expanded help pane"
+          openExpandedScripturePane={() => console.log('Expanded translation helps clicked')}
         />
       </div>
     );

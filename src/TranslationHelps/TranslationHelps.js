@@ -10,33 +10,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
-
-//<Glyphicon
-// onClick={openExpandedHelpsPane}
-// glyph={"fullscreen"}
-// style={{ cursor: "pointer" }}
-// title={expandedHelpsPaneIconTitle}
- 
-
+/*
+<Glyphicon
+onClick={openExpandedHelpsPane}
+glyph={"fullscreen"}
+style={{ cursor: "pointer" }}
+title={expandedHelpsPaneIconTitle}
+/> */
 const TranslationHelps = ({
+  article,
   openExpandedHelpsPane,
   expandedHelpsPaneIconTitle,
-  article 
 }) => {
   return (
     <div className="helps-sash-container">
       <div className="helps-title-bar">
-        hello world
-       
+      <Glyphicon
+        onClick={openExpandedHelpsPane}
+        glyph={"fullscreen"}
+        style={{ cursor: "pointer" }}
+        title={expandedHelpsPaneIconTitle}
       </div>
-      <div className="helps"> 
+      <div className="helps-article"> 
         {article}
       </div>
     </div>
   )};
 
   TranslationHelps.propTypes = {
-    article: PropTypes.object
+    article: PropTypes.object.isRequired,
+    openExpandedHelpsPane: PropTypes.func.isRequired,
+    expandedHelpsPaneIconTitle: PropTypes.func.isRequired,
   }
 
   export default TranslationHelps
