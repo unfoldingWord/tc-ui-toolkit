@@ -8,8 +8,9 @@ class App extends Component {
       <div style={{ padding: '10px' }}>
         <ScripturePane
           titleLabel="Step 1. Read"
-          expandedScripturePaneIconTitle="Click to show expanded resource panes"
-          openExpandedScripturePane={() => console.log('ExpandedScripturePane clicked')}
+          closeButtonLabel="Close"
+          expandedScripturePaneTitle="Matthew"
+          expandButtonHoverText="Click to show expanded resource panes"
         />
         <CheckInfoCard
           title="save, saves, saved, safe, salvation"
