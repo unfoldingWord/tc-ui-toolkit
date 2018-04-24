@@ -1,0 +1,19 @@
+.verse-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.verse-content-ltr {
+  flex: 1;
+  direction: ltr;
+}
+
+.verse-content-rtl {
+  flex: 1;
+  direction: rtl;
+}
+
+.placeholder-text {
+  font-style: italic;
+}
