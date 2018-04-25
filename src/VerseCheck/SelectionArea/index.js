@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import '../VerseCheck.styles.css';
 // components
-import RenderSelectionTextComponent from './RenderSelectionTextComponent';
+import RenderSelectionTextComponent from '../RenderSelectionTextComponent';
 
 class SelectionArea extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class SelectionArea extends Component {
           </div>
         </div>
         <div>
-          <div style={this.props.manifest.target_language.direction === 'ltr' ? style.pane.contentLTR : style.pane.contentRTL}>
+          <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
             <RenderSelectionTextComponent
               actions={this.props.actions}
               mode={this.props.mode}

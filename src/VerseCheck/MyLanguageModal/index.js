@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Glyphicon } from 'react-bootstrap';
-import MyTargetVerse from './MyTargetVerse';
+import MyTargetVerse from '../MyTargetVerse';
 import ReactDOM from 'react-dom';
 import '../VerseCheck.styles.css';
 

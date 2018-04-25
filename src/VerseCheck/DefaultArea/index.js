@@ -8,7 +8,7 @@ import {
 } from '../utils/selectionHelpers';
 // components
 import {Glyphicon} from 'react-bootstrap';
-import MyLanguageModal from './MyLanguageModal';
+import MyLanguageModal from '../MyLanguageModal';
 // styling
 import '../VerseCheck.styles.css';
 
@@ -88,7 +88,7 @@ class DefaultArea extends React.Component {
             onHide={() => this.setState({modalVisibility: false})}
           />
         </div>
-        <div style={manifest.target_language.direction === 'ltr' ? style.pane.contentLTR : style.pane.contentRTL}>
+        <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
           {this.displayText(verseText, selections)}
         </div>
       </div>

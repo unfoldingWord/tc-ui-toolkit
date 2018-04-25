@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { CheckInfoCard, ScripturePane } from 'tc-ui-toolkit';
+import { CheckInfoCard, ScripturePane, VerseCheck } from 'tc-ui-toolkit';
 
 class App extends Component {
   render() {
@@ -19,6 +19,7 @@ class App extends Component {
           showSeeMoreButton={true}
           onSeeMoreClick={() => console.log('CheckInfoCard clicked')}
         />
+        <VerseCheck />
       </div>
     );
   }

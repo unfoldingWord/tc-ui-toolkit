@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../VerseCheck.styles.css';
-import InstructionsAreaTextSelection from './InstructionsAreaTextSelection';
+import InstructionsAreaTextSelection from '../InstructionsAreaTextSelection';
 
 
 let InstructionsArea = ({

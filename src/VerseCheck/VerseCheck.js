@@ -1,11 +1,11 @@
 /**
  * This component displays the Verse so selection, edit and comments can be made.
  */
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import usfmjs from 'usfm-js';
 import './VerseCheck.styles.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import {optimizeSelections, normalizeString} from './utils/selectionHelpers';
 import isEqual from 'deep-equal';
 import CheckArea from './CheckArea';
@@ -16,7 +16,7 @@ import IconIndicators from './IconIndicators';
 //helpers
 import * as checkAreaHelpers from './helpers/checkAreaHelpers';
 
-class VerseCheck extends React.Component {
+class VerseCheck extends Component {
   constructor(props) {
     super(props);
     let verseText = usfmjs.removeMarker(this.verseText());
@@ -36,7 +36,7 @@ class VerseCheck extends React.Component {
     this.cancelSelection = this.cancelSelection.bind(this);
     this.clearSelection = this.clearSelection.bind(this);
     this.handleSkip = this.handleSkip.bind(this);
-    
+
     let _this = this;
 
     this.tagList = [
@@ -284,26 +284,6 @@ class VerseCheck extends React.Component {
     return result;
   }
 
-  getAlignedGLText() {
-    const {
-      projectDetailsReducer: {currentProjectToolsSelectedGL},
-      contextIdReducer: {contextId},
-      resourcesReducer:{bibles},
-      toolsReducer:{currentToolName}
-    } = this.props;
-    let alignedGLText = contextId.quote;
-    const selectedGL = currentProjectToolsSelectedGL[currentToolName];
-    if (bibles[selectedGL] && bibles[selectedGL]['ult']) {
-      const verseObjects = bibles[selectedGL]['ult'][contextId.reference.chapter][contextId.reference.verse].verseObjects;
-      const wordsToMatch = contextId.quote.split(' ');
-      const alignedText = checkAreaHelpers.getAlignedText(verseObjects, wordsToMatch, contextId.occurrence);
-      if (alignedText) {
-        alignedGLText = alignedText;
-      }
-    }
-    return alignedGLText;
-  }
-
   handleSkip(e) {
     e.preventDefault();
     if (this.state.goToNextOrPrevious == "next") {
@@ -315,7 +295,6 @@ class VerseCheck extends React.Component {
 
   render() {
     const verseText = usfmjs.removeMarker(this.verseText());
-    const alignedGLText = this.getAlignedGLText();
     const {
       translate,
       commentsReducer,
@@ -323,7 +302,8 @@ class VerseCheck extends React.Component {
       projectDetailsReducer,
       contextIdReducer,
       resourcesReducer,
-      selectionsReducer
+      selectionsReducer,
+      alignedGLText
     } = this.props;
 
     let titleText;
@@ -349,9 +329,10 @@ class VerseCheck extends React.Component {
             selections={selectionsReducer.selections}
             translate={translate} />);
     }
-
+    // material-ui-theme, new color themes could be added here in the future
+    const theme = createMuiTheme();
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <div className='verseCheck'>
           <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             <div className='verseCheckCard'>
@@ -406,7 +387,6 @@ class VerseCheck extends React.Component {
 
 VerseCheck.propTypes = {
   remindersReducer: PropTypes.object.isRequired,
-  verseEditReducer: PropTypes.object.isRequired,
   groupsDataReducer: PropTypes.object.isRequired,
   toolsReducer: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
@@ -421,6 +401,59 @@ VerseCheck.propTypes = {
   resourcesReducer: PropTypes.object.isRequired,
   loginReducer: PropTypes.object.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+};
+
+VerseCheck.defaultProps = {
+  contextIdReducer: {
+    contextId: {
+      reference: {
+        chapter: 1,
+        verse: 1,
+        bookId: 'tit'
+      }
+    }
+  },
+  projectDetailsReducer: {
+    manifest: {
+      project: {
+        id: 'tit'
+      },
+      target_language:{
+        direction:'ltr'
+      }
+    },
+    currentProjectToolsSelectedGL:{
+      tw: 'en'
+    }
+  },
+  resourcesReducer: {
+    bibles: {
+      targetLanguage: {
+        targetBible: {
+          1: {1:''}
+        }
+      }
+    }
+  },
+  selectionsReducer: {
+    selections:[]
+  },
+  toolsReducer:{
+    currentToolName:'tw'
+  },
+  translate: key => key,
+  groupsDataReducer: {
+    groupsData:{}
+  },
+  commentsReducer: {
+    text: ''
+  },
+  remindersReducer:{
+    enabled: false
+  },
+  actions: {},
+  loginReducer:{},
+  alignedGLText:''
 };
 
 export default VerseCheck;
