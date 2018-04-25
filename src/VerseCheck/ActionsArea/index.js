@@ -2,9 +2,19 @@ import React from 'react';
 import {Glyphicon} from 'react-bootstrap';
 import Switch from 'material-ui/Switch';
 import {FormGroup, FormControlLabel} from 'material-ui/Form';
+import {withStyles} from 'material-ui/styles';
+import blue from 'material-ui/colors/blue';
 import isEqual from 'deep-equal';
 import '../VerseCheck.styles.css';
 
+const styles = {
+  label: {
+    color: 'var(--accent-color-dark)',
+    fontWeight: "normal",
+    fontSize: 14,
+  },
+  colorPrimary: 'var(--accent-color-dark)'
+};
 
 let ActionsArea = ({
   tags,
@@ -17,17 +27,21 @@ let ActionsArea = ({
   saveSelection,
   cancelSelection,
   clearSelection,
-  translate
+  translate,
+  classes
 }) => {
+
   const changeModeArea = (
     <div className='actionsArea'>
       <FormControlLabel
         control={
           <Switch
-            checked={remindersReducer.enabled}
+            classes={classes}
+            color="primary"
             onToggle={actions.toggleReminder}
           />
         }
+        classes={classes}
         label={translate("bookmark")}
       />
       <div style={{display: "flex"}}>
@@ -142,7 +156,8 @@ let ActionsArea = ({
   return modeArea;
 };
 
-export default ActionsArea;
+export default withStyles(styles)(ActionsArea);
+
 
 // labelPosition="right"
 // labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}

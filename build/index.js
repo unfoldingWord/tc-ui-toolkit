@@ -75357,6 +75357,12 @@ var _Switch2 = _interopRequireDefault(_Switch);
 
 var _Form = __webpack_require__(582);
 
+var _styles = __webpack_require__(20);
+
+var _blue = __webpack_require__(652);
+
+var _blue2 = _interopRequireDefault(_blue);
+
 var _deepEqual = __webpack_require__(517);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
@@ -75364,6 +75370,15 @@ var _deepEqual2 = _interopRequireDefault(_deepEqual);
 __webpack_require__(512);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  label: {
+    color: 'var(--accent-color-dark)',
+    fontWeight: "normal",
+    fontSize: 14
+  },
+  colorPrimary: 'var(--accent-color-dark)'
+};
 
 var ActionsArea = function ActionsArea(_ref) {
   var tags = _ref.tags,
@@ -75376,16 +75391,20 @@ var ActionsArea = function ActionsArea(_ref) {
       saveSelection = _ref.saveSelection,
       cancelSelection = _ref.cancelSelection,
       clearSelection = _ref.clearSelection,
-      translate = _ref.translate;
+      translate = _ref.translate,
+      classes = _ref.classes;
+
 
   var changeModeArea = _react2.default.createElement(
     'div',
     { className: 'actionsArea' },
     _react2.default.createElement(_Form.FormControlLabel, {
       control: _react2.default.createElement(_Switch2.default, {
-        checked: remindersReducer.enabled,
+        classes: classes,
+        color: 'primary',
         onToggle: actions.toggleReminder
       }),
+      classes: classes,
       label: translate("bookmark")
     }),
     _react2.default.createElement(
@@ -75521,7 +75540,7 @@ var ActionsArea = function ActionsArea(_ref) {
   return modeArea;
 };
 
-exports.default = ActionsArea;
+exports.default = (0, _styles.withStyles)(styles)(ActionsArea);
 
 // labelPosition="right"
 // labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}
