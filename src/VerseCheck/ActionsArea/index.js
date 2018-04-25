@@ -36,12 +36,13 @@ let ActionsArea = ({
       <FormControlLabel
         control={
           <Switch
-            classes={classes}
+            checked={remindersReducer.enabled}
+            classes={{colorPrimary: classes.colorPrimary}}
             color="primary"
             onToggle={actions.toggleReminder}
           />
         }
-        classes={classes}
+        classes={{label: classes.label}}
         label={translate("bookmark")}
       />
       <div style={{display: "flex"}}>

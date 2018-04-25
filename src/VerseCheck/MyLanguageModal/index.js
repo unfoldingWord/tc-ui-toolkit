@@ -1,30 +1,37 @@
-/* eslint-disable react/no-find-dom-node */
-/* eslint-disable react/no-string-refs */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Glyphicon } from 'react-bootstrap';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
+import {Glyphicon} from 'react-bootstrap';
 import MyTargetVerse from '../MyTargetVerse';
-import ReactDOM from 'react-dom';
 import '../VerseCheck.styles.css';
+import Toolbar from 'material-ui/Toolbar';
 
 class MyLanguageModal extends Component {
+  constructor(props) {
+    super(props);
+    this.scrollToCurrentVerse = this.scrollToCurrentVerse.bind(this);
+  }
 
-  componentDidMount() {
+  scrollToCurrentVerse() {
     let {chapter, currentVerse} = this.props;
-    let verseReference = chapter.toString() + currentVerse.toString();
-    let currentVerseNode = this.refs[verseReference];
-    let element = ReactDOM.findDOMNode(currentVerseNode);
+    let verseReference = 'MyTargetVerse:' + chapter.toString() + currentVerse.toString();
+    let element = document.getElementById(verseReference);
     if (element) {
       element.scrollIntoView();
     }
   }
 
   render() {
-    let { show, onHide, targetLangBible, chapter, currentVerse, manifest} = this.props;
-    const { target_language, project } = manifest;
+    let {show, onHide, targetLangBible, chapter, currentVerse, manifest} = this.props;
+    const {target_language, project} = manifest;
     const title = target_language && target_language.book && target_language.book.name ?
-        target_language.book.name :
-        project.name;
+      target_language.book.name :
+      project.name;
     let MyTargetLanguage = [];
     if (show) {
       for (let key in targetLangBible[chapter]) {
@@ -43,38 +50,43 @@ class MyLanguageModal extends Component {
             versePaneStyle = {marginTop: '10px', color: 'var(--text-color-dark)', padding: '10px'};
           }
           MyTargetLanguage.push(
-            <MyTargetVerse
-              key={key}
-              chapter={chapter}
-              verse={parseInt(key, 10)}
-              verseText={verseText}
-              styles={versePaneStyle}
-              dir={this.props.dir}
-              ref={chapter.toString() + key.toString()}
-            />
+            <div key={key} id={'MyTargetVerse:' + chapter.toString() + key.toString()}>
+              <MyTargetVerse
+                chapter={chapter}
+                verse={parseInt(key, 10)}
+                verseText={verseText}
+                styles={versePaneStyle}
+                dir={this.props.dir}
+              />
+            </div>
           );
         }
       }
     }
     return (
-      <Modal show={show} onHide={onHide} bsSize="lg" aria-labelledby="contained-modal-title-sm">
-        <Modal.Header style={{ backgroundColor: "var(--accent-color-dark)" }}>
-          <Modal.Title id="contained-modal-title-sm" className='modalTitle'>
+      <Dialog
+        onEntered={this.scrollToCurrentVerse}
+        maxWidth={'md'}
+        fullWidth={true}
+        open={show}
+        onClose={onHide}>
+        <Toolbar disableGutters={true} style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)"}}>
+          <DialogTitle className='modalTitle'>
             {title}
             <Glyphicon
-                onClick={onHide}
-                glyph={"remove"}
-                style={{color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px", float: "right"}}
+              onClick={onHide}
+              glyph={"remove"}
+              style={{color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px"}}
             />
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{padding: '0px', height: "500px", backgroundColor: "var(--reverse-color)", overflowY: "auto"}}>
+          </DialogTitle>
+        </Toolbar>
+        <DialogContent style={{padding: '0px', height: "500px", backgroundColor: "var(--reverse-color)", overflowY: "auto"}}>
           {MyTargetLanguage}
-        </Modal.Body>
-        <Modal.Footer style={{ padding: '0', backgroundColor: "var(--reverse-color)" }}>
-          <button className="btn-prime" onClick={onHide}>Close</button>
-        </Modal.Footer>
-      </Modal>
+        </DialogContent>
+        <DialogActions disableActionSpacing={true}>
+          <button className='btn-prime' onClick={onHide}>Close</button>
+        </DialogActions>
+      </Dialog>
     );
   }
 }

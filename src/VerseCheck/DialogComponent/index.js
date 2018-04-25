@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Dialog, CardHeader} from 'material-ui';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'material-ui/Dialog';
 import {Glyphicon} from 'react-bootstrap';
 import {getTranslatedParts} from '../helpers/localizationHelpers';
+import Toolbar from 'material-ui/Toolbar';
 
 let DialogComponent = ({
   dialogModalVisibility, translate, handleSkip, handleClose
@@ -23,8 +28,8 @@ let DialogComponent = ({
   ];
 
   const headerContent = (
-    <div>
-      <span>{translate("attention")}</span>
+    <div style={{display: 'flex', justifyContent: 'space-between', width:'100%', marginLeft:20, marginRight:20}}>
+      <span style={{color: "var(--reverse-color)"}}>{translate("attention")}</span>
       <Glyphicon
         onClick={handleClose}
         glyph={"remove"}
@@ -38,30 +43,24 @@ let DialogComponent = ({
   return (
     <div>
       <Dialog
-        style={{padding: "0px"}}
-        actions={actions}
-        modal={false}
         open={dialogModalVisibility}
-        onRequestClose={handleClose}
-      >
-        <CardHeader
-          style={{
-            color: "var(--reverse-color)",
-            backgroundColor: 'var(--accent-color-dark)',
-            padding: '15px', margin: "-44px -24px -24px -24px"
-          }}>
+        onClose={handleClose}>
+        <Toolbar disableGutters={true} style={{backgroundColor: "var(--accent-color-dark)"}}>
           {headerContent}
-        </CardHeader>
+        </Toolbar>
         <br />
         <br />
-        <div>
+        <DialogContent>
           <p>
             {select[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {select[1]} </span> {select[1]}
           </p>
           <p>
             {skip[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {skip[1]} </span> {skip[1]}
           </p>
-        </div>
+        </DialogContent>
+        <DialogActions disableActionSpacing={true}>
+          {actions}
+        </DialogActions>
       </Dialog>
     </div>
   );
