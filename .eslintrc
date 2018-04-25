@@ -1,0 +1,35 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "15.0"
+    }
+  },
+  "rules": {
+    "no-constant-condition": "warn",
+    "no-unused-vars": "warn",
+    "react/prop-types": "warn",
+    "react/no-unescaped-entities": "warn",
+    "react/no-string-refs": "warn",
+    "react/no-find-dom-node": "warn",
+    "semi": ["error", "always", {"omitLastInOneLineBlock": true}],
+    "no-console": "off"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
