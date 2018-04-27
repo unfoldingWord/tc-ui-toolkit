@@ -55056,29 +55056,33 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _EditScreen = __webpack_require__(528);
+var _EditScreen = __webpack_require__(508);
 
 var _EditScreen2 = _interopRequireDefault(_EditScreen);
 
-var _Edit = __webpack_require__(540);
+var _Edit = __webpack_require__(509);
 
 var _Edit2 = _interopRequireDefault(_Edit);
 
-var _Done = __webpack_require__(542);
+var _Done = __webpack_require__(518);
 
 var _Done2 = _interopRequireDefault(_Done);
 
-var _ReasonScreen = __webpack_require__(529);
+var _ReasonScreen = __webpack_require__(519);
 
 var _ReasonScreen2 = _interopRequireDefault(_ReasonScreen);
 
-var _BaseDialog = __webpack_require__(539);
+var _BaseDialog = __webpack_require__(529);
 
 var _BaseDialog2 = _interopRequireDefault(_BaseDialog);
 
+var _VerseEditorStepper = __webpack_require__(530);
+
+var _VerseEditorStepper2 = _interopRequireDefault(_VerseEditorStepper);
+
 var _styles = __webpack_require__(20);
 
-__webpack_require__(508);
+__webpack_require__(543);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55330,6 +55334,9 @@ var VerseEditor = function (_React$Component) {
           open: open,
           bodyStyle: styles.body,
           title: title },
+        _react2.default.createElement(_VerseEditorStepper2.default, { stepIndex: stepIndex,
+          style: styles.stepper,
+          steps: localizedSteps }),
         _react2.default.createElement(
           'div',
           { style: styles.screen },
@@ -55382,50 +55389,182 @@ exports.default = VerseEditor;
 /* 508 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-var content = __webpack_require__(509);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
+"use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var options = {"hmr":true}
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-options.transform = transform
-options.insertInto = undefined;
+var _react = __webpack_require__(3);
 
-var update = __webpack_require__(16)(content, options);
+var _react2 = _interopRequireDefault(_react);
 
-if(content.locals) module.exports = content.locals;
+var _propTypes = __webpack_require__(4);
 
-if(false) {}
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var styles = {
+  input: {
+    width: '100%',
+    resize: 'none',
+    padding: '10px',
+    border: 'solid 1px var(--border-color)',
+    fontStyle: 'inherit',
+    fontVariant: 'inherit',
+    fontWeight: 'inherit',
+    fontStretch: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    fontFamily: 'inherit',
+    cursor: 'inherit',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    WebkitAppearance: 'textfield',
+    color: 'rgba(0, 0, 0, 0.870588)'
+  }
+};
+
+/**
+ * @callback EditScreen~onChange
+ * @param {string} newVerse - the edited verse
+ */
+
+/**
+ * Renders a text area for editing the verse
+ * @property {string} verseText - the verse text to edit
+ * @property {EditScreen~onChange} onChange - callback when the text has changed
+ */
+
+var EditScreen = function (_React$Component) {
+  _inherits(EditScreen, _React$Component);
+
+  function EditScreen(props) {
+    _classCallCheck(this, EditScreen);
+
+    var _this = _possibleConstructorReturn(this, (EditScreen.__proto__ || Object.getPrototypeOf(EditScreen)).call(this, props));
+
+    _this._handleChange = _this._handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(EditScreen, [{
+    key: '_handleChange',
+    value: function _handleChange(event) {
+      var onChange = this.props.onChange;
+
+      onChange(event.target.value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var verseText = this.props.verseText;
+
+      return _react2.default.createElement('textarea', {
+        id: 'verse-editor-field',
+        rows: 4,
+        style: styles.input,
+        autoFocus: true,
+        onChange: this._handleChange,
+        value: verseText });
+    }
+  }]);
+
+  return EditScreen;
+}(_react2.default.Component);
+
+EditScreen.propTypes = {
+  verseText: _propTypes2.default.string.isRequired,
+  onChange: _propTypes2.default.func.isRequired
+};
+
+exports.default = EditScreen;
 
 /***/ }),
 /* 509 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
+"use strict";
 
-// module
-exports.push([module.i, "", ""]);
 
-// exports
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _createSvgIcon = __webpack_require__(510);
+
+var _createSvgIcon2 = _interopRequireDefault(_createSvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _createSvgIcon2.default)(_react2.default.createElement(
+  'g',
+  null,
+  _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+), 'Edit');
 
 /***/ }),
-/* 510 */,
-/* 511 */,
-/* 512 */,
-/* 513 */,
-/* 514 */,
-/* 515 */,
-/* 516 */,
-/* 517 */
+/* 510 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(511);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(516);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SvgIconCustom = typeof global !== 'undefined' && global.__MUI_SvgIcon__ || _SvgIcon2.default;
+
+function createSvgIcon(path, displayName) {
+  var Icon = function Icon(props) {
+    return _react2.default.createElement(
+      SvgIconCustom,
+      props,
+      path
+    );
+  };
+
+  Icon.displayName = displayName;
+  Icon = (0, _pure2.default)(Icon);
+  Icon.muiName = 'SvgIcon';
+
+  return Icon;
+};
+
+exports.default = createSvgIcon;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103)))
+
+/***/ }),
+/* 511 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55433,15 +55572,15 @@ exports.push([module.i, "", ""]);
 
 exports.__esModule = true;
 
-var _shouldUpdate = __webpack_require__(518);
+var _shouldUpdate = __webpack_require__(512);
 
 var _shouldUpdate2 = _interopRequireDefault(_shouldUpdate);
 
-var _shallowEqual = __webpack_require__(521);
+var _shallowEqual = __webpack_require__(515);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-var _setDisplayName = __webpack_require__(519);
+var _setDisplayName = __webpack_require__(513);
 
 var _setDisplayName2 = _interopRequireDefault(_setDisplayName);
 
@@ -55466,7 +55605,7 @@ var pure = function pure(BaseComponent) {
 exports.default = pure;
 
 /***/ }),
-/* 518 */
+/* 512 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55476,7 +55615,7 @@ exports.__esModule = true;
 
 var _react = __webpack_require__(3);
 
-var _setDisplayName = __webpack_require__(519);
+var _setDisplayName = __webpack_require__(513);
 
 var _setDisplayName2 = _interopRequireDefault(_setDisplayName);
 
@@ -55526,7 +55665,7 @@ var shouldUpdate = function shouldUpdate(test) {
 exports.default = shouldUpdate;
 
 /***/ }),
-/* 519 */
+/* 513 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55534,7 +55673,7 @@ exports.default = shouldUpdate;
 
 exports.__esModule = true;
 
-var _setStatic = __webpack_require__(520);
+var _setStatic = __webpack_require__(514);
 
 var _setStatic2 = _interopRequireDefault(_setStatic);
 
@@ -55547,7 +55686,7 @@ var setDisplayName = function setDisplayName(displayName) {
 exports.default = setDisplayName;
 
 /***/ }),
-/* 520 */
+/* 514 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55566,7 +55705,7 @@ var setStatic = function setStatic(key, value) {
 exports.default = setStatic;
 
 /***/ }),
-/* 521 */
+/* 515 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55583,7 +55722,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shallowEqual2.default;
 
 /***/ }),
-/* 522 */
+/* 516 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55593,7 +55732,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SvgIcon = __webpack_require__(523);
+var _SvgIcon = __webpack_require__(517);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -55605,7 +55744,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 523 */
+/* 517 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55758,11 +55897,7 @@ SvgIcon.muiName = 'SvgIcon';
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSvgIcon' })(SvgIcon);
 
 /***/ }),
-/* 524 */,
-/* 525 */,
-/* 526 */,
-/* 527 */,
-/* 528 */
+/* 518 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55772,102 +55907,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(4);
+var _createSvgIcon = __webpack_require__(510);
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _createSvgIcon2 = _interopRequireDefault(_createSvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var styles = {
-  input: {
-    width: '100%',
-    resize: 'none',
-    padding: '10px',
-    border: 'solid 1px var(--border-color)',
-    fontStyle: 'inherit',
-    fontVariant: 'inherit',
-    fontWeight: 'inherit',
-    fontStretch: 'inherit',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    fontFamily: 'inherit',
-    cursor: 'inherit',
-    outline: 'none',
-    backgroundColor: 'transparent',
-    WebkitAppearance: 'textfield',
-    color: 'rgba(0, 0, 0, 0.870588)'
-  }
-};
-
-/**
- * @callback EditScreen~onChange
- * @param {string} newVerse - the edited verse
- */
-
-/**
- * Renders a text area for editing the verse
- * @property {string} verseText - the verse text to edit
- * @property {EditScreen~onChange} onChange - callback when the text has changed
- */
-
-var EditScreen = function (_React$Component) {
-  _inherits(EditScreen, _React$Component);
-
-  function EditScreen(props) {
-    _classCallCheck(this, EditScreen);
-
-    var _this = _possibleConstructorReturn(this, (EditScreen.__proto__ || Object.getPrototypeOf(EditScreen)).call(this, props));
-
-    _this._handleChange = _this._handleChange.bind(_this);
-    return _this;
-  }
-
-  _createClass(EditScreen, [{
-    key: '_handleChange',
-    value: function _handleChange(event) {
-      var onChange = this.props.onChange;
-
-      onChange(event.target.value);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var verseText = this.props.verseText;
-
-      return _react2.default.createElement('textarea', {
-        id: 'verse-editor-field',
-        rows: 4,
-        style: styles.input,
-        autoFocus: true,
-        onChange: this._handleChange,
-        value: verseText });
-    }
-  }]);
-
-  return EditScreen;
-}(_react2.default.Component);
-
-EditScreen.propTypes = {
-  verseText: _propTypes2.default.string.isRequired,
-  onChange: _propTypes2.default.func.isRequired
-};
-
-exports.default = EditScreen;
+exports.default = (0, _createSvgIcon2.default)(_react2.default.createElement(
+  'g',
+  null,
+  _react2.default.createElement('path', { d: 'M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z' })
+), 'Done');
 
 /***/ }),
-/* 529 */
+/* 519 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55888,7 +55945,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ReasonCheckbox = __webpack_require__(530);
+var _ReasonCheckbox = __webpack_require__(520);
 
 var _ReasonCheckbox2 = _interopRequireDefault(_ReasonCheckbox);
 
@@ -56037,7 +56094,7 @@ ReasonScreen.propTypes = {
 exports.default = ReasonScreen;
 
 /***/ }),
-/* 530 */
+/* 520 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56057,7 +56114,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Checkbox = __webpack_require__(531);
+var _Checkbox = __webpack_require__(521);
 
 var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
@@ -56142,7 +56199,7 @@ ReasonCheckbox.defaultProps = {
 exports.default = ReasonCheckbox;
 
 /***/ }),
-/* 531 */
+/* 521 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56152,7 +56209,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Checkbox = __webpack_require__(532);
+var _Checkbox = __webpack_require__(522);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -56164,7 +56221,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 532 */
+/* 522 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56195,19 +56252,19 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _SwitchBase = __webpack_require__(533);
+var _SwitchBase = __webpack_require__(523);
 
 var _SwitchBase2 = _interopRequireDefault(_SwitchBase);
 
-var _CheckBoxOutlineBlank = __webpack_require__(536);
+var _CheckBoxOutlineBlank = __webpack_require__(526);
 
 var _CheckBoxOutlineBlank2 = _interopRequireDefault(_CheckBoxOutlineBlank);
 
-var _CheckBox = __webpack_require__(537);
+var _CheckBox = __webpack_require__(527);
 
 var _CheckBox2 = _interopRequireDefault(_CheckBox);
 
-var _IndeterminateCheckBox = __webpack_require__(538);
+var _IndeterminateCheckBox = __webpack_require__(528);
 
 var _IndeterminateCheckBox2 = _interopRequireDefault(_IndeterminateCheckBox);
 
@@ -56344,7 +56401,7 @@ Checkbox.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCheckbox' })(Checkbox);
 
 /***/ }),
-/* 533 */
+/* 523 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56403,7 +56460,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _IconButton = __webpack_require__(534);
+var _IconButton = __webpack_require__(524);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
@@ -56627,7 +56684,7 @@ SwitchBase.contextTypes = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitchBase' })(SwitchBase);
 
 /***/ }),
-/* 534 */
+/* 524 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56637,7 +56694,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _IconButton = __webpack_require__(535);
+var _IconButton = __webpack_require__(525);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -56649,7 +56706,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 535 */
+/* 525 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56827,7 +56884,7 @@ IconButton.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiIconButton' })(IconButton);
 
 /***/ }),
-/* 536 */
+/* 526 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56841,11 +56898,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(517);
+var _pure = __webpack_require__(511);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(522);
+var _SvgIcon = __webpack_require__(516);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -56869,7 +56926,7 @@ CheckBoxOutlineBlank.muiName = 'SvgIcon';
 exports.default = CheckBoxOutlineBlank;
 
 /***/ }),
-/* 537 */
+/* 527 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56883,11 +56940,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(517);
+var _pure = __webpack_require__(511);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(522);
+var _SvgIcon = __webpack_require__(516);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -56911,7 +56968,7 @@ CheckBox.muiName = 'SvgIcon';
 exports.default = CheckBox;
 
 /***/ }),
-/* 538 */
+/* 528 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56925,11 +56982,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(517);
+var _pure = __webpack_require__(511);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(522);
+var _SvgIcon = __webpack_require__(516);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -56953,7 +57010,7 @@ IndeterminateCheckBox.muiName = 'SvgIcon';
 exports.default = IndeterminateCheckBox;
 
 /***/ }),
-/* 539 */
+/* 529 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57128,7 +57185,6 @@ var BaseDialog = function (_React$Component) {
         _react2.default.createElement(
           _Dialog2.default,
           {
-            maxWidth: 'sm',
             fullWidth: true,
             open: open,
             onClose: onClose },
@@ -57183,6 +57239,1214 @@ BaseDialog.defaultProps = {
 exports.default = (0, _styles.withStyles)(styles)(BaseDialog);
 
 /***/ }),
+/* 530 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Stepper = __webpack_require__(531);
+
+var _Stepper2 = _interopRequireDefault(_Stepper);
+
+var _styles = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var styles = function styles(theme) {
+  return {
+    label: {
+      fontSize: 14
+    },
+    iconContainer: {
+      fontSize: 14,
+      width: 36
+    }
+  };
+};
+
+/**
+ * Renders the steps for editing a verse
+ * @property {object} [style] - custom style attributes
+ * @property {int} stepIndex - the current step index
+ * @property {string[]} steps - an array of steps
+ */
+
+var VerseEditorStepper = function (_React$Component) {
+  _inherits(VerseEditorStepper, _React$Component);
+
+  function VerseEditorStepper() {
+    _classCallCheck(this, VerseEditorStepper);
+
+    return _possibleConstructorReturn(this, (VerseEditorStepper.__proto__ || Object.getPrototypeOf(VerseEditorStepper)).apply(this, arguments));
+  }
+
+  _createClass(VerseEditorStepper, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          stepIndex = _props.stepIndex,
+          steps = _props.steps,
+          style = _props.style,
+          classes = _props.classes;
+
+      return _react2.default.createElement(
+        _Stepper2.default,
+        { activeStep: stepIndex, style: style },
+        steps.map(function (step, index) {
+          return _react2.default.createElement(
+            _Stepper.Step,
+            { key: index },
+            _react2.default.createElement(
+              _Stepper.StepLabel,
+              { classes: {
+                  iconContainer: classes.iconContainer,
+                  label: classes.label
+                } },
+              step
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return VerseEditorStepper;
+}(_react2.default.Component);
+
+VerseEditorStepper.propTypes = {
+  style: _propTypes2.default.object,
+  stepIndex: _propTypes2.default.number.isRequired,
+  steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired
+};
+
+exports.default = (0, _styles.withStyles)(styles)(VerseEditorStepper);
+
+/***/ }),
+/* 531 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Stepper = __webpack_require__(532);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Stepper).default;
+  }
+});
+
+var _Step = __webpack_require__(534);
+
+Object.defineProperty(exports, 'Step', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Step).default;
+  }
+});
+
+var _StepButton = __webpack_require__(535);
+
+Object.defineProperty(exports, 'StepButton', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_StepButton).default;
+  }
+});
+
+var _StepContent = __webpack_require__(541);
+
+Object.defineProperty(exports, 'StepContent', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_StepContent).default;
+  }
+});
+
+var _StepIcon = __webpack_require__(537);
+
+Object.defineProperty(exports, 'StepIcon', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_StepIcon).default;
+  }
+});
+
+var _StepLabel = __webpack_require__(536);
+
+Object.defineProperty(exports, 'StepLabel', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_StepLabel).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 532 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _Paper = __webpack_require__(459);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+var _StepConnector = __webpack_require__(533);
+
+var _StepConnector2 = _interopRequireDefault(_StepConnector);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// @inheritedComponent Paper
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+      padding: theme.spacing.unit * 3
+    },
+    horizontal: {
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    vertical: {
+      flexDirection: 'column'
+    },
+    alternativeLabel: {
+      alignItems: 'flex-start'
+    }
+  };
+};
+
+function Stepper(props) {
+  var activeStep = props.activeStep,
+      alternativeLabel = props.alternativeLabel,
+      children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      connectorProp = props.connector,
+      nonLinear = props.nonLinear,
+      orientation = props.orientation,
+      other = (0, _objectWithoutProperties3.default)(props, ['activeStep', 'alternativeLabel', 'children', 'classes', 'className', 'connector', 'nonLinear', 'orientation']);
+
+
+  var className = (0, _classnames2.default)(classes.root, classes[orientation], (0, _defineProperty3.default)({}, classes.alternativeLabel, alternativeLabel), classNameProp);
+
+  var connector = _react2.default.isValidElement(connectorProp) ? _react2.default.cloneElement(connectorProp, { orientation: orientation }) : null;
+  var childrenArray = _react2.default.Children.toArray(children);
+  var steps = childrenArray.map(function (step, index) {
+    var controlProps = {
+      index: index,
+      orientation: orientation,
+      active: false,
+      completed: false,
+      disabled: false,
+      last: index + 1 === childrenArray.length,
+      alternativeLabel: alternativeLabel,
+      connector: connectorProp
+    };
+
+    if (activeStep === index) {
+      controlProps.active = true;
+    } else if (!nonLinear && activeStep > index) {
+      controlProps.completed = true;
+    } else if (!nonLinear && activeStep < index) {
+      controlProps.disabled = true;
+    }
+
+    return [!alternativeLabel && connector && index > 0 && _react2.default.cloneElement(connector, {
+      key: index // eslint-disable-line react/no-array-index-key
+    }), _react2.default.cloneElement(step, (0, _extends3.default)({}, controlProps, step.props))];
+  });
+
+  return _react2.default.createElement(
+    _Paper2.default,
+    (0, _extends3.default)({ square: true, elevation: 0, className: className }, other),
+    steps
+  );
+}
+
+Stepper.propTypes =  true ? {
+  /**
+   * Set the active step (zero based index).
+   */
+  activeStep: _propTypes2.default.number,
+  /**
+   * If set to 'true' and orientation is horizontal,
+   * then the step label will be positioned under the icon.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * Two or more `<Step />` components.
+   */
+  children: _propTypes2.default.node.isRequired,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * A component to be placed between each step.
+   */
+  connector: _propTypes2.default.element,
+  /**
+   * If set the `Stepper` will not assist in controlling steps for linear flow.
+   */
+  nonLinear: _propTypes2.default.bool,
+  /**
+   * The stepper orientation (layout flow direction).
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical'])
+} : undefined;
+
+Stepper.defaultProps = {
+  activeStep: 0,
+  alternativeLabel: false,
+  connector: _react2.default.createElement(_StepConnector2.default, null),
+  nonLinear: false,
+  orientation: 'horizontal'
+};
+
+Stepper.muiName = 'Stepper';
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepper' })(Stepper);
+
+/***/ }),
+/* 533 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      flex: '1 1 auto'
+    },
+    horizontal: {},
+    vertical: {
+      marginLeft: 12, // half icon
+      padding: '0 0 ' + theme.spacing.unit + 'px'
+    },
+    alternativeLabel: {
+      position: 'absolute',
+      top: theme.spacing.unit + 4,
+      left: 'calc(50% + 20px)',
+      right: 'calc(-50% + 20px)'
+    },
+    line: {
+      display: 'block',
+      borderColor: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
+    },
+    lineHorizontal: {
+      borderTopStyle: 'solid',
+      borderTopWidth: 1
+    },
+    lineVertical: {
+      borderLeftStyle: 'solid',
+      borderLeftWidth: 1,
+      minHeight: theme.spacing.unit * 3
+    }
+  };
+};
+
+/**
+ * @ignore - internal component.
+ */
+function StepConnector(props) {
+  var _classNames2;
+
+  var alternativeLabel = props.alternativeLabel,
+      classNameProp = props.className,
+      classes = props.classes,
+      orientation = props.orientation,
+      other = (0, _objectWithoutProperties3.default)(props, ['alternativeLabel', 'className', 'classes', 'orientation']);
+
+
+  var className = (0, _classnames2.default)(classes.root, classes[orientation], (0, _defineProperty3.default)({}, classes.alternativeLabel, alternativeLabel), classNameProp);
+  var lineClassName = (0, _classnames2.default)(classes.line, (_classNames2 = {}, (0, _defineProperty3.default)(_classNames2, classes.lineHorizontal, orientation === 'horizontal'), (0, _defineProperty3.default)(_classNames2, classes.lineVertical, orientation === 'vertical'), _classNames2));
+
+  return _react2.default.createElement(
+    'div',
+    (0, _extends3.default)({ className: className }, other),
+    _react2.default.createElement('span', { className: lineClassName })
+  );
+}
+
+StepConnector.propTypes =  true ? {
+  /**
+   * @ignore
+   * Set internally by Step when it's supplied with the alternativeLabel property.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * @ignore
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical'])
+} : undefined;
+
+StepConnector.defaultProps = {
+  alternativeLabel: false,
+  orientation: 'horizontal'
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepConnector' })(StepConnector);
+
+/***/ }),
+/* 534 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {},
+    horizontal: {
+      paddingLeft: theme.spacing.unit,
+      paddingRight: theme.spacing.unit,
+      '&:first-child': {
+        paddingLeft: 0
+      },
+      '&:last-child': {
+        paddingRight: 0
+      }
+    },
+    vertical: {},
+    alternativeLabel: {
+      flex: 1,
+      position: 'relative'
+    }
+  };
+};
+
+function Step(props) {
+  var active = props.active,
+      alternativeLabel = props.alternativeLabel,
+      children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      completed = props.completed,
+      connector = props.connector,
+      disabled = props.disabled,
+      index = props.index,
+      last = props.last,
+      orientation = props.orientation,
+      other = (0, _objectWithoutProperties3.default)(props, ['active', 'alternativeLabel', 'children', 'classes', 'className', 'completed', 'connector', 'disabled', 'index', 'last', 'orientation']);
+
+
+  var className = (0, _classnames2.default)(classes.root, classes[orientation], (0, _defineProperty3.default)({}, classes.alternativeLabel, alternativeLabel), classNameProp);
+
+  return _react2.default.createElement(
+    'div',
+    (0, _extends3.default)({ className: className }, other),
+    _react2.default.Children.map(children, function (child) {
+      return _react2.default.cloneElement(child, (0, _extends3.default)({
+        active: active,
+        alternativeLabel: alternativeLabel,
+        completed: completed,
+        disabled: disabled,
+        icon: index + 1,
+        last: last,
+        orientation: orientation
+      }, child.props));
+    }),
+    connector && alternativeLabel && !last && _react2.default.cloneElement(connector, { orientation: orientation, alternativeLabel: alternativeLabel })
+  );
+}
+
+Step.propTypes =  true ? {
+  /**
+   * Sets the step as active. Is passed to child components.
+   */
+  active: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Set internally by Stepper when it's supplied with the alternativeLabel property.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * Should be `Step` sub-components such as `StepLabel`, `StepContent`.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   */
+  completed: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Passed down from Stepper if alternativeLabel is also set.
+   */
+  connector: _propTypes2.default.element,
+  /**
+   * Mark the step as disabled, will also disable the button if
+   * `StepButton` is a child of `Step`. Is passed to child components.
+   */
+  disabled: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Used internally for numbering.
+   */
+  index: _propTypes2.default.number,
+  /**
+   * @ignore
+   */
+  last: _propTypes2.default.bool,
+  /**
+   * @ignore
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical'])
+} : undefined;
+
+Step.defaultProps = {
+  active: false,
+  completed: false,
+  disabled: false
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStep' })(Step);
+
+/***/ }),
+/* 535 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _ButtonBase = __webpack_require__(465);
+
+var _ButtonBase2 = _interopRequireDefault(_ButtonBase);
+
+var _StepLabel = __webpack_require__(536);
+
+var _StepLabel2 = _interopRequireDefault(_StepLabel);
+
+var _reactHelpers = __webpack_require__(462);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      width: '100%',
+      padding: theme.spacing.unit * 3 + 'px ' + theme.spacing.unit * 2 + 'px',
+      margin: -theme.spacing.unit * 3 + 'px ' + -theme.spacing.unit * 2 + 'px',
+      boxSizing: 'content-box'
+    },
+    vertical: {
+      justifyContent: 'left'
+    },
+    touchRipple: {
+      color: 'rgba(0, 0, 0, 0.3)'
+    }
+  };
+}; // @inheritedComponent ButtonBase
+
+function StepButton(props) {
+  var active = props.active,
+      alternativeLabel = props.alternativeLabel,
+      children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      completed = props.completed,
+      disabled = props.disabled,
+      icon = props.icon,
+      last = props.last,
+      optional = props.optional,
+      orientation = props.orientation,
+      other = (0, _objectWithoutProperties3.default)(props, ['active', 'alternativeLabel', 'children', 'classes', 'className', 'completed', 'disabled', 'icon', 'last', 'optional', 'orientation']);
+
+
+  var childProps = {
+    active: active,
+    alternativeLabel: alternativeLabel,
+    completed: completed,
+    disabled: disabled,
+    icon: icon,
+    optional: optional,
+    orientation: orientation
+  };
+  var child = (0, _reactHelpers.isMuiElement)(children, ['StepLabel']) ? _react2.default.cloneElement(children, childProps) : _react2.default.createElement(
+    _StepLabel2.default,
+    childProps,
+    children
+  );
+
+  return _react2.default.createElement(
+    _ButtonBase2.default,
+    (0, _extends3.default)({
+      disabled: disabled,
+      TouchRippleProps: { className: classes.touchRipple },
+      className: (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.vertical, orientation === 'vertical'), classNameProp)
+    }, other),
+    child
+  );
+}
+
+StepButton.propTypes =  true ? {
+  /**
+   * @ignore
+   * Passed in via `Step` - passed through to `StepLabel`.
+   */
+  active: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Set internally by Stepper when it's supplied with the alternativeLabel property.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * Can be a `StepLabel` or a node to place inside `StepLabel` as children.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * @ignore
+   * Sets completed styling. Is passed to StepLabel.
+   */
+  completed: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Disables the button and sets disabled styling. Is passed to StepLabel.
+   */
+  disabled: _propTypes2.default.bool,
+  /**
+   * The icon displayed by the step label.
+   */
+  icon: _propTypes2.default.node,
+  /**
+   * @ignore
+   */
+  last: _propTypes2.default.bool,
+  /**
+   * The optional node to display.
+   */
+  optional: _propTypes2.default.node,
+  /**
+   * @ignore
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical'])
+} : undefined;
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepButton' })(StepButton);
+
+/***/ }),
+/* 536 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _Typography = __webpack_require__(475);
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+var _StepIcon = __webpack_require__(537);
+
+var _StepIcon2 = _interopRequireDefault(_StepIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+      '&$alternativeLabel': {
+        flexDirection: 'column'
+      },
+      '&$disabled': {
+        cursor: 'default'
+      }
+    },
+    horizontal: {},
+    vertical: {},
+    active: {},
+    completed: {},
+    alternativeLabel: {},
+    error: {},
+    disabled: {},
+    label: {
+      color: theme.palette.text.secondary,
+      '&$active': {
+        color: theme.palette.text.primary,
+        fontWeight: 500
+      },
+      '&$completed': {
+        color: theme.palette.text.primary,
+        fontWeight: 500
+      },
+      '&$alternativeLabel': {
+        textAlign: 'center',
+        marginTop: theme.spacing.unit * 2
+      },
+      '&$error': {
+        color: theme.palette.error.main
+      }
+    },
+    iconContainer: {
+      paddingRight: theme.spacing.unit,
+      '&$alternativeLabel': {
+        paddingRight: 0
+      }
+    },
+    labelContainer: {
+      width: '100%'
+    }
+  };
+};
+
+function StepLabel(props) {
+  var _classNames, _classNames3;
+
+  var active = props.active,
+      alternativeLabel = props.alternativeLabel,
+      children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      completed = props.completed,
+      disabled = props.disabled,
+      error = props.error,
+      icon = props.icon,
+      last = props.last,
+      optional = props.optional,
+      orientation = props.orientation,
+      other = (0, _objectWithoutProperties3.default)(props, ['active', 'alternativeLabel', 'children', 'classes', 'className', 'completed', 'disabled', 'error', 'icon', 'last', 'optional', 'orientation']);
+
+
+  return _react2.default.createElement(
+    'span',
+    (0, _extends3.default)({
+      className: (0, _classnames2.default)(classes.root, classes[orientation], (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), (0, _defineProperty3.default)(_classNames, classes.alternativeLabel, alternativeLabel), (0, _defineProperty3.default)(_classNames, classes.error, error), _classNames), classNameProp)
+    }, other),
+    icon && _react2.default.createElement(
+      'span',
+      {
+        className: (0, _classnames2.default)(classes.iconContainer, (0, _defineProperty3.default)({}, classes.alternativeLabel, alternativeLabel))
+      },
+      _react2.default.createElement(_StepIcon2.default, {
+        completed: completed,
+        active: active,
+        error: error,
+        icon: icon,
+        alternativeLabel: alternativeLabel
+      })
+    ),
+    _react2.default.createElement(
+      'span',
+      { className: classes.labelContainer },
+      _react2.default.createElement(
+        _Typography2.default,
+        {
+          variant: 'body1',
+          component: 'span',
+          className: (0, _classnames2.default)(classes.label, (_classNames3 = {}, (0, _defineProperty3.default)(_classNames3, classes.alternativeLabel, alternativeLabel), (0, _defineProperty3.default)(_classNames3, classes.completed, completed), (0, _defineProperty3.default)(_classNames3, classes.active, active), (0, _defineProperty3.default)(_classNames3, classes.error, error), _classNames3))
+        },
+        children
+      ),
+      optional
+    )
+  );
+}
+
+StepLabel.propTypes =  true ? {
+  /**
+   * @ignore
+   * Sets the step as active. Is passed to child components.
+   */
+  active: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Set internally by Stepper when it's supplied with the alternativeLabel property.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * In most cases will simply be a string containing a title for the label.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * @ignore
+   * Mark the step as completed. Is passed to child components.
+   */
+  completed: _propTypes2.default.bool,
+  /**
+   * Mark the step as disabled, will also disable the button if
+   * `StepLabelButton` is a child of `StepLabel`. Is passed to child components.
+   */
+  disabled: _propTypes2.default.bool,
+  /**
+   * Mark the step as failed.
+   */
+  error: _propTypes2.default.bool,
+  /**
+   * Override the default icon.
+   */
+  icon: _propTypes2.default.node,
+  /**
+   * @ignore
+   */
+  last: _propTypes2.default.bool,
+  /**
+   * The optional node to display.
+   */
+  optional: _propTypes2.default.node,
+  /**
+   * @ignore
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical'])
+} : undefined;
+
+StepLabel.defaultProps = {
+  active: false,
+  alternativeLabel: false,
+  completed: false,
+  disabled: false,
+  error: false,
+  last: false,
+  orientation: 'horizontal'
+};
+
+StepLabel.muiName = 'StepLabel';
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepLabel' })(StepLabel);
+
+/***/ }),
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _CheckCircle = __webpack_require__(538);
+
+var _CheckCircle2 = _interopRequireDefault(_CheckCircle);
+
+var _Warning = __webpack_require__(539);
+
+var _Warning2 = _interopRequireDefault(_Warning);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _StepPositionIcon = __webpack_require__(540);
+
+var _StepPositionIcon2 = _interopRequireDefault(_StepPositionIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'block',
+      '&$active': {
+        color: theme.palette.primary.main
+      },
+      '&$completed': {
+        color: theme.palette.primary.main
+      },
+      '&$error': {
+        color: theme.palette.error.main
+      }
+    },
+    active: {},
+    completed: {},
+    error: {}
+  };
+};
+
+function StepIcon(props) {
+  var completed = props.completed,
+      icon = props.icon,
+      active = props.active,
+      error = props.error,
+      classes = props.classes;
+
+
+  if (typeof icon === 'number' || typeof icon === 'string') {
+    if (error) {
+      return _react2.default.createElement(_Warning2.default, { className: (0, _classnames2.default)(classes.root, classes.error) });
+    }
+    if (completed) {
+      return _react2.default.createElement(_CheckCircle2.default, { className: (0, _classnames2.default)(classes.root, classes.completed) });
+    }
+    return _react2.default.createElement(_StepPositionIcon2.default, {
+      className: (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.active, active)),
+      position: icon
+    });
+  }
+
+  return icon;
+}
+
+StepIcon.propTypes =  true ? {
+  /**
+   * Whether this step is active.
+   */
+  active: _propTypes2.default.bool,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   */
+  completed: _propTypes2.default.bool,
+  /**
+   * Mark the step as failed.
+   */
+  error: _propTypes2.default.bool,
+  /**
+   * The icon displayed by the step label.
+   */
+  icon: _propTypes2.default.node.isRequired
+} : undefined;
+
+StepIcon.defaultProps = {
+  active: false,
+  completed: false,
+  error: false
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepIcon' })(StepIcon);
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(511);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(516);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @ignore - internal component.
+ */
+var _ref = _react2.default.createElement('path', { d: 'M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm-2 17l-5-5 1.4-1.4 3.6 3.6 7.6-7.6L19 8l-9 9z' });
+
+var CheckCircle = function CheckCircle(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _ref
+  );
+};
+CheckCircle = (0, _pure2.default)(CheckCircle);
+CheckCircle.muiName = 'SvgIcon';
+
+exports.default = CheckCircle;
+
+/***/ }),
+/* 539 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(511);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(516);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @ignore - internal component.
+ */
+var _ref = _react2.default.createElement('path', { d: 'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z' });
+
+var Warning = function Warning(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _ref
+  );
+};
+Warning = (0, _pure2.default)(Warning);
+Warning.muiName = 'SvgIcon';
+
+exports.default = Warning;
+
+/***/ }),
 /* 540 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -57192,68 +58456,242 @@ exports.default = (0, _styles.withStyles)(styles)(BaseDialog);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.styles = undefined;
 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _createSvgIcon = __webpack_require__(541);
+var _propTypes = __webpack_require__(4);
 
-var _createSvgIcon2 = _interopRequireDefault(_createSvgIcon);
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _SvgIcon = __webpack_require__(516);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _createSvgIcon2.default)(_react2.default.createElement(
-  'g',
-  null,
-  _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
-), 'Edit');
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      color: theme.palette.text.disabled
+    },
+    text: {
+      fill: theme.palette.primary.contrastText,
+      fontSize: theme.typography.caption.fontSize,
+      fontFamily: theme.typography.fontFamily
+    }
+  };
+};
+
+/**
+ * @ignore - internal component.
+ */
+
+var _ref = _react2.default.createElement('circle', { cx: '12', cy: '12', r: '12' });
+
+function StepPositionIcon(props) {
+  var position = props.position,
+      classes = props.classes,
+      className = props.className;
+
+
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    { className: (0, _classnames2.default)(classes.root, className) },
+    _ref,
+    _react2.default.createElement(
+      'text',
+      { className: classes.text, x: '12', y: '16', textAnchor: 'middle' },
+      position
+    )
+  );
+}
+
+StepPositionIcon.propTypes =  true ? {
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * The step position as a number.
+   */
+  position: _propTypes2.default.node
+} : undefined;
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepPositionIcon' })(StepPositionIcon);
 
 /***/ }),
 /* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(517);
+var _propTypes = __webpack_require__(4);
 
-var _pure2 = _interopRequireDefault(_pure);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _SvgIcon = __webpack_require__(522);
+var _warning = __webpack_require__(22);
 
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+var _warning2 = _interopRequireDefault(_warning);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Collapse = __webpack_require__(542);
+
+var _Collapse2 = _interopRequireDefault(_Collapse);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SvgIconCustom = typeof global !== 'undefined' && global.__MUI_SvgIcon__ || _SvgIcon2.default;
-
-function createSvgIcon(path, displayName) {
-  var Icon = function Icon(props) {
-    return _react2.default.createElement(
-      SvgIconCustom,
-      props,
-      path
-    );
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      marginTop: theme.spacing.unit,
+      marginLeft: 12, // half icon
+      paddingLeft: theme.spacing.unit + 12, // margin + half icon
+      paddingRight: theme.spacing.unit,
+      borderLeft: '1px solid ' + (theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600])
+    },
+    last: {
+      borderLeft: 'none'
+    },
+    transition: {}
   };
-
-  Icon.displayName = displayName;
-  Icon = (0, _pure2.default)(Icon);
-  Icon.muiName = 'SvgIcon';
-
-  return Icon;
 };
 
-exports.default = createSvgIcon;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103)))
+function StepContent(props) {
+  var active = props.active,
+      alternativeLabel = props.alternativeLabel,
+      children = props.children,
+      classes = props.classes,
+      className = props.className,
+      completed = props.completed,
+      last = props.last,
+      optional = props.optional,
+      orientation = props.orientation,
+      Transition = props.transition,
+      transitionDuration = props.transitionDuration,
+      other = (0, _objectWithoutProperties3.default)(props, ['active', 'alternativeLabel', 'children', 'classes', 'className', 'completed', 'last', 'optional', 'orientation', 'transition', 'transitionDuration']);
+
+
+   true ? (0, _warning2.default)(orientation === 'vertical', 'Material-UI: <StepContent /> is only designed for use with the vertical stepper.') : undefined;
+
+  return _react2.default.createElement(
+    'div',
+    (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.last, last), className) }, other),
+    _react2.default.createElement(
+      Transition,
+      {
+        'in': active,
+        className: classes.transition,
+        timeout: transitionDuration,
+        unmountOnExit: true
+      },
+      children
+    )
+  );
+}
+
+StepContent.propTypes =  true ? {
+  /**
+   * @ignore
+   * Expands the content.
+   */
+  active: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Set internally by Step when it's supplied with the alternativeLabel property.
+   */
+  alternativeLabel: _propTypes2.default.bool,
+  /**
+   * Step content.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * @ignore
+   */
+  completed: _propTypes2.default.bool,
+  /**
+   * @ignore
+   */
+  last: _propTypes2.default.bool,
+  /**
+   * @ignore
+   * Set internally by Step when it's supplied with the optional property.
+   */
+  optional: _propTypes2.default.bool,
+  /**
+   * @ignore
+   */
+  orientation: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  /**
+   * Collapse component.
+   */
+  transition: _propTypes2.default.func,
+  /**
+   * Adjust the duration of the content expand transition.
+   * Passed as a property to the transition component.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
+  transitionDuration: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.shape({ enter: _propTypes2.default.number, exit: _propTypes2.default.number }), _propTypes2.default.oneOf(['auto'])])
+} : undefined;
+
+StepContent.defaultProps = {
+  transition: _Collapse2.default,
+  transitionDuration: 'auto'
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiStepContent' })(StepContent);
 
 /***/ }),
 /* 542 */
@@ -57265,22 +58703,364 @@ exports.default = createSvgIcon;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(138);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(142);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(143);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(144);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(178);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _createSvgIcon = __webpack_require__(541);
+var _classnames = __webpack_require__(229);
 
-var _createSvgIcon2 = _interopRequireDefault(_createSvgIcon);
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Transition = __webpack_require__(293);
+
+var _Transition2 = _interopRequireDefault(_Transition);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _transitions = __webpack_require__(79);
+
+var _utils = __webpack_require__(458);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _createSvgIcon2.default)(_react2.default.createElement(
-  'g',
-  null,
-  _react2.default.createElement('path', { d: 'M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z' })
-), 'Done');
+var styles = exports.styles = function styles(theme) {
+  return {
+    container: {
+      height: 0,
+      overflow: 'hidden',
+      transition: theme.transitions.create('height')
+    },
+    entered: {
+      height: 'auto'
+    },
+    wrapper: {
+      // Hack to get children with a negative margin to not falsify the height computation.
+      display: 'flex'
+    },
+    wrapperInner: {
+      width: '100%'
+    }
+  };
+};
+
+/**
+ * The Collapse transition is used by the
+ * [Vertical Stepper](/demos/steppers#vertical-stepper) StepContent component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+// @inheritedComponent Transition
+
+var Collapse = function (_React$Component) {
+  (0, _inherits3.default)(Collapse, _React$Component);
+
+  function Collapse() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    (0, _classCallCheck3.default)(this, Collapse);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Collapse.__proto__ || (0, _getPrototypeOf2.default)(Collapse)).call.apply(_ref, [this].concat(args))), _this), _this.wrapper = null, _this.autoTransitionDuration = undefined, _this.timer = null, _this.handleEnter = function (node) {
+      node.style.height = _this.props.collapsedHeight;
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node);
+      }
+    }, _this.handleEntering = function (node) {
+      var _this$props = _this.props,
+          timeout = _this$props.timeout,
+          theme = _this$props.theme;
+
+      var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
+
+      var _getTransitionProps = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'enter'
+      }),
+          transitionDuration = _getTransitionProps.duration;
+
+      if (timeout === 'auto') {
+        var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
+        node.style.transitionDuration = duration2 + 'ms';
+        _this.autoTransitionDuration = duration2;
+      } else {
+        node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : transitionDuration + 'ms';
+      }
+
+      node.style.height = wrapperHeight + 'px';
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node);
+      }
+    }, _this.handleEntered = function (node) {
+      node.style.height = 'auto';
+
+      if (_this.props.onEntered) {
+        _this.props.onEntered(node);
+      }
+    }, _this.handleExit = function (node) {
+      var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
+      node.style.height = wrapperHeight + 'px';
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    }, _this.handleExiting = function (node) {
+      var _this$props2 = _this.props,
+          timeout = _this$props2.timeout,
+          theme = _this$props2.theme;
+
+      var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
+
+      var _getTransitionProps2 = (0, _utils.getTransitionProps)(_this.props, {
+        mode: 'exit'
+      }),
+          transitionDuration = _getTransitionProps2.duration;
+
+      if (timeout === 'auto') {
+        var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
+        node.style.transitionDuration = duration2 + 'ms';
+        _this.autoTransitionDuration = duration2;
+      } else {
+        node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : transitionDuration + 'ms';
+      }
+
+      node.style.height = _this.props.collapsedHeight;
+
+      if (_this.props.onExiting) {
+        _this.props.onExiting(node);
+      }
+    }, _this.addEndListener = function (_, next) {
+      if (_this.props.timeout === 'auto') {
+        _this.timer = setTimeout(next, _this.autoTransitionDuration || 0);
+      }
+    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(Collapse, [{
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearTimeout(this.timer);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          children = _props.children,
+          classes = _props.classes,
+          className = _props.className,
+          collapsedHeight = _props.collapsedHeight,
+          Component = _props.component,
+          onEnter = _props.onEnter,
+          onEntered = _props.onEntered,
+          onEntering = _props.onEntering,
+          onExit = _props.onExit,
+          onExiting = _props.onExiting,
+          style = _props.style,
+          theme = _props.theme,
+          timeout = _props.timeout,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'collapsedHeight', 'component', 'onEnter', 'onEntered', 'onEntering', 'onExit', 'onExiting', 'style', 'theme', 'timeout']);
+
+
+      return _react2.default.createElement(
+        _Transition2.default,
+        (0, _extends3.default)({
+          onEnter: this.handleEnter,
+          onEntered: this.handleEntered,
+          onEntering: this.handleEntering,
+          onExit: this.handleExit,
+          onExiting: this.handleExiting,
+          addEndListener: this.addEndListener,
+          timeout: timeout === 'auto' ? null : timeout
+        }, other),
+        function (state, childProps) {
+          return _react2.default.createElement(
+            Component,
+            (0, _extends3.default)({
+              className: (0, _classnames2.default)(classes.container, (0, _defineProperty3.default)({}, classes.entered, state === 'entered'), className),
+              style: (0, _extends3.default)({}, style, {
+                minHeight: collapsedHeight
+              })
+            }, childProps),
+            _react2.default.createElement(
+              'div',
+              {
+                className: classes.wrapper,
+                ref: function ref(node) {
+                  _this2.wrapper = node;
+                }
+              },
+              _react2.default.createElement(
+                'div',
+                { className: classes.wrapperInner },
+                children
+              )
+            )
+          );
+        }
+      );
+    }
+  }]);
+  return Collapse;
+}(_react2.default.Component);
+
+Collapse.propTypes =  true ? {
+  /**
+   * The content node to be collapsed.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * The height of the container when collapsed.
+   */
+  collapsedHeight: _propTypes2.default.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func]),
+  /**
+   * If `true`, the component will transition in.
+   */
+  in: _propTypes2.default.bool,
+  /**
+   * @ignore
+   */
+  onEnter: _propTypes2.default.func,
+  /**
+   * @ignore
+   */
+  onEntered: _propTypes2.default.func,
+  /**
+   * @ignore
+   */
+  onEntering: _propTypes2.default.func,
+  /**
+   * @ignore
+   */
+  onExit: _propTypes2.default.func,
+  /**
+   * @ignore
+   */
+  onExiting: _propTypes2.default.func,
+  /**
+   * @ignore
+   */
+  style: _propTypes2.default.object,
+  /**
+   * @ignore
+   */
+  theme: _propTypes2.default.object.isRequired,
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
+  timeout: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.shape({ enter: _propTypes2.default.number, exit: _propTypes2.default.number }), _propTypes2.default.oneOf(['auto'])])
+} : undefined;
+
+Collapse.defaultProps = {
+  collapsedHeight: '0px',
+  component: 'div',
+  timeout: _transitions.duration.standard
+};
+
+exports.default = (0, _withStyles2.default)(styles, {
+  withTheme: true,
+  name: 'MuiCollapse'
+})(Collapse);
+
+/***/ }),
+/* 543 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(544);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 544 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, ".MuiStepPositionIcon-text-107 {\n  font-size: 1rem !important;\n}", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

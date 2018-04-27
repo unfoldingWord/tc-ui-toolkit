@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
+import VerseEditorStepper from './VerseEditorStepper';
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import './VerseEditor.styles.css';
 
@@ -30,7 +31,7 @@ const styles = {
   actions: {
     padding: '0 24px',
     display: 'flex',
-    justifyContent:'flex-end'
+    justifyContent: 'flex-end'
   },
   doneIcon: {
     color: '#ffffff',
@@ -189,6 +190,9 @@ class VerseEditor extends React.Component {
         open={open}
         bodyStyle={styles.body}
         title={title}>
+        <VerseEditorStepper stepIndex={stepIndex}
+          style={styles.stepper}
+          steps={localizedSteps} />
         <div style={styles.screen}>
           {screen}
         </div>

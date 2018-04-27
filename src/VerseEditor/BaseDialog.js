@@ -122,7 +122,6 @@ class BaseDialog extends React.Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Dialog
-          maxWidth={'sm'}
           fullWidth={true}
           open={open}
           onClose={onClose}>
