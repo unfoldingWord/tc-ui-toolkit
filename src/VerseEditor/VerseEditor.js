@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import VerseEditorStepper from './VerseEditorStepper';
 import EditScreen from './EditScreen';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-import DoneIcon from 'material-ui/svg-icons/action/done';
+import EditIcon from '@material-ui/icons/Edit';
+import DoneIcon from '@material-ui/icons/Done';
 import ReasonScreen from './ReasonScreen';
-import BaseDialog from '../BaseDialog';
+import BaseDialog from './BaseDialog';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import './VerseEditor.styles.css';
 
 const styles = {
   editIcon: {
@@ -28,7 +29,8 @@ const styles = {
   },
   actions: {
     padding: '0 24px',
-    textAlign: 'right'
+    display: 'flex',
+    justifyContent:'flex-end'
   },
   doneIcon: {
     color: '#ffffff',
@@ -180,15 +182,13 @@ class VerseEditor extends React.Component {
         {translate('edit_verse_title', {passage: verseTitle})}
       </span>
     );
+    const theme = createMuiTheme();
 
     return (
       <BaseDialog modal={true}
         open={open}
         bodyStyle={styles.body}
         title={title}>
-        <VerseEditorStepper stepIndex={stepIndex}
-          style={styles.stepper}
-          steps={localizedSteps} />
         <div style={styles.screen}>
           {screen}
         </div>

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { CheckInfoCard, ScripturePane } from 'tc-ui-toolkit';
+import {CheckInfoCard, ScripturePane, VerseEditor} from 'tc-ui-toolkit';
 
 class App extends Component {
   render() {
     return (
-      <div style={{ padding: '10px' }}>
+      <div style={{padding: '10px'}}>
         <ScripturePane
           titleLabel="Step 1. Read"
           closeButtonLabel="Close"
@@ -18,6 +18,14 @@ class App extends Component {
           seeMoreLabel="See More"
           showSeeMoreButton={true}
           onSeeMoreClick={() => console.log('CheckInfoCard clicked')}
+        />
+        <VerseEditor
+          onSubmit={() => {}}
+          onCancel={() => {}}
+          open={true}
+          translate={key => key}
+          verseTitle={'Title'}
+          verseText={'Verse Text'}
         />
       </div>
     );
