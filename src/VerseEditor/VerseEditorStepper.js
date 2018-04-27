@@ -6,10 +6,6 @@ import {withStyles} from 'material-ui/styles';
 const styles = theme => ({
   label: {
     fontSize: 14
-  },
-  iconContainer: {
-    fontSize: 14,
-    width:36
   }
 });
 
@@ -28,7 +24,6 @@ class VerseEditorStepper extends React.Component {
           return (
             <Step key={index}>
               <StepLabel classes={{
-                iconContainer: classes.iconContainer,
                 label: classes.label
               }}>{step}</StepLabel>
             </Step>

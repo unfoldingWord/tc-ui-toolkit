@@ -125,14 +125,16 @@ class BaseDialog extends React.Component {
           fullWidth={true}
           open={open}
           onClose={onClose}>
-          <DialogTitle style={{
-            color: 'var(--reverse-color)',
-            backgroundColor: 'var(--accent-color-dark)',
-            padding: '15px',
-            display: 'block',
-            width: '100%',
-            ...titleStyle
-          }}>
+          <DialogTitle
+            disableTypography={true}
+            style={{
+              color: 'var(--reverse-color)',
+              backgroundColor: 'var(--accent-color-dark)',
+              padding: '15px',
+              display: 'block',
+              width: '100%',
+              ...titleStyle
+            }}>
             {title}
           </DialogTitle>
           <DialogContent style={bodyStyle}>

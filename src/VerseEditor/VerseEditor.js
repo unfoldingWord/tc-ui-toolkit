@@ -187,6 +187,7 @@ class VerseEditor extends React.Component {
 
     return (
       <BaseDialog modal={true}
+        titleStyle={{fontSize: 22, fontWeight: 400}}
         open={open}
         bodyStyle={styles.body}
         title={title}>

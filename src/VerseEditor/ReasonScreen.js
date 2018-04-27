@@ -4,17 +4,12 @@ import ReasonCheckbox from './ReasonCheckbox';
 
 const styles = {
   root: {
-    display: 'flex'
-  },
-  content: {
     display: 'flex',
-    flexGrow: 1
+    justifyContent:'center'
   },
   column: {
-    flexGrow: 1
-  },
-  spacer: {
-    flexGrow: 2
+    display: 'flex',
+    flexDirection: 'column'
   }
 };
 
@@ -66,8 +61,6 @@ class ReasonScreen extends React.Component {
 
     return (
       <div style={styles.root}>
-        <div style={styles.spacer}/>
-        <div style={styles.content}>
           <div style={styles.column}>
             <ReasonCheckbox reason="spelling"
                             label={translate('editor.spelling')}
@@ -96,10 +89,7 @@ class ReasonScreen extends React.Component {
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
           </div>
-        </div>
-        <div style={styles.spacer}/>
       </div>
-
     );
   }
 }

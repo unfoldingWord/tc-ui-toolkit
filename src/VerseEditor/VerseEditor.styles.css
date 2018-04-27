@@ -1,5 +1,5 @@
 @import '../index.styles.css';
 
-.MuiStepPositionIcon-text-107 {
+svg > text {
   font-size: 1rem !important;
 }
