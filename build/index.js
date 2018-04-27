@@ -55092,40 +55092,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var styles = {
-  editIcon: {
-    color: '#ffffff',
-    width: 25,
-    height: 25,
-    marginRight: 5,
-    marginBottom: 5,
-    verticalAlign: 'middle'
-  },
-  body: {
-    padding: 0
-  },
-  screen: {
-    padding: '24px'
-  },
-  stepper: {
-    borderBottom: 'solid 1px #999',
-    height: '50px'
-  },
-  actions: {
-    padding: '0 24px',
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  doneIcon: {
-    color: '#ffffff',
-    width: 20,
-    height: 20,
-    marginRight: 5,
-    marginBottom: 5,
-    verticalAlign: 'middle'
-  }
-};
-
 var steps = ['edit_verse', 'select_reasons'];
 
 /**
@@ -55289,7 +55255,7 @@ var VerseEditor = function (_React$Component) {
         nextStepButtonTitle = _react2.default.createElement(
           _react2.default.Fragment,
           null,
-          _react2.default.createElement(_Done2.default, { style: styles.doneIcon }),
+          _react2.default.createElement(_Done2.default, { className: 'done-icon' }),
           translate('buttons.save_button')
         );
       }
@@ -55323,29 +55289,26 @@ var VerseEditor = function (_React$Component) {
       var title = _react2.default.createElement(
         'span',
         null,
-        _react2.default.createElement(_Edit2.default, { style: styles.editIcon }),
+        _react2.default.createElement(_Edit2.default, { className: 'edit-icon' }),
         translate('edit_verse_title', { passage: verseTitle })
       );
-      var theme = (0, _styles.createMuiTheme)();
 
       return _react2.default.createElement(
         _BaseDialog2.default,
         { modal: true,
-          titleStyle: { fontSize: 22, fontWeight: 400 },
           open: open,
-          bodyStyle: styles.body,
           title: title },
         _react2.default.createElement(_VerseEditorStepper2.default, { stepIndex: stepIndex,
-          style: styles.stepper,
+          className: 'stepper',
           steps: localizedSteps }),
         _react2.default.createElement(
           'div',
-          { style: styles.screen },
+          { className: 'screen' },
           screen
         ),
         _react2.default.createElement(
           'div',
-          { style: styles.actions },
+          { className: 'actions' },
           _react2.default.createElement(
             'button',
             { className: 'btn btn-link',
@@ -55415,27 +55378,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var styles = {
-  input: {
-    width: '100%',
-    resize: 'none',
-    padding: '10px',
-    border: 'solid 1px var(--border-color)',
-    fontStyle: 'inherit',
-    fontVariant: 'inherit',
-    fontWeight: 'inherit',
-    fontStretch: 'inherit',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    fontFamily: 'inherit',
-    cursor: 'inherit',
-    outline: 'none',
-    backgroundColor: 'transparent',
-    WebkitAppearance: 'textfield',
-    color: 'rgba(0, 0, 0, 0.870588)'
-  }
-};
-
 /**
  * @callback EditScreen~onChange
  * @param {string} newVerse - the edited verse
@@ -55446,7 +55388,6 @@ var styles = {
  * @property {string} verseText - the verse text to edit
  * @property {EditScreen~onChange} onChange - callback when the text has changed
  */
-
 var EditScreen = function (_React$Component) {
   _inherits(EditScreen, _React$Component);
 
@@ -55474,7 +55415,7 @@ var EditScreen = function (_React$Component) {
       return _react2.default.createElement('textarea', {
         id: 'verse-editor-field',
         rows: 4,
-        style: styles.input,
+        className: 'edit-screen',
         autoFocus: true,
         onChange: this._handleChange,
         value: verseText });
@@ -55960,17 +55901,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var styles = {
-  root: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-};
-
 var updateReasons = exports.updateReasons = function updateReasons(reason, checked, selectedReasons) {
   var newReasons = [].concat(_toConsumableArray(selectedReasons));
   if (checked && !newReasons.includes(reason)) {
@@ -56035,10 +55965,10 @@ var ReasonScreen = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: styles.root },
+        { className: 'reasons-screen' },
         _react2.default.createElement(
           'div',
-          { style: styles.column },
+          { className: 'reasons-screen-column' },
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'spelling',
             label: translate('editor.spelling'),
             onCheck: this._handleCheck,
@@ -56054,7 +55984,7 @@ var ReasonScreen = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { style: styles.column },
+          { className: 'reasons-screen-column' },
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'meaning',
             label: translate('editor.meaning'),
             onCheck: this._handleCheck,
@@ -57043,8 +56973,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -57139,9 +57067,6 @@ var styles = function styles(theme) {
  * with some custom functionality.
  *
  * @class
- *
- * @property {object} [titleStyles] - styles applied to the dialog title
- * @property {object} [bodyStyles] - styles applied to the dialog body
  * @property {bool} [modal] - controls whether this dialog is modal
  * @property {Object[]} [actions] - a custom list of actions. This overrides the default secondary and primary actions.
  * @property {*} [title] - the title of the dialog
@@ -57180,8 +57105,6 @@ var BaseDialog = function (_React$Component) {
           onClose = _props.onClose,
           onSubmit = _props.onSubmit,
           open = _props.open,
-          bodyStyle = _props.bodyStyle,
-          titleStyle = _props.titleStyle,
           children = _props.children,
           actions = _props.actions,
           classes = _props.classes;
@@ -57215,18 +57138,20 @@ var BaseDialog = function (_React$Component) {
             _Dialog.DialogTitle,
             {
               disableTypography: true,
-              style: _extends({
+              style: {
                 color: 'var(--reverse-color)',
                 backgroundColor: 'var(--accent-color-dark)',
                 padding: '15px',
                 display: 'block',
-                width: '100%'
-              }, titleStyle) },
+                width: '100%',
+                fontSize: 22,
+                fontWeight: 400
+              } },
             title
           ),
           _react2.default.createElement(
             _Dialog.DialogContent,
-            { style: bodyStyle },
+            { className: 'stepper-body' },
             children
           ),
           _react2.default.createElement(
@@ -57243,8 +57168,6 @@ var BaseDialog = function (_React$Component) {
 }(_react2.default.Component);
 
 BaseDialog.propTypes = {
-  titleStyle: _propTypes2.default.object,
-  bodyStyle: _propTypes2.default.object,
   modal: _propTypes2.default.bool,
   actions: _propTypes2.default.array,
   title: _propTypes2.default.any,
@@ -59077,7 +59000,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, "svg > text {\n  font-size: 1rem !important;\n}", ""]);
+exports.push([module.i, "svg > text {\n  font-size: 1rem !important;\n}\n\n.edit-icon {\n  color: #ffffff;\n  width: 25;\n  height: 25;\n  margin-right: 5;\n  margin-bottom: 5;\n  vertical-align: middle;\n}\n\n.stepper-body {\n  padding: 0;\n}\n\n.screen {\n  padding: 24px;\n}\n\n.stepper {\n  border-bottom: solid 1px #999;\n  height: 50px;\n}\n\n.actions {\n  padding: 0 24px;\n  display: flex;\n  justify-content: flex-end;\n}\n\n.done-icon {\n  color: #ffffff;\n  width: 20;\n  height: 20;\n  margin-right: 5;\n  margin-bottom: 5;\n  vertical-align: middle;\n}\n\n.reasons-screen {\n  display: flex;\n  justify-content: center;\n}\n\n.reasons-screen-column {\n  display: flex;\n  flex-direction: column;\n}\n\n.edit-screen {\n  width: 100%;\n  resize: none;\n  padding: 10px;\n  border: solid 1px var(--border-color);\n  font-style: inherit;\n  font-variant: inherit;\n  font-weight: inherit;\n  font-stretch: inherit;\n  font-size: inherit;\n  line-height: inherit;\n  font-family: inherit;\n  cursor: inherit;\n  outline: none;\n  background-color: transparent;\n  -webkit-appearance: textfield;\n  color: rgba(0, 0, 0, 0.870588);\n}", ""]);
 
 // exports
 

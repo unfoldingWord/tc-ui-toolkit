@@ -6,42 +6,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
 import VerseEditorStepper from './VerseEditorStepper';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider} from 'material-ui/styles';
 import './VerseEditor.styles.css';
-
-const styles = {
-  editIcon: {
-    color: '#ffffff',
-    width: 25,
-    height: 25,
-    marginRight: 5,
-    marginBottom: 5,
-    verticalAlign: 'middle',
-  },
-  body: {
-    padding: 0
-  },
-  screen: {
-    padding: '24px'
-  },
-  stepper: {
-    borderBottom: 'solid 1px #999',
-    height: '50px'
-  },
-  actions: {
-    padding: '0 24px',
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  doneIcon: {
-    color: '#ffffff',
-    width: 20,
-    height: 20,
-    marginRight: 5,
-    marginBottom: 5,
-    verticalAlign: 'middle'
-  }
-};
 
 const steps = ['edit_verse', 'select_reasons'];
 
@@ -166,7 +132,7 @@ class VerseEditor extends React.Component {
     if (this._isLastStep()) {
       nextStepButtonTitle = (
         <React.Fragment>
-          <DoneIcon style={styles.doneIcon} />
+          <DoneIcon className='done-icon' />
           {translate('buttons.save_button')}
         </React.Fragment>
       );
@@ -179,25 +145,22 @@ class VerseEditor extends React.Component {
 
     const title = (
       <span>
-        <EditIcon style={styles.editIcon} />
+        <EditIcon className='edit-icon' />
         {translate('edit_verse_title', {passage: verseTitle})}
       </span>
     );
-    const theme = createMuiTheme();
 
     return (
       <BaseDialog modal={true}
-        titleStyle={{fontSize: 22, fontWeight: 400}}
         open={open}
-        bodyStyle={styles.body}
         title={title}>
         <VerseEditorStepper stepIndex={stepIndex}
-          style={styles.stepper}
+          className='stepper'
           steps={localizedSteps} />
-        <div style={styles.screen}>
+        <div className='screen'>
           {screen}
         </div>
-        <div style={styles.actions}>
+        <div className='actions'>
           <button className="btn btn-link"
             disabled={stepIndex === 0}
             style={{color: stepIndex === 0 ? '#777' : 'var(--accent-color-dark)'}}

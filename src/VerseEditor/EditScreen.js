@@ -1,27 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const styles = {
-  input: {
-    width: '100%',
-    resize: 'none',
-    padding: '10px',
-    border: 'solid 1px var(--border-color)',
-    fontStyle: 'inherit',
-    fontVariant: 'inherit',
-    fontWeight: 'inherit',
-    fontStretch: 'inherit',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    fontFamily: 'inherit',
-    cursor: 'inherit',
-    outline: 'none',
-    backgroundColor: 'transparent',
-    WebkitAppearance: 'textfield',
-    color: 'rgba(0, 0, 0, 0.870588)'
-  }
-};
-
 /**
  * @callback EditScreen~onChange
  * @param {string} newVerse - the edited verse
@@ -50,7 +29,7 @@ class EditScreen extends React.Component {
       <textarea
         id="verse-editor-field"
         rows={4}
-        style={styles.input}
+        className='edit-screen'
         autoFocus={true}
         onChange={this._handleChange}
         value={verseText}/>

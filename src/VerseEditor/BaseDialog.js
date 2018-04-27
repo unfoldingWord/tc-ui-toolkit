@@ -67,9 +67,6 @@ const styles = theme => ({
  * with some custom functionality.
  *
  * @class
- *
- * @property {object} [titleStyles] - styles applied to the dialog title
- * @property {object} [bodyStyles] - styles applied to the dialog body
  * @property {bool} [modal] - controls whether this dialog is modal
  * @property {Object[]} [actions] - a custom list of actions. This overrides the default secondary and primary actions.
  * @property {*} [title] - the title of the dialog
@@ -97,8 +94,6 @@ class BaseDialog extends React.Component {
       onClose,
       onSubmit,
       open,
-      bodyStyle,
-      titleStyle,
       children,
       actions,
       classes
@@ -133,11 +128,12 @@ class BaseDialog extends React.Component {
               padding: '15px',
               display: 'block',
               width: '100%',
-              ...titleStyle
+              fontSize: 22,
+              fontWeight: 400
             }}>
             {title}
           </DialogTitle>
-          <DialogContent style={bodyStyle}>
+          <DialogContent className='stepper-body'>
             {children}
           </DialogContent>
           <DialogActions disableActionSpacing={true}>
@@ -150,8 +146,6 @@ class BaseDialog extends React.Component {
 }
 
 BaseDialog.propTypes = {
-  titleStyle: PropTypes.object,
-  bodyStyle: PropTypes.object,
   modal: PropTypes.bool,
   actions: PropTypes.array,
   title: PropTypes.any,

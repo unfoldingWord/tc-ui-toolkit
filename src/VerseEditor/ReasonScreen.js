@@ -2,17 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReasonCheckbox from './ReasonCheckbox';
 
-const styles = {
-  root: {
-    display: 'flex',
-    justifyContent:'center'
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-};
-
 export const updateReasons = (reason, checked, selectedReasons) => {
   let newReasons = [
     ...selectedReasons
@@ -60,8 +49,8 @@ class ReasonScreen extends React.Component {
     const {translate, selectedReasons} = this.props;
 
     return (
-      <div style={styles.root}>
-          <div style={styles.column}>
+      <div className='reasons-screen'>
+          <div className='reasons-screen-column'>
             <ReasonCheckbox reason="spelling"
                             label={translate('editor.spelling')}
                             onCheck={this._handleCheck}
@@ -75,7 +64,7 @@ class ReasonScreen extends React.Component {
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
           </div>
-          <div style={styles.column}>
+          <div className='reasons-screen-column'>
             <ReasonCheckbox reason="meaning"
                             label={translate('editor.meaning')}
                             onCheck={this._handleCheck}
