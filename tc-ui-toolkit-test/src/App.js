@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {CheckInfoCard, ScripturePane, VerseEditor} from 'tc-ui-toolkit';
+import {CheckInfoCard, ScripturePane, VerseCheck, VerseEditor} from 'tc-ui-toolkit';
 
 class App extends Component {
   constructor(props) {
@@ -8,9 +8,9 @@ class App extends Component {
     this.state = {
       showVersEditor: true
     };
-    
+
   }
-  
+
   render() {
     return (
       <div style={{padding: '10px'}}>
@@ -28,13 +28,14 @@ class App extends Component {
           onSeeMoreClick={() => console.log('CheckInfoCard clicked')}
         />
         <VerseEditor
-          onSubmit={() => this.setState({showVersEditor:false})}
-          onCancel={() => this.setState({showVersEditor:false})}
+          onSubmit={() => this.setState({showVersEditor: false})}
+          onCancel={() => this.setState({showVersEditor: false})}
           open={this.state.showVersEditor}
           translate={key => key}
           verseTitle={'Title'}
           verseText={'Verse Text'}
         />
+        <VerseCheck />
       </div>
     );
   }
