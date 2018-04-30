@@ -1,37 +1,48 @@
-@import '../css/index.styles.css';
+@import '../index.styles.css';
 
 .helps-sash-container {
-  width: 180px;
-  max-width: 180px;
-  max-height: 90%;
+ /* display: flex;
+  flex-direction: column;
+  max-width: 3in;
+   flex: stretch;
+  width: 3in;
+  max-width: 3in; 
+  max-height: 90%; 
+  padding-top: 10px; */
+  color: var(--text-color);
+  background-color: var(--background-color-light);
+ 
 }
 
 .helps-title-bar {
-    height: 50px;
-    overflow-y: auto;
-    padding: 0 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-
-  flex: 0 0 120px;
-  display: flex;
-  margin: 0 10px;
+  text-align: right;
+  padding: 10px;
   color: var(--text-color);
   background-color: var(--background-color-light);
-  box-shadow: 0 3px 10px var(--background-color-dark);
-  border-radius: 2px;
-  border-bottom: 1px solid var(--reverse-color);
+  border-bottom: thin solid var(--background-color-dark);
+   /*overflow: hidden;
+  height: 80px;
+  overflow-y: auto;
+ 
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  flex: 0 0 120px;
+  display: flex;
+  margin: 0 10px; */
+ 
 }
 
 .helps-article {
-  flex: 0 0 180px;
+  padding: 10px;
+  /*overflow: scroll;
+  flex: stretch; 
   display: flex;
   margin: 0 10px;
   color: var(--text-color);
   background-color: var(--background-color-light);
   box-shadow: 0 3px 10px var(--background-color-dark);
-  border-radius: 2px;
+  border-radius: 2px; */
 }
 
 

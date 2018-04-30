@@ -90,7 +90,16 @@ Object.defineProperty(exports, 'CheckInfoCard', {
   }
 });
 
-var _ScripturePane = __webpack_require__(18);
+var _TranslationHelps = __webpack_require__(18);
+
+Object.defineProperty(exports, 'TranslationHelps', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_TranslationHelps).default;
+  }
+});
+
+var _ScripturePane = __webpack_require__(421);
 
 Object.defineProperty(exports, 'ScripturePane', {
   enumerable: true,
@@ -1161,7 +1170,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".handleIcon {\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0px;\n  border-radius: 5px 0px 0px 5px\n}\n\n.linkActive {\n  font-weight: bold;\n  display: flex;\n  justify-content: flex-end;\n  margin: 5px 20px;\n  cursor: pointer\n}\n\n.linkInactive {\n  font-weight: bold;\n  color: var(--text-color);\n  margin: 5px 20px;\n  text-align: right;\n  cursor: default;\n}\n\n.checkInfo {\n  flex: 0 0 120px;\n  display: flex;\n  margin: 0 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.leftSide {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.rightSide {\n  flex: 2;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding-top: 10px;\n  border-left: 1px solid var(--reverse-color);\n}\n\n.title {\n  max-height: 100px;\n  overflow-y: auto;\n  padding: 0 20px;\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n}\n\n.phrase {\n  max-height: 80px;\n  overflow-y: auto;\n  padding: 0 20px;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, ".handleIcon {\r\n  z-index: 999;\r\n  color: var(--reverse-color);\r\n  background-color: var(--text-color-dark);\r\n  padding: 10px 0px;\r\n  border-radius: 5px 0px 0px 5px\r\n}\r\n\r\n.linkActive {\r\n  font-weight: bold;\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  margin: 5px 20px;\r\n  cursor: pointer\r\n}\r\n\r\n.linkInactive {\r\n  font-weight: bold;\r\n  color: var(--text-color);\r\n  margin: 5px 20px;\r\n  text-align: right;\r\n  cursor: default;\r\n}\r\n\r\n.checkInfo {\r\n  flex: 0 0 120px;\r\n  display: flex;\r\n  margin: 0 10px;\r\n  color: var(--reverse-color);\r\n  background-color: var(--accent-color-dark);\r\n  box-shadow: 0 3px 10px var(--background-color);\r\n  border-radius: 2px;\r\n}\r\n\r\n.leftSide {\r\n  flex: 1;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.rightSide {\r\n  flex: 2;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding-top: 10px;\r\n  border-left: 1px solid var(--reverse-color);\r\n}\r\n\r\n.title {\r\n  max-height: 100px;\r\n  overflow-y: auto;\r\n  padding: 0 20px;\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n}\r\n\r\n.phrase {\r\n  max-height: 80px;\r\n  overflow-y: auto;\r\n  padding: 0 20px;\r\n  text-align: center;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1257,7 +1266,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "/* Include here all css settings that should be part of multiple css stylesheets and\n include them in your .css files */\n\n/*! Hint.css - v2.5.0 - 2017-04-23\n* http://kushagragour.in/lab/hint/\n* Copyright (c) 2017 Kushagra Gour */\n\n[class*=hint--]{position:relative;display:inline-block}[class*=hint--]:after,[class*=hint--]:before{position:absolute;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0);visibility:hidden;opacity:0;z-index:1000000;pointer-events:none;-webkit-transition:.3s ease;-moz-transition:.3s ease;transition:.3s ease;-webkit-transition-delay:0s;-moz-transition-delay:0s;transition-delay:0s}[class*=hint--]:hover:after,[class*=hint--]:hover:before{visibility:visible;opacity:1;-webkit-transition-delay:.1s;-moz-transition-delay:.1s;transition-delay:.1s}[class*=hint--]:before{content:'';position:absolute;background:0 0;border:6px solid transparent;z-index:1000001}[class*=hint--]:after{background:#383838;color:#fff;padding:8px 10px;font-size:12px;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif;line-height:12px;white-space:nowrap;text-shadow:0 -1px 0 #000;box-shadow:4px 4px 8px rgba(0,0,0,.3)}[class*=hint--][aria-label]:after{content:attr(aria-label)}[class*=hint--][data-hint]:after{content:attr(data-hint)}[aria-label='']:after,[aria-label='']:before,[data-hint='']:after,[data-hint='']:before{display:none!important}.hint--top-left:before,.hint--top-right:before,.hint--top:before{border-top-color:#383838}.hint--bottom-left:before,.hint--bottom-right:before,.hint--bottom:before{border-bottom-color:#383838}.hint--top:after,.hint--top:before{bottom:100%;left:50%}.hint--top:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top:after{-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);transform:translateX(-50%)}.hint--top:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--top:hover:after{-webkit-transform:translateX(-50%) translateY(-8px);-moz-transform:translateX(-50%) translateY(-8px);transform:translateX(-50%) translateY(-8px)}.hint--bottom:after,.hint--bottom:before{top:100%;left:50%}.hint--bottom:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom:after{-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);transform:translateX(-50%)}.hint--bottom:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--bottom:hover:after{-webkit-transform:translateX(-50%) translateY(8px);-moz-transform:translateX(-50%) translateY(8px);transform:translateX(-50%) translateY(8px)}.hint--right:before{border-right-color:#383838;margin-left:-11px;margin-bottom:-6px}.hint--right:after{margin-bottom:-14px}.hint--right:after,.hint--right:before{left:100%;bottom:50%}.hint--right:hover:after,.hint--right:hover:before{-webkit-transform:translateX(8px);-moz-transform:translateX(8px);transform:translateX(8px)}.hint--left:before{border-left-color:#383838;margin-right:-11px;margin-bottom:-6px}.hint--left:after{margin-bottom:-14px}.hint--left:after,.hint--left:before{right:100%;bottom:50%}.hint--left:hover:after,.hint--left:hover:before{-webkit-transform:translateX(-8px);-moz-transform:translateX(-8px);transform:translateX(-8px)}.hint--top-left:after,.hint--top-left:before{bottom:100%;left:50%}.hint--top-left:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top-left:after{-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);transform:translateX(-100%);margin-left:12px}.hint--top-left:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--top-left:hover:after{-webkit-transform:translateX(-100%) translateY(-8px);-moz-transform:translateX(-100%) translateY(-8px);transform:translateX(-100%) translateY(-8px)}.hint--top-right:after,.hint--top-right:before{bottom:100%;left:50%}.hint--top-right:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top-right:after{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0);margin-left:-12px}.hint--top-right:hover:after,.hint--top-right:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--bottom-left:after,.hint--bottom-left:before{top:100%;left:50%}.hint--bottom-left:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom-left:after{-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);transform:translateX(-100%);margin-left:12px}.hint--bottom-left:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--bottom-left:hover:after{-webkit-transform:translateX(-100%) translateY(8px);-moz-transform:translateX(-100%) translateY(8px);transform:translateX(-100%) translateY(8px)}.hint--bottom-right:after,.hint--bottom-right:before{top:100%;left:50%}.hint--bottom-right:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom-right:after{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0);margin-left:-12px}.hint--bottom-right:hover:after,.hint--bottom-right:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--large:after,.hint--medium:after,.hint--small:after{white-space:normal;line-height:1.4em;word-wrap:break-word}.hint--small:after{width:80px}.hint--medium:after{width:150px}.hint--large:after{width:300px}.hint--error:after{background-color:#b34e4d;text-shadow:0 -1px 0 #592726}.hint--error.hint--top-left:before,.hint--error.hint--top-right:before,.hint--error.hint--top:before{border-top-color:#b34e4d}.hint--error.hint--bottom-left:before,.hint--error.hint--bottom-right:before,.hint--error.hint--bottom:before{border-bottom-color:#b34e4d}.hint--error.hint--left:before{border-left-color:#b34e4d}.hint--error.hint--right:before{border-right-color:#b34e4d}.hint--warning:after{background-color:#c09854;text-shadow:0 -1px 0 #6c5328}.hint--warning.hint--top-left:before,.hint--warning.hint--top-right:before,.hint--warning.hint--top:before{border-top-color:#c09854}.hint--warning.hint--bottom-left:before,.hint--warning.hint--bottom-right:before,.hint--warning.hint--bottom:before{border-bottom-color:#c09854}.hint--warning.hint--left:before{border-left-color:#c09854}.hint--warning.hint--right:before{border-right-color:#c09854}.hint--info:after{background-color:#3986ac;text-shadow:0 -1px 0 #1a3c4d}.hint--info.hint--top-left:before,.hint--info.hint--top-right:before,.hint--info.hint--top:before{border-top-color:#3986ac}.hint--info.hint--bottom-left:before,.hint--info.hint--bottom-right:before,.hint--info.hint--bottom:before{border-bottom-color:#3986ac}.hint--info.hint--left:before{border-left-color:#3986ac}.hint--info.hint--right:before{border-right-color:#3986ac}.hint--success:after{background-color:#458746;text-shadow:0 -1px 0 #1a321a}.hint--success.hint--top-left:before,.hint--success.hint--top-right:before,.hint--success.hint--top:before{border-top-color:#458746}.hint--success.hint--bottom-left:before,.hint--success.hint--bottom-right:before,.hint--success.hint--bottom:before{border-bottom-color:#458746}.hint--success.hint--left:before{border-left-color:#458746}.hint--success.hint--right:before{border-right-color:#458746}.hint--always:after,.hint--always:before{opacity:1;visibility:visible}.hint--always.hint--top:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--top:after{-webkit-transform:translateX(-50%) translateY(-8px);-moz-transform:translateX(-50%) translateY(-8px);transform:translateX(-50%) translateY(-8px)}.hint--always.hint--top-left:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--top-left:after{-webkit-transform:translateX(-100%) translateY(-8px);-moz-transform:translateX(-100%) translateY(-8px);transform:translateX(-100%) translateY(-8px)}.hint--always.hint--top-right:after,.hint--always.hint--top-right:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--bottom:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--bottom:after{-webkit-transform:translateX(-50%) translateY(8px);-moz-transform:translateX(-50%) translateY(8px);transform:translateX(-50%) translateY(8px)}.hint--always.hint--bottom-left:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--bottom-left:after{-webkit-transform:translateX(-100%) translateY(8px);-moz-transform:translateX(-100%) translateY(8px);transform:translateX(-100%) translateY(8px)}.hint--always.hint--bottom-right:after,.hint--always.hint--bottom-right:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--left:after,.hint--always.hint--left:before{-webkit-transform:translateX(-8px);-moz-transform:translateX(-8px);transform:translateX(-8px)}.hint--always.hint--right:after,.hint--always.hint--right:before{-webkit-transform:translateX(8px);-moz-transform:translateX(8px);transform:translateX(8px)}.hint--rounded:after{border-radius:4px}.hint--no-animate:after,.hint--no-animate:before{-webkit-transition-duration:0s;-moz-transition-duration:0s;transition-duration:0s}.hint--bounce:after,.hint--bounce:before{-webkit-transition:opacity .3s ease,visibility .3s ease,-webkit-transform .3s cubic-bezier(.71,1.7,.77,1.24);-moz-transition:opacity .3s ease,visibility .3s ease,-moz-transform .3s cubic-bezier(.71,1.7,.77,1.24);transition:opacity .3s ease,visibility .3s ease,transform .3s cubic-bezier(.71,1.7,.77,1.24)}\n\n:root {\n  --accent-color: #2196F3;\n  --accent-color-light: #44C6FF;\n  --accent-color-dark: #19579E;\n\n  --reverse-color: #FFFFFF;\n\n  --completed-color: #58C17A;\n  --warning-color: #F44336;\n  --highlight-color: #FDD910;\n\n  --text-color: #333333;\n  --text-color-light: #747474;\n  --text-color-dark: #000000;\n\n  --background-color: #747474;\n  --background-color-light: #EEEEEE;\n  --background-color-dark: #333333;\n\n  --border-color: #CCCCCC;\n}\n", ""]);
+exports.push([module.i, "/* Include here all css settings that should be part of multiple css stylesheets and\r\n include them in your .css files */\r\n\r\n/*! Hint.css - v2.5.0 - 2017-04-23\r\n* http://kushagragour.in/lab/hint/\r\n* Copyright (c) 2017 Kushagra Gour */\r\n\r\n[class*=hint--]{position:relative;display:inline-block}[class*=hint--]:after,[class*=hint--]:before{position:absolute;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0);visibility:hidden;opacity:0;z-index:1000000;pointer-events:none;-webkit-transition:.3s ease;-moz-transition:.3s ease;transition:.3s ease;-webkit-transition-delay:0s;-moz-transition-delay:0s;transition-delay:0s}[class*=hint--]:hover:after,[class*=hint--]:hover:before{visibility:visible;opacity:1;-webkit-transition-delay:.1s;-moz-transition-delay:.1s;transition-delay:.1s}[class*=hint--]:before{content:'';position:absolute;background:0 0;border:6px solid transparent;z-index:1000001}[class*=hint--]:after{background:#383838;color:#fff;padding:8px 10px;font-size:12px;font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif;line-height:12px;white-space:nowrap;text-shadow:0 -1px 0 #000;box-shadow:4px 4px 8px rgba(0,0,0,.3)}[class*=hint--][aria-label]:after{content:attr(aria-label)}[class*=hint--][data-hint]:after{content:attr(data-hint)}[aria-label='']:after,[aria-label='']:before,[data-hint='']:after,[data-hint='']:before{display:none!important}.hint--top-left:before,.hint--top-right:before,.hint--top:before{border-top-color:#383838}.hint--bottom-left:before,.hint--bottom-right:before,.hint--bottom:before{border-bottom-color:#383838}.hint--top:after,.hint--top:before{bottom:100%;left:50%}.hint--top:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top:after{-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);transform:translateX(-50%)}.hint--top:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--top:hover:after{-webkit-transform:translateX(-50%) translateY(-8px);-moz-transform:translateX(-50%) translateY(-8px);transform:translateX(-50%) translateY(-8px)}.hint--bottom:after,.hint--bottom:before{top:100%;left:50%}.hint--bottom:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom:after{-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);transform:translateX(-50%)}.hint--bottom:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--bottom:hover:after{-webkit-transform:translateX(-50%) translateY(8px);-moz-transform:translateX(-50%) translateY(8px);transform:translateX(-50%) translateY(8px)}.hint--right:before{border-right-color:#383838;margin-left:-11px;margin-bottom:-6px}.hint--right:after{margin-bottom:-14px}.hint--right:after,.hint--right:before{left:100%;bottom:50%}.hint--right:hover:after,.hint--right:hover:before{-webkit-transform:translateX(8px);-moz-transform:translateX(8px);transform:translateX(8px)}.hint--left:before{border-left-color:#383838;margin-right:-11px;margin-bottom:-6px}.hint--left:after{margin-bottom:-14px}.hint--left:after,.hint--left:before{right:100%;bottom:50%}.hint--left:hover:after,.hint--left:hover:before{-webkit-transform:translateX(-8px);-moz-transform:translateX(-8px);transform:translateX(-8px)}.hint--top-left:after,.hint--top-left:before{bottom:100%;left:50%}.hint--top-left:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top-left:after{-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);transform:translateX(-100%);margin-left:12px}.hint--top-left:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--top-left:hover:after{-webkit-transform:translateX(-100%) translateY(-8px);-moz-transform:translateX(-100%) translateY(-8px);transform:translateX(-100%) translateY(-8px)}.hint--top-right:after,.hint--top-right:before{bottom:100%;left:50%}.hint--top-right:before{margin-bottom:-11px;left:calc(50% - 6px)}.hint--top-right:after{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0);margin-left:-12px}.hint--top-right:hover:after,.hint--top-right:hover:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--bottom-left:after,.hint--bottom-left:before{top:100%;left:50%}.hint--bottom-left:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom-left:after{-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);transform:translateX(-100%);margin-left:12px}.hint--bottom-left:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--bottom-left:hover:after{-webkit-transform:translateX(-100%) translateY(8px);-moz-transform:translateX(-100%) translateY(8px);transform:translateX(-100%) translateY(8px)}.hint--bottom-right:after,.hint--bottom-right:before{top:100%;left:50%}.hint--bottom-right:before{margin-top:-11px;left:calc(50% - 6px)}.hint--bottom-right:after{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0);margin-left:-12px}.hint--bottom-right:hover:after,.hint--bottom-right:hover:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--large:after,.hint--medium:after,.hint--small:after{white-space:normal;line-height:1.4em;word-wrap:break-word}.hint--small:after{width:80px}.hint--medium:after{width:150px}.hint--large:after{width:300px}.hint--error:after{background-color:#b34e4d;text-shadow:0 -1px 0 #592726}.hint--error.hint--top-left:before,.hint--error.hint--top-right:before,.hint--error.hint--top:before{border-top-color:#b34e4d}.hint--error.hint--bottom-left:before,.hint--error.hint--bottom-right:before,.hint--error.hint--bottom:before{border-bottom-color:#b34e4d}.hint--error.hint--left:before{border-left-color:#b34e4d}.hint--error.hint--right:before{border-right-color:#b34e4d}.hint--warning:after{background-color:#c09854;text-shadow:0 -1px 0 #6c5328}.hint--warning.hint--top-left:before,.hint--warning.hint--top-right:before,.hint--warning.hint--top:before{border-top-color:#c09854}.hint--warning.hint--bottom-left:before,.hint--warning.hint--bottom-right:before,.hint--warning.hint--bottom:before{border-bottom-color:#c09854}.hint--warning.hint--left:before{border-left-color:#c09854}.hint--warning.hint--right:before{border-right-color:#c09854}.hint--info:after{background-color:#3986ac;text-shadow:0 -1px 0 #1a3c4d}.hint--info.hint--top-left:before,.hint--info.hint--top-right:before,.hint--info.hint--top:before{border-top-color:#3986ac}.hint--info.hint--bottom-left:before,.hint--info.hint--bottom-right:before,.hint--info.hint--bottom:before{border-bottom-color:#3986ac}.hint--info.hint--left:before{border-left-color:#3986ac}.hint--info.hint--right:before{border-right-color:#3986ac}.hint--success:after{background-color:#458746;text-shadow:0 -1px 0 #1a321a}.hint--success.hint--top-left:before,.hint--success.hint--top-right:before,.hint--success.hint--top:before{border-top-color:#458746}.hint--success.hint--bottom-left:before,.hint--success.hint--bottom-right:before,.hint--success.hint--bottom:before{border-bottom-color:#458746}.hint--success.hint--left:before{border-left-color:#458746}.hint--success.hint--right:before{border-right-color:#458746}.hint--always:after,.hint--always:before{opacity:1;visibility:visible}.hint--always.hint--top:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--top:after{-webkit-transform:translateX(-50%) translateY(-8px);-moz-transform:translateX(-50%) translateY(-8px);transform:translateX(-50%) translateY(-8px)}.hint--always.hint--top-left:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--top-left:after{-webkit-transform:translateX(-100%) translateY(-8px);-moz-transform:translateX(-100%) translateY(-8px);transform:translateX(-100%) translateY(-8px)}.hint--always.hint--top-right:after,.hint--always.hint--top-right:before{-webkit-transform:translateY(-8px);-moz-transform:translateY(-8px);transform:translateY(-8px)}.hint--always.hint--bottom:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--bottom:after{-webkit-transform:translateX(-50%) translateY(8px);-moz-transform:translateX(-50%) translateY(8px);transform:translateX(-50%) translateY(8px)}.hint--always.hint--bottom-left:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--bottom-left:after{-webkit-transform:translateX(-100%) translateY(8px);-moz-transform:translateX(-100%) translateY(8px);transform:translateX(-100%) translateY(8px)}.hint--always.hint--bottom-right:after,.hint--always.hint--bottom-right:before{-webkit-transform:translateY(8px);-moz-transform:translateY(8px);transform:translateY(8px)}.hint--always.hint--left:after,.hint--always.hint--left:before{-webkit-transform:translateX(-8px);-moz-transform:translateX(-8px);transform:translateX(-8px)}.hint--always.hint--right:after,.hint--always.hint--right:before{-webkit-transform:translateX(8px);-moz-transform:translateX(8px);transform:translateX(8px)}.hint--rounded:after{border-radius:4px}.hint--no-animate:after,.hint--no-animate:before{-webkit-transition-duration:0s;-moz-transition-duration:0s;transition-duration:0s}.hint--bounce:after,.hint--bounce:before{-webkit-transition:opacity .3s ease,visibility .3s ease,-webkit-transform .3s cubic-bezier(.71,1.7,.77,1.24);-moz-transition:opacity .3s ease,visibility .3s ease,-moz-transform .3s cubic-bezier(.71,1.7,.77,1.24);transition:opacity .3s ease,visibility .3s ease,transform .3s cubic-bezier(.71,1.7,.77,1.24)}\r\n\r\n:root {\r\n  --accent-color: #2196F3;\r\n  --accent-color-light: #44C6FF;\r\n  --accent-color-dark: #19579E;\r\n\r\n  --reverse-color: #FFFFFF;\r\n\r\n  --completed-color: #58C17A;\r\n  --warning-color: #F44336;\r\n  --highlight-color: #FDD910;\r\n\r\n  --text-color: #333333;\r\n  --text-color-light: #747474;\r\n  --text-color-dark: #000000;\r\n\r\n  --background-color: #747474;\r\n  --background-color-light: #EEEEEE;\r\n  --background-color-dark: #333333;\r\n\r\n  --border-color: #CCCCCC;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1750,12 +1759,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ScripturePane = __webpack_require__(19);
+var _TranslationHelps = __webpack_require__(19);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_ScripturePane).default;
+    return _interopRequireDefault(_TranslationHelps).default;
   }
 });
 
@@ -1772,8 +1781,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
@@ -1788,192 +1795,57 @@ var _reactBootstrap = __webpack_require__(226);
 
 __webpack_require__(419);
 
-var _Pane = __webpack_require__(421);
-
-var _Pane2 = _interopRequireDefault(_Pane);
-
-var _ExpandedScripturePaneModal = __webpack_require__(438);
-
-var _ExpandedScripturePaneModal2 = _interopRequireDefault(_ExpandedScripturePaneModal);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/*
+<Glyphicon
+onClick={openExpandedHelpsPane}
+glyph={"fullscreen"}
+style={{ cursor: "pointer" }}
+title={expandedHelpsPaneIconTitle}
+/> */
+var TranslationHelps = function TranslationHelps(_ref) {
+  var article = _ref.article,
+      openExpandedHelpsPane = _ref.openExpandedHelpsPane,
+      expandedHelpsButtonHoverText = _ref.expandedHelpsButtonHoverText;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  return _react2.default.createElement(
+    'div',
+    { className: 'helps-sash-container' },
+    _react2.default.createElement(
+      'div',
+      { className: 'helps-title-bar' },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, {
+        onClick: openExpandedHelpsPane,
+        glyph: "fullscreen",
+        style: { cursor: "pointer" },
+        title: expandedHelpsButtonHoverText
+      })
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'helps-article' },
+      article
+    )
+  );
+}; /**
+    *  TranslationHelps is a feature of the TranslationWords tool and consists of:
+    *   A collapible sidebar showing the complete artical sumarized in panel
+    *     The sidebar has a sash that expands to about 20% of the application window
+    *     The sash can collapse to about 0.25in
+    *     The expanded sidebar vertically wraps article text and can scroll entire article
+    *     When expanded the "See More" button in panel is hidden 
+    *   It interoperates with CheckInfoCard
+    */
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * TODO: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 1. Add selections support to verse component's VerseString sub-component.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 2. Add verse array support in verse component.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 3. Add support for greek word lexicon.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 4. Complete Expanded Scripture pane Component.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 5. Re-introduce Verse Editor to scripture pane.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
-// components
-
-
-var ScripturePane = function (_Component) {
-  _inherits(ScripturePane, _Component);
-
-  function ScripturePane() {
-    _classCallCheck(this, ScripturePane);
-
-    var _this = _possibleConstructorReturn(this, (ScripturePane.__proto__ || Object.getPrototypeOf(ScripturePane)).call(this));
-
-    _this.state = {
-      showExpandedScripturePane: false
-    };
-    _this.openExpandedScripturePane = _this.openExpandedScripturePane.bind(_this);
-    _this.closeExpandedScripturePane = _this.closeExpandedScripturePane.bind(_this);
-
-    return _this;
-  }
-
-  _createClass(ScripturePane, [{
-    key: 'openExpandedScripturePane',
-    value: function openExpandedScripturePane() {
-      this.setState({ showExpandedScripturePane: true });
-    }
-  }, {
-    key: 'closeExpandedScripturePane',
-    value: function closeExpandedScripturePane() {
-      this.setState({ showExpandedScripturePane: false });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          titleLabel = _props.titleLabel,
-          closeButtonLabel = _props.closeButtonLabel,
-          expandedScripturePaneTitle = _props.expandedScripturePaneTitle,
-          expandButtonHoverText = _props.expandButtonHoverText;
-
-      // material-ui-theme, new color themes could be added here in the future
-
-      var theme = (0, _styles.createMuiTheme)();
-
-      return _react2.default.createElement(
-        _styles.MuiThemeProvider,
-        { theme: theme },
-        _react2.default.createElement(
-          'div',
-          { className: 'scripture-pane-container' },
-          _react2.default.createElement(
-            'div',
-            { className: 'inner-container' },
-            _react2.default.createElement(
-              'div',
-              { className: 'title-bar' },
-              _react2.default.createElement(
-                'span',
-                null,
-                titleLabel
-              ),
-              _react2.default.createElement(_reactBootstrap.Glyphicon, {
-                onClick: this.openExpandedScripturePane,
-                glyph: "fullscreen",
-                style: { cursor: "pointer" },
-                title: expandButtonHoverText
-              })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'panes-container' },
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness, Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              })
-            )
-          ),
-          _react2.default.createElement(_ExpandedScripturePaneModal2.default, {
-            show: this.state.showExpandedScripturePane,
-            onHide: this.closeExpandedScripturePane,
-            title: expandedScripturePaneTitle,
-            primaryLabel: closeButtonLabel
-          })
-        )
-      );
-    }
-  }]);
-
-  return ScripturePane;
-}(_react.Component);
-
-ScripturePane.propTypes = {
-  titleLabel: _propTypes2.default.string.isRequired,
-  closeButtonLabel: _propTypes2.default.string.isRequired,
-  expandedScripturePaneTitle: _propTypes2.default.string.isRequired,
-  expandButtonHoverText: _propTypes2.default.string.isRequired
+TranslationHelps.propTypes = {
+  article: _propTypes2.default.object.isRequired,
+  openExpandedHelpsPane: _propTypes2.default.func.isRequired,
+  expandedHelpsButtonHoverText: _propTypes2.default.string.isRequired
 };
 
-exports.default = ScripturePane;
+exports.default = TranslationHelps;
 
 /***/ }),
 /* 20 */
@@ -46441,13 +46313,288 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".scripture-pane-container {\n  flex: 1;\n  margin: 10px;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.inner-container {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.panes-container {\n  flex: 1 1 140px;\n  display: flex;\n  overflow-x: auto;\n}", ""]);
+exports.push([module.i, ".helps-sash-container {\r\n /* display: flex;\r\n  flex-direction: column;\r\n  max-width: 3in;\r\n   flex: stretch;\r\n  width: 3in;\r\n  max-width: 3in; \r\n  max-height: 90%; \r\n  padding-top: 10px; */\r\n  color: var(--text-color);\r\n  background-color: var(--background-color-light);\r\n \r\n}\r\n\r\n.helps-title-bar {\r\n  text-align: right;\r\n  padding: 10px;\r\n  color: var(--text-color);\r\n  background-color: var(--background-color-light);\r\n  border-bottom: thin solid var(--background-color-dark);\r\n   /*overflow: hidden;\r\n  height: 80px;\r\n  overflow-y: auto;\r\n \r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  flex: 0 0 120px;\r\n  display: flex;\r\n  margin: 0 10px; */\r\n \r\n}\r\n\r\n.helps-article {\r\n  padding: 10px;\r\n  /*overflow: scroll;\r\n  flex: stretch; \r\n  display: flex;\r\n  margin: 0 10px;\r\n  color: var(--text-color);\r\n  background-color: var(--background-color-light);\r\n  box-shadow: 0 3px 10px var(--background-color-dark);\r\n  border-radius: 2px; */\r\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
 
 /***/ }),
 /* 421 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ScripturePane = __webpack_require__(422);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_ScripturePane).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _styles = __webpack_require__(20);
+
+var _reactBootstrap = __webpack_require__(226);
+
+__webpack_require__(423);
+
+var _Pane = __webpack_require__(425);
+
+var _Pane2 = _interopRequireDefault(_Pane);
+
+var _ExpandedScripturePaneModal = __webpack_require__(445);
+
+var _ExpandedScripturePaneModal2 = _interopRequireDefault(_ExpandedScripturePaneModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * TODO: 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 1. Add selections support to verse component's VerseString sub-component.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 2. Add verse array support in verse component.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 3. Add support for greek word lexicon.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 4. Complete Expanded Scripture pane Component.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 5. Re-introduce Verse Editor to scripture pane.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+// components
+
+
+var ScripturePane = function (_Component) {
+  _inherits(ScripturePane, _Component);
+
+  function ScripturePane() {
+    _classCallCheck(this, ScripturePane);
+
+    var _this = _possibleConstructorReturn(this, (ScripturePane.__proto__ || Object.getPrototypeOf(ScripturePane)).call(this));
+
+    _this.state = {
+      showExpandedScripturePane: false
+    };
+    _this.openExpandedScripturePane = _this.openExpandedScripturePane.bind(_this);
+    _this.closeExpandedScripturePane = _this.closeExpandedScripturePane.bind(_this);
+
+    return _this;
+  }
+
+  _createClass(ScripturePane, [{
+    key: 'openExpandedScripturePane',
+    value: function openExpandedScripturePane() {
+      this.setState({ showExpandedScripturePane: true });
+    }
+  }, {
+    key: 'closeExpandedScripturePane',
+    value: function closeExpandedScripturePane() {
+      this.setState({ showExpandedScripturePane: false });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          titleLabel = _props.titleLabel,
+          closeButtonLabel = _props.closeButtonLabel,
+          expandedScripturePaneTitle = _props.expandedScripturePaneTitle,
+          expandButtonHoverText = _props.expandButtonHoverText;
+
+      // material-ui-theme, new color themes could be added here in the future
+
+      var theme = (0, _styles.createMuiTheme)();
+
+      return _react2.default.createElement(
+        _styles.MuiThemeProvider,
+        { theme: theme },
+        _react2.default.createElement(
+          'div',
+          { className: 'scripture-pane-container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'inner-container' },
+            _react2.default.createElement(
+              'div',
+              { className: 'title-bar' },
+              _react2.default.createElement(
+                'span',
+                null,
+                titleLabel
+              ),
+              _react2.default.createElement(_reactBootstrap.Glyphicon, {
+                onClick: this.openExpandedScripturePane,
+                glyph: "fullscreen",
+                style: { cursor: "pointer" },
+                title: expandButtonHoverText
+              })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'panes-container' },
+              _react2.default.createElement(_Pane2.default, {
+                index: 1,
+                bibleId: 'ult',
+                languageName: 'English',
+                direction: 'ltr',
+                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
+                description: 'Gateway Language',
+                chapter: 1,
+                verse: 2,
+                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
+                removePane: function removePane() {
+                  return console.log('temp removePane');
+                }
+              }),
+              _react2.default.createElement(_Pane2.default, {
+                index: 1,
+                bibleId: 'ult',
+                languageName: 'English',
+                direction: 'ltr',
+                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
+                description: 'Gateway Language',
+                chapter: 1,
+                verse: 2,
+                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
+                removePane: function removePane() {
+                  return console.log('temp removePane');
+                }
+              }),
+              _react2.default.createElement(_Pane2.default, {
+                index: 1,
+                bibleId: 'ult',
+                languageName: 'English',
+                direction: 'ltr',
+                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
+                description: 'Gateway Language',
+                chapter: 1,
+                verse: 2,
+                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
+                removePane: function removePane() {
+                  return console.log('temp removePane');
+                }
+              }),
+              _react2.default.createElement(_Pane2.default, {
+                index: 1,
+                bibleId: 'ult',
+                languageName: 'English',
+                direction: 'ltr',
+                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness, Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
+                description: 'Gateway Language',
+                chapter: 1,
+                verse: 2,
+                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
+                removePane: function removePane() {
+                  return console.log('temp removePane');
+                }
+              }),
+              _react2.default.createElement(_Pane2.default, {
+                index: 1,
+                bibleId: 'ult',
+                languageName: 'English',
+                direction: 'ltr',
+                description: 'Gateway Language',
+                chapter: 1,
+                verse: 2,
+                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
+                removePane: function removePane() {
+                  return console.log('temp removePane');
+                }
+              })
+            )
+          ),
+          _react2.default.createElement(_ExpandedScripturePaneModal2.default, {
+            show: this.state.showExpandedScripturePane,
+            onHide: this.closeExpandedScripturePane,
+            title: expandedScripturePaneTitle,
+            primaryLabel: closeButtonLabel
+          })
+        )
+      );
+    }
+  }]);
+
+  return ScripturePane;
+}(_react.Component);
+
+ScripturePane.propTypes = {
+  titleLabel: _propTypes2.default.string.isRequired,
+  closeButtonLabel: _propTypes2.default.string.isRequired,
+  expandedScripturePaneTitle: _propTypes2.default.string.isRequired,
+  expandButtonHoverText: _propTypes2.default.string.isRequired
+};
+
+exports.default = ScripturePane;
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(424);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, ".scripture-pane-container {\r\n  flex: 1;\r\n  margin: 10px;\r\n  box-shadow: 0 3px 10px var(--background-color);\r\n  border-radius: 2px;\r\n}\r\n\r\n.inner-container {\r\n  height: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.title-bar {\r\n  flex: 0 0 40px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 10px;\r\n  color: var(--reverse-color);\r\n  background-color: var(--accent-color-dark);\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n}\r\n\r\n.panes-container {\r\n  flex: 1 1 140px;\r\n  display: flex;\r\n  overflow-x: auto;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46465,15 +46612,15 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactContainerDimensions = __webpack_require__(422);
+var _reactContainerDimensions = __webpack_require__(426);
 
 var _reactContainerDimensions2 = _interopRequireDefault(_reactContainerDimensions);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(436);
+__webpack_require__(440);
 
-var _Verse = __webpack_require__(503);
+var _Verse = __webpack_require__(442);
 
 var _Verse2 = _interopRequireDefault(_Verse);
 
@@ -46567,7 +46714,7 @@ Pane.propTypes = {
 exports.default = Pane;
 
 /***/ }),
-/* 422 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46593,7 +46740,7 @@ var _reactDom = __webpack_require__(261);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _elementResizeDetector = __webpack_require__(423);
+var _elementResizeDetector = __webpack_require__(427);
 
 var _elementResizeDetector2 = _interopRequireDefault(_elementResizeDetector);
 
@@ -46688,25 +46835,25 @@ ContainerDimensions.propTypes = {
 exports.default = ContainerDimensions;
 
 /***/ }),
-/* 423 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var forEach                 = __webpack_require__(424).forEach;
-var elementUtilsMaker       = __webpack_require__(425);
-var listenerHandlerMaker    = __webpack_require__(426);
-var idGeneratorMaker        = __webpack_require__(427);
-var idHandlerMaker          = __webpack_require__(428);
-var reporterMaker           = __webpack_require__(429);
-var browserDetector         = __webpack_require__(430);
-var batchProcessorMaker     = __webpack_require__(431);
-var stateHandler            = __webpack_require__(433);
+var forEach                 = __webpack_require__(428).forEach;
+var elementUtilsMaker       = __webpack_require__(429);
+var listenerHandlerMaker    = __webpack_require__(430);
+var idGeneratorMaker        = __webpack_require__(431);
+var idHandlerMaker          = __webpack_require__(432);
+var reporterMaker           = __webpack_require__(433);
+var browserDetector         = __webpack_require__(434);
+var batchProcessorMaker     = __webpack_require__(435);
+var stateHandler            = __webpack_require__(437);
 
 //Detection strategies.
-var objectStrategyMaker     = __webpack_require__(434);
-var scrollStrategyMaker     = __webpack_require__(435);
+var objectStrategyMaker     = __webpack_require__(438);
+var scrollStrategyMaker     = __webpack_require__(439);
 
 function isCollection(obj) {
     return Array.isArray(obj) || obj.length !== undefined;
@@ -47016,7 +47163,7 @@ function getOption(options, name, defaultValue) {
 
 
 /***/ }),
-/* 424 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47042,7 +47189,7 @@ utils.forEach = function(collection, callback) {
 
 
 /***/ }),
-/* 425 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47101,7 +47248,7 @@ module.exports = function(options) {
 
 
 /***/ }),
-/* 426 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47168,7 +47315,7 @@ module.exports = function(idHandler) {
 
 
 /***/ }),
-/* 427 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47193,7 +47340,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 428 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47247,7 +47394,7 @@ module.exports = function(options) {
 
 
 /***/ }),
-/* 429 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47296,7 +47443,7 @@ module.exports = function(quiet) {
 };
 
 /***/ }),
-/* 430 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47342,13 +47489,13 @@ detector.isLegacyOpera = function() {
 
 
 /***/ }),
-/* 431 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(432);
+var utils = __webpack_require__(436);
 
 module.exports = function batchProcessorMaker(options) {
     options             = options || {};
@@ -47487,7 +47634,7 @@ function Batch() {
 
 
 /***/ }),
-/* 432 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47509,7 +47656,7 @@ function getOption(options, name, defaultValue) {
 
 
 /***/ }),
-/* 433 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47538,7 +47685,7 @@ module.exports = {
 
 
 /***/ }),
-/* 434 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47549,7 +47696,7 @@ module.exports = {
 
 
 
-var browserDetector = __webpack_require__(430);
+var browserDetector = __webpack_require__(434);
 
 module.exports = function(options) {
     options             = options || {};
@@ -47759,7 +47906,7 @@ module.exports = function(options) {
 
 
 /***/ }),
-/* 435 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47770,7 +47917,7 @@ module.exports = function(options) {
 
 
 
-var forEach = __webpack_require__(424).forEach;
+var forEach = __webpack_require__(428).forEach;
 
 module.exports = function(options) {
     options             = options || {};
@@ -48413,11 +48560,11 @@ module.exports = function(options) {
 
 
 /***/ }),
-/* 436 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(437);
+var content = __webpack_require__(441);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -48438,7 +48585,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 437 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -48446,13 +48593,174 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".pane-container {\n  flex: 1;\n  display: flex;\n  min-width: 300px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".pane-container {\r\n  flex: 1;\r\n  display: flex;\r\n  min-width: 300px;\r\n  flex-direction: column;\r\n  border-right: 1px solid var(--border-color);\r\n}\r\n\r\n.pane-title-container {\r\n  flex: 0 0 35px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 5px 10px 5px 15px;\r\n}\r\n\r\n.pane-title-container-content {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.pane-title-text {\r\n  font-weight: 700;\r\n  font-size: 1em;\r\n  margin-bottom: -5px;\r\n}\r\n\r\n.pane-subtitle-text {\r\n  color: var(--text-color-light);\r\n  font-style: bold;\r\n  font-family: noto sans;\r\n}\r\n\r\n.verse-content-container-ltr {\r\n  overflow-y: auto;\r\n  direction: ltr;\r\n  flex: auto;\r\n  padding: 0 15px 10px;\r\n}\r\n\r\n.verse-content-container-rtl {\r\n  overflow-y: auto;\r\n  direction: rtl;\r\n  flex: auto;\r\n  padding: 0 15px 10px;\r\n}\r\n\r\n.remove-glyph-icon {\r\n  color: var(--text-color-light);\r\n  cursor: pointer;\r\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 438 */
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+__webpack_require__(443);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// constants
+var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
+
+var VerseString = function VerseString(_ref) {
+  var verseText = _ref.verseText,
+      verseIsPlaceHolder = _ref.verseIsPlaceHolder;
+
+  verseText = verseText.replace(/\s+/g, ' ');
+  var verseTextSpans = _react2.default.createElement(
+    'span',
+    { className: verseIsPlaceHolder ? 'placeholder-text' : null },
+    verseText
+  );
+
+  return verseTextSpans;
+};
+
+var VerseArray = function VerseArray(_ref2) {
+  var verseText = _ref2.verseText;
+
+  verseText = verseText || [];
+
+  return null;
+};
+
+var Verse = function (_Component) {
+  _inherits(Verse, _Component);
+
+  function Verse() {
+    _classCallCheck(this, Verse);
+
+    return _possibleConstructorReturn(this, (Verse.__proto__ || Object.getPrototypeOf(Verse)).apply(this, arguments));
+  }
+
+  _createClass(Verse, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          verseText = _props.verseText,
+          bibleId = _props.bibleId,
+          direction = _props.direction,
+          chapter = _props.chapter,
+          verse = _props.verse;
+
+      var verseIsPlaceHolder = !verseText;
+      var chapterVerseContent = direction === 'rtl' ? verse + ':' + chapter + ' ' : chapter + ':' + verse + ' ';
+      var chapterVerse = _react2.default.createElement(
+        'strong',
+        null,
+        chapterVerseContent
+      );
+      var isEditable = bibleId === 'targetBible';
+      var text = verseText;
+      var verseSpan = _react2.default.createElement('span', null);
+
+      if (verseIsPlaceHolder) text = PLACE_HOLDER_TEXT;
+
+      if (text && typeof text === 'string') {
+        // if the verse content is string / text.
+        verseSpan = _react2.default.createElement(VerseString, { verseText: text, verseIsPlaceHolder: verseIsPlaceHolder });
+      } else {
+        // then the verse content is an array / verse objects.
+        verseSpan = _react2.default.createElement(VerseArray, { verseText: text });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'verse-container' },
+        _react2.default.createElement(
+          'div',
+          { className: direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl' },
+          chapterVerse,
+          verseSpan
+        )
+      );
+    }
+  }]);
+
+  return Verse;
+}(_react.Component);
+
+Verse.propTypes = {
+  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired]),
+  bibleId: _propTypes2.default.string.isRequired,
+  direction: _propTypes2.default.string.isRequired,
+  chapter: _propTypes2.default.number.isRequired,
+  verse: _propTypes2.default.number.isRequired
+};
+
+exports.default = Verse;
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(444);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".verse-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100%;\r\n}\r\n\r\n.verse-content-ltr {\r\n  flex: 1;\r\n  direction: ltr;\r\n}\r\n\r\n.verse-content-rtl {\r\n  flex: 1;\r\n  direction: rtl;\r\n}\r\n\r\n.placeholder-text {\r\n  font-style: italic;\r\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48470,15 +48778,15 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Dialog = __webpack_require__(439);
+var _Dialog = __webpack_require__(446);
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(492);
+__webpack_require__(499);
 
-var _ChapterView = __webpack_require__(494);
+var _ChapterView = __webpack_require__(501);
 
 var _ChapterView2 = _interopRequireDefault(_ChapterView);
 
@@ -48510,7 +48818,7 @@ ExpandedScripturePaneModal.propTypes = {
 exports.default = ExpandedScripturePaneModal;
 
 /***/ }),
-/* 439 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48520,7 +48828,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Dialog = __webpack_require__(440);
+var _Dialog = __webpack_require__(447);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -48529,7 +48837,7 @@ Object.defineProperty(exports, 'default', {
   }
 });
 
-var _DialogActions = __webpack_require__(458);
+var _DialogActions = __webpack_require__(465);
 
 Object.defineProperty(exports, 'DialogActions', {
   enumerable: true,
@@ -48538,7 +48846,7 @@ Object.defineProperty(exports, 'DialogActions', {
   }
 });
 
-var _DialogTitle = __webpack_require__(471);
+var _DialogTitle = __webpack_require__(478);
 
 Object.defineProperty(exports, 'DialogTitle', {
   enumerable: true,
@@ -48547,7 +48855,7 @@ Object.defineProperty(exports, 'DialogTitle', {
   }
 });
 
-var _DialogContent = __webpack_require__(474);
+var _DialogContent = __webpack_require__(481);
 
 Object.defineProperty(exports, 'DialogContent', {
   enumerable: true,
@@ -48556,7 +48864,7 @@ Object.defineProperty(exports, 'DialogContent', {
   }
 });
 
-var _DialogContentText = __webpack_require__(475);
+var _DialogContentText = __webpack_require__(482);
 
 Object.defineProperty(exports, 'DialogContentText', {
   enumerable: true,
@@ -48565,7 +48873,7 @@ Object.defineProperty(exports, 'DialogContentText', {
   }
 });
 
-var _withMobileDialog = __webpack_require__(476);
+var _withMobileDialog = __webpack_require__(483);
 
 Object.defineProperty(exports, 'withMobileDialog', {
   enumerable: true,
@@ -48577,7 +48885,7 @@ Object.defineProperty(exports, 'withMobileDialog', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 440 */
+/* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48616,19 +48924,19 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(448);
 
-var _Modal = __webpack_require__(442);
+var _Modal = __webpack_require__(449);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _Fade = __webpack_require__(454);
+var _Fade = __webpack_require__(461);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
 var _transitions = __webpack_require__(79);
 
-var _Paper = __webpack_require__(456);
+var _Paper = __webpack_require__(463);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
@@ -48859,7 +49167,7 @@ Dialog.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialog' })(Dialog);
 
 /***/ }),
-/* 441 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48955,7 +49263,7 @@ function createChainedFunction() {
 }
 
 /***/ }),
-/* 442 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48965,7 +49273,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Modal = __webpack_require__(443);
+var _Modal = __webpack_require__(450);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -48974,7 +49282,7 @@ Object.defineProperty(exports, 'default', {
   }
 });
 
-var _Backdrop = __webpack_require__(453);
+var _Backdrop = __webpack_require__(460);
 
 Object.defineProperty(exports, 'Backdrop', {
   enumerable: true,
@@ -48983,7 +49291,7 @@ Object.defineProperty(exports, 'Backdrop', {
   }
 });
 
-var _ModalManager = __webpack_require__(449);
+var _ModalManager = __webpack_require__(456);
 
 Object.defineProperty(exports, 'ModalManager', {
   enumerable: true,
@@ -48995,7 +49303,7 @@ Object.defineProperty(exports, 'ModalManager', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 443 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49054,7 +49362,7 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactLifecyclesCompat = __webpack_require__(444);
+var _reactLifecyclesCompat = __webpack_require__(451);
 
 var _warning = __webpack_require__(22);
 
@@ -49080,25 +49388,25 @@ var _ownerDocument = __webpack_require__(297);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _RootRef = __webpack_require__(445);
+var _RootRef = __webpack_require__(452);
 
 var _RootRef2 = _interopRequireDefault(_RootRef);
 
-var _Portal = __webpack_require__(446);
+var _Portal = __webpack_require__(453);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(448);
 
 var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _ModalManager = __webpack_require__(449);
+var _ModalManager = __webpack_require__(456);
 
 var _ModalManager2 = _interopRequireDefault(_ModalManager);
 
-var _Backdrop = __webpack_require__(453);
+var _Backdrop = __webpack_require__(460);
 
 var _Backdrop2 = _interopRequireDefault(_Backdrop);
 
@@ -49502,7 +49810,7 @@ Modal.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiModal' })((0, _reactLifecyclesCompat.polyfill)(Modal));
 
 /***/ }),
-/* 444 */
+/* 451 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49676,7 +49984,7 @@ function polyfill(Component) {
 
 
 /***/ }),
-/* 445 */
+/* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49762,7 +50070,7 @@ RootRef.propTypes =  true ? {
 exports.default = RootRef;
 
 /***/ }),
-/* 446 */
+/* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49776,11 +50084,11 @@ var _reactDom = __webpack_require__(261);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Portal = __webpack_require__(447);
+var _Portal = __webpack_require__(454);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _LegacyPortal = __webpack_require__(448);
+var _LegacyPortal = __webpack_require__(455);
 
 var _LegacyPortal2 = _interopRequireDefault(_LegacyPortal);
 
@@ -49789,7 +50097,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _reactDom2.default.createPortal ? _Portal2.default : _LegacyPortal2.default;
 
 /***/ }),
-/* 447 */
+/* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49940,7 +50248,7 @@ Portal.propTypes =  true ? (0, _exactProp2.default)(Portal.propTypes, 'Portal') 
 exports.default = Portal;
 
 /***/ }),
-/* 448 */
+/* 455 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50100,7 +50408,7 @@ LegacyPortal.propTypes =  true ? (0, _exactProp2.default)(LegacyPortal.propTypes
 exports.default = LegacyPortal;
 
 /***/ }),
-/* 449 */
+/* 456 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50134,11 +50442,11 @@ var _scrollbarSize = __webpack_require__(344);
 
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 
-var _isOverflowing = __webpack_require__(450);
+var _isOverflowing = __webpack_require__(457);
 
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 
-var _manageAriaHidden = __webpack_require__(452);
+var _manageAriaHidden = __webpack_require__(459);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50316,7 +50624,7 @@ var ModalManager = function () {
 exports.default = ModalManager;
 
 /***/ }),
-/* 450 */
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50336,7 +50644,7 @@ var _ownerDocument = __webpack_require__(297);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _ownerWindow = __webpack_require__(451);
+var _ownerWindow = __webpack_require__(458);
 
 var _ownerWindow2 = _interopRequireDefault(_ownerWindow);
 
@@ -50365,7 +50673,7 @@ function isOverflowing(container) {
 }
 
 /***/ }),
-/* 451 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50391,7 +50699,7 @@ var ownerWindow = function ownerWindow(node) {
 exports.default = ownerWindow;
 
 /***/ }),
-/* 452 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50442,7 +50750,7 @@ function showSiblings(container, mountNode) {
 }
 
 /***/ }),
-/* 453 */
+/* 460 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50481,7 +50789,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Fade = __webpack_require__(454);
+var _Fade = __webpack_require__(461);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
@@ -50555,7 +50863,7 @@ Backdrop.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiBackdrop' })(Backdrop);
 
 /***/ }),
-/* 454 */
+/* 461 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50611,7 +50919,7 @@ var _withTheme = __webpack_require__(225);
 
 var _withTheme2 = _interopRequireDefault(_withTheme);
 
-var _utils = __webpack_require__(455);
+var _utils = __webpack_require__(462);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50747,7 +51055,7 @@ Fade.defaultProps = {
 exports.default = (0, _withTheme2.default)()(Fade);
 
 /***/ }),
-/* 455 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50774,7 +51082,7 @@ function getTransitionProps(props, options) {
 }
 
 /***/ }),
-/* 456 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50784,7 +51092,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paper = __webpack_require__(457);
+var _Paper = __webpack_require__(464);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -50796,7 +51104,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 457 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50913,7 +51221,7 @@ Paper.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiPaper' })(Paper);
 
 /***/ }),
-/* 458 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50948,9 +51256,9 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _reactHelpers = __webpack_require__(459);
+var _reactHelpers = __webpack_require__(466);
 
-__webpack_require__(460);
+__webpack_require__(467);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51013,7 +51321,7 @@ DialogActions.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogActions' })(DialogActions);
 
 /***/ }),
-/* 459 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51060,7 +51368,7 @@ function isMuiComponent(element, muiNames) {
 }
 
 /***/ }),
-/* 460 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51070,7 +51378,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Button = __webpack_require__(461);
+var _Button = __webpack_require__(468);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51082,7 +51390,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 461 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51123,11 +51431,11 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _colorManipulator = __webpack_require__(72);
 
-var _ButtonBase = __webpack_require__(462);
+var _ButtonBase = __webpack_require__(469);
 
 var _ButtonBase2 = _interopRequireDefault(_ButtonBase);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(448);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51389,7 +51697,7 @@ Button.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiButton' })(Button);
 
 /***/ }),
-/* 462 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51399,7 +51707,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ButtonBase = __webpack_require__(463);
+var _ButtonBase = __webpack_require__(470);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51411,7 +51719,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 463 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51474,9 +51782,9 @@ var _keycode = __webpack_require__(299);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
-var _reactLifecyclesCompat = __webpack_require__(444);
+var _reactLifecyclesCompat = __webpack_require__(451);
 
-var _ownerWindow = __webpack_require__(451);
+var _ownerWindow = __webpack_require__(458);
 
 var _ownerWindow2 = _interopRequireDefault(_ownerWindow);
 
@@ -51484,13 +51792,13 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _keyboardFocus = __webpack_require__(464);
+var _keyboardFocus = __webpack_require__(471);
 
-var _TouchRipple = __webpack_require__(465);
+var _TouchRipple = __webpack_require__(472);
 
 var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
 
-var _createRippleHandler = __webpack_require__(470);
+var _createRippleHandler = __webpack_require__(477);
 
 var _createRippleHandler2 = _interopRequireDefault(_createRippleHandler);
 
@@ -51874,7 +52182,7 @@ ButtonBase.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiButtonBase' })((0, _reactLifecyclesCompat.polyfill)(ButtonBase));
 
 /***/ }),
-/* 464 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51954,7 +52262,7 @@ function listenForFocusKeys(win) {
 }
 
 /***/ }),
-/* 465 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51973,7 +52281,7 @@ var _objectWithoutProperties2 = __webpack_require__(62);
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _toConsumableArray2 = __webpack_require__(466);
+var _toConsumableArray2 = __webpack_require__(473);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -52009,7 +52317,7 @@ var _reactDom = __webpack_require__(261);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _TransitionGroup = __webpack_require__(467);
+var _TransitionGroup = __webpack_require__(474);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
@@ -52021,7 +52329,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Ripple = __webpack_require__(469);
+var _Ripple = __webpack_require__(476);
 
 var _Ripple2 = _interopRequireDefault(_Ripple);
 
@@ -52319,7 +52627,7 @@ TouchRipple.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiTouchRipple' })(TouchRipple);
 
 /***/ }),
-/* 466 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52346,7 +52654,7 @@ exports.default = function (arr) {
 };
 
 /***/ }),
-/* 467 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52364,7 +52672,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ChildMapping = __webpack_require__(468);
+var _ChildMapping = __webpack_require__(475);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52604,7 +52912,7 @@ exports.default = TransitionGroup;
 module.exports = exports['default'];
 
 /***/ }),
-/* 468 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52699,7 +53007,7 @@ function mergeChildMappings(prev, next) {
 }
 
 /***/ }),
-/* 469 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52867,7 +53175,7 @@ Ripple.defaultProps = {
 exports.default = Ripple;
 
 /***/ }),
-/* 470 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52901,7 +53209,7 @@ function createRippleHandler(instance, eventName, action, cb) {
 exports.default = createRippleHandler;
 
 /***/ }),
-/* 471 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52936,7 +53244,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Typography = __webpack_require__(472);
+var _Typography = __webpack_require__(479);
 
 var _Typography2 = _interopRequireDefault(_Typography);
 
@@ -52998,7 +53306,7 @@ DialogTitle.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogTitle' })(DialogTitle);
 
 /***/ }),
-/* 472 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53008,7 +53316,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Typography = __webpack_require__(473);
+var _Typography = __webpack_require__(480);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -53020,7 +53328,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 473 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53059,7 +53367,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(448);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53218,7 +53526,7 @@ Typography.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTypography' })(Typography);
 
 /***/ }),
-/* 474 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53301,7 +53609,7 @@ DialogContent.propTypes =  true ? {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogContent' })(DialogContent);
 
 /***/ }),
-/* 475 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53336,7 +53644,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Typography = __webpack_require__(472);
+var _Typography = __webpack_require__(479);
 
 var _Typography2 = _interopRequireDefault(_Typography);
 
@@ -53386,7 +53694,7 @@ DialogContentText.propTypes =  true ? {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogContentText' })(DialogContentText);
 
 /***/ }),
-/* 476 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53408,7 +53716,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _withWidth = __webpack_require__(477);
+var _withWidth = __webpack_require__(484);
 
 var _withWidth2 = _interopRequireDefault(_withWidth);
 
@@ -53441,7 +53749,7 @@ var withMobileDialog = function withMobileDialog() {
 exports.default = withMobileDialog;
 
 /***/ }),
-/* 477 */
+/* 484 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53488,11 +53796,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(478);
+var _reactEventListener = __webpack_require__(485);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _debounce = __webpack_require__(480);
+var _debounce = __webpack_require__(487);
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
@@ -53677,7 +53985,7 @@ var withWidth = function withWidth() {
 exports.default = withWidth;
 
 /***/ }),
-/* 478 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53741,7 +54049,7 @@ var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _supports = __webpack_require__(479);
+var _supports = __webpack_require__(486);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53893,7 +54201,7 @@ EventListener.propTypes =  true ? {
 exports.default = EventListener;
 
 /***/ }),
-/* 479 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53945,12 +54253,12 @@ var passiveOption = exports.passiveOption = function () {
 exports.default = {};
 
 /***/ }),
-/* 480 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(481),
-    now = __webpack_require__(482),
-    toNumber = __webpack_require__(485);
+var isObject = __webpack_require__(488),
+    now = __webpack_require__(489),
+    toNumber = __webpack_require__(492);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -54141,7 +54449,7 @@ module.exports = debounce;
 
 
 /***/ }),
-/* 481 */
+/* 488 */
 /***/ (function(module, exports) {
 
 /**
@@ -54178,10 +54486,10 @@ module.exports = isObject;
 
 
 /***/ }),
-/* 482 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(483);
+var root = __webpack_require__(490);
 
 /**
  * Gets the timestamp of the number of milliseconds that have elapsed since
@@ -54207,10 +54515,10 @@ module.exports = now;
 
 
 /***/ }),
-/* 483 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(484);
+var freeGlobal = __webpack_require__(491);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -54222,7 +54530,7 @@ module.exports = root;
 
 
 /***/ }),
-/* 484 */
+/* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -54233,11 +54541,11 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103)))
 
 /***/ }),
-/* 485 */
+/* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(481),
-    isSymbol = __webpack_require__(486);
+var isObject = __webpack_require__(488),
+    isSymbol = __webpack_require__(493);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -54305,11 +54613,11 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 486 */
+/* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(487),
-    isObjectLike = __webpack_require__(491);
+var baseGetTag = __webpack_require__(494),
+    isObjectLike = __webpack_require__(498);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -54340,12 +54648,12 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 487 */
+/* 494 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(488),
-    getRawTag = __webpack_require__(489),
-    objectToString = __webpack_require__(490);
+var Symbol = __webpack_require__(495),
+    getRawTag = __webpack_require__(496),
+    objectToString = __webpack_require__(497);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -54374,10 +54682,10 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 488 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(483);
+var root = __webpack_require__(490);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -54386,10 +54694,10 @@ module.exports = Symbol;
 
 
 /***/ }),
-/* 489 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(488);
+var Symbol = __webpack_require__(495);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -54438,7 +54746,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 490 */
+/* 497 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -54466,7 +54774,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 491 */
+/* 498 */
 /***/ (function(module, exports) {
 
 /**
@@ -54501,11 +54809,11 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 492 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(493);
+var content = __webpack_require__(500);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54526,7 +54834,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 493 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -54534,13 +54842,13 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".expanded-modal-body {\n  padding: 0;\n  max-height: 500px;\n}\n\n.expanded-modal-title {\n  display: flex;\n  flex-direction: row;\n}\n\n.expanded-modal-content {\n  border-bottom: solid 1px var(--border-color);\n}\n\n.expanded-modal-icon {\n  cursor: pointer;\n  color: #ffffff;\n  width: 25;\n  height: 25;\n}\n\n.expanded-modal-icon-button {\n  padding: 0;\n  width: 25;\n  height: 25;\n  margin-top: 5;\n}\n", ""]);
+exports.push([module.i, ".expanded-modal-body {\r\n  padding: 0;\r\n  max-height: 500px;\r\n}\r\n\r\n.expanded-modal-title {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.expanded-modal-content {\r\n  border-bottom: solid 1px var(--border-color);\r\n}\r\n\r\n.expanded-modal-icon {\r\n  cursor: pointer;\r\n  color: #ffffff;\r\n  width: 25;\r\n  height: 25;\r\n}\r\n\r\n.expanded-modal-icon-button {\r\n  padding: 0;\r\n  width: 25;\r\n  height: 25;\r\n  margin-top: 5;\r\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 494 */
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54560,13 +54868,13 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(495);
+__webpack_require__(502);
 
-var _BibleHeadingsRow = __webpack_require__(497);
+var _BibleHeadingsRow = __webpack_require__(504);
 
 var _BibleHeadingsRow2 = _interopRequireDefault(_BibleHeadingsRow);
 
-var _VerseRow = __webpack_require__(500);
+var _VerseRow = __webpack_require__(507);
 
 var _VerseRow2 = _interopRequireDefault(_VerseRow);
 
@@ -54616,11 +54924,11 @@ var ChapterView = function (_Component) {
 exports.default = ChapterView;
 
 /***/ }),
-/* 495 */
+/* 502 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(496);
+var content = __webpack_require__(503);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54641,7 +54949,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 496 */
+/* 503 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -54649,13 +54957,13 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".bible-heading-container {\n  width: 100%;\n  height: 100%;\n}\n\n.verse-row-container {\n  overflow-y: scroll;\n  overflow-x: hidden;\n  height: 310px;\n}", ""]);
+exports.push([module.i, ".bible-heading-container {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.verse-row-container {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n  height: 310px;\r\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 497 */
+/* 504 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54677,7 +54985,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(498);
+__webpack_require__(505);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54709,11 +55017,11 @@ var BibleHeadingsRow = function (_Component) {
 exports.default = BibleHeadingsRow;
 
 /***/ }),
-/* 498 */
+/* 505 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(499);
+var content = __webpack_require__(506);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54734,7 +55042,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 499 */
+/* 506 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -54742,13 +55050,13 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".row-container {\n  display: flex;\n  height: 70px;\n  margin: 0;\n  margin-right: 12px;\n  background-color: var(--reverse-color);\n  min-width: 500px;\n}\n", ""]);
+exports.push([module.i, ".row-container {\r\n  display: flex;\r\n  height: 70px;\r\n  margin: 0;\r\n  margin-right: 12px;\r\n  background-color: var(--reverse-color);\r\n  min-width: 500px;\r\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 500 */
+/* 507 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54770,7 +55078,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(501);
+__webpack_require__(508);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54804,11 +55112,11 @@ VerseRow.propTypes = {};
 exports.default = VerseRow;
 
 /***/ }),
-/* 501 */
+/* 508 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(502);
+var content = __webpack_require__(509);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54829,7 +55137,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 502 */
+/* 509 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -54837,168 +55145,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 503 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-__webpack_require__(504);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// constants
-var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
-
-var VerseString = function VerseString(_ref) {
-  var verseText = _ref.verseText,
-      verseIsPlaceHolder = _ref.verseIsPlaceHolder;
-
-  verseText = verseText.replace(/\s+/g, ' ');
-  var verseTextSpans = _react2.default.createElement(
-    'span',
-    { className: verseIsPlaceHolder ? 'placeholder-text' : null },
-    verseText
-  );
-
-  return verseTextSpans;
-};
-
-var VerseArray = function VerseArray(_ref2) {
-  var verseText = _ref2.verseText;
-
-  verseText = verseText || [];
-
-  return null;
-};
-
-var Verse = function (_Component) {
-  _inherits(Verse, _Component);
-
-  function Verse() {
-    _classCallCheck(this, Verse);
-
-    return _possibleConstructorReturn(this, (Verse.__proto__ || Object.getPrototypeOf(Verse)).apply(this, arguments));
-  }
-
-  _createClass(Verse, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          verseText = _props.verseText,
-          bibleId = _props.bibleId,
-          direction = _props.direction,
-          chapter = _props.chapter,
-          verse = _props.verse;
-
-      var verseIsPlaceHolder = !verseText;
-      var chapterVerseContent = direction === 'rtl' ? verse + ':' + chapter + ' ' : chapter + ':' + verse + ' ';
-      var chapterVerse = _react2.default.createElement(
-        'strong',
-        null,
-        chapterVerseContent
-      );
-      var isEditable = bibleId === 'targetBible';
-      var text = verseText;
-      var verseSpan = _react2.default.createElement('span', null);
-
-      if (verseIsPlaceHolder) text = PLACE_HOLDER_TEXT;
-
-      if (text && typeof text === 'string') {
-        // if the verse content is string / text.
-        verseSpan = _react2.default.createElement(VerseString, { verseText: text, verseIsPlaceHolder: verseIsPlaceHolder });
-      } else {
-        // then the verse content is an array / verse objects.
-        verseSpan = _react2.default.createElement(VerseArray, { verseText: text });
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'verse-container' },
-        _react2.default.createElement(
-          'div',
-          { className: direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl' },
-          chapterVerse,
-          verseSpan
-        )
-      );
-    }
-  }]);
-
-  return Verse;
-}(_react.Component);
-
-Verse.propTypes = {
-  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired]),
-  bibleId: _propTypes2.default.string.isRequired,
-  direction: _propTypes2.default.string.isRequired,
-  chapter: _propTypes2.default.number.isRequired,
-  verse: _propTypes2.default.number.isRequired
-};
-
-exports.default = Verse;
-
-/***/ }),
-/* 504 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(505);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 505 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".verse-container {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n\n.verse-content-ltr {\n  flex: 1;\n  direction: ltr;\n}\n\n.verse-content-rtl {\n  flex: 1;\n  direction: rtl;\n}\n\n.placeholder-text {\n  font-style: italic;\n}\n", ""]);
+exports.push([module.i, ".row-container {\r\n  display: flex;\r\n  margin: 0;\r\n  color: var(--text-color-dark);\r\n};\r\n", ""]);
 
 // exports
 
