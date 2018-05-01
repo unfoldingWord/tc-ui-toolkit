@@ -6,22 +6,22 @@ import './Verse.styles.css';
 // constants
 const PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
 
-const VerseString = ({ verseText, verseIsPlaceHolder }) => {
-  verseText = verseText.replace(/\s+/g, ' ');
-  let verseTextSpans = (
-    <span className={verseIsPlaceHolder ? 'placeholder-text' : null}>
-      {verseText}
-    </span>
-  );
+// const VerseString = ({ verseText, verseIsPlaceHolder }) => {
+//   verseText = verseText.replace(/\s+/g, ' ');
+//   let verseTextSpans = (
+//     <span className={verseIsPlaceHolder ? 'placeholder-text' : null}>
+//       {verseText}
+//     </span>
+//   );
 
-  return verseTextSpans;
-}
+//   return verseTextSpans;
+// }
 
-const VerseArray = ({ verseText }) => {
-  verseText = verseText || [];
+// const VerseArray = ({ verseText }) => {
+//   verseText = verseText || [];
 
-  return null;
-}
+//   return null;
+// }
 
 
 class Verse extends Component {
@@ -66,10 +66,9 @@ class Verse extends Component {
 }
 
 Verse.propTypes = {
-  verseText: PropTypes.oneOfType([
+  verseElements: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.array.isRequired,
-    PropTypes.object.isRequired
   ]),
   bibleId: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,

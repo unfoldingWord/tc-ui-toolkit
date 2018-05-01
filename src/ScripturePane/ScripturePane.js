@@ -17,55 +17,102 @@ import './ScripturePane.styles.css';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 
+const biblesWithHighlightedWords = {
+  en: {
+    ult: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          3: ""
+        }
+      }
+    },
+    udt: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: "",
+          3: ""
+        }
+      }
+    }
+  },
+  hi: {
+    ulb: {
+      languageName: "Hindi",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: <span>HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          3: ""
+        }
+      }
+    }
+  },
+  originalLanguage: {
+    ugnt: {
+      languageName: "Koine Greek",
+      direction: "ltr",
+      description: "Original Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: <span>GREEEKKKK Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          3: ""
+        }
+      }
+    }
+  },
+  targetLanguage: {
+    targetBible: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Target Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          3: ""
+        }
+      }
+    }
+  }
+};
 
-const paneObjects = [
+const currentPaneSettings = [
   {
-    chapter: 1,
-    verse: 2,
-    bibleId: "ult",
-    languageName: "English",
-    direction: "ltr",
-    description: "Gateway Language",
-    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+    "languageId": "targetLanguage",
+    "bibleId": "targetBible"
   },
   {
-    chapter: 1,
-    verse: 2,
-    bibleId: "ult",
-    languageName: "English",
-    direction: "ltr",
-    description: "Gateway Language",
-    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+    "languageId": "originalLanguage",
+    "bibleId": "ugnt"
   },
   {
-    chapter: 1,
-    verse: 2,
-    bibleId: "ult",
-    languageName: "English",
-    direction: "ltr",
-    description: "Gateway Language",
-    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+    "languageId": "en",
+    "bibleId": "ult"
   },
   {
-    chapter: 1,
-    verse: 2,
-    bibleId: "ult",
-    languageName: "English",
-    direction: "ltr",
-    description: "Gateway Language",
-    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
-  },
-  {
-    chapter: 1,
-    verse: 2,
-    bibleId: "ult",
-    languageName: "English",
-    direction: "ltr",
-    description: "Gateway Language",
-    verseElements: "",
-  },
-]
+    languageId: "en",
+    bibleId: "udt",
+  }
+];
 
+const contextId = {
+  refecerence: {
+    chapter: 1,
+    verse: 2,
+  }
+}
 
 class ScripturePane extends Component {
   constructor() {
@@ -109,20 +156,33 @@ class ScripturePane extends Component {
             </div>
             <div className="panes-container">
             {
-              paneObjects.map((paneObject, index) => (
-                <Pane
-                  index={index.toString()}
-                  bibleId={paneObject.bibleId}
-                  languageName={paneObject.languageName}
-                  direction={paneObject.direction}
-                  verseElements={paneObject.verseElements}
-                  description={paneObject.description}
-                  chapter={paneObject.chapter}
-                  verse={paneObject.verse}
-                  clickToRemoveResourceLabel={clickToRemoveResourceLabel}
-                  removePane={() => console.log('temp removePane')}
-                />
-              ))
+              currentPaneSettings.map((paneSettings, index) => {
+                const { languageId, bibleId } = paneSettings;
+                const {
+                  languageName,
+                  direction,
+                  description,
+                  bibleData
+                } = biblesWithHighlightedWords[languageId][bibleId]
+                const { chapter, verse } = contextId.refecerence;
+                const verseElements = bibleData[chapter][verse];
+
+                return (
+                  <Pane
+                    key={index.toString()}
+                    index={index}
+                    chapter={chapter}
+                    verse={verse}
+                    bibleId={bibleId}
+                    languageName={languageName}
+                    direction={direction}
+                    description={description}
+                    verseElements={verseElements}
+                    clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+                    removePane={() => console.log('temp removePane')}
+                  />
+                )
+              })
             }
             </div>
           </div>
@@ -131,6 +191,9 @@ class ScripturePane extends Component {
             onHide={this.closeExpandedScripturePane}
             title={expandedScripturePaneTitle}
             primaryLabel={closeButtonLabel}
+            biblesWithHighlightedWords={biblesWithHighlightedWords}
+            currentPaneSettings={currentPaneSettings}
+            contextId={contextId}
           />
         </div>
       </MuiThemeProvider>

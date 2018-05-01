@@ -1814,63 +1814,113 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // components
 
 
-var paneObjects = [{
-  chapter: 1,
-  verse: 2,
-  bibleId: "ult",
-  languageName: "English",
-  direction: "ltr",
-  description: "Gateway Language",
-  verseElements: _react2.default.createElement(
-    'span',
-    null,
-    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
-  )
+var biblesWithHighlightedWords = {
+  en: {
+    ult: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: _react2.default.createElement(
+            'span',
+            null,
+            'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+          ),
+          3: ""
+        }
+      }
+    },
+    udt: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: "",
+          3: ""
+        }
+      }
+    }
+  },
+  hi: {
+    ulb: {
+      languageName: "Hindi",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: _react2.default.createElement(
+            'span',
+            null,
+            'HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+          ),
+          3: ""
+        }
+      }
+    }
+  },
+  originalLanguage: {
+    ugnt: {
+      languageName: "Koine Greek",
+      direction: "ltr",
+      description: "Original Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: _react2.default.createElement(
+            'span',
+            null,
+            'GREEEKKKK Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+          ),
+          3: ""
+        }
+      }
+    }
+  },
+  targetLanguage: {
+    targetBible: {
+      languageName: "English",
+      direction: "ltr",
+      description: "Target Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: _react2.default.createElement(
+            'span',
+            null,
+            'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+          ),
+          3: ""
+        }
+      }
+    }
+  }
+};
+
+var currentPaneSettings = [{
+  "languageId": "targetLanguage",
+  "bibleId": "targetBible"
 }, {
-  chapter: 1,
-  verse: 2,
-  bibleId: "ult",
-  languageName: "English",
-  direction: "ltr",
-  description: "Gateway Language",
-  verseElements: _react2.default.createElement(
-    'span',
-    null,
-    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
-  )
+  "languageId": "originalLanguage",
+  "bibleId": "ugnt"
 }, {
-  chapter: 1,
-  verse: 2,
-  bibleId: "ult",
-  languageName: "English",
-  direction: "ltr",
-  description: "Gateway Language",
-  verseElements: _react2.default.createElement(
-    'span',
-    null,
-    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
-  )
+  "languageId": "en",
+  "bibleId": "ult"
 }, {
-  chapter: 1,
-  verse: 2,
-  bibleId: "ult",
-  languageName: "English",
-  direction: "ltr",
-  description: "Gateway Language",
-  verseElements: _react2.default.createElement(
-    'span',
-    null,
-    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
-  )
-}, {
-  chapter: 1,
-  verse: 2,
-  bibleId: "ult",
-  languageName: "English",
-  direction: "ltr",
-  description: "Gateway Language",
-  verseElements: ""
+  languageId: "en",
+  bibleId: "udt"
 }];
+
+var contextId = {
+  refecerence: {
+    chapter: 1,
+    verse: 2
+  }
+};
 
 var ScripturePane = function (_Component) {
   _inherits(ScripturePane, _Component);
@@ -1940,16 +1990,30 @@ var ScripturePane = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'panes-container' },
-              paneObjects.map(function (paneObject, index) {
+              currentPaneSettings.map(function (paneSettings, index) {
+                var languageId = paneSettings.languageId,
+                    bibleId = paneSettings.bibleId;
+                var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+                    languageName = _biblesWithHighlighte.languageName,
+                    direction = _biblesWithHighlighte.direction,
+                    description = _biblesWithHighlighte.description,
+                    bibleData = _biblesWithHighlighte.bibleData;
+                var _contextId$refecerenc = contextId.refecerence,
+                    chapter = _contextId$refecerenc.chapter,
+                    verse = _contextId$refecerenc.verse;
+
+                var verseElements = bibleData[chapter][verse];
+
                 return _react2.default.createElement(_Pane2.default, {
-                  index: index.toString(),
-                  bibleId: paneObject.bibleId,
-                  languageName: paneObject.languageName,
-                  direction: paneObject.direction,
-                  verseElements: paneObject.verseElements,
-                  description: paneObject.description,
-                  chapter: paneObject.chapter,
-                  verse: paneObject.verse,
+                  key: index.toString(),
+                  index: index,
+                  chapter: chapter,
+                  verse: verse,
+                  bibleId: bibleId,
+                  languageName: languageName,
+                  direction: direction,
+                  description: description,
+                  verseElements: verseElements,
                   clickToRemoveResourceLabel: clickToRemoveResourceLabel,
                   removePane: function removePane() {
                     return console.log('temp removePane');
@@ -1962,7 +2026,10 @@ var ScripturePane = function (_Component) {
             show: this.state.showExpandedScripturePane,
             onHide: this.closeExpandedScripturePane,
             title: expandedScripturePaneTitle,
-            primaryLabel: closeButtonLabel
+            primaryLabel: closeButtonLabel,
+            biblesWithHighlightedWords: biblesWithHighlightedWords,
+            currentPaneSettings: currentPaneSettings,
+            contextId: contextId
           })
         )
       );
@@ -48452,7 +48519,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".pane-container {\n  flex: 1;\n  display: flex;\n  min-width: 300px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".pane-container {\n  flex: 1;\n  display: flex;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -48491,27 +48558,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // constants
 var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
 
-var VerseString = function VerseString(_ref) {
-  var verseText = _ref.verseText,
-      verseIsPlaceHolder = _ref.verseIsPlaceHolder;
+// const VerseString = ({ verseText, verseIsPlaceHolder }) => {
+//   verseText = verseText.replace(/\s+/g, ' ');
+//   let verseTextSpans = (
+//     <span className={verseIsPlaceHolder ? 'placeholder-text' : null}>
+//       {verseText}
+//     </span>
+//   );
 
-  verseText = verseText.replace(/\s+/g, ' ');
-  var verseTextSpans = _react2.default.createElement(
-    'span',
-    { className: verseIsPlaceHolder ? 'placeholder-text' : null },
-    verseText
-  );
+//   return verseTextSpans;
+// }
 
-  return verseTextSpans;
-};
+// const VerseArray = ({ verseText }) => {
+//   verseText = verseText || [];
 
-var VerseArray = function VerseArray(_ref2) {
-  var verseText = _ref2.verseText;
+//   return null;
+// }
 
-  verseText = verseText || [];
-
-  return null;
-};
 
 var Verse = function (_Component) {
   _inherits(Verse, _Component);
@@ -48574,7 +48637,7 @@ var Verse = function (_Component) {
 }(_react.Component);
 
 Verse.propTypes = {
-  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired]),
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired]),
   bibleId: _propTypes2.default.string.isRequired,
   direction: _propTypes2.default.string.isRequired,
   chapter: _propTypes2.default.number.isRequired,
@@ -48659,12 +48722,19 @@ var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
   var show = _ref.show,
       onHide = _ref.onHide,
       title = _ref.title,
-      primaryLabel = _ref.primaryLabel;
+      primaryLabel = _ref.primaryLabel,
+      contextId = _ref.contextId,
+      biblesWithHighlightedWords = _ref.biblesWithHighlightedWords,
+      currentPaneSettings = _ref.currentPaneSettings;
 
   return _react2.default.createElement(
     _Dialog2.default,
-    { open: show, onClose: onHide },
-    _react2.default.createElement(_ChapterView2.default, null)
+    { open: show, onClose: onHide, fullWidth: true, maxWidth: 'md' },
+    _react2.default.createElement(_ChapterView2.default, {
+      contextId: contextId,
+      currentPaneSettings: currentPaneSettings,
+      biblesWithHighlightedWords: biblesWithHighlightedWords
+    })
   );
 };
 
@@ -48675,7 +48745,10 @@ ExpandedScripturePaneModal.propTypes = {
   show: _propTypes2.default.bool.isRequired,
   onHide: _propTypes2.default.func.isRequired,
   title: _propTypes2.default.string.isRequired,
-  primaryLabel: _propTypes2.default.string.isRequired
+  primaryLabel: _propTypes2.default.string.isRequired,
+  contextId: _propTypes2.default.object.isRequired,
+  biblesWithHighlightedWords: _propTypes2.default.object.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired
 };
 
 exports.default = ExpandedScripturePaneModal;
@@ -54764,6 +54837,29 @@ var ChapterView = function (_Component) {
   _createClass(ChapterView, [{
     key: 'render',
     value: function render() {
+      var _props = this.props,
+          contextId = _props.contextId,
+          currentPaneSettings = _props.currentPaneSettings,
+          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
+      var _contextId$refecerenc = contextId.refecerence,
+          chapter = _contextId$refecerenc.chapter,
+          verse = _contextId$refecerenc.verse;
+
+      var verseNumbers = Object.keys(biblesWithHighlightedWords['en']['ult'].bibleData[chapter]);
+      var verseRows = _react2.default.createElement('div', null);
+
+      if (verseNumbers.length > 0) {
+
+        verseRows = verseNumbers.map(function (verseNumber) {
+          return _react2.default.createElement(_VerseRow2.default, { key: verseNumber,
+            chapter: chapter,
+            verse: verse,
+            currentVerseNumber: verseNumber,
+            currentPaneSettings: currentPaneSettings,
+            biblesWithHighlightedWords: biblesWithHighlightedWords });
+        });
+      }
+
       return _react2.default.createElement(
         'div',
         null,
@@ -54774,7 +54870,7 @@ var ChapterView = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'verse-row-container' },
-            _react2.default.createElement(_VerseRow2.default, null)
+            verseRows
           )
         )
       );
@@ -54783,6 +54879,12 @@ var ChapterView = function (_Component) {
 
   return ChapterView;
 }(_react.Component);
+
+ChapterView.propTypes = {
+  contextId: _propTypes2.default.object.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  biblesWithHighlightedWords: _propTypes2.default.object.isRequired
+};
 
 exports.default = ChapterView;
 
@@ -54943,6 +55045,10 @@ var _reactBootstrap = __webpack_require__(226);
 
 __webpack_require__(504);
 
+var _Verse = __webpack_require__(438);
+
+var _Verse2 = _interopRequireDefault(_Verse);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54950,6 +55056,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// components
+
 
 var VerseRow = function (_Component) {
   _inherits(VerseRow, _Component);
@@ -54963,14 +55072,67 @@ var VerseRow = function (_Component) {
   _createClass(VerseRow, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_reactBootstrap.Row, { className: 'row-container' });
+      var _props = this.props,
+          chapter = _props.chapter,
+          verse = _props.verse,
+          currentVerseNumber = _props.currentVerseNumber,
+          currentPaneSettings = _props.currentPaneSettings,
+          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
+
+      var verseCells = _react2.default.createElement('div', null);
+      var isCurrent = currentVerseNumber === verse.toString();
+
+      var colStyle = {
+        alignItems: 'stretch', padding: '10px', paddingTop: '20px',
+        borderRight: '1px solid var(--border-color)'
+      };
+      var rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
+
+      if (currentPaneSettings.length > 0) {
+        console.log(currentPaneSettings);
+        verseCells = currentPaneSettings.map(function (paneSetting, index) {
+          console.log(paneSetting);
+          var languageId = paneSetting.languageId,
+              bibleId = paneSetting.bibleId;
+          var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+              direction = _biblesWithHighlighte.direction,
+              bibleData = _biblesWithHighlighte.bibleData;
+
+          var verseElements = bibleData[chapter][currentVerseNumber];
+
+          return _react2.default.createElement(
+            _reactBootstrap.Col,
+            { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
+            _react2.default.createElement(_Verse2.default, {
+              verseElements: verseElements,
+              bibleId: bibleId,
+              direction: direction,
+              chapter: chapter,
+              verse: currentVerseNumber
+            })
+          );
+        });
+      }
+
+      return _react2.default.createElement(
+        _reactBootstrap.Row,
+        { style: rowStyle },
+        verseCells
+      );
     }
   }]);
 
   return VerseRow;
 }(_react.Component);
 
-VerseRow.propTypes = {};
+VerseRow.propTypes = {
+  chapter: _propTypes2.default.number.isRequired,
+  verse: _propTypes2.default.number.isRequired,
+  direction: _propTypes2.default.string.isRequired,
+  currentVerseNumber: _propTypes2.default.number.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
+};
 
 exports.default = VerseRow;
 

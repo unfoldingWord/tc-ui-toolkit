@@ -13,10 +13,17 @@ const ExpandedScripturePaneModal = ({
   onHide,
   title,
   primaryLabel,
+  contextId,
+  biblesWithHighlightedWords,
+  currentPaneSettings,
 }) => {
   return (
-    <Dialog open={show} onClose={onHide}>
-      <ChapterView />
+    <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
+      <ChapterView
+        contextId={contextId}
+        currentPaneSettings={currentPaneSettings}
+        biblesWithHighlightedWords={biblesWithHighlightedWords}
+      />
     </Dialog>
   );
 };
@@ -26,6 +33,9 @@ ExpandedScripturePaneModal.propTypes = {
   onHide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   primaryLabel: PropTypes.string.isRequired,
+  contextId: PropTypes.object.isRequired,
+  biblesWithHighlightedWords: PropTypes.object.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
 };
 
 export default ExpandedScripturePaneModal;
