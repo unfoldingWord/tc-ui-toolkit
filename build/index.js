@@ -1792,7 +1792,7 @@ var _Pane = __webpack_require__(421);
 
 var _Pane2 = _interopRequireDefault(_Pane);
 
-var _ExpandedScripturePaneModal = __webpack_require__(438);
+var _ExpandedScripturePaneModal = __webpack_require__(441);
 
 var _ExpandedScripturePaneModal2 = _interopRequireDefault(_ExpandedScripturePaneModal);
 
@@ -1813,6 +1813,64 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // components
 
+
+var paneObjects = [{
+  chapter: 1,
+  verse: 2,
+  bibleId: "ult",
+  languageName: "English",
+  direction: "ltr",
+  description: "Gateway Language",
+  verseElements: _react2.default.createElement(
+    'span',
+    null,
+    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+  )
+}, {
+  chapter: 1,
+  verse: 2,
+  bibleId: "ult",
+  languageName: "English",
+  direction: "ltr",
+  description: "Gateway Language",
+  verseElements: _react2.default.createElement(
+    'span',
+    null,
+    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+  )
+}, {
+  chapter: 1,
+  verse: 2,
+  bibleId: "ult",
+  languageName: "English",
+  direction: "ltr",
+  description: "Gateway Language",
+  verseElements: _react2.default.createElement(
+    'span',
+    null,
+    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+  )
+}, {
+  chapter: 1,
+  verse: 2,
+  bibleId: "ult",
+  languageName: "English",
+  direction: "ltr",
+  description: "Gateway Language",
+  verseElements: _react2.default.createElement(
+    'span',
+    null,
+    'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,'
+  )
+}, {
+  chapter: 1,
+  verse: 2,
+  bibleId: "ult",
+  languageName: "English",
+  direction: "ltr",
+  description: "Gateway Language",
+  verseElements: ""
+}];
 
 var ScripturePane = function (_Component) {
   _inherits(ScripturePane, _Component);
@@ -1848,7 +1906,8 @@ var ScripturePane = function (_Component) {
           titleLabel = _props.titleLabel,
           closeButtonLabel = _props.closeButtonLabel,
           expandedScripturePaneTitle = _props.expandedScripturePaneTitle,
-          expandButtonHoverText = _props.expandButtonHoverText;
+          expandButtonHoverText = _props.expandButtonHoverText,
+          clickToRemoveResourceLabel = _props.clickToRemoveResourceLabel;
 
       // material-ui-theme, new color themes could be added here in the future
 
@@ -1881,74 +1940,21 @@ var ScripturePane = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'panes-container' },
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                verseText: 'Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness, Paul, a servant of God and an apostle of Jesus Christ, for the faith of God\'s chosen people and the knowledge of the truth that agrees with godliness,',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
-              }),
-              _react2.default.createElement(_Pane2.default, {
-                index: 1,
-                bibleId: 'ult',
-                languageName: 'English',
-                direction: 'ltr',
-                description: 'Gateway Language',
-                chapter: 1,
-                verse: 2,
-                clickRemoveResourceLabel: 'clickRemoveResourceLabel',
-                removePane: function removePane() {
-                  return console.log('temp removePane');
-                }
+              paneObjects.map(function (paneObject, index) {
+                return _react2.default.createElement(_Pane2.default, {
+                  index: index.toString(),
+                  bibleId: paneObject.bibleId,
+                  languageName: paneObject.languageName,
+                  direction: paneObject.direction,
+                  verseElements: paneObject.verseElements,
+                  description: paneObject.description,
+                  chapter: paneObject.chapter,
+                  verse: paneObject.verse,
+                  clickToRemoveResourceLabel: clickToRemoveResourceLabel,
+                  removePane: function removePane() {
+                    return console.log('temp removePane');
+                  }
+                });
               })
             )
           ),
@@ -46473,7 +46479,7 @@ var _reactBootstrap = __webpack_require__(226);
 
 __webpack_require__(436);
 
-var _Verse = __webpack_require__(503);
+var _Verse = __webpack_require__(438);
 
 var _Verse2 = _interopRequireDefault(_Verse);
 
@@ -46488,8 +46494,8 @@ var Pane = function Pane(_ref) {
       chapter = _ref.chapter,
       verse = _ref.verse,
       removePane = _ref.removePane,
-      verseText = _ref.verseText,
-      clickRemoveResourceLabel = _ref.clickRemoveResourceLabel;
+      verseElements = _ref.verseElements,
+      clickToRemoveResourceLabel = _ref.clickToRemoveResourceLabel;
 
   var headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : languageName || '';
   var PANECHAR = 9;
@@ -46528,7 +46534,7 @@ var Pane = function Pane(_ref) {
       _react2.default.createElement(_reactBootstrap.Glyphicon, {
         className: 'remove-glyph-icon',
         glyph: "remove",
-        title: clickRemoveResourceLabel,
+        title: clickToRemoveResourceLabel,
         onClick: function onClick() {
           return removePane(index);
         }
@@ -46538,7 +46544,7 @@ var Pane = function Pane(_ref) {
       'div',
       { className: direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl' },
       _react2.default.createElement(_Verse2.default, {
-        verseText: verseText,
+        verseElements: verseElements,
         bibleId: bibleId,
         direction: direction,
         chapter: chapter,
@@ -46560,8 +46566,8 @@ Pane.propTypes = {
   chapter: _propTypes2.default.number.isRequired,
   verse: _propTypes2.default.number.isRequired,
   removePane: _propTypes2.default.func.isRequired,
-  clickRemoveResourceLabel: _propTypes2.default.string.isRequired,
-  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired])
+  clickToRemoveResourceLabel: _propTypes2.default.string.isRequired,
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
 };
 
 exports.default = Pane;
@@ -48462,6 +48468,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
@@ -48470,15 +48478,178 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Dialog = __webpack_require__(439);
+__webpack_require__(439);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// constants
+var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
+
+var VerseString = function VerseString(_ref) {
+  var verseText = _ref.verseText,
+      verseIsPlaceHolder = _ref.verseIsPlaceHolder;
+
+  verseText = verseText.replace(/\s+/g, ' ');
+  var verseTextSpans = _react2.default.createElement(
+    'span',
+    { className: verseIsPlaceHolder ? 'placeholder-text' : null },
+    verseText
+  );
+
+  return verseTextSpans;
+};
+
+var VerseArray = function VerseArray(_ref2) {
+  var verseText = _ref2.verseText;
+
+  verseText = verseText || [];
+
+  return null;
+};
+
+var Verse = function (_Component) {
+  _inherits(Verse, _Component);
+
+  function Verse() {
+    _classCallCheck(this, Verse);
+
+    return _possibleConstructorReturn(this, (Verse.__proto__ || Object.getPrototypeOf(Verse)).apply(this, arguments));
+  }
+
+  _createClass(Verse, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          verseElements = _props.verseElements,
+          bibleId = _props.bibleId,
+          direction = _props.direction,
+          chapter = _props.chapter,
+          verse = _props.verse;
+
+      var verseIsPlaceHolder = !verseElements;
+      var chapterVerseContent = direction === 'rtl' ? verse + ':' + chapter + ' ' : chapter + ':' + verse + ' ';
+      var chapterVerse = _react2.default.createElement(
+        'strong',
+        null,
+        chapterVerseContent
+      );
+      var isEditable = bibleId === 'targetBible';
+      // let text = verseText;
+      var verseSpan = verseElements;
+
+      if (verseIsPlaceHolder) {
+        verseSpan = _react2.default.createElement(
+          'span',
+          { className: 'placeholder-text' },
+          PLACE_HOLDER_TEXT
+        );
+      }
+
+      // if (text && typeof text === 'string') { // if the verse content is string / text.
+      //   verseSpan = <VerseString verseText={text} verseIsPlaceHolder={verseIsPlaceHolder} />;
+      // } else { // then the verse content is an array / verse objects.
+      //   verseSpan = <VerseArray verseText={text} />;
+      // }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'verse-container' },
+        _react2.default.createElement(
+          'div',
+          { className: direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl' },
+          chapterVerse,
+          verseSpan
+        )
+      );
+    }
+  }]);
+
+  return Verse;
+}(_react.Component);
+
+Verse.propTypes = {
+  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired]),
+  bibleId: _propTypes2.default.string.isRequired,
+  direction: _propTypes2.default.string.isRequired,
+  chapter: _propTypes2.default.number.isRequired,
+  verse: _propTypes2.default.number.isRequired
+};
+
+exports.default = Verse;
+
+/***/ }),
+/* 439 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(440);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 440 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".verse-container {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n\n.verse-content-ltr {\n  flex: 1;\n  direction: ltr;\n}\n\n.verse-content-rtl {\n  flex: 1;\n  direction: rtl;\n}\n\n.placeholder-text {\n  font-style: italic;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 441 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Dialog = __webpack_require__(442);
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(492);
+__webpack_require__(495);
 
-var _ChapterView = __webpack_require__(494);
+var _ChapterView = __webpack_require__(497);
 
 var _ChapterView2 = _interopRequireDefault(_ChapterView);
 
@@ -48510,7 +48681,7 @@ ExpandedScripturePaneModal.propTypes = {
 exports.default = ExpandedScripturePaneModal;
 
 /***/ }),
-/* 439 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48520,7 +48691,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Dialog = __webpack_require__(440);
+var _Dialog = __webpack_require__(443);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -48529,7 +48700,7 @@ Object.defineProperty(exports, 'default', {
   }
 });
 
-var _DialogActions = __webpack_require__(458);
+var _DialogActions = __webpack_require__(461);
 
 Object.defineProperty(exports, 'DialogActions', {
   enumerable: true,
@@ -48538,7 +48709,7 @@ Object.defineProperty(exports, 'DialogActions', {
   }
 });
 
-var _DialogTitle = __webpack_require__(471);
+var _DialogTitle = __webpack_require__(474);
 
 Object.defineProperty(exports, 'DialogTitle', {
   enumerable: true,
@@ -48547,7 +48718,7 @@ Object.defineProperty(exports, 'DialogTitle', {
   }
 });
 
-var _DialogContent = __webpack_require__(474);
+var _DialogContent = __webpack_require__(477);
 
 Object.defineProperty(exports, 'DialogContent', {
   enumerable: true,
@@ -48556,7 +48727,7 @@ Object.defineProperty(exports, 'DialogContent', {
   }
 });
 
-var _DialogContentText = __webpack_require__(475);
+var _DialogContentText = __webpack_require__(478);
 
 Object.defineProperty(exports, 'DialogContentText', {
   enumerable: true,
@@ -48565,7 +48736,7 @@ Object.defineProperty(exports, 'DialogContentText', {
   }
 });
 
-var _withMobileDialog = __webpack_require__(476);
+var _withMobileDialog = __webpack_require__(479);
 
 Object.defineProperty(exports, 'withMobileDialog', {
   enumerable: true,
@@ -48577,7 +48748,7 @@ Object.defineProperty(exports, 'withMobileDialog', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 440 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48616,19 +48787,19 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(444);
 
-var _Modal = __webpack_require__(442);
+var _Modal = __webpack_require__(445);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _Fade = __webpack_require__(454);
+var _Fade = __webpack_require__(457);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
 var _transitions = __webpack_require__(79);
 
-var _Paper = __webpack_require__(456);
+var _Paper = __webpack_require__(459);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
@@ -48859,7 +49030,7 @@ Dialog.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialog' })(Dialog);
 
 /***/ }),
-/* 441 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48955,7 +49126,7 @@ function createChainedFunction() {
 }
 
 /***/ }),
-/* 442 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48965,7 +49136,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Modal = __webpack_require__(443);
+var _Modal = __webpack_require__(446);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -48974,7 +49145,7 @@ Object.defineProperty(exports, 'default', {
   }
 });
 
-var _Backdrop = __webpack_require__(453);
+var _Backdrop = __webpack_require__(456);
 
 Object.defineProperty(exports, 'Backdrop', {
   enumerable: true,
@@ -48983,7 +49154,7 @@ Object.defineProperty(exports, 'Backdrop', {
   }
 });
 
-var _ModalManager = __webpack_require__(449);
+var _ModalManager = __webpack_require__(452);
 
 Object.defineProperty(exports, 'ModalManager', {
   enumerable: true,
@@ -48995,7 +49166,7 @@ Object.defineProperty(exports, 'ModalManager', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 443 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49054,7 +49225,7 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactLifecyclesCompat = __webpack_require__(444);
+var _reactLifecyclesCompat = __webpack_require__(447);
 
 var _warning = __webpack_require__(22);
 
@@ -49080,25 +49251,25 @@ var _ownerDocument = __webpack_require__(297);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _RootRef = __webpack_require__(445);
+var _RootRef = __webpack_require__(448);
 
 var _RootRef2 = _interopRequireDefault(_RootRef);
 
-var _Portal = __webpack_require__(446);
+var _Portal = __webpack_require__(449);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(444);
 
 var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _ModalManager = __webpack_require__(449);
+var _ModalManager = __webpack_require__(452);
 
 var _ModalManager2 = _interopRequireDefault(_ModalManager);
 
-var _Backdrop = __webpack_require__(453);
+var _Backdrop = __webpack_require__(456);
 
 var _Backdrop2 = _interopRequireDefault(_Backdrop);
 
@@ -49502,7 +49673,7 @@ Modal.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiModal' })((0, _reactLifecyclesCompat.polyfill)(Modal));
 
 /***/ }),
-/* 444 */
+/* 447 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49676,7 +49847,7 @@ function polyfill(Component) {
 
 
 /***/ }),
-/* 445 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49762,7 +49933,7 @@ RootRef.propTypes =  true ? {
 exports.default = RootRef;
 
 /***/ }),
-/* 446 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49776,11 +49947,11 @@ var _reactDom = __webpack_require__(261);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Portal = __webpack_require__(447);
+var _Portal = __webpack_require__(450);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _LegacyPortal = __webpack_require__(448);
+var _LegacyPortal = __webpack_require__(451);
 
 var _LegacyPortal2 = _interopRequireDefault(_LegacyPortal);
 
@@ -49789,7 +49960,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _reactDom2.default.createPortal ? _Portal2.default : _LegacyPortal2.default;
 
 /***/ }),
-/* 447 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49940,7 +50111,7 @@ Portal.propTypes =  true ? (0, _exactProp2.default)(Portal.propTypes, 'Portal') 
 exports.default = Portal;
 
 /***/ }),
-/* 448 */
+/* 451 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50100,7 +50271,7 @@ LegacyPortal.propTypes =  true ? (0, _exactProp2.default)(LegacyPortal.propTypes
 exports.default = LegacyPortal;
 
 /***/ }),
-/* 449 */
+/* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50134,11 +50305,11 @@ var _scrollbarSize = __webpack_require__(344);
 
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 
-var _isOverflowing = __webpack_require__(450);
+var _isOverflowing = __webpack_require__(453);
 
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 
-var _manageAriaHidden = __webpack_require__(452);
+var _manageAriaHidden = __webpack_require__(455);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50316,7 +50487,7 @@ var ModalManager = function () {
 exports.default = ModalManager;
 
 /***/ }),
-/* 450 */
+/* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50336,7 +50507,7 @@ var _ownerDocument = __webpack_require__(297);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _ownerWindow = __webpack_require__(451);
+var _ownerWindow = __webpack_require__(454);
 
 var _ownerWindow2 = _interopRequireDefault(_ownerWindow);
 
@@ -50365,7 +50536,7 @@ function isOverflowing(container) {
 }
 
 /***/ }),
-/* 451 */
+/* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50391,7 +50562,7 @@ var ownerWindow = function ownerWindow(node) {
 exports.default = ownerWindow;
 
 /***/ }),
-/* 452 */
+/* 455 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50442,7 +50613,7 @@ function showSiblings(container, mountNode) {
 }
 
 /***/ }),
-/* 453 */
+/* 456 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50481,7 +50652,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Fade = __webpack_require__(454);
+var _Fade = __webpack_require__(457);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
@@ -50555,7 +50726,7 @@ Backdrop.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiBackdrop' })(Backdrop);
 
 /***/ }),
-/* 454 */
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50611,7 +50782,7 @@ var _withTheme = __webpack_require__(225);
 
 var _withTheme2 = _interopRequireDefault(_withTheme);
 
-var _utils = __webpack_require__(455);
+var _utils = __webpack_require__(458);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50747,7 +50918,7 @@ Fade.defaultProps = {
 exports.default = (0, _withTheme2.default)()(Fade);
 
 /***/ }),
-/* 455 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50774,7 +50945,7 @@ function getTransitionProps(props, options) {
 }
 
 /***/ }),
-/* 456 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50784,7 +50955,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paper = __webpack_require__(457);
+var _Paper = __webpack_require__(460);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -50796,7 +50967,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 457 */
+/* 460 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50913,7 +51084,7 @@ Paper.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiPaper' })(Paper);
 
 /***/ }),
-/* 458 */
+/* 461 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50948,9 +51119,9 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _reactHelpers = __webpack_require__(459);
+var _reactHelpers = __webpack_require__(462);
 
-__webpack_require__(460);
+__webpack_require__(463);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51013,7 +51184,7 @@ DialogActions.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogActions' })(DialogActions);
 
 /***/ }),
-/* 459 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51060,7 +51231,7 @@ function isMuiComponent(element, muiNames) {
 }
 
 /***/ }),
-/* 460 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51070,7 +51241,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Button = __webpack_require__(461);
+var _Button = __webpack_require__(464);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51082,7 +51253,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 461 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51123,11 +51294,11 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _colorManipulator = __webpack_require__(72);
 
-var _ButtonBase = __webpack_require__(462);
+var _ButtonBase = __webpack_require__(465);
 
 var _ButtonBase2 = _interopRequireDefault(_ButtonBase);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(444);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51389,7 +51560,7 @@ Button.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiButton' })(Button);
 
 /***/ }),
-/* 462 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51399,7 +51570,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ButtonBase = __webpack_require__(463);
+var _ButtonBase = __webpack_require__(466);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51411,7 +51582,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 463 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51474,9 +51645,9 @@ var _keycode = __webpack_require__(299);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
-var _reactLifecyclesCompat = __webpack_require__(444);
+var _reactLifecyclesCompat = __webpack_require__(447);
 
-var _ownerWindow = __webpack_require__(451);
+var _ownerWindow = __webpack_require__(454);
 
 var _ownerWindow2 = _interopRequireDefault(_ownerWindow);
 
@@ -51484,13 +51655,13 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _keyboardFocus = __webpack_require__(464);
+var _keyboardFocus = __webpack_require__(467);
 
-var _TouchRipple = __webpack_require__(465);
+var _TouchRipple = __webpack_require__(468);
 
 var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
 
-var _createRippleHandler = __webpack_require__(470);
+var _createRippleHandler = __webpack_require__(473);
 
 var _createRippleHandler2 = _interopRequireDefault(_createRippleHandler);
 
@@ -51874,7 +52045,7 @@ ButtonBase.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiButtonBase' })((0, _reactLifecyclesCompat.polyfill)(ButtonBase));
 
 /***/ }),
-/* 464 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51954,7 +52125,7 @@ function listenForFocusKeys(win) {
 }
 
 /***/ }),
-/* 465 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51973,7 +52144,7 @@ var _objectWithoutProperties2 = __webpack_require__(62);
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _toConsumableArray2 = __webpack_require__(466);
+var _toConsumableArray2 = __webpack_require__(469);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -52009,7 +52180,7 @@ var _reactDom = __webpack_require__(261);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _TransitionGroup = __webpack_require__(467);
+var _TransitionGroup = __webpack_require__(470);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
@@ -52021,7 +52192,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Ripple = __webpack_require__(469);
+var _Ripple = __webpack_require__(472);
 
 var _Ripple2 = _interopRequireDefault(_Ripple);
 
@@ -52319,7 +52490,7 @@ TouchRipple.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiTouchRipple' })(TouchRipple);
 
 /***/ }),
-/* 466 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52346,7 +52517,7 @@ exports.default = function (arr) {
 };
 
 /***/ }),
-/* 467 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52364,7 +52535,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ChildMapping = __webpack_require__(468);
+var _ChildMapping = __webpack_require__(471);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52604,7 +52775,7 @@ exports.default = TransitionGroup;
 module.exports = exports['default'];
 
 /***/ }),
-/* 468 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52699,7 +52870,7 @@ function mergeChildMappings(prev, next) {
 }
 
 /***/ }),
-/* 469 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52867,7 +53038,7 @@ Ripple.defaultProps = {
 exports.default = Ripple;
 
 /***/ }),
-/* 470 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52901,7 +53072,7 @@ function createRippleHandler(instance, eventName, action, cb) {
 exports.default = createRippleHandler;
 
 /***/ }),
-/* 471 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52936,7 +53107,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Typography = __webpack_require__(472);
+var _Typography = __webpack_require__(475);
 
 var _Typography2 = _interopRequireDefault(_Typography);
 
@@ -52998,7 +53169,7 @@ DialogTitle.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogTitle' })(DialogTitle);
 
 /***/ }),
-/* 472 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53008,7 +53179,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Typography = __webpack_require__(473);
+var _Typography = __webpack_require__(476);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -53020,7 +53191,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 473 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53059,7 +53230,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _helpers = __webpack_require__(441);
+var _helpers = __webpack_require__(444);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53218,7 +53389,7 @@ Typography.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTypography' })(Typography);
 
 /***/ }),
-/* 474 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53301,7 +53472,7 @@ DialogContent.propTypes =  true ? {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogContent' })(DialogContent);
 
 /***/ }),
-/* 475 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53336,7 +53507,7 @@ var _withStyles = __webpack_require__(189);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Typography = __webpack_require__(472);
+var _Typography = __webpack_require__(475);
 
 var _Typography2 = _interopRequireDefault(_Typography);
 
@@ -53386,7 +53557,7 @@ DialogContentText.propTypes =  true ? {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogContentText' })(DialogContentText);
 
 /***/ }),
-/* 476 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53408,7 +53579,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _withWidth = __webpack_require__(477);
+var _withWidth = __webpack_require__(480);
 
 var _withWidth2 = _interopRequireDefault(_withWidth);
 
@@ -53441,7 +53612,7 @@ var withMobileDialog = function withMobileDialog() {
 exports.default = withMobileDialog;
 
 /***/ }),
-/* 477 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53488,11 +53659,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactEventListener = __webpack_require__(478);
+var _reactEventListener = __webpack_require__(481);
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-var _debounce = __webpack_require__(480);
+var _debounce = __webpack_require__(483);
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
@@ -53677,7 +53848,7 @@ var withWidth = function withWidth() {
 exports.default = withWidth;
 
 /***/ }),
-/* 478 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53741,7 +53912,7 @@ var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _supports = __webpack_require__(479);
+var _supports = __webpack_require__(482);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53893,7 +54064,7 @@ EventListener.propTypes =  true ? {
 exports.default = EventListener;
 
 /***/ }),
-/* 479 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53945,12 +54116,12 @@ var passiveOption = exports.passiveOption = function () {
 exports.default = {};
 
 /***/ }),
-/* 480 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(481),
-    now = __webpack_require__(482),
-    toNumber = __webpack_require__(485);
+var isObject = __webpack_require__(484),
+    now = __webpack_require__(485),
+    toNumber = __webpack_require__(488);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -54141,7 +54312,7 @@ module.exports = debounce;
 
 
 /***/ }),
-/* 481 */
+/* 484 */
 /***/ (function(module, exports) {
 
 /**
@@ -54178,10 +54349,10 @@ module.exports = isObject;
 
 
 /***/ }),
-/* 482 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(483);
+var root = __webpack_require__(486);
 
 /**
  * Gets the timestamp of the number of milliseconds that have elapsed since
@@ -54207,10 +54378,10 @@ module.exports = now;
 
 
 /***/ }),
-/* 483 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(484);
+var freeGlobal = __webpack_require__(487);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -54222,7 +54393,7 @@ module.exports = root;
 
 
 /***/ }),
-/* 484 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -54233,11 +54404,11 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103)))
 
 /***/ }),
-/* 485 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(481),
-    isSymbol = __webpack_require__(486);
+var isObject = __webpack_require__(484),
+    isSymbol = __webpack_require__(489);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -54305,11 +54476,11 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 486 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(487),
-    isObjectLike = __webpack_require__(491);
+var baseGetTag = __webpack_require__(490),
+    isObjectLike = __webpack_require__(494);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -54340,12 +54511,12 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 487 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(488),
-    getRawTag = __webpack_require__(489),
-    objectToString = __webpack_require__(490);
+var Symbol = __webpack_require__(491),
+    getRawTag = __webpack_require__(492),
+    objectToString = __webpack_require__(493);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -54374,10 +54545,10 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 488 */
+/* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(483);
+var root = __webpack_require__(486);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -54386,10 +54557,10 @@ module.exports = Symbol;
 
 
 /***/ }),
-/* 489 */
+/* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(488);
+var Symbol = __webpack_require__(491);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -54438,7 +54609,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 490 */
+/* 493 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -54466,7 +54637,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 491 */
+/* 494 */
 /***/ (function(module, exports) {
 
 /**
@@ -54501,11 +54672,11 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 492 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(493);
+var content = __webpack_require__(496);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -54526,7 +54697,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 493 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -54540,7 +54711,7 @@ exports.push([module.i, ".expanded-modal-body {\n  padding: 0;\n  max-height: 50
 
 
 /***/ }),
-/* 494 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54560,13 +54731,13 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(495);
+__webpack_require__(498);
 
-var _BibleHeadingsRow = __webpack_require__(497);
+var _BibleHeadingsRow = __webpack_require__(500);
 
 var _BibleHeadingsRow2 = _interopRequireDefault(_BibleHeadingsRow);
 
-var _VerseRow = __webpack_require__(500);
+var _VerseRow = __webpack_require__(503);
 
 var _VerseRow2 = _interopRequireDefault(_VerseRow);
 
@@ -54616,99 +54787,6 @@ var ChapterView = function (_Component) {
 exports.default = ChapterView;
 
 /***/ }),
-/* 495 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(496);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 496 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".bible-heading-container {\n  width: 100%;\n  height: 100%;\n}\n\n.verse-row-container {\n  overflow-y: scroll;\n  overflow-x: hidden;\n  height: 310px;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 497 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactBootstrap = __webpack_require__(226);
-
-__webpack_require__(498);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BibleHeadingsRow = function (_Component) {
-  _inherits(BibleHeadingsRow, _Component);
-
-  function BibleHeadingsRow() {
-    _classCallCheck(this, BibleHeadingsRow);
-
-    return _possibleConstructorReturn(this, (BibleHeadingsRow.__proto__ || Object.getPrototypeOf(BibleHeadingsRow)).apply(this, arguments));
-  }
-
-  _createClass(BibleHeadingsRow, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(_reactBootstrap.Row, { className: 'row-container' });
-    }
-  }]);
-
-  return BibleHeadingsRow;
-}(_react.Component);
-
-exports.default = BibleHeadingsRow;
-
-/***/ }),
 /* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -54739,10 +54817,10 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-exports.i(__webpack_require__(15), "");
+
 
 // module
-exports.push([module.i, ".row-container {\n  display: flex;\n  height: 70px;\n  margin: 0;\n  margin-right: 12px;\n  background-color: var(--reverse-color);\n  min-width: 500px;\n}\n", ""]);
+exports.push([module.i, ".bible-heading-container {\n  width: 100%;\n  height: 100%;\n}\n\n.verse-row-container {\n  overflow-y: scroll;\n  overflow-x: hidden;\n  height: 310px;\n}", ""]);
 
 // exports
 
@@ -54780,28 +54858,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var VerseRow = function (_Component) {
-  _inherits(VerseRow, _Component);
+var BibleHeadingsRow = function (_Component) {
+  _inherits(BibleHeadingsRow, _Component);
 
-  function VerseRow() {
-    _classCallCheck(this, VerseRow);
+  function BibleHeadingsRow() {
+    _classCallCheck(this, BibleHeadingsRow);
 
-    return _possibleConstructorReturn(this, (VerseRow.__proto__ || Object.getPrototypeOf(VerseRow)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (BibleHeadingsRow.__proto__ || Object.getPrototypeOf(BibleHeadingsRow)).apply(this, arguments));
   }
 
-  _createClass(VerseRow, [{
+  _createClass(BibleHeadingsRow, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(_reactBootstrap.Row, { className: 'row-container' });
     }
   }]);
 
-  return VerseRow;
+  return BibleHeadingsRow;
 }(_react.Component);
 
-VerseRow.propTypes = {};
-
-exports.default = VerseRow;
+exports.default = BibleHeadingsRow;
 
 /***/ }),
 /* 501 */
@@ -54834,10 +54910,10 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-
+exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
+exports.push([module.i, ".row-container {\n  display: flex;\n  height: 70px;\n  margin: 0;\n  margin-right: 12px;\n  background-color: var(--reverse-color);\n  min-width: 500px;\n}\n", ""]);
 
 // exports
 
@@ -54863,6 +54939,8 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _reactBootstrap = __webpack_require__(226);
+
 __webpack_require__(504);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -54873,96 +54951,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// constants
-var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
+var VerseRow = function (_Component) {
+  _inherits(VerseRow, _Component);
 
-var VerseString = function VerseString(_ref) {
-  var verseText = _ref.verseText,
-      verseIsPlaceHolder = _ref.verseIsPlaceHolder;
+  function VerseRow() {
+    _classCallCheck(this, VerseRow);
 
-  verseText = verseText.replace(/\s+/g, ' ');
-  var verseTextSpans = _react2.default.createElement(
-    'span',
-    { className: verseIsPlaceHolder ? 'placeholder-text' : null },
-    verseText
-  );
-
-  return verseTextSpans;
-};
-
-var VerseArray = function VerseArray(_ref2) {
-  var verseText = _ref2.verseText;
-
-  verseText = verseText || [];
-
-  return null;
-};
-
-var Verse = function (_Component) {
-  _inherits(Verse, _Component);
-
-  function Verse() {
-    _classCallCheck(this, Verse);
-
-    return _possibleConstructorReturn(this, (Verse.__proto__ || Object.getPrototypeOf(Verse)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (VerseRow.__proto__ || Object.getPrototypeOf(VerseRow)).apply(this, arguments));
   }
 
-  _createClass(Verse, [{
+  _createClass(VerseRow, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          verseText = _props.verseText,
-          bibleId = _props.bibleId,
-          direction = _props.direction,
-          chapter = _props.chapter,
-          verse = _props.verse;
-
-      var verseIsPlaceHolder = !verseText;
-      var chapterVerseContent = direction === 'rtl' ? verse + ':' + chapter + ' ' : chapter + ':' + verse + ' ';
-      var chapterVerse = _react2.default.createElement(
-        'strong',
-        null,
-        chapterVerseContent
-      );
-      var isEditable = bibleId === 'targetBible';
-      var text = verseText;
-      var verseSpan = _react2.default.createElement('span', null);
-
-      if (verseIsPlaceHolder) text = PLACE_HOLDER_TEXT;
-
-      if (text && typeof text === 'string') {
-        // if the verse content is string / text.
-        verseSpan = _react2.default.createElement(VerseString, { verseText: text, verseIsPlaceHolder: verseIsPlaceHolder });
-      } else {
-        // then the verse content is an array / verse objects.
-        verseSpan = _react2.default.createElement(VerseArray, { verseText: text });
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'verse-container' },
-        _react2.default.createElement(
-          'div',
-          { className: direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl' },
-          chapterVerse,
-          verseSpan
-        )
-      );
+      return _react2.default.createElement(_reactBootstrap.Row, { className: 'row-container' });
     }
   }]);
 
-  return Verse;
+  return VerseRow;
 }(_react.Component);
 
-Verse.propTypes = {
-  verseText: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired, _propTypes2.default.object.isRequired]),
-  bibleId: _propTypes2.default.string.isRequired,
-  direction: _propTypes2.default.string.isRequired,
-  chapter: _propTypes2.default.number.isRequired,
-  verse: _propTypes2.default.number.isRequired
-};
+VerseRow.propTypes = {};
 
-exports.default = Verse;
+exports.default = VerseRow;
 
 /***/ }),
 /* 504 */
@@ -54998,7 +55008,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".verse-container {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n\n.verse-content-ltr {\n  flex: 1;\n  direction: ltr;\n}\n\n.verse-content-rtl {\n  flex: 1;\n  direction: rtl;\n}\n\n.placeholder-text {\n  font-style: italic;\n}\n", ""]);
+exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
 
 // exports
 

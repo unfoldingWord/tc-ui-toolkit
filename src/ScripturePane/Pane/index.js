@@ -17,8 +17,8 @@ const Pane = ({
   chapter,
   verse,
   removePane,
-  verseText,
-  clickRemoveResourceLabel,
+  verseElements,
+  clickToRemoveResourceLabel,
 }) => {
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
@@ -50,13 +50,13 @@ const Pane = ({
         <Glyphicon
           className="remove-glyph-icon"
           glyph={"remove"}
-          title={clickRemoveResourceLabel}
+          title={clickToRemoveResourceLabel}
           onClick={() => removePane(index)}
         />
       </div>
       <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
-          verseText={verseText}
+          verseElements={verseElements}
           bibleId={bibleId}
           direction={direction}
           chapter={chapter}
@@ -76,11 +76,10 @@ Pane.propTypes = {
   chapter: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
-  clickRemoveResourceLabel: PropTypes.string.isRequired,
-  verseText: PropTypes.oneOfType([
+  clickToRemoveResourceLabel: PropTypes.string.isRequired,
+  verseElements: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.array.isRequired,
-    PropTypes.object.isRequired
   ]),
 };
 

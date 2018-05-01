@@ -11,6 +11,7 @@ class App extends Component {
           closeButtonLabel="Close"
           expandedScripturePaneTitle="Matthew"
           expandButtonHoverText="Click to show expanded resource panes"
+          clickToRemoveResourceLabel="Click to remove resource"
         />
         <CheckInfoCard
           title="save, saves, saved, safe, salvation"

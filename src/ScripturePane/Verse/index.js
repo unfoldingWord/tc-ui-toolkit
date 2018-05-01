@@ -27,26 +27,32 @@ const VerseArray = ({ verseText }) => {
 class Verse extends Component {
   render () {
     const {
-      verseText,
+      verseElements,
       bibleId,
       direction,
       chapter,
       verse
     } = this.props;
-    const verseIsPlaceHolder = !verseText;
+    const verseIsPlaceHolder = !verseElements;
     const chapterVerseContent = direction === 'rtl' ? `${verse}:${chapter} ` : `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
-    let text = verseText;
-    let verseSpan = <span/>;
+    // let text = verseText;
+    let verseSpan = verseElements;
 
-    if (verseIsPlaceHolder) text = PLACE_HOLDER_TEXT;
-
-    if (text && typeof text === 'string') { // if the verse content is string / text.
-      verseSpan = <VerseString verseText={text} verseIsPlaceHolder={verseIsPlaceHolder} />;
-    } else { // then the verse content is an array / verse objects.
-      verseSpan = <VerseArray verseText={text} />;
+    if (verseIsPlaceHolder) {
+      verseSpan = (
+        <span className='placeholder-text'>
+          {PLACE_HOLDER_TEXT}
+        </span>
+      );
     }
+
+    // if (text && typeof text === 'string') { // if the verse content is string / text.
+    //   verseSpan = <VerseString verseText={text} verseIsPlaceHolder={verseIsPlaceHolder} />;
+    // } else { // then the verse content is an array / verse objects.
+    //   verseSpan = <VerseArray verseText={text} />;
+    // }
 
     return (
       <div className="verse-container">

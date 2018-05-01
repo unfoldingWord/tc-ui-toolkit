@@ -17,6 +17,56 @@ import './ScripturePane.styles.css';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 
+
+const paneObjects = [
+  {
+    chapter: 1,
+    verse: 2,
+    bibleId: "ult",
+    languageName: "English",
+    direction: "ltr",
+    description: "Gateway Language",
+    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+  },
+  {
+    chapter: 1,
+    verse: 2,
+    bibleId: "ult",
+    languageName: "English",
+    direction: "ltr",
+    description: "Gateway Language",
+    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+  },
+  {
+    chapter: 1,
+    verse: 2,
+    bibleId: "ult",
+    languageName: "English",
+    direction: "ltr",
+    description: "Gateway Language",
+    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+  },
+  {
+    chapter: 1,
+    verse: 2,
+    bibleId: "ult",
+    languageName: "English",
+    direction: "ltr",
+    description: "Gateway Language",
+    verseElements: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+  },
+  {
+    chapter: 1,
+    verse: 2,
+    bibleId: "ult",
+    languageName: "English",
+    direction: "ltr",
+    description: "Gateway Language",
+    verseElements: "",
+  },
+]
+
+
 class ScripturePane extends Component {
   constructor() {
     super();
@@ -38,6 +88,7 @@ class ScripturePane extends Component {
       closeButtonLabel,
       expandedScripturePaneTitle,
       expandButtonHoverText,
+      clickToRemoveResourceLabel,
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
@@ -57,66 +108,22 @@ class ScripturePane extends Component {
               />
             </div>
             <div className="panes-container">
-            {/* TODO: rework rendering multiple panes base on props provided to ScripturePane */}
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness, Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-               <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
+            {
+              paneObjects.map((paneObject, index) => (
+                <Pane
+                  index={index.toString()}
+                  bibleId={paneObject.bibleId}
+                  languageName={paneObject.languageName}
+                  direction={paneObject.direction}
+                  verseElements={paneObject.verseElements}
+                  description={paneObject.description}
+                  chapter={paneObject.chapter}
+                  verse={paneObject.verse}
+                  clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+                  removePane={() => console.log('temp removePane')}
+                />
+              ))
+            }
             </div>
           </div>
           <ExpandedScripturePaneModal
