@@ -34,13 +34,8 @@ class ChapterView extends Component {
 
 
     return (
-      <div>
-        <div className="bible-heading-container">
-            <BibleHeadingsRow />
-          <div className="verse-row-container">
-            {verseRows}
-          </div>
-        </div>
+      <div className="verse-row-container">
+        {verseRows}
       </div>
     )
   }

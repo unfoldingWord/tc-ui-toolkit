@@ -27,7 +27,9 @@ const biblesWithHighlightedWords = {
         1: {
           1: "",
           2: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
-          3: ""
+          3: "",
+          4: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          5: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
         }
       }
     },
@@ -39,7 +41,9 @@ const biblesWithHighlightedWords = {
         1: {
           1: "",
           2: "",
-          3: ""
+          3: "",
+          4: "",
+          5: "",
         }
       }
     }
@@ -53,7 +57,23 @@ const biblesWithHighlightedWords = {
         1: {
           1: "",
           2: <span>HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
-          3: ""
+          3: "",
+          4: "",
+          5: "",
+        }
+      }
+    },
+    udt: {
+      languageName: "Hindi",
+      direction: "ltr",
+      description: "Gateway Language",
+      bibleData: {
+        1: {
+          1: "",
+          2: <span>HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          3: "",
+          4: "",
+          5: "",
         }
       }
     }
@@ -67,7 +87,9 @@ const biblesWithHighlightedWords = {
         1: {
           1: "",
           2: <span>GREEEKKKK Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
-          3: ""
+          3: "",
+          4: "",
+          5: "",
         }
       }
     }
@@ -81,7 +103,9 @@ const biblesWithHighlightedWords = {
         1: {
           1: "",
           2: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
-          3: ""
+          3: "",
+          4: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+          5: <span>Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
         }
       }
     }

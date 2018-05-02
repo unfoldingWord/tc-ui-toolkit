@@ -1,12 +1,26 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogTitle, DialogContent } from 'material-ui/Dialog';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+
 import { Glyphicon } from 'react-bootstrap';
 
 import './ExpandedScripturePaneModal.styles.css';
 
 // components
 import ChapterView from './ChapterView';
+import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
+
+const toolBarStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: 'var(--reverse-color)',
+  backgroundColor: 'var(--accent-color-dark)',
+  padding: '15px',
+  width: '100%',
+}
 
 const ExpandedScripturePaneModal = ({
   show,
@@ -19,11 +33,30 @@ const ExpandedScripturePaneModal = ({
 }) => {
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
-      <ChapterView
-        contextId={contextId}
+      <Toolbar style={toolBarStyle}>
+        <div style={{ marginLeft: 'auto', fontSize: '22px', fontWeight: '400' }}>
+          Title
+        </div>
+        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={{ marginLeft: 'auto' }}>
+          <Glyphicon glyph="remove" />
+        </IconButton>
+      </Toolbar>
+      
+      <DialogContent style={{ padding: '0px', margin: '0px' }}>
+      <BibleHeadingsRow
         currentPaneSettings={currentPaneSettings}
-        biblesWithHighlightedWords={biblesWithHighlightedWords}
-      />
+        biblesWithHighlightedWords={biblesWithHighlightedWords} />
+        <ChapterView
+          contextId={contextId}
+          currentPaneSettings={currentPaneSettings}
+          biblesWithHighlightedWords={biblesWithHighlightedWords}
+        />
+      </DialogContent>
+      <DialogActions disableActionSpacing style={{ height: '70px', padding: '10px', margin: '0px', borderTop: '1px solid var(--border-color)' }}>
+        <button className="btn-prime" onClick={onHide}>
+          Close
+        </button>
+      </DialogActions>
     </Dialog>
   );
 };

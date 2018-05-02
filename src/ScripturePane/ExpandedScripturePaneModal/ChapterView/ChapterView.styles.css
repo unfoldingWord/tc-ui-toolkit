@@ -4,7 +4,6 @@
 }
 
 .verse-row-container {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 310px;
+  /* overflow-y: scroll;
+  overflow-x: scroll; */
 }
