@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './VerseCheck.styles.css';
-import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
 import SaveArea from './SaveArea';
@@ -160,11 +160,11 @@ VerseCheck.defaultProps = {
       project: {
         id: 'tit'
       },
-      target_language:{
-        direction:'ltr'
+      target_language: {
+        direction: 'ltr'
       }
     },
-    currentProjectToolsSelectedGL:{
+    currentProjectToolsSelectedGL: {
       tw: 'en'
     }
   },
@@ -172,30 +172,65 @@ VerseCheck.defaultProps = {
     bibles: {
       targetLanguage: {
         targetBible: {
-          1: {1:''}
+          1: {1: ''}
         }
       }
     }
   },
   selectionsReducer: {
-    selections:[]
+    selections: []
   },
-  toolsReducer:{
-    currentToolName:'tw'
+  toolsReducer: {
+    currentToolName: 'tw'
   },
   translate: key => key,
   groupsDataReducer: {
-    groupsData:{}
+    groupsData: {}
   },
   commentsReducer: {
     text: ''
   },
-  remindersReducer:{
+  remindersReducer: {
     enabled: false
   },
-  actions: {},
-  loginReducer:{},
-  alignedGLText:''
+  actions: {
+    handleGoToNext: () => {},
+    handleGoToPrevious: () => {},
+    handleOpenDialog: () => {},
+    handleCloseDialog: () => {},
+    skipToNext: () => {},
+    skipToPrevious: () => {},
+    changeSelectionsInLocalState: () => {},
+    changeMode: () => {},
+    handleComment: () => {},
+    checkComment: () => {},
+    cancelComment: () => {},
+    saveComment: () => {},
+    handleTagsCheckbox: () => {},
+    handleEditVerse: () => {},
+    checkVerse: () => {},
+    cancelEditVerse: () => {},
+    saveEditVerse: () => {},
+    validateSelections: () => {},
+    toggleReminder: () => {},
+    openAlertDialog: () => {},
+    selectModalTab: () => {},
+  },
+  loginReducer: {},
+  alignedGLText: '',
+  mode: 'select',
+  commentChanged: false,
+  findIfVerseEdited: () => false,
+  tags: [],
+  changeMode: () => {},
+  verseChanged: false,
+  selections: [],
+  saveSelection: () => {},
+  cancelSelection: () => {},
+  clearSelection: () => {},
+  handleSkip: () => {},
+  verseText: '',
+  dialogModalVisibility: false
 };
 
 export default VerseCheck;

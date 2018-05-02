@@ -1,9 +1,8 @@
 import React from 'react';
 import {Glyphicon} from 'react-bootstrap';
 import Switch from 'material-ui/Switch';
-import {FormGroup, FormControlLabel} from 'material-ui/Form';
+import { FormControlLabel} from 'material-ui/Form';
 import {withStyles} from 'material-ui/styles';
-import blue from 'material-ui/colors/blue';
 import isEqual from 'deep-equal';
 import '../VerseCheck.styles.css';
 
@@ -158,9 +157,3 @@ let ActionsArea = ({
 };
 
 export default withStyles(styles)(ActionsArea);
-
-
-// labelPosition="right"
-// labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}
-// thumbSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)' }}
-// trackSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)', opacity: '0.5' }}
