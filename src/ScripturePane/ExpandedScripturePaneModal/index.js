@@ -12,14 +12,34 @@ import './ExpandedScripturePaneModal.styles.css';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
-const toolBarStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: 'var(--reverse-color)',
-  backgroundColor: 'var(--accent-color-dark)',
-  padding: '15px',
-  width: '100%',
+const styles = {
+  toolBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'var(--reverse-color)',
+    backgroundColor: 'var(--accent-color-dark)',
+    padding: '15px',
+    width: '100%',
+  },
+  title: {
+    marginLeft: 'auto',
+    fontSize: '22px',
+    fontWeight: '400'
+  },
+  closeButton: {
+    marginLeft: 'auto'
+  },
+  dialogContent: {
+    padding: '0px',
+    margin: '0px'
+  },
+  dialogActions: {
+    height: '70px',
+    padding: '10px',
+    margin: '0px',
+    borderTop: '1px solid var(--border-color)'
+  }
 }
 
 const ExpandedScripturePaneModal = ({
@@ -33,16 +53,15 @@ const ExpandedScripturePaneModal = ({
 }) => {
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
-      <Toolbar style={toolBarStyle}>
-        <div style={{ marginLeft: 'auto', fontSize: '22px', fontWeight: '400' }}>
-          Title
+      <Toolbar style={styles.toolBar}>
+        <div style={styles.title}>
+          {title}
         </div>
-        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={{ marginLeft: 'auto' }}>
+        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
           <Glyphicon glyph="remove" />
         </IconButton>
       </Toolbar>
-      
-      <DialogContent style={{ padding: '0px', margin: '0px' }}>
+      <DialogContent style={styles.dialogContent}>
       <BibleHeadingsRow
         currentPaneSettings={currentPaneSettings}
         biblesWithHighlightedWords={biblesWithHighlightedWords} />
@@ -52,7 +71,7 @@ const ExpandedScripturePaneModal = ({
           biblesWithHighlightedWords={biblesWithHighlightedWords}
         />
       </DialogContent>
-      <DialogActions disableActionSpacing style={{ height: '70px', padding: '10px', margin: '0px', borderTop: '1px solid var(--border-color)' }}>
+      <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
           Close
         </button>

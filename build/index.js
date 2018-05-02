@@ -48752,37 +48752,57 @@ var _Dialog = __webpack_require__(442);
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
-var _Toolbar = __webpack_require__(506);
+var _Toolbar = __webpack_require__(495);
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
-var _IconButton = __webpack_require__(508);
+var _IconButton = __webpack_require__(497);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(495);
+__webpack_require__(499);
 
-var _ChapterView = __webpack_require__(497);
+var _ChapterView = __webpack_require__(501);
 
 var _ChapterView2 = _interopRequireDefault(_ChapterView);
 
-var _BibleHeadingsRow = __webpack_require__(500);
+var _BibleHeadingsRow = __webpack_require__(504);
 
 var _BibleHeadingsRow2 = _interopRequireDefault(_BibleHeadingsRow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // components
-var toolBarStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: 'var(--reverse-color)',
-  backgroundColor: 'var(--accent-color-dark)',
-  padding: '15px',
-  width: '100%'
+var styles = {
+  toolBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'var(--reverse-color)',
+    backgroundColor: 'var(--accent-color-dark)',
+    padding: '15px',
+    width: '100%'
+  },
+  title: {
+    marginLeft: 'auto',
+    fontSize: '22px',
+    fontWeight: '400'
+  },
+  closeButton: {
+    marginLeft: 'auto'
+  },
+  dialogContent: {
+    padding: '0px',
+    margin: '0px'
+  },
+  dialogActions: {
+    height: '70px',
+    padding: '10px',
+    margin: '0px',
+    borderTop: '1px solid var(--border-color)'
+  }
 };
 
 var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
@@ -48799,21 +48819,21 @@ var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
     { open: show, onClose: onHide, fullWidth: true, maxWidth: 'md' },
     _react2.default.createElement(
       _Toolbar2.default,
-      { style: toolBarStyle },
+      { style: styles.toolBar },
       _react2.default.createElement(
         'div',
-        { style: { marginLeft: 'auto', fontSize: '22px', fontWeight: '400' } },
-        'Title'
+        { style: styles.title },
+        title
       ),
       _react2.default.createElement(
         _IconButton2.default,
-        { color: 'inherit', onClick: onHide, 'aria-label': 'Close', style: { marginLeft: 'auto' } },
+        { color: 'inherit', onClick: onHide, 'aria-label': 'Close', style: styles.closeButton },
         _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'remove' })
       )
     ),
     _react2.default.createElement(
       _Dialog.DialogContent,
-      { style: { padding: '0px', margin: '0px' } },
+      { style: styles.dialogContent },
       _react2.default.createElement(_BibleHeadingsRow2.default, {
         currentPaneSettings: currentPaneSettings,
         biblesWithHighlightedWords: biblesWithHighlightedWords }),
@@ -48825,7 +48845,7 @@ var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
     ),
     _react2.default.createElement(
       _Dialog.DialogActions,
-      { disableActionSpacing: true, style: { height: '70px', padding: '10px', margin: '0px', borderTop: '1px solid var(--border-color)' } },
+      { disableActionSpacing: true, style: styles.dialogActions },
       _react2.default.createElement(
         'button',
         { className: 'btn-prime', onClick: onHide },
@@ -54842,45 +54862,6 @@ module.exports = isObjectLike;
 /* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-var content = __webpack_require__(496);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 496 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".expanded-modal-body {\n  padding: 0;\n  max-height: 500px;\n}\n\n.expanded-modal-title {\n  display: flex;\n  flex-direction: row;\n}\n\n.expanded-modal-content {\n  border-bottom: solid 1px var(--border-color);\n}\n\n.expanded-modal-icon {\n  cursor: pointer;\n  color: #ffffff;\n  width: 25;\n  height: 25;\n}\n\n.expanded-modal-icon-button {\n  padding: 0;\n  width: 25;\n  height: 25;\n  margin-top: 5;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 497 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -54888,444 +54869,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-__webpack_require__(498);
-
-var _BibleHeadingsRow = __webpack_require__(500);
-
-var _BibleHeadingsRow2 = _interopRequireDefault(_BibleHeadingsRow);
-
-var _VerseRow = __webpack_require__(503);
-
-var _VerseRow2 = _interopRequireDefault(_VerseRow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// components
-
-
-var ChapterView = function (_Component) {
-  _inherits(ChapterView, _Component);
-
-  function ChapterView() {
-    _classCallCheck(this, ChapterView);
-
-    return _possibleConstructorReturn(this, (ChapterView.__proto__ || Object.getPrototypeOf(ChapterView)).apply(this, arguments));
-  }
-
-  _createClass(ChapterView, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          contextId = _props.contextId,
-          currentPaneSettings = _props.currentPaneSettings,
-          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
-      var _contextId$refecerenc = contextId.refecerence,
-          chapter = _contextId$refecerenc.chapter,
-          verse = _contextId$refecerenc.verse;
-
-      var verseNumbers = Object.keys(biblesWithHighlightedWords['en']['ult'].bibleData[chapter]);
-      var verseRows = _react2.default.createElement('div', null);
-
-      if (verseNumbers.length > 0) {
-
-        verseRows = verseNumbers.map(function (verseNumber) {
-          return _react2.default.createElement(_VerseRow2.default, { key: verseNumber,
-            chapter: chapter,
-            verse: verse,
-            currentVerseNumber: verseNumber,
-            currentPaneSettings: currentPaneSettings,
-            biblesWithHighlightedWords: biblesWithHighlightedWords });
-        });
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'verse-row-container' },
-        verseRows
-      );
-    }
-  }]);
-
-  return ChapterView;
-}(_react.Component);
-
-ChapterView.propTypes = {
-  contextId: _propTypes2.default.object.isRequired,
-  currentPaneSettings: _propTypes2.default.array.isRequired,
-  biblesWithHighlightedWords: _propTypes2.default.object.isRequired
-};
-
-exports.default = ChapterView;
-
-/***/ }),
-/* 498 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(499);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 499 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".bible-heading-container {\n  width: 100%;\n  height: 100%;\n}\n\n.verse-row-container {\n  /* overflow-y: scroll;\n  overflow-x: scroll; */\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 500 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactBootstrap = __webpack_require__(226);
-
-__webpack_require__(501);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var rowStyle = {
-  display: 'flex',
-  height: "120px",
-  margin: '0',
-  marginRight: '12px',
-  backgroundColor: 'var(--reverse-color)'
-};
-
-var BibleHeadingsRow = function (_Component) {
-  _inherits(BibleHeadingsRow, _Component);
-
-  function BibleHeadingsRow() {
-    _classCallCheck(this, BibleHeadingsRow);
-
-    return _possibleConstructorReturn(this, (BibleHeadingsRow.__proto__ || Object.getPrototypeOf(BibleHeadingsRow)).apply(this, arguments));
-  }
-
-  _createClass(BibleHeadingsRow, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          currentPaneSettings = _props.currentPaneSettings,
-          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
-
-      var bibleHeadings = currentPaneSettings.map(function (paneSetting, index) {
-        var languageId = paneSetting.languageId;
-        var bibleId = paneSetting.bibleId;
-        var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
-            languageName = _biblesWithHighlighte.languageName,
-            direction = _biblesWithHighlighte.direction,
-            bibleData = _biblesWithHighlighte.bibleData;
-
-        var resourceText = bibleId !== "targetBible" ? " (" + bibleId.toUpperCase() + ")" : "";
-        var headingText = languageName + resourceText;
-        var dir = direction;
-        if (!dir) dir = _this2.props.projectDetailsReducer.manifest.target_language.direction;
-        var colStyle = {
-          minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
-          color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
-          borderBottom: '3px solid var(--border-color)', direction: dir
-        };
-
-        return _react2.default.createElement(
-          _reactBootstrap.Col,
-          { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
-          _react2.default.createElement(
-            'span',
-            null,
-            headingText
-          )
-        );
-      });
-
-      return _react2.default.createElement(
-        _reactBootstrap.Row,
-        { style: rowStyle },
-        bibleHeadings
-      );
-    }
-  }]);
-
-  return BibleHeadingsRow;
-}(_react.Component);
-
-BibleHeadingsRow.propTypes = {
-  currentPaneSettings: _propTypes2.default.array.isRequired,
-  biblesWithHighlightedWords: _propTypes2.default.object.isRequired
-};
-
-exports.default = BibleHeadingsRow;
-
-/***/ }),
-/* 501 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(502);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 502 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
-
-// module
-exports.push([module.i, ".row-container {\n  display: flex;\n  height: 70px;\n  margin: 0;\n  margin-right: 12px;\n  background-color: var(--reverse-color);\n  min-width: 500px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 503 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactBootstrap = __webpack_require__(226);
-
-__webpack_require__(504);
-
-var _Verse = __webpack_require__(438);
-
-var _Verse2 = _interopRequireDefault(_Verse);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// components
-
-
-var VerseRow = function (_Component) {
-  _inherits(VerseRow, _Component);
-
-  function VerseRow() {
-    _classCallCheck(this, VerseRow);
-
-    return _possibleConstructorReturn(this, (VerseRow.__proto__ || Object.getPrototypeOf(VerseRow)).apply(this, arguments));
-  }
-
-  _createClass(VerseRow, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          chapter = _props.chapter,
-          verse = _props.verse,
-          currentVerseNumber = _props.currentVerseNumber,
-          currentPaneSettings = _props.currentPaneSettings,
-          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
-
-      var verseCells = _react2.default.createElement('div', null);
-      var isCurrent = currentVerseNumber === verse.toString();
-
-      var colStyle = {
-        minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
-        borderRight: '1px solid var(--border-color)'
-      };
-      var rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
-      var isGrayVerseRow = false;
-      if (currentVerseNumber % 2 === 0) {
-        rowStyle.backgroundColor = 'var(--background-color-light)';
-        isGrayVerseRow = true;
-      }
-      if (currentPaneSettings.length > 0) {
-        verseCells = currentPaneSettings.map(function (paneSetting, index) {
-          var languageId = paneSetting.languageId,
-              bibleId = paneSetting.bibleId;
-          var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
-              direction = _biblesWithHighlighte.direction,
-              bibleData = _biblesWithHighlighte.bibleData;
-
-          var verseElements = bibleData[chapter][currentVerseNumber];
-
-          return _react2.default.createElement(
-            _reactBootstrap.Col,
-            { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
-            _react2.default.createElement(_Verse2.default, {
-              verseElements: verseElements,
-              bibleId: bibleId,
-              direction: direction,
-              chapter: chapter,
-              verse: currentVerseNumber
-            })
-          );
-        });
-      }
-
-      return _react2.default.createElement(
-        _reactBootstrap.Row,
-        { style: rowStyle },
-        verseCells
-      );
-    }
-  }]);
-
-  return VerseRow;
-}(_react.Component);
-
-VerseRow.propTypes = {
-  chapter: _propTypes2.default.number.isRequired,
-  verse: _propTypes2.default.number.isRequired,
-  direction: _propTypes2.default.string.isRequired,
-  currentVerseNumber: _propTypes2.default.number.isRequired,
-  currentPaneSettings: _propTypes2.default.array.isRequired,
-  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
-};
-
-exports.default = VerseRow;
-
-/***/ }),
-/* 504 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(505);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 505 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 506 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Toolbar = __webpack_require__(507);
+var _Toolbar = __webpack_require__(496);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -55337,7 +54881,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 507 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55432,7 +54976,7 @@ Toolbar.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiToolbar' })(Toolbar);
 
 /***/ }),
-/* 508 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55442,7 +54986,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _IconButton = __webpack_require__(509);
+var _IconButton = __webpack_require__(498);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -55454,7 +54998,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 509 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55630,6 +55174,482 @@ IconButton.defaultProps = {
 };
 
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiIconButton' })(IconButton);
+
+/***/ }),
+/* 499 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(500);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 500 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".expanded-modal-body {\n  padding: 0;\n  max-height: 500px;\n}\n\n.expanded-modal-title {\n  display: flex;\n  flex-direction: row;\n}\n\n.expanded-modal-content {\n  border-bottom: solid 1px var(--border-color);\n}\n\n.expanded-modal-icon {\n  cursor: pointer;\n  color: #ffffff;\n  width: 25;\n  height: 25;\n}\n\n.expanded-modal-icon-button {\n  padding: 0;\n  width: 25;\n  height: 25;\n  margin-top: 5;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+__webpack_require__(502);
+
+var _BibleHeadingsRow = __webpack_require__(504);
+
+var _BibleHeadingsRow2 = _interopRequireDefault(_BibleHeadingsRow);
+
+var _VerseRow = __webpack_require__(507);
+
+var _VerseRow2 = _interopRequireDefault(_VerseRow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// components
+
+
+var ChapterView = function (_Component) {
+  _inherits(ChapterView, _Component);
+
+  function ChapterView() {
+    _classCallCheck(this, ChapterView);
+
+    return _possibleConstructorReturn(this, (ChapterView.__proto__ || Object.getPrototypeOf(ChapterView)).apply(this, arguments));
+  }
+
+  _createClass(ChapterView, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          contextId = _props.contextId,
+          currentPaneSettings = _props.currentPaneSettings,
+          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
+      var _contextId$refecerenc = contextId.refecerence,
+          chapter = _contextId$refecerenc.chapter,
+          verse = _contextId$refecerenc.verse;
+
+      var verseNumbers = Object.keys(biblesWithHighlightedWords['en']['ult'].bibleData[chapter]);
+      var verseRows = _react2.default.createElement('div', null);
+
+      if (verseNumbers.length > 0) {
+
+        verseRows = verseNumbers.map(function (verseNumber) {
+          return _react2.default.createElement(_VerseRow2.default, { key: verseNumber,
+            chapter: chapter,
+            verse: verse,
+            currentVerseNumber: verseNumber,
+            currentPaneSettings: currentPaneSettings,
+            biblesWithHighlightedWords: biblesWithHighlightedWords });
+        });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'verse-row-container' },
+        verseRows
+      );
+    }
+  }]);
+
+  return ChapterView;
+}(_react.Component);
+
+ChapterView.propTypes = {
+  contextId: _propTypes2.default.object.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  biblesWithHighlightedWords: _propTypes2.default.object.isRequired
+};
+
+exports.default = ChapterView;
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(503);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 503 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".bible-heading-container {\n  width: 100%;\n  height: 100%;\n}\n\n.verse-row-container {\n  /* overflow-y: scroll;\n  overflow-x: scroll; */\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 504 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactBootstrap = __webpack_require__(226);
+
+__webpack_require__(505);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var rowStyle = {
+  display: 'flex',
+  height: "120px",
+  margin: '0',
+  marginRight: '12px',
+  backgroundColor: 'var(--reverse-color)'
+};
+
+var BibleHeadingsRow = function (_Component) {
+  _inherits(BibleHeadingsRow, _Component);
+
+  function BibleHeadingsRow() {
+    _classCallCheck(this, BibleHeadingsRow);
+
+    return _possibleConstructorReturn(this, (BibleHeadingsRow.__proto__ || Object.getPrototypeOf(BibleHeadingsRow)).apply(this, arguments));
+  }
+
+  _createClass(BibleHeadingsRow, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          currentPaneSettings = _props.currentPaneSettings,
+          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
+
+      var bibleHeadings = currentPaneSettings.map(function (paneSetting, index) {
+        var languageId = paneSetting.languageId;
+        var bibleId = paneSetting.bibleId;
+        var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+            languageName = _biblesWithHighlighte.languageName,
+            direction = _biblesWithHighlighte.direction,
+            bibleData = _biblesWithHighlighte.bibleData;
+
+        var resourceText = bibleId !== "targetBible" ? " (" + bibleId.toUpperCase() + ")" : "";
+        var headingText = languageName + resourceText;
+        var dir = direction;
+        if (!dir) dir = _this2.props.projectDetailsReducer.manifest.target_language.direction;
+        var colStyle = {
+          minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
+          color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
+          borderBottom: '3px solid var(--border-color)', direction: dir
+        };
+
+        return _react2.default.createElement(
+          _reactBootstrap.Col,
+          { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
+          _react2.default.createElement(
+            'span',
+            null,
+            headingText
+          )
+        );
+      });
+
+      return _react2.default.createElement(
+        _reactBootstrap.Row,
+        { style: rowStyle },
+        bibleHeadings
+      );
+    }
+  }]);
+
+  return BibleHeadingsRow;
+}(_react.Component);
+
+BibleHeadingsRow.propTypes = {
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  biblesWithHighlightedWords: _propTypes2.default.object.isRequired
+};
+
+exports.default = BibleHeadingsRow;
+
+/***/ }),
+/* 505 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(506);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, ".row-container {\n  display: flex;\n  height: 70px;\n  margin: 0;\n  margin-right: 12px;\n  background-color: var(--reverse-color);\n  min-width: 500px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 507 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactBootstrap = __webpack_require__(226);
+
+__webpack_require__(508);
+
+var _Verse = __webpack_require__(438);
+
+var _Verse2 = _interopRequireDefault(_Verse);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// components
+
+
+var VerseRow = function (_Component) {
+  _inherits(VerseRow, _Component);
+
+  function VerseRow() {
+    _classCallCheck(this, VerseRow);
+
+    return _possibleConstructorReturn(this, (VerseRow.__proto__ || Object.getPrototypeOf(VerseRow)).apply(this, arguments));
+  }
+
+  _createClass(VerseRow, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          chapter = _props.chapter,
+          verse = _props.verse,
+          currentVerseNumber = _props.currentVerseNumber,
+          currentPaneSettings = _props.currentPaneSettings,
+          biblesWithHighlightedWords = _props.biblesWithHighlightedWords;
+
+      var verseCells = _react2.default.createElement('div', null);
+      var isCurrent = currentVerseNumber === verse.toString();
+
+      var colStyle = {
+        minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
+        borderRight: '1px solid var(--border-color)'
+      };
+      var rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
+      var isGrayVerseRow = false;
+      if (currentVerseNumber % 2 === 0) {
+        rowStyle.backgroundColor = 'var(--background-color-light)';
+        isGrayVerseRow = true;
+      }
+      if (currentPaneSettings.length > 0) {
+        verseCells = currentPaneSettings.map(function (paneSetting, index) {
+          var languageId = paneSetting.languageId,
+              bibleId = paneSetting.bibleId;
+          var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+              direction = _biblesWithHighlighte.direction,
+              bibleData = _biblesWithHighlighte.bibleData;
+
+          var verseElements = bibleData[chapter][currentVerseNumber];
+
+          return _react2.default.createElement(
+            _reactBootstrap.Col,
+            { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
+            _react2.default.createElement(_Verse2.default, {
+              verseElements: verseElements,
+              bibleId: bibleId,
+              direction: direction,
+              chapter: chapter,
+              verse: currentVerseNumber
+            })
+          );
+        });
+      }
+
+      return _react2.default.createElement(
+        _reactBootstrap.Row,
+        { style: rowStyle },
+        verseCells
+      );
+    }
+  }]);
+
+  return VerseRow;
+}(_react.Component);
+
+VerseRow.propTypes = {
+  chapter: _propTypes2.default.number.isRequired,
+  verse: _propTypes2.default.number.isRequired,
+  direction: _propTypes2.default.string.isRequired,
+  currentVerseNumber: _propTypes2.default.number.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
+};
+
+exports.default = VerseRow;
+
+/***/ }),
+/* 508 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(509);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 509 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
