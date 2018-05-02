@@ -61042,27 +61042,17 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _usfmJs = __webpack_require__(556);
-
-var _usfmJs2 = _interopRequireDefault(_usfmJs);
-
 __webpack_require__(560);
 
 var _styles = __webpack_require__(20);
 
-var _selectionHelpers = __webpack_require__(562);
+var _ActionsArea = __webpack_require__(583);
 
-var _deepEqual = __webpack_require__(565);
-
-var _deepEqual2 = _interopRequireDefault(_deepEqual);
+var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
 var _CheckArea = __webpack_require__(568);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
-
-var _ActionsArea = __webpack_require__(583);
-
-var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
 var _SaveArea = __webpack_require__(587);
 
@@ -61076,12 +61066,6 @@ var _IconIndicators = __webpack_require__(590);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
-var _checkAreaHelpers = __webpack_require__(591);
-
-var checkAreaHelpers = _interopRequireWildcard(_checkAreaHelpers);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61089,340 +61073,49 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This component displays the Verse so selection, edit and comments can be made.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * component displays the Verse so selection, edit and comments can be made.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
-
-//helpers
 
 
 var VerseCheck = function (_Component) {
   _inherits(VerseCheck, _Component);
 
-  function VerseCheck(props) {
+  function VerseCheck() {
     _classCallCheck(this, VerseCheck);
 
-    var _this2 = _possibleConstructorReturn(this, (VerseCheck.__proto__ || Object.getPrototypeOf(VerseCheck)).call(this, props));
-
-    var verseText = _usfmJs2.default.removeMarker(_this2.verseText());
-    var mode = props.selectionsReducer.selections.length > 0 || verseText.length === 0 ? 'default' : 'select';
-    _this2.state = {
-      mode: mode,
-      comment: undefined,
-      commentChanged: false,
-      verseText: undefined,
-      verseChanged: false,
-      selections: [],
-      tags: [],
-      dialogModalVisibility: false,
-      goToNextOrPrevious: null
-    };
-    _this2.saveSelection = _this2.saveSelection.bind(_this2);
-    _this2.cancelSelection = _this2.cancelSelection.bind(_this2);
-    _this2.clearSelection = _this2.clearSelection.bind(_this2);
-    _this2.handleSkip = _this2.handleSkip.bind(_this2);
-
-    var _this = _this2;
-
-    _this2.tagList = [["spelling", "Spelling"], ["punctuation", "Punctuation"], ["grammar", "Grammar"], ["meaning", "Meaning"], ["wordChoice", "Word Choice"], ["other", "Other"]];
-
-    _this2.actions = {
-      handleGoToNext: function handleGoToNext() {
-        if (!_this.props.loginReducer.loggedInUser) {
-          _this.props.actions.selectModalTab(1, 1, true);
-          _this.props.actions.openAlertDialog("You must be logged in to save progress");
-          return;
-        }
-        props.actions.goToNext();
-      },
-      handleGoToPrevious: function handleGoToPrevious() {
-        if (!_this.props.loginReducer.loggedInUser) {
-          _this.props.actions.selectModalTab(1, 1, true);
-          _this.props.actions.openAlertDialog("You must be logged in to save progress");
-          return;
-        }
-        props.actions.goToPrevious();
-      },
-      handleOpenDialog: function handleOpenDialog(goToNextOrPrevious) {
-        _this.setState({ goToNextOrPrevious: goToNextOrPrevious });
-        _this.setState({ dialogModalVisibility: true });
-      },
-      handleCloseDialog: function handleCloseDialog() {
-        _this.setState({ dialogModalVisibility: false });
-      },
-      skipToNext: function skipToNext() {
-        _this.setState({ dialogModalVisibility: false });
-        props.actions.goToNext();
-      },
-      skipToPrevious: function skipToPrevious() {
-        _this.setState({ dialogModalVisibility: false });
-        props.actions.goToPrevious();
-      },
-      changeSelectionsInLocalState: function changeSelectionsInLocalState(selections) {
-        _this.setState({ selections: selections });
-      },
-      changeMode: function changeMode(mode) {
-        _this.setState({
-          mode: mode,
-          selections: _this.props.selectionsReducer.selections
-        });
-      },
-      handleComment: function handleComment(e) {
-        var comment = e.target.value;
-        _this.setState({
-          comment: comment
-        });
-      },
-      checkComment: function checkComment(e) {
-        var newcomment = e.target.value || "";
-        var oldcomment = _this.props.commentsReducer.text || "";
-        _this.setState({
-          commentChanged: newcomment !== oldcomment
-        });
-      },
-      cancelComment: function cancelComment() {
-        _this.setState({
-          mode: 'default',
-          selections: _this.props.selectionsReducer.selections,
-          comment: undefined,
-          commentChanged: false
-        });
-      },
-      saveComment: function saveComment() {
-        if (!_this.props.loginReducer.loggedInUser) {
-          _this.props.actions.selectModalTab(1, 1, true);
-          _this.props.actions.openAlertDialog("You must be logged in to leave a comment", 5);
-          return;
-        }
-        _this.props.actions.addComment(_this.state.comment, _this.props.loginReducer.userdata.username);
-        _this.setState({
-          mode: 'default',
-          selections: _this.props.selectionsReducer.selections,
-          comment: undefined,
-          commentChanged: false
-        });
-      },
-      handleTagsCheckbox: function handleTagsCheckbox(tag) {
-        var newState = _this.state;
-        if (newState.tags === undefined) newState.tags = [];
-        if (!newState.tags.includes(tag)) {
-          newState.tags.push(tag);
-        } else {
-          newState.tags = newState.tags.filter(function (_tag) {
-            return _tag !== tag;
-          });
-        }
-        _this.setState(newState);
-      },
-      handleEditVerse: function handleEditVerse(e) {
-        var verseText = e.target.value;
-        _this.setState({
-          verseText: verseText
-        });
-      },
-      checkVerse: function checkVerse(e) {
-        var _this$props$contextId = _this.props.contextIdReducer.contextId.reference,
-            chapter = _this$props$contextId.chapter,
-            verse = _this$props$contextId.verse;
-
-        var newverse = e.target.value || "";
-        var oldverse = _this.props.resourcesReducer.bibles.targetLanguage.targetBible[chapter][verse] || "";
-        if (newverse === oldverse) {
-          _this.setState({
-            verseChanged: false,
-            tags: []
-          });
-        } else {
-          _this.setState({
-            verseChanged: true
-          });
-        }
-      },
-      cancelEditVerse: function cancelEditVerse() {
-        _this.setState({
-          mode: 'default',
-          selections: _this.props.selectionsReducer.selections,
-          verseText: undefined,
-          verseChanged: false,
-          tags: []
-        });
-      },
-      saveEditVerse: function saveEditVerse() {
-        var _this$props = _this.props,
-            loginReducer = _this$props.loginReducer,
-            actions = _this$props.actions,
-            contextIdReducer = _this$props.contextIdReducer,
-            resourcesReducer = _this$props.resourcesReducer;
-        var _contextIdReducer$con = contextIdReducer.contextId.reference,
-            chapter = _contextIdReducer$con.chapter,
-            verse = _contextIdReducer$con.verse;
-
-        var before = resourcesReducer.bibles.targetLanguage.targetBible[chapter][verse];
-        var username = loginReducer.userdata.username;
-        // verseText state is undefined if no changes are made in the text box.
-        if (!loginReducer.loggedInUser) {
-          _this.props.actions.selectModalTab(1, 1, true);
-          _this.props.actions.openAlertDialog("You must be logged in to edit a verse");
-          return;
-        }
-
-        var save = function save() {
-          actions.editTargetVerse(chapter, verse, before, _this.state.verseText, _this.state.tags, username);
-          _this.setState({
-            mode: 'default',
-            selections: _this.props.selectionsReducer.selections,
-            verseText: undefined,
-            verseChanged: false,
-            tags: []
-          });
-        };
-        if (_this.state.verseText) {
-          // if verseText === "" is false
-          save();
-        } else {
-          // alert the user if the text is blank
-          var message = 'You are saving a blank verse. Please confirm.';
-          _this.props.actions.openOptionDialog(message, function (option) {
-            if (option !== "Cancel") save();
-            _this.props.actions.closeAlertDialog();
-          }, "Save Blank Verse", "Cancel");
-        }
-      },
-      validateSelections: function validateSelections(verseText) {
-        _this.props.actions.validateSelections(verseText);
-      },
-      toggleReminder: function toggleReminder() {
-        _this.props.actions.toggleReminder(_this.props.loginReducer.userdata.username);
-      },
-      openAlertDialog: function openAlertDialog(message) {
-        _this.props.actions.openAlertDialog(message);
-      },
-      selectModalTab: function selectModalTab(tab, section, vis) {
-        _this.props.actions.selectModalTab(tab, section, vis);
-      }
-    };
-    return _this2;
+    return _possibleConstructorReturn(this, (VerseCheck.__proto__ || Object.getPrototypeOf(VerseCheck)).apply(this, arguments));
   }
 
   _createClass(VerseCheck, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var selections = Array.from(this.props.selectionsReducer.selections);
-      this.setState({ selections: selections });
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.contextIdReducer.contextId != this.props.contextIdReducer.contextId) {
-        var selections = Array.from(nextProps.selectionsReducer.selections);
-
-        var _ref = nextProps.contextIdReducer.contextId.reference || {},
-            chapter = _ref.chapter,
-            verse = _ref.verse;
-
-        var _ref2 = nextProps.resourcesReducer.bibles.targetLanguage || {},
-            targetBible = _ref2.targetBible;
-
-        var verseText = targetBible && targetBible[chapter] ? targetBible[chapter][verse] : "";
-        if (Array.isArray(verseText)) verseText = verseText[0];
-        // normalize whitespace in case selection has contiguous whitespace _this isn't captured
-        verseText = (0, _selectionHelpers.normalizeString)(verseText);
-        var mode = nextProps.selectionsReducer.selections.length > 0 || verseText.length === 0 ? 'default' : 'select';
-        this.setState({
-          mode: mode,
-          comments: undefined,
-          verseText: undefined,
-          selections: selections,
-          tags: []
-        });
-      }
-    }
-  }, {
-    key: 'cancelSelection',
-    value: function cancelSelection() {
-      this.actions.changeSelectionsInLocalState(this.props.selectionsReducer.selections);
-      this.actions.changeMode('default');
-    }
-  }, {
-    key: 'clearSelection',
-    value: function clearSelection() {
-      this.setState({
-        selections: []
-      });
-    }
-  }, {
-    key: 'saveSelection',
-    value: function saveSelection() {
-      var verseText = this.verseText();
-      // optimize the selections to address potential issues and save
-      var selections = (0, _selectionHelpers.optimizeSelections)(verseText, this.state.selections);
-      this.props.actions.changeSelections(selections, this.props.loginReducer.userdata.username);
-      this.actions.changeMode('default');
-    }
-  }, {
-    key: 'verseText',
-    value: function verseText() {
-      var _props$contextIdReduc = this.props.contextIdReducer.contextId.reference,
-          chapter = _props$contextIdReduc.chapter,
-          verse = _props$contextIdReduc.verse,
-          bookId = _props$contextIdReduc.bookId;
-
-      var bookAbbr = this.props.projectDetailsReducer.manifest.project.id;
-      var targetBible = this.props.resourcesReducer.bibles.targetLanguage.targetBible;
-
-      var verseText = "";
-      if (targetBible && targetBible[chapter] && bookId == bookAbbr) {
-        verseText = targetBible && targetBible[chapter] ? targetBible[chapter][verse] : "";
-        if (Array.isArray(verseText)) verseText = verseText[0];
-        // normalize whitespace in case selection has contiguous whitespace _this isn't captured
-        verseText = (0, _selectionHelpers.normalizeString)(verseText);
-      }
-      return verseText;
-    }
-  }, {
-    key: 'findIfVerseEdited',
-    value: function findIfVerseEdited() {
-      var _props = this.props,
-          contextId = _props.contextIdReducer.contextId,
-          groupsData = _props.groupsDataReducer.groupsData;
-
-      var result = false;
-
-      if (groupsData[contextId.groupId]) {
-        var groupData = groupsData[contextId.groupId].filter(function (groupData) {
-          return (0, _deepEqual2.default)(groupData.contextId, contextId);
-        });
-        result = groupData[0].verseEdits;
-      }
-      return result;
-    }
-  }, {
-    key: 'handleSkip',
-    value: function handleSkip(e) {
-      e.preventDefault();
-      if (this.state.goToNextOrPrevious == "next") {
-        this.actions.skipToNext();
-      } else if (this.state.goToNextOrPrevious == "previous") {
-        this.actions.skipToPrevious();
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var verseText = _usfmJs2.default.removeMarker(this.verseText());
-      var _props2 = this.props,
-          translate = _props2.translate,
-          commentsReducer = _props2.commentsReducer,
-          remindersReducer = _props2.remindersReducer,
-          projectDetailsReducer = _props2.projectDetailsReducer,
-          contextIdReducer = _props2.contextIdReducer,
-          resourcesReducer = _props2.resourcesReducer,
-          selectionsReducer = _props2.selectionsReducer,
-          alignedGLText = _props2.alignedGLText;
+      var _props = this.props,
+          translate = _props.translate,
+          commentsReducer = _props.commentsReducer,
+          remindersReducer = _props.remindersReducer,
+          projectDetailsReducer = _props.projectDetailsReducer,
+          contextIdReducer = _props.contextIdReducer,
+          resourcesReducer = _props.resourcesReducer,
+          selectionsReducer = _props.selectionsReducer,
+          alignedGLText = _props.alignedGLText,
+          verseText = _props.verseText,
+          mode = _props.mode,
+          actions = _props.actions,
+          dialogModalVisibility = _props.dialogModalVisibility,
+          commentChanged = _props.commentChanged,
+          findIfVerseEdited = _props.findIfVerseEdited,
+          tags = _props.tags,
+          verseChanged = _props.verseChanged,
+          selections = _props.selections,
+          saveSelection = _props.saveSelection,
+          cancelSelection = _props.cancelSelection,
+          clearSelection = _props.clearSelection,
+          handleSkip = _props.handleSkip;
 
 
       var titleText = void 0;
       var saveArea = void 0;
-      switch (this.state.mode) {
+      switch (mode) {
         case 'edit':
           titleText = translate('edit_verse');
           saveArea = _react2.default.createElement('div', null);
@@ -61438,7 +61131,7 @@ var VerseCheck = function (_Component) {
         default:
           titleText = translate('step2_check');
           saveArea = _react2.default.createElement(_SaveArea2.default, {
-            actions: this.actions,
+            actions: actions,
             selections: selectionsReducer.selections,
             translate: translate });
       }
@@ -61465,20 +61158,20 @@ var VerseCheck = function (_Component) {
                   titleText
                 ),
                 _react2.default.createElement(_IconIndicators2.default, {
-                  verseEdited: this.findIfVerseEdited(),
+                  verseEdited: findIfVerseEdited(),
                   selections: selectionsReducer.selections,
                   comment: commentsReducer.text,
                   bookmarkEnabled: remindersReducer.enabled,
                   translate: translate })
               ),
               _react2.default.createElement(_CheckArea2.default, {
-                actions: this.actions,
-                mode: this.state.mode,
-                tags: this.state.tags,
+                actions: actions,
+                mode: mode,
+                tags: tags,
                 verseText: verseText,
-                verseChanged: this.state.verseChanged,
+                verseChanged: verseChanged,
                 comment: commentsReducer.text,
-                newSelections: this.state.selections,
+                newSelections: selections,
                 selections: selectionsReducer.selections,
                 translate: translate,
                 projectDetailsReducer: projectDetailsReducer,
@@ -61486,24 +61179,24 @@ var VerseCheck = function (_Component) {
                 bibles: resourcesReducer.bibles,
                 alignedGLText: alignedGLText }),
               _react2.default.createElement(_ActionsArea2.default, {
-                mode: this.state.mode,
-                tags: this.state.tags,
-                actions: this.actions,
-                commentChanged: this.state.commentChanged,
+                mode: mode,
+                tags: tags,
+                actions: actions,
+                commentChanged: commentChanged,
                 selections: selectionsReducer.selections,
-                newSelections: this.state.selections,
+                newSelections: selections,
                 remindersReducer: remindersReducer,
-                saveSelection: this.saveSelection,
-                cancelSelection: this.cancelSelection,
-                clearSelection: this.clearSelection,
+                saveSelection: saveSelection,
+                cancelSelection: cancelSelection,
+                clearSelection: clearSelection,
                 translate: translate })
             ),
             saveArea
           ),
           _react2.default.createElement(_DialogComponent2.default, {
-            handleSkip: this.handleSkip,
-            dialogModalVisibility: this.state.dialogModalVisibility,
-            handleClose: this.actions.handleCloseDialog,
+            handleSkip: handleSkip,
+            dialogModalVisibility: dialogModalVisibility,
+            handleClose: actions.handleCloseDialog,
             translate: translate })
         )
       );
@@ -61514,6 +61207,17 @@ var VerseCheck = function (_Component) {
 }(_react.Component);
 
 VerseCheck.propTypes = {
+  commentChanged: _propTypes2.default.bool.isRequired,
+  findIfVerseEdited: _propTypes2.default.func.isRequired,
+  tags: _propTypes2.default.array.isRequired,
+  verseChanged: _propTypes2.default.bool.isRequired,
+  selections: _propTypes2.default.array.isRequired,
+  saveSelection: _propTypes2.default.func.isRequired,
+  cancelSelection: _propTypes2.default.func.isRequired,
+  clearSelection: _propTypes2.default.func.isRequired,
+  handleSkip: _propTypes2.default.func.isRequired,
+  verseText: _propTypes2.default.string,
+  alignedGLText: _propTypes2.default.string,
   remindersReducer: _propTypes2.default.object.isRequired,
   groupsDataReducer: _propTypes2.default.object.isRequired,
   toolsReducer: _propTypes2.default.object.isRequired,
@@ -61589,397 +61293,10 @@ VerseCheck.defaultProps = {
 exports.default = VerseCheck;
 
 /***/ }),
-/* 556 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports.toJSON = __webpack_require__(557).usfmToJSON;
-module.exports.toUSFM = __webpack_require__(558).jsonToUSFM;
-module.exports.removeMarker = __webpack_require__(559).removeMarker;
-
-/***/ }),
-/* 557 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.usfmToJSON = exports.parseLine = exports.parseWord = exports.parseMarkerOpen = exports.getMatches = undefined;
-
-var _keys = __webpack_require__(80);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @description - Finds all of the regex matches in a string
- * @param {String} string - the string to find matches in
- * @param {RegExp} regex - the RegExp to find matches with, must use global flag /.../g
- * @return {Array} - array of results
-*/
-var getMatches = exports.getMatches = function getMatches(string, regex) {
-  var matches = [];
-  var match = void 0;
-  if (string.match(regex)) {
-    // check so you don't get caught in a loop
-    while (match = regex.exec(string)) {
-      matches.push(match);
-    }
-  }
-  return matches;
-};
-
-/**
- * @description - Parses the marker that opens and describes content
- * @param {String} markerOpen - the string that contains the marker '\v 1', '\p', ...
- * @return {Object} - the object of type and number if it exists
-*/
-var parseMarkerOpen = exports.parseMarkerOpen = function parseMarkerOpen(markerOpen) {
-  var object = {};
-  if (markerOpen) {
-    var regex = /(\w+)\s*(\d*)/g;
-    var matches = exports.getMatches(markerOpen, regex);
-    object = {
-      type: matches[0][1],
-      number: matches[0][2]
-    };
-  }
-  return object;
-};
-
-/**
- * @description - Parses the word marker into JSON
- * @param {String} wordContent - the string to find the data/attributes
- * @return {Object} - json object of the word attributes
-*/
-var parseWord = exports.parseWord = function parseWord(wordContent) {
-  var object = {};
-  var wordParts = wordContent.split('|');
-  var word = wordParts[0];
-  var attributeContent = wordParts[1];
-  object = {
-    word: word
-  };
-  var regex = /[x-]*([\w-]+)=['"](.*?)['"]/g;
-  var matches = exports.getMatches(attributeContent, regex);
-  matches.forEach(function (match) {
-    object[match[1]] = match[2];
-  });
-  return object;
-};
-
-/**
- * @description - Parses the line and determines what content is in it
- * @param {String} line - the string to find the markers and content
- * @return {Array} - array of objects that describe open/close and content
-*/
-var parseLine = exports.parseLine = function parseLine(line) {
-  var array = [];
-  if (line.trim() === '') {
-    return array;
-  }
-  var regex = /([^\\]+)?\\(\w+\s*\d*)(?!\w)\s*([^\\]+)?(\\\w\*)?/g;
-  var matches = exports.getMatches(line, regex);
-  if (regex.exec(line)) {
-    // normal formatting with marker followed by content
-    matches.forEach(function (match) {
-      var orphan = match[1] ? match[1].trim() : undefined;
-      if (orphan) {
-        var _object = { content: orphan };
-        array.push(_object);
-      }
-      var open = match[2] ? match[2].trim() : undefined;
-      var content = match[3] ? match[3].trim() : undefined;
-      var close = match[4] ? match[4].trim() : undefined;
-      var marker = exports.parseMarkerOpen(open);
-      var object = {
-        open: open,
-        type: marker.type,
-        number: marker.number,
-        content: content,
-        close: close
-      };
-      array.push(object);
-    });
-  } else {
-    // doesn't have a marker but may have content
-    // this is considered an orphaned line
-    var orphan = line.trim();
-    var object = {
-      open: undefined, type: undefined, number: undefined, close: undefined,
-      content: orphan
-    };
-    array.push(object);
-  }
-  return array;
-};
-
-/**
- * @description - Parses the usfm string and returns an object
- * @param {String} usfm - the raw usfm string
- * @param {Object} params - extra params to use for chunk parsing
- * @return {Object} - json object that holds the parsed usfm data, headers and chapters
-*/
-var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  var lines = usfm.match(/.*/g); // get all the lines
-  var usfmJSON = {};
-  var markers = [];
-  lines.forEach(function (line) {
-    var parsedLine = exports.parseLine(line.trim());
-    markers = markers.concat(parsedLine);
-  });
-  var currentChapter = 0;
-  var currentVerse = 0;
-  var chapters = {};
-  var verses = {};
-  var headers = {};
-  var onSameChapter = false;
-  markers.forEach(function (marker) {
-    switch (marker.type) {
-      case 'c':
-        {
-          // chapter
-          currentChapter = marker.number;
-          chapters[currentChapter] = {};
-          // resetting 'on same chapter' flag
-          onSameChapter = false;
-          break;
-        }
-      case 'v':
-        {
-          // verse
-          marker.content = marker.content || "";
-          currentVerse = marker.number;
-          if (params.chunk === true && (marker.content || marker.content === "") && !onSameChapter) {
-            if (verses[currentVerse]) {
-              onSameChapter = true;
-              break;
-            } else {
-              verses[currentVerse] = [];
-              verses[currentVerse].push(marker.content);
-            }
-          }
-          if (chapters[currentChapter] && marker.content && !onSameChapter) {
-            // if the current chapter exists, not on same chapter, and there is content to store
-            if (chapters[currentChapter][currentVerse]) {
-              // If the verse already exists, then we are flagging as 'on the same chapter'
-              onSameChapter = true;
-              break;
-            }
-            chapters[currentChapter][currentVerse] = [];
-            chapters[currentChapter][currentVerse].push(marker.content);
-          }
-          break;
-        }
-      case 'w':
-        {
-          // word
-          var wordObject = exports.parseWord(marker.content);
-          if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
-          chapters[currentChapter][currentVerse].push(wordObject);
-          break;
-        }
-      case undefined:
-        {
-          // likely orphaned text for the preceding verse marker
-          if (currentChapter > 0 && currentVerse > 0 && marker.content) {
-            if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
-            chapters[currentChapter][currentVerse].push(marker.content);
-          }
-          if (params.chunk && currentVerse > 0 && marker.content) {
-            if (!verses[currentVerse]) verses[currentVerse] = [];
-            verses[currentVerse].push(marker.content);
-          }
-          break;
-        }
-      default:
-        {
-          if (currentChapter === 0 && !currentVerse) {
-            // if we haven't seen chapter yet, its a header
-            var value = void 0;
-            if (marker.number) {
-              // if there is a number, prepend it to content
-              value = marker.number + ' ' + marker.content;
-            } else {
-              value = marker.content;
-            }
-            headers[marker.type] = value;
-          } else if ((currentChapter || params.chunk) && currentVerse && marker.type) {
-            // if we already have started chapter:verse or a verse chunk,
-            // then add USFM contect we care about
-            if (marker.content && (marker.type[0] === 'q' || // add quote content (\q, \q1, ...)
-            marker.type === 'p')) {
-              // inline paragraphs
-              if (params.chunk) {
-                verses[currentVerse].push(marker.content);
-              } else {
-                chapters[currentChapter][currentVerse].push(marker.content);
-              }
-            }
-          }
-        }
-    }
-  });
-  usfmJSON.headers = headers;
-  usfmJSON.chapters = chapters;
-  if ((0, _keys2.default)(verses).length > 0) usfmJSON.verses = verses;
-  return usfmJSON;
-};
-
-/***/ }),
-/* 558 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.jsonToUSFM = exports.generateChapterLines = exports.generateVerseLines = exports.generateWordLine = undefined;
-
-var _keys = __webpack_require__(80);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @description Takes in word json and outputs it as a USFM line.
- * @param {Object} wordObject - word in JSON
- * @return {String} - word in USFM
- */
-var generateWordLine = exports.generateWordLine = function generateWordLine(wordObject) {
-  var line = void 0;
-  var keys = (0, _keys2.default)(wordObject);
-  var attributes = [];
-  var word = wordObject.word;
-  keys.forEach(function (key) {
-    if (key !== 'word') {
-      var prefix = key === 'lemma' || key === 'strongs' ? '' : 'x-';
-      var attribute = prefix + key + '="' + wordObject[key] + '"';
-      attributes.push(attribute);
-    }
-  });
-  line = '\\w ' + word + '|' + attributes.join(' ') + '\\w*';
-  return line;
-};
-
-/**
- * @description Takes in verse json and outputs it as a USFM line array.
- * @param {int} verseNumber - number to use for the verse
- * @param {Array} verseArray - verse in JSON
- * @return {Array} - verse in USFM lines/string
- */
-var generateVerseLines = exports.generateVerseLines = function generateVerseLines(verseNumber, verseArray) {
-  var lines = [];
-  if (typeof verseArray[0] === 'string') {
-    var verseText = verseArray.join(' ');
-    lines.push('\\v ' + verseNumber + ' ' + verseText);
-  } else if (verseArray[0] && verseArray[0].word) {
-    lines.push('\\v ' + verseNumber);
-    verseArray.forEach(function (wordObject) {
-      var wordLine = exports.generateWordLine(wordObject);
-      lines.push(wordLine);
-    });
-  }
-  return lines;
-};
-
-/**
- * @description Takes in chapter json and outputs it as a USFM line array.
- * @param {int} chapterNumber - number to use for the chapter
- * @param {Object} chapterObject - chapter in JSON
- * @return {Array} - chapter in USFM lines/string
- */
-var generateChapterLines = exports.generateChapterLines = function generateChapterLines(chapterNumber, chapterObject) {
-  var lines = [];
-  lines.push('\\c ' + chapterNumber);
-  lines.push('\\p');
-  var verseNumbers = (0, _keys2.default)(chapterObject);
-  verseNumbers.forEach(function (verseNumber) {
-    var verseArray = chapterObject[verseNumber];
-    var verseLines = exports.generateVerseLines(verseNumber, verseArray);
-    lines = lines.concat(verseLines);
-  });
-  return lines;
-};
-
-/**
- * @description Takes in scripture json and outputs it as a USFM string.
- * @param {Object} json - Scripture in JSON
- * @return {String} - Scripture in USFM
- */
-var jsonToUSFM = exports.jsonToUSFM = function jsonToUSFM(json) {
-  var lines = [];
-  if (json.headers) {
-    var keys = (0, _keys2.default)(json.headers);
-    keys.forEach(function (key) {
-      var value = json.headers[key];
-      lines.push('\\' + key + ' ' + value);
-    });
-  }
-  if (json.chapters) {
-    var chapterNumbers = (0, _keys2.default)(json.chapters);
-    chapterNumbers.forEach(function (chapterNumber) {
-      var chapterObject = json.chapters[chapterNumber];
-      var chapterLines = exports.generateChapterLines(chapterNumber, chapterObject);
-      lines = lines.concat(chapterLines);
-    });
-  }
-  if (json.verses) {
-    var verseNumbers = (0, _keys2.default)(json.verses);
-    verseNumbers.forEach(function (verseNumber) {
-      var verseObject = json.verses[verseNumber];
-      var verseLines = exports.generateVerseLines(verseNumber, verseObject);
-      lines = lines.concat(verseLines);
-    });
-  }
-  return lines.join('\n');
-};
-
-/***/ }),
-/* 559 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-/* Method to filter specified usfm marker from a string
- * @param {string} string - The string to remove specfic marker from
- * @param {string} type - The type of marker to remove i.e. f | h. If no type is given all markers are removed
- * @return {string}
- */
-var removeMarker = exports.removeMarker = function removeMarker() {
-  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var types = arguments[1];
-
-  if (typeof types === 'string') types = [types];
-  if (!types || types.includes('f')) {
-    var regString = '\\\\f[\\S\\s]*\\\\f[^a-z|A-Z|0-9|\\s]*';
-    var regex = new RegExp(regString, 'g');
-    string = string.replace(regex, '');
-  }
-  if (!types || types.includes('q')) {
-    var _regex = new RegExp('\\\\q', 'g');
-    string = string.replace(_regex, '');
-  }
-  return string;
-};
-
-/***/ }),
+/* 556 */,
+/* 557 */,
+/* 558 */,
+/* 559 */,
 /* 560 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -82272,91 +81589,6 @@ IconIndicators.propTypes = {
 };
 
 exports.default = IconIndicators;
-
-/***/ }),
-/* 591 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var ELLIPSIS = '…';
-var DEFAULT_SEPARATOR = ' ';
-
-/**
- * getAlignedText - returns a string of the text found in an array of verseObjects that matches the words to find
- *                  and their occurrence in the verse.
- * @param {Array} verseObjects 
- * @param {Array} wordsToMatch
- * @param {int} occurrenceToMatch
- * @param {boolean} isMatch - if true, all verseObjects will be considered a match and will be included in the returned text
- */
-var getAlignedText = exports.getAlignedText = function getAlignedText(verseObjects, wordsToMatch, occurrenceToMatch) {
-  var isMatch = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-  var text = '';
-  if (!verseObjects || !wordsToMatch || !occurrenceToMatch) {
-    return text;
-  }
-  var separator = DEFAULT_SEPARATOR;
-  var needsEllipsis = false;
-  verseObjects.forEach(function (verseObject, index) {
-    var lastMatch = false;
-    if (verseObject.type === 'milestone' || verseObject.type === 'word') {
-      // It is a milestone or a word...we want to handle all of them.
-      if (wordsToMatch.indexOf(verseObject.content) >= 0 && verseObject.occurrence === occurrenceToMatch || isMatch) {
-        lastMatch = true;
-        // We have a match (or previoiusly had a match in the parent) so we want to include all text that we find,
-        if (needsEllipsis) {
-          // Need to add an ellipsis to the separator since a previous match but not one right next to this one
-          separator += ELLIPSIS + DEFAULT_SEPARATOR;
-          needsEllipsis = false;
-        }
-        if (text) {
-          // There has previously been text, so append the separator, either a space or punctuation
-          text += separator;
-        }
-        separator = DEFAULT_SEPARATOR; // reset the separator for the next word
-        if (verseObject.text) {
-          // Handle type word, appending the text from this node
-          text += verseObject.text;
-        }
-        if (verseObject.children) {
-          // Handle children of type milestone, appending all the text of the children, isMatch is true
-          text += getAlignedText(verseObject.children, wordsToMatch, occurrenceToMatch, true);
-        }
-      } else if (verseObject.children) {
-        // Did not find a match, yet still need to go through all the children and see if there's match.
-        // If there isn't a match here, i.e. childText is empty, and we have text, we still need 
-        // an ellipsis if a later match is found since there was some text here
-        var childText = getAlignedText(verseObject.children, wordsToMatch, occurrenceToMatch, isMatch);
-        if (childText) {
-          lastMatch = true;
-          if (needsEllipsis) {
-            separator += ELLIPSIS + DEFAULT_SEPARATOR;
-            needsEllipsis = false;
-          }
-          text += (text ? separator : '') + childText;
-          separator = DEFAULT_SEPARATOR;
-        } else if (text) {
-          needsEllipsis = true;
-        }
-      }
-    }
-    if (lastMatch && verseObjects[index + 1] && verseObjects[index + 1].type === "text" && text) {
-      // Found some text that is a word separator/punctuation, e.g. the apostrophe between "God" and "s" for "God's"
-      // We want to preserve this so we can show "God's" instead of "God ... s"
-      if (separator === DEFAULT_SEPARATOR) {
-        separator = '';
-      }
-      separator += verseObjects[index + 1].text;
-    }
-  });
-  return text;
-};
 
 /***/ })
 /******/ ]);
