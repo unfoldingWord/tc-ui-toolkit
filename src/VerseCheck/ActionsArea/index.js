@@ -4,7 +4,7 @@ import Switch from 'material-ui/Switch';
 import { FormControlLabel} from 'material-ui/Form';
 import {withStyles} from 'material-ui/styles';
 import isEqual from 'deep-equal';
-import '../VerseCheck.styles.css';
+import './ActionsArea.styles.css';
 
 const styles = {
   label: {
@@ -31,7 +31,7 @@ let ActionsArea = ({
 }) => {
 
   const changeModeArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <FormControlLabel
         control={
           <Switch
@@ -74,7 +74,7 @@ let ActionsArea = ({
   );
 
   const confirmEditVerseArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button className='btn-second'
         onClick={actions.cancelEditVerse.bind(this)}
       >
@@ -91,7 +91,7 @@ let ActionsArea = ({
   );
 
   const confirmCommentArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button className='btn-second'
         onClick={actions.cancelComment.bind(this)}
       >
@@ -108,7 +108,7 @@ let ActionsArea = ({
   );
 
   const confirmSelectionArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button
         className='btn-second'
         style={{alignSelf: 'flex-start'}}

@@ -64,10 +64,10 @@ class VerseCheck extends Component {
     const theme = createMuiTheme();
     return (
       <MuiThemeProvider theme={theme}>
-        <div className='verseCheck'>
+        <div className='verse-check'>
           <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <div className='verseCheckCard'>
-              <div className='titleBar'>
+            <div className='verse-check-card'>
+              <div className='title-bar'>
                 <span>{titleText}</span>
                 <IconIndicators
                   verseEdited={findIfVerseEdited()}

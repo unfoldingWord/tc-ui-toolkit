@@ -1,35 +1,35 @@
 @import '../index.styles.css';
 
-.contentLTR {
+.verse-check {
+  flex: 2 0 280px;
+  margin: 10px;
+}
+.verse-check .ltr-content {
   direction: ltr;
   flex: auto;
   padding: 0 15px 10px;
   overflow-y: auto;
 }
-.contentRTL {
+.verse-check .rtl-content {
   direction: rtl;
   flex: auto;
   padding: 0 15px 10px;
   overflow-y: auto;
 }
-.title {
+.verse-check .title {
   font-weight: bold;
 }
-.subtitle {
+.verse-check .subtitle {
   color: var(--text-color-light);
 }
-.verseCheck {
-flex: 2 0 280px;
-margin: 10px;
-}
-.verseCheckCard {
+.verse-check-card {
   flex: auto;
   display: flex;
   flex-direction: column;
   box-shadow: 0 3px 10px var(--background-color);
   border-radius: 2px;
 }
-.titleBar {
+.verse-check .title-bar {
   flex: 0 0 40px;
   display: flex;
   justify-content: space-between;
@@ -40,50 +40,9 @@ margin: 10px;
   font-size: 16px;
   font-weight: bold;
 }
-.actionsArea {
-  flex: 0 0 55px;
-  display: flex;
-  justify-content: flex-end;
-}
-.checkArea {
-  flex: 1 0 130px;
-  display: flex;
-  font-size: 1.1em;
-  border-bottom: 1px solid var(--border-color);
-}
-.verseTitle {
+.verse-check .verse-title {
   flex: 0 0 45px;
   display: flex;
   justify-content: space-between;
   margin: 5px 10px 5px 15px;
-}
-.saveArea {
-  flex: 0 0 55px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: -10px;
-}
-.InstructionsArea {
-  padding: 5px;
-  text-align: center;
-  overflow: auto;
-}
-.commentArea {
-  flex: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 5px 15px 0 15px;
-  height: 100%;
-}
-.editArea {
-  flex: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 5px 15px 0 15px;
-  height: 100%;
-}
-.modalTitle {
-  text-align: center;
-  color: var(--reverse-color);
 }

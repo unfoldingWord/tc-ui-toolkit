@@ -61142,16 +61142,16 @@ var VerseCheck = function (_Component) {
         { theme: theme },
         _react2.default.createElement(
           'div',
-          { className: 'verseCheck' },
+          { className: 'verse-check' },
           _react2.default.createElement(
             'div',
             { style: { display: 'flex', flexDirection: 'column', height: '100%' } },
             _react2.default.createElement(
               'div',
-              { className: 'verseCheckCard' },
+              { className: 'verse-check-card' },
               _react2.default.createElement(
                 'div',
-                { className: 'titleBar' },
+                { className: 'title-bar' },
                 _react2.default.createElement(
                   'span',
                   null,
@@ -61363,7 +61363,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".contentLTR {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.contentRTL {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.title {\n  font-weight: bold;\n}\n.subtitle {\n  color: var(--text-color-light);\n}\n.verseCheck {\nflex: 2 0 280px;\nmargin: 10px;\n}\n.verseCheckCard {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.titleBar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n.actionsArea {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}\n.checkArea {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}\n.verseTitle {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n.saveArea {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: -10px;\n}\n.InstructionsArea {\n  padding: 5px;\n  text-align: center;\n  overflow: auto;\n}\n.commentArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.editArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.modalTitle {\n  text-align: center;\n  color: var(--reverse-color);\n}\n", ""]);
+exports.push([module.i, ".verse-check {\n  flex: 2 0 280px;\n  margin: 10px;\n}\n.verse-check .ltr-content {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .rtl-content {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .title {\n  font-weight: bold;\n}\n.verse-check .subtitle {\n  color: var(--text-color-light);\n}\n.verse-check-card {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.verse-check .title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n.verse-check .verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n", ""]);
 
 // exports
 
@@ -61397,7 +61397,7 @@ var _deepEqual = __webpack_require__(562);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-__webpack_require__(556);
+__webpack_require__(561);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61427,7 +61427,7 @@ var ActionsArea = function ActionsArea(_ref) {
 
   var changeModeArea = _react2.default.createElement(
     'div',
-    { className: 'actionsArea' },
+    { className: 'actions-area' },
     _react2.default.createElement(_Form.FormControlLabel, {
       control: _react2.default.createElement(_Switch2.default, {
         checked: remindersReducer.enabled,
@@ -61476,7 +61476,7 @@ var ActionsArea = function ActionsArea(_ref) {
 
   var confirmEditVerseArea = _react2.default.createElement(
     'div',
-    { className: 'actionsArea' },
+    { className: 'actions-area' },
     _react2.default.createElement(
       'button',
       { className: 'btn-second',
@@ -61497,7 +61497,7 @@ var ActionsArea = function ActionsArea(_ref) {
 
   var confirmCommentArea = _react2.default.createElement(
     'div',
-    { className: 'actionsArea' },
+    { className: 'actions-area' },
     _react2.default.createElement(
       'button',
       { className: 'btn-second',
@@ -61518,7 +61518,7 @@ var ActionsArea = function ActionsArea(_ref) {
 
   var confirmSelectionArea = _react2.default.createElement(
     'div',
-    { className: 'actionsArea' },
+    { className: 'actions-area' },
     _react2.default.createElement(
       'button',
       {
@@ -61818,7 +61818,31 @@ Switch.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
 
 /***/ }),
-/* 561 */,
+/* 561 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(587);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
 /* 562 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61998,7 +62022,7 @@ var _CommentArea = __webpack_require__(582);
 
 var _CommentArea2 = _interopRequireDefault(_CommentArea);
 
-__webpack_require__(556);
+__webpack_require__(588);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62063,7 +62087,7 @@ var CheckArea = function CheckArea(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'checkArea' },
+    { className: 'check-area' },
     mode === 'select' ? _react2.default.createElement(_SelectionArea2.default, {
       verseText: verseText,
       selections: newSelections,
@@ -62227,7 +62251,7 @@ var DefaultArea = function (_React$Component) {
         { style: { WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column' } },
         _react2.default.createElement(
           'div',
-          { className: 'verseTitle' },
+          { className: 'verse-title' },
           _react2.default.createElement(
             'div',
             { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
@@ -62265,7 +62289,7 @@ var DefaultArea = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL' },
+          { className: manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content' },
           this.displayText(verseText, selections)
         )
       );
@@ -79748,17 +79772,13 @@ var _Dialog = __webpack_require__(442);
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
-var _Paper = __webpack_require__(459);
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
 var _reactBootstrap = __webpack_require__(226);
 
 var _MyTargetVerse = __webpack_require__(571);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(556);
+__webpack_require__(596);
 
 var _Toolbar = __webpack_require__(572);
 
@@ -79855,7 +79875,7 @@ var MyLanguageModal = function (_Component) {
           { disableGutters: true, style: { display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)" } },
           _react2.default.createElement(
             _Dialog.DialogTitle,
-            { className: 'modalTitle' },
+            { className: 'modal-title' },
             title,
             _react2.default.createElement(_reactBootstrap.Glyphicon, {
               onClick: onHide,
@@ -80146,7 +80166,7 @@ var SelectionArea = function (_Component) {
         { style: { flex: 1, display: 'flex', flexDirection: 'column' } },
         _react2.default.createElement(
           'div',
-          { className: 'verseTitle' },
+          { className: 'verse-title' },
           _react2.default.createElement(
             'div',
             { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
@@ -80169,7 +80189,7 @@ var SelectionArea = function (_Component) {
           null,
           _react2.default.createElement(
             'div',
-            { className: manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL' },
+            { className: manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content' },
             _react2.default.createElement(_RenderSelectionTextComponent2.default, {
               actions: this.props.actions,
               mode: this.props.mode,
@@ -80867,7 +80887,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(556);
+__webpack_require__(594);
 
 var _InstructionsAreaTextSelection = __webpack_require__(580);
 
@@ -80887,7 +80907,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
   if (!verseText) {
     return _react2.default.createElement(
       'div',
-      { className: 'InstructionsArea' },
+      { className: 'instructions-area' },
       _react2.default.createElement(
         'span',
         null,
@@ -80900,7 +80920,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
   if (selections.length === 0 && dontShowTranslation) {
     return _react2.default.createElement(
       'div',
-      { className: 'InstructionsArea' },
+      { className: 'instructions-area' },
       _react2.default.createElement(
         'span',
         null,
@@ -80913,7 +80933,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
   if (mode === 'select') {
     return _react2.default.createElement(
       'div',
-      { className: 'InstructionsArea' },
+      { className: 'instructions-area' },
       _react2.default.createElement(
         'span',
         null,
@@ -80935,7 +80955,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'InstructionsArea' },
+    { className: 'instructions-area' },
     _react2.default.createElement(
       'span',
       null,
@@ -81085,7 +81105,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(556);
+__webpack_require__(592);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81133,7 +81153,7 @@ var EditVerseArea = function EditVerseArea(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'editArea' },
+    { className: 'edit-area' },
     _react2.default.createElement(
       'div',
       { style: { fontWeight: 'bold' } },
@@ -81211,7 +81231,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(556);
+__webpack_require__(590);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81222,7 +81242,7 @@ var CommentArea = function CommentArea(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'commentArea' },
+    { className: 'comment-area' },
     _react2.default.createElement(
       'div',
       { style: { fontWeight: 'bold' } },
@@ -81276,7 +81296,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(556);
+__webpack_require__(598);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81297,7 +81317,7 @@ var SaveArea = function SaveArea(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'saveArea' },
+    { className: 'save-area' },
     _react2.default.createElement(
       'button',
       { className: 'btn-second',
@@ -81585,6 +81605,254 @@ IconIndicators.propTypes = {
 };
 
 exports.default = IconIndicators;
+
+/***/ }),
+/* 587 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 588 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(589);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 589 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".check-area {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 590 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(591);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 591 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 592 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(593);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 593 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".edit-area {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 594 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(595);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 595 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".InstructionsArea {\n  padding: 5px;\n  text-align: center;\n  overflow: auto;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 596 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(597);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 597 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".modal-title {\n  text-align: center;\n  color: var(--reverse-color);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 598 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(599);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 599 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".save-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: -10px;\n}", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

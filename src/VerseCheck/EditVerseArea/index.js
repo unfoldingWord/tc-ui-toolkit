@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Checkbox, Glyphicon, FormGroup, FormControl} from 'react-bootstrap';
-import '../VerseCheck.styles.css';
+import './EditVerseArea.styles.css';
 
 let EditVerseArea = ({
   actions,
@@ -50,7 +50,7 @@ let EditVerseArea = ({
   let checkBoxText = verseChanged ? translate("next_change_reason") : translate("first_make_change");
 
   return (
-    <div className='editArea'>
+    <div className='edit-area'>
       <div style={{fontWeight: 'bold'}}>
         <Glyphicon glyph='pencil' style={{marginRight: '5px'}} />
         {translate("edit_verse")}
