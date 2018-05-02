@@ -5,7 +5,6 @@ const Groups = ({
   filters,
   groupsIndex = [],
   groupsData = {},
-  translate,
   projectSaveLocation
 }) => {
   let groupComponents = <NoResults />;
@@ -47,6 +46,8 @@ const Groups = ({
     });
   }
   return groupComponents;
-}
+};
 
 const NoResults = ({translate}) => (<div className='no-results'>{translate('tools.no_results')}</div>);
+
+export default Groups;

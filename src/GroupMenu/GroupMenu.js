@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Glyphicon} from 'react-bootstrap';
 //helpers
-import * as filterHelpers from './helpers/filterHelpers';
+import * as helpers from './helpers/';
 //components
 import Groups from './Groups';
 import FilterMenuHeader from './FilterMenuHeader';
@@ -26,9 +24,9 @@ class GroupMenu extends React.Component {
       groupsDataReducer: {groupsData},
       contextIdReducer: {contextId},
       projectDetailsReducer: {projectSaveLocation},
-      actions: {setFilter}
+      actions
     } = this.props;
-    const filterCount = filterHelpers.getFilterCount(filters);
+    const filterCount = helpers.getFilterCount(filters);
     const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
     return (
       <div id="group-menu-container">
@@ -48,7 +46,7 @@ class GroupMenu extends React.Component {
             expandFilter={this.state.expandFilter}
             filters={filters}
             translate={translate}
-            setFilter={setFilter} />
+            setFilter={actions.setFilter} />
         </div>
         <Groups
           isSubMenuExpanded={isSubMenuExpanded}
@@ -59,7 +57,7 @@ class GroupMenu extends React.Component {
           groupMenuChangeGroup={actions.groupMenuChangeGroup}
           filters={filters} />
       </div>
-    )
+    );
   }
 }
 
@@ -72,4 +70,4 @@ GroupMenu.defaultProps = {
 }
 
 
-export default GroupMenu
+export default GroupMenu;

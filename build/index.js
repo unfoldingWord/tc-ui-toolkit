@@ -61042,37 +61042,37 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _usfmJs = __webpack_require__(556);
+var _usfmJs = __webpack_require__(587);
 
 var _usfmJs2 = _interopRequireDefault(_usfmJs);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 var _styles = __webpack_require__(20);
 
-var _selectionHelpers = __webpack_require__(562);
+var _selectionHelpers = __webpack_require__(567);
 
-var _deepEqual = __webpack_require__(565);
+var _deepEqual = __webpack_require__(562);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _CheckArea = __webpack_require__(568);
+var _CheckArea = __webpack_require__(565);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
 
-var _ActionsArea = __webpack_require__(583);
+var _ActionsArea = __webpack_require__(558);
 
 var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
-var _SaveArea = __webpack_require__(587);
+var _SaveArea = __webpack_require__(583);
 
 var _SaveArea2 = _interopRequireDefault(_SaveArea);
 
-var _DialogComponent = __webpack_require__(588);
+var _DialogComponent = __webpack_require__(584);
 
 var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 
-var _IconIndicators = __webpack_require__(590);
+var _IconIndicators = __webpack_require__(586);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
@@ -61592,399 +61592,8 @@ exports.default = VerseCheck;
 /* 556 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
-
-module.exports.toJSON = __webpack_require__(557).usfmToJSON;
-module.exports.toUSFM = __webpack_require__(558).jsonToUSFM;
-module.exports.removeMarker = __webpack_require__(559).removeMarker;
-
-/***/ }),
-/* 557 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.usfmToJSON = exports.parseLine = exports.parseWord = exports.parseMarkerOpen = exports.getMatches = undefined;
-
-var _keys = __webpack_require__(80);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @description - Finds all of the regex matches in a string
- * @param {String} string - the string to find matches in
- * @param {RegExp} regex - the RegExp to find matches with, must use global flag /.../g
- * @return {Array} - array of results
-*/
-var getMatches = exports.getMatches = function getMatches(string, regex) {
-  var matches = [];
-  var match = void 0;
-  if (string.match(regex)) {
-    // check so you don't get caught in a loop
-    while (match = regex.exec(string)) {
-      matches.push(match);
-    }
-  }
-  return matches;
-};
-
-/**
- * @description - Parses the marker that opens and describes content
- * @param {String} markerOpen - the string that contains the marker '\v 1', '\p', ...
- * @return {Object} - the object of type and number if it exists
-*/
-var parseMarkerOpen = exports.parseMarkerOpen = function parseMarkerOpen(markerOpen) {
-  var object = {};
-  if (markerOpen) {
-    var regex = /(\w+)\s*(\d*)/g;
-    var matches = exports.getMatches(markerOpen, regex);
-    object = {
-      type: matches[0][1],
-      number: matches[0][2]
-    };
-  }
-  return object;
-};
-
-/**
- * @description - Parses the word marker into JSON
- * @param {String} wordContent - the string to find the data/attributes
- * @return {Object} - json object of the word attributes
-*/
-var parseWord = exports.parseWord = function parseWord(wordContent) {
-  var object = {};
-  var wordParts = wordContent.split('|');
-  var word = wordParts[0];
-  var attributeContent = wordParts[1];
-  object = {
-    word: word
-  };
-  var regex = /[x-]*([\w-]+)=['"](.*?)['"]/g;
-  var matches = exports.getMatches(attributeContent, regex);
-  matches.forEach(function (match) {
-    object[match[1]] = match[2];
-  });
-  return object;
-};
-
-/**
- * @description - Parses the line and determines what content is in it
- * @param {String} line - the string to find the markers and content
- * @return {Array} - array of objects that describe open/close and content
-*/
-var parseLine = exports.parseLine = function parseLine(line) {
-  var array = [];
-  if (line.trim() === '') {
-    return array;
-  }
-  var regex = /([^\\]+)?\\(\w+\s*\d*)(?!\w)\s*([^\\]+)?(\\\w\*)?/g;
-  var matches = exports.getMatches(line, regex);
-  if (regex.exec(line)) {
-    // normal formatting with marker followed by content
-    matches.forEach(function (match) {
-      var orphan = match[1] ? match[1].trim() : undefined;
-      if (orphan) {
-        var _object = { content: orphan };
-        array.push(_object);
-      }
-      var open = match[2] ? match[2].trim() : undefined;
-      var content = match[3] ? match[3].trim() : undefined;
-      var close = match[4] ? match[4].trim() : undefined;
-      var marker = exports.parseMarkerOpen(open);
-      var object = {
-        open: open,
-        type: marker.type,
-        number: marker.number,
-        content: content,
-        close: close
-      };
-      array.push(object);
-    });
-  } else {
-    // doesn't have a marker but may have content
-    // this is considered an orphaned line
-    var orphan = line.trim();
-    var object = {
-      open: undefined, type: undefined, number: undefined, close: undefined,
-      content: orphan
-    };
-    array.push(object);
-  }
-  return array;
-};
-
-/**
- * @description - Parses the usfm string and returns an object
- * @param {String} usfm - the raw usfm string
- * @param {Object} params - extra params to use for chunk parsing
- * @return {Object} - json object that holds the parsed usfm data, headers and chapters
-*/
-var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  var lines = usfm.match(/.*/g); // get all the lines
-  var usfmJSON = {};
-  var markers = [];
-  lines.forEach(function (line) {
-    var parsedLine = exports.parseLine(line.trim());
-    markers = markers.concat(parsedLine);
-  });
-  var currentChapter = 0;
-  var currentVerse = 0;
-  var chapters = {};
-  var verses = {};
-  var headers = {};
-  var onSameChapter = false;
-  markers.forEach(function (marker) {
-    switch (marker.type) {
-      case 'c':
-        {
-          // chapter
-          currentChapter = marker.number;
-          chapters[currentChapter] = {};
-          // resetting 'on same chapter' flag
-          onSameChapter = false;
-          break;
-        }
-      case 'v':
-        {
-          // verse
-          marker.content = marker.content || "";
-          currentVerse = marker.number;
-          if (params.chunk === true && (marker.content || marker.content === "") && !onSameChapter) {
-            if (verses[currentVerse]) {
-              onSameChapter = true;
-              break;
-            } else {
-              verses[currentVerse] = [];
-              verses[currentVerse].push(marker.content);
-            }
-          }
-          if (chapters[currentChapter] && marker.content && !onSameChapter) {
-            // if the current chapter exists, not on same chapter, and there is content to store
-            if (chapters[currentChapter][currentVerse]) {
-              // If the verse already exists, then we are flagging as 'on the same chapter'
-              onSameChapter = true;
-              break;
-            }
-            chapters[currentChapter][currentVerse] = [];
-            chapters[currentChapter][currentVerse].push(marker.content);
-          }
-          break;
-        }
-      case 'w':
-        {
-          // word
-          var wordObject = exports.parseWord(marker.content);
-          if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
-          chapters[currentChapter][currentVerse].push(wordObject);
-          break;
-        }
-      case undefined:
-        {
-          // likely orphaned text for the preceding verse marker
-          if (currentChapter > 0 && currentVerse > 0 && marker.content) {
-            if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
-            chapters[currentChapter][currentVerse].push(marker.content);
-          }
-          if (params.chunk && currentVerse > 0 && marker.content) {
-            if (!verses[currentVerse]) verses[currentVerse] = [];
-            verses[currentVerse].push(marker.content);
-          }
-          break;
-        }
-      default:
-        {
-          if (currentChapter === 0 && !currentVerse) {
-            // if we haven't seen chapter yet, its a header
-            var value = void 0;
-            if (marker.number) {
-              // if there is a number, prepend it to content
-              value = marker.number + ' ' + marker.content;
-            } else {
-              value = marker.content;
-            }
-            headers[marker.type] = value;
-          } else if ((currentChapter || params.chunk) && currentVerse && marker.type) {
-            // if we already have started chapter:verse or a verse chunk,
-            // then add USFM contect we care about
-            if (marker.content && (marker.type[0] === 'q' || // add quote content (\q, \q1, ...)
-            marker.type === 'p')) {
-              // inline paragraphs
-              if (params.chunk) {
-                verses[currentVerse].push(marker.content);
-              } else {
-                chapters[currentChapter][currentVerse].push(marker.content);
-              }
-            }
-          }
-        }
-    }
-  });
-  usfmJSON.headers = headers;
-  usfmJSON.chapters = chapters;
-  if ((0, _keys2.default)(verses).length > 0) usfmJSON.verses = verses;
-  return usfmJSON;
-};
-
-/***/ }),
-/* 558 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.jsonToUSFM = exports.generateChapterLines = exports.generateVerseLines = exports.generateWordLine = undefined;
-
-var _keys = __webpack_require__(80);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @description Takes in word json and outputs it as a USFM line.
- * @param {Object} wordObject - word in JSON
- * @return {String} - word in USFM
- */
-var generateWordLine = exports.generateWordLine = function generateWordLine(wordObject) {
-  var line = void 0;
-  var keys = (0, _keys2.default)(wordObject);
-  var attributes = [];
-  var word = wordObject.word;
-  keys.forEach(function (key) {
-    if (key !== 'word') {
-      var prefix = key === 'lemma' || key === 'strongs' ? '' : 'x-';
-      var attribute = prefix + key + '="' + wordObject[key] + '"';
-      attributes.push(attribute);
-    }
-  });
-  line = '\\w ' + word + '|' + attributes.join(' ') + '\\w*';
-  return line;
-};
-
-/**
- * @description Takes in verse json and outputs it as a USFM line array.
- * @param {int} verseNumber - number to use for the verse
- * @param {Array} verseArray - verse in JSON
- * @return {Array} - verse in USFM lines/string
- */
-var generateVerseLines = exports.generateVerseLines = function generateVerseLines(verseNumber, verseArray) {
-  var lines = [];
-  if (typeof verseArray[0] === 'string') {
-    var verseText = verseArray.join(' ');
-    lines.push('\\v ' + verseNumber + ' ' + verseText);
-  } else if (verseArray[0] && verseArray[0].word) {
-    lines.push('\\v ' + verseNumber);
-    verseArray.forEach(function (wordObject) {
-      var wordLine = exports.generateWordLine(wordObject);
-      lines.push(wordLine);
-    });
-  }
-  return lines;
-};
-
-/**
- * @description Takes in chapter json and outputs it as a USFM line array.
- * @param {int} chapterNumber - number to use for the chapter
- * @param {Object} chapterObject - chapter in JSON
- * @return {Array} - chapter in USFM lines/string
- */
-var generateChapterLines = exports.generateChapterLines = function generateChapterLines(chapterNumber, chapterObject) {
-  var lines = [];
-  lines.push('\\c ' + chapterNumber);
-  lines.push('\\p');
-  var verseNumbers = (0, _keys2.default)(chapterObject);
-  verseNumbers.forEach(function (verseNumber) {
-    var verseArray = chapterObject[verseNumber];
-    var verseLines = exports.generateVerseLines(verseNumber, verseArray);
-    lines = lines.concat(verseLines);
-  });
-  return lines;
-};
-
-/**
- * @description Takes in scripture json and outputs it as a USFM string.
- * @param {Object} json - Scripture in JSON
- * @return {String} - Scripture in USFM
- */
-var jsonToUSFM = exports.jsonToUSFM = function jsonToUSFM(json) {
-  var lines = [];
-  if (json.headers) {
-    var keys = (0, _keys2.default)(json.headers);
-    keys.forEach(function (key) {
-      var value = json.headers[key];
-      lines.push('\\' + key + ' ' + value);
-    });
-  }
-  if (json.chapters) {
-    var chapterNumbers = (0, _keys2.default)(json.chapters);
-    chapterNumbers.forEach(function (chapterNumber) {
-      var chapterObject = json.chapters[chapterNumber];
-      var chapterLines = exports.generateChapterLines(chapterNumber, chapterObject);
-      lines = lines.concat(chapterLines);
-    });
-  }
-  if (json.verses) {
-    var verseNumbers = (0, _keys2.default)(json.verses);
-    verseNumbers.forEach(function (verseNumber) {
-      var verseObject = json.verses[verseNumber];
-      var verseLines = exports.generateVerseLines(verseNumber, verseObject);
-      lines = lines.concat(verseLines);
-    });
-  }
-  return lines.join('\n');
-};
-
-/***/ }),
-/* 559 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-/* Method to filter specified usfm marker from a string
- * @param {string} string - The string to remove specfic marker from
- * @param {string} type - The type of marker to remove i.e. f | h. If no type is given all markers are removed
- * @return {string}
- */
-var removeMarker = exports.removeMarker = function removeMarker() {
-  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var types = arguments[1];
-
-  if (typeof types === 'string') types = [types];
-  if (!types || types.includes('f')) {
-    var regString = '\\\\f[\\S\\s]*\\\\f[^a-z|A-Z|0-9|\\s]*';
-    var regex = new RegExp(regString, 'g');
-    string = string.replace(regex, '');
-  }
-  if (!types || types.includes('q')) {
-    var _regex = new RegExp('\\\\q', 'g');
-    string = string.replace(_regex, '');
-  }
-  return string;
-};
-
-/***/ }),
-/* 560 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(561);
+var content = __webpack_require__(557);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -62005,7 +61614,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 561 */
+/* 557 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -62019,7 +61628,965 @@ exports.push([module.i, ".contentLTR {\n  direction: ltr;\n  flex: auto;\n  padd
 
 
 /***/ }),
+/* 558 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(226);
+
+var _Switch = __webpack_require__(559);
+
+var _Switch2 = _interopRequireDefault(_Switch);
+
+var _Form = __webpack_require__(530);
+
+var _styles = __webpack_require__(20);
+
+var _blue = __webpack_require__(561);
+
+var _blue2 = _interopRequireDefault(_blue);
+
+var _deepEqual = __webpack_require__(562);
+
+var _deepEqual2 = _interopRequireDefault(_deepEqual);
+
+__webpack_require__(556);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  label: {
+    color: 'var(--accent-color-dark)',
+    fontWeight: "normal",
+    fontSize: 14
+  },
+  colorPrimary: 'var(--accent-color-dark)'
+};
+
+var ActionsArea = function ActionsArea(_ref) {
+  var tags = _ref.tags,
+      mode = _ref.mode,
+      actions = _ref.actions,
+      commentChanged = _ref.commentChanged,
+      selections = _ref.selections,
+      newSelections = _ref.newSelections,
+      remindersReducer = _ref.remindersReducer,
+      saveSelection = _ref.saveSelection,
+      cancelSelection = _ref.cancelSelection,
+      clearSelection = _ref.clearSelection,
+      translate = _ref.translate,
+      classes = _ref.classes;
+
+
+  var changeModeArea = _react2.default.createElement(
+    'div',
+    { className: 'actionsArea' },
+    _react2.default.createElement(_Form.FormControlLabel, {
+      control: _react2.default.createElement(_Switch2.default, {
+        checked: remindersReducer.enabled,
+        classes: { colorPrimary: classes.colorPrimary },
+        color: 'primary',
+        onToggle: actions.toggleReminder
+      }),
+      classes: { label: classes.label },
+      label: translate("bookmark")
+    }),
+    _react2.default.createElement(
+      'div',
+      { style: { display: "flex" } },
+      _react2.default.createElement(
+        'button',
+        {
+          style: { width: "140px", marginRigth: "5px" },
+          className: 'btn-second',
+          onClick: actions.changeMode.bind(undefined, 'select')
+        },
+        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
+        translate("select")
+      ),
+      _react2.default.createElement(
+        'button',
+        {
+          style: { width: "140px", marginRigth: "5px" },
+          className: 'btn-second',
+          onClick: actions.changeMode.bind(undefined, 'edit')
+        },
+        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil', style: { marginRight: '10px' } }),
+        translate("edit_verse")
+      ),
+      _react2.default.createElement(
+        'button',
+        {
+          style: { width: "140px" },
+          className: 'btn-second',
+          onClick: actions.changeMode.bind(undefined, 'comment')
+        },
+        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment', style: { marginRight: '10px' } }),
+        translate("comment")
+      )
+    )
+  );
+
+  var confirmEditVerseArea = _react2.default.createElement(
+    'div',
+    { className: 'actionsArea' },
+    _react2.default.createElement(
+      'button',
+      { className: 'btn-second',
+        onClick: actions.cancelEditVerse.bind(undefined)
+      },
+      translate("cancel")
+    ),
+    _react2.default.createElement(
+      'button',
+      { className: 'btn-prime',
+        disabled: !tags.length,
+        onClick: actions.saveEditVerse.bind(undefined)
+      },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
+      translate("save")
+    )
+  );
+
+  var confirmCommentArea = _react2.default.createElement(
+    'div',
+    { className: 'actionsArea' },
+    _react2.default.createElement(
+      'button',
+      { className: 'btn-second',
+        onClick: actions.cancelComment.bind(undefined)
+      },
+      translate("cancel")
+    ),
+    _react2.default.createElement(
+      'button',
+      { className: 'btn-prime',
+        disabled: !commentChanged,
+        onClick: actions.saveComment.bind(undefined)
+      },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
+      translate("save")
+    )
+  );
+
+  var confirmSelectionArea = _react2.default.createElement(
+    'div',
+    { className: 'actionsArea' },
+    _react2.default.createElement(
+      'button',
+      {
+        className: 'btn-second',
+        style: { alignSelf: 'flex-start' },
+        onClick: cancelSelection.bind(undefined)
+      },
+      translate("cancel")
+    ),
+    _react2.default.createElement(
+      'button',
+      {
+        className: 'btn-second',
+        disabled: selections.length > 0 ? false : true,
+        onClick: clearSelection.bind(undefined)
+      },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'erase', style: { marginRight: '10px' } }),
+      translate("clear_selection")
+    ),
+    _react2.default.createElement(
+      'button',
+      {
+        className: 'btn-prime',
+        disabled: (0, _deepEqual2.default)(newSelections, selections),
+        onClick: saveSelection.bind(undefined)
+      },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
+      translate("save")
+    )
+  );
+
+  var modeArea = void 0;
+  switch (mode) {
+    case 'edit':
+      modeArea = confirmEditVerseArea;
+      break;
+    case 'comment':
+      modeArea = confirmCommentArea;
+      break;
+    case 'select':
+      modeArea = confirmSelectionArea;
+      break;
+    case 'default':
+      modeArea = changeModeArea;
+      break;
+    default:
+      modeArea = changeModeArea;
+  }
+
+  return modeArea;
+};
+
+exports.default = (0, _styles.withStyles)(styles)(ActionsArea);
+
+// labelPosition="right"
+// labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}
+// thumbSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)' }}
+// trackSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)', opacity: '0.5' }}
+
+/***/ }),
+/* 559 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Switch = __webpack_require__(560);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Switch).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 560 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _helpers = __webpack_require__(444);
+
+var _SwitchBase = __webpack_require__(523);
+
+var _SwitchBase2 = _interopRequireDefault(_SwitchBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'inline-flex',
+      width: 62,
+      position: 'relative',
+      flexShrink: 0,
+      // For correct alignment with the text.
+      verticalAlign: 'middle'
+    },
+    icon: {
+      boxShadow: theme.shadows[1],
+      backgroundColor: 'currentColor',
+      width: 20,
+      height: 20,
+      borderRadius: '50%'
+    },
+    iconChecked: {
+      boxShadow: theme.shadows[2]
+    },
+    switchBase: {
+      zIndex: 1,
+      color: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[400],
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest
+      })
+    },
+    checked: {
+      transform: 'translateX(14px)',
+      '& + $bar': {
+        opacity: 0.5
+      }
+    },
+    colorPrimary: {
+      '&$checked': {
+        color: theme.palette.primary.main,
+        '& + $bar': {
+          backgroundColor: theme.palette.primary.main
+        }
+      }
+    },
+    colorSecondary: {
+      '&$checked': {
+        color: theme.palette.secondary.main,
+        '& + $bar': {
+          backgroundColor: theme.palette.secondary.main
+        }
+      }
+    },
+    disabled: {
+      '& + $bar': {
+        opacity: theme.palette.type === 'light' ? 0.12 : 0.1
+      },
+      '& $icon': {
+        boxShadow: theme.shadows[1]
+      },
+      '&$switchBase': {
+        color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[800],
+        '& + $bar': {
+          backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white
+        }
+      }
+    },
+    bar: {
+      borderRadius: 7,
+      display: 'block',
+      position: 'absolute',
+      width: 34,
+      height: 14,
+      top: '50%',
+      left: '50%',
+      marginTop: -7,
+      marginLeft: -17,
+      transition: theme.transitions.create(['opacity', 'background-color'], {
+        duration: theme.transitions.duration.shortest
+      }),
+      backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white,
+      opacity: theme.palette.type === 'light' ? 0.38 : 0.3
+    }
+  };
+};
+
+function Switch(props) {
+  var classes = props.classes,
+      className = props.className,
+      color = props.color,
+      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'color']);
+
+
+  return _react2.default.createElement(
+    'span',
+    { className: (0, _classnames2.default)(classes.root, className) },
+    _react2.default.createElement(_SwitchBase2.default, (0, _extends3.default)({
+      icon: _react2.default.createElement('span', { className: classes.icon }),
+      classes: {
+        root: (0, _classnames2.default)(classes.switchBase, classes['color' + (0, _helpers.capitalize)(color)]),
+        checked: classes.checked,
+        disabled: classes.disabled
+      },
+      checkedIcon: _react2.default.createElement('span', { className: (0, _classnames2.default)(classes.icon, classes.iconChecked) })
+    }, other)),
+    _react2.default.createElement('span', { className: classes.bar })
+  );
+}
+
+Switch.propTypes =  true ? {
+  /**
+   * If `true`, the component is checked.
+   */
+  checked: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.string]),
+  /**
+   * The icon to display when the component is checked.
+   */
+  checkedIcon: _propTypes2.default.node,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes2.default.oneOf(['primary', 'secondary', 'default']),
+  /**
+   * @ignore
+   */
+  defaultChecked: _propTypes2.default.bool,
+  /**
+   * If `true`, the switch will be disabled.
+   */
+  disabled: _propTypes2.default.bool,
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
+  disableRipple: _propTypes2.default.bool,
+  /**
+   * The icon to display when the component is unchecked.
+   */
+  icon: _propTypes2.default.node,
+  /**
+   * The id of the `input` element.
+   */
+  id: _propTypes2.default.string,
+  /**
+   * Properties applied to the `input` element.
+   */
+  inputProps: _propTypes2.default.object,
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes2.default.func,
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.checked`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
+  onChange: _propTypes2.default.func,
+  /**
+   * The input component property `type`.
+   */
+  type: _propTypes2.default.string,
+  /**
+   * The value of the component.
+   */
+  value: _propTypes2.default.string
+} : undefined;
+
+Switch.defaultProps = {
+  color: 'secondary'
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
+
+/***/ }),
+/* 561 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var blue = {
+  50: '#e3f2fd',
+  100: '#bbdefb',
+  200: '#90caf9',
+  300: '#64b5f6',
+  400: '#42a5f5',
+  500: '#2196f3',
+  600: '#1e88e5',
+  700: '#1976d2',
+  800: '#1565c0',
+  900: '#0d47a1',
+  A100: '#82b1ff',
+  A200: '#448aff',
+  A400: '#2979ff',
+  A700: '#2962ff'
+};
+
+exports.default = blue;
+
+/***/ }),
 /* 562 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pSlice = Array.prototype.slice;
+var objectKeys = __webpack_require__(563);
+var isArguments = __webpack_require__(564);
+
+var deepEqual = module.exports = function (actual, expected, opts) {
+  if (!opts) opts = {};
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (actual === expected) {
+    return true;
+
+  } else if (actual instanceof Date && expected instanceof Date) {
+    return actual.getTime() === expected.getTime();
+
+  // 7.3. Other pairs that do not both pass typeof value == 'object',
+  // equivalence is determined by ==.
+  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
+    return opts.strict ? actual === expected : actual == expected;
+
+  // 7.4. For all other Object pairs, including Array objects, equivalence is
+  // determined by having the same number of owned properties (as verified
+  // with Object.prototype.hasOwnProperty.call), the same set of keys
+  // (although not necessarily the same order), equivalent values for every
+  // corresponding key, and an identical 'prototype' property. Note: this
+  // accounts for both named and indexed properties on Arrays.
+  } else {
+    return objEquiv(actual, expected, opts);
+  }
+}
+
+function isUndefinedOrNull(value) {
+  return value === null || value === undefined;
+}
+
+function isBuffer (x) {
+  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
+  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
+    return false;
+  }
+  if (x.length > 0 && typeof x[0] !== 'number') return false;
+  return true;
+}
+
+function objEquiv(a, b, opts) {
+  var i, key;
+  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
+    return false;
+  // an identical 'prototype' property.
+  if (a.prototype !== b.prototype) return false;
+  //~~~I've managed to break Object.keys through screwy arguments passing.
+  //   Converting to array solves the problem.
+  if (isArguments(a)) {
+    if (!isArguments(b)) {
+      return false;
+    }
+    a = pSlice.call(a);
+    b = pSlice.call(b);
+    return deepEqual(a, b, opts);
+  }
+  if (isBuffer(a)) {
+    if (!isBuffer(b)) {
+      return false;
+    }
+    if (a.length !== b.length) return false;
+    for (i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+  try {
+    var ka = objectKeys(a),
+        kb = objectKeys(b);
+  } catch (e) {//happens when one is a string literal and the other isn't
+    return false;
+  }
+  // having the same number of owned properties (keys incorporates
+  // hasOwnProperty)
+  if (ka.length != kb.length)
+    return false;
+  //the same set of keys (although not necessarily the same order),
+  ka.sort();
+  kb.sort();
+  //~~~cheap key test
+  for (i = ka.length - 1; i >= 0; i--) {
+    if (ka[i] != kb[i])
+      return false;
+  }
+  //equivalent values for every corresponding key, and
+  //~~~possibly expensive deep test
+  for (i = ka.length - 1; i >= 0; i--) {
+    key = ka[i];
+    if (!deepEqual(a[key], b[key], opts)) return false;
+  }
+  return typeof a === typeof b;
+}
+
+
+/***/ }),
+/* 563 */
+/***/ (function(module, exports) {
+
+exports = module.exports = typeof Object.keys === 'function'
+  ? Object.keys : shim;
+
+exports.shim = shim;
+function shim (obj) {
+  var keys = [];
+  for (var key in obj) keys.push(key);
+  return keys;
+}
+
+
+/***/ }),
+/* 564 */
+/***/ (function(module, exports) {
+
+var supportsArgumentsClass = (function(){
+  return Object.prototype.toString.call(arguments)
+})() == '[object Arguments]';
+
+exports = module.exports = supportsArgumentsClass ? supported : unsupported;
+
+exports.supported = supported;
+function supported(object) {
+  return Object.prototype.toString.call(object) == '[object Arguments]';
+};
+
+exports.unsupported = unsupported;
+function unsupported(object){
+  return object &&
+    typeof object == 'object' &&
+    typeof object.length == 'number' &&
+    Object.prototype.hasOwnProperty.call(object, 'callee') &&
+    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
+    false;
+};
+
+
+/***/ }),
+/* 565 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _DefaultArea = __webpack_require__(566);
+
+var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
+
+var _SelectionArea = __webpack_require__(574);
+
+var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
+
+var _InstructionsArea = __webpack_require__(579);
+
+var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
+
+var _EditVerseArea = __webpack_require__(581);
+
+var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
+
+var _CommentArea = __webpack_require__(582);
+
+var _CommentArea2 = _interopRequireDefault(_CommentArea);
+
+__webpack_require__(556);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// components
+var CheckArea = function CheckArea(_ref) {
+  var contextId = _ref.contextId,
+      actions = _ref.actions,
+      mode = _ref.mode,
+      tags = _ref.tags,
+      verseText = _ref.verseText,
+      verseChanged = _ref.verseChanged,
+      comment = _ref.comment,
+      newSelections = _ref.newSelections,
+      selections = _ref.selections,
+      projectDetailsReducer = _ref.projectDetailsReducer,
+      translate = _ref.translate,
+      bibles = _ref.bibles,
+      alignedGLText = _ref.alignedGLText;
+
+  var modeArea = void 0;
+  switch (mode) {
+    case 'edit':
+      modeArea = _react2.default.createElement(_EditVerseArea2.default, {
+        tags: tags,
+        verseText: verseText,
+        verseChanged: verseChanged,
+        actions: actions,
+        dir: projectDetailsReducer.manifest.target_language.direction,
+        translate: translate
+      });
+      break;
+    case 'comment':
+      modeArea = _react2.default.createElement(_CommentArea2.default, { comment: comment, actions: actions, translate: translate });
+      break;
+    case 'select':
+      modeArea = _react2.default.createElement(
+        'div',
+        { style: { WebkitUserSelect: 'none', display: "flex", flex: "1", justifyContent: "center", alignItems: "center", overflow: "auto" } },
+        _react2.default.createElement(_InstructionsArea2.default, {
+          verseText: verseText,
+          selections: selections,
+          alignedGLText: alignedGLText,
+          mode: mode,
+          translate: translate
+        })
+      );
+      break;
+    case 'default':
+    default:
+      modeArea = _react2.default.createElement(
+        'div',
+        { style: { WebkitUserSelect: 'none', display: "flex", justifyContent: "center", alignItems: "center", height: "100%" } },
+        _react2.default.createElement(_InstructionsArea2.default, {
+          dontShowTranslation: true,
+          verseText: verseText,
+          selections: selections,
+          alignedGLText: alignedGLText,
+          translate: translate
+        })
+      );
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'checkArea' },
+    mode === 'select' ? _react2.default.createElement(_SelectionArea2.default, {
+      verseText: verseText,
+      selections: newSelections,
+      mode: mode,
+      manifest: projectDetailsReducer.manifest,
+      reference: contextId.reference,
+      actions: actions }) : _react2.default.createElement(_DefaultArea2.default, {
+      reference: contextId.reference,
+      actions: actions,
+      translate: translate,
+      manifest: projectDetailsReducer.manifest,
+      verseText: verseText,
+      selections: selections,
+      bibles: bibles
+    }),
+    _react2.default.createElement(
+      'div',
+      { style: { borderLeft: '1px solid var(--border-color)', flex: 1, overflowY: "auto", display: 'flex', justifyContent: 'center' } },
+      modeArea
+    )
+  );
+};
+
+CheckArea.propTypes = {
+  translate: _propTypes2.default.func.isRequired,
+  actions: _propTypes2.default.object.isRequired,
+  mode: _propTypes2.default.string.isRequired,
+  tags: _propTypes2.default.array.isRequired,
+  verseText: _propTypes2.default.string.isRequired,
+  verseChanged: _propTypes2.default.bool.isRequired,
+  comment: _propTypes2.default.string.isRequired,
+  contextId: _propTypes2.default.object,
+  selections: _propTypes2.default.array.isRequired,
+  newSelections: _propTypes2.default.array.isRequired,
+  projectDetailsReducer: _propTypes2.default.shape({
+    manifest: _propTypes2.default.object,
+    currentProjectToolsSelectedGL: _propTypes2.default.object
+  }).isRequired,
+  bibles: _propTypes2.default.object,
+  alignedGLText: _propTypes2.default.string.isRequired
+};
+
+exports.default = CheckArea;
+
+/***/ }),
+/* 566 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _selectionHelpers = __webpack_require__(567);
+
+var _reactBootstrap = __webpack_require__(226);
+
+var _MyLanguageModal = __webpack_require__(570);
+
+var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
+
+__webpack_require__(556);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// helpers
+
+// components
+
+// styling
+
+
+var DefaultArea = function (_React$Component) {
+  _inherits(DefaultArea, _React$Component);
+
+  function DefaultArea() {
+    _classCallCheck(this, DefaultArea);
+
+    var _this = _possibleConstructorReturn(this, (DefaultArea.__proto__ || Object.getPrototypeOf(DefaultArea)).call(this));
+
+    _this.state = {
+      inBox: false,
+      modalVisibility: false
+    };
+    return _this;
+  }
+
+  _createClass(DefaultArea, [{
+    key: 'displayText',
+    value: function displayText(verseText, selections) {
+      var _this2 = this;
+
+      // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
+      verseText = (0, _selectionHelpers.normalizeString)(verseText);
+      var verseTextSpans = _react2.default.createElement(
+        'span',
+        null,
+        verseText
+      );
+      if (selections && selections.length > 0) {
+        var _selectionArray = (0, _selectionHelpers.selectionArray)(verseText, selections);
+        selections.forEach(function (selection) {
+          if ((0, _selectionHelpers.occurrencesInString)(verseText, selection.text) !== selection.occurrences) {
+            // validate selections and remove ones that do not apply
+            _this2.props.actions.validateSelections(verseText);
+          }
+        });
+        verseTextSpans = _selectionArray.map(function (selection, index) {
+          var style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
+          return _react2.default.createElement(
+            'span',
+            { key: index, style: style },
+            selection.text
+          );
+        });
+      }
+      return _react2.default.createElement(
+        'div',
+        { style: { userSelect: 'none', color: 'var(--text-color-light)' } },
+        verseTextSpans
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var _props = this.props,
+          manifest = _props.manifest,
+          translate = _props.translate,
+          reference = _props.reference,
+          verseText = _props.verseText,
+          selections = _props.selections,
+          bibles = _props.bibles;
+      var target_language = manifest.target_language,
+          project = manifest.project;
+
+      var bookName = target_language && target_language.book && target_language.book.name ? target_language.book.name : project.name;
+      var languageName = manifest.target_language ? manifest.target_language.name : null;
+      var dir = manifest.target_language ? manifest.target_language.direction : null;
+
+      return _react2.default.createElement(
+        'div',
+        { style: { WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column' } },
+        _react2.default.createElement(
+          'div',
+          { className: 'verseTitle' },
+          _react2.default.createElement(
+            'div',
+            { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              languageName
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'subtitle' },
+              bookName,
+              ' ',
+              reference.chapter + ':' + reference.verse
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { onClick: function onClick() {
+                _this3.setState({ modalVisibility: true });
+              } },
+            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'fullscreen', title: translate("click_show_expanded"), style: { cursor: "pointer" } })
+          ),
+          _react2.default.createElement(_MyLanguageModal2.default, {
+            manifest: manifest,
+            show: this.state.modalVisibility,
+            targetLangBible: bibles.targetLanguage.targetBible,
+            chapter: reference.chapter,
+            currentVerse: reference.verse,
+            dir: dir ? dir : "ltr",
+            onHide: function onHide() {
+              return _this3.setState({ modalVisibility: false });
+            }
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL' },
+          this.displayText(verseText, selections)
+        )
+      );
+    }
+  }]);
+
+  return DefaultArea;
+}(_react2.default.Component);
+
+DefaultArea.propTypes = {
+  translate: _propTypes2.default.func.isRequired,
+  actions: _propTypes2.default.shape({
+    validateSelections: _propTypes2.default.func
+  }).isRequired,
+  reference: _propTypes2.default.object,
+  bibles: _propTypes2.default.object.isRequired,
+  manifest: _propTypes2.default.object,
+  selections: _propTypes2.default.array,
+  verseText: _propTypes2.default.string.isRequired
+};
+
+exports.default = DefaultArea;
+
+/***/ }),
+/* 567 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62030,7 +62597,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.normalizeString = exports.occurrencesInString = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionArray = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _lodash = __webpack_require__(563);
+var _lodash = __webpack_require__(568);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -62342,7 +62909,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 // console.log(selectionArray)
 
 /***/ }),
-/* 563 */
+/* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -79422,10 +79989,10 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
   else {}
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(564)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(569)(module)))
 
 /***/ }),
-/* 564 */
+/* 569 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -79451,477 +80018,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 565 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pSlice = Array.prototype.slice;
-var objectKeys = __webpack_require__(566);
-var isArguments = __webpack_require__(567);
-
-var deepEqual = module.exports = function (actual, expected, opts) {
-  if (!opts) opts = {};
-  // 7.1. All identical values are equivalent, as determined by ===.
-  if (actual === expected) {
-    return true;
-
-  } else if (actual instanceof Date && expected instanceof Date) {
-    return actual.getTime() === expected.getTime();
-
-  // 7.3. Other pairs that do not both pass typeof value == 'object',
-  // equivalence is determined by ==.
-  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
-    return opts.strict ? actual === expected : actual == expected;
-
-  // 7.4. For all other Object pairs, including Array objects, equivalence is
-  // determined by having the same number of owned properties (as verified
-  // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
-  // corresponding key, and an identical 'prototype' property. Note: this
-  // accounts for both named and indexed properties on Arrays.
-  } else {
-    return objEquiv(actual, expected, opts);
-  }
-}
-
-function isUndefinedOrNull(value) {
-  return value === null || value === undefined;
-}
-
-function isBuffer (x) {
-  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
-  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
-    return false;
-  }
-  if (x.length > 0 && typeof x[0] !== 'number') return false;
-  return true;
-}
-
-function objEquiv(a, b, opts) {
-  var i, key;
-  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
-    return false;
-  // an identical 'prototype' property.
-  if (a.prototype !== b.prototype) return false;
-  //~~~I've managed to break Object.keys through screwy arguments passing.
-  //   Converting to array solves the problem.
-  if (isArguments(a)) {
-    if (!isArguments(b)) {
-      return false;
-    }
-    a = pSlice.call(a);
-    b = pSlice.call(b);
-    return deepEqual(a, b, opts);
-  }
-  if (isBuffer(a)) {
-    if (!isBuffer(b)) {
-      return false;
-    }
-    if (a.length !== b.length) return false;
-    for (i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
-  }
-  try {
-    var ka = objectKeys(a),
-        kb = objectKeys(b);
-  } catch (e) {//happens when one is a string literal and the other isn't
-    return false;
-  }
-  // having the same number of owned properties (keys incorporates
-  // hasOwnProperty)
-  if (ka.length != kb.length)
-    return false;
-  //the same set of keys (although not necessarily the same order),
-  ka.sort();
-  kb.sort();
-  //~~~cheap key test
-  for (i = ka.length - 1; i >= 0; i--) {
-    if (ka[i] != kb[i])
-      return false;
-  }
-  //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
-  for (i = ka.length - 1; i >= 0; i--) {
-    key = ka[i];
-    if (!deepEqual(a[key], b[key], opts)) return false;
-  }
-  return typeof a === typeof b;
-}
-
-
-/***/ }),
-/* 566 */
-/***/ (function(module, exports) {
-
-exports = module.exports = typeof Object.keys === 'function'
-  ? Object.keys : shim;
-
-exports.shim = shim;
-function shim (obj) {
-  var keys = [];
-  for (var key in obj) keys.push(key);
-  return keys;
-}
-
-
-/***/ }),
-/* 567 */
-/***/ (function(module, exports) {
-
-var supportsArgumentsClass = (function(){
-  return Object.prototype.toString.call(arguments)
-})() == '[object Arguments]';
-
-exports = module.exports = supportsArgumentsClass ? supported : unsupported;
-
-exports.supported = supported;
-function supported(object) {
-  return Object.prototype.toString.call(object) == '[object Arguments]';
-};
-
-exports.unsupported = unsupported;
-function unsupported(object){
-  return object &&
-    typeof object == 'object' &&
-    typeof object.length == 'number' &&
-    Object.prototype.hasOwnProperty.call(object, 'callee') &&
-    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
-    false;
-};
-
-
-/***/ }),
-/* 568 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _DefaultArea = __webpack_require__(569);
-
-var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
-
-var _SelectionArea = __webpack_require__(574);
-
-var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
-
-var _InstructionsArea = __webpack_require__(579);
-
-var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
-
-var _EditVerseArea = __webpack_require__(581);
-
-var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
-
-var _CommentArea = __webpack_require__(582);
-
-var _CommentArea2 = _interopRequireDefault(_CommentArea);
-
-__webpack_require__(560);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// components
-var CheckArea = function CheckArea(_ref) {
-  var contextId = _ref.contextId,
-      actions = _ref.actions,
-      mode = _ref.mode,
-      tags = _ref.tags,
-      verseText = _ref.verseText,
-      verseChanged = _ref.verseChanged,
-      comment = _ref.comment,
-      newSelections = _ref.newSelections,
-      selections = _ref.selections,
-      projectDetailsReducer = _ref.projectDetailsReducer,
-      translate = _ref.translate,
-      bibles = _ref.bibles,
-      alignedGLText = _ref.alignedGLText;
-
-  var modeArea = void 0;
-  switch (mode) {
-    case 'edit':
-      modeArea = _react2.default.createElement(_EditVerseArea2.default, {
-        tags: tags,
-        verseText: verseText,
-        verseChanged: verseChanged,
-        actions: actions,
-        dir: projectDetailsReducer.manifest.target_language.direction,
-        translate: translate
-      });
-      break;
-    case 'comment':
-      modeArea = _react2.default.createElement(_CommentArea2.default, { comment: comment, actions: actions, translate: translate });
-      break;
-    case 'select':
-      modeArea = _react2.default.createElement(
-        'div',
-        { style: { WebkitUserSelect: 'none', display: "flex", flex: "1", justifyContent: "center", alignItems: "center", overflow: "auto" } },
-        _react2.default.createElement(_InstructionsArea2.default, {
-          verseText: verseText,
-          selections: selections,
-          alignedGLText: alignedGLText,
-          mode: mode,
-          translate: translate
-        })
-      );
-      break;
-    case 'default':
-    default:
-      modeArea = _react2.default.createElement(
-        'div',
-        { style: { WebkitUserSelect: 'none', display: "flex", justifyContent: "center", alignItems: "center", height: "100%" } },
-        _react2.default.createElement(_InstructionsArea2.default, {
-          dontShowTranslation: true,
-          verseText: verseText,
-          selections: selections,
-          alignedGLText: alignedGLText,
-          translate: translate
-        })
-      );
-  }
-
-  return _react2.default.createElement(
-    'div',
-    { className: 'checkArea' },
-    mode === 'select' ? _react2.default.createElement(_SelectionArea2.default, {
-      verseText: verseText,
-      selections: newSelections,
-      mode: mode,
-      manifest: projectDetailsReducer.manifest,
-      reference: contextId.reference,
-      actions: actions }) : _react2.default.createElement(_DefaultArea2.default, {
-      reference: contextId.reference,
-      actions: actions,
-      translate: translate,
-      manifest: projectDetailsReducer.manifest,
-      verseText: verseText,
-      selections: selections,
-      bibles: bibles
-    }),
-    _react2.default.createElement(
-      'div',
-      { style: { borderLeft: '1px solid var(--border-color)', flex: 1, overflowY: "auto", display: 'flex', justifyContent: 'center' } },
-      modeArea
-    )
-  );
-};
-
-CheckArea.propTypes = {
-  translate: _propTypes2.default.func.isRequired,
-  actions: _propTypes2.default.object.isRequired,
-  mode: _propTypes2.default.string.isRequired,
-  tags: _propTypes2.default.array.isRequired,
-  verseText: _propTypes2.default.string.isRequired,
-  verseChanged: _propTypes2.default.bool.isRequired,
-  comment: _propTypes2.default.string.isRequired,
-  contextId: _propTypes2.default.object,
-  selections: _propTypes2.default.array.isRequired,
-  newSelections: _propTypes2.default.array.isRequired,
-  projectDetailsReducer: _propTypes2.default.shape({
-    manifest: _propTypes2.default.object,
-    currentProjectToolsSelectedGL: _propTypes2.default.object
-  }).isRequired,
-  bibles: _propTypes2.default.object,
-  alignedGLText: _propTypes2.default.string.isRequired
-};
-
-exports.default = CheckArea;
-
-/***/ }),
-/* 569 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _selectionHelpers = __webpack_require__(562);
-
-var _reactBootstrap = __webpack_require__(226);
-
-var _MyLanguageModal = __webpack_require__(570);
-
-var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
-
-__webpack_require__(560);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// helpers
-
-// components
-
-// styling
-
-
-var DefaultArea = function (_React$Component) {
-  _inherits(DefaultArea, _React$Component);
-
-  function DefaultArea() {
-    _classCallCheck(this, DefaultArea);
-
-    var _this = _possibleConstructorReturn(this, (DefaultArea.__proto__ || Object.getPrototypeOf(DefaultArea)).call(this));
-
-    _this.state = {
-      inBox: false,
-      modalVisibility: false
-    };
-    return _this;
-  }
-
-  _createClass(DefaultArea, [{
-    key: 'displayText',
-    value: function displayText(verseText, selections) {
-      var _this2 = this;
-
-      // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
-      verseText = (0, _selectionHelpers.normalizeString)(verseText);
-      var verseTextSpans = _react2.default.createElement(
-        'span',
-        null,
-        verseText
-      );
-      if (selections && selections.length > 0) {
-        var _selectionArray = (0, _selectionHelpers.selectionArray)(verseText, selections);
-        selections.forEach(function (selection) {
-          if ((0, _selectionHelpers.occurrencesInString)(verseText, selection.text) !== selection.occurrences) {
-            // validate selections and remove ones that do not apply
-            _this2.props.actions.validateSelections(verseText);
-          }
-        });
-        verseTextSpans = _selectionArray.map(function (selection, index) {
-          var style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
-          return _react2.default.createElement(
-            'span',
-            { key: index, style: style },
-            selection.text
-          );
-        });
-      }
-      return _react2.default.createElement(
-        'div',
-        { style: { userSelect: 'none', color: 'var(--text-color-light)' } },
-        verseTextSpans
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      var _props = this.props,
-          manifest = _props.manifest,
-          translate = _props.translate,
-          reference = _props.reference,
-          verseText = _props.verseText,
-          selections = _props.selections,
-          bibles = _props.bibles;
-      var target_language = manifest.target_language,
-          project = manifest.project;
-
-      var bookName = target_language && target_language.book && target_language.book.name ? target_language.book.name : project.name;
-      var languageName = manifest.target_language ? manifest.target_language.name : null;
-      var dir = manifest.target_language ? manifest.target_language.direction : null;
-
-      return _react2.default.createElement(
-        'div',
-        { style: { WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column' } },
-        _react2.default.createElement(
-          'div',
-          { className: 'verseTitle' },
-          _react2.default.createElement(
-            'div',
-            { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
-            _react2.default.createElement(
-              'span',
-              { className: 'title' },
-              languageName
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'subtitle' },
-              bookName,
-              ' ',
-              reference.chapter + ':' + reference.verse
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { onClick: function onClick() {
-                _this3.setState({ modalVisibility: true });
-              } },
-            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'fullscreen', title: translate("click_show_expanded"), style: { cursor: "pointer" } })
-          ),
-          _react2.default.createElement(_MyLanguageModal2.default, {
-            manifest: manifest,
-            show: this.state.modalVisibility,
-            targetLangBible: bibles.targetLanguage.targetBible,
-            chapter: reference.chapter,
-            currentVerse: reference.verse,
-            dir: dir ? dir : "ltr",
-            onHide: function onHide() {
-              return _this3.setState({ modalVisibility: false });
-            }
-          })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL' },
-          this.displayText(verseText, selections)
-        )
-      );
-    }
-  }]);
-
-  return DefaultArea;
-}(_react2.default.Component);
-
-DefaultArea.propTypes = {
-  translate: _propTypes2.default.func.isRequired,
-  actions: _propTypes2.default.shape({
-    validateSelections: _propTypes2.default.func
-  }).isRequired,
-  reference: _propTypes2.default.object,
-  bibles: _propTypes2.default.object.isRequired,
-  manifest: _propTypes2.default.object,
-  selections: _propTypes2.default.array,
-  verseText: _propTypes2.default.string.isRequired
-};
-
-exports.default = DefaultArea;
 
 /***/ }),
 /* 570 */
@@ -79958,7 +80054,7 @@ var _MyTargetVerse = __webpack_require__(571);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 var _Toolbar = __webpack_require__(572);
 
@@ -80299,7 +80395,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 var _RenderSelectionTextComponent = __webpack_require__(575);
 
@@ -80420,7 +80516,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _deepEqual = __webpack_require__(565);
+var _deepEqual = __webpack_require__(562);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
@@ -80832,11 +80928,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addSelectionToSelections = exports.removeSelectionFromSelections = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionsToStringSplices = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _deepEqual = __webpack_require__(565);
+var _deepEqual = __webpack_require__(562);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _lodash = __webpack_require__(563);
+var _lodash = __webpack_require__(568);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -81067,7 +81163,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 var _InstructionsAreaTextSelection = __webpack_require__(580);
 
@@ -81285,7 +81381,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81411,7 +81507,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81470,500 +81566,13 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactBootstrap = __webpack_require__(226);
-
-var _Switch = __webpack_require__(584);
-
-var _Switch2 = _interopRequireDefault(_Switch);
-
-var _Form = __webpack_require__(530);
-
-var _styles = __webpack_require__(20);
-
-var _blue = __webpack_require__(586);
-
-var _blue2 = _interopRequireDefault(_blue);
-
-var _deepEqual = __webpack_require__(565);
-
-var _deepEqual2 = _interopRequireDefault(_deepEqual);
-
-__webpack_require__(560);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
-  label: {
-    color: 'var(--accent-color-dark)',
-    fontWeight: "normal",
-    fontSize: 14
-  },
-  colorPrimary: 'var(--accent-color-dark)'
-};
-
-var ActionsArea = function ActionsArea(_ref) {
-  var tags = _ref.tags,
-      mode = _ref.mode,
-      actions = _ref.actions,
-      commentChanged = _ref.commentChanged,
-      selections = _ref.selections,
-      newSelections = _ref.newSelections,
-      remindersReducer = _ref.remindersReducer,
-      saveSelection = _ref.saveSelection,
-      cancelSelection = _ref.cancelSelection,
-      clearSelection = _ref.clearSelection,
-      translate = _ref.translate,
-      classes = _ref.classes;
-
-
-  var changeModeArea = _react2.default.createElement(
-    'div',
-    { className: 'actionsArea' },
-    _react2.default.createElement(_Form.FormControlLabel, {
-      control: _react2.default.createElement(_Switch2.default, {
-        checked: remindersReducer.enabled,
-        classes: { colorPrimary: classes.colorPrimary },
-        color: 'primary',
-        onToggle: actions.toggleReminder
-      }),
-      classes: { label: classes.label },
-      label: translate("bookmark")
-    }),
-    _react2.default.createElement(
-      'div',
-      { style: { display: "flex" } },
-      _react2.default.createElement(
-        'button',
-        {
-          style: { width: "140px", marginRigth: "5px" },
-          className: 'btn-second',
-          onClick: actions.changeMode.bind(undefined, 'select')
-        },
-        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
-        translate("select")
-      ),
-      _react2.default.createElement(
-        'button',
-        {
-          style: { width: "140px", marginRigth: "5px" },
-          className: 'btn-second',
-          onClick: actions.changeMode.bind(undefined, 'edit')
-        },
-        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil', style: { marginRight: '10px' } }),
-        translate("edit_verse")
-      ),
-      _react2.default.createElement(
-        'button',
-        {
-          style: { width: "140px" },
-          className: 'btn-second',
-          onClick: actions.changeMode.bind(undefined, 'comment')
-        },
-        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment', style: { marginRight: '10px' } }),
-        translate("comment")
-      )
-    )
-  );
-
-  var confirmEditVerseArea = _react2.default.createElement(
-    'div',
-    { className: 'actionsArea' },
-    _react2.default.createElement(
-      'button',
-      { className: 'btn-second',
-        onClick: actions.cancelEditVerse.bind(undefined)
-      },
-      translate("cancel")
-    ),
-    _react2.default.createElement(
-      'button',
-      { className: 'btn-prime',
-        disabled: !tags.length,
-        onClick: actions.saveEditVerse.bind(undefined)
-      },
-      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
-      translate("save")
-    )
-  );
-
-  var confirmCommentArea = _react2.default.createElement(
-    'div',
-    { className: 'actionsArea' },
-    _react2.default.createElement(
-      'button',
-      { className: 'btn-second',
-        onClick: actions.cancelComment.bind(undefined)
-      },
-      translate("cancel")
-    ),
-    _react2.default.createElement(
-      'button',
-      { className: 'btn-prime',
-        disabled: !commentChanged,
-        onClick: actions.saveComment.bind(undefined)
-      },
-      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
-      translate("save")
-    )
-  );
-
-  var confirmSelectionArea = _react2.default.createElement(
-    'div',
-    { className: 'actionsArea' },
-    _react2.default.createElement(
-      'button',
-      {
-        className: 'btn-second',
-        style: { alignSelf: 'flex-start' },
-        onClick: cancelSelection.bind(undefined)
-      },
-      translate("cancel")
-    ),
-    _react2.default.createElement(
-      'button',
-      {
-        className: 'btn-second',
-        disabled: selections.length > 0 ? false : true,
-        onClick: clearSelection.bind(undefined)
-      },
-      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'erase', style: { marginRight: '10px' } }),
-      translate("clear_selection")
-    ),
-    _react2.default.createElement(
-      'button',
-      {
-        className: 'btn-prime',
-        disabled: (0, _deepEqual2.default)(newSelections, selections),
-        onClick: saveSelection.bind(undefined)
-      },
-      _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok', style: { marginRight: '10px' } }),
-      translate("save")
-    )
-  );
-
-  var modeArea = void 0;
-  switch (mode) {
-    case 'edit':
-      modeArea = confirmEditVerseArea;
-      break;
-    case 'comment':
-      modeArea = confirmCommentArea;
-      break;
-    case 'select':
-      modeArea = confirmSelectionArea;
-      break;
-    case 'default':
-      modeArea = changeModeArea;
-      break;
-    default:
-      modeArea = changeModeArea;
-  }
-
-  return modeArea;
-};
-
-exports.default = (0, _styles.withStyles)(styles)(ActionsArea);
-
-// labelPosition="right"
-// labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}
-// thumbSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)' }}
-// trackSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)', opacity: '0.5' }}
-
-/***/ }),
-/* 584 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Switch = __webpack_require__(585);
-
-Object.defineProperty(exports, 'default', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Switch).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 585 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.styles = undefined;
-
-var _extends2 = __webpack_require__(24);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(62);
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _classnames = __webpack_require__(229);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _withStyles = __webpack_require__(189);
-
-var _withStyles2 = _interopRequireDefault(_withStyles);
-
-var _helpers = __webpack_require__(444);
-
-var _SwitchBase = __webpack_require__(523);
-
-var _SwitchBase2 = _interopRequireDefault(_SwitchBase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = exports.styles = function styles(theme) {
-  return {
-    root: {
-      display: 'inline-flex',
-      width: 62,
-      position: 'relative',
-      flexShrink: 0,
-      // For correct alignment with the text.
-      verticalAlign: 'middle'
-    },
-    icon: {
-      boxShadow: theme.shadows[1],
-      backgroundColor: 'currentColor',
-      width: 20,
-      height: 20,
-      borderRadius: '50%'
-    },
-    iconChecked: {
-      boxShadow: theme.shadows[2]
-    },
-    switchBase: {
-      zIndex: 1,
-      color: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[400],
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest
-      })
-    },
-    checked: {
-      transform: 'translateX(14px)',
-      '& + $bar': {
-        opacity: 0.5
-      }
-    },
-    colorPrimary: {
-      '&$checked': {
-        color: theme.palette.primary.main,
-        '& + $bar': {
-          backgroundColor: theme.palette.primary.main
-        }
-      }
-    },
-    colorSecondary: {
-      '&$checked': {
-        color: theme.palette.secondary.main,
-        '& + $bar': {
-          backgroundColor: theme.palette.secondary.main
-        }
-      }
-    },
-    disabled: {
-      '& + $bar': {
-        opacity: theme.palette.type === 'light' ? 0.12 : 0.1
-      },
-      '& $icon': {
-        boxShadow: theme.shadows[1]
-      },
-      '&$switchBase': {
-        color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[800],
-        '& + $bar': {
-          backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white
-        }
-      }
-    },
-    bar: {
-      borderRadius: 7,
-      display: 'block',
-      position: 'absolute',
-      width: 34,
-      height: 14,
-      top: '50%',
-      left: '50%',
-      marginTop: -7,
-      marginLeft: -17,
-      transition: theme.transitions.create(['opacity', 'background-color'], {
-        duration: theme.transitions.duration.shortest
-      }),
-      backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white,
-      opacity: theme.palette.type === 'light' ? 0.38 : 0.3
-    }
-  };
-};
-
-function Switch(props) {
-  var classes = props.classes,
-      className = props.className,
-      color = props.color,
-      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'color']);
-
-
-  return _react2.default.createElement(
-    'span',
-    { className: (0, _classnames2.default)(classes.root, className) },
-    _react2.default.createElement(_SwitchBase2.default, (0, _extends3.default)({
-      icon: _react2.default.createElement('span', { className: classes.icon }),
-      classes: {
-        root: (0, _classnames2.default)(classes.switchBase, classes['color' + (0, _helpers.capitalize)(color)]),
-        checked: classes.checked,
-        disabled: classes.disabled
-      },
-      checkedIcon: _react2.default.createElement('span', { className: (0, _classnames2.default)(classes.icon, classes.iconChecked) })
-    }, other)),
-    _react2.default.createElement('span', { className: classes.bar })
-  );
-}
-
-Switch.propTypes =  true ? {
-  /**
-   * If `true`, the component is checked.
-   */
-  checked: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.string]),
-  /**
-   * The icon to display when the component is checked.
-   */
-  checkedIcon: _propTypes2.default.node,
-  /**
-   * Useful to extend the style applied to components.
-   */
-  classes: _propTypes2.default.object.isRequired,
-  /**
-   * @ignore
-   */
-  className: _propTypes2.default.string,
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
-  color: _propTypes2.default.oneOf(['primary', 'secondary', 'default']),
-  /**
-   * @ignore
-   */
-  defaultChecked: _propTypes2.default.bool,
-  /**
-   * If `true`, the switch will be disabled.
-   */
-  disabled: _propTypes2.default.bool,
-  /**
-   * If `true`, the ripple effect will be disabled.
-   */
-  disableRipple: _propTypes2.default.bool,
-  /**
-   * The icon to display when the component is unchecked.
-   */
-  icon: _propTypes2.default.node,
-  /**
-   * The id of the `input` element.
-   */
-  id: _propTypes2.default.string,
-  /**
-   * Properties applied to the `input` element.
-   */
-  inputProps: _propTypes2.default.object,
-  /**
-   * Use that property to pass a ref callback to the native input component.
-   */
-  inputRef: _propTypes2.default.func,
-  /**
-   * Callback fired when the state is changed.
-   *
-   * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
-   */
-  onChange: _propTypes2.default.func,
-  /**
-   * The input component property `type`.
-   */
-  type: _propTypes2.default.string,
-  /**
-   * The value of the component.
-   */
-  value: _propTypes2.default.string
-} : undefined;
-
-Switch.defaultProps = {
-  color: 'secondary'
-};
-
-exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
-
-/***/ }),
-/* 586 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var blue = {
-  50: '#e3f2fd',
-  100: '#bbdefb',
-  200: '#90caf9',
-  300: '#64b5f6',
-  400: '#42a5f5',
-  500: '#2196f3',
-  600: '#1e88e5',
-  700: '#1976d2',
-  800: '#1565c0',
-  900: '#0d47a1',
-  A100: '#82b1ff',
-  A200: '#448aff',
-  A400: '#2979ff',
-  A700: '#2962ff'
-};
-
-exports.default = blue;
-
-/***/ }),
-/* 587 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(560);
+__webpack_require__(556);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82021,7 +81630,7 @@ SaveArea.propTypes = {
 exports.default = SaveArea;
 
 /***/ }),
-/* 588 */
+/* 584 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82045,7 +81654,7 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _localizationHelpers = __webpack_require__(589);
+var _localizationHelpers = __webpack_require__(585);
 
 var _Toolbar = __webpack_require__(572);
 
@@ -82160,7 +81769,7 @@ DialogComponent.propTypes = {
 exports.default = DialogComponent;
 
 /***/ }),
-/* 589 */
+/* 585 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82192,7 +81801,7 @@ var getTranslatedParts = exports.getTranslatedParts = function getTranslatedPart
 };
 
 /***/ }),
-/* 590 */
+/* 586 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82272,6 +81881,397 @@ IconIndicators.propTypes = {
 };
 
 exports.default = IconIndicators;
+
+/***/ }),
+/* 587 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports.toJSON = __webpack_require__(588).usfmToJSON;
+module.exports.toUSFM = __webpack_require__(589).jsonToUSFM;
+module.exports.removeMarker = __webpack_require__(590).removeMarker;
+
+/***/ }),
+/* 588 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.usfmToJSON = exports.parseLine = exports.parseWord = exports.parseMarkerOpen = exports.getMatches = undefined;
+
+var _keys = __webpack_require__(80);
+
+var _keys2 = _interopRequireDefault(_keys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @description - Finds all of the regex matches in a string
+ * @param {String} string - the string to find matches in
+ * @param {RegExp} regex - the RegExp to find matches with, must use global flag /.../g
+ * @return {Array} - array of results
+*/
+var getMatches = exports.getMatches = function getMatches(string, regex) {
+  var matches = [];
+  var match = void 0;
+  if (string.match(regex)) {
+    // check so you don't get caught in a loop
+    while (match = regex.exec(string)) {
+      matches.push(match);
+    }
+  }
+  return matches;
+};
+
+/**
+ * @description - Parses the marker that opens and describes content
+ * @param {String} markerOpen - the string that contains the marker '\v 1', '\p', ...
+ * @return {Object} - the object of type and number if it exists
+*/
+var parseMarkerOpen = exports.parseMarkerOpen = function parseMarkerOpen(markerOpen) {
+  var object = {};
+  if (markerOpen) {
+    var regex = /(\w+)\s*(\d*)/g;
+    var matches = exports.getMatches(markerOpen, regex);
+    object = {
+      type: matches[0][1],
+      number: matches[0][2]
+    };
+  }
+  return object;
+};
+
+/**
+ * @description - Parses the word marker into JSON
+ * @param {String} wordContent - the string to find the data/attributes
+ * @return {Object} - json object of the word attributes
+*/
+var parseWord = exports.parseWord = function parseWord(wordContent) {
+  var object = {};
+  var wordParts = wordContent.split('|');
+  var word = wordParts[0];
+  var attributeContent = wordParts[1];
+  object = {
+    word: word
+  };
+  var regex = /[x-]*([\w-]+)=['"](.*?)['"]/g;
+  var matches = exports.getMatches(attributeContent, regex);
+  matches.forEach(function (match) {
+    object[match[1]] = match[2];
+  });
+  return object;
+};
+
+/**
+ * @description - Parses the line and determines what content is in it
+ * @param {String} line - the string to find the markers and content
+ * @return {Array} - array of objects that describe open/close and content
+*/
+var parseLine = exports.parseLine = function parseLine(line) {
+  var array = [];
+  if (line.trim() === '') {
+    return array;
+  }
+  var regex = /([^\\]+)?\\(\w+\s*\d*)(?!\w)\s*([^\\]+)?(\\\w\*)?/g;
+  var matches = exports.getMatches(line, regex);
+  if (regex.exec(line)) {
+    // normal formatting with marker followed by content
+    matches.forEach(function (match) {
+      var orphan = match[1] ? match[1].trim() : undefined;
+      if (orphan) {
+        var _object = { content: orphan };
+        array.push(_object);
+      }
+      var open = match[2] ? match[2].trim() : undefined;
+      var content = match[3] ? match[3].trim() : undefined;
+      var close = match[4] ? match[4].trim() : undefined;
+      var marker = exports.parseMarkerOpen(open);
+      var object = {
+        open: open,
+        type: marker.type,
+        number: marker.number,
+        content: content,
+        close: close
+      };
+      array.push(object);
+    });
+  } else {
+    // doesn't have a marker but may have content
+    // this is considered an orphaned line
+    var orphan = line.trim();
+    var object = {
+      open: undefined, type: undefined, number: undefined, close: undefined,
+      content: orphan
+    };
+    array.push(object);
+  }
+  return array;
+};
+
+/**
+ * @description - Parses the usfm string and returns an object
+ * @param {String} usfm - the raw usfm string
+ * @param {Object} params - extra params to use for chunk parsing
+ * @return {Object} - json object that holds the parsed usfm data, headers and chapters
+*/
+var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
+  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var lines = usfm.match(/.*/g); // get all the lines
+  var usfmJSON = {};
+  var markers = [];
+  lines.forEach(function (line) {
+    var parsedLine = exports.parseLine(line.trim());
+    markers = markers.concat(parsedLine);
+  });
+  var currentChapter = 0;
+  var currentVerse = 0;
+  var chapters = {};
+  var verses = {};
+  var headers = {};
+  var onSameChapter = false;
+  markers.forEach(function (marker) {
+    switch (marker.type) {
+      case 'c':
+        {
+          // chapter
+          currentChapter = marker.number;
+          chapters[currentChapter] = {};
+          // resetting 'on same chapter' flag
+          onSameChapter = false;
+          break;
+        }
+      case 'v':
+        {
+          // verse
+          marker.content = marker.content || "";
+          currentVerse = marker.number;
+          if (params.chunk === true && (marker.content || marker.content === "") && !onSameChapter) {
+            if (verses[currentVerse]) {
+              onSameChapter = true;
+              break;
+            } else {
+              verses[currentVerse] = [];
+              verses[currentVerse].push(marker.content);
+            }
+          }
+          if (chapters[currentChapter] && marker.content && !onSameChapter) {
+            // if the current chapter exists, not on same chapter, and there is content to store
+            if (chapters[currentChapter][currentVerse]) {
+              // If the verse already exists, then we are flagging as 'on the same chapter'
+              onSameChapter = true;
+              break;
+            }
+            chapters[currentChapter][currentVerse] = [];
+            chapters[currentChapter][currentVerse].push(marker.content);
+          }
+          break;
+        }
+      case 'w':
+        {
+          // word
+          var wordObject = exports.parseWord(marker.content);
+          if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
+          chapters[currentChapter][currentVerse].push(wordObject);
+          break;
+        }
+      case undefined:
+        {
+          // likely orphaned text for the preceding verse marker
+          if (currentChapter > 0 && currentVerse > 0 && marker.content) {
+            if (!chapters[currentChapter][currentVerse]) chapters[currentChapter][currentVerse] = [];
+            chapters[currentChapter][currentVerse].push(marker.content);
+          }
+          if (params.chunk && currentVerse > 0 && marker.content) {
+            if (!verses[currentVerse]) verses[currentVerse] = [];
+            verses[currentVerse].push(marker.content);
+          }
+          break;
+        }
+      default:
+        {
+          if (currentChapter === 0 && !currentVerse) {
+            // if we haven't seen chapter yet, its a header
+            var value = void 0;
+            if (marker.number) {
+              // if there is a number, prepend it to content
+              value = marker.number + ' ' + marker.content;
+            } else {
+              value = marker.content;
+            }
+            headers[marker.type] = value;
+          } else if ((currentChapter || params.chunk) && currentVerse && marker.type) {
+            // if we already have started chapter:verse or a verse chunk,
+            // then add USFM contect we care about
+            if (marker.content && (marker.type[0] === 'q' || // add quote content (\q, \q1, ...)
+            marker.type === 'p')) {
+              // inline paragraphs
+              if (params.chunk) {
+                verses[currentVerse].push(marker.content);
+              } else {
+                chapters[currentChapter][currentVerse].push(marker.content);
+              }
+            }
+          }
+        }
+    }
+  });
+  usfmJSON.headers = headers;
+  usfmJSON.chapters = chapters;
+  if ((0, _keys2.default)(verses).length > 0) usfmJSON.verses = verses;
+  return usfmJSON;
+};
+
+/***/ }),
+/* 589 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.jsonToUSFM = exports.generateChapterLines = exports.generateVerseLines = exports.generateWordLine = undefined;
+
+var _keys = __webpack_require__(80);
+
+var _keys2 = _interopRequireDefault(_keys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @description Takes in word json and outputs it as a USFM line.
+ * @param {Object} wordObject - word in JSON
+ * @return {String} - word in USFM
+ */
+var generateWordLine = exports.generateWordLine = function generateWordLine(wordObject) {
+  var line = void 0;
+  var keys = (0, _keys2.default)(wordObject);
+  var attributes = [];
+  var word = wordObject.word;
+  keys.forEach(function (key) {
+    if (key !== 'word') {
+      var prefix = key === 'lemma' || key === 'strongs' ? '' : 'x-';
+      var attribute = prefix + key + '="' + wordObject[key] + '"';
+      attributes.push(attribute);
+    }
+  });
+  line = '\\w ' + word + '|' + attributes.join(' ') + '\\w*';
+  return line;
+};
+
+/**
+ * @description Takes in verse json and outputs it as a USFM line array.
+ * @param {int} verseNumber - number to use for the verse
+ * @param {Array} verseArray - verse in JSON
+ * @return {Array} - verse in USFM lines/string
+ */
+var generateVerseLines = exports.generateVerseLines = function generateVerseLines(verseNumber, verseArray) {
+  var lines = [];
+  if (typeof verseArray[0] === 'string') {
+    var verseText = verseArray.join(' ');
+    lines.push('\\v ' + verseNumber + ' ' + verseText);
+  } else if (verseArray[0] && verseArray[0].word) {
+    lines.push('\\v ' + verseNumber);
+    verseArray.forEach(function (wordObject) {
+      var wordLine = exports.generateWordLine(wordObject);
+      lines.push(wordLine);
+    });
+  }
+  return lines;
+};
+
+/**
+ * @description Takes in chapter json and outputs it as a USFM line array.
+ * @param {int} chapterNumber - number to use for the chapter
+ * @param {Object} chapterObject - chapter in JSON
+ * @return {Array} - chapter in USFM lines/string
+ */
+var generateChapterLines = exports.generateChapterLines = function generateChapterLines(chapterNumber, chapterObject) {
+  var lines = [];
+  lines.push('\\c ' + chapterNumber);
+  lines.push('\\p');
+  var verseNumbers = (0, _keys2.default)(chapterObject);
+  verseNumbers.forEach(function (verseNumber) {
+    var verseArray = chapterObject[verseNumber];
+    var verseLines = exports.generateVerseLines(verseNumber, verseArray);
+    lines = lines.concat(verseLines);
+  });
+  return lines;
+};
+
+/**
+ * @description Takes in scripture json and outputs it as a USFM string.
+ * @param {Object} json - Scripture in JSON
+ * @return {String} - Scripture in USFM
+ */
+var jsonToUSFM = exports.jsonToUSFM = function jsonToUSFM(json) {
+  var lines = [];
+  if (json.headers) {
+    var keys = (0, _keys2.default)(json.headers);
+    keys.forEach(function (key) {
+      var value = json.headers[key];
+      lines.push('\\' + key + ' ' + value);
+    });
+  }
+  if (json.chapters) {
+    var chapterNumbers = (0, _keys2.default)(json.chapters);
+    chapterNumbers.forEach(function (chapterNumber) {
+      var chapterObject = json.chapters[chapterNumber];
+      var chapterLines = exports.generateChapterLines(chapterNumber, chapterObject);
+      lines = lines.concat(chapterLines);
+    });
+  }
+  if (json.verses) {
+    var verseNumbers = (0, _keys2.default)(json.verses);
+    verseNumbers.forEach(function (verseNumber) {
+      var verseObject = json.verses[verseNumber];
+      var verseLines = exports.generateVerseLines(verseNumber, verseObject);
+      lines = lines.concat(verseLines);
+    });
+  }
+  return lines.join('\n');
+};
+
+/***/ }),
+/* 590 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/* Method to filter specified usfm marker from a string
+ * @param {string} string - The string to remove specfic marker from
+ * @param {string} type - The type of marker to remove i.e. f | h. If no type is given all markers are removed
+ * @return {string}
+ */
+var removeMarker = exports.removeMarker = function removeMarker() {
+  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var types = arguments[1];
+
+  if (typeof types === 'string') types = [types];
+  if (!types || types.includes('f')) {
+    var regString = '\\\\f[\\S\\s]*\\\\f[^a-z|A-Z|0-9|\\s]*';
+    var regex = new RegExp(regString, 'g');
+    string = string.replace(regex, '');
+  }
+  if (!types || types.includes('q')) {
+    var _regex = new RegExp('\\\\q', 'g');
+    string = string.replace(_regex, '');
+  }
+  return string;
+};
 
 /***/ }),
 /* 591 */
