@@ -152,13 +152,6 @@
   overflow-y: scroll;
 }
 
-#groups-menu-container #groups .no-results {
-  font-style: italic;
-  font-size: 16px;
-  padding: 15px;
-  color: var(--reverse-color);
-}
-
 #groups-menu-filter.bubbles-wrapper {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -211,4 +204,98 @@
   background-color: var(--accent-color);
   font-weight: bold;
   color: var(--reverse-color)
+}
+
+
+.status-icon-ok {
+  color: var(--completed-color);
+  display: initial;
+}
+
+.status-icon-comment {
+  color: var(--highlight-color);
+  display: initial;
+}
+
+.status-icon-pencil {
+  color: var(--reverse-color);
+  display: initial;
+}
+
+.status-icon-flagged {
+  color: var(--highlight-color);
+  display: initial;
+}
+
+.status-icon-unchecked {
+  display: none;
+}
+.status-icon-bookmark {
+  color: var(--reverse-color);
+  display: initial;
+}
+
+.status-icon-invalidated {
+  display: initial;
+  height: 16px;
+  width: 16px;
+}
+
+.status-icon-blank {
+  display: initial;
+  color: none;
+  padding-left: 15px;
+}
+
+.active-submenu-item {
+  height: 38;
+  align-items: center;
+  display: flex;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color-dark);
+  color: var(--reverse-color);
+  background-color: var(--accent-color);
+  z-index: 1;
+}
+
+.submenu-item {
+  height: 38;
+  align-items: center;
+  display: flex;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color-dark);
+  color: var(--reverse-color);
+  background-color: var(--background-color);
+}
+
+.group-item-text {
+  text-overflow: ellipsis;
+  padding: 0px 20px 0px 0px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.slide-button {
+  float: right;
+  margin-top: 50vh;
+  z-index: 999;
+  color: var(--reverse-color);
+  background-color: var(--text-color-dark);
+  padding: 10px 0;
+  margin-right: -15px;
+  border-radius: 0 5px 5px 0;
+}
+
+.slide-button-collapsed {
+  float: left;
+  margin-top: 50vh;
+  z-index: 999;
+  color: var(--reverse-color);
+  background-color: var(--text-color-dark);
+  padding: 10px 0;
+  margin-right: -15px;
+  border-radius: 0 5px 5px 0;
 }

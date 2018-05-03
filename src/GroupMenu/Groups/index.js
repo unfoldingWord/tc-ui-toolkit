@@ -1,47 +1,46 @@
 import React from 'react';
 import Group from '../Group';
 import NoResults from '../NoResults';
+//helpers
+import * as helpers from '../helpers';
 
 const Groups = ({
+  changeCurrentContextId,
   filters,
   groupsIndex = [],
   groupsData = {},
-  projectSaveLocation
+  projectSaveLocation,
+  getGroupProgress,
+  groupMenuChangeGroup,
+  groupMenuExpandSubMenu,
+  isSubMenuExpanded,
+  manifest,
+  contextId,
+  translate
 }) => {
-  let groupComponents = <NoResults />;
-  let progress;
+  let groupComponents = <NoResults translate={translate}/>;
   groupsIndex = groupsIndex.filter(groupIndex => {
-    return Object.keys(groupsData).includes(groupIndex.id) && navigationHelpers.groupIsVisible(this.getGroupData(groupsData, groupIndex.id), filters);
+    return Object.keys(groupsData).includes(groupIndex.id) && helpers.groupIsVisible(helpers.getGroupData(groupsData, groupIndex.id), filters);
   });
   if (groupsIndex.length) {
     groupComponents = groupsIndex.map(groupIndex => {
-      let {contextId} = this.props.contextIdReducer;
       let groupId = groupIndex.id;
-      let currentGroupData = this.getGroupData(groupsData, groupId);
-      let active = false;
-
-      if (contextId !== null) {
-        active = contextId.groupId === groupId;
-      }
-
-      if (contextId && contextId.tool === 'wordAlignment') {
-        progress = ProjectDetailsHelpers.getWordAlignmentProgressForGroupIndex(projectSaveLocation, contextId.reference.bookId, groupIndex);
-      } else {
-        progress = this.generateProgress(groupIndex);
-      }
-
-      const getGroupItems = (groupHeaderComponent) => {
-        return this.getGroupItemComponents(currentGroupData, groupIndex, groupHeaderComponent);
-      };
+      let currentGroupData = helpers.getGroupData(groupsData, groupId);
+      let active = contextId ? contextId.groupId === groupId : false;
 
       return (
         <Group
-          getGroupItems={getGroupItems}
+          changeCurrentContextId={changeCurrentContextId}
+          manifest={manifest}
+          filters={filters}
+          groupData={currentGroupData}
+          isSubMenuExpanded={isSubMenuExpanded}
           groupIndex={groupIndex}
           active={active}
           key={groupIndex.id}
-          progress={progress}
-          openGroup={() => this.props.actions.groupMenuChangeGroup(currentGroupData[0].contextId)}
+          progress={getGroupProgress(projectSaveLocation, contextId.reference.bookId, groupIndex)}
+          groupMenuExpandSubMenu={groupMenuExpandSubMenu}
+          openGroup={groupMenuChangeGroup(currentGroupData[0].contextId)}
         />
       );
     });
