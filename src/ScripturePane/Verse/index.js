@@ -67,13 +67,17 @@ class Verse extends Component {
 
 Verse.propTypes = {
   verseElements: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.array.isRequired,
-  ]),
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
   bibleId: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
-  verse: PropTypes.number.isRequired,
+  verse: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
 };
 
 export default Verse;

@@ -78,9 +78,10 @@ Pane.propTypes = {
   removePane: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.array.isRequired,
-  ]),
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
 };
 
 export default Pane;

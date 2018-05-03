@@ -59,9 +59,14 @@ class VerseRow extends Component {
 
 VerseRow.propTypes = {
   chapter: PropTypes.number.isRequired,
-  verse: PropTypes.number.isRequired,
-  direction: PropTypes.string.isRequired,
-  currentVerseNumber: PropTypes.number.isRequired,
+  verse: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
+  currentVerseNumber: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
   currentPaneSettings: PropTypes.array.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.string.isRequired,

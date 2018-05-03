@@ -1796,6 +1796,10 @@ var _ExpandedScripturePaneModal = __webpack_require__(441);
 
 var _ExpandedScripturePaneModal2 = _interopRequireDefault(_ExpandedScripturePaneModal);
 
+var _AddBibleButton = __webpack_require__(510);
+
+var _AddBibleButton2 = _interopRequireDefault(_AddBibleButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1945,20 +1949,6 @@ var biblesWithHighlightedWords = {
   }
 };
 
-var currentPaneSettings = [{
-  "languageId": "targetLanguage",
-  "bibleId": "targetBible"
-}, {
-  "languageId": "originalLanguage",
-  "bibleId": "ugnt"
-}, {
-  "languageId": "en",
-  "bibleId": "ult"
-}, {
-  languageId: "en",
-  bibleId: "udt"
-}];
-
 var contextId = {
   refecerence: {
     chapter: 1,
@@ -1979,7 +1969,7 @@ var ScripturePane = function (_Component) {
     };
     _this.openExpandedScripturePane = _this.openExpandedScripturePane.bind(_this);
     _this.closeExpandedScripturePane = _this.closeExpandedScripturePane.bind(_this);
-
+    _this.showAddBibleModal = _this.showAddBibleModal.bind(_this);
     return _this;
   }
 
@@ -1994,6 +1984,11 @@ var ScripturePane = function (_Component) {
       this.setState({ showExpandedScripturePane: false });
     }
   }, {
+    key: 'showAddBibleModal',
+    value: function showAddBibleModal() {
+      console.log('open add resource modal');
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -2001,7 +1996,9 @@ var ScripturePane = function (_Component) {
           closeButtonLabel = _props.closeButtonLabel,
           expandedScripturePaneTitle = _props.expandedScripturePaneTitle,
           expandButtonHoverText = _props.expandButtonHoverText,
-          clickToRemoveResourceLabel = _props.clickToRemoveResourceLabel;
+          clickToRemoveResourceLabel = _props.clickToRemoveResourceLabel,
+          currentPaneSettings = _props.currentPaneSettings,
+          clickAddResource = _props.clickAddResource;
 
       // material-ui-theme, new color themes could be added here in the future
 
@@ -2063,6 +2060,10 @@ var ScripturePane = function (_Component) {
                     return console.log('temp removePane');
                   }
                 });
+              }),
+              _react2.default.createElement(_AddBibleButton2.default, {
+                showAddBibleModal: this.showAddBibleModal,
+                clickAddResource: clickAddResource
               })
             )
           ),
@@ -2087,7 +2088,9 @@ ScripturePane.propTypes = {
   titleLabel: _propTypes2.default.string.isRequired,
   closeButtonLabel: _propTypes2.default.string.isRequired,
   expandedScripturePaneTitle: _propTypes2.default.string.isRequired,
-  expandButtonHoverText: _propTypes2.default.string.isRequired
+  expandButtonHoverText: _propTypes2.default.string.isRequired,
+  clickAddResource: _propTypes2.default.string.isRequired,
+  currentPaneSettings: _propTypes2.default.array.isRequired
 };
 
 exports.default = ScripturePane;
@@ -46678,7 +46681,7 @@ Pane.propTypes = {
   verse: _propTypes2.default.number.isRequired,
   removePane: _propTypes2.default.func.isRequired,
   clickToRemoveResourceLabel: _propTypes2.default.string.isRequired,
-  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string, _propTypes2.default.array]).isRequired
 };
 
 exports.default = Pane;
@@ -48681,11 +48684,11 @@ var Verse = function (_Component) {
 }(_react.Component);
 
 Verse.propTypes = {
-  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired]),
+  verseElements: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string, _propTypes2.default.array]).isRequired,
   bibleId: _propTypes2.default.string.isRequired,
   direction: _propTypes2.default.string.isRequired,
   chapter: _propTypes2.default.number.isRequired,
-  verse: _propTypes2.default.number.isRequired
+  verse: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.number.isRequired])
 };
 
 exports.default = Verse;
@@ -55603,9 +55606,8 @@ var VerseRow = function (_Component) {
 
 VerseRow.propTypes = {
   chapter: _propTypes2.default.number.isRequired,
-  verse: _propTypes2.default.number.isRequired,
-  direction: _propTypes2.default.string.isRequired,
-  currentVerseNumber: _propTypes2.default.number.isRequired,
+  verse: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.number.isRequired]),
+  currentVerseNumber: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.number.isRequired]),
   currentPaneSettings: _propTypes2.default.array.isRequired,
   verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired])
 };
@@ -55647,6 +55649,144 @@ exports = module.exports = __webpack_require__(14)(false);
 
 // module
 exports.push([module.i, ".row-container {\n  display: flex;\n  margin: 0;\n  color: var(--text-color-dark);\n};\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 510 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+__webpack_require__(511);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddBibleSVG = function AddBibleSVG(_ref) {
+  var title = _ref.title;
+  return _react2.default.createElement(
+    'svg',
+    { viewBox: '-424 2130 45.573 45.724', width: '100%', height: '100%' },
+    _react2.default.createElement('defs', null),
+    _react2.default.createElement(
+      'title',
+      null,
+      title
+    ),
+    _react2.default.createElement(
+      'g',
+      { id: 'Group_1424', 'data-name': 'Group 1424', opacity: '0.5', transform: 'translate(-1484 1794)' },
+      _react2.default.createElement(
+        'g',
+        { id: 'Book_font_awesome', transform: 'translate(1060 336)' },
+        _react2.default.createElement('path', { id: 'path3029', fill: '#333', d: 'M42.89-1398.733a3.747,3.747,0,0,1,.477,3.416l-7.282,23.99a5.469,5.469,0,0,1-2.026,2.846,5.284,5.284,0,0,1-3.244,1.152H6.376a6.484,6.484,0,0,1-3.932-1.417,7.437,7.437,0,0,1-2.635-3.482,4.8,4.8,0,0,1-.053-3.362q0-.106.079-.715t.106-.98a1.474,1.474,0,0,0-.079-.569,1.31,1.31,0,0,1-.079-.516,1.647,1.647,0,0,1,.212-.556,6.46,6.46,0,0,1,.437-.622,6.505,6.505,0,0,0,.437-.622,17.764,17.764,0,0,0,1.192-2.422,14.377,14.377,0,0,0,.794-2.423,2.066,2.066,0,0,0,.013-.794,2.326,2.326,0,0,1-.013-.741,2.22,2.22,0,0,1,.45-.741,4.328,4.328,0,0,0,.45-.609,16.187,16.187,0,0,0,1.112-2.436,10.842,10.842,0,0,0,.662-2.383,3.831,3.831,0,0,0-.066-.847q-.093-.609.013-.741a2.117,2.117,0,0,1,.583-.808q.477-.464.583-.6a10.921,10.921,0,0,0,1.125-2.238,10.042,10.042,0,0,0,.728-2.555,2.189,2.189,0,0,0-.079-.675,1.719,1.719,0,0,1-.053-.7,1.493,1.493,0,0,1,.238-.477c.124-.177.282-.379.477-.61s.344-.414.45-.556a5.968,5.968,0,0,0,.437-.807c.15-.327.282-.635.4-.927s.256-.609.424-.953a4.56,4.56,0,0,1,.516-.847,3.065,3.065,0,0,1,.7-.622,1.768,1.768,0,0,1,.953-.3,5.5,5.5,0,0,1,1.258.146l-.026.079a7.374,7.374,0,0,1,1.35-.238h20.15a3.488,3.488,0,0,1,3.019,1.483,3.777,3.777,0,0,1,.477,3.442l-7.255,23.99a10.352,10.352,0,0,1-1.893,4.064,4.879,4.879,0,0,1-3.4.914H3.623a1.167,1.167,0,0,0-1.006.4,1.209,1.209,0,0,0-.026,1.139q.635,1.853,3.813,1.853H30.842a2.938,2.938,0,0,0,1.483-.41,1.9,1.9,0,0,0,.927-1.1l7.943-26.134a4.277,4.277,0,0,0,.132-1.509A3.5,3.5,0,0,1,42.89-1398.733Zm-28.173.053a.69.69,0,0,0,.053.6.578.578,0,0,0,.53.252H31.4a1.107,1.107,0,0,0,.675-.252,1.181,1.181,0,0,0,.437-.6l.556-1.695a.69.69,0,0,0-.053-.6.578.578,0,0,0-.53-.252h-16.1a1.108,1.108,0,0,0-.675.252,1.182,1.182,0,0,0-.437.6Zm-2.2,6.779a.689.689,0,0,0,.053.6.577.577,0,0,0,.53.251H29.2a1.106,1.106,0,0,0,.675-.251,1.181,1.181,0,0,0,.437-.6l.556-1.695a.689.689,0,0,0-.053-.6.578.578,0,0,0-.53-.252h-16.1a1.108,1.108,0,0,0-.675.252,1.182,1.182,0,0,0-.437.6Z', transform: 'translate(0.522 1408)' })
+      ),
+      _react2.default.createElement(
+        'g',
+        { id: 'ic_add', transform: 'translate(1069.493 345.644)' },
+        _react2.default.createElement('path', { fill: '#f8f8f8', stroke: '#333', strokeWidth: '4px', fillRule: 'evenodd', d: 'M26.047-6.973h-9.02v9.02H14.02v-9.02H5V-9.98h9.02V-19h3.007v9.02h9.02v3.007Z', transform: 'translate(2.517 26.517)' }),
+        _react2.default.createElement('path', { fill: '#f8f8f8', fillRule: 'evenodd', stroke: '#f8f8f8', d: 'M26.047-6.973h-9.02v9.02H14.02v-9.02H5V-9.98h9.02V-19h3.007v9.02h9.02v3.007Z', transform: 'translate(2.517 26.517)' }),
+        _react2.default.createElement('path', { fill: 'none', fillRule: 'evenodd', d: 'M36.08,12.08H0V-24H36.08Z', transform: 'translate(0 24)' })
+      )
+    )
+  );
+};
+
+var AddBible = function (_React$Component) {
+  _inherits(AddBible, _React$Component);
+
+  function AddBible() {
+    _classCallCheck(this, AddBible);
+
+    return _possibleConstructorReturn(this, (AddBible.__proto__ || Object.getPrototypeOf(AddBible)).apply(this, arguments));
+  }
+
+  _createClass(AddBible, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          showAddBibleModal = _props.showAddBibleModal,
+          clickAddResource = _props.clickAddResource;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'add-bible-button-container' },
+        _react2.default.createElement(
+          'div',
+          { style: { height: "60px", width: "60px", cursor: 'pointer' }, title: clickAddResource, onClick: showAddBibleModal },
+          _react2.default.createElement(AddBibleSVG, { title: clickAddResource })
+        )
+      );
+    }
+  }]);
+
+  return AddBible;
+}(_react2.default.Component);
+
+AddBible.propTypes = {
+  clickAddResource: _propTypes2.default.string.isRequired,
+  showAddBibleModal: _propTypes2.default.func.isRequired
+};
+
+exports.default = AddBible;
+
+/***/ }),
+/* 511 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(512);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 512 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".add-bible-button-container {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}", ""]);
 
 // exports
 

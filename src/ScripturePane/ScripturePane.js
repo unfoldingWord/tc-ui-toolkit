@@ -16,6 +16,7 @@ import './ScripturePane.styles.css';
 // components
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
+import AddBibleButton from './AddBibleButton';
 
 const biblesWithHighlightedWords = {
   en: {
@@ -112,24 +113,6 @@ const biblesWithHighlightedWords = {
   }
 };
 
-const currentPaneSettings = [
-  {
-    "languageId": "targetLanguage",
-    "bibleId": "targetBible"
-  },
-  {
-    "languageId": "originalLanguage",
-    "bibleId": "ugnt"
-  },
-  {
-    "languageId": "en",
-    "bibleId": "ult"
-  },
-  {
-    languageId: "en",
-    bibleId: "udt",
-  }
-];
 
 const contextId = {
   refecerence: {
@@ -146,12 +129,16 @@ class ScripturePane extends Component {
     }
     this.openExpandedScripturePane = this.openExpandedScripturePane.bind(this);
     this.closeExpandedScripturePane = this.closeExpandedScripturePane.bind(this);
-
+    this.showAddBibleModal = this.showAddBibleModal.bind(this);
   }
 
   openExpandedScripturePane() { this.setState({ showExpandedScripturePane: true }); }
 
   closeExpandedScripturePane() { this.setState({ showExpandedScripturePane: false }) }
+
+  showAddBibleModal() {
+    console.log('open add resource modal')
+  }
 
   render() {
     const {
@@ -160,6 +147,8 @@ class ScripturePane extends Component {
       expandedScripturePaneTitle,
       expandButtonHoverText,
       clickToRemoveResourceLabel,
+      currentPaneSettings,
+      clickAddResource,
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
@@ -208,6 +197,10 @@ class ScripturePane extends Component {
                 )
               })
             }
+              <AddBibleButton
+                showAddBibleModal={this.showAddBibleModal}
+                clickAddResource={clickAddResource}
+              />
             </div>
           </div>
           <ExpandedScripturePaneModal
@@ -230,6 +223,8 @@ ScripturePane.propTypes = {
   closeButtonLabel: PropTypes.string.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   expandButtonHoverText: PropTypes.string.isRequired,
+  clickAddResource: PropTypes.string.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
 }
 
 export default ScripturePane;
