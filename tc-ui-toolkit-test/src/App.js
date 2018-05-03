@@ -13,9 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{padding: '10px'}}>
-        <GroupMenu />
-      </div>
+      <GroupMenu />
     );
   }
 }

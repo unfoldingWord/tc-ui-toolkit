@@ -9,7 +9,7 @@ const FilterMenuHeader = ({currentToolName, expandFilter, handleFilterShowHideTo
         key="filter"
         glyph="filter"
         className={'filter-icon ' + (expandFilter ? 'expanded' : 'collapsed')}
-        onClick={this.handleFilterShowHideToggle} />
+        onClick={handleFilterShowHideToggle} />
       <FilterBadge
         handleFilterShowHideToggle={handleFilterShowHideToggle}
         filterCount={filterCount}
