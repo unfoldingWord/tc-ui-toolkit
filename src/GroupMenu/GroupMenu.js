@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 //helpers
 import * as helpers from './helpers/';
 //components
@@ -13,6 +14,10 @@ class GroupMenu extends React.Component {
       expandFilter: false
     };
     this.handleFilterShowHideToggle = this.handleFilterShowHideToggle.bind(this);
+  }
+
+  handleFilterShowHideToggle() {
+    this.setState({expandFilter: !this.state.expandFilter});
   }
 
   render() {
@@ -48,26 +53,64 @@ class GroupMenu extends React.Component {
             translate={translate}
             setFilter={actions.setFilter} />
         </div>
-        <Groups
-          isSubMenuExpanded={isSubMenuExpanded}
-          groupsIndex={groupsIndex}
-          groupsData={groupsData}
-          contextId={contextId}
-          projectSaveLocation={projectSaveLocation}
-          groupMenuChangeGroup={actions.groupMenuChangeGroup}
-          filters={filters} />
       </div>
     );
   }
 }
 
-GroupMenu.propTypes = {
+// <Groups
+// isSubMenuExpanded={isSubMenuExpanded}
+// groupsIndex={groupsIndex}
+// groupsData={groupsData}
+// contextId={contextId}
+// projectSaveLocation={projectSaveLocation}
+// groupMenuChangeGroup={actions.groupMenuChangeGroup}
+// filters={filters} />
 
-}
+GroupMenu.propTypes = {
+  translate: PropTypes.func.isRequired,
+  toolsReducer: PropTypes.shape({
+    currentToolName: PropTypes.string.isRequired
+  }),
+  groupMenuReducer: PropTypes.shape({
+    filters: PropTypes.object.isRequired,
+    isSubMenuExpanded: PropTypes.bool.isRequired
+  }),
+  groupsIndexReducer: PropTypes.shape({
+    groupsIndex: PropTypes.object.isRequired
+  }),
+  groupsDataReducer: PropTypes.shape({
+    groupsData: PropTypes.object.isRequired
+  }),
+  contextIdReducer: PropTypes.shape({
+    contextId: PropTypes.object.isRequired
+  }),
+  projectDetailsReducer: PropTypes.shape({
+    projectSaveLocation: PropTypes.string.isRequired
+  }),
+  actions: PropTypes.shape({
+    setFilter: () => {},
+    groupMenuChangeGroup: () => {}
+  })
+};
 
 GroupMenu.defaultProps = {
+  translate: key => key,
+  toolsReducer: {currentToolName: ''},
+  groupMenuReducer: {filters: {}, isSubMenuExpanded: false},
+  groupsIndexReducer: {groupsIndex: {}},
+  groupsDataReducer: {groupsData: {}},
+  contextIdReducer: {
+    contextId: {
 
-}
+    }
+  },
+  projectDetailsReducer: {projectSaveLocation: ''},
+  actions: {
+    setFilter: () => {},
+    groupMenuChangeGroup: () => {}
+  }
+};
 
 
 export default GroupMenu;

@@ -1,5 +1,6 @@
 import React from 'react';
-import Group from './Group';
+import Group from '../Group';
+import NoResults from '../NoResults';
 
 const Groups = ({
   filters,
@@ -47,7 +48,5 @@ const Groups = ({
   }
   return groupComponents;
 };
-
-const NoResults = ({translate}) => (<div className='no-results'>{translate('tools.no_results')}</div>);
 
 export default Groups;

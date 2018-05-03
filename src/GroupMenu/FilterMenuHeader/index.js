@@ -1,5 +1,6 @@
 import React from 'react';
-import FilterBadge from './FilterBadge';
+import { Glyphicon } from 'react-bootstrap';
+import FilterBadge from '../FilterBadge';
 
 const FilterMenuHeader = ({currentToolName, expandFilter, handleFilterShowHideToggle, filterCount}) => {
   return currentToolName === "translationWords" && (
@@ -15,6 +16,6 @@ const FilterMenuHeader = ({currentToolName, expandFilter, handleFilterShowHideTo
         expandFilter={expandFilter} />
     </div>
   );
-}
+};
 
 export default FilterMenuHeader;
