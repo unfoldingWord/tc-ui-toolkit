@@ -58,15 +58,6 @@ class GroupMenu extends React.Component {
   }
 }
 
-// <Groups
-// isSubMenuExpanded={isSubMenuExpanded}
-// groupsIndex={groupsIndex}
-// groupsData={groupsData}
-// contextId={contextId}
-// projectSaveLocation={projectSaveLocation}
-// groupMenuChangeGroup={actions.groupMenuChangeGroup}
-// filters={filters} />
-
 GroupMenu.propTypes = {
   translate: PropTypes.func.isRequired,
   toolsReducer: PropTypes.shape({
@@ -114,3 +105,12 @@ GroupMenu.defaultProps = {
 
 
 export default GroupMenu;
+
+// <Groups
+// isSubMenuExpanded={isSubMenuExpanded}
+// groupsIndex={groupsIndex}
+// groupsData={groupsData}
+// contextId={contextId}
+// projectSaveLocation={projectSaveLocation}
+// groupMenuChangeGroup={actions.groupMenuChangeGroup}
+// filters={filters} />

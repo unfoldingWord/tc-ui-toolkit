@@ -1,4 +1,4 @@
-@import '../index.styles.css';
+@import ../index.styles.css;
 
 #groups-menu-container  {
   background-color: var(--background-color-dark);
@@ -186,3 +186,120 @@
 #groups-menu-filter .filter-bubble .filter-text {
   vertical-align: text-bottom;
 }
+
+
+.menu-item-heading-normal {
+  display: block;
+  padding-top: 7px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color);
+  font-weight: normal;
+  color: var(--reverse-color);
+}
+
+.menu-item-heading-current {
+  display: block;
+  padding-top: 7px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color);
+  background-color: var(--accent-color);
+  font-weight: bold;
+  color: var(--reverse-color)
+}
+
+/*
+    statusIcon: {
+      ok: {
+        color: var(--completed-color);
+        display: initial
+      };
+      comment: {
+        color: var(--highlight-color);
+        display: initial
+      };
+      pencil: {
+        color: var(--reverse-color);
+        display: initial
+      };
+      flagged: {
+        color: var(--highlight-color);
+        display: initial
+      };
+      unchecked: {
+        display: none
+      };
+      bookmark: {
+        color: var(--reverse-color);
+        display: initial
+      };
+      invalidated: {
+        display: initial;
+        height: 16px;
+        width: 16px
+      };
+      blank: {
+        display: initial;
+        color: none;
+        paddingLeft: 15px
+      }
+    }
+  };
+
+  subMenuItem: {
+    height: 38;
+    alignItems: center;
+    display: flex;
+    padding: 10px 0;
+    cursor: pointer;
+    borderBottom: 1px solid var(--background-color-dark);
+    color: var(--reverse-color);
+    backgroundColor: var(--background-color)
+  };
+
+  activeSubMenuItem: {
+    height: 38;
+    alignItems: center;
+    display: flex;
+    padding: 10px 0;
+    cursor: pointer;
+    borderBottom: 1px solid var(--background-color-dark);
+    color: var(--reverse-color);
+    backgroundColor: var(--accent-color);
+    zIndex: 1
+  };
+
+  groupItemText: {
+    textOverflow: ellipsis;
+    padding: 0px 20px 0px 0px;
+    display: block;
+    whiteSpace: nowrap;
+    overflow: hidden
+  };
+  slideButton: {
+    float: right;
+    marginTop: 50vh;
+    zIndex: 999;
+    color: var(--reverse-color);
+    backgroundColor: var(--text-color-dark);
+    padding: 10px 0;
+    marginRight: -15px;
+    borderRadius: 0 5px 5px 0
+  };
+
+  slideButtonCollapsed: {
+    float: left;
+    marginTop: 50vh;
+    zIndex: 999;
+    color: var(--reverse-color);
+    backgroundColor: var(--text-color-dark);
+    padding: 10px 0;
+    marginRight: -15px;
+    borderRadius: 0 5px 5px 0
+  }
+  */
