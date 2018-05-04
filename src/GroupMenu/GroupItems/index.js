@@ -9,7 +9,10 @@ const GroupItems = ({
   groupHeaderComponent,
   filters,
   manifest,
-  contextId
+  contextId,
+  alignmentData,
+  currentToolName,
+  getSelections
 }) => {
   const items = [];
   let index = 0;
@@ -24,14 +27,15 @@ const GroupItems = ({
 
     items.push(
       <GroupItem
+        contextId={groupItemData.contextId}
         changeCurrentContextId={changeCurrentContextId}
         key={index}
-        statusBadge={helpers.getStatusBadge(groupItemData)}
+        statusBadge={helpers.getStatusBadges(groupItemData, alignmentData, currentToolName)}
         groupMenuHeader={groupHeaderComponent}
         scrollIntoView={helpers.scrollIntoView}
         active={active}
         bookName={bookName}
-        selectionText={this.props.getSelections(groupItemData)}
+        selectionText={getSelections(groupItemData)}
         inView={helpers.inView}
       />
     );

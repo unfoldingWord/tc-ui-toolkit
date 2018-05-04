@@ -27,7 +27,9 @@ const Group = ({
   manifest,
   contextId,
   getSelections,
-  classes
+  classes,
+  alignmentData,
+  currentToolName
 }) => {
   let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
@@ -40,6 +42,7 @@ const Group = ({
   );
   const theme = createMuiTheme();
   //? "var(--accent-color-light)" : 'white'
+  console.log(progress)
   return (
     <MuiThemeProvider theme={theme}>
       <div className="group">
@@ -48,7 +51,7 @@ const Group = ({
           <div onClick={openGroup}>
             <div style={{ justifyContent:'center', height:20, width:20, display:'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%'}}>
               <CircularProgress
-                variant="determinate"
+                variant="static"
                 value={progress * 100}
                 thickness={10}
                 size={15}
@@ -61,6 +64,8 @@ const Group = ({
         </div>
         {active && isSubMenuExpanded ?
           (<GroupItems
+            currentToolName={currentToolName}
+            alignmentData={alignmentData}
             getSelections={getSelections}
             changeCurrentContextId={changeCurrentContextId}
             contextId={contextId}

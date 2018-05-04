@@ -12,26 +12,33 @@ class GroupMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expandFilter: false
+      expandFilter: false,
+      isSubMenuExpanded: false
     };
     this.handleFilterShowHideToggle = this.handleFilterShowHideToggle.bind(this);
+    this.handleExpandSubMenu = this.handleExpandSubMenu.bind(this);
   }
 
   handleFilterShowHideToggle() {
     this.setState({expandFilter: !this.state.expandFilter});
   }
 
+  handleExpandSubMenu() {
+    this.setState({isSubMenuExpanded: !this.state.isSubMenuExpanded});
+  }
+
   render() {
     const {
       translate,
       toolsReducer: {currentToolName},
-      groupMenuReducer: {filters, isSubMenuExpanded},
+      groupMenuReducer: {filters},
       groupsIndexReducer: {groupsIndex},
       groupsDataReducer: {groupsData},
       contextIdReducer: {contextId},
       projectDetailsReducer: {projectSaveLocation, manifest},
       actions,
-      getSelections
+      getSelections,
+      alignmentData
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
     const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -56,17 +63,19 @@ class GroupMenu extends React.Component {
             setFilter={actions.setFilter} />
         </div>
         <Groups
+          currentToolName={currentToolName}
+          alignmentData={alignmentData}
           getSelections={getSelections}
           translate={translate}
           changeCurrentContextId={actions.changeCurrentContextId}
           getGroupProgress={() => .5}
-          isSubMenuExpanded={isSubMenuExpanded}
+          isSubMenuExpanded={this.state.isSubMenuExpanded}
           groupsIndex={groupsIndex}
           groupsData={groupsData}
           contextId={contextId}
           manifest={manifest}
           projectSaveLocation={projectSaveLocation}
-          groupMenuExpandSubMenu={actions.groupMenuExpandSubMenu}
+          groupMenuExpandSubMenu={this.handleExpandSubMenu}
           groupMenuChangeGroup={actions.groupMenuChangeGroup}
           filters={filters} />
       </div>
@@ -75,6 +84,7 @@ class GroupMenu extends React.Component {
 }
 
 GroupMenu.propTypes = {
+  alignmentData: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   toolsReducer: PropTypes.shape({
     currentToolName: PropTypes.string.isRequired
@@ -103,7 +113,8 @@ GroupMenu.propTypes = {
 };
 
 GroupMenu.defaultProps = {
-  getSelections: () => () => '',
+  alignmentData: {},
+  getSelections: () => 'A selection',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},
   groupMenuReducer: {filters: {}, isSubMenuExpanded: false},

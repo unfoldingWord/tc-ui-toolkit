@@ -17,7 +17,9 @@ const Groups = ({
   manifest,
   contextId,
   translate,
-  getSelections
+  getSelections,
+  alignmentData,
+  currentToolName
 }) => {
   let groupComponents = <NoResults translate={translate} />;
   groupsIndex = groupsIndex.filter(groupIndex => {
@@ -31,6 +33,8 @@ const Groups = ({
 
       return (
         <Group
+          currentToolName={currentToolName}
+          alignmentData={alignmentData}
           contextId={contextId}
           getSelections={getSelections}
           changeCurrentContextId={changeCurrentContextId}

@@ -82418,15 +82418,15 @@ var _Groups = __webpack_require__(612);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(620);
+var _FilterMenuHeader = __webpack_require__(622);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(622);
+var _GroupsMenuFilter = __webpack_require__(624);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(627);
+__webpack_require__(629);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -82451,9 +82451,11 @@ var GroupMenu = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (GroupMenu.__proto__ || Object.getPrototypeOf(GroupMenu)).call(this, props));
 
     _this.state = {
-      expandFilter: false
+      expandFilter: false,
+      isSubMenuExpanded: false
     };
     _this.handleFilterShowHideToggle = _this.handleFilterShowHideToggle.bind(_this);
+    _this.handleExpandSubMenu = _this.handleExpandSubMenu.bind(_this);
     return _this;
   }
 
@@ -82463,14 +82465,17 @@ var GroupMenu = function (_React$Component) {
       this.setState({ expandFilter: !this.state.expandFilter });
     }
   }, {
+    key: 'handleExpandSubMenu',
+    value: function handleExpandSubMenu() {
+      this.setState({ isSubMenuExpanded: !this.state.isSubMenuExpanded });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           translate = _props.translate,
           currentToolName = _props.toolsReducer.currentToolName,
-          _props$groupMenuReduc = _props.groupMenuReducer,
-          filters = _props$groupMenuReduc.filters,
-          isSubMenuExpanded = _props$groupMenuReduc.isSubMenuExpanded,
+          filters = _props.groupMenuReducer.filters,
           groupsIndex = _props.groupsIndexReducer.groupsIndex,
           groupsData = _props.groupsDataReducer.groupsData,
           contextId = _props.contextIdReducer.contextId,
@@ -82478,7 +82483,8 @@ var GroupMenu = function (_React$Component) {
           projectSaveLocation = _props$projectDetails.projectSaveLocation,
           manifest = _props$projectDetails.manifest,
           actions = _props.actions,
-          getSelections = _props.getSelections;
+          getSelections = _props.getSelections,
+          alignmentData = _props.alignmentData;
 
       var filterCount = helpers.getFilterCount(filters);
       var showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -82510,19 +82516,21 @@ var GroupMenu = function (_React$Component) {
             setFilter: actions.setFilter })
         ),
         _react2.default.createElement(_Groups2.default, {
+          currentToolName: currentToolName,
+          alignmentData: alignmentData,
           getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
           getGroupProgress: function getGroupProgress() {
             return .5;
           },
-          isSubMenuExpanded: isSubMenuExpanded,
+          isSubMenuExpanded: this.state.isSubMenuExpanded,
           groupsIndex: groupsIndex,
           groupsData: groupsData,
           contextId: contextId,
           manifest: manifest,
           projectSaveLocation: projectSaveLocation,
-          groupMenuExpandSubMenu: actions.groupMenuExpandSubMenu,
+          groupMenuExpandSubMenu: this.handleExpandSubMenu,
           groupMenuChangeGroup: actions.groupMenuChangeGroup,
           filters: filters })
       );
@@ -82533,6 +82541,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
+  alignmentData: _propTypes2.default.object.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
@@ -82561,10 +82570,9 @@ GroupMenu.propTypes = {
 };
 
 GroupMenu.defaultProps = {
+  alignmentData: {},
   getSelections: function getSelections() {
-    return function () {
-      return '';
-    };
+    return 'A selection';
   },
   translate: function translate(key) {
     return key;
@@ -82745,10 +82753,9 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
   return false;
 };
 
-function scrollIntoView(element) {
-  debugger;
-  //element.scrollIntoView({block: 'end', behavior: 'smooth'});
-}
+function scrollIntoView(element) {}
+//element.scrollIntoView({block: 'end', behavior: 'smooth'});
+
 
 /**
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
@@ -82756,32 +82763,28 @@ function scrollIntoView(element) {
 * @param {object} groupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
 * @param {object} currentItem - The current group check item that is active (i.e. Luke 1:1)
 */
-function inView(groupMenu, currentItem) {
-  debugger;
-  // var rectGroup = groupMenu.getBoundingClientRect();
-  // var rectItem = currentItem.getBoundingClientRect();
-  // var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-  // return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
-}
+function inView(groupMenu, currentItem) {}
+// var rectGroup = groupMenu.getBoundingClientRect();
+// var rectItem = currentItem.getBoundingClientRect();
+// var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+// return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+
 
 /**
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-function getStatusBadges(groupItemData) {
+function getStatusBadges(groupItemData, alignmentData, currentToolName) {
   var glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
     var _groupItemData$contex = groupItemData.contextId.reference,
         chapter = _groupItemData$contex.chapter,
         verse = _groupItemData$contex.verse;
-    var alignmentData = this.props.wordAlignmentReducer.alignmentData;
 
     var wordBank = alignmentData && alignmentData[chapter] && alignmentData[chapter][verse] ? alignmentData[chapter][verse].wordBank : [];
-    var currentToolName = this.props.toolsReducer.currentToolName;
 
     // The below ifs are in order of precedence of the status badges we show
-
     if (groupItemData.invalidated) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
     if (groupItemData.selections || currentToolName === 'wordAlignment' && wordBank && wordBank.length === 0) glyphs.push('ok');
@@ -87163,7 +87166,9 @@ var Groups = function Groups(_ref) {
       manifest = _ref.manifest,
       contextId = _ref.contextId,
       translate = _ref.translate,
-      getSelections = _ref.getSelections;
+      getSelections = _ref.getSelections,
+      alignmentData = _ref.alignmentData,
+      currentToolName = _ref.currentToolName;
 
   var groupComponents = _react2.default.createElement(_NoResults2.default, { translate: translate });
   groupsIndex = groupsIndex.filter(function (groupIndex) {
@@ -87176,6 +87181,8 @@ var Groups = function Groups(_ref) {
       var active = contextId ? contextId.groupId === groupId : false;
 
       return _react2.default.createElement(_Group2.default, {
+        currentToolName: currentToolName,
+        alignmentData: alignmentData,
         contextId: contextId,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
@@ -87248,7 +87255,9 @@ var Group = function Group(_ref) {
       manifest = _ref.manifest,
       contextId = _ref.contextId,
       getSelections = _ref.getSelections,
-      classes = _ref.classes;
+      classes = _ref.classes,
+      alignmentData = _ref.alignmentData,
+      currentToolName = _ref.currentToolName;
 
   var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
@@ -87261,6 +87270,7 @@ var Group = function Group(_ref) {
     } });
   var theme = (0, _styles.createMuiTheme)();
   //? "var(--accent-color-light)" : 'white'
+  console.log(progress);
   return _react2.default.createElement(
     _styles.MuiThemeProvider,
     { theme: theme },
@@ -87278,7 +87288,7 @@ var Group = function Group(_ref) {
             'div',
             { style: { justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%' } },
             _react2.default.createElement(_Progress.CircularProgress, {
-              variant: 'determinate',
+              variant: 'static',
               value: progress * 100,
               thickness: 10,
               size: 15,
@@ -87290,6 +87300,8 @@ var Group = function Group(_ref) {
         )
       ),
       active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
+        currentToolName: currentToolName,
+        alignmentData: alignmentData,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
         contextId: contextId,
@@ -87882,7 +87894,10 @@ var GroupItems = function GroupItems(_ref) {
       groupHeaderComponent = _ref.groupHeaderComponent,
       filters = _ref.filters,
       manifest = _ref.manifest,
-      contextId = _ref.contextId;
+      contextId = _ref.contextId,
+      alignmentData = _ref.alignmentData,
+      currentToolName = _ref.currentToolName,
+      getSelections = _ref.getSelections;
 
   var items = [];
   var index = 0;
@@ -87903,14 +87918,15 @@ var GroupItems = function GroupItems(_ref) {
       var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
 
       items.push(_react2.default.createElement(_GroupItem2.default, {
+        contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadge(groupItemData),
+        statusBadge: helpers.getStatusBadges(groupItemData, alignmentData, currentToolName),
         groupMenuHeader: groupHeaderComponent,
         scrollIntoView: helpers.scrollIntoView,
         active: active,
         bookName: bookName,
-        selectionText: undefined.props.getSelections(groupItemData),
+        selectionText: getSelections(groupItemData),
         inView: helpers.inView
       }));
       index++;
@@ -88087,7 +88103,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(629);
+__webpack_require__(620);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -88106,6 +88122,45 @@ exports.default = NoResults;
 /* 620 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+var content = __webpack_require__(621);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 621 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 622 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -88119,7 +88174,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(621);
+var _FilterBadge = __webpack_require__(623);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -88149,7 +88204,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 621 */
+/* 623 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88180,7 +88235,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 622 */
+/* 624 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88198,11 +88253,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(623);
+var _ExpandedFilter = __webpack_require__(625);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(625);
+var _CollapsedFilter = __webpack_require__(627);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -88243,7 +88298,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 623 */
+/* 625 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88261,7 +88316,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(624);
+var _GroupsMenuFilterOption = __webpack_require__(626);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
@@ -88364,7 +88419,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 624 */
+/* 626 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88433,7 +88488,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 625 */
+/* 627 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88451,7 +88506,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(626);
+var _GroupsMenuFilterBubble = __webpack_require__(628);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -88541,7 +88596,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 626 */
+/* 628 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88593,45 +88648,6 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 627 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(628);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 628 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
-
-// module
-exports.push([module.i, "#groups-menu-container  {\n  background-color: var(--background-color-dark);\n  z-index: 98;\n  font-size: 12px;\n  overflow-x: hidden;\n  height: 100%;\n  padding: 0;\n  position: fixed;\n  width: 250px;\n  display: grid;\n  grid-template-rows: auto 1fr;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
-
-// exports
-
-
-/***/ }),
 /* 629 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -88665,7 +88681,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
+exports.push([module.i, "#groups-menu-container  {\n  background-color: var(--background-color-dark);\n  z-index: 98;\n  font-size: 12px;\n  overflow-x: hidden;\n  height: 100%;\n  padding: 0;\n  position: fixed;\n  width: 250px;\n  display: grid;\n  grid-template-rows: auto 1fr;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
 
 // exports
 

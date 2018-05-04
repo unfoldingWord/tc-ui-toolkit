@@ -52,7 +52,6 @@ export const groupIsVisible = (groupData, filters) => {
 };
 
 export function scrollIntoView(element) {
-  debugger;
   //element.scrollIntoView({block: 'end', behavior: 'smooth'});
 }
 
@@ -63,7 +62,6 @@ export function scrollIntoView(element) {
 * @param {object} currentItem - The current group check item that is active (i.e. Luke 1:1)
 */
 export function inView(groupMenu, currentItem) {
-  debugger;
   // var rectGroup = groupMenu.getBoundingClientRect();
   // var rectItem = currentItem.getBoundingClientRect();
   // var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
@@ -74,14 +72,12 @@ export function inView(groupMenu, currentItem) {
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-export function getStatusBadges(groupItemData) {
+export function getStatusBadges(groupItemData, alignmentData, currentToolName) {
   const glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
     const {chapter, verse} = groupItemData.contextId.reference;
-    const {alignmentData} = this.props.wordAlignmentReducer;
     const wordBank = alignmentData && alignmentData[chapter] && alignmentData[chapter][verse] ? alignmentData[chapter][verse].wordBank : [];
-    const {currentToolName} = this.props.toolsReducer;
 
     // The below ifs are in order of precedence of the status badges we show
     if (groupItemData.invalidated) glyphs.push('invalidated');
