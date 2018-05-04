@@ -16,9 +16,10 @@ const Groups = ({
   isSubMenuExpanded,
   manifest,
   contextId,
-  translate
+  translate,
+  getSelections
 }) => {
-  let groupComponents = <NoResults translate={translate}/>;
+  let groupComponents = <NoResults translate={translate} />;
   groupsIndex = groupsIndex.filter(groupIndex => {
     return Object.keys(groupsData).includes(groupIndex.id) && helpers.groupIsVisible(helpers.getGroupData(groupsData, groupIndex.id), filters);
   });
@@ -30,6 +31,8 @@ const Groups = ({
 
       return (
         <Group
+          contextId={contextId}
+          getSelections={getSelections}
           changeCurrentContextId={changeCurrentContextId}
           manifest={manifest}
           filters={filters}

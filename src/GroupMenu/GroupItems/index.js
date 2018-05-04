@@ -9,7 +9,6 @@ const GroupItems = ({
   groupHeaderComponent,
   filters,
   manifest,
-  selections,
   contextId
 }) => {
   const items = [];
@@ -32,7 +31,7 @@ const GroupItems = ({
         scrollIntoView={helpers.scrollIntoView}
         active={active}
         bookName={bookName}
-        selectionText={selections}
+        selectionText={this.props.getSelections(groupItemData)}
         inView={helpers.inView}
       />
     );

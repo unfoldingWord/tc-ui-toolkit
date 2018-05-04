@@ -30,7 +30,8 @@ class GroupMenu extends React.Component {
       groupsDataReducer: {groupsData},
       contextIdReducer: {contextId},
       projectDetailsReducer: {projectSaveLocation, manifest},
-      actions
+      actions,
+      getSelections
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
     const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -55,9 +56,10 @@ class GroupMenu extends React.Component {
             setFilter={actions.setFilter} />
         </div>
         <Groups
+          getSelections={getSelections}
           translate={translate}
           changeCurrentContextId={actions.changeCurrentContextId}
-          getGroupProgress={() => () => 0}
+          getGroupProgress={() => .5}
           isSubMenuExpanded={isSubMenuExpanded}
           groupsIndex={groupsIndex}
           groupsData={groupsData}
@@ -101,20 +103,79 @@ GroupMenu.propTypes = {
 };
 
 GroupMenu.defaultProps = {
+  getSelections: () => () => '',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},
   groupMenuReducer: {filters: {}, isSubMenuExpanded: false},
-  groupsIndexReducer: {groupsIndex: []},
-  groupsDataReducer: {groupsData: {}},
-  contextIdReducer: {
-    contextId: {
-
+  groupsIndexReducer: {
+    groupsIndex: [{
+      id: 'apostle',
+      name: "apostle, apostles, apostleship"
+    }]
+  },
+  groupsDataReducer: {
+    groupsData: {
+      apostle: [
+        {
+          "priority": 1,
+          "comments": false,
+          "reminders": false,
+          "selections": false,
+          "verseEdits": false,
+          "contextId": {
+            "reference": {
+              "bookId": "tit",
+              "chapter": 1,
+              "verse": 1
+            },
+            "tool": "translationWords",
+            "groupId": "apostle",
+            "quote": "ἀπόστολος",
+            "strong": [
+              "G06520"
+            ],
+            "occurrence": 1
+          }
+        }
+      ]
     }
   },
-  projectDetailsReducer: {projectSaveLocation: ''},
+  contextIdReducer: {
+    contextId: {
+      "reference": {
+        "bookId": "tit",
+        "chapter": 1,
+        "verse": 1
+      },
+      "tool": "translationWords",
+      "groupId": "apostle",
+      "quote": "ἀπόστολος",
+      "strong": [
+        "G06520"
+      ],
+      "occurrence": 1
+    }
+  },
+  projectDetailsReducer: {
+    projectSaveLocation: '',
+    manifest: {
+      "target_language": {
+        "id": "bhadrawahi",
+        "name": "Bible",
+        "direction": "ltr",
+        "book": {
+          "name": "Titus"
+        }
+      },
+      "project": {
+        "id": "tit",
+        "name": "Titus"
+      }
+    }
+  },
   actions: {
     setFilter: () => {},
-    groupMenuChangeGroup: () => {},
+    groupMenuChangeGroup: () => () => {},
     groupMenuExpandSubMenu: () => {}
   }
 };

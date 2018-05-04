@@ -82477,7 +82477,8 @@ var GroupMenu = function (_React$Component) {
           _props$projectDetails = _props.projectDetailsReducer,
           projectSaveLocation = _props$projectDetails.projectSaveLocation,
           manifest = _props$projectDetails.manifest,
-          actions = _props.actions;
+          actions = _props.actions,
+          getSelections = _props.getSelections;
 
       var filterCount = helpers.getFilterCount(filters);
       var showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -82509,12 +82510,11 @@ var GroupMenu = function (_React$Component) {
             setFilter: actions.setFilter })
         ),
         _react2.default.createElement(_Groups2.default, {
+          getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
           getGroupProgress: function getGroupProgress() {
-            return function () {
-              return 0;
-            };
+            return .5;
           },
           isSubMenuExpanded: isSubMenuExpanded,
           groupsIndex: groupsIndex,
@@ -82561,20 +82561,81 @@ GroupMenu.propTypes = {
 };
 
 GroupMenu.defaultProps = {
+  getSelections: function getSelections() {
+    return function () {
+      return '';
+    };
+  },
   translate: function translate(key) {
     return key;
   },
   toolsReducer: { currentToolName: 'translationWords' },
   groupMenuReducer: { filters: {}, isSubMenuExpanded: false },
-  groupsIndexReducer: { groupsIndex: [] },
-  groupsDataReducer: { groupsData: {} },
-  contextIdReducer: {
-    contextId: {}
+  groupsIndexReducer: {
+    groupsIndex: [{
+      id: 'apostle',
+      name: "apostle, apostles, apostleship"
+    }]
   },
-  projectDetailsReducer: { projectSaveLocation: '' },
+  groupsDataReducer: {
+    groupsData: {
+      apostle: [{
+        "priority": 1,
+        "comments": false,
+        "reminders": false,
+        "selections": false,
+        "verseEdits": false,
+        "contextId": {
+          "reference": {
+            "bookId": "tit",
+            "chapter": 1,
+            "verse": 1
+          },
+          "tool": "translationWords",
+          "groupId": "apostle",
+          "quote": "ἀπόστολος",
+          "strong": ["G06520"],
+          "occurrence": 1
+        }
+      }]
+    }
+  },
+  contextIdReducer: {
+    contextId: {
+      "reference": {
+        "bookId": "tit",
+        "chapter": 1,
+        "verse": 1
+      },
+      "tool": "translationWords",
+      "groupId": "apostle",
+      "quote": "ἀπόστολος",
+      "strong": ["G06520"],
+      "occurrence": 1
+    }
+  },
+  projectDetailsReducer: {
+    projectSaveLocation: '',
+    manifest: {
+      "target_language": {
+        "id": "bhadrawahi",
+        "name": "Bible",
+        "direction": "ltr",
+        "book": {
+          "name": "Titus"
+        }
+      },
+      "project": {
+        "id": "tit",
+        "name": "Titus"
+      }
+    }
+  },
   actions: {
     setFilter: function setFilter() {},
-    groupMenuChangeGroup: function groupMenuChangeGroup() {},
+    groupMenuChangeGroup: function groupMenuChangeGroup() {
+      return function () {};
+    },
     groupMenuExpandSubMenu: function groupMenuExpandSubMenu() {}
   }
 };
@@ -87101,7 +87162,8 @@ var Groups = function Groups(_ref) {
       isSubMenuExpanded = _ref.isSubMenuExpanded,
       manifest = _ref.manifest,
       contextId = _ref.contextId,
-      translate = _ref.translate;
+      translate = _ref.translate,
+      getSelections = _ref.getSelections;
 
   var groupComponents = _react2.default.createElement(_NoResults2.default, { translate: translate });
   groupsIndex = groupsIndex.filter(function (groupIndex) {
@@ -87114,6 +87176,8 @@ var Groups = function Groups(_ref) {
       var active = contextId ? contextId.groupId === groupId : false;
 
       return _react2.default.createElement(_Group2.default, {
+        contextId: contextId,
+        getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
         manifest: manifest,
         filters: filters,
@@ -87148,9 +87212,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MuiThemeProvider = __webpack_require__(137);
-
-var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+var _styles = __webpack_require__(20);
 
 var _propTypes = __webpack_require__(4);
 
@@ -87166,6 +87228,13 @@ var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var styles = {
+  circle: {
+    width: 40,
+    height: 40
+  }
+};
+
 var Group = function Group(_ref) {
   var changeCurrentContextId = _ref.changeCurrentContextId,
       active = _ref.active,
@@ -87177,8 +87246,9 @@ var Group = function Group(_ref) {
       groupData = _ref.groupData,
       filters = _ref.filters,
       manifest = _ref.manifest,
-      selections = _ref.selections,
-      contextId = _ref.contextId;
+      contextId = _ref.contextId,
+      getSelections = _ref.getSelections,
+      classes = _ref.classes;
 
   var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
@@ -87189,10 +87259,11 @@ var Group = function Group(_ref) {
   var collapsedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-right', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
       return glyphAction(true);
     } });
-
+  var theme = (0, _styles.createMuiTheme)();
+  //? "var(--accent-color-light)" : 'white'
   return _react2.default.createElement(
-    _MuiThemeProvider2.default,
-    null,
+    _styles.MuiThemeProvider,
+    { theme: theme },
     _react2.default.createElement(
       'div',
       { className: 'group' },
@@ -87205,48 +87276,45 @@ var Group = function Group(_ref) {
           { onClick: openGroup },
           _react2.default.createElement(
             'div',
-            { style: { marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%', width: '20px', height: '20px' } },
+            { style: { justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%' } },
             _react2.default.createElement(_Progress.CircularProgress, {
               variant: 'determinate',
               value: progress * 100,
-              thickness: 3,
-              size: 20,
-              color: progress ? "var(--accent-color-light)" : 'white',
-              style: { right: 3, bottom: 3 }
+              thickness: 10,
+              size: 15,
+              color: progress ? 'primary' : 'secondary',
+              style: { alignSelf: 'center', position: 'absolute', height: 20, width: 20 }
             })
           ),
           groupIndex.name
         )
       ),
       active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
+        getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
         contextId: contextId,
         groupData: groupData,
         groupHeaderComponent: undefined,
         filters: filters,
-        manifest: manifest,
-        selections: selections }) : null
+        manifest: manifest }) : null
     )
   );
 };
 
 Group.propTypes = {
   manifest: _propTypes2.default.object.isRequired,
-  selections: _propTypes2.default.array.isRequired,
   contextId: _propTypes2.default.object.isRequired,
-  filters: _propTypes2.default.array.isRequired,
-  groupData: _propTypes2.default.object.isRequired,
+  filters: _propTypes2.default.object.isRequired,
+  groupData: _propTypes2.default.array.isRequired,
   isSubMenuExpanded: _propTypes2.default.bool.isRequired,
   groupMenuExpandSubMenu: _propTypes2.default.func.isRequired,
-  groupMenuReducer: _propTypes2.default.any.isRequired,
   openGroup: _propTypes2.default.func.isRequired,
   progress: _propTypes2.default.number.isRequired,
   groupIndex: _propTypes2.default.object.isRequired,
-  getGroupItems: _propTypes2.default.func.isRequired,
   active: _propTypes2.default.bool.isRequired
 };
 
-exports.default = Group;
+exports.default = (0, _styles.withStyles)(styles)(Group);
 
 /***/ }),
 /* 614 */
@@ -87814,7 +87882,6 @@ var GroupItems = function GroupItems(_ref) {
       groupHeaderComponent = _ref.groupHeaderComponent,
       filters = _ref.filters,
       manifest = _ref.manifest,
-      selections = _ref.selections,
       contextId = _ref.contextId;
 
   var items = [];
@@ -87843,7 +87910,7 @@ var GroupItems = function GroupItems(_ref) {
         scrollIntoView: helpers.scrollIntoView,
         active: active,
         bookName: bookName,
-        selectionText: selections,
+        selectionText: undefined.props.getSelections(groupItemData),
         inView: helpers.inView
       }));
       index++;

@@ -1,9 +1,18 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import {CircularProgress} from 'material-ui/Progress';
 import {Glyphicon} from 'react-bootstrap';
 import GroupItems from '../GroupItems';
+import {withStyles} from 'material-ui/styles';
+
+const styles = {
+  circle: {
+    width: 40,
+    height:40
+  }
+};
+
 
 const Group = ({
   changeCurrentContextId,
@@ -16,8 +25,9 @@ const Group = ({
   groupData,
   filters,
   manifest,
-  selections,
-  contextId
+  contextId,
+  getSelections,
+  classes
 }) => {
   let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
@@ -28,21 +38,22 @@ const Group = ({
   let collapsedGlyph = (
     <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
   );
-
+  const theme = createMuiTheme();
+  //? "var(--accent-color-light)" : 'white'
   return (
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
       <div className="group">
         <div className={groupMenuItemHeadingClassName}>
           {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
           <div onClick={openGroup}>
-            <div style={{marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%', width: '20px', height: '20px'}}>
+            <div style={{ justifyContent:'center', height:20, width:20, display:'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%'}}>
               <CircularProgress
                 variant="determinate"
                 value={progress * 100}
-                thickness={3}
-                size={20}
-                color={progress ? "var(--accent-color-light)" : 'white'}
-                style={{right: 3, bottom: 3}}
+                thickness={10}
+                size={15}
+                color={progress ? 'primary' : 'secondary'}
+                style={{alignSelf:'center', position: 'absolute', height:20, width: 20}}
               />
             </div>
             {groupIndex.name}
@@ -50,13 +61,13 @@ const Group = ({
         </div>
         {active && isSubMenuExpanded ?
           (<GroupItems
+            getSelections={getSelections}
             changeCurrentContextId={changeCurrentContextId}
             contextId={contextId}
             groupData={groupData}
             groupHeaderComponent={this}
             filters={filters}
-            manifest={manifest}
-            selections={selections} />)
+            manifest={manifest} />)
           : null}
       </div>
     </MuiThemeProvider>
@@ -65,18 +76,15 @@ const Group = ({
 
 Group.propTypes = {
   manifest: PropTypes.object.isRequired,
-  selections: PropTypes.array.isRequired,
   contextId: PropTypes.object.isRequired,
-  filters: PropTypes.array.isRequired,
-  groupData: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  groupData: PropTypes.array.isRequired,
   isSubMenuExpanded: PropTypes.bool.isRequired,
   groupMenuExpandSubMenu: PropTypes.func.isRequired,
-  groupMenuReducer: PropTypes.any.isRequired,
   openGroup: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
   groupIndex: PropTypes.object.isRequired,
-  getGroupItems: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired
 };
 
-export default Group;
+export default withStyles(styles)(Group);
