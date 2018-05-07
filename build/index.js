@@ -82484,7 +82484,8 @@ var GroupMenu = function (_React$Component) {
           manifest = _props$projectDetails.manifest,
           actions = _props.actions,
           getSelections = _props.getSelections,
-          alignmentData = _props.alignmentData;
+          alignmentData = _props.alignmentData,
+          getGroupProgress = _props.getGroupProgress;
 
       var filterCount = helpers.getFilterCount(filters);
       var showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -82521,9 +82522,7 @@ var GroupMenu = function (_React$Component) {
           getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
-          getGroupProgress: function getGroupProgress() {
-            return .5;
-          },
+          getGroupProgress: getGroupProgress,
           isSubMenuExpanded: this.state.isSubMenuExpanded,
           groupsIndex: groupsIndex,
           groupsData: groupsData,
@@ -82566,10 +82565,12 @@ GroupMenu.propTypes = {
     setFilter: _propTypes2.default.func.isRequired,
     groupMenuChangeGroup: _propTypes2.default.func.isRequired,
     groupMenuExpandSubMenu: _propTypes2.default.func.isRequired
-  })
+  }),
+  getGroupProgress: _propTypes2.default.func.isRequired
 };
 
 GroupMenu.defaultProps = {
+  getGroupProgress: function getGroupProgress() {},
   alignmentData: {},
   getSelections: function getSelections() {
     return 'A selection';
@@ -87190,7 +87191,9 @@ var Groups = function Groups(_ref) {
         groupIndex: groupIndex,
         active: active,
         key: groupIndex.id,
-        progress: getGroupProgress(projectSaveLocation, contextId.reference.bookId, groupIndex),
+        progress: function progress() {
+          return getGroupProgress(groupIndex, groupsData);
+        },
         groupMenuExpandSubMenu: groupMenuExpandSubMenu,
         openGroup: function openGroup() {
           return groupMenuChangeGroup(currentGroupData[0].contextId);
@@ -87268,8 +87271,6 @@ var Group = function Group(_ref) {
       return glyphAction(true);
     } });
   var theme = (0, _styles.createMuiTheme)();
-  //? "var(--accent-color-light)" : 'white'
-  console.log(progress);
   return _react2.default.createElement(
     _styles.MuiThemeProvider,
     { theme: theme },
@@ -87982,17 +87983,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var GroupItem = function (_React$Component) {
   _inherits(GroupItem, _React$Component);
 
-  /**
-   * @description Generate the proper glyphicon based on selections
-   * @return {component} statusGlyph - component to render
-   */
-  function GroupItem(props) {
+  function GroupItem() {
     _classCallCheck(this, GroupItem);
 
-    var _this = _possibleConstructorReturn(this, (GroupItem.__proto__ || Object.getPrototypeOf(GroupItem)).call(this, props));
-
-    _this.onClick = _this.onClick.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (GroupItem.__proto__ || Object.getPrototypeOf(GroupItem)).apply(this, arguments));
   }
 
   _createClass(GroupItem, [{
@@ -88024,23 +88018,22 @@ var GroupItem = function (_React$Component) {
       }
     }
   }, {
-    key: 'onClick',
-    value: function onClick() {
-      this.props.actions.changeCurrentContextId(this.props.contextId);
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          reference = _props.contextId.reference,
+          changeCurrentContextId = _props.changeCurrentContextId,
+          contextId = _props.contextId,
           active = _props.active,
           statusBadge = _props.statusBadge,
           selectionText = _props.selectionText,
           bookName = _props.bookName;
+      var reference = contextId.reference;
 
       return _react2.default.createElement(
         'div',
-        { onClick: this.onClick,
+        { onClick: function onClick() {
+            return changeCurrentContextId(contextId);
+          },
           className: "group-item" + (active ? " active active-submenu-item" : " submenu-item") },
         statusBadge,
         _react2.default.createElement(
