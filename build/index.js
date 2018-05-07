@@ -87922,7 +87922,7 @@ var GroupItems = function GroupItems(_ref) {
         scrollIntoView: helpers.scrollIntoView,
         active: active,
         bookName: bookName,
-        selectionText: getSelections(groupItemData),
+        selectionText: getSelections(groupItemData.contextId),
         inView: helpers.inView
       }));
       index++;

@@ -35,7 +35,7 @@ const GroupItems = ({
         scrollIntoView={helpers.scrollIntoView}
         active={active}
         bookName={bookName}
-        selectionText={getSelections(groupItemData)}
+        selectionText={getSelections(groupItemData.contextId)}
         inView={helpers.inView}
       />
     );
