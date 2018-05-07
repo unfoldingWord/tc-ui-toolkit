@@ -82563,9 +82563,9 @@ GroupMenu.propTypes = {
     projectSaveLocation: _propTypes2.default.string.isRequired
   }),
   actions: _propTypes2.default.shape({
-    setFilter: function setFilter() {},
-    groupMenuChangeGroup: function groupMenuChangeGroup() {},
-    groupMenuExpandSubMenu: function groupMenuExpandSubMenu() {}
+    setFilter: _propTypes2.default.func.isRequired,
+    groupMenuChangeGroup: _propTypes2.default.func.isRequired,
+    groupMenuExpandSubMenu: _propTypes2.default.func.isRequired
   })
 };
 
@@ -82641,9 +82641,7 @@ GroupMenu.defaultProps = {
   },
   actions: {
     setFilter: function setFilter() {},
-    groupMenuChangeGroup: function groupMenuChangeGroup() {
-      return function () {};
-    },
+    groupMenuChangeGroup: function groupMenuChangeGroup() {},
     groupMenuExpandSubMenu: function groupMenuExpandSubMenu() {}
   }
 };
@@ -87179,7 +87177,6 @@ var Groups = function Groups(_ref) {
       var groupId = groupIndex.id;
       var currentGroupData = helpers.getGroupData(groupsData, groupId);
       var active = contextId ? contextId.groupId === groupId : false;
-
       return _react2.default.createElement(_Group2.default, {
         currentToolName: currentToolName,
         alignmentData: alignmentData,
@@ -87195,7 +87192,9 @@ var Groups = function Groups(_ref) {
         key: groupIndex.id,
         progress: getGroupProgress(projectSaveLocation, contextId.reference.bookId, groupIndex),
         groupMenuExpandSubMenu: groupMenuExpandSubMenu,
-        openGroup: groupMenuChangeGroup(currentGroupData[0].contextId)
+        openGroup: function openGroup() {
+          return groupMenuChangeGroup(currentGroupData[0].contextId);
+        }
       });
     });
   }
