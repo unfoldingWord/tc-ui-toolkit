@@ -52,7 +52,8 @@ class GroupMenu extends React.Component {
               expandFilter={this.state.expandFilter} />
           </div>
           <GroupsMenuFilter
-            show={showFilterMenu}
+            filterCount={filterCount}
+            currentToolName={currentToolName}
             expandFilter={this.state.expandFilter}
             filters={filters}
             translate={translate}

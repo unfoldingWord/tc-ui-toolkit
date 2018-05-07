@@ -82508,7 +82508,8 @@ var GroupMenu = function (_React$Component) {
               expandFilter: this.state.expandFilter })
           ),
           _react2.default.createElement(_GroupsMenuFilter2.default, {
-            show: showFilterMenu,
+            filterCount: filterCount,
+            currentToolName: currentToolName,
             expandFilter: this.state.expandFilter,
             filters: filters,
             translate: translate,
@@ -88252,24 +88253,27 @@ var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GroupsMenuFilter = function GroupsMenuFilter(_ref) {
-  var filters = _ref.filters,
+  var currentToolName = _ref.currentToolName,
+      filters = _ref.filters,
       translate = _ref.translate,
       expandFilter = _ref.expandFilter,
-      setFilter = _ref.setFilter;
+      setFilter = _ref.setFilter,
+      filterCount = _ref.filterCount;
 
-
-  if (expandFilter) {
-    return _react2.default.createElement(_ExpandedFilter2.default, {
-      filters: filters,
-      setFilter: setFilter,
-      translate: translate });
-  } else {
-    return _react2.default.createElement(_CollapsedFilter2.default, {
-      filters: filters,
-      setFilter: setFilter,
-      translate: translate
-    });
-  }
+  if (currentToolName === "translationWords" && (expandFilter || filterCount)) {
+    if (expandFilter) {
+      return _react2.default.createElement(_ExpandedFilter2.default, {
+        filters: filters,
+        setFilter: setFilter,
+        translate: translate });
+    } else {
+      return _react2.default.createElement(_CollapsedFilter2.default, {
+        filters: filters,
+        setFilter: setFilter,
+        translate: translate
+      });
+    }
+  } else return null;
 };
 
 GroupsMenuFilter.defaultProps = {

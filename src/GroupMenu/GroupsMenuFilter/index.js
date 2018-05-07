@@ -4,26 +4,29 @@ import ExpandedFilter from './ExpandedFilter';
 import CollapsedFilter from './CollapsedFilter';
 
 const GroupsMenuFilter = ({
+  currentToolName,
   filters,
   translate,
   expandFilter,
-  setFilter
+  setFilter,
+  filterCount
 }) => {
-
-  if (expandFilter) {
-    return (
-      <ExpandedFilter
-        filters={filters}
-        setFilter={setFilter}
-        translate={translate} />);
-  } else {
-    return (
-      <CollapsedFilter
-        filters={filters}
-        setFilter={setFilter}
-        translate={translate}
-      />);
-  }
+  if (currentToolName === "translationWords" && (expandFilter || filterCount)) {
+    if (expandFilter) {
+      return (
+        <ExpandedFilter
+          filters={filters}
+          setFilter={setFilter}
+          translate={translate} />);
+    } else {
+      return (
+        <CollapsedFilter
+          filters={filters}
+          setFilter={setFilter}
+          translate={translate}
+        />);
+    }
+  } else return null;
 };
 
 GroupsMenuFilter.defaultProps = {
