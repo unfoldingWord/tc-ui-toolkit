@@ -16,22 +16,17 @@ class GroupMenu extends React.Component {
       isSubMenuExpanded: false
     };
     this.handleFilterShowHideToggle = this.handleFilterShowHideToggle.bind(this);
-    this.handleExpandSubMenu = this.handleExpandSubMenu.bind(this);
   }
 
   handleFilterShowHideToggle() {
     this.setState({expandFilter: !this.state.expandFilter});
   }
 
-  handleExpandSubMenu() {
-    this.setState({isSubMenuExpanded: !this.state.isSubMenuExpanded});
-  }
-
   render() {
     const {
       translate,
       toolsReducer: {currentToolName},
-      groupMenuReducer: {filters},
+      groupMenuReducer: {filters, isSubMenuExpanded},
       groupsIndexReducer: {groupsIndex},
       groupsDataReducer: {groupsData},
       contextIdReducer: {contextId},
@@ -70,13 +65,13 @@ class GroupMenu extends React.Component {
           translate={translate}
           changeCurrentContextId={actions.changeCurrentContextId}
           getGroupProgress={getGroupProgress}
-          isSubMenuExpanded={this.state.isSubMenuExpanded}
+          isSubMenuExpanded={isSubMenuExpanded}
           groupsIndex={groupsIndex}
           groupsData={groupsData}
           contextId={contextId}
           manifest={manifest}
           projectSaveLocation={projectSaveLocation}
-          groupMenuExpandSubMenu={this.handleExpandSubMenu}
+          groupMenuExpandSubMenu={actions.groupMenuExpandSubMenu}
           groupMenuChangeGroup={actions.groupMenuChangeGroup}
           filters={filters} />
       </div>
@@ -109,6 +104,7 @@ GroupMenu.propTypes = {
   actions: PropTypes.shape({
     setFilter: PropTypes.func.isRequired,
     groupMenuChangeGroup: PropTypes.func.isRequired,
+    groupMenuExpandSubMenu: PropTypes.func.isRequired,
     groupMenuExpandSubMenu: PropTypes.func.isRequired
   }),
   getGroupProgress: PropTypes.func.isRequired
@@ -190,6 +186,7 @@ GroupMenu.defaultProps = {
   actions: {
     setFilter: () => {},
     groupMenuChangeGroup: () => {},
+    groupMenuExpandSubMenu: () => {},
     groupMenuExpandSubMenu: () => {}
   }
 };

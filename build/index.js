@@ -82432,6 +82432,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -82455,7 +82457,6 @@ var GroupMenu = function (_React$Component) {
       isSubMenuExpanded: false
     };
     _this.handleFilterShowHideToggle = _this.handleFilterShowHideToggle.bind(_this);
-    _this.handleExpandSubMenu = _this.handleExpandSubMenu.bind(_this);
     return _this;
   }
 
@@ -82465,17 +82466,14 @@ var GroupMenu = function (_React$Component) {
       this.setState({ expandFilter: !this.state.expandFilter });
     }
   }, {
-    key: 'handleExpandSubMenu',
-    value: function handleExpandSubMenu() {
-      this.setState({ isSubMenuExpanded: !this.state.isSubMenuExpanded });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           translate = _props.translate,
           currentToolName = _props.toolsReducer.currentToolName,
-          filters = _props.groupMenuReducer.filters,
+          _props$groupMenuReduc = _props.groupMenuReducer,
+          filters = _props$groupMenuReduc.filters,
+          isSubMenuExpanded = _props$groupMenuReduc.isSubMenuExpanded,
           groupsIndex = _props.groupsIndexReducer.groupsIndex,
           groupsData = _props.groupsDataReducer.groupsData,
           contextId = _props.contextIdReducer.contextId,
@@ -82523,13 +82521,13 @@ var GroupMenu = function (_React$Component) {
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
           getGroupProgress: getGroupProgress,
-          isSubMenuExpanded: this.state.isSubMenuExpanded,
+          isSubMenuExpanded: isSubMenuExpanded,
           groupsIndex: groupsIndex,
           groupsData: groupsData,
           contextId: contextId,
           manifest: manifest,
           projectSaveLocation: projectSaveLocation,
-          groupMenuExpandSubMenu: this.handleExpandSubMenu,
+          groupMenuExpandSubMenu: actions.groupMenuExpandSubMenu,
           groupMenuChangeGroup: actions.groupMenuChangeGroup,
           filters: filters })
       );
@@ -82561,11 +82559,11 @@ GroupMenu.propTypes = {
   projectDetailsReducer: _propTypes2.default.shape({
     projectSaveLocation: _propTypes2.default.string.isRequired
   }),
-  actions: _propTypes2.default.shape({
+  actions: _propTypes2.default.shape(_defineProperty({
     setFilter: _propTypes2.default.func.isRequired,
     groupMenuChangeGroup: _propTypes2.default.func.isRequired,
     groupMenuExpandSubMenu: _propTypes2.default.func.isRequired
-  }),
+  }, 'groupMenuExpandSubMenu', _propTypes2.default.func.isRequired)),
   getGroupProgress: _propTypes2.default.func.isRequired
 };
 
@@ -82640,11 +82638,11 @@ GroupMenu.defaultProps = {
       }
     }
   },
-  actions: {
+  actions: _defineProperty({
     setFilter: function setFilter() {},
     groupMenuChangeGroup: function groupMenuChangeGroup() {},
     groupMenuExpandSubMenu: function groupMenuExpandSubMenu() {}
-  }
+  }, 'groupMenuExpandSubMenu', function groupMenuExpandSubMenu() {})
 };
 
 exports.default = GroupMenu;
