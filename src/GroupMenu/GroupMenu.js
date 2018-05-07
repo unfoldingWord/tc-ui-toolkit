@@ -106,9 +106,9 @@ GroupMenu.propTypes = {
     projectSaveLocation: PropTypes.string.isRequired
   }),
   actions: PropTypes.shape({
-    setFilter: () => {},
-    groupMenuChangeGroup: () => {},
-    groupMenuExpandSubMenu: () => {}
+    setFilter: PropTypes.func.isRequired,
+    groupMenuChangeGroup: PropTypes.func.isRequired,
+    groupMenuExpandSubMenu: PropTypes.func.isRequired
   })
 };
 
@@ -186,7 +186,7 @@ GroupMenu.defaultProps = {
   },
   actions: {
     setFilter: () => {},
-    groupMenuChangeGroup: () => () => {},
+    groupMenuChangeGroup: () => {},
     groupMenuExpandSubMenu: () => {}
   }
 };
