@@ -30,9 +30,6 @@ const Groups = ({
       let groupId = groupIndex.id;
       let currentGroupData = helpers.getGroupData(groupsData, groupId);
       let active = contextId ? contextId.groupId === groupId : false;
-      const openGroup = function(contextID) {
-        return groupMenuChangeGroup(contextId);
-      }
       return (
         <Group
           currentToolName={currentToolName}
@@ -49,7 +46,7 @@ const Groups = ({
           key={groupIndex.id}
           progress={getGroupProgress(projectSaveLocation, contextId.reference.bookId, groupIndex)}
           groupMenuExpandSubMenu={groupMenuExpandSubMenu}
-          openGroup={openGroup(currentGroupData[0].contextId)}
+          openGroup={() => groupMenuChangeGroup(currentGroupData[0].contextId)}
         />
       );
     });
