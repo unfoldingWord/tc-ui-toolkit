@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-
-import { CheckInfoCard, ScripturePane } from 'tc-ui-toolkit';
+import React, {Component} from 'react';
+import {
+  ScripturePane,
+  VerseCheck,
+  CheckInfoCard
+} from 'tc-ui-toolkit';
 
 const currentPaneSettings = [
   {
@@ -22,6 +25,7 @@ const currentPaneSettings = [
 ];
 
 class App extends Component {
+
   render() {
     return (
       <div style={{ padding: '10px' }}>
@@ -41,6 +45,7 @@ class App extends Component {
           showSeeMoreButton={true}
           onSeeMoreClick={() => console.log('CheckInfoCard clicked')}
         />
+        <VerseCheck/>
       </div>
     );
   }

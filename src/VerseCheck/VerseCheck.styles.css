@@ -1,0 +1,48 @@
+@import '../index.styles.css';
+
+.verse-check {
+  flex: 2 0 280px;
+  margin: 10px;
+}
+.verse-check .ltr-content {
+  direction: ltr;
+  flex: auto;
+  padding: 0 15px 10px;
+  overflow-y: auto;
+}
+.verse-check .rtl-content {
+  direction: rtl;
+  flex: auto;
+  padding: 0 15px 10px;
+  overflow-y: auto;
+}
+.verse-check .title {
+  font-weight: bold;
+}
+.verse-check .subtitle {
+  color: var(--text-color-light);
+}
+.verse-check-card {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 10px var(--background-color);
+  border-radius: 2px;
+}
+.verse-check .title-bar {
+  flex: 0 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  color: var(--reverse-color);
+  background-color: var(--accent-color-dark);
+  font-size: 16px;
+  font-weight: bold;
+}
+.verse-check .verse-title {
+  flex: 0 0 45px;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 10px 5px 15px;
+}
