@@ -1,0 +1,6 @@
+.check-area {
+  flex: 1 0 130px;
+  display: flex;
+  font-size: 1.1em;
+  border-bottom: 1px solid var(--border-color);
+}

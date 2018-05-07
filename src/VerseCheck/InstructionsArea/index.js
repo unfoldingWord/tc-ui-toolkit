@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../VerseCheck.styles.css';
+import './InstructionsArea.styles.css';
 import InstructionsAreaTextSelection from '../InstructionsAreaTextSelection';
 
 
@@ -15,7 +15,7 @@ let InstructionsArea = ({
 
   if (!verseText) {
     return (
-      <div className='InstructionsArea'>
+      <div className='instructions-area'>
         <span>{translate("empty_verse")}</span><br />
       </div>
     );
@@ -23,7 +23,7 @@ let InstructionsArea = ({
 
   if (selections.length === 0 && dontShowTranslation) {
     return (
-      <div className='InstructionsArea'>
+      <div className='instructions-area'>
         <span>{translate("no_selection")}</span><br />
       </div>
     );
@@ -31,7 +31,7 @@ let InstructionsArea = ({
 
   if (mode === 'select') {
     return (
-      <div className='InstructionsArea'>
+      <div className='instructions-area'>
         <span>{translate("please_select")}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
@@ -43,7 +43,7 @@ let InstructionsArea = ({
   }
 
   return (
-    <div className='InstructionsArea'>
+    <div className='instructions-area'>
       <span>
         <strong style={{ color: 'var(--accent-color)' }}>
           {`"${alignedGLText}"`}

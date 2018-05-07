@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Glyphicon} from 'react-bootstrap';
-import '../VerseCheck.styles.css';
+import './SaveArea.styles.css';
 
 let SaveArea = ({
   actions,
@@ -19,7 +19,7 @@ let SaveArea = ({
   };
 
   return (
-    <div className='saveArea'>
+    <div className='save-area'>
       <button className='btn-second'
               onClick={handlePrevious}
       >

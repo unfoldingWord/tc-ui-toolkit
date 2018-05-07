@@ -21,7 +21,7 @@ class SelectionArea extends Component {
     const languageName = manifest.target_language ? manifest.target_language.name : null;
     return (
       <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-        <div className='verseTitle'>
+        <div className='verse-title'>
           <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
             <span className='title'>
               {languageName}
@@ -32,7 +32,7 @@ class SelectionArea extends Component {
           </div>
         </div>
         <div>
-          <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
+          <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
             <RenderSelectionTextComponent
               actions={this.props.actions}
               mode={this.props.mode}
