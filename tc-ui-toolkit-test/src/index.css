@@ -4,49 +4,79 @@ body {
   font-family: sans-serif;
 }
 
-.container {
+/* div { 
+  border: thin solid green; 
+} */
+
+.app-container {
   display: flex;
+  flex-flow: column nowrap;
+  align-content: stretch;
+  /* overflow: hidden; */
+}
+
+.column-container {
+  display: flex;
+  flex-grow: 1;
   flex-flow: row nowrap;
+  align-items: stretch;
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 90%; 
   overflow: hidden;
 }
 
-.column1, .column2, .column3 {
+.home-container { 
+  height: 30px;
+  background-color: #333;
+  color: #ddd;
+}
+
+.column1, .column2, .column3, .column4 {
   /*overflow: hidden; */
   margin: 0;
   padding: 0;
-  border: thin solid red;
+  /* border: thin solid red; */
 }
 
 .column1 {
-  max-width: 25%;
-  flex-grow: 2;
- 
-  flex-flow: column nowrap;
+  background-color: #333;
+  color: #DDD;
+  width: 20%; 
 }
 
 .column2 {
-  max-width: 50%;
-  flex-grow: 4;
- 
-  flex-direction: column;
+  width: 57%;
+  /* max-width: 80%; */
   flex-flow: column nowrap;
+  flex-grow: 6;
 }
 
 .column3 {
-  max-width: 50%;
-  flex-grow: 2;
- 
-  flex-flow: column nowrap;
+  width: 2px;
+}
+
+.column4 {
+  width: 23%;
+  flex-flow: row nowrap;
+  justify-content: center;
 }
 
 .scripture-item {
-  overflow: scroll;
+  margin: 0;
+  padding: 0; 
+}
+
+.help-sash {
+  width: 30px;
 }
 
 .helps-item {
-   overflow: scroll;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+  margin: 0;
 }
 /*
 .info-item {

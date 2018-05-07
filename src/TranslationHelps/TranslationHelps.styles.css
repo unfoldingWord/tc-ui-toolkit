@@ -1,8 +1,13 @@
 @import '../index.styles.css';
 
+/*div { border: thin solid blue; } */
+
 .helps-sash-container {
- /* display: flex;
-  flex-direction: column;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-content: center;
+  /*
   max-width: 3in;
    flex: stretch;
   width: 3in;
@@ -12,6 +17,31 @@
   color: var(--text-color);
   background-color: var(--background-color-light);
  
+}
+
+.helps-sash {
+  /* display: flex; */
+  margin-top: 50%;
+  padding-top: 5px;
+  height: 30px;
+  background-color: #333;
+  color: white;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  margin-left: -15px;
+  width: 15px;
+}
+
+.helps {
+  width: 100%;
+}
+
+.handle-Icon {
+  z-index: "999";
+  color: "var(--reverse-color)";
+  background-color: "var(--text-color-dark)";
+  padding: "10px 0px";
+  border-radius: "5px 0px 0px 5px";
 }
 
 .helps-title-bar {
@@ -35,7 +65,9 @@
 
 .helps-article {
   padding: 10px;
-  /*overflow: scroll;
+  overflow: scroll;
+  height: 4in;
+ /*
   flex: stretch; 
   display: flex;
   margin: 0 10px;
