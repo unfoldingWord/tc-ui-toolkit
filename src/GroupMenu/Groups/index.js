@@ -44,7 +44,7 @@ const Groups = ({
           groupIndex={groupIndex}
           active={active}
           key={groupIndex.id}
-          progress={() => getGroupProgress(groupIndex, groupsData)}
+          progress={getGroupProgress(groupIndex, groupsData)}
           groupMenuExpandSubMenu={groupMenuExpandSubMenu}
           openGroup={() => groupMenuChangeGroup(currentGroupData[0].contextId)}
         />

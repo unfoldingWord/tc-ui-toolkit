@@ -87191,9 +87191,7 @@ var Groups = function Groups(_ref) {
         groupIndex: groupIndex,
         active: active,
         key: groupIndex.id,
-        progress: function progress() {
-          return getGroupProgress(groupIndex, groupsData);
-        },
+        progress: getGroupProgress(groupIndex, groupsData),
         groupMenuExpandSubMenu: groupMenuExpandSubMenu,
         openGroup: function openGroup() {
           return groupMenuChangeGroup(currentGroupData[0].contextId);
