@@ -3,15 +3,6 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 class GroupItem extends React.Component {
-  /**
-   * @description Generate the proper glyphicon based on selections
-   * @return {component} statusGlyph - component to render
-   */
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
   componentDidMount() {
     if (this.props.active) {
       if (this.props.inView(this.props.groupMenuHeader, this)) {
@@ -40,20 +31,18 @@ class GroupItem extends React.Component {
     }
   }
 
-  onClick() {
-    this.props.actions.changeCurrentContextId(this.props.contextId);
-  }
-
   render() {
     const {
-      contextId: {reference},
+      changeCurrentContextId,
+      contextId,
       active,
       statusBadge,
       selectionText,
       bookName
     } = this.props;
+    const {reference} = contextId;
     return (
-      <div onClick={this.onClick}
+      <div onClick={() => changeCurrentContextId(contextId)}
         className={"group-item" + (active ? " active active-submenu-item" : " submenu-item")}>
         {statusBadge}
         <span
