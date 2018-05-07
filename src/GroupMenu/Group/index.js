@@ -41,8 +41,6 @@ const Group = ({
     <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
   );
   const theme = createMuiTheme();
-  //? "var(--accent-color-light)" : 'white'
-  console.log(progress)
   return (
     <MuiThemeProvider theme={theme}>
       <div className="group">
