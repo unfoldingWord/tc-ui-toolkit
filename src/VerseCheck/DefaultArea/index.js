@@ -66,7 +66,7 @@ class DefaultArea extends React.Component {
 
     return (
       <div style={{WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column'}}>
-        <div className='verseTitle'>
+        <div className='verse-title'>
           <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
             <span className='title'>
               {languageName}
@@ -88,7 +88,7 @@ class DefaultArea extends React.Component {
             onHide={() => this.setState({modalVisibility: false})}
           />
         </div>
-        <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
+        <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           {this.displayText(verseText, selections)}
         </div>
       </div>

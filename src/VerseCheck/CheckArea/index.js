@@ -6,7 +6,7 @@ import SelectionArea from '../SelectionArea';
 import InstructionsArea from '../InstructionsArea';
 import EditVerseArea from '../EditVerseArea';
 import CommentArea from '../CommentArea';
-import '../VerseCheck.styles.css';
+import './CheckArea.styles.css';
 
 let CheckArea = ({
   contextId,
@@ -68,7 +68,7 @@ let CheckArea = ({
   }
 
   return (
-    <div className='checkArea'>
+    <div className='check-area'>
       {mode === 'select' ?
         <SelectionArea
           verseText={verseText}
