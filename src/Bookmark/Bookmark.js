@@ -1,39 +1,44 @@
 import React from 'react';
+import Switch from 'material-ui/Switch';
 import PropTypes from 'prop-types';
 
-import './CheckInfoCard.styles.css';
+import './Bookmark.styles.css';
 
 const Bookmark = ({
-  title,
-  phrase,
-  seeMoreLabel,
-  onSeeMoreClick,
-  showSeeMoreButton,
+  value,
+  label,
+  checked,
+  color,
+  onChange,
+  disabled
 }) => {
   return (
-    <div className="checkInfo">
-      <div className="leftSide">
-        <div className="title">
-          {title}
-        </div>
-      </div>
-      <div className="rightSide">
-        <div className="phrase">
-          {phrase}
-        </div>
-        <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive' }>
-          {seeMoreLabel}
-        </div>
-      </div>
-    </div>
+    <label id={"bookmark-"+value} className="bookmark">
+      <Switch
+        value={value}
+        checked={checked}
+        color={color}
+        onChange={onChange}
+        disabled={disabled}
+      />
+      {label}
+    </label>
   );
 };
 
+Bookmark.defaultProps = {
+  checked: false,
+  disabled: false,
+  color: 'primary',
+};
+
 Bookmark.propTypes = {
-  phrase: PropTypes.string,
-  title: PropTypes.string,
-  onSeeMoreClick: PropTypes.func,
-  showSeeMoreButton: PropTypes.bool,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  color: PropTypes.string
 };
 
 export default Bookmark;

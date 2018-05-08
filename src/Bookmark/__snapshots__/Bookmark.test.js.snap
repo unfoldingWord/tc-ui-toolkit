@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
+<label
+  className="bookmark"
+  id="bookmark-bookmark"
+>
+  <span
+    className="MuiSwitch-root-1"
+  >
+    <span
+      className="MuiButtonBase-root-20 MuiIconButton-root-14 MuiSwitchBase-root-10 MuiSwitch-switchBase-4 MuiSwitch-colorPrimary-6"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role={undefined}
+      tabIndex={null}
+    >
+      <span
+        className="MuiIconButton-label-19"
+      >
+        <span
+          className="MuiSwitch-icon-2"
+        />
+        <input
+          checked={false}
+          className="MuiSwitchBase-input-13"
+          disabled={false}
+          id={undefined}
+          name={undefined}
+          onChange={[Function]}
+          tabIndex={undefined}
+          type="checkbox"
+          value="bookmark"
+        />
+      </span>
+      <span
+        className="MuiTouchRipple-root-23"
+      />
+    </span>
+    <span
+      className="MuiSwitch-bar-9"
+    />
+  </span>
+  Bookmark
+</label>
+`;
+
+exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
+<label
+  className="bookmark"
+  id="bookmark-bookmark"
+>
+  <span
+    className="MuiSwitch-root-1"
+  >
+    <span
+      className="MuiButtonBase-root-20 MuiIconButton-root-14 MuiSwitchBase-root-10 MuiSwitch-switchBase-4 MuiSwitch-colorPrimary-6 MuiSwitchBase-checked-11 MuiSwitch-checked-5"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role={undefined}
+      tabIndex={null}
+    >
+      <span
+        className="MuiIconButton-label-19"
+      >
+        <span
+          className="MuiSwitch-icon-2 MuiSwitch-iconChecked-3"
+        />
+        <input
+          checked={true}
+          className="MuiSwitchBase-input-13"
+          disabled={false}
+          id={undefined}
+          name={undefined}
+          onChange={[Function]}
+          tabIndex={undefined}
+          type="checkbox"
+          value="bookmark"
+        />
+      </span>
+      <span
+        className="MuiTouchRipple-root-23"
+      />
+    </span>
+    <span
+      className="MuiSwitch-bar-9"
+    />
+  </span>
+  Bookmark
+</label>
+`;

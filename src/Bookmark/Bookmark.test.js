@@ -1,28 +1,47 @@
 import React from 'react';
-import CheckInfoCard from './CheckInfoCard';
+import Bookmark from './Bookmark';
 import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 
-
-describe('CheckInfoCard', () => {
-  it('renders correctly', () => {
+describe('Tests for Bookmark', () => {
+  it('renders bookmark not selected correctly', () => {
     const props = {
-      title: "save, saves, saved, safe, salvation",
-      phrase: 'The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.',
-      seeMoreLabel: "See More",
-      showSeeMoreButton: true,
-      onSeeMoreClick: () => {}
-    }
-    const tree = renderer
-      .create(
-        <CheckInfoCard
-          title={props.title}
-          phrase={props.phrase}
-          seeMoreLabel={props.seeMoreLabel}
-          showSeeMoreButton={props.showSeeMoreButton}
-          onSeeMoreClick={props.onSeeMoreClick}
-        />
-      )
-      .toJSON();
+      value: 'bookmark',
+      label: 'Bookmark',
+      onChange: jest.fn(),
+      checked: false
+    };
+    const tree = renderer.create(
+        <Bookmark {...props} />
+    ).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('renders bookmark selected correctly', () => {
+    const props = {
+      value: 'bookmark',
+      label: 'Bookmark',
+      onChange: jest.fn(),
+      checked: true
+    };
+    const tree = renderer.create(
+        <Bookmark {...props} />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('Test that checking the bookmark switch calls the given function', () => {
+    const onChange = jest.fn();
+    const props = {
+      value: 'bookmark',
+      label: 'Bookmark',
+      onChange: onChange,
+      checked: true
+    };
+    const wrapper = mount(
+      <Bookmark {...props} />
+    );
+    wrapper.find('input[value="bookmark"]').simulate('change', {target: {checked: !props.checked}});
+    expect(onChange).toHaveBeenCalled();
   });
 });
