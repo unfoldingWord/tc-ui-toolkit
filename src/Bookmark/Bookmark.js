@@ -13,7 +13,7 @@ const Bookmark = ({
   disabled
 }) => {
   return (
-    <label id={"bookmark-"+value} className="bookmark">
+    <label className="bookmark">
       <Switch
         value={value}
         checked={checked}

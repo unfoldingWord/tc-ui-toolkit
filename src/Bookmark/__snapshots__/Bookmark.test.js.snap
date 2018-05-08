@@ -3,7 +3,6 @@
 exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
 <label
   className="bookmark"
-  id="bookmark-bookmark"
 >
   <span
     className="MuiSwitch-root-1"
@@ -56,7 +55,6 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
 exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
 <label
   className="bookmark"
-  id="bookmark-bookmark"
 >
   <span
     className="MuiSwitch-root-1"
