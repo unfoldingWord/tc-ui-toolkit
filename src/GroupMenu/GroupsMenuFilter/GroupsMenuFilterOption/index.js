@@ -12,7 +12,7 @@ const GroupsMenuFilterOption = ({
     <label className={"option" + (disabled ? " disabled" : "")}>
       <span className="option-checkbox">
         <input type="checkbox" name={name} checked={checked} disabled={disabled} onChange={
-          ({target: value}) => onCheck(name, value)} />
+          ({target: value}) => onCheck(name, value.checked)} />
       </span>
       <span className="option-icon">
         {icon}

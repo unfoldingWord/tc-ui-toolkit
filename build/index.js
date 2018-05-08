@@ -88446,7 +88446,7 @@ var GroupsMenuFilterOption = function GroupsMenuFilterOption(_ref) {
       { className: 'option-checkbox' },
       _react2.default.createElement('input', { type: 'checkbox', name: name, checked: checked, disabled: disabled, onChange: function onChange(_ref2) {
           var value = _ref2.target;
-          return onCheck(name, value);
+          return onCheck(name, value.checked);
         } })
     ),
     _react2.default.createElement(
