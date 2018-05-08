@@ -4,11 +4,12 @@ import {Glyphicon} from 'react-bootstrap';
 
 const GroupsMenuFilterBubble = ({
   onPress,
-  text
+  text,
+  name
 }) => (
     <span className="filter-bubble-wrapper">
       <span className="filter-bubble">
-        <Glyphicon className='filter-remove' glyph='remove' onClick={() => onPress(name, false)} />
+        <Glyphicon className='filter-remove' glyph='remove' onClick={() => onPress(name)} />
         <span className="filter-text">{text}</span>
       </span>
     </span>

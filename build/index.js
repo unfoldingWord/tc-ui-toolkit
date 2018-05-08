@@ -88612,7 +88612,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var GroupsMenuFilterBubble = function GroupsMenuFilterBubble(_ref) {
   var onPress = _ref.onPress,
-      text = _ref.text;
+      text = _ref.text,
+      name = _ref.name;
   return _react2.default.createElement(
     'span',
     { className: 'filter-bubble-wrapper' },
@@ -88620,7 +88621,7 @@ var GroupsMenuFilterBubble = function GroupsMenuFilterBubble(_ref) {
       'span',
       { className: 'filter-bubble' },
       _react2.default.createElement(_reactBootstrap.Glyphicon, { className: 'filter-remove', glyph: 'remove', onClick: function onClick() {
-          return onPress(name, false);
+          return onPress(name);
         } }),
       _react2.default.createElement(
         'span',
