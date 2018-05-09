@@ -34,7 +34,8 @@ class VerseCheck extends Component {
       saveSelection,
       cancelSelection,
       clearSelection,
-      handleSkip
+      handleSkip,
+      toggleReminder
     } = this.props;
 
     let titleText;
@@ -98,6 +99,7 @@ class VerseCheck extends Component {
                 selections={selectionsReducer.selections}
                 newSelections={selections}
                 remindersReducer={remindersReducer}
+                toggleReminder={toggleReminder}
                 saveSelection={saveSelection}
                 cancelSelection={cancelSelection}
                 clearSelection={clearSelection}

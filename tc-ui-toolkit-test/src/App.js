@@ -1,13 +1,20 @@
-import React, {Component} from 'react';
-import {VerseCheck, CheckInfoCard, Bookmark} from 'tc-ui-toolkit';
+import React, { Component } from 'react';
+import { VerseCheck, CheckInfoCard } from 'tc-ui-toolkit';
 
 class App extends Component {
   state = {
-    bookmark: false,
+    remindersReducer: {
+      enabled: false
+    }
   };
 
-  handleBookmarkChange = event => {
-    this.setState({[event.target.value]: event.target.checked});
+  toggleReminder = (event) => {
+    this.setState({
+      remindersReducer: {
+        ...this.state.remindersReducer,
+        enabled: event.target.checked
+      }
+    });
   }
 
   render() {
@@ -28,15 +35,19 @@ class App extends Component {
             verseText='verse text'
             mode='select'
             selections={[{text:'text',occurrence:1}]}
+            remindersReducer={this.state.remindersReducer}
+            toggleReminder={this.toggleReminder}
           />
         </div>
         <div style={{padding: '10px'}}>
-          <Bookmark
-            value='bookmark'
-            color='primary'
-            checked={this.state.bookmark}
-            label='Bookmark'
-            onChange={this.handleBookmarkChange} />
+          <VerseCheck 
+            alignedGLText='text'
+            verseText='verse text'
+            mode='view'
+            selections={[{text:'text',occurrence:1}]}
+            remindersReducer={this.state.remindersReducer}
+            toggleReminder={this.toggleReminder}
+          />
         </div>
       </div>
     );
