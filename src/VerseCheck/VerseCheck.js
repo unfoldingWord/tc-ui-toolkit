@@ -402,4 +402,57 @@ VerseCheck.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
 };
 
+VerseCheck.defaultProps = {
+  contextIdReducer: {
+    contextId: {
+      reference: {
+        chapter: 1,
+        verse: 1,
+        bookId: 'tit'
+      }
+    }
+  },
+  projectDetailsReducer: {
+    manifest: {
+      project: {
+        id: 'tit'
+      },
+      target_language:{
+        direction:'ltr'
+      }
+    },
+    currentProjectToolsSelectedGL:{
+      tw: 'en'
+    }
+  },
+  resourcesReducer: {
+    bibles: {
+      targetLanguage: {
+        targetBible: {
+          1: {1:''}
+        }
+      }
+    }
+  },
+  selectionsReducer: {
+    selections:[]
+  },
+  toolsReducer:{
+    currentToolName:'tw'
+  },
+  translate: key => key,
+  groupsDataReducer: {
+    groupsData:{}
+  },
+  commentsReducer: {
+    text: ''
+  },
+  remindersReducer:{
+    enabled: false
+  },
+  actions: {},
+  loginReducer:{},
+  alignedGLText:''
+};
+
 export default VerseCheck;

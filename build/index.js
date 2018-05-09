@@ -61552,6 +61552,61 @@ VerseCheck.propTypes = {
   projectDetailsReducer: _propTypes2.default.object.isRequired
 };
 
+VerseCheck.defaultProps = {
+  contextIdReducer: {
+    contextId: {
+      reference: {
+        chapter: 1,
+        verse: 1,
+        bookId: 'tit'
+      }
+    }
+  },
+  projectDetailsReducer: {
+    manifest: {
+      project: {
+        id: 'tit'
+      },
+      target_language: {
+        direction: 'ltr'
+      }
+    },
+    currentProjectToolsSelectedGL: {
+      tw: 'en'
+    }
+  },
+  resourcesReducer: {
+    bibles: {
+      targetLanguage: {
+        targetBible: {
+          1: { 1: '' }
+        }
+      }
+    }
+  },
+  selectionsReducer: {
+    selections: []
+  },
+  toolsReducer: {
+    currentToolName: 'tw'
+  },
+  translate: function translate(key) {
+    return key;
+  },
+  groupsDataReducer: {
+    groupsData: {}
+  },
+  commentsReducer: {
+    text: ''
+  },
+  remindersReducer: {
+    enabled: false
+  },
+  actions: {},
+  loginReducer: {},
+  alignedGLText: ''
+};
+
 exports.default = VerseCheck;
 
 /***/ }),
