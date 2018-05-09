@@ -18,7 +18,7 @@ const ExpandedFilter = ({
     checked={filters.invalidated}
     setFilter={setFilter}
     icon={<InvalidatedIcon width={16} height={16} color="#fff" />}
-    text={translate('tools.invalidated')} />);
+    text={translate('invalidated')} />);
 
   options.push(<GroupsMenuFilterOption
     onCheck={(name, value) => setFilter(name, value)}
@@ -27,7 +27,7 @@ const ExpandedFilter = ({
     checked={filters.reminders}
     setFilter={setFilter}
     icon={<Glyphicon glyph="bookmark" />}
-    text={translate('tools.bookmarks')} />);
+    text={translate('bookmarks')} />);
 
   options.push(<GroupsMenuFilterOption
     onCheck={(name, value) => setFilter(name, value)}
@@ -37,7 +37,7 @@ const ExpandedFilter = ({
     disabled={filters.noSelections}
     setFilter={setFilter}
     icon={<Glyphicon glyph="ok" />}
-    text={translate('tools.selected')} />);
+    text={translate('selected')} />);
 
   options.push(<GroupsMenuFilterOption
     onCheck={(name, value) => setFilter(name, value)}
@@ -47,7 +47,7 @@ const ExpandedFilter = ({
     disabled={filters.selections}
     setFilter={setFilter}
     icon={<Glyphicon glyph="ban-circle" />}
-    text={translate('tools.no_selection')} />);
+    text={translate('no_selection')} />);
 
   options.push(<GroupsMenuFilterOption
     onCheck={(name, value) => setFilter(name, value)}
@@ -56,7 +56,7 @@ const ExpandedFilter = ({
     checked={filters.verseEdits}
     setFilter={setFilter}
     icon={<Glyphicon glyph="pencil" />}
-    text={translate('tools.verse_edit')} />);
+    text={translate('verse_edit')} />);
 
   options.push(<GroupsMenuFilterOption
     onCheck={(name, value) => setFilter(name, value)}
@@ -65,7 +65,7 @@ const ExpandedFilter = ({
     checked={filters.comments}
     setFilter={setFilter}
     icon={<Glyphicon glyph="comment" />}
-    text={translate('tools.comments')} />);
+    text={translate('comments')} />);
 
   return (
     <div id="groups-menu-filter" className="options-wrapper">

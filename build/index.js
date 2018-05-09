@@ -82515,7 +82515,7 @@ var GroupMenu = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { id: 'groups-menu-title' },
-              translate('tools.menu')
+              translate('menu')
             ),
             _react2.default.createElement(_FilterMenuHeader2.default, {
               filterCount: filterCount,
@@ -88117,7 +88117,7 @@ var NoResults = function NoResults(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'no-results' },
-    translate('tools.no_results')
+    translate('no_results')
   );
 };
 
@@ -88352,7 +88352,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.invalidated,
     setFilter: setFilter,
     icon: _react2.default.createElement(_InvalidatedIcon2.default, { width: 16, height: 16, color: '#fff' }),
-    text: translate('tools.invalidated') }));
+    text: translate('invalidated') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -88363,7 +88363,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.reminders,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'bookmark' }),
-    text: translate('tools.bookmarks') }));
+    text: translate('bookmarks') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -88375,7 +88375,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     disabled: filters.noSelections,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok' }),
-    text: translate('tools.selected') }));
+    text: translate('selected') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -88387,7 +88387,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     disabled: filters.selections,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ban-circle' }),
-    text: translate('tools.no_selection') }));
+    text: translate('no_selection') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -88398,7 +88398,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.verseEdits,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil' }),
-    text: translate('tools.verse_edit') }));
+    text: translate('verse_edit') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -88409,7 +88409,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.comments,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment' }),
-    text: translate('tools.comments') }));
+    text: translate('comments') }));
 
   return _react2.default.createElement(
     'div',
@@ -88534,7 +88534,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'invalidated',
       name: 'invalidated',
-      text: translate('tools.invalidated') }));
+      text: translate('invalidated') }));
   }
 
   if (filters.reminders) {
@@ -88544,7 +88544,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'reminders',
       name: 'reminders',
-      text: translate('tools.bookmarks') }));
+      text: translate('bookmarks') }));
   }
 
   if (filters.selections) {
@@ -88554,7 +88554,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'selections',
       name: 'selections',
-      text: translate('tools.selected') }));
+      text: translate('selected') }));
   }
 
   if (filters.noSelections) {
@@ -88564,7 +88564,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'noSelections',
       name: 'noSelections',
-      text: translate('tools.no_selection') }));
+      text: translate('no_selection') }));
   }
 
   if (filters.verseEdits) {
@@ -88574,7 +88574,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'verseEdits',
       name: 'verseEdits',
-      text: translate('tools.verse_edit') }));
+      text: translate('verse_edit') }));
   }
 
   if (filters.comments) {
@@ -88584,7 +88584,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'comments',
       name: 'comments',
-      text: translate('tools.comments'),
+      text: translate('comments'),
       setFilter: setFilter }));
   }
 
