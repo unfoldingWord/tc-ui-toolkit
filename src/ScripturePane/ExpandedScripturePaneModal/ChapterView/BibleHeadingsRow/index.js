@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 
@@ -16,20 +16,20 @@ class BibleHeadingsRow extends Component {
   render () {
     const {
       currentPaneSettings,
-      biblesWithHighlightedWords
+      biblesWithHighlightedWords,
+      projectDetailsReducer,
     } = this.props;
     let bibleHeadings = currentPaneSettings.map((paneSetting, index) => {
       const languageId = paneSetting.languageId;
       const bibleId = paneSetting.bibleId;
       const {
-        languageName,
+        language_name,
         direction,
-        bibleData
-      } = biblesWithHighlightedWords[languageId][bibleId]
+      } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
       const resourceText = bibleId !== "targetBible" ? " (" + bibleId.toUpperCase() + ")" : "" ;
-      const headingText = languageName + resourceText;
+      const headingText = language_name + resourceText;
       let dir = direction;
-      if (!dir) dir = this.props.projectDetailsReducer.manifest.target_language.direction;
+      if (!dir) dir = projectDetailsReducer.manifest.target_language.direction;
       const colStyle = {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
         color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
@@ -47,7 +47,7 @@ class BibleHeadingsRow extends Component {
       <Row style={rowStyle}>
         {bibleHeadings}
       </Row>
-    )
+    );
   }
 }
 

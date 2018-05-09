@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 
@@ -32,7 +32,7 @@ class VerseRow extends Component {
     if (currentPaneSettings.length > 0) {
       verseCells = currentPaneSettings.map((paneSetting, index) => {
         const { languageId, bibleId } = paneSetting;
-        const { direction, bibleData } = biblesWithHighlightedWords[languageId][bibleId]
+        const { manifest: { direction }, bibleData } = biblesWithHighlightedWords[languageId][bibleId];
         const verseElements = bibleData[chapter][currentVerseNumber];
 
         return (
@@ -53,7 +53,7 @@ class VerseRow extends Component {
       <Row style={rowStyle}>
         {verseCells}
       </Row>
-    )
+    );
   }
 }
 
@@ -72,6 +72,7 @@ VerseRow.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.array.isRequired,
   ]),
-}
+  biblesWithHighlightedWords: PropTypes.object.isRequired,
+};
 
-export default VerseRow
+export default VerseRow;

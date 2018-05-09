@@ -26,7 +26,7 @@
 }
 
 .panes-container {
-  flex: 1 1 140px;
+  flex: 1;
   display: flex;
   overflow-x: auto;
 }

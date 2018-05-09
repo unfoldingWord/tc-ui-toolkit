@@ -1,6 +1,6 @@
-import React, { Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, { DialogActions, DialogTitle, DialogContent } from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 
@@ -40,7 +40,7 @@ const styles = {
     margin: '0px',
     borderTop: '1px solid var(--border-color)'
   }
-}
+};
 
 const ExpandedScripturePaneModal = ({
   show,

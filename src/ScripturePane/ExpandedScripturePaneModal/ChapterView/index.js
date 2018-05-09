@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './ChapterView.styles.css';
 
 // components
-import BibleHeadingsRow from './BibleHeadingsRow';
 import VerseRow from './VerseRow';
 
 class ChapterView extends Component {
@@ -37,7 +36,7 @@ class ChapterView extends Component {
       <div className="verse-row-container">
         {verseRows}
       </div>
-    )
+    );
   }
 }
 
