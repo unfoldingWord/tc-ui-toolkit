@@ -27,6 +27,7 @@
   --background-color-dark: #333333;
 
   --border-color: #CCCCCC;
+  --tool-max-height: calc(100vh - 30px);
 }
 
 .btn-prime {

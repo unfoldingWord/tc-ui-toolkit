@@ -4,7 +4,7 @@
   flex-direction: column;
   background-color: var(--background-color-dark);
   font-size: 12px;
-  height: 100%;
+  height: var(--tool-max-height);
   width: 250px;
 }
 
