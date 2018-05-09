@@ -88,7 +88,7 @@ class DefaultArea extends React.Component {
             onHide={() => this.setState({modalVisibility: false})}
           />
         </div>
-        <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
+        <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           {this.displayText(verseText, selections)}
         </div>
       </div>

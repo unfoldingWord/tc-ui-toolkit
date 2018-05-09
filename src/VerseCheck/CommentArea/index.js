@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FormGroup, FormControl, Glyphicon} from 'react-bootstrap';
-import '../VerseCheck.styles.css';
+import './CommentArea.styles.css';
 
 const CommentArea = ({
   actions,
@@ -9,7 +9,7 @@ const CommentArea = ({
   translate
 }) => {
   return (
-    <div className='commentArea'>
+    <div className='comment-area'>
       <div style={{fontWeight: 'bold'}}>
         <Glyphicon glyph='comment' style={{marginRight: '5px'}} />
         {translate("comment")}

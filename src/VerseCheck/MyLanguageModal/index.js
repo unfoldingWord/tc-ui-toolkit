@@ -5,10 +5,9 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
 import {Glyphicon} from 'react-bootstrap';
 import MyTargetVerse from '../MyTargetVerse';
-import '../VerseCheck.styles.css';
+import './MyLanguageModal.styles.css';
 import Toolbar from 'material-ui/Toolbar';
 
 class MyLanguageModal extends Component {
@@ -71,7 +70,7 @@ class MyLanguageModal extends Component {
         open={show}
         onClose={onHide}>
         <Toolbar disableGutters={true} style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)"}}>
-          <DialogTitle disableTypography={true} className='modal-title'>
+          <DialogTitle disableTypography={true} className='verse-check-modal-title'>
             <h4 style={{margin: 'auto', color: 'var(--reverse-color)' }}>{title}</h4>
             <Glyphicon
               onClick={onHide}

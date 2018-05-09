@@ -1,11 +1,10 @@
 import React from 'react';
 import {Glyphicon} from 'react-bootstrap';
 import Switch from 'material-ui/Switch';
-import {FormGroup, FormControlLabel} from 'material-ui/Form';
+import { FormControlLabel} from 'material-ui/Form';
 import {withStyles} from 'material-ui/styles';
-import blue from 'material-ui/colors/blue';
 import isEqual from 'deep-equal';
-import '../VerseCheck.styles.css';
+import './ActionsArea.styles.css';
 
 const styles = {
   label: {
@@ -32,7 +31,7 @@ let ActionsArea = ({
 }) => {
 
   const changeModeArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <FormControlLabel
         control={
           <Switch
@@ -75,7 +74,7 @@ let ActionsArea = ({
   );
 
   const confirmEditVerseArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button className='btn-second'
         onClick={actions.cancelEditVerse.bind(this)}
       >
@@ -92,7 +91,7 @@ let ActionsArea = ({
   );
 
   const confirmCommentArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button className='btn-second'
         onClick={actions.cancelComment.bind(this)}
       >
@@ -109,7 +108,7 @@ let ActionsArea = ({
   );
 
   const confirmSelectionArea = (
-    <div className='actionsArea'>
+    <div className='actions-area'>
       <button
         className='btn-second'
         style={{alignSelf: 'flex-start'}}
@@ -158,9 +157,3 @@ let ActionsArea = ({
 };
 
 export default withStyles(styles)(ActionsArea);
-
-
-// labelPosition="right"
-// labelStyle={{ color: 'var(--accent-color-dark)', fontWeight: "normal" }}
-// thumbSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)' }}
-// trackSwitchedStyle={{ backgroundColor: 'var(--accent-color-dark)', opacity: '0.5' }}

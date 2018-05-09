@@ -32,7 +32,7 @@ class SelectionArea extends Component {
           </div>
         </div>
         <div>
-          <div className={manifest.target_language.direction === 'ltr' ? 'contentLTR' : 'contentRTL'}>
+          <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
             <RenderSelectionTextComponent
               actions={this.props.actions}
               mode={this.props.mode}
