@@ -35,7 +35,6 @@
     ],
     "coverageDirectory": "coverage",
     "setupFiles": [
-      "./testSetUp/shim.js",
       "./testSetUp/enzyme.js"
     ],
     "testPathIgnorePatterns": [
