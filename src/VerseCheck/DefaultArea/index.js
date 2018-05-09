@@ -66,12 +66,12 @@ class DefaultArea extends React.Component {
 
     return (
       <div style={{WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column'}}>
-        <div className='verseTitle'>
+        <div className='verse-title'>
           <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
-            <span className='title'>
+            <span className='verse-title-title'>
               {languageName}
             </span>
-            <span className='subtitle'>
+            <span className='verse-title-subtitle'>
               {bookName} {reference.chapter + ':' + reference.verse}
             </span>
           </div>

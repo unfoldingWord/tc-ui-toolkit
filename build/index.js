@@ -62034,7 +62034,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".contentLTR {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.contentRTL {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.title {\n  font-weight: bold;\n}\n.subtitle {\n  color: var(--text-color-light);\n}\n.verseCheck {\n  display: flex;\n  height: 100%;\n  margin: 10px;\n}\n.verseCheckCard {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.titleBar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n.actionsArea {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n.checkArea {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}\n.verseTitle {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n.saveArea {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: -10px;\n}\n.InstructionsArea {\n  padding: 5px;\n  text-align: center;\n  overflow: auto;\n}\n.commentArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.editArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.modalTitle {\n  text-align: center;\n  color: var(--reverse-color);\n}\n", ""]);
+exports.push([module.i, ".contentLTR {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.contentRTL {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-title-title {\n  font-weight: bold;\n}\n.verse-title-subtitle {\n  color: var(--text-color-light);\n}\n.verseCheck {\n  display: flex;\n  height: 100%;\n  margin: 10px;\n}\n.verseCheckCard {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.titleBar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n.actionsArea {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n.checkArea {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}\n.verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n.saveArea {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: -10px;\n}\n.InstructionsArea {\n  padding: 5px;\n  text-align: center;\n  overflow: auto;\n}\n.commentArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.editArea {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}\n.modalTitle {\n  text-align: center;\n  color: var(--reverse-color);\n}\n", ""]);
 
 // exports
 
@@ -79882,18 +79882,18 @@ var DefaultArea = function (_React$Component) {
         { style: { WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column' } },
         _react2.default.createElement(
           'div',
-          { className: 'verseTitle' },
+          { className: 'verse-title' },
           _react2.default.createElement(
             'div',
             { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
             _react2.default.createElement(
               'span',
-              { className: 'title' },
+              { className: 'verse-title-title' },
               languageName
             ),
             _react2.default.createElement(
               'span',
-              { className: 'subtitle' },
+              { className: 'verse-title-subtitle' },
               bookName,
               ' ',
               reference.chapter + ':' + reference.verse
@@ -80367,18 +80367,18 @@ var SelectionArea = function (_Component) {
         { style: { flex: 1, display: 'flex', flexDirection: 'column' } },
         _react2.default.createElement(
           'div',
-          { className: 'verseTitle' },
+          { className: 'verse-title' },
           _react2.default.createElement(
             'div',
             { className: 'pane', style: { display: 'flex', flexDirection: 'column' } },
             _react2.default.createElement(
               'span',
-              { className: 'title' },
+              { className: 'verse-title-title' },
               languageName
             ),
             _react2.default.createElement(
               'span',
-              { className: 'subtitle' },
+              { className: 'verse-title-subtitle' },
               bookName,
               ' ',
               reference.chapter + ':' + reference.verse

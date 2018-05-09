@@ -12,10 +12,10 @@
   padding: 0 15px 10px;
   overflow-y: auto;
 }
-.title {
+.verse-title-title {
   font-weight: bold;
 }
-.subtitle {
+.verse-title-subtitle {
   color: var(--text-color-light);
 }
 .verseCheck {
@@ -52,7 +52,7 @@
   font-size: 1.1em;
   border-bottom: 1px solid var(--border-color);
 }
-.verseTitle {
+.verse-title {
   flex: 0 0 45px;
   display: flex;
   justify-content: space-between;
