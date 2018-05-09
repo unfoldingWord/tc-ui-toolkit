@@ -55365,6 +55365,19 @@ VerseEditor.propTypes = {
 
 exports.default = VerseEditor;
 
+// <VerseEditor
+// onSubmit={() => this.setState({showVersEditor: false})}
+// onCancel={() => this.setState({showVersEditor: false})}
+// open={this.state.showVersEditor}
+// translate={key => key}
+// verseTitle={'Title'}
+// verseText={'Verse Text'} />
+// glQuote={glQuote}
+// translate={translate}
+// title={title}
+// showHelps={this.state.showHelps}
+// toggleHelps={this.toggleHelps.bind(this)}
+
 /***/ }),
 /* 508 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -61528,11 +61541,9 @@ VerseCheck.propTypes = {
   toolsReducer: _propTypes2.default.object.isRequired,
   translate: _propTypes2.default.func.isRequired,
   actions: _propTypes2.default.object.isRequired,
-  mode: _propTypes2.default.string,
   contextIdReducer: _propTypes2.default.shape({
     contextId: _propTypes2.default.object
   }).isRequired,
-  dialogModalVisibility: _propTypes2.default.bool,
   selectionsReducer: _propTypes2.default.object.isRequired,
   commentsReducer: _propTypes2.default.object.isRequired,
   resourcesReducer: _propTypes2.default.object.isRequired,

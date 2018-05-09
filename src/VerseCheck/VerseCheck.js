@@ -391,11 +391,9 @@ VerseCheck.propTypes = {
   toolsReducer: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
-  mode: PropTypes.string,
   contextIdReducer: PropTypes.shape({
     contextId: PropTypes.object
   }).isRequired,
-  dialogModalVisibility: PropTypes.bool,
   selectionsReducer: PropTypes.object.isRequired,
   commentsReducer: PropTypes.object.isRequired,
   resourcesReducer: PropTypes.object.isRequired,
