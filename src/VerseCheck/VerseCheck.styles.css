@@ -82,7 +82,6 @@
   padding: 5px 15px 0 15px;
   height: 100%;
 }
-.modalTitle {
-  text-align: center;
-  color: var(--reverse-color);
+.modal-title {
+  width:100%;
 }

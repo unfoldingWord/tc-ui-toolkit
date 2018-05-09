@@ -71,8 +71,8 @@ class MyLanguageModal extends Component {
         open={show}
         onClose={onHide}>
         <Toolbar disableGutters={true} style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)"}}>
-          <DialogTitle className='modalTitle'>
-            {title}
+          <DialogTitle disableTypography={true} className='modal-title'>
+            <h4 style={{margin: 'auto', color: 'var(--reverse-color)' }}>{title}</h4>
             <Glyphicon
               onClick={onHide}
               glyph={"remove"}
