@@ -81545,7 +81545,7 @@ var ActionsArea = function ActionsArea(_ref) {
         checked: remindersReducer.enabled,
         classes: { colorPrimary: classes.colorPrimary },
         color: 'primary',
-        onToggle: actions.toggleReminder
+        onChange: actions.toggleReminder
       }),
       classes: { label: classes.label },
       label: translate("bookmark")

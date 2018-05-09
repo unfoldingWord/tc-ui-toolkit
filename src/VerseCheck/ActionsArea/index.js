@@ -39,7 +39,7 @@ let ActionsArea = ({
             checked={remindersReducer.enabled}
             classes={{colorPrimary: classes.colorPrimary}}
             color="primary"
-            onToggle={actions.toggleReminder}
+            onChange={actions.toggleReminder}
           />
         }
         classes={{label: classes.label}}
