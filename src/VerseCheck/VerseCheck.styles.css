@@ -19,6 +19,7 @@
   color: var(--text-color-light);
 }
 .verseCheck {
+  display: flex;
   height: 100%;
   margin: 10px;
 }

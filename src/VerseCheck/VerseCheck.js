@@ -334,7 +334,7 @@ class VerseCheck extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div className='verseCheck'>
-          <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+          <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
             <div className='verseCheckCard'>
               <div className='titleBar'>
                 <span>{titleText}</span>
