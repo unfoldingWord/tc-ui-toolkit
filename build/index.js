@@ -81836,7 +81836,7 @@ var IconIndicators = function IconIndicators(_ref) {
         color: "var(--reverse-color)",
         opacity: selections.length > 0 ? 1 : 0.2
       },
-      title: selections.length > 0 ? translate("check.selections_found") : translate("check.no_selections_found")
+      title: selections.length > 0 ? translate("icons.selections_found") : translate("icons.no_selections_found")
     }),
     _react2.default.createElement(_reactBootstrap.Glyphicon, {
       glyph: 'pencil',
@@ -81845,7 +81845,7 @@ var IconIndicators = function IconIndicators(_ref) {
         color: "var(--reverse-color)",
         opacity: verseEdited ? 1 : 0.2
       },
-      title: verseEdited ? translate("check.verse_edits_found") : translate("check.no_verse_edits_found")
+      title: verseEdited ? translate("icons.verse_edits_found") : translate("icons.no_verse_edits_found")
     }),
     _react2.default.createElement(_reactBootstrap.Glyphicon, {
       glyph: 'comment',
@@ -81854,7 +81854,7 @@ var IconIndicators = function IconIndicators(_ref) {
         color: "var(--reverse-color)",
         opacity: comment && comment.length > 0 ? 1 : 0.2
       },
-      title: comment && comment.length > 0 ? translate("check.comments_found") : translate("check.no_comments_found")
+      title: comment && comment.length > 0 ? translate("icons.comments_found") : translate("icons.no_comments_found")
     }),
     _react2.default.createElement(_reactBootstrap.Glyphicon, {
       glyph: 'bookmark',
@@ -81863,7 +81863,7 @@ var IconIndicators = function IconIndicators(_ref) {
         color: "var(--reverse-color)",
         opacity: bookmarkEnabled ? 1 : 0.2
       },
-      title: bookmarkEnabled ? translate("check.bookmarked") : translate("check.not_bookmarked")
+      title: bookmarkEnabled ? translate("icons.bookmarked") : translate("icons.not_bookmarked")
     })
   );
 };
@@ -82010,7 +82010,7 @@ var GroupMenu = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { id: 'groups-menu-title' },
-              translate('menu')
+              translate('menu.menu')
             ),
             _react2.default.createElement(_FilterMenuHeader2.default, {
               filterCount: filterCount,
@@ -87612,7 +87612,7 @@ var NoResults = function NoResults(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'no-results' },
-    translate('no_results')
+    translate('menu.no_results')
   );
 };
 
@@ -87847,7 +87847,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.invalidated,
     setFilter: setFilter,
     icon: _react2.default.createElement(_InvalidatedIcon2.default, { width: 16, height: 16, color: '#fff' }),
-    text: translate('invalidated') }));
+    text: translate('menu.invalidated') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -87858,7 +87858,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.reminders,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'bookmark' }),
-    text: translate('bookmarks') }));
+    text: translate('menu.bookmarks') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -87870,7 +87870,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     disabled: filters.noSelections,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok' }),
-    text: translate('selected') }));
+    text: translate('menu.selected') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -87882,7 +87882,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     disabled: filters.selections,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ban-circle' }),
-    text: translate('no_selection') }));
+    text: translate('menu.no_selection') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -87893,7 +87893,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.verseEdits,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil' }),
-    text: translate('verse_edit') }));
+    text: translate('menu.verse_edit') }));
 
   options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
     onCheck: function onCheck(name, value) {
@@ -87904,7 +87904,7 @@ var ExpandedFilter = function ExpandedFilter(_ref) {
     checked: filters.comments,
     setFilter: setFilter,
     icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment' }),
-    text: translate('comments') }));
+    text: translate('menu.comments') }));
 
   return _react2.default.createElement(
     'div',
@@ -88029,7 +88029,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'invalidated',
       name: 'invalidated',
-      text: translate('invalidated') }));
+      text: translate('menu.invalidated') }));
   }
 
   if (filters.reminders) {
@@ -88039,7 +88039,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'reminders',
       name: 'reminders',
-      text: translate('bookmarks') }));
+      text: translate('menu.bookmarks') }));
   }
 
   if (filters.selections) {
@@ -88049,7 +88049,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'selections',
       name: 'selections',
-      text: translate('selected') }));
+      text: translate('menu.selected') }));
   }
 
   if (filters.noSelections) {
@@ -88059,7 +88059,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'noSelections',
       name: 'noSelections',
-      text: translate('no_selection') }));
+      text: translate('menu.no_selection') }));
   }
 
   if (filters.verseEdits) {
@@ -88069,7 +88069,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'verseEdits',
       name: 'verseEdits',
-      text: translate('verse_edit') }));
+      text: translate('menu.verse_edit') }));
   }
 
   if (filters.comments) {
@@ -88079,7 +88079,7 @@ var CollapsedFilter = function CollapsedFilter(_ref) {
       },
       key: 'comments',
       name: 'comments',
-      text: translate('comments'),
+      text: translate('menu.comments'),
       setFilter: setFilter }));
   }
 
