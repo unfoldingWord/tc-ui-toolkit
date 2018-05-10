@@ -43,7 +43,7 @@ class GroupMenu extends React.Component {
         <div id="groups-menu-top">
           <div id="groups-menu-header">
             <span id="groups-menu-title">
-              {translate('menu')}
+              {translate('menu.menu')}
             </span>
             <FilterMenuHeader
               filterCount={filterCount}

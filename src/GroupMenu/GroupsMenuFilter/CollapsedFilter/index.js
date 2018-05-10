@@ -14,7 +14,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='invalidated'
       name='invalidated'
-      text={translate('invalidated')} />);
+      text={translate('menu.invalidated')} />);
   }
 
   if (filters.reminders) {
@@ -22,7 +22,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='reminders'
       name='reminders'
-      text={translate('bookmarks')} />);
+      text={translate('menu.bookmarks')} />);
   }
 
   if (filters.selections) {
@@ -30,7 +30,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='selections'
       name='selections'
-      text={translate('selected')} />);
+      text={translate('menu.selected')} />);
   }
 
   if (filters.noSelections) {
@@ -38,7 +38,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='noSelections'
       name='noSelections'
-      text={translate('no_selection')} />);
+      text={translate('menu.no_selection')} />);
   }
 
   if (filters.verseEdits) {
@@ -46,7 +46,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='verseEdits'
       name='verseEdits'
-      text={translate('verse_edit')} />);
+      text={translate('menu.verse_edit')} />);
   }
 
   if (filters.comments) {
@@ -54,7 +54,7 @@ const CollapsedFilter = ({
       onPress={(name) => setFilter(name, false)}
       key='comments'
       name='comments'
-      text={translate('comments')}
+      text={translate('menu.comments')}
       setFilter={setFilter} />);
   }
 
