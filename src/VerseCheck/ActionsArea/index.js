@@ -1,19 +1,8 @@
 import React from 'react';
 import {Glyphicon} from 'react-bootstrap';
-import Switch from 'material-ui/Switch';
-import { FormControlLabel} from 'material-ui/Form';
-import {withStyles} from 'material-ui/styles';
 import isEqual from 'deep-equal';
+import Bookmark from '../../Bookmark';
 import './ActionsArea.styles.css';
-
-const styles = {
-  label: {
-    color: 'var(--accent-color-dark)',
-    fontWeight: "normal",
-    fontSize: 14,
-  },
-  colorPrimary: 'var(--accent-color-dark)'
-};
 
 let ActionsArea = ({
   tags,
@@ -26,24 +15,17 @@ let ActionsArea = ({
   saveSelection,
   cancelSelection,
   clearSelection,
-  translate,
-  classes
+  translate
 }) => {
 
   const changeModeArea = (
     <div className='actions-area'>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={remindersReducer.enabled}
-            classes={{colorPrimary: classes.colorPrimary}}
-            color="primary"
-            onChange={actions.toggleReminder}
-          />
-        }
-        classes={{label: classes.label}}
-        label={translate("bookmark")}
-      />
+      <Bookmark
+        value='bookmark'
+        color='primary'
+        checked={remindersReducer.enabled}
+        label={translate('bookmark')}
+        onChange={actions.toggleReminder} />      
       <div style={{display: "flex"}}>
         <button
           style={{width: "140px", marginRigth: "5px"}}
@@ -156,4 +138,4 @@ let ActionsArea = ({
   return modeArea;
 };
 
-export default withStyles(styles)(ActionsArea);
+export default ActionsArea;

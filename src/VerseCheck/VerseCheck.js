@@ -220,7 +220,6 @@ VerseCheck.defaultProps = {
   commentChanged: false,
   findIfVerseEdited: () => false,
   tags: [],
-  changeMode: () => {},
   verseChanged: false,
   selections: [],
   saveSelection: () => {},
