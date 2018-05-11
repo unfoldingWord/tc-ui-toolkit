@@ -3,50 +3,81 @@
 * new-window glyphicon button on translationHelps component.
 */
 import React from 'react';
-import {Modal, Glyphicon} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Dialog, { DialogActions, DialogTitle, DialogContent } from 'material-ui/Dialog';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import { Glyphicon } from 'react-bootstrap';
 
-class ExpandedHelpsModal extends React.Component {
-  render() {
-    /*
-    let { onHide, children } = this.props;
-    var page = document.getElementById("modalbody");
-    if (page) {
-      page.scrollTop = 0;
-    }
-    */
-    return ("modal to earth. I am here.");
-    /*
-    return (
-      <Modal {...this.props} bsSize="lg" aria-labelledby="contained-modal-title-sm">
-        <Modal.Header 
-            style={{backgroundColor: "var(--background-color-light)", borderColor: "var(--text-color)"}}>
-          <Modal.Title 
-              id="contained-modal-title-sm"
-              style={style.modalTitle}>
-            translationHelps
-            <Glyphicon
-                onClick={onHide}
-                glyph={"remove"}
-                style={{color: "var(--text-color)", cursor: "pointer", fontSize: "18px", float: "right"}}
-            />
-          </Modal.Title>
-        </Modal.Header>
-          <Modal.Body id="modalbody" style={style.tHModalContent}>
-            {children}
-          </Modal.Body>
-        <Modal.Footer style={{padding: '0', backgroundColor: "var(--background-color-light)", borderColor: "var(--text-color)"}}>
-          <button className="btn-prime" onClick={() => onHide()}>Close</button>
-        </Modal.Footer>
-      </Modal>
-    ); 
-    */
+//import './ExpandedHelpsModal.styles.css';
+
+// components
+const styles = {
+  toolBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'var(--reverse-color)',
+    backgroundColor: 'var(--accent-color-dark)',
+    padding: '15px',
+    width: '100%',
+  },
+  title: {
+    marginLeft: 'auto',
+    fontSize: '22px',
+    fontWeight: '400'
+  },
+  closeButton: {
+    marginLeft: 'auto'
+  },
+  dialogContent: {
+    padding: '7px',
+  },
+  dialogActions: {
+    height: '50px',
+    padding: '10px',
+    margin: '0px',
+    borderTop: '1px solid var(--border-color)'
   }
-}
+};
+
+const ExpandedHelpsModal = ({
+  show,
+  onHide, 
+  title,
+  article, 
+}) => {
+  return (
+    <Dialog 
+        open={show} 
+        maxWidth='md'
+    >
+      <Toolbar style={styles.toolBar}>
+        <div style={styles.title}>
+          {title}
+        </div>
+        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
+          <Glyphicon glyph="remove" />
+        </IconButton>
+      </Toolbar>
+      <DialogContent style={styles.dialogContent}>
+        {article}
+      </DialogContent>
+      <DialogActions disableActionSpacing style={styles.dialogActions}>
+        <button className="btn-prime" onClick={onHide}>
+          Close
+        </button> 
+      </DialogActions>
+    </Dialog>  
+  );
+};
+
 
 ExpandedHelpsModal.propTypes = {
-  onHide: PropTypes.func.isRequired,
-  children: PropTypes.any.isRequired
-};
+  show: PropTypes.bool.isRequired,
+  /*onHide: PropTypes.func.isRequired,
+   title: PropTypes.string.isRequired, 
+  article: PropTypes.string.isRequired, 
+*/ };
 
 export default ExpandedHelpsModal;

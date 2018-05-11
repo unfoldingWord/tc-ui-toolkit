@@ -9,56 +9,103 @@
  * 
  *   It interoperates with CheckInfoCard
  */ 
+// TBD scroll bars
+// TBD markdown
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
-import { ExpandedHelpsModal } from './ExpandedHelpsModal.js';
+import ExpandedHelpsModal from './ExpandedHelpsModal';
 //import Markdown from 'react-remarkable';
 
 const TranslationHelps = ({
-  article,                      // Article to display in sidebar and expanded modal
-  openExpandedHelpsPane,        // Function to open the expanded Translation Helps page
-  expandedHelpsButtonHoverText, // Text to display when hovering over sash and expansion button
-  isShowHelpsSidebar,           // is the Translation helps sidebar displayed
-  sidebarToggle,
-  //isShowHelpsExpanded,          // is the expanded Translation Helps page displayed?
+  article,                       // Article to display in sidebar and expanded modal
+  expandedHelpsButtonHoverText,  // Text to display when hovering over sash and expansion button
+  openExpandedHelpsModal,        // Function to open the expanded Translation Helps Modal
+  isShowHelpsSidebar,            // is the Translation helps sidebar displayed
+  sidebarToggle,                 // toggle the translation helps sidebar
+  isShowHelpsExpanded,           // is the expanded Translation Helps modal displayed?
+  modalTitle,                    // Title for the expanded helps modal
 }) => {
-  return (
-    <div className="helps-sash-container">
-      <div className="helps">
-        <div className="helps-title-bar">
-          <Glyphicon
-            onClick={openExpandedHelpsPane}
-            glyph={"fullscreen"}
-            style={{ cursor: "pointer" }}
-            title={expandedHelpsButtonHoverText}
-          />
+  const theme = createMuiTheme();
+
+  if(isShowHelpsSidebar) { 
+    return (
+      /*<MuiThemeProvider theme={theme}> */
+        <div className="helps-sash-container">
+          <div className="sash-container">
+            <div className="helps-sash">
+              <Glyphicon
+                glyph="chevron-right"
+                style={{cursor: "pointer"}} 
+                onClick={sidebarToggle}
+              />
+            </div>
+          </div>
+          <div className="helps">
+            <div className="helps-title-bar">
+              <Glyphicon
+                onClick={openExpandedHelpsModal}
+                glyph={"fullscreen"}
+                style={{ cursor: "pointer" }}
+                title={expandedHelpsButtonHoverText}
+              />
+            </div>
+            <div className="helps-article"  style={{overflowY: 'scroll'}} >
+              {article}
+            </div>
+          </div>
+          <ExpandedHelpsModal
+            show={isShowHelpsExpanded} 
+            onHide={openExpandedHelpsModal}
+            title={modalTitle}
+            article={article} 
+          /> 
+        </div> 
+      /* </MuiThemeProvider> */
+    )
+  } else {
+    return (
+      /* <MuiThemeProvider theme="theme"> */
+        <div className="sash-container">
+          <div className="helps-sash">
+            <Glyphicon
+              glyph="chevron-left"
+              style={{cursor: "pointer"}} 
+              onClick={sidebarToggle}
+            />
+          </div>
         </div>
-        <div className="helps-article">
-          {article}
-        </div>
-      </div>
-    </div>  
-  )};
+      /* </MuiThemeProvider> */
+    )
+  } 
+
+};
  
    /*
-      <ExpandedHelpsModal 
-          show={isShowHelpsExpanded}
-          onHide={showHelpsSidebar}>
-       
-      </ExpandedHelpsModal> */
+      exp-start
+        <ExpandedHelpsModal
+          //show={isShowHelpsExpanded} 
+          show={false}
+         /* onHide={openExpandedHelpsModal}
+          //title={modalTitle}
+          article={article} 
+          
+          exp-end
+          /> */
 
   //<Markdown options={{ html: true }} source={modalFile} />
  
   TranslationHelps.propTypes = {
     article: PropTypes.object.isRequired,
-    openExpandedHelpsPane: PropTypes.func.isRequired,
     expandedHelpsButtonHoverText: PropTypes.string.isRequired,
+    openExpandedHelpsModal: PropTypes.func.isRequired,
     isShowHelpsSidebar: PropTypes.bool.isRequired,
     sidebarToggle: PropTypes.func.isRequired,
-    //isShowHelpsExpanded,
+    isShowHelpsExpanded: PropTypes.bool.isRequired,
+    //modalTitle: PropTypes.string.isRequired,
   }
 
   export default TranslationHelps

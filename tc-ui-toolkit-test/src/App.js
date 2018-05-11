@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme }  from 'material-ui/styles';
-import {Glyphicon} from 'react-bootstrap';
 import { CheckInfoCard, ScripturePane, TranslationHelps } from 'tc-ui-toolkit';
 
 const article = ( 
@@ -9,7 +8,7 @@ const article = (
       <b> save, saves, saved, safe, salvation</b>
     </p>
     <p>
-      Definition:
+      Definition: 
     </p>
     <p>
       The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.
@@ -20,7 +19,7 @@ const article = (
       People can save or rescue people from danger, but only God can save people from being punished eternally for their sins.
       The term "salvation" refers to being saved or rescued from evil and danger.`
     </p> 
-    <p>
+    <p> 
       In a physical sense, people can be saved or rescued from harm, danger, or death.
       In a spiritual sense, if a person has been "saved," then God, through Jesus' death on the cross, has forgiven him and rescued him from being punished in hell for his sin.
       People can save or rescue people from danger, but only God can save people from being punished eternally for their sins.
@@ -46,6 +45,7 @@ class App extends Component {
     super(props);
     this.state = {
       isShowHelpsSidebar: false,
+      isShowHelpsExpanded: false,
     };
   }
   
@@ -56,12 +56,19 @@ class App extends Component {
     });
   }
 
+  handleHelpsExpandedToggle() {
+    console.log('handleHelpsExpandedToggle: ' + this.state.isShowHelpsExpanded);
+    this.setState({
+      isShowHelpsExpanded: !this.state.isShowHelpsExpanded
+    });
+  }
+
   render() {
-    const theme = createMuiTheme();
+    const theme = createMuiTheme({scrollbarThumb: { borderRadius: '10px'}});
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className='app-container'> 
+      <MuiThemeProvider muiTheme={theme}> 
+        <div className='app-container' style={{ height: 'calc(100vh - 2px)' }} > 
           <div className='home-container'>
             Home placeholder
           </div>
@@ -92,38 +99,24 @@ class App extends Component {
                 />
               </div>
               <div className='selection-pane'>
-                Selection Pane Place Holder
+                Selection<br/> Pane<br/> Place<br/> Holder<br/>
               </div>
             </div>
 
-            <div className='column3'>
-              <div className="helps-sash">
-                <Glyphicon
-                  glyph={this.state.isShowHelpsSidebar ? 
-                    "chevron-right" : 
-                    "chevron-left"} 
-                  style={{cursor: "pointer"}} 
-                  onClick={() => this.handleSidebarToggle() }
-                />
-              </div>
-            </div>
-
-            <div className='column4'
-              style={{
-                display: this.state.isShowHelpsSidebar ?
-                  'block' :
-                  'none'
-              }}
-            >
+            <div className='column3'style={{
+              width: this.state.isShowHelpsSidebar ? '27%' : '1px'
+            }}>
               <div className='helps-item'>
                 <TranslationHelps
                   article={article} 
                   expandedHelpsButtonHoverText="Click to show expanded help pane"
-                  openExpandedHelpsPane={() => console.log('Expanded translation helps clicked')}
+                  openExpandedHelpsModal={() =>  this.handleHelpsExpandedToggle()}
                   isShowHelpsSidebar={this.state.isShowHelpsSidebar}
                   sidebarToggle={() => this.handleSidebarToggle()}
-                />
-              </div>
+                  isShowHelpsExpanded={this.state.isShowHelpsExpanded}
+                  modalTitle="translationHelps"
+                /> 
+              </div> 
             </div>
           </div>
         </div>
