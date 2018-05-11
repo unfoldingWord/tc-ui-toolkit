@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme }  from 'material-ui/styles';
 import { CheckInfoCard, ScripturePane, TranslationHelps } from 'tc-ui-toolkit';
+import { VerseCheck, CheckInfoCard } from 'tc-ui-toolkit';
 
 const article = ( 
   <div>
@@ -46,6 +47,9 @@ class App extends Component {
     this.state = {
       isShowHelpsSidebar: false,
       isShowHelpsExpanded: false,
+      remindersReducer: {
+        enabled: false
+      }
     };
   }
   
@@ -60,6 +64,13 @@ class App extends Component {
     console.log('handleHelpsExpandedToggle: ' + this.state.isShowHelpsExpanded);
     this.setState({
       isShowHelpsExpanded: !this.state.isShowHelpsExpanded
+
+  toggleReminder = (event) => {
+    this.setState({
+      remindersReducer: {
+        ...this.state.remindersReducer,
+        enabled: event.target.checked
+      }
     });
   }
 
@@ -99,7 +110,14 @@ class App extends Component {
                 />
               </div>
               <div className='selection-pane'>
-                Selection<br/> Pane<br/> Place<br/> Holder<br/>
+                <VerseCheck 
+                  alignedGLText='text'
+                  verseText='verse text'
+                  mode='select'
+                  selections={[{text:'text',occurrence:1}]}
+                  remindersReducer={this.state.remindersReducer}
+                  toggleReminder={this.toggleReminder}
+                />
               </div>
             </div>
 
