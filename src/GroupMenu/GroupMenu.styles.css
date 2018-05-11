@@ -6,6 +6,7 @@
   font-size: 12px;
   height: var(--tool-max-height);
   width: 250px;
+  overflow-y: scroll;
 }
 
 #groups-menu-container .group .group-item .status-badge {

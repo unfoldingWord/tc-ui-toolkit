@@ -117,7 +117,7 @@ Object.defineProperty(exports, 'VerseCheck', {
   }
 });
 
-var _GroupMenu = __webpack_require__(600);
+var _GroupMenu = __webpack_require__(602);
 
 Object.defineProperty(exports, 'GroupMenu', {
   enumerable: true,
@@ -126,7 +126,7 @@ Object.defineProperty(exports, 'GroupMenu', {
   }
 });
 
-var _Bookmark = __webpack_require__(564);
+var _Bookmark = __webpack_require__(562);
 
 Object.defineProperty(exports, 'Bookmark', {
   enumerable: true,
@@ -61081,19 +61081,19 @@ var _ActionsArea = __webpack_require__(558);
 
 var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
-var _CheckArea = __webpack_require__(566);
+var _CheckArea = __webpack_require__(568);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
 
-var _SaveArea = __webpack_require__(594);
+var _SaveArea = __webpack_require__(596);
 
 var _SaveArea2 = _interopRequireDefault(_SaveArea);
 
-var _DialogComponent = __webpack_require__(597);
+var _DialogComponent = __webpack_require__(599);
 
 var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 
-var _IconIndicators = __webpack_require__(599);
+var _IconIndicators = __webpack_require__(601);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
@@ -61413,15 +61413,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _deepEqual = __webpack_require__(561);
+var _deepEqual = __webpack_require__(559);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _Bookmark = __webpack_require__(564);
+var _Bookmark = __webpack_require__(562);
 
 var _Bookmark2 = _interopRequireDefault(_Bookmark);
 
-__webpack_require__(639);
+__webpack_require__(566);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61587,6 +61587,147 @@ exports.default = ActionsArea;
 /* 559 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var pSlice = Array.prototype.slice;
+var objectKeys = __webpack_require__(560);
+var isArguments = __webpack_require__(561);
+
+var deepEqual = module.exports = function (actual, expected, opts) {
+  if (!opts) opts = {};
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (actual === expected) {
+    return true;
+
+  } else if (actual instanceof Date && expected instanceof Date) {
+    return actual.getTime() === expected.getTime();
+
+  // 7.3. Other pairs that do not both pass typeof value == 'object',
+  // equivalence is determined by ==.
+  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
+    return opts.strict ? actual === expected : actual == expected;
+
+  // 7.4. For all other Object pairs, including Array objects, equivalence is
+  // determined by having the same number of owned properties (as verified
+  // with Object.prototype.hasOwnProperty.call), the same set of keys
+  // (although not necessarily the same order), equivalent values for every
+  // corresponding key, and an identical 'prototype' property. Note: this
+  // accounts for both named and indexed properties on Arrays.
+  } else {
+    return objEquiv(actual, expected, opts);
+  }
+}
+
+function isUndefinedOrNull(value) {
+  return value === null || value === undefined;
+}
+
+function isBuffer (x) {
+  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
+  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
+    return false;
+  }
+  if (x.length > 0 && typeof x[0] !== 'number') return false;
+  return true;
+}
+
+function objEquiv(a, b, opts) {
+  var i, key;
+  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
+    return false;
+  // an identical 'prototype' property.
+  if (a.prototype !== b.prototype) return false;
+  //~~~I've managed to break Object.keys through screwy arguments passing.
+  //   Converting to array solves the problem.
+  if (isArguments(a)) {
+    if (!isArguments(b)) {
+      return false;
+    }
+    a = pSlice.call(a);
+    b = pSlice.call(b);
+    return deepEqual(a, b, opts);
+  }
+  if (isBuffer(a)) {
+    if (!isBuffer(b)) {
+      return false;
+    }
+    if (a.length !== b.length) return false;
+    for (i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+  try {
+    var ka = objectKeys(a),
+        kb = objectKeys(b);
+  } catch (e) {//happens when one is a string literal and the other isn't
+    return false;
+  }
+  // having the same number of owned properties (keys incorporates
+  // hasOwnProperty)
+  if (ka.length != kb.length)
+    return false;
+  //the same set of keys (although not necessarily the same order),
+  ka.sort();
+  kb.sort();
+  //~~~cheap key test
+  for (i = ka.length - 1; i >= 0; i--) {
+    if (ka[i] != kb[i])
+      return false;
+  }
+  //equivalent values for every corresponding key, and
+  //~~~possibly expensive deep test
+  for (i = ka.length - 1; i >= 0; i--) {
+    key = ka[i];
+    if (!deepEqual(a[key], b[key], opts)) return false;
+  }
+  return typeof a === typeof b;
+}
+
+
+/***/ }),
+/* 560 */
+/***/ (function(module, exports) {
+
+exports = module.exports = typeof Object.keys === 'function'
+  ? Object.keys : shim;
+
+exports.shim = shim;
+function shim (obj) {
+  var keys = [];
+  for (var key in obj) keys.push(key);
+  return keys;
+}
+
+
+/***/ }),
+/* 561 */
+/***/ (function(module, exports) {
+
+var supportsArgumentsClass = (function(){
+  return Object.prototype.toString.call(arguments)
+})() == '[object Arguments]';
+
+exports = module.exports = supportsArgumentsClass ? supported : unsupported;
+
+exports.supported = supported;
+function supported(object) {
+  return Object.prototype.toString.call(object) == '[object Arguments]';
+};
+
+exports.unsupported = unsupported;
+function unsupported(object){
+  return object &&
+    typeof object == 'object' &&
+    typeof object.length == 'number' &&
+    Object.prototype.hasOwnProperty.call(object, 'callee') &&
+    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
+    false;
+};
+
+
+/***/ }),
+/* 562 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -61594,7 +61735,108 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switch = __webpack_require__(560);
+var _Bookmark = __webpack_require__(563);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Bookmark).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 563 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Switch = __webpack_require__(564);
+
+var _Switch2 = _interopRequireDefault(_Switch);
+
+var _Form = __webpack_require__(530);
+
+var _styles = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  label: {
+    color: 'var(--accent-color-dark)',
+    fontWeight: "normal",
+    fontSize: 14
+  },
+  colorPrimary: 'var(--accent-color-dark)'
+};
+
+var Bookmark = function Bookmark(_ref) {
+  var value = _ref.value,
+      label = _ref.label,
+      checked = _ref.checked,
+      color = _ref.color,
+      onChange = _ref.onChange,
+      disabled = _ref.disabled,
+      classes = _ref.classes;
+
+  return _react2.default.createElement(_Form.FormControlLabel, {
+    control: _react2.default.createElement(_Switch2.default, {
+      value: value,
+      checked: checked,
+      color: color,
+      onChange: onChange,
+      disabled: disabled,
+      classes: { colorPrimary: classes.colorPrimary }
+    }),
+    classes: { label: classes.label },
+    label: label
+  });
+};
+
+Bookmark.defaultProps = {
+  checked: false,
+  disabled: false,
+  color: 'primary'
+};
+
+Bookmark.propTypes = {
+  value: _propTypes2.default.string,
+  checked: _propTypes2.default.bool,
+  disabled: _propTypes2.default.bool,
+  label: _propTypes2.default.string,
+  onChange: _propTypes2.default.func,
+  color: _propTypes2.default.string,
+  classes: _propTypes2.default.object
+};
+
+exports.default = (0, _styles.withStyles)(styles)(Bookmark);
+
+/***/ }),
+/* 564 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Switch = __webpack_require__(565);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -61606,7 +61848,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 560 */
+/* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61828,251 +62070,48 @@ Switch.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
 
 /***/ }),
-/* 561 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pSlice = Array.prototype.slice;
-var objectKeys = __webpack_require__(562);
-var isArguments = __webpack_require__(563);
-
-var deepEqual = module.exports = function (actual, expected, opts) {
-  if (!opts) opts = {};
-  // 7.1. All identical values are equivalent, as determined by ===.
-  if (actual === expected) {
-    return true;
-
-  } else if (actual instanceof Date && expected instanceof Date) {
-    return actual.getTime() === expected.getTime();
-
-  // 7.3. Other pairs that do not both pass typeof value == 'object',
-  // equivalence is determined by ==.
-  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
-    return opts.strict ? actual === expected : actual == expected;
-
-  // 7.4. For all other Object pairs, including Array objects, equivalence is
-  // determined by having the same number of owned properties (as verified
-  // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
-  // corresponding key, and an identical 'prototype' property. Note: this
-  // accounts for both named and indexed properties on Arrays.
-  } else {
-    return objEquiv(actual, expected, opts);
-  }
-}
-
-function isUndefinedOrNull(value) {
-  return value === null || value === undefined;
-}
-
-function isBuffer (x) {
-  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
-  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
-    return false;
-  }
-  if (x.length > 0 && typeof x[0] !== 'number') return false;
-  return true;
-}
-
-function objEquiv(a, b, opts) {
-  var i, key;
-  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
-    return false;
-  // an identical 'prototype' property.
-  if (a.prototype !== b.prototype) return false;
-  //~~~I've managed to break Object.keys through screwy arguments passing.
-  //   Converting to array solves the problem.
-  if (isArguments(a)) {
-    if (!isArguments(b)) {
-      return false;
-    }
-    a = pSlice.call(a);
-    b = pSlice.call(b);
-    return deepEqual(a, b, opts);
-  }
-  if (isBuffer(a)) {
-    if (!isBuffer(b)) {
-      return false;
-    }
-    if (a.length !== b.length) return false;
-    for (i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
-  }
-  try {
-    var ka = objectKeys(a),
-        kb = objectKeys(b);
-  } catch (e) {//happens when one is a string literal and the other isn't
-    return false;
-  }
-  // having the same number of owned properties (keys incorporates
-  // hasOwnProperty)
-  if (ka.length != kb.length)
-    return false;
-  //the same set of keys (although not necessarily the same order),
-  ka.sort();
-  kb.sort();
-  //~~~cheap key test
-  for (i = ka.length - 1; i >= 0; i--) {
-    if (ka[i] != kb[i])
-      return false;
-  }
-  //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
-  for (i = ka.length - 1; i >= 0; i--) {
-    key = ka[i];
-    if (!deepEqual(a[key], b[key], opts)) return false;
-  }
-  return typeof a === typeof b;
-}
-
-
-/***/ }),
-/* 562 */
-/***/ (function(module, exports) {
-
-exports = module.exports = typeof Object.keys === 'function'
-  ? Object.keys : shim;
-
-exports.shim = shim;
-function shim (obj) {
-  var keys = [];
-  for (var key in obj) keys.push(key);
-  return keys;
-}
-
-
-/***/ }),
-/* 563 */
-/***/ (function(module, exports) {
-
-var supportsArgumentsClass = (function(){
-  return Object.prototype.toString.call(arguments)
-})() == '[object Arguments]';
-
-exports = module.exports = supportsArgumentsClass ? supported : unsupported;
-
-exports.supported = supported;
-function supported(object) {
-  return Object.prototype.toString.call(object) == '[object Arguments]';
-};
-
-exports.unsupported = unsupported;
-function unsupported(object){
-  return object &&
-    typeof object == 'object' &&
-    typeof object.length == 'number' &&
-    Object.prototype.hasOwnProperty.call(object, 'callee') &&
-    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
-    false;
-};
-
-
-/***/ }),
-/* 564 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Bookmark = __webpack_require__(565);
-
-Object.defineProperty(exports, 'default', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Bookmark).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 565 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Switch = __webpack_require__(559);
-
-var _Switch2 = _interopRequireDefault(_Switch);
-
-var _Form = __webpack_require__(530);
-
-var _styles = __webpack_require__(20);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
-  label: {
-    color: 'var(--accent-color-dark)',
-    fontWeight: "normal",
-    fontSize: 14
-  },
-  colorPrimary: 'var(--accent-color-dark)'
-};
-
-var Bookmark = function Bookmark(_ref) {
-  var value = _ref.value,
-      label = _ref.label,
-      checked = _ref.checked,
-      color = _ref.color,
-      onChange = _ref.onChange,
-      disabled = _ref.disabled,
-      classes = _ref.classes;
-
-  return _react2.default.createElement(_Form.FormControlLabel, {
-    control: _react2.default.createElement(_Switch2.default, {
-      value: value,
-      checked: checked,
-      color: color,
-      onChange: onChange,
-      disabled: disabled,
-      classes: { colorPrimary: classes.colorPrimary }
-    }),
-    classes: { label: classes.label },
-    label: label
-  });
-};
-
-Bookmark.defaultProps = {
-  checked: false,
-  disabled: false,
-  color: 'primary'
-};
-
-Bookmark.propTypes = {
-  value: _propTypes2.default.string,
-  checked: _propTypes2.default.bool,
-  disabled: _propTypes2.default.bool,
-  label: _propTypes2.default.string,
-  onChange: _propTypes2.default.func,
-  color: _propTypes2.default.string,
-  classes: _propTypes2.default.object
-};
-
-exports.default = (0, _styles.withStyles)(styles)(Bookmark);
-
-/***/ }),
 /* 566 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+var content = __webpack_require__(567);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 567 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 568 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -62088,27 +62127,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _DefaultArea = __webpack_require__(567);
+var _DefaultArea = __webpack_require__(569);
 
 var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
 
-var _SelectionArea = __webpack_require__(577);
+var _SelectionArea = __webpack_require__(579);
 
 var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
 
-var _InstructionsArea = __webpack_require__(582);
+var _InstructionsArea = __webpack_require__(584);
 
 var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
 
-var _EditVerseArea = __webpack_require__(586);
+var _EditVerseArea = __webpack_require__(588);
 
 var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
 
-var _CommentArea = __webpack_require__(589);
+var _CommentArea = __webpack_require__(591);
 
 var _CommentArea2 = _interopRequireDefault(_CommentArea);
 
-__webpack_require__(592);
+__webpack_require__(594);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62219,7 +62258,7 @@ CheckArea.propTypes = {
 exports.default = CheckArea;
 
 /***/ }),
-/* 567 */
+/* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62239,11 +62278,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _selectionHelpers = __webpack_require__(568);
+var _selectionHelpers = __webpack_require__(570);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyLanguageModal = __webpack_require__(571);
+var _MyLanguageModal = __webpack_require__(573);
 
 var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
 
@@ -62400,7 +62439,7 @@ DefaultArea.propTypes = {
 exports.default = DefaultArea;
 
 /***/ }),
-/* 568 */
+/* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62411,7 +62450,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.normalizeString = exports.occurrencesInString = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionArray = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _lodash = __webpack_require__(569);
+var _lodash = __webpack_require__(571);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -62723,7 +62762,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 // console.log(selectionArray)
 
 /***/ }),
-/* 569 */
+/* 571 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -79803,10 +79842,10 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
   else {}
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(570)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(572)(module)))
 
 /***/ }),
-/* 570 */
+/* 572 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -79834,7 +79873,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 571 */
+/* 573 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79860,13 +79899,13 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyTargetVerse = __webpack_require__(572);
+var _MyTargetVerse = __webpack_require__(574);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(573);
+__webpack_require__(575);
 
-var _Toolbar = __webpack_require__(575);
+var _Toolbar = __webpack_require__(577);
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
@@ -80008,7 +80047,7 @@ MyLanguageModal.propTypes = {
 exports.default = MyLanguageModal;
 
 /***/ }),
-/* 572 */
+/* 574 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80072,11 +80111,11 @@ MyTargetVerse.propTypes = {
 exports.default = MyTargetVerse;
 
 /***/ }),
-/* 573 */
+/* 575 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(574);
+var content = __webpack_require__(576);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -80097,7 +80136,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 574 */
+/* 576 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -80111,7 +80150,7 @@ exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  co
 
 
 /***/ }),
-/* 575 */
+/* 577 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80121,7 +80160,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Toolbar = __webpack_require__(576);
+var _Toolbar = __webpack_require__(578);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -80133,7 +80172,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 576 */
+/* 578 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80228,7 +80267,7 @@ Toolbar.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiToolbar' })(Toolbar);
 
 /***/ }),
-/* 577 */
+/* 579 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80250,7 +80289,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 __webpack_require__(556);
 
-var _RenderSelectionTextComponent = __webpack_require__(578);
+var _RenderSelectionTextComponent = __webpack_require__(580);
 
 var _RenderSelectionTextComponent2 = _interopRequireDefault(_RenderSelectionTextComponent);
 
@@ -80349,7 +80388,7 @@ SelectionArea.propTypes = {
 exports.default = SelectionArea;
 
 /***/ }),
-/* 578 */
+/* 580 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80369,19 +80408,19 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _deepEqual = __webpack_require__(561);
+var _deepEqual = __webpack_require__(559);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _windowSelectionHelpers = __webpack_require__(579);
+var _windowSelectionHelpers = __webpack_require__(581);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
-var _selectionHelpers = __webpack_require__(581);
+var _selectionHelpers = __webpack_require__(583);
 
 var selectionHelpers = _interopRequireWildcard(_selectionHelpers);
 
-var _stringHelpers = __webpack_require__(580);
+var _stringHelpers = __webpack_require__(582);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -80543,7 +80582,7 @@ RenderSelectionTextComponent.propTypes = {
 exports.default = RenderSelectionTextComponent;
 
 /***/ }),
-/* 579 */
+/* 581 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80555,7 +80594,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPrescedingTextFromElementSiblings = exports.getPrescedingTextFromElement = exports.getPrescedingTextFromElementAndSiblings = exports.getPrescedingTextFromWindowSelection = exports.getSelectedTextFromWindowSelection = exports.getCurrentWindowSelection = exports.getSelectionFromCurrentWindowSelection = undefined;
 exports.shouldRenderEllipsis = shouldRenderEllipsis;
 
-var _stringHelpers = __webpack_require__(580);
+var _stringHelpers = __webpack_require__(582);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -80704,7 +80743,7 @@ function shouldRenderEllipsis(selections, verseText) {
 }
 
 /***/ }),
-/* 580 */
+/* 582 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80770,7 +80809,7 @@ var generateSelection = exports.generateSelection = function generateSelection(s
 };
 
 /***/ }),
-/* 581 */
+/* 583 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80781,15 +80820,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addSelectionToSelections = exports.removeSelectionFromSelections = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionsToStringSplices = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _deepEqual = __webpack_require__(561);
+var _deepEqual = __webpack_require__(559);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _lodash = __webpack_require__(569);
+var _lodash = __webpack_require__(571);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _stringHelpers = __webpack_require__(580);
+var _stringHelpers = __webpack_require__(582);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -80998,7 +81037,7 @@ var addSelectionToSelections = exports.addSelectionToSelections = function addSe
 };
 
 /***/ }),
-/* 582 */
+/* 584 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81016,9 +81055,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(583);
+__webpack_require__(585);
 
-var _InstructionsAreaTextSelection = __webpack_require__(585);
+var _InstructionsAreaTextSelection = __webpack_require__(587);
 
 var _InstructionsAreaTextSelection2 = _interopRequireDefault(_InstructionsAreaTextSelection);
 
@@ -81123,11 +81162,11 @@ InstructionsArea.propTypes = {
 exports.default = InstructionsArea;
 
 /***/ }),
-/* 583 */
+/* 585 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(584);
+var content = __webpack_require__(586);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -81148,7 +81187,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 584 */
+/* 586 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -81162,7 +81201,7 @@ exports.push([module.i, ".instructions-area {\n  padding: 5px;\n  text-align: ce
 
 
 /***/ }),
-/* 585 */
+/* 587 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81180,7 +81219,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _windowSelectionHelpers = __webpack_require__(579);
+var _windowSelectionHelpers = __webpack_require__(581);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
@@ -81253,7 +81292,7 @@ QuoatationMarks.propTypes = {
 };
 
 /***/ }),
-/* 586 */
+/* 588 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81273,7 +81312,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(587);
+__webpack_require__(589);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81379,11 +81418,11 @@ EditVerseArea.propTypes = {
 exports.default = EditVerseArea;
 
 /***/ }),
-/* 587 */
+/* 589 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(588);
+var content = __webpack_require__(590);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -81404,7 +81443,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 588 */
+/* 590 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -81418,7 +81457,7 @@ exports.push([module.i, ".edit-area {\n  flex: auto;\n  display: flex;\n  flex-d
 
 
 /***/ }),
-/* 589 */
+/* 591 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81438,7 +81477,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(590);
+__webpack_require__(592);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81483,45 +81522,6 @@ CommentArea.propTypes = {
 exports.default = CommentArea;
 
 /***/ }),
-/* 590 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(591);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 591 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}", ""]);
-
-// exports
-
-
-/***/ }),
 /* 592 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -81555,13 +81555,52 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".check-area {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}", ""]);
+exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  flex-direction: column;\n  padding: 5px 15px 0 15px;\n  height: 100%;\n}", ""]);
 
 // exports
 
 
 /***/ }),
 /* 594 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(595);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 595 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".check-area {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 596 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81581,7 +81620,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(595);
+__webpack_require__(597);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81639,11 +81678,11 @@ SaveArea.propTypes = {
 exports.default = SaveArea;
 
 /***/ }),
-/* 595 */
+/* 597 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(596);
+var content = __webpack_require__(598);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -81664,7 +81703,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 596 */
+/* 598 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -81678,7 +81717,7 @@ exports.push([module.i, ".save-area {\n  flex: 0 0 55px;\n  display: flex;\n  ju
 
 
 /***/ }),
-/* 597 */
+/* 599 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81702,9 +81741,9 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _localizationHelpers = __webpack_require__(598);
+var _localizationHelpers = __webpack_require__(600);
 
-var _Toolbar = __webpack_require__(575);
+var _Toolbar = __webpack_require__(577);
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
@@ -81817,7 +81856,7 @@ DialogComponent.propTypes = {
 exports.default = DialogComponent;
 
 /***/ }),
-/* 598 */
+/* 600 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81849,7 +81888,7 @@ var getTranslatedParts = exports.getTranslatedParts = function getTranslatedPart
 };
 
 /***/ }),
-/* 599 */
+/* 601 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81931,7 +81970,7 @@ IconIndicators.propTypes = {
 exports.default = IconIndicators;
 
 /***/ }),
-/* 600 */
+/* 602 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81941,7 +81980,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _GroupMenu = __webpack_require__(601);
+var _GroupMenu = __webpack_require__(603);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -81953,7 +81992,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 601 */
+/* 603 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81973,23 +82012,23 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = __webpack_require__(602);
+var _helpers = __webpack_require__(604);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _Groups = __webpack_require__(620);
+var _Groups = __webpack_require__(622);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(630);
+var _FilterMenuHeader = __webpack_require__(632);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(632);
+var _GroupsMenuFilter = __webpack_require__(634);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(637);
+__webpack_require__(639);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -82212,7 +82251,7 @@ GroupMenu.defaultProps = {
 exports.default = GroupMenu;
 
 /***/ }),
-/* 602 */
+/* 604 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82233,17 +82272,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(603);
+var _server = __webpack_require__(605);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactTooltip = __webpack_require__(606);
+var _reactTooltip = __webpack_require__(608);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _InvalidatedIcon = __webpack_require__(619);
+var _InvalidatedIcon = __webpack_require__(621);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -82428,19 +82467,19 @@ function getGlyphIcons(glyphs) {
 }
 
 /***/ }),
-/* 603 */
+/* 605 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(604);
+  module.exports = __webpack_require__(606);
 }
 
 
 /***/ }),
-/* 604 */
+/* 606 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82467,7 +82506,7 @@ var React = __webpack_require__(3);
 var emptyFunction = __webpack_require__(6);
 var emptyObject = __webpack_require__(269);
 var hyphenateStyleName = __webpack_require__(270);
-var memoizeStringOnly = __webpack_require__(605);
+var memoizeStringOnly = __webpack_require__(607);
 var warning = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(11);
 var camelizeStyleName = __webpack_require__(272);
@@ -85169,7 +85208,7 @@ module.exports = server_browser;
 
 
 /***/ }),
-/* 605 */
+/* 607 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85202,7 +85241,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 606 */
+/* 608 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85239,45 +85278,45 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _staticMethods = __webpack_require__(607);
+var _staticMethods = __webpack_require__(609);
 
 var _staticMethods2 = _interopRequireDefault(_staticMethods);
 
-var _windowListener = __webpack_require__(609);
+var _windowListener = __webpack_require__(611);
 
 var _windowListener2 = _interopRequireDefault(_windowListener);
 
-var _customEvent = __webpack_require__(610);
+var _customEvent = __webpack_require__(612);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
-var _isCapture = __webpack_require__(611);
+var _isCapture = __webpack_require__(613);
 
 var _isCapture2 = _interopRequireDefault(_isCapture);
 
-var _getEffect = __webpack_require__(612);
+var _getEffect = __webpack_require__(614);
 
 var _getEffect2 = _interopRequireDefault(_getEffect);
 
-var _trackRemoval = __webpack_require__(613);
+var _trackRemoval = __webpack_require__(615);
 
 var _trackRemoval2 = _interopRequireDefault(_trackRemoval);
 
-var _getPosition = __webpack_require__(614);
+var _getPosition = __webpack_require__(616);
 
 var _getPosition2 = _interopRequireDefault(_getPosition);
 
-var _getTipContent = __webpack_require__(615);
+var _getTipContent = __webpack_require__(617);
 
 var _getTipContent2 = _interopRequireDefault(_getTipContent);
 
-var _aria = __webpack_require__(616);
+var _aria = __webpack_require__(618);
 
-var _nodeListToArray = __webpack_require__(617);
+var _nodeListToArray = __webpack_require__(619);
 
 var _nodeListToArray2 = _interopRequireDefault(_nodeListToArray);
 
-var _style = __webpack_require__(618);
+var _style = __webpack_require__(620);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -85819,7 +85858,7 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 module.exports = ReactTooltip;
 
 /***/ }),
-/* 607 */
+/* 609 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85878,7 +85917,7 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(608);
+var _constant = __webpack_require__(610);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -85903,7 +85942,7 @@ var dispatchGlobalEvent = function dispatchGlobalEvent(eventName, opts) {
     */
 
 /***/ }),
-/* 608 */
+/* 610 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85922,7 +85961,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 609 */
+/* 611 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85969,14 +86008,14 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(608);
+var _constant = __webpack_require__(610);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 610 */
+/* 612 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86070,7 +86109,7 @@ var setUntargetItems = function setUntargetItems(currentTarget, targetArray) {
 var customListener = void 0;
 
 /***/ }),
-/* 611 */
+/* 613 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86088,7 +86127,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 612 */
+/* 614 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86106,7 +86145,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 613 */
+/* 615 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86164,7 +86203,7 @@ var getMutationObserverClass = function getMutationObserverClass() {
 };
 
 /***/ }),
-/* 614 */
+/* 616 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86522,7 +86561,7 @@ var getParent = function getParent(currentTarget) {
 };
 
 /***/ }),
-/* 615 */
+/* 617 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86560,7 +86599,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 616 */
+/* 618 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86590,7 +86629,7 @@ function parseAria(props) {
 }
 
 /***/ }),
-/* 617 */
+/* 619 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86611,7 +86650,7 @@ exports.default = function (nodeList) {
 };
 
 /***/ }),
-/* 618 */
+/* 620 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86623,7 +86662,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = '.__react_component_tooltip{border-radius:3px;display:inline-block;font-size:13px;left:-999em;opacity:0;padding:8px 21px;position:fixed;pointer-events:none;transition:opacity 0.3s ease-out;top:-999em;visibility:hidden;z-index:999}.__react_component_tooltip:before,.__react_component_tooltip:after{content:"";width:0;height:0;position:absolute}.__react_component_tooltip.show{opacity:0.9;margin-top:0px;margin-left:0px;visibility:visible}.__react_component_tooltip.type-dark{color:#fff;background-color:#222}.__react_component_tooltip.type-dark.place-top:after{border-top-color:#222;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-dark.place-bottom:after{border-bottom-color:#222;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-dark.place-left:after{border-left-color:#222;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-dark.place-right:after{border-right-color:#222;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-dark.border{border:1px solid #fff}.__react_component_tooltip.type-dark.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-dark.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-dark.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-dark.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-success{color:#fff;background-color:#8DC572}.__react_component_tooltip.type-success.place-top:after{border-top-color:#8DC572;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-success.place-bottom:after{border-bottom-color:#8DC572;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-success.place-left:after{border-left-color:#8DC572;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-success.place-right:after{border-right-color:#8DC572;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-success.border{border:1px solid #fff}.__react_component_tooltip.type-success.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-success.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-success.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-success.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-warning{color:#fff;background-color:#F0AD4E}.__react_component_tooltip.type-warning.place-top:after{border-top-color:#F0AD4E;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-warning.place-bottom:after{border-bottom-color:#F0AD4E;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-warning.place-left:after{border-left-color:#F0AD4E;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-warning.place-right:after{border-right-color:#F0AD4E;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-warning.border{border:1px solid #fff}.__react_component_tooltip.type-warning.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-warning.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-warning.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-warning.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-error{color:#fff;background-color:#BE6464}.__react_component_tooltip.type-error.place-top:after{border-top-color:#BE6464;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-error.place-bottom:after{border-bottom-color:#BE6464;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-error.place-left:after{border-left-color:#BE6464;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-error.place-right:after{border-right-color:#BE6464;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-error.border{border:1px solid #fff}.__react_component_tooltip.type-error.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-error.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-error.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-error.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-info{color:#fff;background-color:#337AB7}.__react_component_tooltip.type-info.place-top:after{border-top-color:#337AB7;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-info.place-bottom:after{border-bottom-color:#337AB7;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-info.place-left:after{border-left-color:#337AB7;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-info.place-right:after{border-right-color:#337AB7;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-info.border{border:1px solid #fff}.__react_component_tooltip.type-info.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-info.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-info.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-info.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-light{color:#222;background-color:#fff}.__react_component_tooltip.type-light.place-top:after{border-top-color:#fff;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-light.place-bottom:after{border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-light.place-left:after{border-left-color:#fff;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-light.place-right:after{border-right-color:#fff;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-light.border{border:1px solid #222}.__react_component_tooltip.type-light.border.place-top:before{border-top:8px solid #222}.__react_component_tooltip.type-light.border.place-bottom:before{border-bottom:8px solid #222}.__react_component_tooltip.type-light.border.place-left:before{border-left:8px solid #222}.__react_component_tooltip.type-light.border.place-right:before{border-right:8px solid #222}.__react_component_tooltip.place-top{margin-top:-10px}.__react_component_tooltip.place-top:before{border-left:10px solid transparent;border-right:10px solid transparent;bottom:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-top:after{border-left:8px solid transparent;border-right:8px solid transparent;bottom:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-bottom{margin-top:10px}.__react_component_tooltip.place-bottom:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-bottom:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-left{margin-left:-10px}.__react_component_tooltip.place-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;right:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-left:after{border-top:5px solid transparent;border-bottom:5px solid transparent;right:-6px;top:50%;margin-top:-4px}.__react_component_tooltip.place-right{margin-left:10px}.__react_component_tooltip.place-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;left:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-right:after{border-top:5px solid transparent;border-bottom:5px solid transparent;left:-6px;top:50%;margin-top:-4px}.__react_component_tooltip .multi-line{display:block;padding:2px 0px;text-align:center}';
 
 /***/ }),
-/* 619 */
+/* 621 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86682,7 +86721,7 @@ InvalidatedIcon.defaultProps = {
 exports.default = InvalidatedIcon;
 
 /***/ }),
-/* 620 */
+/* 622 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86696,15 +86735,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Group = __webpack_require__(621);
+var _Group = __webpack_require__(623);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(627);
+var _NoResults = __webpack_require__(629);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
-var _helpers = __webpack_require__(602);
+var _helpers = __webpack_require__(604);
 
 var helpers = _interopRequireWildcard(_helpers);
 
@@ -86767,7 +86806,7 @@ var Groups = function Groups(_ref) {
 exports.default = Groups;
 
 /***/ }),
-/* 621 */
+/* 623 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86787,11 +86826,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Progress = __webpack_require__(622);
+var _Progress = __webpack_require__(624);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _GroupItems = __webpack_require__(625);
+var _GroupItems = __webpack_require__(627);
 
 var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
@@ -86846,14 +86885,15 @@ var Group = function Group(_ref) {
           { onClick: openGroup },
           _react2.default.createElement(
             'div',
-            { style: { justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%' } },
+            { style: { justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
+            _react2.default.createElement('div', { style: { height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%' } }),
             _react2.default.createElement(_Progress.CircularProgress, {
               variant: 'static',
               value: progress * 100,
               thickness: 10,
               size: 15,
               color: progress ? 'primary' : 'secondary',
-              style: { alignSelf: 'center', position: 'absolute', height: 20, width: 20 }
+              style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
             })
           ),
           groupIndex.name
@@ -86889,7 +86929,7 @@ Group.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Group);
 
 /***/ }),
-/* 622 */
+/* 624 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86899,7 +86939,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _CircularProgress = __webpack_require__(623);
+var _CircularProgress = __webpack_require__(625);
 
 Object.defineProperty(exports, 'CircularProgress', {
   enumerable: true,
@@ -86908,7 +86948,7 @@ Object.defineProperty(exports, 'CircularProgress', {
   }
 });
 
-var _LinearProgress = __webpack_require__(624);
+var _LinearProgress = __webpack_require__(626);
 
 Object.defineProperty(exports, 'LinearProgress', {
   enumerable: true,
@@ -86920,7 +86960,7 @@ Object.defineProperty(exports, 'LinearProgress', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 623 */
+/* 625 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87154,7 +87194,7 @@ CircularProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCircularProgress', flip: false })(CircularProgress);
 
 /***/ }),
-/* 624 */
+/* 626 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87418,7 +87458,7 @@ LinearProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiLinearProgress' })(LinearProgress);
 
 /***/ }),
-/* 625 */
+/* 627 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87432,15 +87472,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _helpers = __webpack_require__(602);
+var _helpers = __webpack_require__(604);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _GroupItem = __webpack_require__(626);
+var _GroupItem = __webpack_require__(628);
 
 var _GroupItem2 = _interopRequireDefault(_GroupItem);
 
-var _deepEqual = __webpack_require__(561);
+var _deepEqual = __webpack_require__(559);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
@@ -87512,7 +87552,7 @@ var GroupItems = function GroupItems(_ref) {
 exports.default = GroupItems;
 
 /***/ }),
-/* 626 */
+/* 628 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87524,7 +87564,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTooltip = __webpack_require__(606);
+var _reactTooltip = __webpack_require__(608);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -87641,7 +87681,7 @@ GroupItem.propTypes = {
 module.exports = GroupItem;
 
 /***/ }),
-/* 627 */
+/* 629 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87655,7 +87695,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(628);
+__webpack_require__(630);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -87671,11 +87711,11 @@ var NoResults = function NoResults(_ref) {
 exports.default = NoResults;
 
 /***/ }),
-/* 628 */
+/* 630 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(629);
+var content = __webpack_require__(631);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -87696,7 +87736,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 629 */
+/* 631 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -87710,7 +87750,7 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 630 */
+/* 632 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87726,7 +87766,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(631);
+var _FilterBadge = __webpack_require__(633);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -87756,7 +87796,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 631 */
+/* 633 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87787,7 +87827,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 632 */
+/* 634 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87805,11 +87845,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(633);
+var _ExpandedFilter = __webpack_require__(635);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(635);
+var _CollapsedFilter = __webpack_require__(637);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -87853,7 +87893,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 633 */
+/* 635 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87871,11 +87911,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(634);
+var _GroupsMenuFilterOption = __webpack_require__(636);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
-var _InvalidatedIcon = __webpack_require__(619);
+var _InvalidatedIcon = __webpack_require__(621);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -87974,7 +88014,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 634 */
+/* 636 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88043,7 +88083,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 635 */
+/* 637 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88061,7 +88101,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(636);
+var _GroupsMenuFilterBubble = __webpack_require__(638);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -88151,7 +88191,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 636 */
+/* 638 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88204,45 +88244,6 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 637 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(638);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 638 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
-
-// module
-exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  width: 250px;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
-
-// exports
-
-
-/***/ }),
 /* 639 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -88273,10 +88274,10 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-
+exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
+exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  width: 250px;\n  overflow-y: scroll;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
 
 // exports
 

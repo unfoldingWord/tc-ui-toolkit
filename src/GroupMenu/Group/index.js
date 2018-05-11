@@ -1,5 +1,5 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import {CircularProgress} from 'material-ui/Progress';
 import {Glyphicon} from 'react-bootstrap';
@@ -9,7 +9,7 @@ import {withStyles} from 'material-ui/styles';
 const styles = {
   circle: {
     width: 40,
-    height:40
+    height: 40
   }
 };
 
@@ -47,14 +47,15 @@ const Group = ({
         <div className={groupMenuItemHeadingClassName}>
           {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
           <div onClick={openGroup}>
-            <div style={{ justifyContent:'center', height:20, width:20, display:'flex', marginRight: '10px', float: 'left', border: 'white solid 3px', borderRadius: '50%'}}>
+            <div style={{justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
+              <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
               <CircularProgress
                 variant="static"
                 value={progress * 100}
                 thickness={10}
                 size={15}
                 color={progress ? 'primary' : 'secondary'}
-                style={{alignSelf:'center', position: 'absolute', height:20, width: 20}}
+                style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20}}
               />
             </div>
             {groupIndex.name}
