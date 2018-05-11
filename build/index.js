@@ -86885,7 +86885,7 @@ var Group = function Group(_ref) {
           { onClick: openGroup },
           _react2.default.createElement(
             'div',
-            { style: { justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
+            { style: { position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
             _react2.default.createElement('div', { style: { height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%' } }),
             _react2.default.createElement(_Progress.CircularProgress, {
               variant: 'static',

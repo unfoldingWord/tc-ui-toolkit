@@ -47,7 +47,7 @@ const Group = ({
         <div className={groupMenuItemHeadingClassName}>
           {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
           <div onClick={openGroup}>
-            <div style={{justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
+            <div style={{position:'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
               <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
               <CircularProgress
                 variant="static"
