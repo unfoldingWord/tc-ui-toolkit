@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'deep-equal';
 import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import {Glyphicon} from 'react-bootstrap';
 
@@ -11,6 +12,8 @@ import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
 // helpers
 import * as bibleHelpers from './helpers/bibleHelpers';
+// TODO: Remove this bibles when we can get it from props instead.
+import bibles from './helpers/__test__/fixtures/bibles.test';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -33,12 +36,19 @@ class ScripturePane extends Component {
   }
 
   componentWillMount() {
-    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords();
+    const { selections, contextId, getLexiconData, showPopover } = this.props;
+    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
     this.setState({ biblesWithHighlightedWords });
   }
 
-  componentWillReceiveProps() {
-    // TODO: call bibleHelpers.getBiblesWithHighlightedWords() with new updates for selctions and when the bibles are different.
+  componentWillReceiveProps(nextProps) {
+    const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) || 
+      !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
+    if (reParseBibleData) {
+      const { selections, contextId, getLexiconData, showPopover } = nextProps;
+      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+      this.setState({ biblesWithHighlightedWords });
+    }
   }
 
   openExpandedScripturePane() { this.setState({ showExpandedScripturePane: true }) }
@@ -195,15 +205,25 @@ ScripturePane.propTypes = {
   selectLabel: PropTypes.string.isRequired,
   setToolSettings: PropTypes.func.isRequired,
   contextId: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  bibles: PropTypes.object
 };
 
 // TODO: Remove defaultProps for requiered data.
 ScripturePane.defaultProps = {
   contextId: {
+    groupId: "apostle",
+    occurrence: 1,
+    quote: "ἀπόστολος",
     refecerence: {
+      bookId: "tit",
       chapter: 1,
-      verse: 2,
-    }
+      verse: 1,
+    },
+    strong: ["G06520"],
+    tool: "translationWords"
   },
   currentPaneSettings: [
     {
@@ -221,6 +241,14 @@ ScripturePane.defaultProps = {
     {
       languageId: "en",
       bibleId: "udt",
+    },
+    {
+      languageId: "hi",
+      bibleId: "udt",
+    },
+    {
+      languageId: "hi",
+      bibleId: "ulb",
     }
   ],
 };

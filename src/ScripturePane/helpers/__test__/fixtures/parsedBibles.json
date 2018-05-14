@@ -1,0 +1,106 @@
+{
+  "en": {
+    "ult": {
+      "manifest": {
+        "language_id": "en",
+        "language_name": "English",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "ult",
+        "resource_title": "unfoldingWord Literal Text",
+        "description": "Gateway Language"
+      },
+      "bibleData": {
+        "1": {
+          "1": "<strong>1: 1 </strong><span><span style="background-color: rgb(255, 255, 255);"></span><span>Paul</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>a</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>servant</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>God</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>and</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span style="background-color: var(--highlight-color);">an</span></span><span><span style="background-color: var(--highlight-color);"> </span><span style="background-color: var(--highlight-color);">apostle</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Jesus</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Christ</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>for</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>the</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>faith</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>God</span></span><span>'</span><span><span style="background-color: rgb(255, 255, 255);"></span><span>s</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>chosen</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>people</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>and</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>the</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>knowledge</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>the</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>truth</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>that</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>agrees</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>with</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>godliness</span></span><span>, </span>"
+        }
+      }
+    },
+    "udt": {
+      "manifest": {
+        "language_id": "en",
+        "language_name": "English",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "udt",
+        "resource_title": "unfoldingWord Dynamic Text",
+        "description": "Gateway Language"
+      },
+      "bibleData": {
+        "1": {
+          "1": <strong>1: 1 </strong><span><span style="background-color: rgb(255, 255, 255);"></span><span>I</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Paul</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>write</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>this</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>letter</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>to</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>you</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Titus</span></span><span>.</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>I</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>am</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>a</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>servant</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>God</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>and</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span style="background-color: var(--highlight-color);">an</span></span><span><span style="background-color: var(--highlight-color);"> </span><span style="background-color: var(--highlight-color);">apostle</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>of</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Jesus</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>Christ</span></span><span>.</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>God</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>sent</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>me</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>to</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>teach</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>the</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>people</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>whom</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>he</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>has</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>chosen</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>as</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>his</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>own</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>to</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>trust</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>him</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>more</span></span><span>.</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>I</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>work</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>to</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>help</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>his</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>people</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>to</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>know</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>what</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>is</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>true</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>so</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>that</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>they</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>can</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>live</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>in</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>a</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>way</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>that</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>pleases</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>God</span></span><span>. </span>,
+        }
+      }
+    }
+  },
+  "hi": {
+    "ulb": {
+      "manifest": {
+        "language_id": "hi",
+        "language_name": "हिन्दी, हिंदी",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "ulb",
+        "resource_title": "Unlocked Literal Bible - Hindi",
+        "description": "Gateway Language"
+      },
+      "bibleData": {
+        "1": {
+          "1": <strong>1: 1 </strong><span><span style="background-color: rgb(255, 255, 255);"></span><span>पौलुस</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>की</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>ओर</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>से</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>जो</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>परमेश्</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>वर</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>का</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>दास</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>और</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>यीशु</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>मसीह</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>का</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span style="background-color: var(--highlight-color);">प्रेरित</span></span><span><span style="background-color: var(--highlight-color);"> </span><span style="background-color: var(--highlight-color);">है</span></span><span>,</span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>परमेश्</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>वर</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>के</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>चुने</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>हुए</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>लोगों</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>के</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>विश्वास</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>को</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>स्थापित</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>करने</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>और</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>सच्चाई</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>का</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>ज्ञान</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>स्थापित</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>करने</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>के</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>लिए</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>जो</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>भक्ति</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>के</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>साथ</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>सहमत</span></span><span><span style="background-color: rgb(255, 255, 255);"> </span><span>हैं</span></span><span>, </span>,
+        }
+      }
+    },
+    "udt": {
+      "manifest": {
+        "language_id": "hi",
+        "language_name": "हिन्दी, हिंदी",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "udt",
+        "resource_title": "Unlocked Dynamic Text",
+        "description": "Gateway Language"
+      },
+      "bibleData": {
+        "1": {
+          "1": <strong>1: 1 </strong><span>HINDI Paul, a </span><span style="background-color: var(--highlight-color);">servant</span><span> of God and </span><span style="background-color: var(--highlight-color);">an apostle</span><span> of Jesus Christ, for the faith of Gods chosen people and the knowledge of the truth that agrees with godliness,</span>,
+        }
+      }
+    }
+  },
+  "originalLanguage": {
+    "ugnt": {
+      "manifest": {
+        "language_id": "el-x-koine",
+        "language_name": "Koine Greek",
+        "direction": "ltr",
+        "subject": "Greek New Testament",
+        "resource_id": "ugnt",
+        "resource_title": "Unlocked Greek New Testament",
+        "description": "Original Language"
+      },
+      "bibleData": {
+        "1": {
+          "1": <strong>1: 1 </strong><span></span><span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>Παῦλος</span></span><span>,</span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>δοῦλος</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>Θεοῦ</span></span><span>,</span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span style="background-color: var(--highlight-color);">ἀπόστολος</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>δὲ</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>Ἰησοῦ</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>Χριστοῦ</span></span><span>,</span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>κατὰ</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>πίστιν</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>ἐκλεκτῶν</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>Θεοῦ</span></span><span>,</span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>καὶ</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>ἐπίγνωσιν</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>ἀληθείας</span></span><span>,</span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>τῆς</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>κατ’</span></span><span style="cursor: pointer;"><span style="background-color: rgb(255, 255, 255);"> </span><span>εὐσέβειαν</span></span><span></span>,
+        }
+      }
+    }
+  },
+  "targetLanguage": {
+    "targetBible": {
+      "manifest": {
+        "description": "Target Language",
+        "direction": "ltr",
+        "language_id": "en",
+        "language_name": "English",
+        "resource_id": "targetLanguage",
+        "resource_title": "Target Bible",
+        "subject": "Bible"
+      },
+      "bibleData": {
+        "1": {
+          "1": <strong>1: 1 </strong><span>Paul, a </span><span style="background-color: var(--highlight-color);">servant</span><span> of God and </span><span style="background-color: var(--highlight-color);">an apostle</span><span> of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,</span>,
+        }
+      }
+    }
+  }
+}

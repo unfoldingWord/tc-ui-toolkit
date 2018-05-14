@@ -35,6 +35,29 @@ class App extends Component {
             addResourceLabel={"Add Resources"}
             selectLanguageLabel={"Select language"}
             selectLabel={"Select"}
+            showPopover={() => console.log('showPopover')}
+            getLexiconData={() => {
+              return {
+                'ugl': {
+                  '2532': {
+                    "brief": "and, even, also, namely",
+                    "long": "and, even, also, namely."
+                  }
+                }
+              };
+            }}
+            selections={[
+              {
+                occurrence: 1,
+                occurrences: 1,
+                text: "servant"
+              },
+              {
+                occurrence: 1,
+                occurrences: 1,
+                text: "an apostle"
+              }
+            ]}
             setToolSettings={() => {}}
           />
         </div>
@@ -48,7 +71,7 @@ class App extends Component {
           />
         </div>
         <div style={{padding: '10px'}}>
-          <VerseCheck 
+          <VerseCheck
             alignedGLText='text'
             verseText='verse text'
             mode='select'
