@@ -11,8 +11,8 @@
   align-content: center;
   color: var(--text-color);
   background-color: var(--background-color-light);
-
 }
+
 .sash-container {
   display: flex;
   flex-flow: row nowrap;
@@ -21,32 +21,32 @@
   width: 1px;
 }
 
-.helps-sash {
-  display: flex; 
-  align-content: center;
-  margin-top: 50%;
-  padding-top: 7px;
-  height: 30px;
-  background-color: var(--background-color-dark);
+.helps-sash-closed {
+  z-index: 999;
   color: var(--reverse-color);
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-  margin-left: -15px;
+  background-color: var(--text-color-dark);
+  padding: 10px 0px;
+  border-radius: 5px 0px 0px 5px;
   width: 15px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.helps-sash-open {
+  z-index: 999;
+  color: var(--reverse-color);
+  background-color: var(--text-color-dark);
+  padding: 10px 0px;
+  border-radius: 0px 5px 5px 0px;
+  width: 15px;
+  cursor: pointer;
+  align-self: center;
 }
 
 .helps {
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-}
-
-.handle-Icon {
-  z-index: "999";
-  color: "var(--reverse-color)";
-  background-color: "var(--text-color-dark)";
-  padding: "10px 0px";
-  border-radius: "5px 0px 0px 5px";
 }
 
 .helps-title-bar {

@@ -4,10 +4,10 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, { DialogActions, DialogTitle, DialogContent } from 'material-ui/Dialog';
+import Dialog, {DialogActions, DialogTitle, DialogContent} from 'material-ui/Dialog';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-import { Glyphicon } from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
 
 //import './ExpandedHelpsModal.styles.css';
 
@@ -43,15 +43,14 @@ const styles = {
 
 const ExpandedHelpsModal = ({
   show,
-  onHide, 
+  onHide,
   title,
-  article, 
+  article,
 }) => {
   return (
-    <Dialog 
-        open={show} 
-        maxWidth='md'
-    >
+    <Dialog
+      open={show}
+      maxWidth='md'>
       <Toolbar style={styles.toolBar}>
         <div style={styles.title}>
           {title}
@@ -66,18 +65,18 @@ const ExpandedHelpsModal = ({
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
           Close
-        </button> 
+        </button>
       </DialogActions>
-    </Dialog>  
+    </Dialog>
   );
 };
 
 
 ExpandedHelpsModal.propTypes = {
   show: PropTypes.bool.isRequired,
-  /*onHide: PropTypes.func.isRequired,
-   title: PropTypes.string.isRequired, 
-  article: PropTypes.string.isRequired, 
-*/ };
+  onHide: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  article: PropTypes.string.isRequired
+};
 
 export default ExpandedHelpsModal;
