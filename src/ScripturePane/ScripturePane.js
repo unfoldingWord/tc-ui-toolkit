@@ -13,7 +13,7 @@ import AddPaneModal from './AddPaneModal';
 // helpers
 import * as bibleHelpers from './helpers/bibleHelpers';
 // TODO: Remove this bibles when we can get it from props instead.
-import bibles from './helpers/__test__/fixtures/bibles.test';
+import bibles from './helpers/__test__/fixtures/bibles.json';
 // constant
 const NAMESPACE = 'ScripturePane';
 

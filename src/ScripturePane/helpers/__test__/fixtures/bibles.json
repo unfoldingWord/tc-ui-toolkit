@@ -1,16 +1,16 @@
-const bibles = {
-  en: {
-    ult: {
-      manifest: {
-        language_id: "en",
-        language_name: "English",
-        direction: "ltr",
-        subject: "Bible",
-        resource_id: "ult",
-        resource_title: "unfoldingWord Literal Text",
-        description: "Gateway Language"
+{
+  "en": {
+    "ult": {
+      "manifest": {
+        "language_id": "en",
+        "language_name": "English",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "ult",
+        "resource_title": "unfoldingWord Literal Text",
+        "description": "Gateway Language"
       },
-      1: {
+      "1": {
         "1": {
           "verseObjects": [
             {
@@ -461,20 +461,20 @@ const bibles = {
               "text": ", \n"
             }
           ]
-        },
+        }
       }
     },
-    udt: {
-      manifest: {
-        language_id: "en",
-        language_name: "English",
-        direction: "ltr",
-        subject: "Bible",
-        resource_id: "udt",
-        resource_title: "unfoldingWord Dynamic Text",
-        description: "Gateway Language"
+    "udt": {
+      "manifest": {
+        "language_id": "en",
+        "language_name": "English",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "udt",
+        "resource_title": "unfoldingWord Dynamic Text",
+        "description": "Gateway Language"
       },
-      1: {
+      "1": {
         "1": {
           "verseObjects": [
             {
@@ -1194,22 +1194,22 @@ const bibles = {
               "text": ". \n"
             }
           ]
-        },
+        }
       }
     }
   },
-  hi: {
-    ulb: {
-      manifest: {
-        language_id: "hi",
-        language_name: "हिन्दी, हिंदी",
-        direction: "ltr",
-        subject: "Bible",
-        resource_id: "ulb",
-        resource_title: "Unlocked Literal Bible - Hindi",
-        description: "Gateway Language"
+  "hi": {
+    "ulb": {
+      "manifest": {
+        "language_id": "hi",
+        "language_name": "हिन्दी, हिंदी",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "ulb",
+        "resource_title": "Unlocked Literal Bible - Hindi",
+        "description": "Gateway Language"
       },
-      1: {
+      "1": {
         "1": {
           "verseObjects": [
             {
@@ -1785,36 +1785,36 @@ const bibles = {
               "text": ", \n"
             }
           ]
-        },
+        }
       }
     },
-    udt: {
-      manifest: {
-        language_id: "hi",
-        language_name: "हिन्दी, हिंदी",
-        direction: "ltr",
-        subject: "Bible",
-        resource_id: "udt",
-        resource_title: "Unlocked Dynamic Text",
-        description: "Gateway Language",
+    "udt": {
+      "manifest": {
+        "language_id": "hi",
+        "language_name": "हिन्दी, हिंदी",
+        "direction": "ltr",
+        "subject": "Bible",
+        "resource_id": "udt",
+        "resource_title": "Unlocked Dynamic Text",
+        "description": "Gateway Language"
       },
-      1: {
-        1: "HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of Gods chosen people and the knowledge of the truth that agrees with godliness,",
+      "1": {
+        "1": "HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of Gods chosen people and the knowledge of the truth that agrees with godliness,"
       }
     }
   },
-  originalLanguage: {
-    ugnt: {
-      manifest: {
-        language_id: "el-x-koine",
-        language_name: "Koine Greek",
-        direction: "ltr",
-        subject: "Greek New Testament",
-        resource_id: "ugnt",
-        resource_title: "Unlocked Greek New Testament",
-        description: "Original Language"
+  "originalLanguage": {
+    "ugnt": {
+      "manifest": {
+        "language_id": "el-x-koine",
+        "language_name": "Koine Greek",
+        "direction": "ltr",
+        "subject": "Greek New Testament",
+        "resource_id": "ugnt",
+        "resource_title": "Unlocked Greek New Testament",
+        "description": "Original Language"
       },
-      1: {
+      "1": {
         "1": {
           "verseObjects": [
             {
@@ -2005,26 +2005,24 @@ const bibles = {
               "text": "\n\n"
             }
           ]
-        },
+        }
       }
     }
   },
-  targetLanguage: {
-    targetBible: {
-      manifest: {
-        description: "Target Language",
-        direction: "ltr",
-        language_id: "en",
-        language_name: "English",
-        resource_id: "targetLanguage",
-        resource_title: "Target Bible",
-        subject: "Bible",
+  "targetLanguage": {
+    "targetBible": {
+      "manifest": {
+        "description": "Target Language",
+        "direction": "ltr",
+        "language_id": "en",
+        "language_name": "English",
+        "resource_id": "targetLanguage",
+        "resource_title": "Target Bible",
+        "subject": "Bible"
       },
-      1: {
-        1: "Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,",
+      "1": {
+        "1": "Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
       }
     }
   }
-};
-
-export default bibles;
+}
