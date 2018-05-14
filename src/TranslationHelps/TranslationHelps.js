@@ -33,7 +33,7 @@ const TranslationHelps = ({
     return (
       <MuiThemeProvider theme={theme}>
         <div className="helps-sash-container">
-          <div className="helps-sash-open" onClick={sidebarToggle}>
+          <div className="helps-sash-closed" onClick={sidebarToggle}>
             <Glyphicon
               glyph="chevron-right"
               style={{cursor: "pointer"}} />
@@ -60,15 +60,13 @@ const TranslationHelps = ({
     )
   } else {
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="helps-sash-closed" onClick={sidebarToggle}>
-          <Glyphicon
-            glyph="chevron-left"
-            style={{cursor: "pointer"}}
-            onClick={sidebarToggle}
-          />
-        </div>
-      </MuiThemeProvider>
+      <div className="helps-sash-closed" onClick={sidebarToggle}>
+        <Glyphicon
+          glyph="chevron-left"
+          style={{cursor: "pointer"}}
+          onClick={sidebarToggle}
+        />
+      </div>
     )
   }
 

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import { TranslationHelps } from 'tc-ui-toolkit';
-
+import {VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps} from 'tc-ui-toolkit';
 const article = (
   <div>
     <p>
@@ -76,13 +74,24 @@ class App extends Component {
   }
   render() {
     return (
-      <TranslationHelps
-        article={article}
-        openExpandedHelpsModal={() => this.handleHelpsExpandedToggle()}
-        isShowHelpsSidebar={this.state.isShowHelpsSidebar}
-        sidebarToggle={() => this.handleSidebarToggle()}
-        isShowHelpsExpanded={this.state.isShowHelpsExpanded}
-      />
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <GroupMenu />
+        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+          <CheckInfoCard
+            title={'Title'}
+            phrase={'a phrase'}
+            seeMoreLabel={'see_more'}
+            showSeeMoreButton={!this.state.isShowHelpsExpanded}
+            onSeeMoreClick={() => this.handleHelpsExpandedToggle()} />
+          <VerseCheck />
+        </div>
+        <TranslationHelps
+          article={article}
+          openExpandedHelpsModal={() => this.handleHelpsExpandedToggle()}
+          isShowHelpsSidebar={this.state.isShowHelpsSidebar}
+          sidebarToggle={() => this.handleSidebarToggle()}
+          isShowHelpsExpanded={this.state.isShowHelpsExpanded} />
+      </div>
     );
   }
 }

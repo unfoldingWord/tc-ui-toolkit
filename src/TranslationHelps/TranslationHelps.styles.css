@@ -6,11 +6,8 @@
 
 .helps-sash-container {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-content: center;
-  color: var(--text-color);
-  background-color: var(--background-color-light);
+  max-width: 250px;
+  height: 100vh;
 }
 
 .sash-container {
@@ -32,21 +29,10 @@
   align-self: center;
 }
 
-.helps-sash-open {
-  z-index: 999;
-  color: var(--reverse-color);
-  background-color: var(--text-color-dark);
-  padding: 10px 0px;
-  border-radius: 0px 5px 5px 0px;
-  width: 15px;
-  cursor: pointer;
-  align-self: center;
-}
-
 .helps {
   display: flex;
   flex-flow: column nowrap;
-  width: 100%;
+  width: 250px;
 }
 
 .helps-title-bar {
