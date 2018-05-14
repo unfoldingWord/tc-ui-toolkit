@@ -10,37 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import {Glyphicon} from 'react-bootstrap';
 import Markdown from 'react-remarkable';
 
-//import './ExpandedHelpsModal.styles.css';
-
-// components
-const styles = {
-  toolBar: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'var(--reverse-color)',
-    backgroundColor: 'var(--accent-color-dark)',
-    padding: '15px',
-    width: '100%',
-  },
-  title: {
-    marginLeft: 'auto',
-    fontSize: '22px',
-    fontWeight: '400'
-  },
-  closeButton: {
-    marginLeft: 'auto'
-  },
-  dialogContent: {
-    padding: '7px',
-  },
-  dialogActions: {
-    height: '50px',
-    padding: '10px',
-    margin: '0px',
-    borderTop: '1px solid var(--border-color)'
-  }
-};
+import './ExpandedHelpsModal.styles.css';
 
 const ExpandedHelpsModal = ({
   show,
@@ -52,18 +22,18 @@ const ExpandedHelpsModal = ({
     <Dialog
       open={show}
       maxWidth='md'>
-      <Toolbar style={styles.toolBar}>
-        <div style={styles.title}>
+      <Toolbar className="tool-bar">
+        <div className="tool-bar-title">
           {title}
         </div>
-        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
+        <IconButton style={{position: 'absolute', right: 10}} color="inherit" onClick={onHide} aria-label="Close" className="close-button">
           <Glyphicon glyph="remove" />
         </IconButton>
       </Toolbar>
-      <DialogContent style={styles.dialogContent}>
+      <DialogContent className="dialog-content">
         <Markdown options={{html: true}} source={article} />
       </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
+      <DialogActions disableActionSpacing className="dialog-actions">
         <button className="btn-prime" onClick={onHide}>
           Close
         </button>
