@@ -5,7 +5,7 @@
   background-color: var(--background-color-dark);
   font-size: 12px;
   height: var(--tool-max-height);
-  width: 250px;
+  min-width: 250px;
   overflow-y: scroll;
 }
 
