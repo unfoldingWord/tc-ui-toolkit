@@ -85,7 +85,6 @@ class App extends Component {
           <VerseCheck />
         </div>
         <TranslationHelps
-          article={article}
           openExpandedHelpsModal={() => this.handleHelpsExpandedToggle()}
           isShowHelpsSidebar={this.state.isShowHelpsSidebar}
           sidebarToggle={() => this.handleSidebarToggle()}

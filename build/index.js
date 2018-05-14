@@ -1844,7 +1844,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //import Markdown from 'react-remarkable';
 
 var TranslationHelps = function TranslationHelps(_ref) {
-  var article = _ref.article,
+  var modalArticle = _ref.modalArticle,
+      article = _ref.article,
       expandedHelpsButtonHoverText = _ref.expandedHelpsButtonHoverText,
       openExpandedHelpsModal = _ref.openExpandedHelpsModal,
       isShowHelpsSidebar = _ref.isShowHelpsSidebar,
@@ -1886,7 +1887,7 @@ var TranslationHelps = function TranslationHelps(_ref) {
           show: isShowHelpsExpanded,
           onHide: openExpandedHelpsModal,
           title: modalTitle,
-          article: article })
+          article: modalArticle || article })
       )
     );
   } else {
@@ -1913,17 +1914,18 @@ var TranslationHelps = function TranslationHelps(_ref) {
     */
 
 TranslationHelps.propTypes = {
-  article: _propTypes2.default.object.isRequired,
+  modalArticle: _propTypes2.default.string.isRequired,
+  article: _propTypes2.default.string.isRequired,
   expandedHelpsButtonHoverText: _propTypes2.default.string.isRequired,
   openExpandedHelpsModal: _propTypes2.default.func.isRequired,
   isShowHelpsSidebar: _propTypes2.default.bool.isRequired,
   sidebarToggle: _propTypes2.default.func.isRequired,
-  isShowHelpsExpanded: _propTypes2.default.bool.isRequired,
-  markdown: _propTypes2.default.object.isRequired,
-  modalMarkdown: _propTypes2.default.object.isRequired
+  isShowHelpsExpanded: _propTypes2.default.bool.isRequired
 };
 
 TranslationHelps.defaultProps = {
+  article: "### tHelps Article",
+  modalArticle: "### tHelps Modal Article",
   expandedHelpsButtonHoverText: "Click to show expanded help pane",
   modalTitle: "translationHelps"
 };
@@ -46396,7 +46398,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, "::-webkit-scrollbar-thumb {\n  border-radius: 7px;\n}\n\n.helps-sash-container {\n  display: flex;\n  height: 100vh;\n  max-width: 300px;\n  width: 100%;\n}\n\n.sash-container {\n  display: flex;\n  flex-flow: row nowrap;\n  align-items: center;\n  height: 100vh;\n  width: 1px;\n}\n\n.helps-sash-closed {\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0px;\n  border-radius: 5px 0px 0px 5px;\n  width: 15px;\n  cursor: pointer;\n  align-self: center;\n}\n\n.helps {\n  display: flex;\n  flex-flow: column nowrap;\n}\n\n.helps-title-bar {\n  font-size: 16px;\n  text-align: right;\n  padding: 10px;\n  color: var(--text-color);\n  background-color: var(--background-color-light);\n  border-bottom: thin solid var(--background-color-dark);\n}\n\n.helps-item {\n  display: flex; \n  align-items: center;\n}\n\n.helps-article {\n  padding: 7px;\n  color: var(--text-color);\n  background-color: var(--background-color-light);\n  box-shadow: 0 3px 10px var(--background-color-dark);\n  border-radius: 2px;\n  overflow-y: scroll;\n  flex:auto;\n  display: flex;\n}\n", ""]);
+exports.push([module.i, "::-webkit-scrollbar-thumb {\n  border-radius: 7px;\n}\n\n.helps-sash-container {\n  display: flex;\n  height: 100vh;\n  max-width: 300px;\n  width: 100%;\n}\n\n.sash-container {\n  display: flex;\n  flex-flow: row nowrap;\n  align-items: center;\n  height: 100vh;\n  width: 1px;\n}\n\n.helps-sash-closed {\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0px;\n  border-radius: 5px 0px 0px 5px;\n  width: 15px;\n  cursor: pointer;\n  align-self: center;\n}\n\n.helps {\n  display: flex;\n  flex-flow: column nowrap;\n  width:100%;\n}\n\n.helps-title-bar {\n  font-size: 16px;\n  text-align: right;\n  padding: 10px;\n  color: var(--text-color);\n  background-color: var(--background-color-light);\n  border-bottom: thin solid var(--background-color-dark);\n}\n\n.helps-item {\n  display: flex; \n  align-items: center;\n}\n\n.helps-article {\n  padding: 7px;\n  color: var(--text-color);\n  background-color: var(--background-color-light);\n  box-shadow: 0 3px 10px var(--background-color-dark);\n  border-radius: 2px;\n  overflow-y: scroll;\n  flex:auto;\n  display: flex;\n}\n", ""]);
 
 // exports
 
@@ -46438,23 +46440,32 @@ var _reactRemarkable = __webpack_require__(479);
 
 var _reactRemarkable2 = _interopRequireDefault(_reactRemarkable);
 
+var _styles = __webpack_require__(20);
+
 __webpack_require__(709);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
-* @description This component displays a modal when the user clicks the
-* new-window glyphicon button on translationHelps component.
-*/
+var styles = {
+  paper: { minWidth: 800, minHeight: 500 }
+}; /**
+   * @description This component displays a modal when the user clicks the
+   * new-window glyphicon button on translationHelps component.
+   */
+
 var ExpandedHelpsModal = function ExpandedHelpsModal(_ref) {
   var show = _ref.show,
       onHide = _ref.onHide,
       title = _ref.title,
-      article = _ref.article;
+      article = _ref.article,
+      classes = _ref.classes;
 
   return _react2.default.createElement(
     _Dialog2.default,
     {
+      classes: {
+        paper: classes.paper
+      },
       open: show,
       maxWidth: 'md' },
     _react2.default.createElement(
@@ -46495,7 +46506,7 @@ ExpandedHelpsModal.propTypes = {
   article: _propTypes2.default.string.isRequired
 };
 
-exports.default = ExpandedHelpsModal;
+exports.default = (0, _styles.withStyles)(styles)(ExpandedHelpsModal);
 
 /***/ }),
 /* 422 */

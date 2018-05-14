@@ -20,6 +20,7 @@ import THelpsMarkDown from './THelpsMarkDown';
 //import Markdown from 'react-remarkable';
 
 const TranslationHelps = ({
+  modalArticle,
   article,                       // Article to display in sidebar and expanded modal
   expandedHelpsButtonHoverText,  // Text to display when hovering over sash and expansion button
   openExpandedHelpsModal,        // Function to open the expanded Translation Helps Modal
@@ -53,7 +54,7 @@ const TranslationHelps = ({
             show={isShowHelpsExpanded}
             onHide={openExpandedHelpsModal}
             title={modalTitle}
-            article={article} />
+            article={modalArticle || article} />
         </div>
       </MuiThemeProvider>
     )
@@ -72,17 +73,18 @@ const TranslationHelps = ({
 };
 
 TranslationHelps.propTypes = {
-  article: PropTypes.object.isRequired,
+  modalArticle: PropTypes.string.isRequired,
+  article: PropTypes.string.isRequired,
   expandedHelpsButtonHoverText: PropTypes.string.isRequired,
   openExpandedHelpsModal: PropTypes.func.isRequired,
   isShowHelpsSidebar: PropTypes.bool.isRequired,
   sidebarToggle: PropTypes.func.isRequired,
-  isShowHelpsExpanded: PropTypes.bool.isRequired,
-  markdown: PropTypes.object.isRequired,
-  modalMarkdown: PropTypes.object.isRequired
+  isShowHelpsExpanded: PropTypes.bool.isRequired
 }
 
 TranslationHelps.defaultProps = {
+  article:"### tHelps Article",
+  modalArticle: "### tHelps Modal Article",
   expandedHelpsButtonHoverText: "Click to show expanded help pane",
   modalTitle: "translationHelps"
 }

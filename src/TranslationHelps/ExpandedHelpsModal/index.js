@@ -9,17 +9,25 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import {Glyphicon} from 'react-bootstrap';
 import Markdown from 'react-remarkable';
+import { withStyles } from 'material-ui/styles';
 
 import './ExpandedHelpsModal.styles.css';
 
+const styles = {
+  paper: {minWidth: 800, minHeight: 500}
+};
 const ExpandedHelpsModal = ({
   show,
   onHide,
   title,
   article,
+  classes
 }) => {
   return (
     <Dialog
+      classes={{
+        paper: classes.paper
+      }}
       open={show}
       maxWidth='md'>
       <Toolbar className="tool-bar">
@@ -50,4 +58,4 @@ ExpandedHelpsModal.propTypes = {
   article: PropTypes.string.isRequired
 };
 
-export default ExpandedHelpsModal;
+export default withStyles(styles)(ExpandedHelpsModal);
