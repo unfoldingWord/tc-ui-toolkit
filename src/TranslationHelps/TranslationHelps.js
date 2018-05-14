@@ -16,6 +16,7 @@ import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
 import ExpandedHelpsModal from './ExpandedHelpsModal';
+import THelpsMarkDown from './THelpsMarkDown';
 //import Markdown from 'react-remarkable';
 
 const TranslationHelps = ({
@@ -46,9 +47,7 @@ const TranslationHelps = ({
                 style={{cursor: "pointer"}}
                 title={expandedHelpsButtonHoverText} />
             </div>
-            <div className="helps-article" style={{overflowY: 'scroll'}} >
-              {article}
-            </div>
+            <THelpsMarkDown article={article} />
           </div>
           <ExpandedHelpsModal
             show={isShowHelpsExpanded}
@@ -78,8 +77,9 @@ TranslationHelps.propTypes = {
   openExpandedHelpsModal: PropTypes.func.isRequired,
   isShowHelpsSidebar: PropTypes.bool.isRequired,
   sidebarToggle: PropTypes.func.isRequired,
-  isShowHelpsExpanded: PropTypes.bool.isRequired
-  //modalTitle: PropTypes.string.isRequired,
+  isShowHelpsExpanded: PropTypes.bool.isRequired,
+  markdown: PropTypes.object.isRequired,
+  modalMarkdown: PropTypes.object.isRequired
 }
 
 TranslationHelps.defaultProps = {

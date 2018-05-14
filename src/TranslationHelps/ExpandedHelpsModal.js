@@ -8,6 +8,7 @@ import Dialog, {DialogActions, DialogTitle, DialogContent} from 'material-ui/Dia
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import {Glyphicon} from 'react-bootstrap';
+import Markdown from 'react-remarkable';
 
 //import './ExpandedHelpsModal.styles.css';
 
@@ -60,7 +61,7 @@ const ExpandedHelpsModal = ({
         </IconButton>
       </Toolbar>
       <DialogContent style={styles.dialogContent}>
-        {article}
+        <Markdown options={{html: true}} source={article} />
       </DialogContent>
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>

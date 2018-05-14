@@ -6,8 +6,9 @@
 
 .helps-sash-container {
   display: flex;
-  max-width: 250px;
   height: 100vh;
+  max-width: 300px;
+  width: 100%;
 }
 
 .sash-container {
@@ -32,7 +33,6 @@
 .helps {
   display: flex;
   flex-flow: column nowrap;
-  width: 250px;
 }
 
 .helps-title-bar {
@@ -55,4 +55,7 @@
   background-color: var(--background-color-light);
   box-shadow: 0 3px 10px var(--background-color-dark);
   border-radius: 2px;
+  overflow-y: scroll;
+  flex:auto;
+  display: flex;
 }
