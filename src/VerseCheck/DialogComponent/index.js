@@ -52,10 +52,10 @@ let DialogComponent = ({
         <br />
         <DialogContent>
           <p>
-            {select[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {select[1]} </span> {select[1]}
+            {select[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {select[1]} </span> {select[2]}
           </p>
           <p>
-            {skip[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {skip[1]} </span> {skip[1]}
+            {skip[0]} <span style={{color: "var(--accent-color)", fontWeight: "bold"}}> {skip[1]} </span> {skip[2]}
           </p>
         </DialogContent>
         <DialogActions disableActionSpacing={true}>
