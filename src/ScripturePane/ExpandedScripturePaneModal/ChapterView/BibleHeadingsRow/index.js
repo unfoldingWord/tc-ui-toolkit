@@ -8,7 +8,6 @@ const rowStyle = {
   display: 'flex',
   height: "120px",
   margin: '0',
-  marginRight: '12px',
   backgroundColor: 'var(--reverse-color)'
 };
 
@@ -54,6 +53,7 @@ class BibleHeadingsRow extends Component {
 BibleHeadingsRow.propTypes = {
   currentPaneSettings: PropTypes.array.isRequired,
   biblesWithHighlightedWords: PropTypes.object.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
 };
 
 export default BibleHeadingsRow;
