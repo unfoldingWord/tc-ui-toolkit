@@ -108,6 +108,9 @@ class ScripturePane extends Component {
       selectLanguageLabel,
       selectLabel,
       contextId,
+      editTargetVerse,
+      translate,
+      projectDetailsReducer,
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
@@ -139,7 +142,7 @@ class ScripturePane extends Component {
                   },
                   bibleData
                 } = biblesWithHighlightedWords[languageId][bibleId];
-                const { chapter, verse } = contextId.refecerence;
+                const { chapter, verse } = contextId.reference;
                 const verseElements = bibleData[chapter][verse];
 
                 return (
@@ -173,6 +176,10 @@ class ScripturePane extends Component {
             biblesWithHighlightedWords={biblesWithHighlightedWords}
             currentPaneSettings={currentPaneSettings}
             contextId={contextId}
+            bibles={bibles}
+            editTargetVerse={editTargetVerse}
+            translate={translate}
+            projectDetailsReducer={projectDetailsReducer}
           />
           <AddPaneModal
             show={this.state.showAddPaneModal}
@@ -208,6 +215,9 @@ ScripturePane.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   bibles: PropTypes.object
 };
 
@@ -217,7 +227,7 @@ ScripturePane.defaultProps = {
     groupId: "apostle",
     occurrence: 1,
     quote: "ἀπόστολος",
-    refecerence: {
+    reference: {
       bookId: "tit",
       chapter: 1,
       verse: 1,

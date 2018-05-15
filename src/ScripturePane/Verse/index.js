@@ -1,43 +1,50 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import IconButton from 'material-ui/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import './Verse.styles.css';
+
+const styles = {
+  edit_wrapper: {
+    textAlign: 'right'
+  },
+  edit_button: {
+    padding: 0,
+    width: 28,
+    height: 28
+  }
+};
 
 // constants
 const PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
 
-// const VerseString = ({ verseText, verseIsPlaceHolder }) => {
-//   verseText = verseText.replace(/\s+/g, ' ');
-//   let verseTextSpans = (
-//     <span className={verseIsPlaceHolder ? 'placeholder-text' : null}>
-//       {verseText}
-//     </span>
-//   );
-
-//   return verseTextSpans;
-// }
-
-// const VerseArray = ({ verseText }) => {
-//   verseText = verseText || [];
-
-//   return null;
-// }
-
-
 class Verse extends Component {
+  constructor(props) {
+    super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleEdit() {
+    const {bibleId, chapter, verse, verseText, onEdit} = this.props;
+    if (typeof onEdit === 'function') {
+      onEdit(bibleId, chapter, verse, verseText);
+    }
+  }
+
   render () {
     const {
       verseElements,
       bibleId,
       direction,
       chapter,
-      verse
+      verse,
+      onEdit
     } = this.props;
     const verseIsPlaceHolder = !verseElements;
     const chapterVerseContent = direction === 'rtl' ? `${verse}:${chapter} ` : `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
-    // let text = verseText;
     let verseSpan = verseElements;
 
     if (verseIsPlaceHolder) {
@@ -48,11 +55,16 @@ class Verse extends Component {
       );
     }
 
-    // if (text && typeof text === 'string') { // if the verse content is string / text.
-    //   verseSpan = <VerseString verseText={text} verseIsPlaceHolder={verseIsPlaceHolder} />;
-    // } else { // then the verse content is an array / verse objects.
-    //   verseSpan = <VerseArray verseText={text} />;
-    // }
+    let edit = null;
+    if(isEditable && onEdit) {
+      edit = (
+        <div style={styles.edit_wrapper}>
+          <IconButton style={styles.edit_button} onClick={this.handleEdit}>
+            <EditIcon/>
+          </IconButton>
+        </div>
+      );
+    }
 
     return (
       <div className="verse-container">
@@ -60,12 +72,18 @@ class Verse extends Component {
           {chapterVerse}
           {verseSpan}
         </div>
+        {edit}
       </div>
-    )
+    );
   }
 }
 
 Verse.propTypes = {
+  verseText: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   verseElements: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.string,
@@ -78,6 +96,7 @@ Verse.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,
   ]),
+  onEdit: PropTypes.func,
 };
 
 export default Verse;

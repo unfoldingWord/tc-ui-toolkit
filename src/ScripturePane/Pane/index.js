@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
@@ -65,7 +65,7 @@ const Pane = ({
       </div>
     </div>
   );
-}
+};
 
 Pane.propTypes = {
   index: PropTypes.number.isRequired,

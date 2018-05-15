@@ -36,6 +36,17 @@ class App extends Component {
             selectLanguageLabel={"Select language"}
             selectLabel={"Select"}
             showPopover={() => console.log('showPopover')}
+            editTargetVerse={() => console.log('editTargetVerse')}
+            projectDetailsReducer={{
+              manifest: {
+                target_language: {
+                  book: {
+                    name: 'Titus'
+                  }
+                }
+              }
+            }}
+            translate={(text) => text}
             getLexiconData={() => {
               return {
                 'ugl': {

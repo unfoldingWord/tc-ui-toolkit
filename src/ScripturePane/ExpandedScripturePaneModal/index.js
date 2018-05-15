@@ -50,6 +50,10 @@ const ExpandedScripturePaneModal = ({
   contextId,
   biblesWithHighlightedWords,
   currentPaneSettings,
+  editTargetVerse,
+  translate,
+  projectDetailsReducer,
+  bibles,
 }) => {
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
@@ -64,12 +68,16 @@ const ExpandedScripturePaneModal = ({
       <DialogContent style={styles.dialogContent}>
       <BibleHeadingsRow
         currentPaneSettings={currentPaneSettings}
-        biblesWithHighlightedWords={biblesWithHighlightedWords} />
+        biblesWithHighlightedWords={biblesWithHighlightedWords}
+        projectDetailsReducer={projectDetailsReducer} />
         <ChapterView
           contextId={contextId}
           currentPaneSettings={currentPaneSettings}
           biblesWithHighlightedWords={biblesWithHighlightedWords}
-        />
+          editTargetVerse={editTargetVerse}
+          translate={translate}
+          bibles={bibles}
+          projectDetailsReducer={projectDetailsReducer} />
       </DialogContent>
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
@@ -88,6 +96,10 @@ ExpandedScripturePaneModal.propTypes = {
   contextId: PropTypes.object.isRequired,
   biblesWithHighlightedWords: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
+  bibles: PropTypes.object.isRequired,
 };
 
 export default ExpandedScripturePaneModal;

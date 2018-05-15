@@ -8,6 +8,18 @@ import './VerseRow.styles.css';
 import Verse from '../../../Verse';
 
 class VerseRow extends Component {
+  constructor(props) {
+    super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleEdit(bibleId, chapter, verse, verseText) {
+    const { onEditTargetVerse } = this.props;
+    if(bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
+      onEditTargetVerse(bibleId, chapter, verse, verseText);
+    }
+  }
+
   render () {
     const {
       chapter,
@@ -15,6 +27,7 @@ class VerseRow extends Component {
       currentVerseNumber,
       currentPaneSettings,
       biblesWithHighlightedWords,
+      bibles,
     } = this.props;
     let verseCells = <div />;
     const isCurrent = currentVerseNumber === verse.toString();
@@ -34,16 +47,18 @@ class VerseRow extends Component {
         const { languageId, bibleId } = paneSetting;
         const { manifest: { direction }, bibleData } = biblesWithHighlightedWords[languageId][bibleId];
         const verseElements = bibleData[chapter][currentVerseNumber];
+        const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
         return (
           <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle}>
             <Verse
               verseElements={verseElements}
+              verseText={verseText}
               bibleId={bibleId}
               direction={direction}
               chapter={chapter}
               verse={currentVerseNumber}
-            />
+              onEdit={this.handleEdit} />
           </Col>
         );
       });
@@ -73,6 +88,8 @@ VerseRow.propTypes = {
     PropTypes.array.isRequired,
   ]),
   biblesWithHighlightedWords: PropTypes.object.isRequired,
+  onEditTargetVerse: PropTypes.func.isRequired,
+  bibles: PropTypes.object.isRequired,
 };
 
 export default VerseRow;
