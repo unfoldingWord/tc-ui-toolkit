@@ -34,8 +34,7 @@ class VerseCheck extends Component {
       saveSelection,
       cancelSelection,
       clearSelection,
-      handleSkip,
-      toggleReminder
+      handleSkip
     } = this.props;
 
     let titleText;
@@ -66,7 +65,7 @@ class VerseCheck extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div className='verse-check'>
-          <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+        <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
             <div className='verse-check-card'>
               <div className='title-bar'>
                 <span>{titleText}</span>
@@ -99,7 +98,6 @@ class VerseCheck extends Component {
                 selections={selectionsReducer.selections}
                 newSelections={selections}
                 remindersReducer={remindersReducer}
-                toggleReminder={toggleReminder}
                 saveSelection={saveSelection}
                 cancelSelection={cancelSelection}
                 clearSelection={clearSelection}
@@ -119,6 +117,7 @@ class VerseCheck extends Component {
 }
 
 VerseCheck.propTypes = {
+  alignedGLText: PropTypes.string.isRequired,
   commentChanged: PropTypes.bool.isRequired,
   findIfVerseEdited: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
@@ -129,17 +128,14 @@ VerseCheck.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
   verseText: PropTypes.string,
-  alignedGLText: PropTypes.string,
   remindersReducer: PropTypes.object.isRequired,
   groupsDataReducer: PropTypes.object.isRequired,
   toolsReducer: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
-  mode: PropTypes.string,
   contextIdReducer: PropTypes.shape({
     contextId: PropTypes.object
   }).isRequired,
-  dialogModalVisibility: PropTypes.bool,
   selectionsReducer: PropTypes.object.isRequired,
   commentsReducer: PropTypes.object.isRequired,
   resourcesReducer: PropTypes.object.isRequired,
@@ -224,7 +220,6 @@ VerseCheck.defaultProps = {
   commentChanged: false,
   findIfVerseEdited: () => false,
   tags: [],
-  changeMode: () => {},
   verseChanged: false,
   selections: [],
   saveSelection: () => {},

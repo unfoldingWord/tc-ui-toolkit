@@ -12,7 +12,6 @@ let ActionsArea = ({
   selections,
   newSelections,
   remindersReducer,
-  toggleReminder,
   saveSelection,
   cancelSelection,
   clearSelection,
@@ -26,7 +25,7 @@ let ActionsArea = ({
         color='primary'
         checked={remindersReducer.enabled}
         label={translate('bookmark')}
-        onChange={toggleReminder} />      
+        onChange={actions.toggleReminder} />      
       <div style={{display: "flex"}}>
         <button
           style={{width: "140px", marginRigth: "5px"}}

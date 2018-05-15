@@ -16,14 +16,19 @@
   padding: 0 15px 10px;
   overflow-y: auto;
 }
-.verse-check .title {
+.verse-title-title {
   font-weight: bold;
 }
-.verse-check .subtitle {
+.verse-title-subtitle {
   color: var(--text-color-light);
 }
+.verse-check {
+  display: flex;
+  height: 100%;
+  margin: 10px;
+}
 .verse-check-card {
-  flex: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0 3px 10px var(--background-color);
@@ -40,7 +45,8 @@
   font-size: 16px;
   font-weight: bold;
 }
-.verse-check .verse-title {
+
+.verse-title {
   flex: 0 0 45px;
   display: flex;
   justify-content: space-between;
