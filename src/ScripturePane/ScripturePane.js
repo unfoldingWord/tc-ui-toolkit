@@ -1,36 +1,99 @@
-/**
- * TODO: 
- * 1. Add selections support to verse component's VerseString sub-component.
- * 2. Add verse array support in verse component.
- * 3. Add support for greek word lexicon.
- * 4. Complete Expanded Scripture pane Component.
- * 5. Re-introduce Verse Editor to scripture pane.
- */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'deep-equal';
 import { MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-
 import {Glyphicon} from 'react-bootstrap';
 
 import './ScripturePane.styles.css';
 // components
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
+import AddBibleButton from './AddBibleButton';
+import AddPaneModal from './AddPaneModal';
+// helpers
+import * as bibleHelpers from './helpers/bibleHelpers';
+// TODO: Remove this bibles when we can get it from props instead.
+import bibles from './helpers/__test__/fixtures/bibles.json';
+// constant
+const NAMESPACE = 'ScripturePane';
 
 class ScripturePane extends Component {
   constructor() {
     super();
     this.state = {
-      showExpandedScripturePane: false
-    }
+      showExpandedScripturePane: false,
+      showAddPaneModal: false,
+      selectedPane: false,
+      biblesWithHighlightedWords: null,
+    };
     this.openExpandedScripturePane = this.openExpandedScripturePane.bind(this);
     this.closeExpandedScripturePane = this.closeExpandedScripturePane.bind(this);
-
+    this.showAddBibleModal = this.showAddBibleModal.bind(this);
+    this.hideAddBibleModal = this.hideAddBibleModal.bind(this);
+    this.selectSourceLanguage = this.selectSourceLanguage.bind(this);
+    this.addNewBibleResource = this.addNewBibleResource.bind(this);
+    this.removePane = this.removePane.bind(this);
   }
 
-  openExpandedScripturePane() { this.setState({ showExpandedScripturePane: true }); }
+  componentWillMount() {
+    const { selections, contextId, getLexiconData, showPopover } = this.props;
+    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+    this.setState({ biblesWithHighlightedWords });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) || 
+      !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
+    if (reParseBibleData) {
+      const { selections, contextId, getLexiconData, showPopover } = nextProps;
+      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+      this.setState({ biblesWithHighlightedWords });
+    }
+  }
+
+  openExpandedScripturePane() { this.setState({ showExpandedScripturePane: true }) }
 
   closeExpandedScripturePane() { this.setState({ showExpandedScripturePane: false }) }
+
+  showAddBibleModal() { this.setState({ showAddPaneModal: true }) }
+
+  hideAddBibleModal() { this.setState({ showAddPaneModal: false }) }
+
+  selectSourceLanguage(value) {
+    const identifier = value.split('_');
+    const selectedBibleId = {
+      languageId: identifier[0],
+      bibleId: identifier[1]
+    };
+    this.setState({selectedPane: value ? selectedBibleId : false});
+  }
+
+  addNewBibleResource() {
+    let { currentPaneSettings, setToolSettings } = this.props;
+    try {
+      if (currentPaneSettings) {
+        if (this.state.selectedPane) {
+          currentPaneSettings.push(this.state.selectedPane);
+          setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
+          this.hideAddBibleModal();
+        }
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  removePane(key) {
+    let { currentPaneSettings, setToolSettings } = this.props;
+    try {
+      if (currentPaneSettings) {
+        currentPaneSettings.splice(key, 1);
+        setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
 
   render() {
     const {
@@ -38,10 +101,21 @@ class ScripturePane extends Component {
       closeButtonLabel,
       expandedScripturePaneTitle,
       expandButtonHoverText,
+      clickToRemoveResourceLabel,
+      addResourceLabel,
+      currentPaneSettings,
+      clickAddResource,
+      selectLanguageLabel,
+      selectLabel,
+      contextId,
+      editTargetVerse,
+      translate,
+      projectDetailsReducer,
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
     const theme = createMuiTheme();
+    const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -57,65 +131,40 @@ class ScripturePane extends Component {
               />
             </div>
             <div className="panes-container">
-            {/* TODO: rework rendering multiple panes base on props provided to ScripturePane */}
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-              <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                verseText="Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness, Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
-              />
-               <Pane
-                index={1}
-                bibleId="ult"
-                languageName="English"
-                direction="ltr"
-                description="Gateway Language"
-                chapter={1}
-                verse={2}
-                clickRemoveResourceLabel="clickRemoveResourceLabel"
-                removePane={() => console.log('temp removePane')}
+            {
+              currentPaneSettings.map((paneSettings, index) => {
+                const { languageId, bibleId } = paneSettings;
+                const {
+                  manifest: {
+                    language_name,
+                    direction,
+                    description,
+                  },
+                  bibleData
+                } = biblesWithHighlightedWords[languageId][bibleId];
+                const { chapter, verse } = contextId.reference;
+                const verseElements = bibleData[chapter][verse];
+
+                return (
+                  <Pane
+                    key={index.toString()}
+                    index={index}
+                    chapter={chapter}
+                    verse={verse}
+                    bibleId={bibleId}
+                    languageName={language_name}
+                    direction={direction}
+                    description={description}
+                    verseElements={verseElements}
+                    clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+                    removePane={this.removePane}
+                  />
+                );
+              })
+            }
+              <AddBibleButton
+                showAddBibleModal={this.showAddBibleModal}
+                clickAddResource={clickAddResource}
               />
             </div>
           </div>
@@ -124,6 +173,25 @@ class ScripturePane extends Component {
             onHide={this.closeExpandedScripturePane}
             title={expandedScripturePaneTitle}
             primaryLabel={closeButtonLabel}
+            biblesWithHighlightedWords={biblesWithHighlightedWords}
+            currentPaneSettings={currentPaneSettings}
+            contextId={contextId}
+            bibles={bibles}
+            editTargetVerse={editTargetVerse}
+            translate={translate}
+            projectDetailsReducer={projectDetailsReducer}
+          />
+          <AddPaneModal
+            show={this.state.showAddPaneModal}
+            onHide={this.hideAddBibleModal}
+            title={addResourceLabel}
+            selectedPane={this.state.selectedPane}
+            selectLanguageLabel={selectLanguageLabel}
+            selectLabel={selectLabel}
+            selectSourceLanguage={this.selectSourceLanguage}
+            biblesWithHighlightedWords={biblesWithHighlightedWords}
+            addNewBibleResource={this.addNewBibleResource}
+            currentPaneSettings={currentPaneSettings}
           />
         </div>
       </MuiThemeProvider>
@@ -134,8 +202,65 @@ class ScripturePane extends Component {
 ScripturePane.propTypes = {
   titleLabel: PropTypes.string.isRequired,
   closeButtonLabel: PropTypes.string.isRequired,
+  addResourceLabel: PropTypes.string.isRequired,
+  clickToRemoveResourceLabel: PropTypes.string.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   expandButtonHoverText: PropTypes.string.isRequired,
-}
+  clickAddResource: PropTypes.string.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  selectLanguageLabel: PropTypes.string.isRequired,
+  selectLabel: PropTypes.string.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  contextId: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
+  bibles: PropTypes.object
+};
+
+// TODO: Remove defaultProps for requiered data.
+ScripturePane.defaultProps = {
+  contextId: {
+    groupId: "apostle",
+    occurrence: 1,
+    quote: "ἀπόστολος",
+    reference: {
+      bookId: "tit",
+      chapter: 1,
+      verse: 1,
+    },
+    strong: ["G06520"],
+    tool: "translationWords"
+  },
+  currentPaneSettings: [
+    {
+      "languageId": "targetLanguage",
+      "bibleId": "targetBible"
+    },
+    {
+      "languageId": "originalLanguage",
+      "bibleId": "ugnt"
+    },
+    {
+      "languageId": "en",
+      "bibleId": "ult"
+    },
+    {
+      languageId: "en",
+      bibleId: "udt",
+    },
+    {
+      languageId: "hi",
+      bibleId: "udt",
+    },
+    {
+      languageId: "hi",
+      bibleId: "ulb",
+    }
+  ],
+};
 
 export default ScripturePane;

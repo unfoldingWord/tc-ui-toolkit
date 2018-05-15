@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
@@ -17,8 +17,8 @@ const Pane = ({
   chapter,
   verse,
   removePane,
-  verseText,
-  clickRemoveResourceLabel,
+  verseElements,
+  clickToRemoveResourceLabel,
 }) => {
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
@@ -50,13 +50,13 @@ const Pane = ({
         <Glyphicon
           className="remove-glyph-icon"
           glyph={"remove"}
-          title={clickRemoveResourceLabel}
+          title={clickToRemoveResourceLabel}
           onClick={() => removePane(index)}
         />
       </div>
       <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
-          verseText={verseText}
+          verseElements={verseElements}
           bibleId={bibleId}
           direction={direction}
           chapter={chapter}
@@ -65,7 +65,7 @@ const Pane = ({
       </div>
     </div>
   );
-}
+};
 
 Pane.propTypes = {
   index: PropTypes.number.isRequired,
@@ -76,12 +76,12 @@ Pane.propTypes = {
   chapter: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
-  clickRemoveResourceLabel: PropTypes.string.isRequired,
-  verseText: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.array.isRequired,
-    PropTypes.object.isRequired
-  ]),
+  clickToRemoveResourceLabel: PropTypes.string.isRequired,
+  verseElements: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
 };
 
 export default Pane;

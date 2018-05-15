@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps} from 'tc-ui-toolkit';
+import { ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps } from 'tc-ui-toolkit';
+
 const article = `# blasphemy, blaspheme, blasphemous, blasphemies #
 
 ## Definition: ##
@@ -76,6 +77,52 @@ class App extends Component {
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <GroupMenu />
         <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+          <ScripturePane
+            titleLabel="Step 1. Read"
+            closeButtonLabel="Close"
+            expandedScripturePaneTitle="Matthew"
+            expandButtonHoverText="Click to show expanded resource panes"
+            clickToRemoveResourceLabel="Click to remove resource"
+            clickAddResource="Click to add a resource"
+            addResourceLabel={"Add Resources"}
+            selectLanguageLabel={"Select language"}
+            selectLabel={"Select"}
+            showPopover={() => console.log('showPopover')}
+            editTargetVerse={() => console.log('editTargetVerse')}
+            projectDetailsReducer={{
+              manifest: {
+                target_language: {
+                  book: {
+                    name: 'Titus'
+                  }
+                }
+              }
+            }}
+            translate={(text) => text}
+            getLexiconData={() => {
+              return {
+                'ugl': {
+                  '2532': {
+                    "brief": "and, even, also, namely",
+                    "long": "and, even, also, namely."
+                  }
+                }
+              };
+            }}
+            selections={[
+              {
+                occurrence: 1,
+                occurrences: 1,
+                text: "servant"
+              },
+              {
+                occurrence: 1,
+                occurrences: 1,
+                text: "an apostle"
+              }
+            ]}
+            setToolSettings={() => {}}
+          />
           <CheckInfoCard
             title={'Title'}
             phrase={'a phrase'}
