@@ -4,6 +4,7 @@
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "build/index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "test": "jest",
     "start": "webpack --watch",
     "build": "webpack",
