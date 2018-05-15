@@ -18,7 +18,7 @@ const IconIndicators = ({
           color: "var(--reverse-color)",
           opacity: selections.length > 0 ? 1 : 0.2
         }}
-        title={selections.length > 0 ? translate("check.selections_found") : translate("check.no_selections_found")}
+        title={selections.length > 0 ? translate("icons.selections_found") : translate("icons.no_selections_found")}
       />
       <Glyphicon
         glyph="pencil"
@@ -27,7 +27,7 @@ const IconIndicators = ({
           color: "var(--reverse-color)",
           opacity: verseEdited ? 1 : 0.2
         }}
-        title={verseEdited ? translate("check.verse_edits_found") : translate("check.no_verse_edits_found")}
+        title={verseEdited ? translate("icons.verse_edits_found") : translate("icons.no_verse_edits_found")}
       />
       <Glyphicon
         glyph="comment"
@@ -36,7 +36,7 @@ const IconIndicators = ({
           color: "var(--reverse-color)",
           opacity: comment && comment.length > 0 ? 1 : 0.2
         }}
-        title={comment && comment.length > 0 ? translate("check.comments_found") : translate("check.no_comments_found")}
+        title={comment && comment.length > 0 ? translate("icons.comments_found") : translate("icons.no_comments_found")}
       />
       <Glyphicon
         glyph="bookmark"
@@ -45,7 +45,7 @@ const IconIndicators = ({
           color: "var(--reverse-color)",
           opacity: bookmarkEnabled ? 1 : 0.2
         }}
-        title={bookmarkEnabled ? translate("check.bookmarked") : translate("check.not_bookmarked")}
+        title={bookmarkEnabled ? translate("icons.bookmarked") : translate("icons.not_bookmarked")}
       />
     </div>
   );
