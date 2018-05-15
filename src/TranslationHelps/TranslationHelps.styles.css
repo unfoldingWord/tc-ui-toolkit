@@ -6,7 +6,7 @@
 
 .helps-sash-container {
   display: flex;
-  height: 100vh;
+  height: var(--tool-max-height);
   max-width: 300px;
   width: 100%;
 }

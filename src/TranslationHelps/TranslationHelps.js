@@ -17,7 +17,6 @@ import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
 import ExpandedHelpsModal from './ExpandedHelpsModal';
 import THelpsMarkDown from './THelpsMarkDown';
-//import Markdown from 'react-remarkable';
 
 const TranslationHelps = ({
   modalArticle,
