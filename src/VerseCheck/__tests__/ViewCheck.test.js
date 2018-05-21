@@ -1,0 +1,130 @@
+/* eslint-env jest */
+import React from 'react';
+import fs from 'fs-extra';
+import VerseCheck from '../VerseCheck';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import renderer from 'react-test-renderer';
+import isEqual from 'deep-equal';
+
+const mock_translate = (text) => (text);
+const base_props = require('./fixtures/project/loadedProjectShortened');
+// const base_props = require('./fixtures/project/loadedProjectShortened.json');
+
+describe('View component Tests', () => {
+
+  test('Integrated View test', () => {
+    // given
+    const props = getBasePropertiesAndMockActions();
+
+    // when
+    const component = renderer.create(
+      <MuiThemeProvider>
+        <VerseCheck {...props} />
+      </MuiThemeProvider>
+    );
+    
+    // then
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  test('Integrated View test with verseEdit', () => {
+    // given
+    const props = getBasePropertiesAndMockActions();
+    const currentGroupItem = getGroupDatumForCurrentContext(props);
+    currentGroupItem.verseEdits = true;
+
+    // when
+    const component = renderer.create(
+      <MuiThemeProvider>
+        <VerseCheck {...props} />
+      </MuiThemeProvider>
+    );
+
+    // then
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+  
+  test('Integrated View test with invalidated', () => {
+    // given
+    const props = getBasePropertiesAndMockActions();
+    const currentGroupItem = getGroupDatumForCurrentContext(props);
+    currentGroupItem.invalidated = true;
+
+    // when
+    const component = renderer.create(
+      <MuiThemeProvider>
+        <VerseCheck {...props} />
+      </MuiThemeProvider>
+    );
+
+    // then
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+});
+
+//
+// helpers
+//
+
+function addMockActions(props) {
+  props.actions = {
+    handleGoToNext: () => jest.fn(),
+    handleGoToPrevious: () => jest.fn(),
+    handleOpenDialog: () => jest.fn(),
+    handleCloseDialog: () => jest.fn(),
+    skipToNext: () => jest.fn(),
+    skipToPrevious: () => jest.fn(),
+    changeSelectionsInLocalState: () => jest.fn(),
+    changeMode: () => jest.fn(),
+    handleComment: () => jest.fn(),
+    checkComment: () => jest.fn(),
+    cancelComment: () => jest.fn(),
+    saveComment: () => jest.fn(),
+    handleTagsCheckbox: () => jest.fn(),
+    handleEditVerse: () => jest.fn(),
+    checkVerse: () => jest.fn(),
+    cancelEditVerse: () => jest.fn(),
+    saveEditVerse: () => jest.fn(),
+    validateSelections: () => jest.fn(),
+    toggleReminder: () => jest.fn(),
+    openAlertDialog: () => jest.fn(),
+    selectModalTab: () => jest.fn(),
+    cancelSelection: () => jest.fn(),
+    clearSelection: () => jest.fn(),
+    saveSelection: () => jest.fn(),
+  };
+  return {
+    ...props,
+    translate: mock_translate,
+    cancelSelection: () => jest.fn(),
+    clearSelection: () => jest.fn(),
+    saveSelection: () => jest.fn(),
+    goToNextOrPrevious: "next"
+  };
+}
+
+function getBasePropertiesAndMockActions() {
+  // clone properties so we can modify before test
+  let props = JSON.parse(JSON.stringify(base_props));
+  props = addMockActions(props);
+  return props;
+}
+
+function getGroupDatumForCurrentContext(props) {
+  const {
+    contextIdReducer: {
+      contextId
+    },
+    groupsDataReducer: {
+      groupsData
+    }
+  } = props;
+
+  let groupItemData = null;
+  if (groupsData[contextId.groupId]) {
+    groupItemData = groupsData[contextId.groupId].find(groupData => {
+      return isEqual(groupData.contextId, contextId);
+    });
+  }
+  return groupItemData;
+}

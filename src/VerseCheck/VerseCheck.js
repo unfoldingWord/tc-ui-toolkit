@@ -92,7 +92,7 @@ class VerseCheck extends Component {
                 contextId={contextIdReducer.contextId}
                 bibles={resourcesReducer.bibles}
                 alignedGLText={alignedGLText}
-                invalidated={this.findIfVerseInvalidated()} />
+                invalidated={findIfVerseInvalidated()} />
               <ActionsArea
                 mode={mode}
                 tags={tags}
