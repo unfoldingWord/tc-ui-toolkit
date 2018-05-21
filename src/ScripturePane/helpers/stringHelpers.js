@@ -32,6 +32,5 @@ export function textIsEmptyInVerseObject(verseText) {
     return word.type === "milestone" || (word.type === "word" && word.text.length > 0);
   });
 
-  console.log(emptyVerse)
   return typeof verseText === 'object' && emptyVerse;
 }
