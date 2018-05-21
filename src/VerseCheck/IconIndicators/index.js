@@ -1,16 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Glyphicon} from 'react-bootstrap';
+import InvalidatedIcon from './svgIcons/InvalidatedIcon';
 
 const IconIndicators = ({
   verseEdited,
   selections,
   bookmarkEnabled,
   translate,
+  invalidated,
   comment
 }) => {
+  
+  function getInvalidatedIcon() {
+    if (invalidated) {
+      return (
+        <div key='invalidated' className={'glyphicon glyphicon-invalidated'}>
+          <InvalidatedIcon
+            height={16}
+            width={16}
+            color='#ffffff'
+          />
+        </div>
+      );
+    }
+  }
+
   return (
     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+      {getInvalidatedIcon()}
       <Glyphicon
         glyph="ok"
         style={{
@@ -53,6 +71,7 @@ const IconIndicators = ({
 
 IconIndicators.propTypes = {
   translate: PropTypes.func.isRequired,
+  invalidated: PropTypes.bool.isRequired,
   verseEdited: PropTypes.bool.isRequired,
   selections: PropTypes.array,
   comment: PropTypes.string,

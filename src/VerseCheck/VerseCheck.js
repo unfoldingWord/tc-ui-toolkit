@@ -28,6 +28,7 @@ class VerseCheck extends Component {
       dialogModalVisibility,
       commentChanged,
       findIfVerseEdited,
+      findIfVerseInvalidated,
       tags,
       verseChanged,
       selections,
@@ -74,7 +75,8 @@ class VerseCheck extends Component {
                   selections={selectionsReducer.selections}
                   comment={commentsReducer.text}
                   bookmarkEnabled={remindersReducer.enabled}
-                  translate={translate} />
+                  translate={translate}
+                  invalidated={findIfVerseInvalidated()} />
               </div>
               <CheckArea
                 actions={actions}
@@ -89,7 +91,8 @@ class VerseCheck extends Component {
                 projectDetailsReducer={projectDetailsReducer}
                 contextId={contextIdReducer.contextId}
                 bibles={resourcesReducer.bibles}
-                alignedGLText={alignedGLText} />
+                alignedGLText={alignedGLText}
+                invalidated={this.findIfVerseInvalidated()} />
               <ActionsArea
                 mode={mode}
                 tags={tags}
@@ -120,6 +123,7 @@ VerseCheck.propTypes = {
   alignedGLText: PropTypes.string.isRequired,
   commentChanged: PropTypes.bool.isRequired,
   findIfVerseEdited: PropTypes.func.isRequired,
+  findIfVerseInvalidated: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
   verseChanged: PropTypes.bool.isRequired,
   selections: PropTypes.array.isRequired,
@@ -219,6 +223,7 @@ VerseCheck.defaultProps = {
   mode: 'select',
   commentChanged: false,
   findIfVerseEdited: () => false,
+  findIfVerseInvalidated: () => false,
   tags: [],
   verseChanged: false,
   selections: [],
