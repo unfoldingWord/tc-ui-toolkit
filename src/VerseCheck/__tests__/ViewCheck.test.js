@@ -8,13 +8,18 @@ import isEqual from 'deep-equal';
 
 const mock_translate = (text) => (text);
 const base_props = require('./fixtures/project/loadedProjectShortened');
-// const base_props = require('./fixtures/project/loadedProjectShortened.json');
+let currentInvalidated = false;
+let currentEdited = false;
 
 describe('View component Tests', () => {
-
+  currentInvalidated = false;
+  currentEdited = false;
+  
   test('Integrated View test', () => {
     // given
     const props = getBasePropertiesAndMockActions();
+    currentInvalidated = false;
+    currentEdited = false;
 
     // when
     const component = renderer.create(
@@ -30,8 +35,8 @@ describe('View component Tests', () => {
   test('Integrated View test with verseEdit', () => {
     // given
     const props = getBasePropertiesAndMockActions();
-    const currentGroupItem = getGroupDatumForCurrentContext(props);
-    currentGroupItem.verseEdits = true;
+    currentInvalidated = false;
+    currentEdited = true;
 
     // when
     const component = renderer.create(
@@ -47,8 +52,8 @@ describe('View component Tests', () => {
   test('Integrated View test with invalidated', () => {
     // given
     const props = getBasePropertiesAndMockActions();
-    const currentGroupItem = getGroupDatumForCurrentContext(props);
-    currentGroupItem.invalidated = true;
+    currentInvalidated = true;
+    currentEdited = false;
 
     // when
     const component = renderer.create(
@@ -91,7 +96,7 @@ function addMockActions(props) {
     selectModalTab: () => jest.fn(),
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
-    saveSelection: () => jest.fn(),
+    saveSelection: () => jest.fn()
   };
   return {
     ...props,
@@ -99,7 +104,11 @@ function addMockActions(props) {
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
     saveSelection: () => jest.fn(),
-    goToNextOrPrevious: "next"
+    goToNextOrPrevious: "next",
+    findIfVerseEdited: jest.fn(() => { 
+      return ( currentEdited) }),
+    findIfVerseInvalidated: jest.fn(() => { 
+      return (currentInvalidated) })
   };
 }
 
