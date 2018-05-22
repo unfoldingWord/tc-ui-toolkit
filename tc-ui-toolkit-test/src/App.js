@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps } from 'tc-ui-toolkit';
+import ReactTooltip from 'react-tooltip';
 
 const article = `# blasphemy, blaspheme, blasphemous, blasphemies #
 
@@ -129,6 +130,11 @@ class App extends Component {
             seeMoreLabel={'see_more'}
             showSeeMoreButton={!this.state.isShowHelpsExpanded}
             onSeeMoreClick={() => this.handleHelpsExpandedToggle()} />
+          <VerseCheck
+            verseText={'dummy text'}
+            findIfVerseEdited={() => (true)}
+            findIfVerseInvalidated={() => (true)}
+            alignedGLText={'Dummy'}/>
           <VerseCheck />
         </div>
         <TranslationHelps
@@ -136,6 +142,7 @@ class App extends Component {
           isShowHelpsSidebar={this.state.isShowHelpsSidebar}
           sidebarToggle={() => this.handleSidebarToggle()}
           isShowHelpsExpanded={this.state.isShowHelpsExpanded} />
+        <ReactTooltip />
       </div>
     );
   }

@@ -15,7 +15,11 @@ const IconIndicators = ({
   function getInvalidatedIcon() {
     if (invalidated) {
       return (
-        <div key='invalidated' className={'glyphicon glyphicon-invalidated'}>
+        <div key='invalidated' 
+             className={'glyphicon glyphicon-invalidated'}
+             style={{
+               margin: '0px 20px'
+             }}>
           <InvalidatedIcon
             height={16}
             width={16}
