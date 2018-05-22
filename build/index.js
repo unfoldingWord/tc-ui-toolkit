@@ -84154,12 +84154,10 @@ function punctuationWordSpacing(word) {
 }
 
 function textIsEmptyInVerseObject(verseText) {
-  // || word.text !== '↵↵'
   var emptyVerse = !verseText.verseObjects.some(function (word) {
     return word.type === "milestone" || word.type === "word" && word.text.length > 0;
   });
 
-  console.log(emptyVerse);
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
 }
 
