@@ -2,6 +2,9 @@
 
 .verse-check {
   margin: 10px;
+  height: 100%;
+  display: flex;
+  margin: 10px;
 }
 .verse-check .ltr-content {
   direction: ltr;
@@ -21,10 +24,7 @@
 .verse-title-subtitle {
   color: var(--text-color-light);
 }
-.verse-check {
-  display: flex;
-  margin: 10px;
-}
+
 .verse-check-card {
   display: flex;
   flex-direction: column;
