@@ -5,8 +5,10 @@
   background-color: var(--background-color-dark);
   font-size: 12px;
   height: var(--tool-max-height);
-  min-width: 250px;
+  max-width: 250px;
+  width: 100%;
   overflow-y: scroll;
+  flex-shrink: 0;
 }
 
 #groups-menu-container .group .group-item .status-badge {
