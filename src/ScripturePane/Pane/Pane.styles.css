@@ -1,6 +1,7 @@
 @import '../../index.styles.css';
 
 .pane-container {
+  height: 130px;
   flex: 1;
   display: flex;
   min-width: 240px;
@@ -34,14 +35,12 @@
 }
 
 .verse-content-container-ltr {
-  height: 100px;
   overflow-y: auto;
   direction: ltr;
   padding: 0 15px 10px;
 }
 
 .verse-content-container-rtl {
-  height: 100px;
   overflow-y: auto;
   direction: rtl;
   padding: 0 15px 10px;
