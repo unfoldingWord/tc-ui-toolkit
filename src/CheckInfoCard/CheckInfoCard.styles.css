@@ -25,7 +25,7 @@
 }
 
 .checkInfo {
-  flex: 0 0 100px;
+  flex: 0 0 120px;
   display: flex;
   margin: 0 10px;
   color: var(--reverse-color);
