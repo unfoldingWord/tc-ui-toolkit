@@ -105648,7 +105648,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
-  isVerseFinished: _propTypes2.default.boolean.isRequired,
+  isVerseFinished: _propTypes2.default.bool.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
