@@ -10,7 +10,7 @@ const GroupItems = ({
   filters,
   manifest,
   contextId,
-  alignmentData,
+  isVerseFinished,
   currentToolName,
   getSelections
 }) => {
@@ -30,7 +30,7 @@ const GroupItems = ({
         contextId={groupItemData.contextId}
         changeCurrentContextId={changeCurrentContextId}
         key={index}
-        statusBadge={helpers.getStatusBadges(groupItemData, alignmentData, currentToolName)}
+        statusBadge={helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName)}
         groupMenuHeader={groupHeaderComponent}
         scrollIntoView={helpers.scrollIntoView}
         active={active}

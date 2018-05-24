@@ -28,7 +28,7 @@ const Group = ({
   contextId,
   getSelections,
   classes,
-  alignmentData,
+  isVerseFinished,
   currentToolName
 }) => {
   let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
@@ -64,7 +64,7 @@ const Group = ({
         {active && isSubMenuExpanded ?
           (<GroupItems
             currentToolName={currentToolName}
-            alignmentData={alignmentData}
+            isVerseFinished={isVerseFinished}
             getSelections={getSelections}
             changeCurrentContextId={changeCurrentContextId}
             contextId={contextId}
