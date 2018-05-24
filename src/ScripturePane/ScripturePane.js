@@ -12,8 +12,6 @@ import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
 // helpers
 import * as bibleHelpers from './helpers/bibleHelpers';
-// TODO: Remove this bibles when we can get it from props instead.
-import bibles from './helpers/__test__/fixtures/bibles.json';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -36,7 +34,7 @@ class ScripturePane extends Component {
   }
 
   componentWillMount() {
-    const { selections, contextId, getLexiconData, showPopover } = this.props;
+    const { selections, contextId, getLexiconData, showPopover, bibles } = this.props;
     const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
     this.setState({ biblesWithHighlightedWords });
   }
@@ -45,7 +43,7 @@ class ScripturePane extends Component {
     const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) || 
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
     if (reParseBibleData) {
-      const { selections, contextId, getLexiconData, showPopover } = nextProps;
+      const { selections, contextId, getLexiconData, showPopover, bibles } = nextProps;
       const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
       this.setState({ biblesWithHighlightedWords });
     }
@@ -111,6 +109,7 @@ class ScripturePane extends Component {
       editTargetVerse,
       translate,
       projectDetailsReducer,
+      bibles,
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
@@ -218,49 +217,7 @@ ScripturePane.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
-  bibles: PropTypes.object
-};
-
-// TODO: Remove defaultProps for requiered data.
-ScripturePane.defaultProps = {
-  contextId: {
-    groupId: "apostle",
-    occurrence: 1,
-    quote: "ἀπόστολος",
-    reference: {
-      bookId: "tit",
-      chapter: 1,
-      verse: 1,
-    },
-    strong: ["G06520"],
-    tool: "translationWords"
-  },
-  currentPaneSettings: [
-    {
-      "languageId": "targetLanguage",
-      "bibleId": "targetBible"
-    },
-    {
-      "languageId": "originalLanguage",
-      "bibleId": "ugnt"
-    },
-    {
-      "languageId": "en",
-      "bibleId": "ult"
-    },
-    {
-      languageId: "en",
-      bibleId: "udt",
-    },
-    {
-      languageId: "hi",
-      bibleId: "udt",
-    },
-    {
-      languageId: "hi",
-      bibleId: "ulb",
-    }
-  ],
+  bibles: PropTypes.object.isRequired,
 };
 
 export default ScripturePane;
