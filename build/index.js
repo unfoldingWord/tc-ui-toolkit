@@ -85184,7 +85184,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".verse-check {\n  margin: 10px;\n  height: 100%;\n  display: flex;\n  margin: 10px;\n}\n.verse-check .ltr-content {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .rtl-content {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-title-title {\n  font-weight: bold;\n}\n.verse-title-subtitle {\n  color: var(--text-color-light);\n}\n\n.verse-check-card {\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.verse-check .title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}", ""]);
+exports.push([module.i, ".verse-check {\n  margin: 10px;\n  height: 100%;\n  display: flex;\n  margin: 10px;\n}\n.verse-check .ltr-content {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .rtl-content {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-title-title {\n  font-weight: bold;\n}\n.verse-title-subtitle {\n  color: var(--text-color-light);\n}\n\n.verse-check-card {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.verse-check .title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}", ""]);
 
 // exports
 
@@ -105591,7 +105591,7 @@ var GroupMenu = function (_React$Component) {
           manifest = _props$projectDetails.manifest,
           actions = _props.actions,
           getSelections = _props.getSelections,
-          alignmentData = _props.alignmentData,
+          isVerseFinished = _props.isVerseFinished,
           getGroupProgress = _props.getGroupProgress;
 
       var filterCount = helpers.getFilterCount(filters);
@@ -105626,7 +105626,7 @@ var GroupMenu = function (_React$Component) {
         ),
         _react2.default.createElement(_Groups2.default, {
           currentToolName: currentToolName,
-          alignmentData: alignmentData,
+          isVerseFinished: isVerseFinished,
           getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
@@ -105648,7 +105648,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
-  alignmentData: _propTypes2.default.object.isRequired,
+  isVerseFinished: _propTypes2.default.bool.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
@@ -105679,7 +105679,7 @@ GroupMenu.propTypes = {
 
 GroupMenu.defaultProps = {
   getGroupProgress: function getGroupProgress() {},
-  alignmentData: {},
+  isVerseFinished: {},
   getSelections: function getSelections() {
     return 'A selection';
   },
@@ -105881,20 +105881,14 @@ function inView(groupMenu, currentItem) {}
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-function getStatusBadges(groupItemData, alignmentData, currentToolName) {
+function getStatusBadges(groupItemData, verseFinished, currentToolName) {
   var glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
-    var _groupItemData$contex = groupItemData.contextId.reference,
-        chapter = _groupItemData$contex.chapter,
-        verse = _groupItemData$contex.verse;
-
-    var wordBank = alignmentData && alignmentData[chapter] && alignmentData[chapter][verse] ? alignmentData[chapter][verse].wordBank : [];
-
     // The below ifs are in order of precedence of the status badges we show
     if (groupItemData.invalidated) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
-    if (groupItemData.selections || currentToolName === 'wordAlignment' && wordBank && wordBank.length === 0) glyphs.push('ok');
+    if (groupItemData.selections || verseFinished) glyphs.push('ok');
     if (groupItemData.verseEdits) glyphs.push('pencil');
     if (groupItemData.comments) glyphs.push('comment');
   }
@@ -110274,7 +110268,7 @@ var Groups = function Groups(_ref) {
       contextId = _ref.contextId,
       translate = _ref.translate,
       getSelections = _ref.getSelections,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName;
 
   var groupComponents = _react2.default.createElement(_NoResults2.default, { translate: translate });
@@ -110288,7 +110282,7 @@ var Groups = function Groups(_ref) {
       var active = contextId ? contextId.groupId === groupId : false;
       return _react2.default.createElement(_Group2.default, {
         currentToolName: currentToolName,
-        alignmentData: alignmentData,
+        isVerseFinished: isVerseFinished,
         contextId: contextId,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
@@ -110364,7 +110358,7 @@ var Group = function Group(_ref) {
       contextId = _ref.contextId,
       getSelections = _ref.getSelections,
       classes = _ref.classes,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName;
 
   var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
@@ -110408,7 +110402,7 @@ var Group = function Group(_ref) {
       ),
       active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
         currentToolName: currentToolName,
-        alignmentData: alignmentData,
+        isVerseFinished: isVerseFinished,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
         contextId: contextId,
@@ -111002,7 +110996,7 @@ var GroupItems = function GroupItems(_ref) {
       filters = _ref.filters,
       manifest = _ref.manifest,
       contextId = _ref.contextId,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName,
       getSelections = _ref.getSelections;
 
@@ -111028,7 +111022,7 @@ var GroupItems = function GroupItems(_ref) {
         contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, alignmentData, currentToolName),
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName),
         groupMenuHeader: groupHeaderComponent,
         scrollIntoView: helpers.scrollIntoView,
         active: active,
