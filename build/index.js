@@ -117,7 +117,7 @@ Object.defineProperty(exports, 'VerseEditor', {
   }
 });
 
-var _VerseCheck = __webpack_require__(760);
+var _VerseCheck = __webpack_require__(759);
 
 Object.defineProperty(exports, 'VerseCheck', {
   enumerable: true,
@@ -126,7 +126,7 @@ Object.defineProperty(exports, 'VerseCheck', {
   }
 });
 
-var _GroupMenu = __webpack_require__(802);
+var _GroupMenu = __webpack_require__(801);
 
 Object.defineProperty(exports, 'GroupMenu', {
   enumerable: true,
@@ -135,7 +135,7 @@ Object.defineProperty(exports, 'GroupMenu', {
   }
 });
 
-var _Bookmark = __webpack_require__(765);
+var _Bookmark = __webpack_require__(764);
 
 Object.defineProperty(exports, 'Bookmark', {
   enumerable: true,
@@ -63476,10 +63476,6 @@ var _bibleHelpers = __webpack_require__(635);
 
 var bibleHelpers = _interopRequireWildcard(_bibleHelpers);
 
-var _bibles = __webpack_require__(759);
-
-var _bibles2 = _interopRequireDefault(_bibles);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -63492,8 +63488,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // components
 
 // helpers
-
-// TODO: Remove this bibles when we can get it from props instead.
 
 
 // constant
@@ -63530,9 +63524,10 @@ var ScripturePane = function (_Component) {
           selections = _props.selections,
           contextId = _props.contextId,
           getLexiconData = _props.getLexiconData,
-          showPopover = _props.showPopover;
+          showPopover = _props.showPopover,
+          bibles = _props.bibles;
 
-      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(_bibles2.default, selections, contextId, getLexiconData, showPopover);
+      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
       this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
     }
   }, {
@@ -63543,9 +63538,10 @@ var ScripturePane = function (_Component) {
         var selections = nextProps.selections,
             contextId = nextProps.contextId,
             getLexiconData = nextProps.getLexiconData,
-            showPopover = nextProps.showPopover;
+            showPopover = nextProps.showPopover,
+            bibles = nextProps.bibles;
 
-        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(_bibles2.default, selections, contextId, getLexiconData, showPopover);
+        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
       }
     }
@@ -63633,7 +63629,8 @@ var ScripturePane = function (_Component) {
           contextId = _props4.contextId,
           editTargetVerse = _props4.editTargetVerse,
           translate = _props4.translate,
-          projectDetailsReducer = _props4.projectDetailsReducer;
+          projectDetailsReducer = _props4.projectDetailsReducer,
+          bibles = _props4.bibles;
 
       // material-ui-theme, new color themes could be added here in the future
 
@@ -63710,7 +63707,7 @@ var ScripturePane = function (_Component) {
             biblesWithHighlightedWords: biblesWithHighlightedWords,
             currentPaneSettings: currentPaneSettings,
             contextId: contextId,
-            bibles: _bibles2.default,
+            bibles: bibles,
             editTargetVerse: editTargetVerse,
             translate: translate,
             projectDetailsReducer: projectDetailsReducer
@@ -63754,42 +63751,7 @@ ScripturePane.propTypes = {
   projectDetailsReducer: _propTypes2.default.object.isRequired,
   editTargetVerse: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
-  bibles: _propTypes2.default.object
-};
-
-// TODO: Remove defaultProps for requiered data.
-ScripturePane.defaultProps = {
-  contextId: {
-    groupId: "apostle",
-    occurrence: 1,
-    quote: "ἀπόστολος",
-    reference: {
-      bookId: "tit",
-      chapter: 1,
-      verse: 1
-    },
-    strong: ["G06520"],
-    tool: "translationWords"
-  },
-  currentPaneSettings: [{
-    "languageId": "targetLanguage",
-    "bibleId": "targetBible"
-  }, {
-    "languageId": "originalLanguage",
-    "bibleId": "ugnt"
-  }, {
-    "languageId": "en",
-    "bibleId": "ult"
-  }, {
-    languageId: "en",
-    bibleId: "udt"
-  }, {
-    languageId: "hi",
-    bibleId: "udt"
-  }, {
-    languageId: "hi",
-    bibleId: "ulb"
-  }]
+  bibles: _propTypes2.default.object.isRequired
 };
 
 exports.default = ScripturePane;
@@ -84819,12 +84781,6 @@ var removeMarker = exports.removeMarker = function removeMarker() {
 
 /***/ }),
 /* 759 */
-/***/ (function(module) {
-
-module.exports = {"en":{"ult":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Paul","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"a","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"servant","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":1,"occurrences":4},{"text":"God","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"and","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G06520","content":"ἀπόστολος","children":[{"text":"an","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"apostle","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":2,"occurrences":4},{"text":"Jesus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"Christ","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"for","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"the","tag":"w","type":"word","occurrence":1,"occurrences":3},{"text":"faith","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"of","tag":"w","type":"word","occurrence":3,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"God","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"type":"text","text":"'"},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"s","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"chosen","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"people","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"text":"and","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"the","tag":"w","type":"word","occurrence":2,"occurrences":3},{"text":"knowledge","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"of","tag":"w","type":"word","occurrence":4,"occurrences":4},{"text":"the","tag":"w","type":"word","occurrence":3,"occurrences":3},{"text":"truth","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"text":"that","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατ’","children":[{"text":"agrees","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"with","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G21500","content":"εὐσέβειαν","children":[{"text":"godliness","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":", \n"}]},"2":{"verseObjects":[{"content":"+ \ft The best ancient copies omit v. 21, \fqa But this kind of demon does not go out except with prayer and fasting \fqa* . ","tag":"f","type":"footnote"},{"text":"↵↵","type":"text"},{"tag":"s5","text":"↵","type":"section"},{"tag":"p","text":"↵","type":"paragraph"}]}},"manifest":{"language_id":"en","language_name":"English","direction":"ltr","subject":"Bible","resource_id":"ult","resource_title":"unfoldingWord Literal Text","description":"Gateway Language"}},"udt":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Paul","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"write","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"this","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"letter","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":1,"occurrences":5},{"text":"you","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Titus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":2,"occurrences":3},{"text":"am","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"servant","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"God","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"and","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G06520","content":"ἀπόστολος","children":[{"text":"an","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"apostle","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"Jesus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"Christ","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"God","tag":"w","type":"word","occurrence":2,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"sent","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"me","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":2,"occurrences":5},{"text":"teach","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"the","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"people","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"whom","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"he","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"has","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"chosen","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"as","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"own","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"to","tag":"w","type":"word","occurrence":3,"occurrences":5},{"text":"trust","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"him","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"more","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"I","tag":"w","type":"word","occurrence":3,"occurrences":3},{"text":"work","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":4,"occurrences":5},{"text":"help","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"people","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"to","tag":"w","type":"word","occurrence":5,"occurrences":5},{"text":"know","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"what","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"is","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"true","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατ’","children":[{"text":"so","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":1,"occurrences":2}]}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G21500","content":"εὐσέβειαν","children":[{"text":"they","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"can","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"live","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"in","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"way","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"pleases","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"God","tag":"w","type":"word","occurrence":3,"occurrences":3}]},{"type":"text","text":". \n"}]},"2":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Paul","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"write","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"this","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"letter","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":1,"occurrences":5},{"text":"you","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Titus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":2,"occurrences":3},{"text":"am","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"servant","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"God","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"and","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G06520","content":"ἀπόστολος","children":[{"text":"an","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"apostle","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"Jesus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"Christ","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"God","tag":"w","type":"word","occurrence":2,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"sent","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"me","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":2,"occurrences":5},{"text":"teach","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"the","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"people","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"whom","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"he","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"has","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"chosen","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"as","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"own","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"to","tag":"w","type":"word","occurrence":3,"occurrences":5},{"text":"trust","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"him","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"more","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"I","tag":"w","type":"word","occurrence":3,"occurrences":3},{"text":"work","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":4,"occurrences":5},{"text":"help","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"people","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"to","tag":"w","type":"word","occurrence":5,"occurrences":5},{"text":"know","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"what","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"is","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"true","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατ’","children":[{"text":"so","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":1,"occurrences":2}]}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G21500","content":"εὐσέβειαν","children":[{"text":"they","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"can","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"live","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"in","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"way","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"pleases","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"God","tag":"w","type":"word","occurrence":3,"occurrences":3}]},{"type":"text","text":". \n"}]}},"manifest":{"language_id":"en","language_name":"English","direction":"ltr","subject":"Bible","resource_id":"udt","resource_title":"unfoldingWord Dynamic Text","description":"Gateway Language"}}},"hi":{"ulb":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"पौलुस","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"की","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"ओर","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"से","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"जो","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"परमेश्","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"वर","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"का","tag":"w","type":"word","occurrence":1,"occurrences":3},{"text":"दास","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"और","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"यीशु","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"मसीह","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"का","tag":"w","type":"word","occurrence":2,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"alignmentIndex":"2","strong":"G06520","content":"ἀπόστολος","children":[{"text":"प्रेरित","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"है","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"परमेश्","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"वर","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"के","tag":"w","type":"word","occurrence":1,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"चुने","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"हुए","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"लोगों","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G21500","content":"εὐσέβειαν","children":[{"text":"के","tag":"w","type":"word","occurrence":2,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"विश्वास","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"को","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"स्थापित","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"करने","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"text":"और","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"सच्चाई","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"का","tag":"w","type":"word","occurrence":3,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"ज्ञान","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"स्थापित","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"करने","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"के","tag":"w","type":"word","occurrence":3,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"लिए","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G21500","content":"εὐσέβειαν","children":[{"text":"जो","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"भक्ति","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"के","tag":"w","type":"word","occurrence":4,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G25960","content":"κατ’","children":[{"text":"साथ","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"सहमत","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"हैं","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"type":"text","text":", \n"}]}},"manifest":{"language_id":"hi","language_name":"हिन्दी, हिंदी","direction":"ltr","subject":"Bible","resource_id":"ulb","resource_title":"Unlocked Literal Bible - Hindi","description":"Gateway Language"}},"udt":{"1":{"1":"HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of Gods chosen people and the knowledge of the truth that agrees with godliness,"},"manifest":{"language_id":"hi","language_name":"हिन्दी, हिंदी","direction":"ltr","subject":"Bible","resource_id":"udt","resource_title":"Unlocked Dynamic Text","description":"Gateway Language"}}},"originalLanguage":{"ugnt":{"1":{"1":{"verseObjects":[{"lemma":"","morph":"Gr,","strong":"G00000","tag":"w","text":"","type":"word"},{"text":"↵↵","type":"text"}]}},"manifest":{"language_id":"el-x-koine","language_name":"Koine Greek","direction":"ltr","subject":"Greek New Testament","resource_id":"ugnt","resource_title":"Unlocked Greek New Testament","description":"Original Language"}}},"targetLanguage":{"targetBible":{"1":{"1":"Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"},"manifest":{"description":"Target Language","direction":"ltr","language_id":"en","language_name":"English","resource_id":"targetLanguage","resource_title":"Target Bible","subject":"Bible"}}}};
-
-/***/ }),
-/* 760 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84834,7 +84790,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _VerseCheck = __webpack_require__(761);
+var _VerseCheck = __webpack_require__(760);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -84846,7 +84802,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 761 */
+/* 760 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84866,27 +84822,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
 var _styles = __webpack_require__(20);
 
-var _ActionsArea = __webpack_require__(764);
+var _ActionsArea = __webpack_require__(763);
 
 var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
-var _CheckArea = __webpack_require__(771);
+var _CheckArea = __webpack_require__(770);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
 
-var _SaveArea = __webpack_require__(796);
+var _SaveArea = __webpack_require__(795);
 
 var _SaveArea2 = _interopRequireDefault(_SaveArea);
 
-var _DialogComponent = __webpack_require__(799);
+var _DialogComponent = __webpack_require__(798);
 
 var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 
-var _IconIndicators = __webpack_require__(801);
+var _IconIndicators = __webpack_require__(800);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
@@ -85151,11 +85107,11 @@ VerseCheck.defaultProps = {
 exports.default = VerseCheck;
 
 /***/ }),
-/* 762 */
+/* 761 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(763);
+var content = __webpack_require__(762);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -85176,7 +85132,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 763 */
+/* 762 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -85190,7 +85146,7 @@ exports.push([module.i, ".verse-check {\n  margin: 10px;\n  height: 100%;\n  dis
 
 
 /***/ }),
-/* 764 */
+/* 763 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85210,11 +85166,11 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _Bookmark = __webpack_require__(765);
+var _Bookmark = __webpack_require__(764);
 
 var _Bookmark2 = _interopRequireDefault(_Bookmark);
 
-__webpack_require__(769);
+__webpack_require__(768);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85377,7 +85333,7 @@ var ActionsArea = function ActionsArea(_ref) {
 exports.default = ActionsArea;
 
 /***/ }),
-/* 765 */
+/* 764 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85387,7 +85343,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Bookmark = __webpack_require__(766);
+var _Bookmark = __webpack_require__(765);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -85399,7 +85355,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 766 */
+/* 765 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85417,7 +85373,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Switch = __webpack_require__(767);
+var _Switch = __webpack_require__(766);
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
@@ -85478,7 +85434,7 @@ Bookmark.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Bookmark);
 
 /***/ }),
-/* 767 */
+/* 766 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85488,7 +85444,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switch = __webpack_require__(768);
+var _Switch = __webpack_require__(767);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -85500,7 +85456,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 768 */
+/* 767 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85722,11 +85678,11 @@ Switch.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
 
 /***/ }),
-/* 769 */
+/* 768 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(770);
+var content = __webpack_require__(769);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -85747,7 +85703,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 770 */
+/* 769 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -85761,7 +85717,7 @@ exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n 
 
 
 /***/ }),
-/* 771 */
+/* 770 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85779,27 +85735,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _DefaultArea = __webpack_require__(772);
+var _DefaultArea = __webpack_require__(771);
 
 var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
 
-var _SelectionArea = __webpack_require__(779);
+var _SelectionArea = __webpack_require__(778);
 
 var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
 
-var _InstructionsArea = __webpack_require__(784);
+var _InstructionsArea = __webpack_require__(783);
 
 var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
 
-var _EditVerseArea = __webpack_require__(788);
+var _EditVerseArea = __webpack_require__(787);
 
 var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
 
-var _CommentArea = __webpack_require__(791);
+var _CommentArea = __webpack_require__(790);
 
 var _CommentArea2 = _interopRequireDefault(_CommentArea);
 
-__webpack_require__(794);
+__webpack_require__(793);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85910,7 +85866,7 @@ CheckArea.propTypes = {
 exports.default = CheckArea;
 
 /***/ }),
-/* 772 */
+/* 771 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85930,15 +85886,15 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _selectionHelpers = __webpack_require__(773);
+var _selectionHelpers = __webpack_require__(772);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyLanguageModal = __webpack_require__(775);
+var _MyLanguageModal = __webpack_require__(774);
 
 var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -86091,7 +86047,7 @@ DefaultArea.propTypes = {
 exports.default = DefaultArea;
 
 /***/ }),
-/* 773 */
+/* 772 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86102,7 +86058,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.normalizeString = exports.occurrencesInString = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionArray = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _lodash = __webpack_require__(774);
+var _lodash = __webpack_require__(773);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -86414,7 +86370,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 // console.log(selectionArray)
 
 /***/ }),
-/* 774 */
+/* 773 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -103497,7 +103453,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(732)(module)))
 
 /***/ }),
-/* 775 */
+/* 774 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103523,11 +103479,11 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyTargetVerse = __webpack_require__(776);
+var _MyTargetVerse = __webpack_require__(775);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(777);
+__webpack_require__(776);
 
 var _Toolbar = __webpack_require__(475);
 
@@ -103671,7 +103627,7 @@ MyLanguageModal.propTypes = {
 exports.default = MyLanguageModal;
 
 /***/ }),
-/* 776 */
+/* 775 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103735,11 +103691,11 @@ MyTargetVerse.propTypes = {
 exports.default = MyTargetVerse;
 
 /***/ }),
-/* 777 */
+/* 776 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(778);
+var content = __webpack_require__(777);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -103760,7 +103716,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 778 */
+/* 777 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -103774,7 +103730,7 @@ exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  co
 
 
 /***/ }),
-/* 779 */
+/* 778 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103794,9 +103750,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
-var _RenderSelectionTextComponent = __webpack_require__(780);
+var _RenderSelectionTextComponent = __webpack_require__(779);
 
 var _RenderSelectionTextComponent2 = _interopRequireDefault(_RenderSelectionTextComponent);
 
@@ -103895,7 +103851,7 @@ SelectionArea.propTypes = {
 exports.default = SelectionArea;
 
 /***/ }),
-/* 780 */
+/* 779 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103919,15 +103875,15 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _windowSelectionHelpers = __webpack_require__(781);
+var _windowSelectionHelpers = __webpack_require__(780);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
-var _selectionHelpers = __webpack_require__(783);
+var _selectionHelpers = __webpack_require__(782);
 
 var selectionHelpers = _interopRequireWildcard(_selectionHelpers);
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104089,7 +104045,7 @@ RenderSelectionTextComponent.propTypes = {
 exports.default = RenderSelectionTextComponent;
 
 /***/ }),
-/* 781 */
+/* 780 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104101,7 +104057,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPrescedingTextFromElementSiblings = exports.getPrescedingTextFromElement = exports.getPrescedingTextFromElementAndSiblings = exports.getPrescedingTextFromWindowSelection = exports.getSelectedTextFromWindowSelection = exports.getCurrentWindowSelection = exports.getSelectionFromCurrentWindowSelection = undefined;
 exports.shouldRenderEllipsis = shouldRenderEllipsis;
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104250,7 +104206,7 @@ function shouldRenderEllipsis(selections, verseText) {
 }
 
 /***/ }),
-/* 782 */
+/* 781 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104316,7 +104272,7 @@ var generateSelection = exports.generateSelection = function generateSelection(s
 };
 
 /***/ }),
-/* 783 */
+/* 782 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104331,11 +104287,11 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _lodash = __webpack_require__(774);
+var _lodash = __webpack_require__(773);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104544,7 +104500,7 @@ var addSelectionToSelections = exports.addSelectionToSelections = function addSe
 };
 
 /***/ }),
-/* 784 */
+/* 783 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104562,9 +104518,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(785);
+__webpack_require__(784);
 
-var _InstructionsAreaTextSelection = __webpack_require__(787);
+var _InstructionsAreaTextSelection = __webpack_require__(786);
 
 var _InstructionsAreaTextSelection2 = _interopRequireDefault(_InstructionsAreaTextSelection);
 
@@ -104669,11 +104625,11 @@ InstructionsArea.propTypes = {
 exports.default = InstructionsArea;
 
 /***/ }),
-/* 785 */
+/* 784 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(786);
+var content = __webpack_require__(785);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104694,7 +104650,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 786 */
+/* 785 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104708,7 +104664,7 @@ exports.push([module.i, ".instructions-area {\n  padding: 5px;\n  text-align: ce
 
 
 /***/ }),
-/* 787 */
+/* 786 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104726,7 +104682,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _windowSelectionHelpers = __webpack_require__(781);
+var _windowSelectionHelpers = __webpack_require__(780);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
@@ -104799,7 +104755,7 @@ QuoatationMarks.propTypes = {
 };
 
 /***/ }),
-/* 788 */
+/* 787 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104819,7 +104775,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(789);
+__webpack_require__(788);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104925,11 +104881,11 @@ EditVerseArea.propTypes = {
 exports.default = EditVerseArea;
 
 /***/ }),
-/* 789 */
+/* 788 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(790);
+var content = __webpack_require__(789);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104950,7 +104906,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 790 */
+/* 789 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104964,7 +104920,7 @@ exports.push([module.i, ".edit-area {\n  flex: auto;\n  display: flex;\n  flex-d
 
 
 /***/ }),
-/* 791 */
+/* 790 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104984,7 +104940,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(792);
+__webpack_require__(791);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105029,11 +104985,11 @@ CommentArea.propTypes = {
 exports.default = CommentArea;
 
 /***/ }),
-/* 792 */
+/* 791 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(793);
+var content = __webpack_require__(792);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105054,7 +105010,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 793 */
+/* 792 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105068,11 +105024,11 @@ exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  fle
 
 
 /***/ }),
-/* 794 */
+/* 793 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(795);
+var content = __webpack_require__(794);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105093,7 +105049,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 795 */
+/* 794 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105107,7 +105063,7 @@ exports.push([module.i, ".check-area {\n  min-height: 130px;\n  height: 100%;\n 
 
 
 /***/ }),
-/* 796 */
+/* 795 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105127,7 +105083,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(797);
+__webpack_require__(796);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105185,11 +105141,11 @@ SaveArea.propTypes = {
 exports.default = SaveArea;
 
 /***/ }),
-/* 797 */
+/* 796 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(798);
+var content = __webpack_require__(797);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105210,7 +105166,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 798 */
+/* 797 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105224,7 +105180,7 @@ exports.push([module.i, ".save-area {\n  flex: 0 0 55px;\n  display: flex;\n  ju
 
 
 /***/ }),
-/* 799 */
+/* 798 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105248,7 +105204,7 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _localizationHelpers = __webpack_require__(800);
+var _localizationHelpers = __webpack_require__(799);
 
 var _Toolbar = __webpack_require__(475);
 
@@ -105363,7 +105319,7 @@ DialogComponent.propTypes = {
 exports.default = DialogComponent;
 
 /***/ }),
-/* 800 */
+/* 799 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105395,7 +105351,7 @@ var getTranslatedParts = exports.getTranslatedParts = function getTranslatedPart
 };
 
 /***/ }),
-/* 801 */
+/* 800 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105477,7 +105433,7 @@ IconIndicators.propTypes = {
 exports.default = IconIndicators;
 
 /***/ }),
-/* 802 */
+/* 801 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105487,7 +105443,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _GroupMenu = __webpack_require__(803);
+var _GroupMenu = __webpack_require__(802);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -105499,7 +105455,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 803 */
+/* 802 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105519,23 +105475,23 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = __webpack_require__(804);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _Groups = __webpack_require__(822);
+var _Groups = __webpack_require__(821);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(832);
+var _FilterMenuHeader = __webpack_require__(831);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(834);
+var _GroupsMenuFilter = __webpack_require__(833);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(839);
+__webpack_require__(838);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -105758,7 +105714,7 @@ GroupMenu.defaultProps = {
 exports.default = GroupMenu;
 
 /***/ }),
-/* 804 */
+/* 803 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105779,17 +105735,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(805);
+var _server = __webpack_require__(804);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactTooltip = __webpack_require__(808);
+var _reactTooltip = __webpack_require__(807);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _InvalidatedIcon = __webpack_require__(821);
+var _InvalidatedIcon = __webpack_require__(820);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -105968,19 +105924,19 @@ function getGlyphIcons(glyphs) {
 }
 
 /***/ }),
-/* 805 */
+/* 804 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(806);
+  module.exports = __webpack_require__(805);
 }
 
 
 /***/ }),
-/* 806 */
+/* 805 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -106007,7 +105963,7 @@ var React = __webpack_require__(3);
 var emptyFunction = __webpack_require__(6);
 var emptyObject = __webpack_require__(269);
 var hyphenateStyleName = __webpack_require__(270);
-var memoizeStringOnly = __webpack_require__(807);
+var memoizeStringOnly = __webpack_require__(806);
 var warning = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(11);
 var camelizeStyleName = __webpack_require__(272);
@@ -108709,7 +108665,7 @@ module.exports = server_browser;
 
 
 /***/ }),
-/* 807 */
+/* 806 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108742,7 +108698,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 808 */
+/* 807 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108779,45 +108735,45 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _staticMethods = __webpack_require__(809);
+var _staticMethods = __webpack_require__(808);
 
 var _staticMethods2 = _interopRequireDefault(_staticMethods);
 
-var _windowListener = __webpack_require__(811);
+var _windowListener = __webpack_require__(810);
 
 var _windowListener2 = _interopRequireDefault(_windowListener);
 
-var _customEvent = __webpack_require__(812);
+var _customEvent = __webpack_require__(811);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
-var _isCapture = __webpack_require__(813);
+var _isCapture = __webpack_require__(812);
 
 var _isCapture2 = _interopRequireDefault(_isCapture);
 
-var _getEffect = __webpack_require__(814);
+var _getEffect = __webpack_require__(813);
 
 var _getEffect2 = _interopRequireDefault(_getEffect);
 
-var _trackRemoval = __webpack_require__(815);
+var _trackRemoval = __webpack_require__(814);
 
 var _trackRemoval2 = _interopRequireDefault(_trackRemoval);
 
-var _getPosition = __webpack_require__(816);
+var _getPosition = __webpack_require__(815);
 
 var _getPosition2 = _interopRequireDefault(_getPosition);
 
-var _getTipContent = __webpack_require__(817);
+var _getTipContent = __webpack_require__(816);
 
 var _getTipContent2 = _interopRequireDefault(_getTipContent);
 
-var _aria = __webpack_require__(818);
+var _aria = __webpack_require__(817);
 
-var _nodeListToArray = __webpack_require__(819);
+var _nodeListToArray = __webpack_require__(818);
 
 var _nodeListToArray2 = _interopRequireDefault(_nodeListToArray);
 
-var _style = __webpack_require__(820);
+var _style = __webpack_require__(819);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -109359,7 +109315,7 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 module.exports = ReactTooltip;
 
 /***/ }),
-/* 809 */
+/* 808 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109418,7 +109374,7 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(810);
+var _constant = __webpack_require__(809);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -109443,7 +109399,7 @@ var dispatchGlobalEvent = function dispatchGlobalEvent(eventName, opts) {
     */
 
 /***/ }),
-/* 810 */
+/* 809 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109462,7 +109418,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 811 */
+/* 810 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109509,14 +109465,14 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(810);
+var _constant = __webpack_require__(809);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 812 */
+/* 811 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109610,7 +109566,7 @@ var setUntargetItems = function setUntargetItems(currentTarget, targetArray) {
 var customListener = void 0;
 
 /***/ }),
-/* 813 */
+/* 812 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109628,7 +109584,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 814 */
+/* 813 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109646,7 +109602,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 815 */
+/* 814 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109704,7 +109660,7 @@ var getMutationObserverClass = function getMutationObserverClass() {
 };
 
 /***/ }),
-/* 816 */
+/* 815 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110062,7 +110018,7 @@ var getParent = function getParent(currentTarget) {
 };
 
 /***/ }),
-/* 817 */
+/* 816 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110100,7 +110056,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 818 */
+/* 817 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110130,7 +110086,7 @@ function parseAria(props) {
 }
 
 /***/ }),
-/* 819 */
+/* 818 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110151,7 +110107,7 @@ exports.default = function (nodeList) {
 };
 
 /***/ }),
-/* 820 */
+/* 819 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110163,7 +110119,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = '.__react_component_tooltip{border-radius:3px;display:inline-block;font-size:13px;left:-999em;opacity:0;padding:8px 21px;position:fixed;pointer-events:none;transition:opacity 0.3s ease-out;top:-999em;visibility:hidden;z-index:999}.__react_component_tooltip:before,.__react_component_tooltip:after{content:"";width:0;height:0;position:absolute}.__react_component_tooltip.show{opacity:0.9;margin-top:0px;margin-left:0px;visibility:visible}.__react_component_tooltip.type-dark{color:#fff;background-color:#222}.__react_component_tooltip.type-dark.place-top:after{border-top-color:#222;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-dark.place-bottom:after{border-bottom-color:#222;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-dark.place-left:after{border-left-color:#222;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-dark.place-right:after{border-right-color:#222;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-dark.border{border:1px solid #fff}.__react_component_tooltip.type-dark.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-dark.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-dark.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-dark.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-success{color:#fff;background-color:#8DC572}.__react_component_tooltip.type-success.place-top:after{border-top-color:#8DC572;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-success.place-bottom:after{border-bottom-color:#8DC572;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-success.place-left:after{border-left-color:#8DC572;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-success.place-right:after{border-right-color:#8DC572;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-success.border{border:1px solid #fff}.__react_component_tooltip.type-success.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-success.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-success.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-success.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-warning{color:#fff;background-color:#F0AD4E}.__react_component_tooltip.type-warning.place-top:after{border-top-color:#F0AD4E;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-warning.place-bottom:after{border-bottom-color:#F0AD4E;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-warning.place-left:after{border-left-color:#F0AD4E;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-warning.place-right:after{border-right-color:#F0AD4E;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-warning.border{border:1px solid #fff}.__react_component_tooltip.type-warning.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-warning.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-warning.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-warning.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-error{color:#fff;background-color:#BE6464}.__react_component_tooltip.type-error.place-top:after{border-top-color:#BE6464;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-error.place-bottom:after{border-bottom-color:#BE6464;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-error.place-left:after{border-left-color:#BE6464;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-error.place-right:after{border-right-color:#BE6464;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-error.border{border:1px solid #fff}.__react_component_tooltip.type-error.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-error.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-error.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-error.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-info{color:#fff;background-color:#337AB7}.__react_component_tooltip.type-info.place-top:after{border-top-color:#337AB7;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-info.place-bottom:after{border-bottom-color:#337AB7;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-info.place-left:after{border-left-color:#337AB7;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-info.place-right:after{border-right-color:#337AB7;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-info.border{border:1px solid #fff}.__react_component_tooltip.type-info.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-info.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-info.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-info.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-light{color:#222;background-color:#fff}.__react_component_tooltip.type-light.place-top:after{border-top-color:#fff;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-light.place-bottom:after{border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-light.place-left:after{border-left-color:#fff;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-light.place-right:after{border-right-color:#fff;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-light.border{border:1px solid #222}.__react_component_tooltip.type-light.border.place-top:before{border-top:8px solid #222}.__react_component_tooltip.type-light.border.place-bottom:before{border-bottom:8px solid #222}.__react_component_tooltip.type-light.border.place-left:before{border-left:8px solid #222}.__react_component_tooltip.type-light.border.place-right:before{border-right:8px solid #222}.__react_component_tooltip.place-top{margin-top:-10px}.__react_component_tooltip.place-top:before{border-left:10px solid transparent;border-right:10px solid transparent;bottom:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-top:after{border-left:8px solid transparent;border-right:8px solid transparent;bottom:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-bottom{margin-top:10px}.__react_component_tooltip.place-bottom:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-bottom:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-left{margin-left:-10px}.__react_component_tooltip.place-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;right:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-left:after{border-top:5px solid transparent;border-bottom:5px solid transparent;right:-6px;top:50%;margin-top:-4px}.__react_component_tooltip.place-right{margin-left:10px}.__react_component_tooltip.place-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;left:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-right:after{border-top:5px solid transparent;border-bottom:5px solid transparent;left:-6px;top:50%;margin-top:-4px}.__react_component_tooltip .multi-line{display:block;padding:2px 0px;text-align:center}';
 
 /***/ }),
-/* 821 */
+/* 820 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110222,7 +110178,7 @@ InvalidatedIcon.defaultProps = {
 exports.default = InvalidatedIcon;
 
 /***/ }),
-/* 822 */
+/* 821 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110236,15 +110192,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Group = __webpack_require__(823);
+var _Group = __webpack_require__(822);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(829);
+var _NoResults = __webpack_require__(828);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
-var _helpers = __webpack_require__(804);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
@@ -110307,7 +110263,7 @@ var Groups = function Groups(_ref) {
 exports.default = Groups;
 
 /***/ }),
-/* 823 */
+/* 822 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110327,11 +110283,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Progress = __webpack_require__(824);
+var _Progress = __webpack_require__(823);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _GroupItems = __webpack_require__(827);
+var _GroupItems = __webpack_require__(826);
 
 var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
@@ -110430,7 +110386,7 @@ Group.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Group);
 
 /***/ }),
-/* 824 */
+/* 823 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110440,7 +110396,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _CircularProgress = __webpack_require__(825);
+var _CircularProgress = __webpack_require__(824);
 
 Object.defineProperty(exports, 'CircularProgress', {
   enumerable: true,
@@ -110449,7 +110405,7 @@ Object.defineProperty(exports, 'CircularProgress', {
   }
 });
 
-var _LinearProgress = __webpack_require__(826);
+var _LinearProgress = __webpack_require__(825);
 
 Object.defineProperty(exports, 'LinearProgress', {
   enumerable: true,
@@ -110461,7 +110417,7 @@ Object.defineProperty(exports, 'LinearProgress', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 825 */
+/* 824 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110695,7 +110651,7 @@ CircularProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCircularProgress', flip: false })(CircularProgress);
 
 /***/ }),
-/* 826 */
+/* 825 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110959,7 +110915,7 @@ LinearProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiLinearProgress' })(LinearProgress);
 
 /***/ }),
-/* 827 */
+/* 826 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110973,11 +110929,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _helpers = __webpack_require__(804);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _GroupItem = __webpack_require__(828);
+var _GroupItem = __webpack_require__(827);
 
 var _GroupItem2 = _interopRequireDefault(_GroupItem);
 
@@ -111053,7 +111009,7 @@ var GroupItems = function GroupItems(_ref) {
 exports.default = GroupItems;
 
 /***/ }),
-/* 828 */
+/* 827 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111065,7 +111021,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTooltip = __webpack_require__(808);
+var _reactTooltip = __webpack_require__(807);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -111182,7 +111138,7 @@ GroupItem.propTypes = {
 module.exports = GroupItem;
 
 /***/ }),
-/* 829 */
+/* 828 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111196,7 +111152,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(830);
+__webpack_require__(829);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111212,11 +111168,11 @@ var NoResults = function NoResults(_ref) {
 exports.default = NoResults;
 
 /***/ }),
-/* 830 */
+/* 829 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(831);
+var content = __webpack_require__(830);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111237,7 +111193,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 831 */
+/* 830 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -111251,7 +111207,7 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 832 */
+/* 831 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111267,7 +111223,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(833);
+var _FilterBadge = __webpack_require__(832);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -111297,7 +111253,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 833 */
+/* 832 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111328,7 +111284,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 834 */
+/* 833 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111346,11 +111302,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(835);
+var _ExpandedFilter = __webpack_require__(834);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(837);
+var _CollapsedFilter = __webpack_require__(836);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -111394,7 +111350,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 835 */
+/* 834 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111412,11 +111368,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(836);
+var _GroupsMenuFilterOption = __webpack_require__(835);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
-var _InvalidatedIcon = __webpack_require__(821);
+var _InvalidatedIcon = __webpack_require__(820);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -111515,7 +111471,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 836 */
+/* 835 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111584,7 +111540,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 837 */
+/* 836 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111602,7 +111558,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(838);
+var _GroupsMenuFilterBubble = __webpack_require__(837);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -111692,7 +111648,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 838 */
+/* 837 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111745,11 +111701,11 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 839 */
+/* 838 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(840);
+var content = __webpack_require__(839);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111770,7 +111726,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 840 */
+/* 839 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
