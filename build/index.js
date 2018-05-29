@@ -105505,15 +105505,15 @@ var _Groups = __webpack_require__(821);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(826);
+var _FilterMenuHeader = __webpack_require__(831);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(828);
+var _GroupsMenuFilter = __webpack_require__(833);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(833);
+__webpack_require__(838);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -110220,7 +110220,7 @@ var _Group = __webpack_require__(822);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(823);
+var _NoResults = __webpack_require__(828);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
@@ -110288,12 +110288,682 @@ exports.default = Groups;
 
 /***/ }),
 /* 822 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (82:7)\n\n\u001b[0m \u001b[90m 80 | \u001b[39m  }\u001b[33m;\u001b[39m\n \u001b[90m 81 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 | \u001b[39m  \u001b[33mGroup\u001b[39m\u001b[33m.\u001b[39mpropTypes \u001b[33m=\u001b[39m {\n \u001b[90m    | \u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 | \u001b[39m    manifest\u001b[33m:\u001b[39m \u001b[33mPropTypes\u001b[39m\u001b[33m.\u001b[39mobject\u001b[33m.\u001b[39misRequired\u001b[33m,\u001b[39m\n \u001b[90m 84 | \u001b[39m    contextId\u001b[33m:\u001b[39m \u001b[33mPropTypes\u001b[39m\u001b[33m.\u001b[39mobject\u001b[33m.\u001b[39misRequired\u001b[33m,\u001b[39m\n \u001b[90m 85 | \u001b[39m    filters\u001b[33m:\u001b[39m \u001b[33mPropTypes\u001b[39m\u001b[33m.\u001b[39mobject\u001b[33m.\u001b[39misRequired\u001b[33m,\u001b[39m\u001b[0m\n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styles = __webpack_require__(20);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Progress = __webpack_require__(823);
+
+var _reactBootstrap = __webpack_require__(226);
+
+var _GroupItems = __webpack_require__(826);
+
+var _GroupItems2 = _interopRequireDefault(_GroupItems);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var styles = {
+  circle: {
+    width: 40,
+    height: 40
+  }
+};
+
+var Group = function (_React$Component) {
+  _inherits(Group, _React$Component);
+
+  function Group() {
+    _classCallCheck(this, Group);
+
+    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).apply(this, arguments));
+  }
+
+  _createClass(Group, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          changeCurrentContextId = _props.changeCurrentContextId,
+          active = _props.active,
+          groupMenuExpandSubMenu = _props.groupMenuExpandSubMenu,
+          openGroup = _props.openGroup,
+          isSubMenuExpanded = _props.isSubMenuExpanded,
+          progress = _props.progress,
+          groupIndex = _props.groupIndex,
+          groupData = _props.groupData,
+          filters = _props.filters,
+          manifest = _props.manifest,
+          contextId = _props.contextId,
+          getSelections = _props.getSelections,
+          classes = _props.classes,
+          isVerseFinished = _props.isVerseFinished,
+          currentToolName = _props.currentToolName;
+
+      var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
+
+      var glyphAction = active ? groupMenuExpandSubMenu : openGroup;
+      var expandedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-down', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
+          return glyphAction(false);
+        } });
+      var collapsedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-right', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
+          return glyphAction(true);
+        } });
+      var theme = (0, _styles.createMuiTheme)();
+      return _react2.default.createElement(
+        _styles.MuiThemeProvider,
+        { theme: theme },
+        _react2.default.createElement(
+          'div',
+          { className: 'group' },
+          _react2.default.createElement(
+            'div',
+            { className: groupMenuItemHeadingClassName },
+            active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph,
+            _react2.default.createElement(
+              'div',
+              { onClick: openGroup },
+              _react2.default.createElement(
+                'div',
+                { style: { position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
+                _react2.default.createElement('div', { style: { height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%' } }),
+                _react2.default.createElement(_Progress.CircularProgress, {
+                  variant: 'static',
+                  value: progress * 100,
+                  thickness: 10,
+                  size: 15,
+                  color: progress ? 'primary' : 'secondary',
+                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
+                })
+              ),
+              groupIndex.name
+            )
+          ),
+          active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
+            currentToolName: currentToolName,
+            isVerseFinished: isVerseFinished,
+            getSelections: getSelections,
+            changeCurrentContextId: changeCurrentContextId,
+            contextId: contextId,
+            groupData: groupData,
+            groupHeaderComponent: this,
+            filters: filters,
+            manifest: manifest }) : null
+        )
+      );
+    }
+  }]);
+
+  return Group;
+}(_react2.default.Component);
+
+Group.propTypes = {
+  manifest: _propTypes2.default.object.isRequired,
+  contextId: _propTypes2.default.object.isRequired,
+  filters: _propTypes2.default.object.isRequired,
+  groupData: _propTypes2.default.array.isRequired,
+  isSubMenuExpanded: _propTypes2.default.bool.isRequired,
+  groupMenuExpandSubMenu: _propTypes2.default.func.isRequired,
+  openGroup: _propTypes2.default.func.isRequired,
+  progress: _propTypes2.default.number.isRequired,
+  groupIndex: _propTypes2.default.object.isRequired,
+  active: _propTypes2.default.bool.isRequired
+};
+
+exports.default = (0, _styles.withStyles)(styles)(Group);
 
 /***/ }),
 /* 823 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _CircularProgress = __webpack_require__(824);
+
+Object.defineProperty(exports, 'CircularProgress', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_CircularProgress).default;
+  }
+});
+
+var _LinearProgress = __webpack_require__(825);
+
+Object.defineProperty(exports, 'LinearProgress', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_LinearProgress).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 824 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _helpers = __webpack_require__(424);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SIZE = 50;
+
+function getRelativeValue(value, min, max) {
+  var clampedValue = Math.min(Math.max(min, value), max);
+  return (clampedValue - min) / (max - min);
+}
+
+function easeOut(t) {
+  t = getRelativeValue(t, 0, 1);
+  // https://gist.github.com/gre/1650294
+  t = (t -= 1) * t * t + 1;
+  return t;
+}
+
+function easeIn(t) {
+  return t * t;
+}
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'inline-block'
+    },
+    colorPrimary: {
+      color: theme.palette.primary.main
+    },
+    colorSecondary: {
+      color: theme.palette.secondary.main
+    },
+    svg: {},
+    svgIndeterminate: {
+      animation: 'mui-progress-circular-rotate 1.4s linear infinite'
+    },
+    circle: {
+      stroke: 'currentColor',
+      strokeLinecap: 'round'
+    },
+    circleIndeterminate: {
+      animation: 'mui-progress-circular-dash 1.4s ease-in-out infinite',
+      // Some default value that looks fine waiting for the animation to kicks in.
+      strokeDasharray: '80px, 200px',
+      strokeDashoffset: '0px' // Add the unit to fix a Edge 16 and below bug.
+    },
+    '@keyframes mui-progress-circular-rotate': {
+      '100%': {
+        transform: 'rotate(360deg)'
+      }
+    },
+    '@keyframes mui-progress-circular-dash': {
+      '0%': {
+        strokeDasharray: '1px, 200px',
+        strokeDashoffset: '0px'
+      },
+      '50%': {
+        strokeDasharray: '100px, 200px',
+        strokeDashoffset: '-15px'
+      },
+      '100%': {
+        strokeDasharray: '100px, 200px',
+        strokeDashoffset: '-120px'
+      }
+    }
+  };
+};
+
+/**
+ * ## ARIA
+ *
+ * If the progress bar is describing the loading progress of a particular region of a page,
+ * you should use `aria-describedby` to point to the progress bar, and set the `aria-busy`
+ * attribute to `true` on that region until it has finished loading.
+ */
+function CircularProgress(props) {
+  var _classNames2;
+
+  var classes = props.classes,
+      className = props.className,
+      color = props.color,
+      max = props.max,
+      min = props.min,
+      size = props.size,
+      style = props.style,
+      thickness = props.thickness,
+      value = props.value,
+      variant = props.variant,
+      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'color', 'max', 'min', 'size', 'style', 'thickness', 'value', 'variant']);
+
+
+  var circleStyle = {};
+  var rootStyle = {};
+  var rootProps = {};
+
+  if (variant === 'determinate' || variant === 'static') {
+    var relVal = getRelativeValue(value, min, max) * 100;
+    var circumference = 2 * Math.PI * (SIZE / 2 - 5);
+    circleStyle.strokeDasharray = circumference.toFixed(3);
+    rootProps['aria-valuenow'] = Math.round(relVal);
+
+    if (variant === 'static') {
+      circleStyle.strokeDashoffset = ((100 - relVal) / 100 * circumference).toFixed(3) + 'px';
+      rootStyle.transform = 'rotate(-90deg)';
+    } else {
+      circleStyle.strokeDashoffset = (easeIn((100 - relVal) / 100) * circumference).toFixed(3) + 'px';
+      rootStyle.transform = 'rotate(' + (easeOut(relVal / 70) * 270).toFixed(3) + 'deg)';
+    }
+  }
+
+  return _react2.default.createElement(
+    'div',
+    (0, _extends3.default)({
+      className: (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes['color' + (0, _helpers.capitalize)(color)], color !== 'inherit'), className),
+      style: (0, _extends3.default)({ width: size, height: size }, rootStyle, style),
+      role: 'progressbar'
+    }, rootProps, other),
+    _react2.default.createElement(
+      'svg',
+      {
+        className: (0, _classnames2.default)(classes.svg, (_classNames2 = {}, (0, _defineProperty3.default)(_classNames2, classes.svgIndeterminate, variant === 'indeterminate'), (0, _defineProperty3.default)(_classNames2, classes.svgStatic, variant === 'static'), _classNames2)),
+        viewBox: '0 0 ' + SIZE + ' ' + SIZE
+      },
+      _react2.default.createElement('circle', {
+        className: (0, _classnames2.default)(classes.circle, (0, _defineProperty3.default)({}, classes.circleIndeterminate, variant === 'indeterminate')),
+        style: circleStyle,
+        cx: SIZE / 2,
+        cy: SIZE / 2,
+        r: SIZE / 2 - 5,
+        fill: 'none',
+        strokeWidth: thickness
+      })
+    )
+  );
+}
+
+CircularProgress.propTypes =  true ? {
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes2.default.oneOf(['primary', 'secondary', 'inherit']),
+  /**
+   * The max value of progress in determinate variant.
+   */
+  max: _propTypes2.default.number,
+  /**
+   * The min value of progress in determinate variant.
+   */
+  min: _propTypes2.default.number,
+  /**
+   * The size of the circle.
+   */
+  size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  /**
+   * @ignore
+   */
+  style: _propTypes2.default.object,
+  /**
+   * The thickness of the circle.
+   */
+  thickness: _propTypes2.default.number,
+  /**
+   * The value of the progress indicator for the determinate and static variants.
+   * Value between 0 and 100.
+   */
+  value: _propTypes2.default.number,
+  /**
+   * The variant of progress indicator. Use indeterminate
+   * when there is no progress value.
+   */
+  variant: _propTypes2.default.oneOf(['determinate', 'indeterminate', 'static'])
+} : undefined;
+
+CircularProgress.defaultProps = {
+  color: 'primary',
+  max: 100,
+  min: 0,
+  size: 40,
+  thickness: 3.6,
+  value: 0,
+  variant: 'indeterminate'
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCircularProgress', flip: false })(CircularProgress);
+
+/***/ }),
+/* 825 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(24);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(74);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(62);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(229);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _warning = __webpack_require__(22);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _withStyles = __webpack_require__(189);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _colorManipulator = __webpack_require__(72);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TRANSITION_DURATION = 4; // 400ms
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      position: 'relative',
+      overflow: 'hidden',
+      height: 5
+    },
+    colorPrimary: {
+      backgroundColor: (0, _colorManipulator.lighten)(theme.palette.primary.light, 0.6)
+    },
+    colorSecondary: {
+      backgroundColor: (0, _colorManipulator.lighten)(theme.palette.secondary.light, 0.4)
+    },
+    buffer: {
+      backgroundColor: 'transparent'
+    },
+    query: {
+      transform: 'rotate(180deg)'
+    },
+    dashed: {
+      position: 'absolute',
+      marginTop: 0,
+      height: '100%',
+      width: '100%',
+      animation: 'buffer 3s infinite linear'
+    },
+    dashedColorPrimary: {
+      backgroundImage: 'radial-gradient(' + (0, _colorManipulator.lighten)(theme.palette.primary.light, 0.6) + ' 0%, ' + (0, _colorManipulator.lighten)(theme.palette.primary.light, 0.6) + ' 16%, transparent 42%)',
+      backgroundSize: '10px 10px',
+      backgroundPosition: '0px -23px'
+    },
+    dashedColorSecondary: {
+      backgroundImage: 'radial-gradient(' + (0, _colorManipulator.lighten)(theme.palette.secondary.light, 0.4) + ' 0%, ' + (0, _colorManipulator.lighten)(theme.palette.secondary.light, 0.6) + ' 16%, transparent 42%)',
+      backgroundSize: '10px 10px',
+      backgroundPosition: '0px -23px'
+    },
+    bar: {
+      width: '100%',
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+      top: 0,
+      transition: 'transform 0.2s linear',
+      transformOrigin: 'left'
+    },
+    barColorPrimary: {
+      backgroundColor: theme.palette.primary.main
+    },
+    barColorSecondary: {
+      backgroundColor: theme.palette.secondary.main
+    },
+    bar1Indeterminate: {
+      width: 'auto',
+      willChange: 'left, right',
+      animation: 'mui-indeterminate1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite'
+    },
+    bar2Indeterminate: {
+      width: 'auto',
+      willChange: 'left, right',
+      animation: 'mui-indeterminate2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite',
+      animationDelay: '1.15s'
+    },
+    bar1Determinate: {
+      willChange: 'transform',
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
+    },
+    bar1Buffer: {
+      zIndex: 1,
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
+    },
+    bar2Buffer: {
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
+    },
+    // Legends:
+    // || represents the viewport
+    // -  represents a light background
+    // x  represents a dark background
+    '@keyframes mui-indeterminate1': {
+      //  |-----|---x-||-----||-----|
+      '0%': {
+        left: '-35%',
+        right: '100%'
+      },
+      //  |-----|-----||-----||xxxx-|
+      '60%': {
+        left: '100%',
+        right: '-90%'
+      },
+      '100%': {
+        left: '100%',
+        right: '-90%'
+      }
+    },
+    '@keyframes mui-indeterminate2': {
+      //  |xxxxx|xxxxx||-----||-----|
+      '0%': {
+        left: '-200%',
+        right: '100%'
+      },
+      //  |-----|-----||-----||-x----|
+      '60%': {
+        left: '107%',
+        right: '-8%'
+      },
+      '100%': {
+        left: '107%',
+        right: '-8%'
+      }
+    },
+    '@keyframes buffer': {
+      '0%': {
+        opacity: 1,
+        backgroundPosition: '0px -23px'
+      },
+      '50%': {
+        opacity: 0,
+        backgroundPosition: '0px -23px'
+      },
+      '100%': {
+        opacity: 1,
+        backgroundPosition: '-200px -23px'
+      }
+    }
+  };
+};
+
+/**
+ * ## ARIA
+ *
+ * If the progress bar is describing the loading progress of a particular region of a page,
+ * you should use `aria-describedby` to point to the progress bar, and set the `aria-busy`
+ * attribute to `true` on that region until it has finished loading.
+ */
+function LinearProgress(props) {
+  var _classNames, _classNames2, _classNames3, _classNames4;
+
+  var classes = props.classes,
+      classNameProp = props.className,
+      color = props.color,
+      value = props.value,
+      valueBuffer = props.valueBuffer,
+      variant = props.variant,
+      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'color', 'value', 'valueBuffer', 'variant']);
+
+
+  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.colorPrimary, color === 'primary'), (0, _defineProperty3.default)(_classNames, classes.colorSecondary, color === 'secondary'), (0, _defineProperty3.default)(_classNames, classes.buffer, variant === 'buffer'), (0, _defineProperty3.default)(_classNames, classes.query, variant === 'query'), _classNames), classNameProp);
+  var dashedClass = (0, _classnames2.default)(classes.dashed, (_classNames2 = {}, (0, _defineProperty3.default)(_classNames2, classes.dashedColorPrimary, color === 'primary'), (0, _defineProperty3.default)(_classNames2, classes.dashedColorSecondary, color === 'secondary'), _classNames2));
+  var bar1ClassName = (0, _classnames2.default)(classes.bar, (_classNames3 = {}, (0, _defineProperty3.default)(_classNames3, classes.barColorPrimary, color === 'primary'), (0, _defineProperty3.default)(_classNames3, classes.barColorSecondary, color === 'secondary'), (0, _defineProperty3.default)(_classNames3, classes.bar1Indeterminate, variant === 'indeterminate' || variant === 'query'), (0, _defineProperty3.default)(_classNames3, classes.bar1Determinate, variant === 'determinate'), (0, _defineProperty3.default)(_classNames3, classes.bar1Buffer, variant === 'buffer'), _classNames3));
+  var bar2ClassName = (0, _classnames2.default)(classes.bar, (_classNames4 = {}, (0, _defineProperty3.default)(_classNames4, classes.barColorPrimary, color === 'primary' && variant !== 'buffer'), (0, _defineProperty3.default)(_classNames4, classes.colorPrimary, color === 'primary' && variant === 'buffer'), (0, _defineProperty3.default)(_classNames4, classes.barColorSecondary, color === 'secondary' && variant !== 'buffer'), (0, _defineProperty3.default)(_classNames4, classes.colorSecondary, color === 'secondary' && variant === 'buffer'), (0, _defineProperty3.default)(_classNames4, classes.bar2Indeterminate, variant === 'indeterminate' || variant === 'query'), (0, _defineProperty3.default)(_classNames4, classes.bar2Buffer, variant === 'buffer'), _classNames4));
+  var rootProps = {};
+  var inlineStyles = { bar1: {}, bar2: {} };
+
+  if (variant === 'determinate' || variant === 'buffer') {
+    if (value !== undefined) {
+      rootProps['aria-valuenow'] = Math.round(value);
+      inlineStyles.bar1.transform = 'scaleX(' + value / 100 + ')';
+    } else {
+       true ? (0, _warning2.default)(false, 'Material-UI: you need to provide a value property ' + 'when using the determinate or buffer variant of LinearProgress .') : undefined;
+    }
+  }
+  if (variant === 'buffer') {
+    if (valueBuffer !== undefined) {
+      inlineStyles.bar2.transform = 'scaleX(' + (valueBuffer || 0) / 100 + ')';
+    } else {
+       true ? (0, _warning2.default)(false, 'Material-UI: you need to provide a valueBuffer property ' + 'when using the buffer variant of LinearProgress.') : undefined;
+    }
+  }
+
+  return _react2.default.createElement(
+    'div',
+    (0, _extends3.default)({ className: className, role: 'progressbar' }, rootProps, other),
+    variant === 'buffer' ? _react2.default.createElement('div', { className: dashedClass }) : null,
+    _react2.default.createElement('div', { className: bar1ClassName, style: inlineStyles.bar1 }),
+    variant === 'determinate' ? null : _react2.default.createElement('div', { className: bar2ClassName, style: inlineStyles.bar2 })
+  );
+}
+
+LinearProgress.propTypes =  true ? {
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: _propTypes2.default.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: _propTypes2.default.string,
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes2.default.oneOf(['primary', 'secondary']),
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between 0 and 100.
+   */
+  value: _propTypes2.default.number,
+  /**
+   * The value for the buffer variant.
+   * Value between 0 and 100.
+   */
+  valueBuffer: _propTypes2.default.number,
+  /**
+   * The variant of progress indicator. Use indeterminate or query
+   * when there is no progress value.
+   */
+  variant: _propTypes2.default.oneOf(['determinate', 'indeterminate', 'buffer', 'query'])
+} : undefined;
+
+LinearProgress.defaultProps = {
+  color: 'primary',
+  variant: 'indeterminate'
+};
+
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiLinearProgress' })(LinearProgress);
+
+/***/ }),
+/* 826 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110307,7 +110977,230 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(824);
+var _helpers = __webpack_require__(803);
+
+var helpers = _interopRequireWildcard(_helpers);
+
+var _GroupItem = __webpack_require__(827);
+
+var _GroupItem2 = _interopRequireDefault(_GroupItem);
+
+var _deepEqual = __webpack_require__(546);
+
+var _deepEqual2 = _interopRequireDefault(_deepEqual);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroupItems = function GroupItems(_ref) {
+  var changeCurrentContextId = _ref.changeCurrentContextId,
+      groupData = _ref.groupData,
+      groupHeaderComponent = _ref.groupHeaderComponent,
+      filters = _ref.filters,
+      manifest = _ref.manifest,
+      contextId = _ref.contextId,
+      isVerseFinished = _ref.isVerseFinished,
+      currentToolName = _ref.currentToolName,
+      getSelections = _ref.getSelections;
+
+  var items = [];
+  var index = 0;
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = groupData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var groupItemData = _step.value;
+
+      if (!helpers.groupItemIsVisible(groupItemData, filters)) {
+        continue;
+      }
+
+      var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
+      var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
+      var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
+
+      items.push(_react2.default.createElement(_GroupItem2.default, {
+        contextId: groupItemData.contextId,
+        changeCurrentContextId: changeCurrentContextId,
+        key: index,
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName),
+        groupMenuHeader: groupHeaderComponent,
+        scrollIntoView: helpers.scrollIntoView,
+        active: active,
+        bookName: bookName,
+        selectionText: getSelections(groupItemData.contextId),
+        inView: helpers.inView
+      }));
+      index++;
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return items;
+};
+
+exports.default = GroupItems;
+
+/***/ }),
+/* 827 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTooltip = __webpack_require__(807);
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GroupItem = function (_React$Component) {
+  _inherits(GroupItem, _React$Component);
+
+  function GroupItem() {
+    _classCallCheck(this, GroupItem);
+
+    return _possibleConstructorReturn(this, (GroupItem.__proto__ || Object.getPrototypeOf(GroupItem)).apply(this, arguments));
+  }
+
+  _createClass(GroupItem, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.props.active) {
+        if (this.props.inView(this.props.groupMenuHeader, this)) {
+          //If the menu and current check are able to be rendered in the
+          //same window scroll to the group menu item
+          this.props.scrollIntoView(this.props.groupMenuHeader);
+        } else {
+          //Scroll to the current check item
+          this.props.scrollIntoView(this);
+        }
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.active) {
+        if (this.props.inView(nextProps.groupMenuHeader, this)) {
+          //If the menu and current check are able to be rendered in the
+          //same window scroll to the group menu item
+          nextProps.scrollIntoView(nextProps.groupMenuHeader);
+        } else {
+          //Scroll to the current check item
+          nextProps.scrollIntoView(this);
+        }
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          changeCurrentContextId = _props.changeCurrentContextId,
+          contextId = _props.contextId,
+          active = _props.active,
+          statusBadge = _props.statusBadge,
+          selectionText = _props.selectionText,
+          bookName = _props.bookName;
+      var reference = contextId.reference;
+
+      return _react2.default.createElement(
+        'div',
+        { onClick: function onClick() {
+            return changeCurrentContextId(contextId);
+          },
+          className: "group-item" + (active ? " active active-submenu-item" : " submenu-item") },
+        statusBadge,
+        _react2.default.createElement(
+          'span',
+          {
+            className: 'selection',
+            'data-tip': selectionText,
+            'data-place': 'bottom',
+            'data-effect': 'float',
+            'data-type': 'dark',
+            'data-class': 'selection-tooltip',
+            'data-delay-hide': '100' },
+          reference.chapterVerseMenu ? _react2.default.createElement(
+            'span',
+            { className: 'group-item-text' },
+            reference.text + ' ' + reference.verse
+          ) : _react2.default.createElement(
+            'span',
+            { className: 'group-item-text' },
+            " " + bookName + " " + reference.chapter + ":" + reference.verse + " " + selectionText
+          )
+        ),
+        _react2.default.createElement(_reactTooltip2.default, null)
+      );
+    }
+  }]);
+
+  return GroupItem;
+}(_react2.default.Component);
+
+GroupItem.propTypes = {
+  bookName: _propTypes2.default.string.isRequired,
+  selectionText: _propTypes2.default.string.isRequired,
+  contextId: _propTypes2.default.object.isRequired,
+  actions: _propTypes2.default.shape({
+    changeCurrentContextId: _propTypes2.default.func.isRequired
+  }),
+  statusBadge: _propTypes2.default.object.isRequired,
+  scrollIntoView: _propTypes2.default.func.isRequired,
+  inView: _propTypes2.default.func.isRequired,
+  active: _propTypes2.default.bool.isRequired,
+  groupMenuHeader: _propTypes2.default.object
+};
+
+module.exports = GroupItem;
+
+/***/ }),
+/* 828 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(829);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -110323,11 +111216,11 @@ var NoResults = function NoResults(_ref) {
 exports.default = NoResults;
 
 /***/ }),
-/* 824 */
+/* 829 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(825);
+var content = __webpack_require__(830);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -110348,7 +111241,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 825 */
+/* 830 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -110362,7 +111255,7 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 826 */
+/* 831 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110378,7 +111271,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(827);
+var _FilterBadge = __webpack_require__(832);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -110408,7 +111301,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 827 */
+/* 832 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110439,7 +111332,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 828 */
+/* 833 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110457,11 +111350,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(829);
+var _ExpandedFilter = __webpack_require__(834);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(831);
+var _CollapsedFilter = __webpack_require__(836);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -110505,7 +111398,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 829 */
+/* 834 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110523,7 +111416,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(830);
+var _GroupsMenuFilterOption = __webpack_require__(835);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
@@ -110626,7 +111519,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 830 */
+/* 835 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110695,7 +111588,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 831 */
+/* 836 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110713,7 +111606,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(832);
+var _GroupsMenuFilterBubble = __webpack_require__(837);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -110803,7 +111696,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 832 */
+/* 837 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110856,11 +111749,11 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 833 */
+/* 838 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(834);
+var content = __webpack_require__(839);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -110881,7 +111774,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 834 */
+/* 839 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);

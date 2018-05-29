@@ -78,18 +78,19 @@ class Group extends React.Component {
       </MuiThemeProvider>
     );
   };
+}
 
-  Group.propTypes = {
-    manifest: PropTypes.object.isRequired,
-    contextId: PropTypes.object.isRequired,
-    filters: PropTypes.object.isRequired,
-    groupData: PropTypes.array.isRequired,
-    isSubMenuExpanded: PropTypes.bool.isRequired,
-    groupMenuExpandSubMenu: PropTypes.func.isRequired,
-    openGroup: PropTypes.func.isRequired,
-    progress: PropTypes.number.isRequired,
-    groupIndex: PropTypes.object.isRequired,
-    active: PropTypes.bool.isRequired
-  };
+Group.propTypes = {
+  manifest: PropTypes.object.isRequired,
+  contextId: PropTypes.object.isRequired,
+  filters: PropTypes.object.isRequired,
+  groupData: PropTypes.array.isRequired,
+  isSubMenuExpanded: PropTypes.bool.isRequired,
+  groupMenuExpandSubMenu: PropTypes.func.isRequired,
+  openGroup: PropTypes.func.isRequired,
+  progress: PropTypes.number.isRequired,
+  groupIndex: PropTypes.object.isRequired,
+  active: PropTypes.bool.isRequired
+};
 
-  export default withStyles(styles)(Group);
+export default withStyles(styles)(Group);
