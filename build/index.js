@@ -63754,6 +63754,28 @@ ScripturePane.propTypes = {
   bibles: _propTypes2.default.object.isRequired
 };
 
+ScripturePane.defaultProps = {
+  titleLabel: '',
+  closeButtonLabel: '',
+  addResourceLabel: '',
+  clickToRemoveResourceLabel: '',
+  expandedScripturePaneTitle: '',
+  expandButtonHoverText: '',
+  clickAddResource: '',
+  currentPaneSettings: [],
+  selectLanguageLabel: '',
+  selectLabel: '',
+  setToolSettings: function setToolSettings() {},
+  contextId: {},
+  selections: [],
+  getLexiconData: function getLexiconData() {},
+  showPopover: function showPopover() {},
+  projectDetailsReducer: {},
+  editTargetVerse: function editTargetVerse() {},
+  translate: function translate() {},
+  bibles: {}
+};
+
 exports.default = ScripturePane;
 
 /***/ }),
