@@ -52,6 +52,7 @@ export const groupIsVisible = (groupData, filters) => {
 };
 
 export function scrollIntoView(element) {
+  debugger;
   //element.scrollIntoView({block: 'end', behavior: 'smooth'});
 }
 
@@ -62,6 +63,7 @@ export function scrollIntoView(element) {
 * @param {object} currentItem - The current group check item that is active (i.e. Luke 1:1)
 */
 export function inView(groupMenu, currentItem) {
+  debugger;
   // var rectGroup = groupMenu.getBoundingClientRect();
   // var rectItem = currentItem.getBoundingClientRect();
   // var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);

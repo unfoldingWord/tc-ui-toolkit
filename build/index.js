@@ -105838,9 +105838,10 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
   return false;
 };
 
-function scrollIntoView(element) {}
-//element.scrollIntoView({block: 'end', behavior: 'smooth'});
-
+function scrollIntoView(element) {
+  debugger;
+  //element.scrollIntoView({block: 'end', behavior: 'smooth'});
+}
 
 /**
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
@@ -105848,12 +105849,13 @@ function scrollIntoView(element) {}
 * @param {object} groupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
 * @param {object} currentItem - The current group check item that is active (i.e. Luke 1:1)
 */
-function inView(groupMenu, currentItem) {}
-// var rectGroup = groupMenu.getBoundingClientRect();
-// var rectItem = currentItem.getBoundingClientRect();
-// var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-// return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
-
+function inView(groupMenu, currentItem) {
+  debugger;
+  // var rectGroup = groupMenu.getBoundingClientRect();
+  // var rectItem = currentItem.getBoundingClientRect();
+  // var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  // return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+}
 
 /**
 * @description - gets the status badge component for the group menu row
