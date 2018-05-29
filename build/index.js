@@ -105505,15 +105505,15 @@ var _Groups = __webpack_require__(821);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(831);
+var _FilterMenuHeader = __webpack_require__(835);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(833);
+var _GroupsMenuFilter = __webpack_require__(837);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(838);
+__webpack_require__(842);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -110225,7 +110225,7 @@ var _Group = __webpack_require__(822);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(828);
+var _NoResults = __webpack_require__(832);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
@@ -111094,7 +111094,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _util = __webpack_require__(840);
+var _util = __webpack_require__(828);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111209,608 +111209,6 @@ module.exports = GroupItem;
 
 /***/ }),
 /* 828 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-__webpack_require__(829);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NoResults = function NoResults(_ref) {
-  var translate = _ref.translate;
-  return _react2.default.createElement(
-    'div',
-    { className: 'no-results' },
-    translate('menu.no_results')
-  );
-};
-
-exports.default = NoResults;
-
-/***/ }),
-/* 829 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(830);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 830 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
-
-// module
-exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 831 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactBootstrap = __webpack_require__(226);
-
-var _FilterBadge = __webpack_require__(832);
-
-var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FilterMenuHeader = function FilterMenuHeader(_ref) {
-  var currentToolName = _ref.currentToolName,
-      expandFilter = _ref.expandFilter,
-      handleFilterShowHideToggle = _ref.handleFilterShowHideToggle,
-      filterCount = _ref.filterCount;
-
-  return currentToolName === "translationWords" && _react2.default.createElement(
-    'div',
-    { className: 'filter-toggle' },
-    _react2.default.createElement(_reactBootstrap.Glyphicon, {
-      key: 'filter',
-      glyph: 'filter',
-      className: 'filter-icon ' + (expandFilter ? 'expanded' : 'collapsed'),
-      onClick: handleFilterShowHideToggle }),
-    _react2.default.createElement(_FilterBadge2.default, {
-      handleFilterShowHideToggle: handleFilterShowHideToggle,
-      filterCount: filterCount,
-      expandFilter: expandFilter })
-  );
-};
-
-exports.default = FilterMenuHeader;
-
-/***/ }),
-/* 832 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FilterBadge = function FilterBadge(_ref) {
-  var expandFilter = _ref.expandFilter,
-      filterCount = _ref.filterCount,
-      handleFilterShowHideToggle = _ref.handleFilterShowHideToggle;
-
-  return !expandFilter && filterCount && _react2.default.createElement(
-    "span",
-    { className: "filter-badge badge", onClick: handleFilterShowHideToggle },
-    filterCount
-  );
-};
-
-exports.default = FilterBadge;
-
-/***/ }),
-/* 833 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _ExpandedFilter = __webpack_require__(834);
-
-var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
-
-var _CollapsedFilter = __webpack_require__(836);
-
-var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GroupsMenuFilter = function GroupsMenuFilter(_ref) {
-  var currentToolName = _ref.currentToolName,
-      filters = _ref.filters,
-      translate = _ref.translate,
-      expandFilter = _ref.expandFilter,
-      setFilter = _ref.setFilter,
-      filterCount = _ref.filterCount;
-
-  if (currentToolName === "translationWords" && (expandFilter || filterCount)) {
-    if (expandFilter) {
-      return _react2.default.createElement(_ExpandedFilter2.default, {
-        filters: filters,
-        setFilter: setFilter,
-        translate: translate });
-    } else {
-      return _react2.default.createElement(_CollapsedFilter2.default, {
-        filters: filters,
-        setFilter: setFilter,
-        translate: translate
-      });
-    }
-  } else return null;
-};
-
-GroupsMenuFilter.defaultProps = {
-  expandFilter: false
-};
-
-GroupsMenuFilter.propTypes = {
-  translate: _propTypes2.default.func.isRequired,
-  filters: _propTypes2.default.object.isRequired,
-  setFilter: _propTypes2.default.func,
-  expandFilter: _propTypes2.default.bool
-};
-
-exports.default = GroupsMenuFilter;
-
-/***/ }),
-/* 834 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _GroupsMenuFilterOption = __webpack_require__(835);
-
-var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
-
-var _InvalidatedIcon = __webpack_require__(820);
-
-var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
-
-var _reactBootstrap = __webpack_require__(226);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ExpandedFilter = function ExpandedFilter(_ref) {
-  var filters = _ref.filters,
-      setFilter = _ref.setFilter,
-      translate = _ref.translate;
-
-  var options = [];
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'invalidated',
-    name: 'invalidated',
-    checked: filters.invalidated,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_InvalidatedIcon2.default, { width: 16, height: 16, color: '#fff' }),
-    text: translate('menu.invalidated') }));
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'reminders',
-    name: 'reminders',
-    checked: filters.reminders,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'bookmark' }),
-    text: translate('menu.bookmarks') }));
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'selections',
-    name: 'selections',
-    checked: filters.selections,
-    disabled: filters.noSelections,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok' }),
-    text: translate('menu.selected') }));
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'noSelections',
-    name: 'noSelections',
-    checked: filters.noSelections,
-    disabled: filters.selections,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ban-circle' }),
-    text: translate('menu.no_selection') }));
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'verseEdits',
-    name: 'verseEdits',
-    checked: filters.verseEdits,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil' }),
-    text: translate('menu.verse_edit') }));
-
-  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
-    onCheck: function onCheck(name, value) {
-      return setFilter(name, value);
-    },
-    key: 'comments',
-    name: 'comments',
-    checked: filters.comments,
-    setFilter: setFilter,
-    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment' }),
-    text: translate('menu.comments') }));
-
-  return _react2.default.createElement(
-    'div',
-    { id: 'groups-menu-filter', className: 'options-wrapper' },
-    options
-  );
-};
-
-ExpandedFilter.propTypes = {
-  filters: _propTypes2.default.object.isRequired,
-  setFilter: _propTypes2.default.func.isRequired,
-  translate: _propTypes2.default.func.isRequired
-};
-
-exports.default = ExpandedFilter;
-
-/***/ }),
-/* 835 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GroupsMenuFilterOption = function GroupsMenuFilterOption(_ref) {
-  var name = _ref.name,
-      text = _ref.text,
-      icon = _ref.icon,
-      checked = _ref.checked,
-      disabled = _ref.disabled,
-      onCheck = _ref.onCheck;
-  return _react2.default.createElement(
-    'label',
-    { className: "option" + (disabled ? " disabled" : "") },
-    _react2.default.createElement(
-      'span',
-      { className: 'option-checkbox' },
-      _react2.default.createElement('input', { type: 'checkbox', name: name, checked: checked, disabled: disabled, onChange: function onChange(_ref2) {
-          var value = _ref2.target;
-          return onCheck(name, value.checked);
-        } })
-    ),
-    _react2.default.createElement(
-      'span',
-      { className: 'option-icon' },
-      icon
-    ),
-    _react2.default.createElement(
-      'span',
-      { className: 'option-text' },
-      text
-    )
-  );
-};
-
-GroupsMenuFilterOption.defaultProps = {
-  checked: false,
-  disabled: false
-};
-
-GroupsMenuFilterOption.propTypes = {
-  name: _propTypes2.default.string.isRequired,
-  text: _propTypes2.default.string.isRequired,
-  icon: _propTypes2.default.object.isRequired,
-  setFilter: _propTypes2.default.func.isRequired,
-  checked: _propTypes2.default.bool,
-  disabled: _propTypes2.default.bool,
-  onCheck: _propTypes2.default.func.isRequired
-};
-
-exports.default = GroupsMenuFilterOption;
-
-/***/ }),
-/* 836 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _GroupsMenuFilterBubble = __webpack_require__(837);
-
-var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var CollapsedFilter = function CollapsedFilter(_ref) {
-  var translate = _ref.translate,
-      filters = _ref.filters,
-      setFilter = _ref.setFilter;
-
-  var bubbles = [];
-
-  if (filters.invalidated) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'invalidated',
-      name: 'invalidated',
-      text: translate('menu.invalidated') }));
-  }
-
-  if (filters.reminders) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'reminders',
-      name: 'reminders',
-      text: translate('menu.bookmarks') }));
-  }
-
-  if (filters.selections) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'selections',
-      name: 'selections',
-      text: translate('menu.selected') }));
-  }
-
-  if (filters.noSelections) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'noSelections',
-      name: 'noSelections',
-      text: translate('menu.no_selection') }));
-  }
-
-  if (filters.verseEdits) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'verseEdits',
-      name: 'verseEdits',
-      text: translate('menu.verse_edit') }));
-  }
-
-  if (filters.comments) {
-    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
-      onPress: function onPress(name) {
-        return setFilter(name, false);
-      },
-      key: 'comments',
-      name: 'comments',
-      text: translate('menu.comments'),
-      setFilter: setFilter }));
-  }
-
-  return _react2.default.createElement(
-    'div',
-    { id: 'groups-menu-filter', className: 'bubbles-wrapper' },
-    bubbles
-  );
-};
-
-CollapsedFilter.propTypes = {
-  filters: _propTypes2.default.object.isRequired,
-  setFilter: _propTypes2.default.func.isRequired,
-  translate: _propTypes2.default.func.isRequired
-};
-
-exports.default = CollapsedFilter;
-
-/***/ }),
-/* 837 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactBootstrap = __webpack_require__(226);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GroupsMenuFilterBubble = function GroupsMenuFilterBubble(_ref) {
-  var onPress = _ref.onPress,
-      text = _ref.text,
-      name = _ref.name;
-  return _react2.default.createElement(
-    'span',
-    { className: 'filter-bubble-wrapper' },
-    _react2.default.createElement(
-      'span',
-      { className: 'filter-bubble' },
-      _react2.default.createElement(_reactBootstrap.Glyphicon, { className: 'filter-remove', glyph: 'remove', onClick: function onClick() {
-          return onPress(name);
-        } }),
-      _react2.default.createElement(
-        'span',
-        { className: 'filter-text' },
-        text
-      )
-    )
-  );
-};
-
-GroupsMenuFilterBubble.propTypes = {
-  onPress: _propTypes2.default.func.isRequired,
-  name: _propTypes2.default.string.isRequired,
-  text: _propTypes2.default.string.isRequired
-};
-
-exports.default = GroupsMenuFilterBubble;
-
-/***/ }),
-/* 838 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(839);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(16)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-/* 839 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-exports.i(__webpack_require__(15), "");
-
-// module
-exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  max-width: 250px;\n  width: 100%;\n  overflow-y: scroll;\n  flex-shrink: 0;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 840 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -112338,7 +111736,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(842);
+exports.isBuffer = __webpack_require__(830);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -112382,7 +111780,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(843);
+exports.inherits = __webpack_require__(831);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -112400,10 +111798,10 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(841)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(829)))
 
 /***/ }),
-/* 841 */
+/* 829 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -112593,7 +111991,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 842 */
+/* 830 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -112604,7 +112002,7 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 843 */
+/* 831 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -112630,6 +112028,608 @@ if (typeof Object.create === 'function') {
     ctor.prototype.constructor = ctor
   }
 }
+
+
+/***/ }),
+/* 832 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(833);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NoResults = function NoResults(_ref) {
+  var translate = _ref.translate;
+  return _react2.default.createElement(
+    'div',
+    { className: 'no-results' },
+    translate('menu.no_results')
+  );
+};
+
+exports.default = NoResults;
+
+/***/ }),
+/* 833 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(834);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 834 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 835 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(226);
+
+var _FilterBadge = __webpack_require__(836);
+
+var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FilterMenuHeader = function FilterMenuHeader(_ref) {
+  var currentToolName = _ref.currentToolName,
+      expandFilter = _ref.expandFilter,
+      handleFilterShowHideToggle = _ref.handleFilterShowHideToggle,
+      filterCount = _ref.filterCount;
+
+  return currentToolName === "translationWords" && _react2.default.createElement(
+    'div',
+    { className: 'filter-toggle' },
+    _react2.default.createElement(_reactBootstrap.Glyphicon, {
+      key: 'filter',
+      glyph: 'filter',
+      className: 'filter-icon ' + (expandFilter ? 'expanded' : 'collapsed'),
+      onClick: handleFilterShowHideToggle }),
+    _react2.default.createElement(_FilterBadge2.default, {
+      handleFilterShowHideToggle: handleFilterShowHideToggle,
+      filterCount: filterCount,
+      expandFilter: expandFilter })
+  );
+};
+
+exports.default = FilterMenuHeader;
+
+/***/ }),
+/* 836 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FilterBadge = function FilterBadge(_ref) {
+  var expandFilter = _ref.expandFilter,
+      filterCount = _ref.filterCount,
+      handleFilterShowHideToggle = _ref.handleFilterShowHideToggle;
+
+  return !expandFilter && filterCount && _react2.default.createElement(
+    "span",
+    { className: "filter-badge badge", onClick: handleFilterShowHideToggle },
+    filterCount
+  );
+};
+
+exports.default = FilterBadge;
+
+/***/ }),
+/* 837 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _ExpandedFilter = __webpack_require__(838);
+
+var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
+
+var _CollapsedFilter = __webpack_require__(840);
+
+var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroupsMenuFilter = function GroupsMenuFilter(_ref) {
+  var currentToolName = _ref.currentToolName,
+      filters = _ref.filters,
+      translate = _ref.translate,
+      expandFilter = _ref.expandFilter,
+      setFilter = _ref.setFilter,
+      filterCount = _ref.filterCount;
+
+  if (currentToolName === "translationWords" && (expandFilter || filterCount)) {
+    if (expandFilter) {
+      return _react2.default.createElement(_ExpandedFilter2.default, {
+        filters: filters,
+        setFilter: setFilter,
+        translate: translate });
+    } else {
+      return _react2.default.createElement(_CollapsedFilter2.default, {
+        filters: filters,
+        setFilter: setFilter,
+        translate: translate
+      });
+    }
+  } else return null;
+};
+
+GroupsMenuFilter.defaultProps = {
+  expandFilter: false
+};
+
+GroupsMenuFilter.propTypes = {
+  translate: _propTypes2.default.func.isRequired,
+  filters: _propTypes2.default.object.isRequired,
+  setFilter: _propTypes2.default.func,
+  expandFilter: _propTypes2.default.bool
+};
+
+exports.default = GroupsMenuFilter;
+
+/***/ }),
+/* 838 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _GroupsMenuFilterOption = __webpack_require__(839);
+
+var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
+
+var _InvalidatedIcon = __webpack_require__(820);
+
+var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
+
+var _reactBootstrap = __webpack_require__(226);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ExpandedFilter = function ExpandedFilter(_ref) {
+  var filters = _ref.filters,
+      setFilter = _ref.setFilter,
+      translate = _ref.translate;
+
+  var options = [];
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'invalidated',
+    name: 'invalidated',
+    checked: filters.invalidated,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_InvalidatedIcon2.default, { width: 16, height: 16, color: '#fff' }),
+    text: translate('menu.invalidated') }));
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'reminders',
+    name: 'reminders',
+    checked: filters.reminders,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'bookmark' }),
+    text: translate('menu.bookmarks') }));
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'selections',
+    name: 'selections',
+    checked: filters.selections,
+    disabled: filters.noSelections,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ok' }),
+    text: translate('menu.selected') }));
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'noSelections',
+    name: 'noSelections',
+    checked: filters.noSelections,
+    disabled: filters.selections,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'ban-circle' }),
+    text: translate('menu.no_selection') }));
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'verseEdits',
+    name: 'verseEdits',
+    checked: filters.verseEdits,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'pencil' }),
+    text: translate('menu.verse_edit') }));
+
+  options.push(_react2.default.createElement(_GroupsMenuFilterOption2.default, {
+    onCheck: function onCheck(name, value) {
+      return setFilter(name, value);
+    },
+    key: 'comments',
+    name: 'comments',
+    checked: filters.comments,
+    setFilter: setFilter,
+    icon: _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'comment' }),
+    text: translate('menu.comments') }));
+
+  return _react2.default.createElement(
+    'div',
+    { id: 'groups-menu-filter', className: 'options-wrapper' },
+    options
+  );
+};
+
+ExpandedFilter.propTypes = {
+  filters: _propTypes2.default.object.isRequired,
+  setFilter: _propTypes2.default.func.isRequired,
+  translate: _propTypes2.default.func.isRequired
+};
+
+exports.default = ExpandedFilter;
+
+/***/ }),
+/* 839 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroupsMenuFilterOption = function GroupsMenuFilterOption(_ref) {
+  var name = _ref.name,
+      text = _ref.text,
+      icon = _ref.icon,
+      checked = _ref.checked,
+      disabled = _ref.disabled,
+      onCheck = _ref.onCheck;
+  return _react2.default.createElement(
+    'label',
+    { className: "option" + (disabled ? " disabled" : "") },
+    _react2.default.createElement(
+      'span',
+      { className: 'option-checkbox' },
+      _react2.default.createElement('input', { type: 'checkbox', name: name, checked: checked, disabled: disabled, onChange: function onChange(_ref2) {
+          var value = _ref2.target;
+          return onCheck(name, value.checked);
+        } })
+    ),
+    _react2.default.createElement(
+      'span',
+      { className: 'option-icon' },
+      icon
+    ),
+    _react2.default.createElement(
+      'span',
+      { className: 'option-text' },
+      text
+    )
+  );
+};
+
+GroupsMenuFilterOption.defaultProps = {
+  checked: false,
+  disabled: false
+};
+
+GroupsMenuFilterOption.propTypes = {
+  name: _propTypes2.default.string.isRequired,
+  text: _propTypes2.default.string.isRequired,
+  icon: _propTypes2.default.object.isRequired,
+  setFilter: _propTypes2.default.func.isRequired,
+  checked: _propTypes2.default.bool,
+  disabled: _propTypes2.default.bool,
+  onCheck: _propTypes2.default.func.isRequired
+};
+
+exports.default = GroupsMenuFilterOption;
+
+/***/ }),
+/* 840 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _GroupsMenuFilterBubble = __webpack_require__(841);
+
+var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CollapsedFilter = function CollapsedFilter(_ref) {
+  var translate = _ref.translate,
+      filters = _ref.filters,
+      setFilter = _ref.setFilter;
+
+  var bubbles = [];
+
+  if (filters.invalidated) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'invalidated',
+      name: 'invalidated',
+      text: translate('menu.invalidated') }));
+  }
+
+  if (filters.reminders) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'reminders',
+      name: 'reminders',
+      text: translate('menu.bookmarks') }));
+  }
+
+  if (filters.selections) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'selections',
+      name: 'selections',
+      text: translate('menu.selected') }));
+  }
+
+  if (filters.noSelections) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'noSelections',
+      name: 'noSelections',
+      text: translate('menu.no_selection') }));
+  }
+
+  if (filters.verseEdits) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'verseEdits',
+      name: 'verseEdits',
+      text: translate('menu.verse_edit') }));
+  }
+
+  if (filters.comments) {
+    bubbles.push(_react2.default.createElement(_GroupsMenuFilterBubble2.default, {
+      onPress: function onPress(name) {
+        return setFilter(name, false);
+      },
+      key: 'comments',
+      name: 'comments',
+      text: translate('menu.comments'),
+      setFilter: setFilter }));
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { id: 'groups-menu-filter', className: 'bubbles-wrapper' },
+    bubbles
+  );
+};
+
+CollapsedFilter.propTypes = {
+  filters: _propTypes2.default.object.isRequired,
+  setFilter: _propTypes2.default.func.isRequired,
+  translate: _propTypes2.default.func.isRequired
+};
+
+exports.default = CollapsedFilter;
+
+/***/ }),
+/* 841 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactBootstrap = __webpack_require__(226);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GroupsMenuFilterBubble = function GroupsMenuFilterBubble(_ref) {
+  var onPress = _ref.onPress,
+      text = _ref.text,
+      name = _ref.name;
+  return _react2.default.createElement(
+    'span',
+    { className: 'filter-bubble-wrapper' },
+    _react2.default.createElement(
+      'span',
+      { className: 'filter-bubble' },
+      _react2.default.createElement(_reactBootstrap.Glyphicon, { className: 'filter-remove', glyph: 'remove', onClick: function onClick() {
+          return onPress(name);
+        } }),
+      _react2.default.createElement(
+        'span',
+        { className: 'filter-text' },
+        text
+      )
+    )
+  );
+};
+
+GroupsMenuFilterBubble.propTypes = {
+  onPress: _propTypes2.default.func.isRequired,
+  name: _propTypes2.default.string.isRequired,
+  text: _propTypes2.default.string.isRequired
+};
+
+exports.default = GroupsMenuFilterBubble;
+
+/***/ }),
+/* 842 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(843);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 843 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+exports.i(__webpack_require__(15), "");
+
+// module
+exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  max-width: 250px;\n  width: 100%;\n  overflow-y: scroll;\n  flex-shrink: 0;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
+
+// exports
 
 
 /***/ })
