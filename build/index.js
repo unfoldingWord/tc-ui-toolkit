@@ -110297,8 +110297,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
@@ -110319,12 +110317,6 @@ var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var styles = {
   circle: {
     width: 40,
@@ -110332,91 +110324,77 @@ var styles = {
   }
 };
 
-var Group = function (_React$Component) {
-  _inherits(Group, _React$Component);
+var groupHeader = _react2.default.createRef();
 
-  function Group() {
-    _classCallCheck(this, Group);
+var Group = function Group(_ref) {
+  var changeCurrentContextId = _ref.changeCurrentContextId,
+      active = _ref.active,
+      groupMenuExpandSubMenu = _ref.groupMenuExpandSubMenu,
+      openGroup = _ref.openGroup,
+      isSubMenuExpanded = _ref.isSubMenuExpanded,
+      progress = _ref.progress,
+      groupIndex = _ref.groupIndex,
+      groupData = _ref.groupData,
+      filters = _ref.filters,
+      manifest = _ref.manifest,
+      contextId = _ref.contextId,
+      getSelections = _ref.getSelections,
+      classes = _ref.classes,
+      isVerseFinished = _ref.isVerseFinished,
+      currentToolName = _ref.currentToolName;
 
-    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).apply(this, arguments));
-  }
+  var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
-  _createClass(Group, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          changeCurrentContextId = _props.changeCurrentContextId,
-          active = _props.active,
-          groupMenuExpandSubMenu = _props.groupMenuExpandSubMenu,
-          openGroup = _props.openGroup,
-          isSubMenuExpanded = _props.isSubMenuExpanded,
-          progress = _props.progress,
-          groupIndex = _props.groupIndex,
-          groupData = _props.groupData,
-          filters = _props.filters,
-          manifest = _props.manifest,
-          contextId = _props.contextId,
-          getSelections = _props.getSelections,
-          classes = _props.classes,
-          isVerseFinished = _props.isVerseFinished,
-          currentToolName = _props.currentToolName;
-
-      var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
-
-      var glyphAction = active ? groupMenuExpandSubMenu : openGroup;
-      var expandedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-down', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
-          return glyphAction(false);
-        } });
-      var collapsedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-right', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
-          return glyphAction(true);
-        } });
-      var theme = (0, _styles.createMuiTheme)();
-      return _react2.default.createElement(
-        _styles.MuiThemeProvider,
-        { theme: theme },
+  var glyphAction = active ? groupMenuExpandSubMenu : openGroup;
+  var expandedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-down', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
+      return glyphAction(false);
+    } });
+  var collapsedGlyph = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'chevron-right', style: { float: 'right', marginTop: '3px' }, onClick: function onClick() {
+      return glyphAction(true);
+    } });
+  var theme = (0, _styles.createMuiTheme)();
+  return _react2.default.createElement(
+    _styles.MuiThemeProvider,
+    { theme: theme },
+    _react2.default.createElement(
+      'div',
+      { className: 'group', ref: groupHeader },
+      _react2.default.createElement(
+        'div',
+        { className: groupMenuItemHeadingClassName },
+        active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph,
         _react2.default.createElement(
           'div',
-          { className: 'group' },
+          { onClick: openGroup },
           _react2.default.createElement(
             'div',
-            { className: groupMenuItemHeadingClassName },
-            active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph,
-            _react2.default.createElement(
-              'div',
-              { onClick: openGroup },
-              _react2.default.createElement(
-                'div',
-                { style: { position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
-                _react2.default.createElement('div', { style: { height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%' } }),
-                _react2.default.createElement(_Progress.CircularProgress, {
-                  variant: 'static',
-                  value: progress * 100,
-                  thickness: 10,
-                  size: 15,
-                  color: progress ? 'primary' : 'secondary',
-                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
-                })
-              ),
-              groupIndex.name
-            )
+            { style: { position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left' } },
+            _react2.default.createElement('div', { style: { height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%' } }),
+            _react2.default.createElement(_Progress.CircularProgress, {
+              variant: 'static',
+              value: progress * 100,
+              thickness: 10,
+              size: 15,
+              color: progress ? 'primary' : 'secondary',
+              style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
+            })
           ),
-          active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
-            currentToolName: currentToolName,
-            isVerseFinished: isVerseFinished,
-            getSelections: getSelections,
-            changeCurrentContextId: changeCurrentContextId,
-            contextId: contextId,
-            groupData: groupData,
-            groupHeaderComponent: this,
-            filters: filters,
-            manifest: manifest }) : null
+          groupIndex.name
         )
-      );
-    }
-  }]);
-
-  return Group;
-}(_react2.default.Component);
+      ),
+      active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
+        currentToolName: currentToolName,
+        isVerseFinished: isVerseFinished,
+        getSelections: getSelections,
+        changeCurrentContextId: changeCurrentContextId,
+        contextId: contextId,
+        groupData: groupData,
+        groupHeaderComponent: groupHeader,
+        filters: filters,
+        manifest: manifest }) : null
+    )
+  );
+};
 
 Group.propTypes = {
   manifest: _propTypes2.default.object.isRequired,
@@ -111088,21 +111066,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var GroupItem = function (_React$Component) {
   _inherits(GroupItem, _React$Component);
 
-  function GroupItem() {
+  function GroupItem(props) {
     _classCallCheck(this, GroupItem);
 
-    return _possibleConstructorReturn(this, (GroupItem.__proto__ || Object.getPrototypeOf(GroupItem)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (GroupItem.__proto__ || Object.getPrototypeOf(GroupItem)).call(this, props));
+
+    _this.groupItemRef = _react2.default.createRef();
+    return _this;
   }
 
   _createClass(GroupItem, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (this.props.active) {
-        if (this.props.inView(this.props.groupMenuHeader, this)) {
+        debugger;
+        if (this.props.inView(this.props.groupMenuHeader, this.groupItemRef)) {
           //If the menu and current check are able to be rendered in the
           //same window scroll to the group menu item
           this.props.scrollIntoView(this.props.groupMenuHeader);
         } else {
+          debugger;
           //Scroll to the current check item
           this.props.scrollIntoView(this);
         }
@@ -111136,7 +111119,7 @@ var GroupItem = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { onClick: function onClick() {
+        { ref: this.groupItemRef, onClick: function onClick() {
             return changeCurrentContextId(contextId);
           },
           className: "group-item" + (active ? " active active-submenu-item" : " submenu-item") },

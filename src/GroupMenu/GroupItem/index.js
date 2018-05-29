@@ -3,14 +3,20 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 
 class GroupItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.groupItemRef = React.createRef();
+  }
   componentDidMount() {
     if (this.props.active) {
-      if (this.props.inView(this.props.groupMenuHeader, this)) {
+      debugger;
+      if (this.props.inView(this.props.groupMenuHeader, this.groupItemRef)) {
         //If the menu and current check are able to be rendered in the
         //same window scroll to the group menu item
         this.props.scrollIntoView(this.props.groupMenuHeader);
       }
       else {
+        debugger;
         //Scroll to the current check item
         this.props.scrollIntoView(this);
       }
@@ -42,7 +48,7 @@ class GroupItem extends React.Component {
     } = this.props;
     const {reference} = contextId;
     return (
-      <div onClick={() => changeCurrentContextId(contextId)}
+      <div ref={this.groupItemRef} onClick={() => changeCurrentContextId(contextId)}
         className={"group-item" + (active ? " active active-submenu-item" : " submenu-item")}>
         {statusBadge}
         <span
