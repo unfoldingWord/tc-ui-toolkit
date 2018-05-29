@@ -3,8 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 import ReactTooltip from 'react-tooltip';
 import {Glyphicon} from 'react-bootstrap';
 import InvalidatedIcon from '../GroupsMenuFilter/InvalidatedIcon';
-// const MENU_BAR_HEIGHT = 30;
-// const MENU_ITEM_HEIGHT = 38;
+const MENU_BAR_HEIGHT = 30;
+const MENU_ITEM_HEIGHT = 38;
 
 export function getGroupData(groupsData, groupId) {
   let groupData;
@@ -51,23 +51,23 @@ export const groupIsVisible = (groupData, filters) => {
   return false;
 };
 
-export function scrollIntoView(element) {
-  debugger;
-  //element.scrollIntoView({block: 'end', behavior: 'smooth'});
+export function scrollIntoView({current}) {
+  current.scrollIntoView({block: 'end', behavior: 'smooth'});
 }
 
 /**
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
 * The consts MENU_BAR_HEIGHT & MENU_ITEM_HEIGHT are set to account for the static window avialablity
-* @param {object} groupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
-* @param {object} currentItem - The current group check item that is active (i.e. Luke 1:1)
+* @param {object} currentGroupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
+* @param {object} currentGroupItem - The current group check item that is active (i.e. Luke 1:1)
 */
-export function inView(groupMenu, currentItem) {
-  debugger;
-  // var rectGroup = groupMenu.getBoundingClientRect();
-  // var rectItem = currentItem.getBoundingClientRect();
-  // var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-  // return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+export function inView({current:currentGroupMenu}, {current:currentGroupItem}) {
+  if (currentGroupMenu && currentGroupItem) {
+    var rectGroup = currentGroupMenu.getBoundingClientRect();
+    var rectItem = currentGroupItem.getBoundingClientRect();
+    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+  }
 }
 
 /**

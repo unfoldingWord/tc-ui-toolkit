@@ -13,71 +13,83 @@ const styles = {
   }
 };
 
-let groupHeader = React.createRef();
+class Group extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      groupHeaderRef: React.createRef()
+    }
+  }
+  setGroupRef(current) {
+    this.setState({
+      groupHeaderRef:{current}
+    })
+  }
+  render() {
+    const {
+      changeCurrentContextId,
+      active,
+      groupMenuExpandSubMenu,
+      openGroup,
+      isSubMenuExpanded,
+      progress,
+      groupIndex,
+      groupData,
+      filters,
+      manifest,
+      contextId,
+      getSelections,
+      classes,
+      isVerseFinished,
+      currentToolName
+    } = this.props;
+    let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
-const Group = ({
-  changeCurrentContextId,
-  active,
-  groupMenuExpandSubMenu,
-  openGroup,
-  isSubMenuExpanded,
-  progress,
-  groupIndex,
-  groupData,
-  filters,
-  manifest,
-  contextId,
-  getSelections,
-  classes,
-  isVerseFinished,
-  currentToolName
-}) => {
-  let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
-
-  let glyphAction = active ? groupMenuExpandSubMenu : openGroup;
-  let expandedGlyph = (
-    <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(false)} />
-  );
-  let collapsedGlyph = (
-    <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
-  );
-  const theme = createMuiTheme();
-  return (
-    <MuiThemeProvider theme={theme}>
-      <div className="group" ref={groupHeader}>
-        <div className={groupMenuItemHeadingClassName}>
-          {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
-          <div onClick={openGroup}>
-            <div style={{position:'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
-              <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
-              <CircularProgress
-                variant="static"
-                value={progress * 100}
-                thickness={10}
-                size={15}
-                color={progress ? 'primary' : 'secondary'}
-                style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20}}
-              />
+    let glyphAction = active ? groupMenuExpandSubMenu : openGroup;
+    let expandedGlyph = (
+      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(false)} />
+    );
+    let collapsedGlyph = (
+      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
+    );
+    const theme = createMuiTheme();
+    return (
+      <MuiThemeProvider theme={theme}>
+        <div className="group" ref={this.setGroupRef.bind(this)}>
+          <div className={groupMenuItemHeadingClassName}>
+            {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
+            <div onClick={openGroup}>
+              <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
+                <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
+                <CircularProgress
+                  variant="static"
+                  value={progress * 100}
+                  thickness={10}
+                  size={15}
+                  color={progress ? 'primary' : 'secondary'}
+                  style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20}}
+                />
+              </div>
+              {groupIndex.name}
             </div>
-            {groupIndex.name}
           </div>
+          {active && isSubMenuExpanded ?
+            (<GroupItems
+              currentToolName={currentToolName}
+              isVerseFinished={isVerseFinished}
+              getSelections={getSelections}
+              changeCurrentContextId={changeCurrentContextId}
+              contextId={contextId}
+              groupData={groupData}
+              groupHeaderComponent={this.state.groupHeaderRef}
+              filters={filters}
+              manifest={manifest} />)
+            : null}
         </div>
-        {active && isSubMenuExpanded ?
-          (<GroupItems
-            currentToolName={currentToolName}
-            isVerseFinished={isVerseFinished}
-            getSelections={getSelections}
-            changeCurrentContextId={changeCurrentContextId}
-            contextId={contextId}
-            groupData={groupData}
-            groupHeaderComponent={groupHeader}
-            filters={filters}
-            manifest={manifest} />)
-          : null}
-      </div>
-    </MuiThemeProvider>
-  );
-};
+      </MuiThemeProvider>
+    );
+  };
+}
 
 Group.propTypes = {
   manifest: PropTypes.object.isRequired,

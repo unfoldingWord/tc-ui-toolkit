@@ -117,7 +117,7 @@ GroupMenu.defaultProps = {
   getSelections: () => 'A selection',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},
-  groupMenuReducer: {filters: {}, isSubMenuExpanded: false},
+  groupMenuReducer: {filters: {}, isSubMenuExpanded: true},
   groupsIndexReducer: {
     groupsIndex: [{
       id: 'apostle',

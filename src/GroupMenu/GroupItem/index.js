@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
+import { debug } from 'util';
 
 class GroupItem extends React.Component {
   constructor(props) {
@@ -9,30 +10,28 @@ class GroupItem extends React.Component {
   }
   componentDidMount() {
     if (this.props.active) {
-      debugger;
       if (this.props.inView(this.props.groupMenuHeader, this.groupItemRef)) {
         //If the menu and current check are able to be rendered in the
         //same window scroll to the group menu item
         this.props.scrollIntoView(this.props.groupMenuHeader);
       }
       else {
-        debugger;
         //Scroll to the current check item
-        this.props.scrollIntoView(this);
+        this.props.scrollIntoView(this.groupItemRef);
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.active) {
-      if (this.props.inView(nextProps.groupMenuHeader, this)) {
+      if (this.props.inView(nextProps.groupMenuHeader, this.groupItemRef)) {
         //If the menu and current check are able to be rendered in the
         //same window scroll to the group menu item
         nextProps.scrollIntoView(nextProps.groupMenuHeader);
       }
       else {
         //Scroll to the current check item
-        nextProps.scrollIntoView(this);
+        nextProps.scrollIntoView(this.groupItemRef);
       }
     }
   }
