@@ -50,7 +50,6 @@ GroupItem.propTypes = {
     changeCurrentContextId: PropTypes.func.isRequired
   }),
   statusBadge: PropTypes.object.isRequired,
-  inView: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
   groupMenuHeader: PropTypes.object
 };

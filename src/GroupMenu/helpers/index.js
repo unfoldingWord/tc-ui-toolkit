@@ -53,7 +53,7 @@ export const groupIsVisible = (groupData, filters) => {
 
 export function scrollIntoView({current}) {
   if (current)
-    current.scrollIntoView({block: 'end', behavior: 'smooth'});
+    current.scrollIntoView({block: 'start', behavior: 'smooth'});
 }
 
 /**

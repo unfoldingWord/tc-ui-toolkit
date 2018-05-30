@@ -105505,19 +105505,21 @@ var _Groups = __webpack_require__(821);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(835);
+var _FilterMenuHeader = __webpack_require__(831);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(837);
+var _GroupsMenuFilter = __webpack_require__(833);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(842);
+__webpack_require__(838);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -105654,6 +105656,7 @@ GroupMenu.propTypes = {
   }, 'groupMenuExpandSubMenu', _propTypes2.default.func.isRequired)),
   getGroupProgress: _propTypes2.default.func.isRequired
 };
+var i = 1;
 
 GroupMenu.defaultProps = {
   getGroupProgress: function getGroupProgress() {},
@@ -105692,15 +105695,36 @@ GroupMenu.defaultProps = {
           "strong": ["G06520"],
           "occurrence": 1
         }
-      }]
+      }].concat(_toConsumableArray(Array(50).fill(0).map(function () {
+        return {
+          "priority": 1,
+          "comments": false,
+          "reminders": false,
+          "selections": false,
+          "verseEdits": false,
+          "contextId": {
+            "reference": {
+              "bookId": "tit",
+              "chapter": 2,
+              "verse": i++
+            },
+            "tool": "translationWords",
+            "groupId": "apostle",
+            "quote": "ἀπόστολος",
+            "strong": ["G06520"],
+            "occurrence": 1
+          }
+        };
+      })))
+
     }
   },
   contextIdReducer: {
     contextId: {
       "reference": {
         "bookId": "tit",
-        "chapter": 1,
-        "verse": 1
+        "chapter": 2,
+        "verse": 14
       },
       "tool": "translationWords",
       "groupId": "apostle",
@@ -105841,7 +105865,7 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
 function scrollIntoView(_ref) {
   var current = _ref.current;
 
-  if (current) current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+  if (current) current.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
 /**
@@ -110225,7 +110249,7 @@ var _Group = __webpack_require__(822);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(832);
+var _NoResults = __webpack_require__(828);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
@@ -110403,10 +110427,10 @@ var Group = function (_React$Component) {
         { theme: theme },
         _react2.default.createElement(
           'div',
-          { className: 'group', ref: this.currentGroupRef },
+          { className: 'group' },
           _react2.default.createElement(
             'div',
-            { className: groupMenuItemHeadingClassName },
+            { ref: this.currentGroupRef, className: groupMenuItemHeadingClassName },
             active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph,
             _react2.default.createElement(
               'div',
@@ -111175,7 +111199,6 @@ GroupItem.propTypes = {
     changeCurrentContextId: _propTypes2.default.func.isRequired
   }),
   statusBadge: _propTypes2.default.object.isRequired,
-  inView: _propTypes2.default.func.isRequired,
   active: _propTypes2.default.bool.isRequired,
   groupMenuHeader: _propTypes2.default.object
 };
@@ -111183,11 +111206,7 @@ GroupItem.propTypes = {
 module.exports = GroupItem;
 
 /***/ }),
-/* 828 */,
-/* 829 */,
-/* 830 */,
-/* 831 */,
-/* 832 */
+/* 828 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111201,7 +111220,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(833);
+__webpack_require__(829);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111217,11 +111236,11 @@ var NoResults = function NoResults(_ref) {
 exports.default = NoResults;
 
 /***/ }),
-/* 833 */
+/* 829 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(834);
+var content = __webpack_require__(830);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111242,7 +111261,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 834 */
+/* 830 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -111256,7 +111275,7 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 835 */
+/* 831 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111272,7 +111291,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(836);
+var _FilterBadge = __webpack_require__(832);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -111302,7 +111321,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 836 */
+/* 832 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111333,7 +111352,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 837 */
+/* 833 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111351,11 +111370,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(838);
+var _ExpandedFilter = __webpack_require__(834);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(840);
+var _CollapsedFilter = __webpack_require__(836);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -111399,7 +111418,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 838 */
+/* 834 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111417,7 +111436,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(839);
+var _GroupsMenuFilterOption = __webpack_require__(835);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
@@ -111520,7 +111539,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 839 */
+/* 835 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111589,7 +111608,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 840 */
+/* 836 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111607,7 +111626,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(841);
+var _GroupsMenuFilterBubble = __webpack_require__(837);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -111697,7 +111716,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 841 */
+/* 837 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111750,11 +111769,11 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 842 */
+/* 838 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(843);
+var content = __webpack_require__(839);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111775,7 +111794,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 843 */
+/* 839 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);

@@ -63,8 +63,8 @@ class Group extends React.Component {
     const theme = createMuiTheme();
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="group" ref={this.currentGroupRef}>
-          <div className={groupMenuItemHeadingClassName}>
+        <div className="group">
+          <div ref={this.currentGroupRef} className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
             <div onClick={openGroup}>
               <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
