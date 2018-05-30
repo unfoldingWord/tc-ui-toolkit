@@ -19,9 +19,10 @@ class Group extends React.Component {
     super(props);
     this.activeGroupItemRef = React.createRef();
     this.currentGroupRef = React.createRef();
+    this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
   }
 
-  componentDidMount() {
+  scrollToCurrentCheck() {
     if (helpers.inView(this.currentGroupRef, this.activeGroupItemRef)) {
       //If the menu and current check are able to be rendered in the
       //same window scroll to the group menu item
@@ -31,6 +32,14 @@ class Group extends React.Component {
       //Scroll to the current check item
       helpers.scrollIntoView(this.activeGroupItemRef);
     }
+  }
+
+  componentDidMount() {
+    this.scrollToCurrentCheck();
+  }
+
+  componentDidUpdate() {
+    this.scrollToCurrentCheck();
   }
 
   render() {

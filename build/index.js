@@ -105557,6 +105557,8 @@ var GroupMenu = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           translate = _props.translate,
           currentToolName = _props.toolsReducer.currentToolName,
@@ -105609,12 +105611,16 @@ var GroupMenu = function (_React$Component) {
           isVerseFinished: isVerseFinished,
           getSelections: getSelections,
           translate: translate,
-          changeCurrentContextId: actions.changeCurrentContextId,
+          changeCurrentContextId: function changeCurrentContextId(contextId) {
+            return _this2.setState({
+              contextId: contextId
+            });
+          },
           getGroupProgress: getGroupProgress,
           isSubMenuExpanded: isSubMenuExpanded,
           groupsIndex: groupsIndex,
           groupsData: groupsData,
-          contextId: contextId,
+          contextId: this.state.contextId || contextId,
           manifest: manifest,
           projectSaveLocation: projectSaveLocation,
           groupMenuExpandSubMenu: actions.groupMenuExpandSubMenu,
@@ -110377,12 +110383,13 @@ var Group = function (_React$Component) {
 
     _this.activeGroupItemRef = _react2.default.createRef();
     _this.currentGroupRef = _react2.default.createRef();
+    _this.scrollToCurrentCheck = _this.scrollToCurrentCheck.bind(_this);
     return _this;
   }
 
   _createClass(Group, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'scrollToCurrentCheck',
+    value: function scrollToCurrentCheck() {
       if (helpers.inView(this.currentGroupRef, this.activeGroupItemRef)) {
         //If the menu and current check are able to be rendered in the
         //same window scroll to the group menu item
@@ -110391,6 +110398,16 @@ var Group = function (_React$Component) {
         //Scroll to the current check item
         helpers.scrollIntoView(this.activeGroupItemRef);
       }
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollToCurrentCheck();
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.scrollToCurrentCheck();
     }
   }, {
     key: 'render',
