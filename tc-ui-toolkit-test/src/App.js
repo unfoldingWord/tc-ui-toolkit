@@ -1,67 +1,28 @@
 import React, {Component} from 'react';
-import { ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps } from 'tc-ui-toolkit';
+import {ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps} from 'tc-ui-toolkit';
 import ReactTooltip from 'react-tooltip';
-
-const article = `# blasphemy, blaspheme, blasphemous, blasphemies #
-
-## Definition: ##
-
-In the Bible, the term "blasphemy" refers to speaking in a way that shows a deep disrespect for God or people. To "blaspheme" someone is to speak against that person so that others think something false or bad about him.
-
-* Most often, to blaspheme God means to slander or insult him by saying things that are not true about him or by behaving in an immoral way that dishonors him.
-* It is blasphemy for a human being to claim to be God or to claim that there is a God other than the one true God.
-* Some English versions translate this term as "slander" when it refers to blaspheming people.
-
-## Translation Suggestions: ##
-
-* To "blaspheme" can be translated as to "say evil things against" or to "dishonor God" or to "slander."
-* Ways to translate "blasphemy" could include "speaking wrongly about others" or "slander" or "spreading false rumors."
-
-(See also: [dishonor](../other/dishonor.md), [slander](../other/slander.md))
-
-## Bible References: ##
-
-* [1 Timothy 01:12-14](rc://en/tn/help/1ti/01/12)
-* [Acts 06:10-11](rc://en/tn/help/act/06/10)
-* [Acts 26:9-11](rc://en/tn/help/act/26/09)
-* [James 02:5-7](rc://en/tn/help/jas/02/05)
-* [John 10:32-33](rc://en/tn/help/jhn/10/32)
-* [Luke 12:8-10](rc://en/tn/help/luk/12/08)
-* [Mark 14:63-65](rc://en/tn/help/mrk/14/63)
-* [Matthew 12:31-32](rc://en/tn/help/mat/12/31)
-* [Matthew 26:65-66](rc://en/tn/help/mat/26/65)
-* [Psalms 074:9-11](rc://en/tn/help/psa/074/009)
-
-
-## Word Data: ##
-
-* Strong's: H1288, H1442, H2778, H5006, H5007, H5344, G987, G988, G989
-
-`
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowHelpsSidebar: false,
-      isShowHelpsExpanded: false,
+      showHelps: false,
+      showHelpsModal: false,
       remindersReducer: {
         enabled: false
       }
     };
   }
 
-  handleSidebarToggle() {
-    console.log('handlSidebarToggle: ' + this.state.isShowHelpsSidebar);
+  toggleHelps() {
     this.setState({
-      isShowHelpsSidebar: !this.state.isShowHelpsSidebar
+      showHelps: !this.state.showHelps
     });
   }
 
-  handleHelpsExpandedToggle() {
-    console.log('handleHelpsExpandedToggle: ' + this.state.isShowHelpsExpanded);
+  toggleHelpsModal() {
     this.setState({
-      isShowHelpsExpanded: !this.state.isShowHelpsExpanded
+      showHelpsModal: !this.state.showHelpsModal
     });
   }
 
@@ -73,76 +34,27 @@ class App extends Component {
       }
     });
   }
+
   render() {
     return (
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: 'var(--tool-max-height)'}}>
         <GroupMenu />
-        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-          <ScripturePane
-            titleLabel="Step 1. Read"
-            closeButtonLabel="Close"
-            expandedScripturePaneTitle="Matthew"
-            expandButtonHoverText="Click to show expanded resource panes"
-            clickToRemoveResourceLabel="Click to remove resource"
-            clickAddResource="Click to add a resource"
-            addResourceLabel={"Add Resources"}
-            selectLanguageLabel={"Select language"}
-            selectLabel={"Select"}
-            showPopover={() => console.log('showPopover')}
-            editTargetVerse={() => console.log('editTargetVerse')}
-            projectDetailsReducer={{
-              manifest: {
-                target_language: {
-                  book: {
-                    name: 'Titus'
-                  }
-                }
-              }
-            }}
-            translate={(text) => text}
-            getLexiconData={() => {
-              return {
-                'ugl': {
-                  '2532': {
-                    "brief": "and, even, also, namely",
-                    "long": "and, even, also, namely."
-                  }
-                }
-              };
-            }}
-            selections={[
-              {
-                occurrence: 1,
-                occurrences: 1,
-                text: "servant"
-              },
-              {
-                occurrence: 1,
-                occurrences: 1,
-                text: "an apostle"
-              }
-            ]}
-            setToolSettings={() => {}}
-          />
+        <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
+          <ScripturePane />
           <CheckInfoCard
-            title={'Title'}
-            phrase={'a phrase'}
-            seeMoreLabel={'see_more'}
-            showSeeMoreButton={!this.state.isShowHelpsExpanded}
-            onSeeMoreClick={() => this.handleHelpsExpandedToggle()} />
-          <VerseCheck
             verseText={'dummy text'}
             findIfVerseEdited={() => (true)}
             findIfVerseInvalidated={() => (true)}
-            alignedGLText={'Dummy'}/>
-          <VerseCheck />
+            alignedGLText={'Dummy'}
+            toggleHelps={this.toggleHelps.bind(this)}
+            showHelps={this.state.showHelps} />
+          <VerseCheck/>
         </div>
         <TranslationHelps
-          openExpandedHelpsModal={() => this.handleHelpsExpandedToggle()}
-          isShowHelpsSidebar={this.state.isShowHelpsSidebar}
-          sidebarToggle={() => this.handleSidebarToggle()}
-          isShowHelpsExpanded={this.state.isShowHelpsExpanded} />
-        <ReactTooltip />
+          isShowHelpsExpanded={this.state.showHelpsModal}
+          openExpandedHelpsModal={this.toggleHelpsModal.bind(this)}
+          sidebarToggle={this.toggleHelps.bind(this)}
+          isShowHelpsSidebar={this.state.showHelps} />
       </div>
     );
   }

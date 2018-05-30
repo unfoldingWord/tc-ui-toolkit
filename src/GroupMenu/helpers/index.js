@@ -72,18 +72,14 @@ export function inView(groupMenu, currentItem) {
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-export function getStatusBadges(groupItemData, alignmentData, currentToolName) {
+export function getStatusBadges(groupItemData, verseFinished, currentToolName) {
   const glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
-    const {chapter, verse} = groupItemData.contextId.reference;
-    const wordBank = alignmentData && alignmentData[chapter] && alignmentData[chapter][verse] ? alignmentData[chapter][verse].wordBank : [];
-
     // The below ifs are in order of precedence of the status badges we show
     if (groupItemData.invalidated) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
-    if (groupItemData.selections || (currentToolName === 'wordAlignment' && wordBank && wordBank.length === 0))
-      glyphs.push('ok');
+    if (groupItemData.selections || verseFinished) glyphs.push('ok');
     if (groupItemData.verseEdits) glyphs.push('pencil');
     if (groupItemData.comments) glyphs.push('comment');
   }

@@ -117,7 +117,7 @@ Object.defineProperty(exports, 'VerseEditor', {
   }
 });
 
-var _VerseCheck = __webpack_require__(760);
+var _VerseCheck = __webpack_require__(759);
 
 Object.defineProperty(exports, 'VerseCheck', {
   enumerable: true,
@@ -126,7 +126,7 @@ Object.defineProperty(exports, 'VerseCheck', {
   }
 });
 
-var _GroupMenu = __webpack_require__(803);
+var _GroupMenu = __webpack_require__(801);
 
 Object.defineProperty(exports, 'GroupMenu', {
   enumerable: true,
@@ -135,7 +135,7 @@ Object.defineProperty(exports, 'GroupMenu', {
   }
 });
 
-var _Bookmark = __webpack_require__(765);
+var _Bookmark = __webpack_require__(764);
 
 Object.defineProperty(exports, 'Bookmark', {
   enumerable: true,
@@ -63476,10 +63476,6 @@ var _bibleHelpers = __webpack_require__(635);
 
 var bibleHelpers = _interopRequireWildcard(_bibleHelpers);
 
-var _bibles = __webpack_require__(759);
-
-var _bibles2 = _interopRequireDefault(_bibles);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -63492,8 +63488,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // components
 
 // helpers
-
-// TODO: Remove this bibles when we can get it from props instead.
 
 
 // constant
@@ -63530,9 +63524,10 @@ var ScripturePane = function (_Component) {
           selections = _props.selections,
           contextId = _props.contextId,
           getLexiconData = _props.getLexiconData,
-          showPopover = _props.showPopover;
+          showPopover = _props.showPopover,
+          bibles = _props.bibles;
 
-      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(_bibles2.default, selections, contextId, getLexiconData, showPopover);
+      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
       this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
     }
   }, {
@@ -63543,9 +63538,10 @@ var ScripturePane = function (_Component) {
         var selections = nextProps.selections,
             contextId = nextProps.contextId,
             getLexiconData = nextProps.getLexiconData,
-            showPopover = nextProps.showPopover;
+            showPopover = nextProps.showPopover,
+            bibles = nextProps.bibles;
 
-        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(_bibles2.default, selections, contextId, getLexiconData, showPopover);
+        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
       }
     }
@@ -63633,7 +63629,8 @@ var ScripturePane = function (_Component) {
           contextId = _props4.contextId,
           editTargetVerse = _props4.editTargetVerse,
           translate = _props4.translate,
-          projectDetailsReducer = _props4.projectDetailsReducer;
+          projectDetailsReducer = _props4.projectDetailsReducer,
+          bibles = _props4.bibles;
 
       // material-ui-theme, new color themes could be added here in the future
 
@@ -63710,7 +63707,7 @@ var ScripturePane = function (_Component) {
             biblesWithHighlightedWords: biblesWithHighlightedWords,
             currentPaneSettings: currentPaneSettings,
             contextId: contextId,
-            bibles: _bibles2.default,
+            bibles: bibles,
             editTargetVerse: editTargetVerse,
             translate: translate,
             projectDetailsReducer: projectDetailsReducer
@@ -63754,42 +63751,29 @@ ScripturePane.propTypes = {
   projectDetailsReducer: _propTypes2.default.object.isRequired,
   editTargetVerse: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
-  bibles: _propTypes2.default.object
+  bibles: _propTypes2.default.object.isRequired
 };
 
-// TODO: Remove defaultProps for requiered data.
 ScripturePane.defaultProps = {
-  contextId: {
-    groupId: "apostle",
-    occurrence: 1,
-    quote: "ἀπόστολος",
-    reference: {
-      bookId: "tit",
-      chapter: 1,
-      verse: 1
-    },
-    strong: ["G06520"],
-    tool: "translationWords"
-  },
-  currentPaneSettings: [{
-    "languageId": "targetLanguage",
-    "bibleId": "targetBible"
-  }, {
-    "languageId": "originalLanguage",
-    "bibleId": "ugnt"
-  }, {
-    "languageId": "en",
-    "bibleId": "ult"
-  }, {
-    languageId: "en",
-    bibleId: "udt"
-  }, {
-    languageId: "hi",
-    bibleId: "udt"
-  }, {
-    languageId: "hi",
-    bibleId: "ulb"
-  }]
+  titleLabel: '',
+  closeButtonLabel: '',
+  addResourceLabel: '',
+  clickToRemoveResourceLabel: '',
+  expandedScripturePaneTitle: '',
+  expandButtonHoverText: '',
+  clickAddResource: '',
+  currentPaneSettings: [],
+  selectLanguageLabel: '',
+  selectLabel: '',
+  setToolSettings: function setToolSettings() {},
+  contextId: {},
+  selections: [],
+  getLexiconData: function getLexiconData() {},
+  showPopover: function showPopover() {},
+  projectDetailsReducer: {},
+  editTargetVerse: function editTargetVerse() {},
+  translate: function translate() {},
+  bibles: {}
 };
 
 exports.default = ScripturePane;
@@ -65974,7 +65958,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".pane-container {\n  flex: 1;\n  display: flex;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".pane-container {\n  height: 130px;\n  flex: 1;\n  display: flex;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -73251,73 +73235,82 @@ var verseArray = exports.verseArray = function verseArray() {
   var previousWord = null;
   var verseSpan = [];
 
-  words.forEach(function (word, index, wordsArray) {
-    var nextWord = wordsArray[index + 1];
-    if ((0, _stringHelpers.isWord)(word)) {
-      var padding = wordSpacing;
-      wordSpacing = ' '; // spacing between words
-      var text = word.word || word.text;
-      var isHighlightedWord = false;
-      var isBetweenHighlightedWord = false;
+  if (verseText.verseObjects && (0, _stringHelpers.textIsEmptyInVerseObject)(verseText)) {
+    // if empty verse string.
+    verseSpan.push(_react2.default.createElement(
+      'span',
+      { key: PLACE_HOLDER_TEXT },
+      PLACE_HOLDER_TEXT
+    ));
+  } else {
+    words.forEach(function (word, index, wordsArray) {
+      var nextWord = wordsArray[index + 1];
+      if ((0, _stringHelpers.isWord)(word)) {
+        var padding = wordSpacing;
+        wordSpacing = ' '; // spacing between words
+        var text = word.word || word.text;
+        var isHighlightedWord = false;
+        var isBetweenHighlightedWord = false;
 
-      if (bibleId === 'ugnt' && contextId.quote && word.text) {
-        isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
-        isBetweenHighlightedWord = previousWord && !(0, _deepEqual2.default)(previousWord, word) && highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
-      } else if (bibleId === 'ulb' || bibleId === 'ult' || bibleId === 'udt' && contextId.quote && word.content) {
-        var highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
-        isHighlightedWord = highlightedDetails.isHighlightedWord;
-        isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
-      }
-      // Save word to be used as previousWord in next word.
-      previousWord = word;
-      // if isGrayVerseRow is true then background is gray in the ChapterViewModal.
-      var paddingSpanStyle = {
-        backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
-      };
+        if (bibleId === 'ugnt' && contextId.quote && word.text) {
+          isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
+          isBetweenHighlightedWord = previousWord && !(0, _deepEqual2.default)(previousWord, word) && highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
+        } else if (bibleId === 'ulb' || bibleId === 'ult' || bibleId === 'udt' && contextId.quote && word.content) {
+          var highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
+          isHighlightedWord = highlightedDetails.isHighlightedWord;
+          isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
+        }
+        // Save word to be used as previousWord in next word.
+        previousWord = word;
+        // if isGrayVerseRow is true then background is gray in the ChapterViewModal.
+        var paddingSpanStyle = {
+          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
+        };
 
-      if (word.strong) {
-        // if clickable
-        verseSpan.push(_react2.default.createElement(
-          'span',
-          {
-            key: index.toString(),
-            onClick: function onClick(e) {
-              return (0, _htmlElementsHelpers.onWordClick)(e, word, getLexiconData, showPopover);
+        if (word.strong) {
+          // if clickable
+          verseSpan.push(_react2.default.createElement(
+            'span',
+            {
+              key: index.toString(),
+              onClick: function onClick(e) {
+                return (0, _htmlElementsHelpers.onWordClick)(e, word, getLexiconData, showPopover);
+              },
+              style: { cursor: 'pointer' }
             },
-            style: { cursor: 'pointer' }
-          },
-          _react2.default.createElement(
-            'span',
-            { style: paddingSpanStyle },
-            padding
-          ),
-          _react2.default.createElement(
-            'span',
-            { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
-            text
-          )
-        ));
-      } else {
-        verseSpan.push((0, _htmlElementsHelpers.createNonClickableSpan)(index, paddingSpanStyle, padding, isHighlightedWord, text));
+            _react2.default.createElement(
+              'span',
+              { style: paddingSpanStyle },
+              padding
+            ),
+            _react2.default.createElement(
+              'span',
+              { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
+              text
+            )
+          ));
+        } else {
+          verseSpan.push((0, _htmlElementsHelpers.createNonClickableSpan)(index, paddingSpanStyle, padding, isHighlightedWord, text));
+        }
+      } else if ((0, _stringHelpers.isNestedMilestone)(word)) {
+        // if nested milestone
+        var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, isGrayVerseRow, previousWord, wordSpacing);
+        nestedMilestone.wordSpans.forEach(function (nestedWordSpan) {
+          return verseSpan.push(nestedWordSpan);
+        });
+        previousWord = nestedMilestone.nestedPreviousWord;
+        wordSpacing = nestedMilestone.nestedWordSpacing;
+      } else if (word.text) {
+        // if not word, show punctuation, etc. but not clickable
+        wordSpacing = (0, _stringHelpers.punctuationWordSpacing)(word); // spacing before words
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
+          verseSpan.push((0, _htmlElementsHelpers.createHighlightedSpan)(index, word.text));
+        } else {
+          verseSpan.push((0, _htmlElementsHelpers.createTextSpan)(index, word.text));
+        }
       }
-    } else if ((0, _stringHelpers.isNestedMilestone)(word)) {
-      // if nested milestone
-      var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, isGrayVerseRow, previousWord, wordSpacing);
-      nestedMilestone.wordSpans.forEach(function (nestedWordSpan) {
-        return verseSpan.push(nestedWordSpan);
-      });
-      previousWord = nestedMilestone.nestedPreviousWord;
-      wordSpacing = nestedMilestone.nestedWordSpacing;
-    } else if (word.text) {
-      // if not word, show punctuation, etc. but not clickable
-      wordSpacing = (0, _stringHelpers.punctuationWordSpacing)(word); // spacing before words
-      if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
-        verseSpan.push((0, _htmlElementsHelpers.createHighlightedSpan)(index, word.text));
-      } else {
-        verseSpan.push((0, _htmlElementsHelpers.createTextSpan)(index, word.text));
-      }
-    }
-  });
+    });
+  }
 
   return verseSpan;
 };
@@ -84146,7 +84139,7 @@ function punctuationWordSpacing(word) {
 
 function textIsEmptyInVerseObject(verseText) {
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    return word.type === "word" && word.text.length > 0;
+    return word.type === "milestone" || word.type === "word" && word.text.length > 0;
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
@@ -84810,12 +84803,6 @@ var removeMarker = exports.removeMarker = function removeMarker() {
 
 /***/ }),
 /* 759 */
-/***/ (function(module) {
-
-module.exports = {"en":{"ult":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Paul","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"a","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"servant","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":1,"occurrences":4},{"text":"God","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"and","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G06520","content":"ἀπόστολος","children":[{"text":"an","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"apostle","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":2,"occurrences":4},{"text":"Jesus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"Christ","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"for","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"the","tag":"w","type":"word","occurrence":1,"occurrences":3},{"text":"faith","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"of","tag":"w","type":"word","occurrence":3,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"God","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"type":"text","text":"'"},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"s","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"chosen","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"people","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"text":"and","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"the","tag":"w","type":"word","occurrence":2,"occurrences":3},{"text":"knowledge","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"of","tag":"w","type":"word","occurrence":4,"occurrences":4},{"text":"the","tag":"w","type":"word","occurrence":3,"occurrences":3},{"text":"truth","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"text":"that","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατ’","children":[{"text":"agrees","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"with","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G21500","content":"εὐσέβειαν","children":[{"text":"godliness","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":", \n"}]}},"manifest":{"language_id":"en","language_name":"English","direction":"ltr","subject":"Bible","resource_id":"ult","resource_title":"unfoldingWord Literal Text","description":"Gateway Language"}},"udt":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Paul","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"write","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"this","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"letter","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":1,"occurrences":5},{"text":"you","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"Titus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"I","tag":"w","type":"word","occurrence":2,"occurrences":3},{"text":"am","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"servant","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"God","tag":"w","type":"word","occurrence":1,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"and","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G06520","content":"ἀπόστολος","children":[{"text":"an","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"apostle","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"of","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"Jesus","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"Christ","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"God","tag":"w","type":"word","occurrence":2,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"sent","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"me","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":2,"occurrences":5},{"text":"teach","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"the","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"people","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"whom","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"he","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"has","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"chosen","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"as","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"own","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"to","tag":"w","type":"word","occurrence":3,"occurrences":5},{"text":"trust","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"him","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"more","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"type":"text","text":"."},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"I","tag":"w","type":"word","occurrence":3,"occurrences":3},{"text":"work","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"to","tag":"w","type":"word","occurrence":4,"occurrences":5},{"text":"help","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"his","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"people","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"to","tag":"w","type":"word","occurrence":5,"occurrences":5},{"text":"know","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"what","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"is","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"true","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατ’","children":[{"text":"so","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":1,"occurrences":2}]}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G21500","content":"εὐσέβειαν","children":[{"text":"they","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"can","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"live","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"in","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"a","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"way","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"that","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"pleases","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"God","tag":"w","type":"word","occurrence":3,"occurrences":3}]},{"type":"text","text":". \n"}]}},"manifest":{"language_id":"en","language_name":"English","direction":"ltr","subject":"Bible","resource_id":"udt","resource_title":"unfoldingWord Dynamic Text","description":"Gateway Language"}}},"hi":{"ulb":{"1":{"1":{"verseObjects":[{"tag":"zaln","type":"milestone","lemma":"Παῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G39720","content":"Παῦλος","children":[{"text":"पौलुस","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"की","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"ओर","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"से","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"जो","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"परमेश्","tag":"w","type":"word","occurrence":1,"occurrences":2},{"text":"वर","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"δοῦλος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"strong":"G14010","content":"δοῦλος","children":[{"text":"का","tag":"w","type":"word","occurrence":1,"occurrences":3},{"text":"दास","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"δέ","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G11610","content":"δὲ","children":[{"text":"और","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"Ἰησοῦς","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G24240","content":"Ἰησοῦ","children":[{"text":"यीशु","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"χριστός","morph":"Gr,N,,,,,GMS,","occurrence":1,"occurrences":1,"strong":"G55470","content":"Χριστοῦ","children":[{"text":"मसीह","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"का","tag":"w","type":"word","occurrence":2,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"ἀπόστολος","morph":"Gr,N,,,,,NMS,","occurrence":1,"occurrences":1,"alignmentIndex":"2","strong":"G06520","content":"ἀπόστολος","children":[{"text":"प्रेरित","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"है","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"type":"text","text":","},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"परमेश्","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"वर","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"के","tag":"w","type":"word","occurrence":1,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"चुने","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"हुए","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"लोगों","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G21500","content":"εὐσέβειαν","children":[{"text":"के","tag":"w","type":"word","occurrence":2,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"विश्वास","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"को","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"स्थापित","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"करने","tag":"w","type":"word","occurrence":1,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"καί","morph":"Gr,CC,,,,,,,,","occurrence":1,"occurrences":1,"strong":"G25320","content":"καὶ","children":[{"text":"और","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἀλήθεια","morph":"Gr,N,,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G02250","content":"ἀληθείας","children":[{"text":"सच्चाई","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"का","tag":"w","type":"word","occurrence":3,"occurrences":3}]},{"tag":"zaln","type":"milestone","lemma":"ἐπίγνωσις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G19220","content":"ἐπίγνωσιν","children":[{"text":"ज्ञान","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"स्थापित","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"πίστις","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"strong":"G41020","content":"πίστιν","children":[{"text":"करने","tag":"w","type":"word","occurrence":2,"occurrences":2}]},{"tag":"zaln","type":"milestone","lemma":"ἐκλεκτός","morph":"Gr,NS,,,,GMP,","occurrence":1,"occurrences":1,"strong":"G15880","content":"ἐκλεκτῶν","children":[{"text":"के","tag":"w","type":"word","occurrence":3,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"strong":"G25960","content":"κατὰ","children":[{"text":"लिए","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"εὐσέβεια","morph":"Gr,N,,,,,AFS,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G21500","content":"εὐσέβειαν","children":[{"text":"जो","tag":"w","type":"word","occurrence":2,"occurrences":2},{"text":"भक्ति","tag":"w","type":"word","occurrence":1,"occurrences":1}]},{"tag":"zaln","type":"milestone","lemma":"θεός","morph":"Gr,N,,,,,GMS,","occurrence":2,"occurrences":2,"strong":"G23160","content":"Θεοῦ","children":[{"text":"के","tag":"w","type":"word","occurrence":4,"occurrences":4}]},{"tag":"zaln","type":"milestone","lemma":"ὁ","morph":"Gr,RR,,,,GFS,","occurrence":1,"occurrences":1,"strong":"G35880","content":"τῆς","children":[{"tag":"zaln","type":"milestone","lemma":"κατά","morph":"Gr,P,,,,,A,,,","occurrence":1,"occurrences":1,"alignmentIndex":"14","strong":"G25960","content":"κατ’","children":[{"text":"साथ","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"सहमत","tag":"w","type":"word","occurrence":1,"occurrences":1},{"text":"हैं","tag":"w","type":"word","occurrence":1,"occurrences":1}]}]},{"type":"text","text":", \n"}]}},"manifest":{"language_id":"hi","language_name":"हिन्दी, हिंदी","direction":"ltr","subject":"Bible","resource_id":"ulb","resource_title":"Unlocked Literal Bible - Hindi","description":"Gateway Language"}},"udt":{"1":{"1":"HINDI Paul, a servant of God and an apostle of Jesus Christ, for the faith of Gods chosen people and the knowledge of the truth that agrees with godliness,"},"manifest":{"language_id":"hi","language_name":"हिन्दी, हिंदी","direction":"ltr","subject":"Bible","resource_id":"udt","resource_title":"Unlocked Dynamic Text","description":"Gateway Language"}}},"originalLanguage":{"ugnt":{"1":{"1":{"verseObjects":[{"type":"text","text":"\n"},{"tag":"p","type":"paragraph","text":"\n"},{"text":"Παῦλος","tag":"w","type":"word","lemma":"Παῦλος","strong":"G39720","morph":"Gr,N,,,,,NMS,","tw":"rc://*/tw/dict/bible/names/paul"},{"type":"text","text":","},{"text":"δοῦλος","tag":"w","type":"word","lemma":"δοῦλος","strong":"G14010","morph":"Gr,N,,,,,NMS,","tw":"rc://*/tw/dict/bible/other/servant"},{"text":"Θεοῦ","tag":"w","type":"word","lemma":"θεός","strong":"G23160","morph":"Gr,N,,,,,GMS,","tw":"rc://*/tw/dict/bible/kt/god"},{"type":"text","text":","},{"text":"ἀπόστολος","tag":"w","type":"word","lemma":"ἀπόστολος","strong":"G06520","morph":"Gr,N,,,,,NMS,","tw":"rc://*/tw/dict/bible/kt/apostle"},{"text":"δὲ","tag":"w","type":"word","lemma":"δέ","strong":"G11610","morph":"Gr,CC,,,,,,,,"},{"tag":"k","type":"milestone","tw":"rc://*/tw/dict/bible/kt/jesus","children":[{"text":"Ἰησοῦ","tag":"w","type":"word","lemma":"Ἰησοῦς","strong":"G24240","morph":"Gr,N,,,,,GMS,"},{"text":"Χριστοῦ","tag":"w","type":"word","lemma":"χριστός","strong":"G55470","morph":"Gr,N,,,,,GMS,","tw":"rc://*/tw/dict/bible/kt/christ"}]},{"type":"text","text":","},{"text":"κατὰ","tag":"w","type":"word","lemma":"κατά","strong":"G25960","morph":"Gr,P,,,,,A,,,"},{"text":"πίστιν","tag":"w","type":"word","lemma":"πίστις","strong":"G41020","morph":"Gr,N,,,,,AFS,","tw":"rc://*/tw/dict/bible/kt/faith"},{"text":"ἐκλεκτῶν","tag":"w","type":"word","lemma":"ἐκλεκτός","strong":"G15880","morph":"Gr,NS,,,,GMP,","tw":"rc://*/tw/dict/bible/kt/elect"},{"text":"Θεοῦ","tag":"w","type":"word","lemma":"θεός","strong":"G23160","morph":"Gr,N,,,,,GMS,","tw":"rc://*/tw/dict/bible/kt/god"},{"type":"text","text":","},{"text":"καὶ","tag":"w","type":"word","lemma":"καί","strong":"G25320","morph":"Gr,CC,,,,,,,,"},{"text":"ἐπίγνωσιν","tag":"w","type":"word","lemma":"ἐπίγνωσις","strong":"G19220","morph":"Gr,N,,,,,AFS,","tw":"rc://*/tw/dict/bible/other/know"},{"text":"ἀληθείας","tag":"w","type":"word","lemma":"ἀλήθεια","strong":"G02250","morph":"Gr,N,,,,,GFS,","tw":"rc://*/tw/dict/bible/kt/true"},{"type":"text","text":","},{"text":"τῆς","tag":"w","type":"word","lemma":"ὁ","strong":"G35880","morph":"Gr,RR,,,,GFS,"},{"text":"κατ’","tag":"w","type":"word","lemma":"κατά","strong":"G25960","morph":"Gr,P,,,,,A,,,"},{"text":"εὐσέβειαν","tag":"w","type":"word","lemma":"εὐσέβεια","strong":"G21500","morph":"Gr,N,,,,,AFS,","tw":"rc://*/tw/dict/bible/kt/godly"},{"type":"text","text":"\n\n"}]}},"manifest":{"language_id":"el-x-koine","language_name":"Koine Greek","direction":"ltr","subject":"Greek New Testament","resource_id":"ugnt","resource_title":"Unlocked Greek New Testament","description":"Original Language"}}},"targetLanguage":{"targetBible":{"1":{"1":"Paul, a servant of God and an apostle of Jesus Christ, for the faith of God's chosen people and the knowledge of the truth that agrees with godliness,"},"manifest":{"description":"Target Language","direction":"ltr","language_id":"en","language_name":"English","resource_id":"targetLanguage","resource_title":"Target Bible","subject":"Bible"}}}};
-
-/***/ }),
-/* 760 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84825,7 +84812,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _VerseCheck = __webpack_require__(761);
+var _VerseCheck = __webpack_require__(760);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -84837,7 +84824,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 761 */
+/* 760 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84857,27 +84844,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
 var _styles = __webpack_require__(20);
 
-var _ActionsArea = __webpack_require__(764);
+var _ActionsArea = __webpack_require__(763);
 
 var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
-var _CheckArea = __webpack_require__(771);
+var _CheckArea = __webpack_require__(770);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
 
-var _SaveArea = __webpack_require__(796);
+var _SaveArea = __webpack_require__(795);
 
 var _SaveArea2 = _interopRequireDefault(_SaveArea);
 
-var _DialogComponent = __webpack_require__(799);
+var _DialogComponent = __webpack_require__(798);
 
 var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 
-var _IconIndicators = __webpack_require__(801);
+var _IconIndicators = __webpack_require__(800);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
@@ -84919,7 +84906,6 @@ var VerseCheck = function (_Component) {
           dialogModalVisibility = _props.dialogModalVisibility,
           commentChanged = _props.commentChanged,
           findIfVerseEdited = _props.findIfVerseEdited,
-          findIfVerseInvalidated = _props.findIfVerseInvalidated,
           tags = _props.tags,
           verseChanged = _props.verseChanged,
           selections = _props.selections,
@@ -84978,8 +84964,7 @@ var VerseCheck = function (_Component) {
                   selections: selectionsReducer.selections,
                   comment: commentsReducer.text,
                   bookmarkEnabled: remindersReducer.enabled,
-                  translate: translate,
-                  invalidated: findIfVerseInvalidated() })
+                  translate: translate })
               ),
               _react2.default.createElement(_CheckArea2.default, {
                 actions: actions,
@@ -84994,8 +84979,7 @@ var VerseCheck = function (_Component) {
                 projectDetailsReducer: projectDetailsReducer,
                 contextId: contextIdReducer.contextId,
                 bibles: resourcesReducer.bibles,
-                alignedGLText: alignedGLText,
-                invalidated: findIfVerseInvalidated() }),
+                alignedGLText: alignedGLText }),
               _react2.default.createElement(_ActionsArea2.default, {
                 mode: mode,
                 tags: tags,
@@ -85028,7 +85012,6 @@ VerseCheck.propTypes = {
   alignedGLText: _propTypes2.default.string.isRequired,
   commentChanged: _propTypes2.default.bool.isRequired,
   findIfVerseEdited: _propTypes2.default.func.isRequired,
-  findIfVerseInvalidated: _propTypes2.default.func.isRequired,
   tags: _propTypes2.default.array.isRequired,
   verseChanged: _propTypes2.default.bool.isRequired,
   selections: _propTypes2.default.array.isRequired,
@@ -85132,9 +85115,6 @@ VerseCheck.defaultProps = {
   findIfVerseEdited: function findIfVerseEdited() {
     return false;
   },
-  findIfVerseInvalidated: function findIfVerseInvalidated() {
-    return false;
-  },
   tags: [],
   verseChanged: false,
   selections: [],
@@ -85149,11 +85129,11 @@ VerseCheck.defaultProps = {
 exports.default = VerseCheck;
 
 /***/ }),
-/* 762 */
+/* 761 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(763);
+var content = __webpack_require__(762);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -85174,7 +85154,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 763 */
+/* 762 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -85182,13 +85162,13 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".verse-check {\n  flex: 2 0 280px;\n  margin: 10px;\n}\n.verse-check .ltr-content {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .rtl-content {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-title-title {\n  font-weight: bold;\n}\n.verse-title-subtitle {\n  color: var(--text-color-light);\n}\n.verse-check {\n  display: flex;\n  height: 100%;\n  margin: 10px;\n}\n.verse-check-card {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.verse-check .title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}", ""]);
+exports.push([module.i, ".verse-check {\n  margin: 10px;\n  height: 100%;\n  display: flex;\n  margin: 10px;\n}\n.verse-check .ltr-content {\n  direction: ltr;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-check .rtl-content {\n  direction: rtl;\n  flex: auto;\n  padding: 0 15px 10px;\n  overflow-y: auto;\n}\n.verse-title-title {\n  font-weight: bold;\n}\n.verse-title-subtitle {\n  color: var(--text-color-light);\n}\n\n.verse-check-card {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n.verse-check .title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.verse-title {\n  flex: 0 0 45px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 764 */
+/* 763 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85208,11 +85188,11 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _Bookmark = __webpack_require__(765);
+var _Bookmark = __webpack_require__(764);
 
 var _Bookmark2 = _interopRequireDefault(_Bookmark);
 
-__webpack_require__(769);
+__webpack_require__(768);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85375,7 +85355,7 @@ var ActionsArea = function ActionsArea(_ref) {
 exports.default = ActionsArea;
 
 /***/ }),
-/* 765 */
+/* 764 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85385,7 +85365,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Bookmark = __webpack_require__(766);
+var _Bookmark = __webpack_require__(765);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -85397,7 +85377,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 766 */
+/* 765 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85415,7 +85395,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Switch = __webpack_require__(767);
+var _Switch = __webpack_require__(766);
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
@@ -85476,7 +85456,7 @@ Bookmark.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Bookmark);
 
 /***/ }),
-/* 767 */
+/* 766 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85486,7 +85466,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switch = __webpack_require__(768);
+var _Switch = __webpack_require__(767);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -85498,7 +85478,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 768 */
+/* 767 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85720,11 +85700,11 @@ Switch.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
 
 /***/ }),
-/* 769 */
+/* 768 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(770);
+var content = __webpack_require__(769);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -85745,7 +85725,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 770 */
+/* 769 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -85759,7 +85739,7 @@ exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n 
 
 
 /***/ }),
-/* 771 */
+/* 770 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85777,27 +85757,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _DefaultArea = __webpack_require__(772);
+var _DefaultArea = __webpack_require__(771);
 
 var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
 
-var _SelectionArea = __webpack_require__(779);
+var _SelectionArea = __webpack_require__(778);
 
 var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
 
-var _InstructionsArea = __webpack_require__(784);
+var _InstructionsArea = __webpack_require__(783);
 
 var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
 
-var _EditVerseArea = __webpack_require__(788);
+var _EditVerseArea = __webpack_require__(787);
 
 var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
 
-var _CommentArea = __webpack_require__(791);
+var _CommentArea = __webpack_require__(790);
 
 var _CommentArea2 = _interopRequireDefault(_CommentArea);
 
-__webpack_require__(794);
+__webpack_require__(793);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85814,7 +85794,6 @@ var CheckArea = function CheckArea(_ref) {
       selections = _ref.selections,
       projectDetailsReducer = _ref.projectDetailsReducer,
       translate = _ref.translate,
-      invalidated = _ref.invalidated,
       bibles = _ref.bibles,
       alignedGLText = _ref.alignedGLText;
 
@@ -85827,8 +85806,7 @@ var CheckArea = function CheckArea(_ref) {
         verseChanged: verseChanged,
         actions: actions,
         dir: projectDetailsReducer.manifest.target_language.direction,
-        translate: translate,
-        invalidated: invalidated
+        translate: translate
       });
       break;
     case 'comment':
@@ -85843,8 +85821,7 @@ var CheckArea = function CheckArea(_ref) {
           selections: selections,
           alignedGLText: alignedGLText,
           mode: mode,
-          translate: translate,
-          invalidated: invalidated
+          translate: translate
         })
       );
       break;
@@ -85894,7 +85871,6 @@ CheckArea.propTypes = {
   actions: _propTypes2.default.object.isRequired,
   mode: _propTypes2.default.string.isRequired,
   tags: _propTypes2.default.array.isRequired,
-  invalidated: _propTypes2.default.bool.isRequired,
   verseText: _propTypes2.default.string.isRequired,
   verseChanged: _propTypes2.default.bool.isRequired,
   comment: _propTypes2.default.string.isRequired,
@@ -85912,7 +85888,7 @@ CheckArea.propTypes = {
 exports.default = CheckArea;
 
 /***/ }),
-/* 772 */
+/* 771 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85932,15 +85908,15 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _selectionHelpers = __webpack_require__(773);
+var _selectionHelpers = __webpack_require__(772);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyLanguageModal = __webpack_require__(775);
+var _MyLanguageModal = __webpack_require__(774);
 
 var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -86093,7 +86069,7 @@ DefaultArea.propTypes = {
 exports.default = DefaultArea;
 
 /***/ }),
-/* 773 */
+/* 772 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86104,7 +86080,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.normalizeString = exports.occurrencesInString = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionArray = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _lodash = __webpack_require__(774);
+var _lodash = __webpack_require__(773);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -86416,7 +86392,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 // console.log(selectionArray)
 
 /***/ }),
-/* 774 */
+/* 773 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -103499,7 +103475,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(103), __webpack_require__(732)(module)))
 
 /***/ }),
-/* 775 */
+/* 774 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103525,11 +103501,11 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _MyTargetVerse = __webpack_require__(776);
+var _MyTargetVerse = __webpack_require__(775);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(777);
+__webpack_require__(776);
 
 var _Toolbar = __webpack_require__(475);
 
@@ -103673,7 +103649,7 @@ MyLanguageModal.propTypes = {
 exports.default = MyLanguageModal;
 
 /***/ }),
-/* 776 */
+/* 775 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103737,11 +103713,11 @@ MyTargetVerse.propTypes = {
 exports.default = MyTargetVerse;
 
 /***/ }),
-/* 777 */
+/* 776 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(778);
+var content = __webpack_require__(777);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -103762,7 +103738,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 778 */
+/* 777 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -103776,7 +103752,7 @@ exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  co
 
 
 /***/ }),
-/* 779 */
+/* 778 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103796,9 +103772,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(762);
+__webpack_require__(761);
 
-var _RenderSelectionTextComponent = __webpack_require__(780);
+var _RenderSelectionTextComponent = __webpack_require__(779);
 
 var _RenderSelectionTextComponent2 = _interopRequireDefault(_RenderSelectionTextComponent);
 
@@ -103897,7 +103873,7 @@ SelectionArea.propTypes = {
 exports.default = SelectionArea;
 
 /***/ }),
-/* 780 */
+/* 779 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103921,15 +103897,15 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _windowSelectionHelpers = __webpack_require__(781);
+var _windowSelectionHelpers = __webpack_require__(780);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
-var _selectionHelpers = __webpack_require__(783);
+var _selectionHelpers = __webpack_require__(782);
 
 var selectionHelpers = _interopRequireWildcard(_selectionHelpers);
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104091,7 +104067,7 @@ RenderSelectionTextComponent.propTypes = {
 exports.default = RenderSelectionTextComponent;
 
 /***/ }),
-/* 781 */
+/* 780 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104103,7 +104079,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPrescedingTextFromElementSiblings = exports.getPrescedingTextFromElement = exports.getPrescedingTextFromElementAndSiblings = exports.getPrescedingTextFromWindowSelection = exports.getSelectedTextFromWindowSelection = exports.getCurrentWindowSelection = exports.getSelectionFromCurrentWindowSelection = undefined;
 exports.shouldRenderEllipsis = shouldRenderEllipsis;
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104252,7 +104228,7 @@ function shouldRenderEllipsis(selections, verseText) {
 }
 
 /***/ }),
-/* 782 */
+/* 781 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104318,7 +104294,7 @@ var generateSelection = exports.generateSelection = function generateSelection(s
 };
 
 /***/ }),
-/* 783 */
+/* 782 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104333,11 +104309,11 @@ var _deepEqual = __webpack_require__(546);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _lodash = __webpack_require__(774);
+var _lodash = __webpack_require__(773);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _stringHelpers = __webpack_require__(782);
+var _stringHelpers = __webpack_require__(781);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -104546,7 +104522,7 @@ var addSelectionToSelections = exports.addSelectionToSelections = function addSe
 };
 
 /***/ }),
-/* 784 */
+/* 783 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104564,9 +104540,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(785);
+__webpack_require__(784);
 
-var _InstructionsAreaTextSelection = __webpack_require__(787);
+var _InstructionsAreaTextSelection = __webpack_require__(786);
 
 var _InstructionsAreaTextSelection2 = _interopRequireDefault(_InstructionsAreaTextSelection);
 
@@ -104578,8 +104554,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
       dontShowTranslation = _ref.dontShowTranslation,
       verseText = _ref.verseText,
       mode = _ref.mode,
-      translate = _ref.translate,
-      invalidated = _ref.invalidated;
+      translate = _ref.translate;
 
 
   if (!verseText) {
@@ -104608,37 +104583,10 @@ var InstructionsArea = function InstructionsArea(_ref) {
     );
   }
 
-  function getSelectionString() {
-    if (invalidated) {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'span',
-          null,
-          translate('selection_invalidated'),
-          _react2.default.createElement(
-            'strong',
-            {
-              'data-tip': translate('invalidated_tooltip'),
-              'data-place': 'top',
-              'data-effect': 'float',
-              'data-type': 'dark',
-              'data-class': 'selection-tooltip',
-              'data-delay-hide': '100',
-              style: { 'vertical-align': 'super', 'font-size': '0.8em' } },
-            '1'
-          )
-        )
-      );
-    }
-  }
-
   if (mode === 'select') {
     return _react2.default.createElement(
       'div',
       { className: 'instructions-area' },
-      getSelectionString(),
       _react2.default.createElement(
         'span',
         null,
@@ -104699,11 +104647,11 @@ InstructionsArea.propTypes = {
 exports.default = InstructionsArea;
 
 /***/ }),
-/* 785 */
+/* 784 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(786);
+var content = __webpack_require__(785);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104724,7 +104672,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 786 */
+/* 785 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104738,7 +104686,7 @@ exports.push([module.i, ".instructions-area {\n  padding: 5px;\n  text-align: ce
 
 
 /***/ }),
-/* 787 */
+/* 786 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104756,7 +104704,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _windowSelectionHelpers = __webpack_require__(781);
+var _windowSelectionHelpers = __webpack_require__(780);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
@@ -104829,7 +104777,7 @@ QuoatationMarks.propTypes = {
 };
 
 /***/ }),
-/* 788 */
+/* 787 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104849,7 +104797,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(789);
+__webpack_require__(788);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104955,11 +104903,11 @@ EditVerseArea.propTypes = {
 exports.default = EditVerseArea;
 
 /***/ }),
-/* 789 */
+/* 788 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(790);
+var content = __webpack_require__(789);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104980,7 +104928,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 790 */
+/* 789 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104994,7 +104942,7 @@ exports.push([module.i, ".edit-area {\n  flex: auto;\n  display: flex;\n  flex-d
 
 
 /***/ }),
-/* 791 */
+/* 790 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105014,7 +104962,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(792);
+__webpack_require__(791);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105059,11 +105007,11 @@ CommentArea.propTypes = {
 exports.default = CommentArea;
 
 /***/ }),
-/* 792 */
+/* 791 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(793);
+var content = __webpack_require__(792);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105084,7 +105032,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 793 */
+/* 792 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105098,11 +105046,11 @@ exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  fle
 
 
 /***/ }),
-/* 794 */
+/* 793 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(795);
+var content = __webpack_require__(794);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105123,7 +105071,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 795 */
+/* 794 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105131,13 +105079,13 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".check-area {\n  flex: 1 0 130px;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}", ""]);
+exports.push([module.i, ".check-area {\n  min-height: 130px;\n  height: 100%;\n  display: flex;\n  font-size: 1.1em;\n  border-bottom: 1px solid var(--border-color);\n}", ""]);
 
 // exports
 
 
 /***/ }),
-/* 796 */
+/* 795 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105157,7 +105105,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-__webpack_require__(797);
+__webpack_require__(796);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105215,11 +105163,11 @@ SaveArea.propTypes = {
 exports.default = SaveArea;
 
 /***/ }),
-/* 797 */
+/* 796 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(798);
+var content = __webpack_require__(797);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -105240,7 +105188,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 798 */
+/* 797 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -105254,7 +105202,7 @@ exports.push([module.i, ".save-area {\n  flex: 0 0 55px;\n  display: flex;\n  ju
 
 
 /***/ }),
-/* 799 */
+/* 798 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105278,7 +105226,7 @@ var _Dialog2 = _interopRequireDefault(_Dialog);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _localizationHelpers = __webpack_require__(800);
+var _localizationHelpers = __webpack_require__(799);
 
 var _Toolbar = __webpack_require__(475);
 
@@ -105393,7 +105341,7 @@ DialogComponent.propTypes = {
 exports.default = DialogComponent;
 
 /***/ }),
-/* 800 */
+/* 799 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105425,7 +105373,7 @@ var getTranslatedParts = exports.getTranslatedParts = function getTranslatedPart
 };
 
 /***/ }),
-/* 801 */
+/* 800 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105445,10 +105393,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _InvalidatedIcon = __webpack_require__(802);
-
-var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var IconIndicators = function IconIndicators(_ref) {
@@ -105456,28 +105400,11 @@ var IconIndicators = function IconIndicators(_ref) {
       selections = _ref.selections,
       bookmarkEnabled = _ref.bookmarkEnabled,
       translate = _ref.translate,
-      invalidated = _ref.invalidated,
       comment = _ref.comment;
-
-
-  function getInvalidatedIcon() {
-    if (invalidated) {
-      return _react2.default.createElement(
-        'div',
-        { key: 'invalidated', className: 'glyphicon glyphicon-invalidated' },
-        _react2.default.createElement(_InvalidatedIcon2.default, {
-          height: 16,
-          width: 16,
-          color: '#ffffff'
-        })
-      );
-    }
-  }
 
   return _react2.default.createElement(
     'div',
     { style: { display: 'flex', justifyContent: 'flex-end' } },
-    getInvalidatedIcon(),
     _react2.default.createElement(_reactBootstrap.Glyphicon, {
       glyph: 'ok',
       style: {
@@ -105519,7 +105446,6 @@ var IconIndicators = function IconIndicators(_ref) {
 
 IconIndicators.propTypes = {
   translate: _propTypes2.default.func.isRequired,
-  invalidated: _propTypes2.default.bool.isRequired,
   verseEdited: _propTypes2.default.bool.isRequired,
   selections: _propTypes2.default.array,
   comment: _propTypes2.default.string,
@@ -105529,7 +105455,7 @@ IconIndicators.propTypes = {
 exports.default = IconIndicators;
 
 /***/ }),
-/* 802 */
+/* 801 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105539,66 +105465,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var InvalidatedIcon = function InvalidatedIcon(props) {
-  var styles = {
-    svg: {
-      display: 'inline-block',
-      verticalAlign: 'middle'
-    },
-    path: {
-      fill: props.color
-    }
-  };
-
-  return _react2.default.createElement(
-    'svg',
-    { style: styles.svg, width: '' + props.width, height: '' + props.height, viewBox: '0 0 475.082 475.082' },
-    _react2.default.createElement('path', { style: styles.path, d: 'M107.067,317.195c1.713-1.708,2.568-3.898,2.568-6.563c0-2.663-0.855-4.853-2.568-6.571    c-1.714-1.707-3.905-2.562-6.567-2.562H9.135c-2.666,0-4.853,0.855-6.567,2.562C0.859,305.772,0,307.962,0,310.632    c0,2.665,0.855,4.855,2.568,6.563c1.714,1.711,3.905,2.566,6.567,2.566H100.5C103.166,319.766,105.353,318.91,107.067,317.195z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M310.629,109.634c2.669,0,4.859-0.855,6.563-2.568c1.718-1.711,2.574-3.901,2.574-6.567V9.138    c0-2.659-0.856-4.85-2.574-6.565c-1.704-1.711-3.895-2.57-6.563-2.57c-2.662,0-4.853,0.859-6.563,2.57    c-1.711,1.713-2.566,3.903-2.566,6.565v91.361c0,2.666,0.855,4.856,2.566,6.567C305.784,108.779,307.974,109.634,310.629,109.634z    ' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M118.771,347.184c-2.478,0-4.664,0.855-6.567,2.563l-73.089,73.087c-1.713,1.902-2.568,4.093-2.568,6.567    c0,2.474,0.855,4.664,2.568,6.566c2.096,1.708,4.283,2.57,6.567,2.57c2.475,0,4.665-0.862,6.567-2.57l73.089-73.087    c1.714-1.902,2.568-4.093,2.568-6.57c0-2.471-0.854-4.661-2.568-6.563C123.436,348.039,121.245,347.184,118.771,347.184z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M356.315,127.905c2.283,0,4.473-0.855,6.571-2.565l73.087-73.089c1.707-1.903,2.562-4.093,2.562-6.567    c0-2.475-0.855-4.665-2.562-6.567c-1.91-1.709-4.093-2.568-6.571-2.568c-2.471,0-4.66,0.859-6.563,2.568l-73.087,73.089    c-1.708,1.903-2.57,4.093-2.57,6.567c0,2.474,0.862,4.661,2.57,6.567C351.846,127.05,354.037,127.905,356.315,127.905z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M350.607,193.005c-4-3.999-9.328-7.994-15.988-11.991l-5.14,68.238l78.23,78.508c5.328,5.328,7.987,11.807,7.987,19.417    c0,7.423-2.662,13.802-7.987,19.13l-41.977,41.686c-5.146,5.146-11.608,7.666-19.417,7.566c-7.81-0.1-14.271-2.707-19.411-7.854    l-77.946-78.225l-68.234,5.144c3.999,6.656,7.993,11.988,11.991,15.985l95.362,95.643c15.803,16.18,35.207,24.27,58.238,24.27    c22.846,0,42.154-7.898,57.957-23.695l41.977-41.685c16.173-15.8,24.27-35.115,24.27-57.958c0-22.46-7.994-41.877-23.982-58.248    L350.607,193.005z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M472.518,157.889c-1.711-1.709-3.901-2.565-6.563-2.565h-91.365c-2.662,0-4.853,0.855-6.563,2.565    c-1.715,1.713-2.57,3.903-2.57,6.567c0,2.666,0.855,4.856,2.57,6.567c1.711,1.712,3.901,2.568,6.563,2.568h91.365    c2.662,0,4.853-0.856,6.563-2.568c1.708-1.711,2.563-3.901,2.563-6.567C475.082,161.792,474.226,159.602,472.518,157.889z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M109.348,67.099c5.523-5.14,11.991-7.705,19.417-7.705c7.611,0,14.084,2.663,19.414,7.993l77.943,78.227l68.234-5.142    c-4-6.661-7.99-11.991-11.991-15.987l-95.358-95.643c-15.798-16.178-35.212-24.27-58.242-24.27c-22.841,0-42.16,7.902-57.958,23.7    L28.837,69.955C12.659,85.756,4.57,105.073,4.57,127.912c0,22.463,7.996,41.877,23.982,58.245l95.93,95.93    c3.995,4.001,9.325,7.995,15.986,11.991l5.139-68.521L67.377,147.33c-5.327-5.33-7.992-11.801-7.992-19.417    c0-7.421,2.662-13.796,7.992-19.126L109.348,67.099z' }),
-    _react2.default.createElement('path', { style: styles.path, d: 'M164.454,365.451c-2.667,0-4.854,0.855-6.567,2.563c-1.711,1.711-2.568,3.901-2.568,6.57v91.358    c0,2.669,0.854,4.853,2.568,6.57c1.713,1.707,3.9,2.566,6.567,2.566c2.666,0,4.853-0.859,6.567-2.566    c1.713-1.718,2.568-3.901,2.568-6.57v-91.358c0-2.662-0.855-4.853-2.568-6.57C169.306,366.307,167.116,365.451,164.454,365.451z' })
-  );
-};
-
-InvalidatedIcon.propTypes = {
-  width: _propTypes2.default.number,
-  height: _propTypes2.default.number,
-  color: _propTypes2.default.string
-};
-
-InvalidatedIcon.defaultProps = {
-  width: 18,
-  height: 18
-};
-
-exports.default = InvalidatedIcon;
-
-/***/ }),
-/* 803 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _GroupMenu = __webpack_require__(804);
+var _GroupMenu = __webpack_require__(802);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -105610,7 +105477,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 804 */
+/* 802 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105630,23 +105497,23 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = __webpack_require__(805);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _Groups = __webpack_require__(823);
+var _Groups = __webpack_require__(821);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(833);
+var _FilterMenuHeader = __webpack_require__(831);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(835);
+var _GroupsMenuFilter = __webpack_require__(833);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(840);
+__webpack_require__(838);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -105702,7 +105569,7 @@ var GroupMenu = function (_React$Component) {
           manifest = _props$projectDetails.manifest,
           actions = _props.actions,
           getSelections = _props.getSelections,
-          alignmentData = _props.alignmentData,
+          isVerseFinished = _props.isVerseFinished,
           getGroupProgress = _props.getGroupProgress;
 
       var filterCount = helpers.getFilterCount(filters);
@@ -105737,7 +105604,7 @@ var GroupMenu = function (_React$Component) {
         ),
         _react2.default.createElement(_Groups2.default, {
           currentToolName: currentToolName,
-          alignmentData: alignmentData,
+          isVerseFinished: isVerseFinished,
           getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
@@ -105759,7 +105626,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
-  alignmentData: _propTypes2.default.object.isRequired,
+  isVerseFinished: _propTypes2.default.bool.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
@@ -105790,7 +105657,7 @@ GroupMenu.propTypes = {
 
 GroupMenu.defaultProps = {
   getGroupProgress: function getGroupProgress() {},
-  alignmentData: {},
+  isVerseFinished: {},
   getSelections: function getSelections() {
     return 'A selection';
   },
@@ -105869,7 +105736,7 @@ GroupMenu.defaultProps = {
 exports.default = GroupMenu;
 
 /***/ }),
-/* 805 */
+/* 803 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105890,17 +105757,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(806);
+var _server = __webpack_require__(804);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactTooltip = __webpack_require__(809);
+var _reactTooltip = __webpack_require__(807);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _InvalidatedIcon = __webpack_require__(822);
+var _InvalidatedIcon = __webpack_require__(820);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -105992,20 +105859,14 @@ function inView(groupMenu, currentItem) {}
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-function getStatusBadges(groupItemData, alignmentData, currentToolName) {
+function getStatusBadges(groupItemData, verseFinished, currentToolName) {
   var glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
-    var _groupItemData$contex = groupItemData.contextId.reference,
-        chapter = _groupItemData$contex.chapter,
-        verse = _groupItemData$contex.verse;
-
-    var wordBank = alignmentData && alignmentData[chapter] && alignmentData[chapter][verse] ? alignmentData[chapter][verse].wordBank : [];
-
     // The below ifs are in order of precedence of the status badges we show
     if (groupItemData.invalidated) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
-    if (groupItemData.selections || currentToolName === 'wordAlignment' && wordBank && wordBank.length === 0) glyphs.push('ok');
+    if (groupItemData.selections || verseFinished) glyphs.push('ok');
     if (groupItemData.verseEdits) glyphs.push('pencil');
     if (groupItemData.comments) glyphs.push('comment');
   }
@@ -106085,19 +105946,19 @@ function getGlyphIcons(glyphs) {
 }
 
 /***/ }),
-/* 806 */
+/* 804 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(807);
+  module.exports = __webpack_require__(805);
 }
 
 
 /***/ }),
-/* 807 */
+/* 805 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -106124,7 +105985,7 @@ var React = __webpack_require__(3);
 var emptyFunction = __webpack_require__(6);
 var emptyObject = __webpack_require__(269);
 var hyphenateStyleName = __webpack_require__(270);
-var memoizeStringOnly = __webpack_require__(808);
+var memoizeStringOnly = __webpack_require__(806);
 var warning = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(11);
 var camelizeStyleName = __webpack_require__(272);
@@ -108826,7 +108687,7 @@ module.exports = server_browser;
 
 
 /***/ }),
-/* 808 */
+/* 806 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108859,7 +108720,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 809 */
+/* 807 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108896,45 +108757,45 @@ var _classnames = __webpack_require__(229);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _staticMethods = __webpack_require__(810);
+var _staticMethods = __webpack_require__(808);
 
 var _staticMethods2 = _interopRequireDefault(_staticMethods);
 
-var _windowListener = __webpack_require__(812);
+var _windowListener = __webpack_require__(810);
 
 var _windowListener2 = _interopRequireDefault(_windowListener);
 
-var _customEvent = __webpack_require__(813);
+var _customEvent = __webpack_require__(811);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
-var _isCapture = __webpack_require__(814);
+var _isCapture = __webpack_require__(812);
 
 var _isCapture2 = _interopRequireDefault(_isCapture);
 
-var _getEffect = __webpack_require__(815);
+var _getEffect = __webpack_require__(813);
 
 var _getEffect2 = _interopRequireDefault(_getEffect);
 
-var _trackRemoval = __webpack_require__(816);
+var _trackRemoval = __webpack_require__(814);
 
 var _trackRemoval2 = _interopRequireDefault(_trackRemoval);
 
-var _getPosition = __webpack_require__(817);
+var _getPosition = __webpack_require__(815);
 
 var _getPosition2 = _interopRequireDefault(_getPosition);
 
-var _getTipContent = __webpack_require__(818);
+var _getTipContent = __webpack_require__(816);
 
 var _getTipContent2 = _interopRequireDefault(_getTipContent);
 
-var _aria = __webpack_require__(819);
+var _aria = __webpack_require__(817);
 
-var _nodeListToArray = __webpack_require__(820);
+var _nodeListToArray = __webpack_require__(818);
 
 var _nodeListToArray2 = _interopRequireDefault(_nodeListToArray);
 
-var _style = __webpack_require__(821);
+var _style = __webpack_require__(819);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -109476,7 +109337,7 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 module.exports = ReactTooltip;
 
 /***/ }),
-/* 810 */
+/* 808 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109535,7 +109396,7 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(811);
+var _constant = __webpack_require__(809);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -109560,7 +109421,7 @@ var dispatchGlobalEvent = function dispatchGlobalEvent(eventName, opts) {
     */
 
 /***/ }),
-/* 811 */
+/* 809 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109579,7 +109440,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 812 */
+/* 810 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109626,14 +109487,14 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(811);
+var _constant = __webpack_require__(809);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 813 */
+/* 811 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109727,7 +109588,7 @@ var setUntargetItems = function setUntargetItems(currentTarget, targetArray) {
 var customListener = void 0;
 
 /***/ }),
-/* 814 */
+/* 812 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109745,7 +109606,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 815 */
+/* 813 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109763,7 +109624,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 816 */
+/* 814 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109821,7 +109682,7 @@ var getMutationObserverClass = function getMutationObserverClass() {
 };
 
 /***/ }),
-/* 817 */
+/* 815 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110179,7 +110040,7 @@ var getParent = function getParent(currentTarget) {
 };
 
 /***/ }),
-/* 818 */
+/* 816 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110217,7 +110078,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 819 */
+/* 817 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110247,7 +110108,7 @@ function parseAria(props) {
 }
 
 /***/ }),
-/* 820 */
+/* 818 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110268,7 +110129,7 @@ exports.default = function (nodeList) {
 };
 
 /***/ }),
-/* 821 */
+/* 819 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110280,7 +110141,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = '.__react_component_tooltip{border-radius:3px;display:inline-block;font-size:13px;left:-999em;opacity:0;padding:8px 21px;position:fixed;pointer-events:none;transition:opacity 0.3s ease-out;top:-999em;visibility:hidden;z-index:999}.__react_component_tooltip:before,.__react_component_tooltip:after{content:"";width:0;height:0;position:absolute}.__react_component_tooltip.show{opacity:0.9;margin-top:0px;margin-left:0px;visibility:visible}.__react_component_tooltip.type-dark{color:#fff;background-color:#222}.__react_component_tooltip.type-dark.place-top:after{border-top-color:#222;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-dark.place-bottom:after{border-bottom-color:#222;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-dark.place-left:after{border-left-color:#222;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-dark.place-right:after{border-right-color:#222;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-dark.border{border:1px solid #fff}.__react_component_tooltip.type-dark.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-dark.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-dark.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-dark.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-success{color:#fff;background-color:#8DC572}.__react_component_tooltip.type-success.place-top:after{border-top-color:#8DC572;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-success.place-bottom:after{border-bottom-color:#8DC572;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-success.place-left:after{border-left-color:#8DC572;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-success.place-right:after{border-right-color:#8DC572;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-success.border{border:1px solid #fff}.__react_component_tooltip.type-success.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-success.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-success.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-success.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-warning{color:#fff;background-color:#F0AD4E}.__react_component_tooltip.type-warning.place-top:after{border-top-color:#F0AD4E;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-warning.place-bottom:after{border-bottom-color:#F0AD4E;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-warning.place-left:after{border-left-color:#F0AD4E;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-warning.place-right:after{border-right-color:#F0AD4E;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-warning.border{border:1px solid #fff}.__react_component_tooltip.type-warning.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-warning.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-warning.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-warning.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-error{color:#fff;background-color:#BE6464}.__react_component_tooltip.type-error.place-top:after{border-top-color:#BE6464;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-error.place-bottom:after{border-bottom-color:#BE6464;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-error.place-left:after{border-left-color:#BE6464;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-error.place-right:after{border-right-color:#BE6464;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-error.border{border:1px solid #fff}.__react_component_tooltip.type-error.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-error.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-error.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-error.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-info{color:#fff;background-color:#337AB7}.__react_component_tooltip.type-info.place-top:after{border-top-color:#337AB7;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-info.place-bottom:after{border-bottom-color:#337AB7;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-info.place-left:after{border-left-color:#337AB7;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-info.place-right:after{border-right-color:#337AB7;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-info.border{border:1px solid #fff}.__react_component_tooltip.type-info.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-info.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-info.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-info.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-light{color:#222;background-color:#fff}.__react_component_tooltip.type-light.place-top:after{border-top-color:#fff;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-light.place-bottom:after{border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-light.place-left:after{border-left-color:#fff;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-light.place-right:after{border-right-color:#fff;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-light.border{border:1px solid #222}.__react_component_tooltip.type-light.border.place-top:before{border-top:8px solid #222}.__react_component_tooltip.type-light.border.place-bottom:before{border-bottom:8px solid #222}.__react_component_tooltip.type-light.border.place-left:before{border-left:8px solid #222}.__react_component_tooltip.type-light.border.place-right:before{border-right:8px solid #222}.__react_component_tooltip.place-top{margin-top:-10px}.__react_component_tooltip.place-top:before{border-left:10px solid transparent;border-right:10px solid transparent;bottom:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-top:after{border-left:8px solid transparent;border-right:8px solid transparent;bottom:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-bottom{margin-top:10px}.__react_component_tooltip.place-bottom:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-bottom:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-left{margin-left:-10px}.__react_component_tooltip.place-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;right:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-left:after{border-top:5px solid transparent;border-bottom:5px solid transparent;right:-6px;top:50%;margin-top:-4px}.__react_component_tooltip.place-right{margin-left:10px}.__react_component_tooltip.place-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;left:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-right:after{border-top:5px solid transparent;border-bottom:5px solid transparent;left:-6px;top:50%;margin-top:-4px}.__react_component_tooltip .multi-line{display:block;padding:2px 0px;text-align:center}';
 
 /***/ }),
-/* 822 */
+/* 820 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110339,7 +110200,7 @@ InvalidatedIcon.defaultProps = {
 exports.default = InvalidatedIcon;
 
 /***/ }),
-/* 823 */
+/* 821 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110353,15 +110214,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Group = __webpack_require__(824);
+var _Group = __webpack_require__(822);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(830);
+var _NoResults = __webpack_require__(828);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
-var _helpers = __webpack_require__(805);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
@@ -110385,7 +110246,7 @@ var Groups = function Groups(_ref) {
       contextId = _ref.contextId,
       translate = _ref.translate,
       getSelections = _ref.getSelections,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName;
 
   var groupComponents = _react2.default.createElement(_NoResults2.default, { translate: translate });
@@ -110399,7 +110260,7 @@ var Groups = function Groups(_ref) {
       var active = contextId ? contextId.groupId === groupId : false;
       return _react2.default.createElement(_Group2.default, {
         currentToolName: currentToolName,
-        alignmentData: alignmentData,
+        isVerseFinished: isVerseFinished,
         contextId: contextId,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
@@ -110424,7 +110285,7 @@ var Groups = function Groups(_ref) {
 exports.default = Groups;
 
 /***/ }),
-/* 824 */
+/* 822 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110444,11 +110305,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Progress = __webpack_require__(825);
+var _Progress = __webpack_require__(823);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _GroupItems = __webpack_require__(828);
+var _GroupItems = __webpack_require__(826);
 
 var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
@@ -110475,7 +110336,7 @@ var Group = function Group(_ref) {
       contextId = _ref.contextId,
       getSelections = _ref.getSelections,
       classes = _ref.classes,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName;
 
   var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
@@ -110519,7 +110380,7 @@ var Group = function Group(_ref) {
       ),
       active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
         currentToolName: currentToolName,
-        alignmentData: alignmentData,
+        isVerseFinished: isVerseFinished,
         getSelections: getSelections,
         changeCurrentContextId: changeCurrentContextId,
         contextId: contextId,
@@ -110547,7 +110408,7 @@ Group.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Group);
 
 /***/ }),
-/* 825 */
+/* 823 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110557,7 +110418,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _CircularProgress = __webpack_require__(826);
+var _CircularProgress = __webpack_require__(824);
 
 Object.defineProperty(exports, 'CircularProgress', {
   enumerable: true,
@@ -110566,7 +110427,7 @@ Object.defineProperty(exports, 'CircularProgress', {
   }
 });
 
-var _LinearProgress = __webpack_require__(827);
+var _LinearProgress = __webpack_require__(825);
 
 Object.defineProperty(exports, 'LinearProgress', {
   enumerable: true,
@@ -110578,7 +110439,7 @@ Object.defineProperty(exports, 'LinearProgress', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 826 */
+/* 824 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110812,7 +110673,7 @@ CircularProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCircularProgress', flip: false })(CircularProgress);
 
 /***/ }),
-/* 827 */
+/* 825 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111076,7 +110937,7 @@ LinearProgress.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiLinearProgress' })(LinearProgress);
 
 /***/ }),
-/* 828 */
+/* 826 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111090,11 +110951,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _helpers = __webpack_require__(805);
+var _helpers = __webpack_require__(803);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _GroupItem = __webpack_require__(829);
+var _GroupItem = __webpack_require__(827);
 
 var _GroupItem2 = _interopRequireDefault(_GroupItem);
 
@@ -111113,7 +110974,7 @@ var GroupItems = function GroupItems(_ref) {
       filters = _ref.filters,
       manifest = _ref.manifest,
       contextId = _ref.contextId,
-      alignmentData = _ref.alignmentData,
+      isVerseFinished = _ref.isVerseFinished,
       currentToolName = _ref.currentToolName,
       getSelections = _ref.getSelections;
 
@@ -111139,7 +111000,7 @@ var GroupItems = function GroupItems(_ref) {
         contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, alignmentData, currentToolName),
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName),
         groupMenuHeader: groupHeaderComponent,
         scrollIntoView: helpers.scrollIntoView,
         active: active,
@@ -111170,7 +111031,7 @@ var GroupItems = function GroupItems(_ref) {
 exports.default = GroupItems;
 
 /***/ }),
-/* 829 */
+/* 827 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111182,7 +111043,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTooltip = __webpack_require__(809);
+var _reactTooltip = __webpack_require__(807);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -111299,7 +111160,7 @@ GroupItem.propTypes = {
 module.exports = GroupItem;
 
 /***/ }),
-/* 830 */
+/* 828 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111313,7 +111174,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(831);
+__webpack_require__(829);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111329,11 +111190,11 @@ var NoResults = function NoResults(_ref) {
 exports.default = NoResults;
 
 /***/ }),
-/* 831 */
+/* 829 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(832);
+var content = __webpack_require__(830);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111354,7 +111215,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 832 */
+/* 830 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -111368,7 +111229,7 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 833 */
+/* 831 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111384,7 +111245,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(226);
 
-var _FilterBadge = __webpack_require__(834);
+var _FilterBadge = __webpack_require__(832);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -111414,7 +111275,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 834 */
+/* 832 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111445,7 +111306,7 @@ var FilterBadge = function FilterBadge(_ref) {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 835 */
+/* 833 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111463,11 +111324,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(836);
+var _ExpandedFilter = __webpack_require__(834);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(838);
+var _CollapsedFilter = __webpack_require__(836);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -111511,7 +111372,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 836 */
+/* 834 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111529,11 +111390,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(837);
+var _GroupsMenuFilterOption = __webpack_require__(835);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
-var _InvalidatedIcon = __webpack_require__(822);
+var _InvalidatedIcon = __webpack_require__(820);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -111632,7 +111493,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 837 */
+/* 835 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111701,7 +111562,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 838 */
+/* 836 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111719,7 +111580,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(839);
+var _GroupsMenuFilterBubble = __webpack_require__(837);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -111809,7 +111670,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 839 */
+/* 837 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111862,11 +111723,11 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 840 */
+/* 838 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(841);
+var content = __webpack_require__(839);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -111887,7 +111748,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 841 */
+/* 839 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -111895,7 +111756,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  min-width: 250px;\n  overflow-y: scroll;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
+exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: var(--tool-max-height);\n  max-width: 250px;\n  width: 100%;\n  overflow-y: scroll;\n  flex-shrink: 0;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
 
 // exports
 

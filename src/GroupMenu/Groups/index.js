@@ -18,7 +18,7 @@ const Groups = ({
   contextId,
   translate,
   getSelections,
-  alignmentData,
+  isVerseFinished,
   currentToolName
 }) => {
   let groupComponents = <NoResults translate={translate} />;
@@ -33,7 +33,7 @@ const Groups = ({
       return (
         <Group
           currentToolName={currentToolName}
-          alignmentData={alignmentData}
+          isVerseFinished={isVerseFinished}
           contextId={contextId}
           getSelections={getSelections}
           changeCurrentContextId={changeCurrentContextId}

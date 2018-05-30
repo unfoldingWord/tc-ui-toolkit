@@ -1,7 +1,9 @@
 @import '../index.styles.css';
 
 .verse-check {
-  flex: 2 0 280px;
+  margin: 10px;
+  height: 100%;
+  display: flex;
   margin: 10px;
 }
 .verse-check .ltr-content {
@@ -22,11 +24,7 @@
 .verse-title-subtitle {
   color: var(--text-color-light);
 }
-.verse-check {
-  display: flex;
-  height: 100%;
-  margin: 10px;
-}
+
 .verse-check-card {
   height: 100%;
   display: flex;
