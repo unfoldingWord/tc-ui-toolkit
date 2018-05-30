@@ -5,6 +5,7 @@ import {CircularProgress} from 'material-ui/Progress';
 import {Glyphicon} from 'react-bootstrap';
 import GroupItems from '../GroupItems';
 import {withStyles} from 'material-ui/styles';
+import * as helpers from '../helpers';
 
 const styles = {
   circle: {
@@ -16,15 +17,22 @@ const styles = {
 class Group extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      groupHeaderRef: React.createRef()
+    this.activeGroupItemRef = React.createRef();
+    this.currentGroupRef = React.createRef();
+  }
+
+  componentDidMount() {
+    if (helpers.inView(this.currentGroupRef, this.activeGroupItemRef)) {
+      //If the menu and current check are able to be rendered in the
+      //same window scroll to the group menu item
+      helpers.scrollIntoView(this.currentGroupRef);
+    }
+    else {
+      //Scroll to the current check item
+      helpers.scrollIntoView(this.activeGroupItemRef);
     }
   }
-  setGroupRef(current) {
-    this.setState({
-      groupHeaderRef:{current}
-    })
-  }
+
   render() {
     const {
       changeCurrentContextId,
@@ -55,7 +63,7 @@ class Group extends React.Component {
     const theme = createMuiTheme();
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="group" ref={this.setGroupRef.bind(this)}>
+        <div className="group" ref={this.currentGroupRef}>
           <div className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
             <div onClick={openGroup}>
@@ -81,7 +89,7 @@ class Group extends React.Component {
               changeCurrentContextId={changeCurrentContextId}
               contextId={contextId}
               groupData={groupData}
-              groupHeaderComponent={this.state.groupHeaderRef}
+              activeGroupItemRef={this.activeGroupItemRef}
               filters={filters}
               manifest={manifest} />)
             : null}

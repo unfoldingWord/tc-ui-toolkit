@@ -6,7 +6,7 @@ import isEqual from 'deep-equal';
 const GroupItems = ({
   changeCurrentContextId,
   groupData,
-  groupHeaderComponent,
+  activeGroupItemRef,
   filters,
   manifest,
   contextId,
@@ -31,12 +31,10 @@ const GroupItems = ({
         changeCurrentContextId={changeCurrentContextId}
         key={index}
         statusBadge={helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName)}
-        groupMenuHeader={groupHeaderComponent}
-        scrollIntoView={helpers.scrollIntoView}
+        activeGroupItemRef={active ? activeGroupItemRef : null}
         active={active}
         bookName={bookName}
         selectionText={getSelections(groupItemData.contextId)}
-        inView={helpers.inView}
       />
     );
     index++;

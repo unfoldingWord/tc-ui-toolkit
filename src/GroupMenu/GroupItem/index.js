@@ -1,41 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
-import { debug } from 'util';
 
 class GroupItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.groupItemRef = React.createRef();
-  }
-  componentDidMount() {
-    if (this.props.active) {
-      if (this.props.inView(this.props.groupMenuHeader, this.groupItemRef)) {
-        //If the menu and current check are able to be rendered in the
-        //same window scroll to the group menu item
-        this.props.scrollIntoView(this.props.groupMenuHeader);
-      }
-      else {
-        //Scroll to the current check item
-        this.props.scrollIntoView(this.groupItemRef);
-      }
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.active) {
-      if (this.props.inView(nextProps.groupMenuHeader, this.groupItemRef)) {
-        //If the menu and current check are able to be rendered in the
-        //same window scroll to the group menu item
-        nextProps.scrollIntoView(nextProps.groupMenuHeader);
-      }
-      else {
-        //Scroll to the current check item
-        nextProps.scrollIntoView(this.groupItemRef);
-      }
-    }
-  }
-
   render() {
     const {
       changeCurrentContextId,
@@ -43,11 +10,12 @@ class GroupItem extends React.Component {
       active,
       statusBadge,
       selectionText,
-      bookName
+      bookName,
+      activeGroupItemRef
     } = this.props;
     const {reference} = contextId;
     return (
-      <div ref={this.groupItemRef} onClick={() => changeCurrentContextId(contextId)}
+      <div ref={activeGroupItemRef} onClick={() => changeCurrentContextId(contextId)}
         className={"group-item" + (active ? " active active-submenu-item" : " submenu-item")}>
         {statusBadge}
         <span
@@ -82,7 +50,6 @@ GroupItem.propTypes = {
     changeCurrentContextId: PropTypes.func.isRequired
   }),
   statusBadge: PropTypes.object.isRequired,
-  scrollIntoView: PropTypes.func.isRequired,
   inView: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
   groupMenuHeader: PropTypes.object
