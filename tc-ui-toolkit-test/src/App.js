@@ -42,13 +42,14 @@ class App extends Component {
         <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
           <ScripturePane />
           <CheckInfoCard
+            toggleHelps={this.toggleHelps.bind(this)}
+            showHelps={this.state.showHelps} />
+          <VerseCheck
             verseText={'dummy text'}
             findIfVerseEdited={() => (true)}
             findIfVerseInvalidated={() => (true)}
-            alignedGLText={'Dummy'}
-            toggleHelps={this.toggleHelps.bind(this)}
-            showHelps={this.state.showHelps} />
-          <VerseCheck/>
+            alignedGLText={'Dummy'}/>
+          <ReactTooltip />
         </div>
         <TranslationHelps
           isShowHelpsExpanded={this.state.showHelpsModal}

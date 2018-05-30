@@ -262,6 +262,11 @@ exports[`View component Tests Integrated View test with invalidated 1`] = `
         >
           <div
             className="glyphicon glyphicon-invalidated"
+            style={
+              Object {
+                "margin": "0px 20px",
+              }
+            }
           >
             <svg
               height="16"
