@@ -52,7 +52,8 @@ export const groupIsVisible = (groupData, filters) => {
 };
 
 export function scrollIntoView({current}) {
-  current.scrollIntoView({block: 'end', behavior: 'smooth'});
+  if (current)
+    current.scrollIntoView({block: 'end', behavior: 'smooth'});
 }
 
 /**
@@ -61,7 +62,7 @@ export function scrollIntoView({current}) {
 * @param {object} currentGroupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
 * @param {object} currentGroupItem - The current group check item that is active (i.e. Luke 1:1)
 */
-export function inView({current:currentGroupMenu}, {current:currentGroupItem}) {
+export function inView({current: currentGroupMenu}, {current: currentGroupItem}) {
   if (currentGroupMenu && currentGroupItem) {
     var rectGroup = currentGroupMenu.getBoundingClientRect();
     var rectItem = currentGroupItem.getBoundingClientRect();
