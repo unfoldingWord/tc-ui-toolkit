@@ -105557,8 +105557,6 @@ var GroupMenu = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           translate = _props.translate,
           currentToolName = _props.toolsReducer.currentToolName,
@@ -105611,16 +105609,12 @@ var GroupMenu = function (_React$Component) {
           isVerseFinished: isVerseFinished,
           getSelections: getSelections,
           translate: translate,
-          changeCurrentContextId: function changeCurrentContextId(contextId) {
-            return _this2.setState({
-              contextId: contextId
-            });
-          },
+          changeCurrentContextId: actions.changeCurrentContextId,
           getGroupProgress: getGroupProgress,
           isSubMenuExpanded: isSubMenuExpanded,
           groupsIndex: groupsIndex,
           groupsData: groupsData,
-          contextId: this.state.contextId || contextId,
+          contextId: contextId,
           manifest: manifest,
           projectSaveLocation: projectSaveLocation,
           groupMenuExpandSubMenu: actions.groupMenuExpandSubMenu,

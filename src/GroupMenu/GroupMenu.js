@@ -64,14 +64,12 @@ class GroupMenu extends React.Component {
           isVerseFinished={isVerseFinished}
           getSelections={getSelections}
           translate={translate}
-          changeCurrentContextId={(contextId)=>this.setState({
-            contextId
-          })}
+          changeCurrentContextId={actions.changeCurrentContextId}
           getGroupProgress={getGroupProgress}
           isSubMenuExpanded={isSubMenuExpanded}
           groupsIndex={groupsIndex}
           groupsData={groupsData}
-          contextId={this.state.contextId || contextId}
+          contextId={contextId}
           manifest={manifest}
           projectSaveLocation={projectSaveLocation}
           groupMenuExpandSubMenu={actions.groupMenuExpandSubMenu}
