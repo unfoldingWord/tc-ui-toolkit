@@ -110396,12 +110396,12 @@ var Group = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.scrollToCurrentCheck();
+      if (this.props.active) this.scrollToCurrentCheck();
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      this.scrollToCurrentCheck();
+      if (this.props.active) this.scrollToCurrentCheck();
     }
   }, {
     key: 'render',
