@@ -110,6 +110,7 @@ GroupMenu.propTypes = {
   }),
   getGroupProgress: PropTypes.func.isRequired
 };
+var i = 1;
 
 GroupMenu.defaultProps = {
   getGroupProgress: () => {},
@@ -117,7 +118,7 @@ GroupMenu.defaultProps = {
   getSelections: () => 'A selection',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},
-  groupMenuReducer: {filters: {}, isSubMenuExpanded: false},
+  groupMenuReducer: {filters: {}, isSubMenuExpanded: true},
   groupsIndexReducer: {
     groupsIndex: [{
       id: 'apostle',
@@ -126,8 +127,7 @@ GroupMenu.defaultProps = {
   },
   groupsDataReducer: {
     groupsData: {
-      apostle: [
-        {
+      apostle: [{
           "priority": 1,
           "comments": false,
           "reminders": false,
@@ -147,16 +147,37 @@ GroupMenu.defaultProps = {
             ],
             "occurrence": 1
           }
-        }
-      ]
+        },
+        ...Array(50).fill(0).map(()=>({
+          "priority": 1,
+          "comments": false,
+          "reminders": false,
+          "selections": false,
+          "verseEdits": false,
+          "contextId": {
+            "reference": {
+              "bookId": "tit",
+              "chapter": 2,
+              "verse": i++
+            },
+            "tool": "translationWords",
+            "groupId": "apostle",
+            "quote": "ἀπόστολος",
+            "strong": [
+              "G06520"
+            ],
+            "occurrence": 1
+          }
+        }))]
+      
     }
   },
   contextIdReducer: {
     contextId: {
       "reference": {
         "bookId": "tit",
-        "chapter": 1,
-        "verse": 1
+        "chapter": 2,
+        "verse": 14
       },
       "tool": "translationWords",
       "groupId": "apostle",
