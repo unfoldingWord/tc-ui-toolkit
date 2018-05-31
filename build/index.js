@@ -105865,7 +105865,7 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
 function scrollIntoView(_ref) {
   var current = _ref.current;
 
-  if (current) current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  if (current && current.scrollIntoView) current.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
 /**
