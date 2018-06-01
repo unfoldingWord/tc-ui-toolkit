@@ -105628,7 +105628,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
-  isVerseFinished: _propTypes2.default.bool.isRequired,
+  isVerseFinished: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
@@ -105660,7 +105660,9 @@ var i = 1;
 
 GroupMenu.defaultProps = {
   getGroupProgress: function getGroupProgress() {},
-  isVerseFinished: {},
+  isVerseFinished: function isVerseFinished() {
+    return false;
+  },
   getSelections: function getSelections() {
     return 'A selection';
   },
@@ -111083,12 +111085,15 @@ var GroupItems = function GroupItems(_ref) {
       var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
       var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
       var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
+      var _groupItemData$contex = groupItemData.contextId.reference,
+          chapter = _groupItemData$contex.chapter,
+          verse = _groupItemData$contex.verse;
 
       items.push(_react2.default.createElement(_GroupItem2.default, {
         contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName),
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), currentToolName),
         activeGroupItemRef: active ? activeGroupItemRef : null,
         active: active,
         bookName: bookName,
