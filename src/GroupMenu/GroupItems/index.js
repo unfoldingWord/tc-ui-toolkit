@@ -24,7 +24,10 @@ const GroupItems = ({
     let active = isEqual(groupItemData.contextId, contextId);
     let useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
     let bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
-
+    const {
+      reference: {
+        chapter, verse
+      }} = groupItemData.contextId;
     items.push(
       <GroupItem
         contextId={groupItemData.contextId}

@@ -111085,6 +111085,9 @@ var GroupItems = function GroupItems(_ref) {
       var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
       var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
       var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
+      var _groupItemData$contex = groupItemData.contextId.reference,
+          chapter = _groupItemData$contex.chapter,
+          verse = _groupItemData$contex.verse;
 
       items.push(_react2.default.createElement(_GroupItem2.default, {
         contextId: groupItemData.contextId,
