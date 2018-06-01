@@ -81,7 +81,7 @@ class GroupMenu extends React.Component {
 }
 
 GroupMenu.propTypes = {
-  isVerseFinished: PropTypes.bool.isRequired,
+  isVerseFinished: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   toolsReducer: PropTypes.shape({
     currentToolName: PropTypes.string.isRequired
@@ -114,7 +114,7 @@ var i = 1;
 
 GroupMenu.defaultProps = {
   getGroupProgress: () => {},
-  isVerseFinished: {},
+  isVerseFinished: () => false,
   getSelections: () => 'A selection',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},

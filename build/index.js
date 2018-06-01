@@ -105628,7 +105628,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
-  isVerseFinished: _propTypes2.default.bool.isRequired,
+  isVerseFinished: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
     currentToolName: _propTypes2.default.string.isRequired
@@ -105660,7 +105660,9 @@ var i = 1;
 
 GroupMenu.defaultProps = {
   getGroupProgress: function getGroupProgress() {},
-  isVerseFinished: {},
+  isVerseFinished: function isVerseFinished() {
+    return false;
+  },
   getSelections: function getSelections() {
     return 'A selection';
   },
@@ -111088,7 +111090,7 @@ var GroupItems = function GroupItems(_ref) {
         contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished, currentToolName),
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), currentToolName),
         activeGroupItemRef: active ? activeGroupItemRef : null,
         active: active,
         bookName: bookName,
