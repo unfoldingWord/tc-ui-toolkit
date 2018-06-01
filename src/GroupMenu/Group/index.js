@@ -35,10 +35,12 @@ class Group extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollToCurrentCheck();
+    if (this.props.active)
+      this.scrollToCurrentCheck();
   }
 
   componentDidUpdate() {
+    if (this.props.active)
     this.scrollToCurrentCheck();
   }
 

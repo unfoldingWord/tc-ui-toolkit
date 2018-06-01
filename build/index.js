@@ -105989,7 +105989,7 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
 function scrollIntoView(_ref) {
   var current = _ref.current;
 
-  if (current) current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  if (current && current.scrollIntoView) current.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
 /**
@@ -110520,12 +110520,12 @@ var Group = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.scrollToCurrentCheck();
+      if (this.props.active) this.scrollToCurrentCheck();
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      this.scrollToCurrentCheck();
+      if (this.props.active) this.scrollToCurrentCheck();
     }
   }, {
     key: 'render',
