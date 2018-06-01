@@ -26,13 +26,13 @@ class RenderSelectionTextComponent extends Component {
   }
 
   addSelection(selection) {
-    let {selections, verseText} = this.props;
+    let {selections, verseText, translate} = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
     // console.log(selections); // this is a good place to preview selections before saved in state
     if (selections.length <= 4) {
       this.props.actions.changeSelectionsInLocalState(selections);
     } else {
-      const message = 'Click a previous selection to remove it before adding a new one. To select more than 4 words, highlight phrases instead of individual words.';
+      const message = translate('select_too_many');
       this.props.actions.openAlertDialog(message);
     }
   }

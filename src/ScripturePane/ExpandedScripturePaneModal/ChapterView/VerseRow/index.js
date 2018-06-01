@@ -28,6 +28,7 @@ class VerseRow extends Component {
       currentPaneSettings,
       biblesWithHighlightedWords,
       bibles,
+      translate
     } = this.props;
     let verseCells = <div />;
     const isCurrent = currentVerseNumber === verse.toString();
@@ -52,6 +53,7 @@ class VerseRow extends Component {
         return (
           <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle}>
             <Verse
+              translate={translate}
               verseElements={verseElements}
               verseText={verseText}
               bibleId={bibleId}

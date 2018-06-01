@@ -81,7 +81,7 @@ const ExpandedScripturePaneModal = ({
       </DialogContent>
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
-          Close
+          {translate('close')}
         </button>
       </DialogActions>
     </Dialog>

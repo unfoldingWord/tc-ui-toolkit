@@ -21,7 +21,8 @@ const ExpandedHelpsModal = ({
   onHide,
   title,
   article,
-  classes
+  classes,
+  translate
 }) => {
   return (
     <Dialog
@@ -43,7 +44,7 @@ const ExpandedHelpsModal = ({
       </DialogContent>
       <DialogActions disableActionSpacing className="dialog-actions">
         <button className="btn-prime" onClick={onHide}>
-          Close
+          {translate('close')}
         </button>
       </DialogActions>
     </Dialog>

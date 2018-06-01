@@ -26,7 +26,7 @@ class MyLanguageModal extends Component {
   }
 
   render() {
-    let {show, onHide, targetLangBible, chapter, currentVerse, manifest} = this.props;
+    let {show, onHide, targetLangBible, chapter, currentVerse, manifest, translate} = this.props;
     const {target_language, project} = manifest;
     const title = target_language && target_language.book && target_language.book.name ?
       target_language.book.name :
@@ -83,7 +83,7 @@ class MyLanguageModal extends Component {
           {MyTargetLanguage}
         </DialogContent>
         <DialogActions disableActionSpacing={true}>
-          <button className='btn-prime' onClick={onHide}>Close</button>
+          <button className='btn-prime' onClick={onHide}>{translate('close')}</button>
         </DialogActions>
       </Dialog>
     );

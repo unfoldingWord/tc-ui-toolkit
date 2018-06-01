@@ -71,6 +71,7 @@ let CheckArea = ({
     <div className='check-area'>
       {mode === 'select' ?
         <SelectionArea
+          translate={translate}
           verseText={verseText}
           selections={newSelections}
           mode={mode}
