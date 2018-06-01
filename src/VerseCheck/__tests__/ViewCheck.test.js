@@ -118,22 +118,3 @@ function getBasePropertiesAndMockActions() {
   props = addMockActions(props);
   return props;
 }
-
-function getGroupDatumForCurrentContext(props) {
-  const {
-    contextIdReducer: {
-      contextId
-    },
-    groupsDataReducer: {
-      groupsData
-    }
-  } = props;
-
-  let groupItemData = null;
-  if (groupsData[contextId.groupId]) {
-    groupItemData = groupsData[contextId.groupId].find(groupData => {
-      return isEqual(groupData.contextId, contextId);
-    });
-  }
-  return groupItemData;
-}
