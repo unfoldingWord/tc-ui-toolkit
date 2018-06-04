@@ -95,16 +95,8 @@ class ScripturePane extends Component {
 
   render() {
     const {
-      titleLabel,
-      closeButtonLabel,
       expandedScripturePaneTitle,
-      expandButtonHoverText,
-      clickToRemoveResourceLabel,
-      addResourceLabel,
       currentPaneSettings,
-      clickAddResource,
-      selectLanguageLabel,
-      selectLabel,
       contextId,
       editTargetVerse,
       translate,
@@ -121,12 +113,12 @@ class ScripturePane extends Component {
         <div className="scripture-pane-container">
           <div className="inner-container">
             <div className="title-bar">
-              <span>{titleLabel}</span>
+              <span>{translate('pane.title')}</span>
               <Glyphicon
                 onClick={this.openExpandedScripturePane}
                 glyph={"fullscreen"}
                 style={{cursor: "pointer"}}
-                title={expandButtonHoverText}
+                title={translate('pane.expand_hover')}
               />
             </div>
             <div className="panes-container">
@@ -155,7 +147,7 @@ class ScripturePane extends Component {
                       direction={direction}
                       description={description}
                       verseElements={verseElements}
-                      clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+                      clickToRemoveResourceLabel={translate('pane.remove_resource')}
                       removePane={this.removePane}
                     />
                   );
@@ -163,7 +155,7 @@ class ScripturePane extends Component {
               }
               <AddBibleButton
                 showAddBibleModal={this.showAddBibleModal}
-                clickAddResource={clickAddResource}
+                clickAddResource={translate('pane.add_resource')}
               />
             </div>
           </div>
@@ -171,7 +163,7 @@ class ScripturePane extends Component {
             show={this.state.showExpandedScripturePane}
             onHide={this.closeExpandedScripturePane}
             title={expandedScripturePaneTitle}
-            primaryLabel={closeButtonLabel}
+            primaryLabel={translate('close')}
             biblesWithHighlightedWords={biblesWithHighlightedWords}
             currentPaneSettings={currentPaneSettings}
             contextId={contextId}
@@ -183,10 +175,10 @@ class ScripturePane extends Component {
           <AddPaneModal
             show={this.state.showAddPaneModal}
             onHide={this.hideAddBibleModal}
-            title={addResourceLabel}
+            title={translate('pane.add_resource_label')}
             selectedPane={this.state.selectedPane}
-            selectLanguageLabel={selectLanguageLabel}
-            selectLabel={selectLabel}
+            selectLanguageLabel={translate('pane.select_language')}
+            selectLabel={translate('select')}
             selectSourceLanguage={this.selectSourceLanguage}
             biblesWithHighlightedWords={biblesWithHighlightedWords}
             addNewBibleResource={this.addNewBibleResource}
