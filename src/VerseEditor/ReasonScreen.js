@@ -52,29 +52,29 @@ class ReasonScreen extends React.Component {
       <div className='reasons-screen'>
           <div className='reasons-screen-column'>
             <ReasonCheckbox reason="spelling"
-                            label={translate('editor.spelling')}
+                            label={translate('spelling')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
             <ReasonCheckbox reason="punctuation"
-                            label={translate('editor.punctuation')}
+                            label={translate('punctuation')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
             <ReasonCheckbox reason="word_choice"
-                            label={translate('editor.word_choice')}
+                            label={translate('word_choice')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
           </div>
           <div className='reasons-screen-column'>
             <ReasonCheckbox reason="meaning"
-                            label={translate('editor.meaning')}
+                            label={translate('meaning')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
             <ReasonCheckbox reason="grammar"
-                            label={translate('editor.grammar')}
+                            label={translate('grammar')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
             <ReasonCheckbox reason="other"
-                            label={translate('editor.other')}
+                            label={translate('other')}
                             onCheck={this._handleCheck}
                             selectedReasons={selectedReasons}/>
           </div>

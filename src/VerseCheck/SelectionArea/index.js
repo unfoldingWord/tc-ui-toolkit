@@ -14,7 +14,7 @@ class SelectionArea extends Component {
   }
 
   render() {
-    const {manifest, reference} = this.props;
+    const {manifest, reference, translate} = this.props;
     const {target_language, project} = manifest;
     const bookName = target_language && target_language.book && target_language.book.name ?
       target_language.book.name : project.name;
@@ -34,6 +34,7 @@ class SelectionArea extends Component {
         <div>
           <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
             <RenderSelectionTextComponent
+              translate={translate}
               actions={this.props.actions}
               mode={this.props.mode}
               verseText={this.props.verseText}

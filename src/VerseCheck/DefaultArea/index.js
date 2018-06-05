@@ -79,6 +79,7 @@ class DefaultArea extends React.Component {
             <Glyphicon glyph="fullscreen" title={translate("click_show_expanded")} style={{cursor: "pointer"}} />
           </div>
           <MyLanguageModal
+            translate={translate}
             manifest={manifest}
             show={this.state.modalVisibility}
             targetLangBible={bibles.targetLanguage.targetBible}

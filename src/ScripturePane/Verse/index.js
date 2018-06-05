@@ -16,9 +16,6 @@ const styles = {
   }
 };
 
-// constants
-const PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
-
 class Verse extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +36,8 @@ class Verse extends Component {
       direction,
       chapter,
       verse,
-      onEdit
+      onEdit,
+      translate
     } = this.props;
     const verseIsPlaceHolder = !verseElements;
     const chapterVerseContent = direction === 'rtl' ? `${verse}:${chapter} ` : `${chapter}:${verse} `;
@@ -50,7 +48,7 @@ class Verse extends Component {
     if (verseIsPlaceHolder) {
       verseSpan = (
         <span className='placeholder-text'>
-          {PLACE_HOLDER_TEXT}
+          {translate('pane.missing_bible')}
         </span>
       );
     }

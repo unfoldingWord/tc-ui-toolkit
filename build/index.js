@@ -1849,7 +1849,8 @@ var TranslationHelps = function TranslationHelps(_ref) {
       isShowHelpsSidebar = _ref.isShowHelpsSidebar,
       sidebarToggle = _ref.sidebarToggle,
       isShowHelpsExpanded = _ref.isShowHelpsExpanded,
-      modalTitle = _ref.modalTitle;
+      modalTitle = _ref.modalTitle,
+      translate = _ref.translate;
 
   var theme = (0, _styles.createMuiTheme)({ scrollbarThumb: { borderRadius: '10px' } });
 
@@ -1882,6 +1883,7 @@ var TranslationHelps = function TranslationHelps(_ref) {
           _react2.default.createElement(_THelpsMarkDown2.default, { article: article })
         ),
         _react2.default.createElement(_ExpandedHelpsModal2.default, {
+          translate: translate,
           show: isShowHelpsExpanded,
           onHide: openExpandedHelpsModal,
           title: modalTitle,
@@ -1918,14 +1920,18 @@ TranslationHelps.propTypes = {
   openExpandedHelpsModal: _propTypes2.default.func.isRequired,
   isShowHelpsSidebar: _propTypes2.default.bool.isRequired,
   sidebarToggle: _propTypes2.default.func.isRequired,
-  isShowHelpsExpanded: _propTypes2.default.bool.isRequired
+  isShowHelpsExpanded: _propTypes2.default.bool.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 TranslationHelps.defaultProps = {
   article: "### tHelps Article",
   modalArticle: "### tHelps Modal Article",
   expandedHelpsButtonHoverText: "Click to show expanded help pane",
-  modalTitle: "translationHelps"
+  modalTitle: "translationHelps",
+  translate: function translate(k) {
+    return k;
+  }
 };
 
 exports.default = TranslationHelps;
@@ -46456,7 +46462,8 @@ var ExpandedHelpsModal = function ExpandedHelpsModal(_ref) {
       onHide = _ref.onHide,
       title = _ref.title,
       article = _ref.article,
-      classes = _ref.classes;
+      classes = _ref.classes,
+      translate = _ref.translate;
 
   return _react2.default.createElement(
     _Dialog2.default,
@@ -46491,7 +46498,7 @@ var ExpandedHelpsModal = function ExpandedHelpsModal(_ref) {
       _react2.default.createElement(
         'button',
         { className: 'btn-prime', onClick: onHide },
-        'Close'
+        translate('close')
       )
     )
   );
@@ -63705,6 +63712,7 @@ var ScripturePane = function (_Component) {
             projectDetailsReducer: projectDetailsReducer
           }),
           _react2.default.createElement(_AddPaneModal2.default, {
+            translate: translate,
             show: this.state.showAddPaneModal,
             onHide: this.hideAddBibleModal,
             title: translate('pane.add_resource_label'),
@@ -66005,9 +66013,6 @@ var styles = {
   }
 };
 
-// constants
-var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
-
 var Verse = function (_Component) {
   _inherits(Verse, _Component);
 
@@ -66043,7 +66048,8 @@ var Verse = function (_Component) {
           direction = _props2.direction,
           chapter = _props2.chapter,
           verse = _props2.verse,
-          onEdit = _props2.onEdit;
+          onEdit = _props2.onEdit,
+          translate = _props2.translate;
 
       var verseIsPlaceHolder = !verseElements;
       var chapterVerseContent = direction === 'rtl' ? verse + ':' + chapter + ' ' : chapter + ':' + verse + ' ';
@@ -66059,7 +66065,7 @@ var Verse = function (_Component) {
         verseSpan = _react2.default.createElement(
           'span',
           { className: 'placeholder-text' },
-          PLACE_HOLDER_TEXT
+          translate('pane.missing_bible')
         );
       }
 
@@ -66678,7 +66684,7 @@ var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
       _react2.default.createElement(
         'button',
         { className: 'btn-prime', onClick: onHide },
-        'Close'
+        translate('close')
       )
     )
   );
@@ -66894,7 +66900,9 @@ var ChapterView = function (_Component) {
       if (verseNumbers.length > 0) {
         verseRows = verseNumbers.map(function (verseNumber) {
           var refKey = ChapterView.makeRefKey(chapter, verseNumber);
-          return _react2.default.createElement(_VerseRow2.default, { key: verseNumber,
+          return _react2.default.createElement(_VerseRow2.default, {
+            translate: translate,
+            key: verseNumber,
             chapter: chapter,
             verse: verse,
             bibles: bibles,
@@ -67072,7 +67080,8 @@ var VerseRow = function (_Component) {
           currentVerseNumber = _props.currentVerseNumber,
           currentPaneSettings = _props.currentPaneSettings,
           biblesWithHighlightedWords = _props.biblesWithHighlightedWords,
-          bibles = _props.bibles;
+          bibles = _props.bibles,
+          translate = _props.translate;
 
       var verseCells = _react2.default.createElement('div', null);
       var isCurrent = currentVerseNumber === verse.toString();
@@ -67102,6 +67111,7 @@ var VerseRow = function (_Component) {
             _reactBootstrap.Col,
             { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
             _react2.default.createElement(_Verse2.default, {
+              translate: translate,
               verseElements: verseElements,
               verseText: verseText,
               bibleId: bibleId,
@@ -67411,7 +67421,7 @@ var VerseEditor = function (_React$Component) {
           screen = _react2.default.createElement(_ReasonScreen2.default, { translate: translate, selectedReasons: reasons, onChange: this._handleReasonChange });
           break;
         default:
-          screen = "Oops!";
+          screen = translate('oops');
       }
 
       var nextStepButtonTitle = translate('buttons.next_button');
@@ -67512,19 +67522,6 @@ VerseEditor.propTypes = {
 };
 
 exports.default = VerseEditor;
-
-// <VerseEditor
-// onSubmit={() => this.setState({showVersEditor: false})}
-// onCancel={() => this.setState({showVersEditor: false})}
-// open={this.state.showVersEditor}
-// translate={key => key}
-// verseTitle={'Title'}
-// verseText={'Verse Text'} />
-// glQuote={glQuote}
-// translate={translate}
-// title={title}
-// showHelps={this.state.showHelps}
-// toggleHelps={this.toggleHelps.bind(this)}
 
 /***/ }),
 /* 591 */
@@ -67741,15 +67738,15 @@ var ReasonScreen = function (_React$Component) {
           'div',
           { className: 'reasons-screen-column' },
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'spelling',
-            label: translate('editor.spelling'),
+            label: translate('spelling'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons }),
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'punctuation',
-            label: translate('editor.punctuation'),
+            label: translate('punctuation'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons }),
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'word_choice',
-            label: translate('editor.word_choice'),
+            label: translate('word_choice'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons })
         ),
@@ -67757,15 +67754,15 @@ var ReasonScreen = function (_React$Component) {
           'div',
           { className: 'reasons-screen-column' },
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'meaning',
-            label: translate('editor.meaning'),
+            label: translate('meaning'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons }),
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'grammar',
-            label: translate('editor.grammar'),
+            label: translate('grammar'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons }),
           _react2.default.createElement(_ReasonCheckbox2.default, { reason: 'other',
-            label: translate('editor.other'),
+            label: translate('other'),
             onCheck: this._handleCheck,
             selectedReasons: selectedReasons })
         )
@@ -72946,7 +72943,8 @@ var AddPaneModal = function AddPaneModal(_ref) {
       biblesWithHighlightedWords = _ref.biblesWithHighlightedWords,
       selectedPane = _ref.selectedPane,
       addNewBibleResource = _ref.addNewBibleResource,
-      currentPaneSettings = _ref.currentPaneSettings;
+      currentPaneSettings = _ref.currentPaneSettings,
+      translate = _ref.translate;
 
   var panes = [];
   Object.keys(biblesWithHighlightedWords).forEach(function (languageId) {
@@ -72955,7 +72953,7 @@ var AddPaneModal = function AddPaneModal(_ref) {
           resource_title = _biblesWithHighlighte.resource_title,
           language_name = _biblesWithHighlighte.language_name;
 
-      var resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : " (Current project)";
+      var resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : ' (' + translate('pane.current_project') + ')';
       var displayText = language_name + ' (' + languageId + ') ' + resourceText;
       var foundInCurrentPaneSettings = currentPaneSettings.filter(function (paneSetting) {
         return paneSetting.bibleId === bibleId && paneSetting.languageId === languageId;
@@ -84266,10 +84264,12 @@ var WordDetails = function (_React$Component) {
   _createClass(WordDetails, [{
     key: 'render',
     value: function render() {
-      var _props$word = this.props.word,
+      var _props = this.props,
+          _props$word = _props.word,
           lemma = _props$word.lemma,
           morph = _props$word.morph,
-          strong = _props$word.strong;
+          strong = _props$word.strong,
+          translate = _props.translate;
       var lexiconData = this.props.lexiconData;
 
       var entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
@@ -84288,7 +84288,7 @@ var WordDetails = function (_React$Component) {
           _react2.default.createElement(
             'strong',
             null,
-            'Lemma'
+            translate('lemma')
           ),
           ' ',
           lemma
@@ -84300,7 +84300,7 @@ var WordDetails = function (_React$Component) {
           _react2.default.createElement(
             'strong',
             null,
-            'Morphology'
+            translate('morph')
           ),
           ' ',
           morph
@@ -84312,7 +84312,7 @@ var WordDetails = function (_React$Component) {
           _react2.default.createElement(
             'strong',
             null,
-            'Strongs'
+            translate('strongs')
           ),
           ' ',
           strong
@@ -84324,7 +84324,7 @@ var WordDetails = function (_React$Component) {
           _react2.default.createElement(
             'strong',
             null,
-            'Lexicon'
+            translate('lexicon')
           ),
           ' ',
           lexicon
@@ -85836,6 +85836,7 @@ var CheckArea = function CheckArea(_ref) {
     'div',
     { className: 'check-area' },
     mode === 'select' ? _react2.default.createElement(_SelectionArea2.default, {
+      translate: translate,
       verseText: verseText,
       selections: newSelections,
       mode: mode,
@@ -86023,6 +86024,7 @@ var DefaultArea = function (_React$Component) {
             _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'fullscreen', title: translate("click_show_expanded"), style: { cursor: "pointer" } })
           ),
           _react2.default.createElement(_MyLanguageModal2.default, {
+            translate: translate,
             manifest: manifest,
             show: this.state.modalVisibility,
             targetLangBible: bibles.targetLanguage.targetBible,
@@ -103545,7 +103547,8 @@ var MyLanguageModal = function (_Component) {
           targetLangBible = _props2.targetLangBible,
           chapter = _props2.chapter,
           currentVerse = _props2.currentVerse,
-          manifest = _props2.manifest;
+          manifest = _props2.manifest,
+          translate = _props2.translate;
       var target_language = manifest.target_language,
           project = manifest.project;
 
@@ -103618,7 +103621,7 @@ var MyLanguageModal = function (_Component) {
           _react2.default.createElement(
             'button',
             { className: 'btn-prime', onClick: onHide },
-            'Close'
+            translate('close')
           )
         )
       );
@@ -103800,7 +103803,8 @@ var SelectionArea = function (_Component) {
     value: function render() {
       var _props = this.props,
           manifest = _props.manifest,
-          reference = _props.reference;
+          reference = _props.reference,
+          translate = _props.translate;
       var target_language = manifest.target_language,
           project = manifest.project;
 
@@ -103836,6 +103840,7 @@ var SelectionArea = function (_Component) {
             'div',
             { className: manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content' },
             _react2.default.createElement(_RenderSelectionTextComponent2.default, {
+              translate: translate,
               actions: this.props.actions,
               mode: this.props.mode,
               verseText: this.props.verseText,
@@ -103947,14 +103952,15 @@ var RenderSelectionTextComponent = function (_Component) {
     value: function addSelection(selection) {
       var _props = this.props,
           selections = _props.selections,
-          verseText = _props.verseText;
+          verseText = _props.verseText,
+          translate = _props.translate;
 
       selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
       // console.log(selections); // this is a good place to preview selections before saved in state
       if (selections.length <= 4) {
         this.props.actions.changeSelectionsInLocalState(selections);
       } else {
-        var message = 'Click a previous selection to remove it before adding a new one. To select more than 4 words, highlight phrases instead of individual words.';
+        var message = translate('select_too_many');
         this.props.actions.openAlertDialog(message);
       }
     }

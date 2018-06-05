@@ -75,12 +75,13 @@ const AddPaneModal = ({
   selectedPane,
   addNewBibleResource,
   currentPaneSettings,
+  translate
 }) => {
   let panes = [];
   Object.keys(biblesWithHighlightedWords).forEach((languageId) => {
     Object.keys(biblesWithHighlightedWords[languageId]).forEach((bibleId) => {
       const { resource_title, language_name } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
-      const resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : " (Current project)";
+      const resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
       const displayText = `${language_name} (${languageId}) ${resourceText}`;
       const foundInCurrentPaneSettings = currentPaneSettings.filter((paneSetting) => {
         return paneSetting.bibleId === bibleId && paneSetting.languageId === languageId;

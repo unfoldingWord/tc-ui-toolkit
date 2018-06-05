@@ -173,6 +173,7 @@ class ScripturePane extends Component {
             projectDetailsReducer={projectDetailsReducer}
           />
           <AddPaneModal
+            translate={translate}
             show={this.state.showAddPaneModal}
             onHide={this.hideAddBibleModal}
             title={translate('pane.add_resource_label')}

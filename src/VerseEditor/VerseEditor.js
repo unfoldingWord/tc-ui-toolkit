@@ -125,7 +125,7 @@ class VerseEditor extends React.Component {
         screen = (<ReasonScreen translate={translate} selectedReasons={reasons} onChange={this._handleReasonChange} />);
         break;
       default:
-        screen = "Oops!";
+        screen = translate('oops');
     }
 
     let nextStepButtonTitle = translate('buttons.next_button');
@@ -192,16 +192,3 @@ VerseEditor.propTypes = {
 };
 
 export default VerseEditor;
-
-// <VerseEditor
-// onSubmit={() => this.setState({showVersEditor: false})}
-// onCancel={() => this.setState({showVersEditor: false})}
-// open={this.state.showVersEditor}
-// translate={key => key}
-// verseTitle={'Title'}
-// verseText={'Verse Text'} />
-// glQuote={glQuote}
-// translate={translate}
-// title={title}
-// showHelps={this.state.showHelps}
-// toggleHelps={this.toggleHelps.bind(this)}

@@ -27,6 +27,7 @@ const TranslationHelps = ({
   sidebarToggle,                 // toggle the translation helps sidebar
   isShowHelpsExpanded,           // is the expanded Translation Helps modal displayed?
   modalTitle,                    // Title for the expanded helps modal
+  translate
 }) => {
   const theme = createMuiTheme({scrollbarThumb: {borderRadius: '10px'}});
 
@@ -50,6 +51,7 @@ const TranslationHelps = ({
             <THelpsMarkDown article={article} />
           </div>
           <ExpandedHelpsModal
+            translate={translate}
             show={isShowHelpsExpanded}
             onHide={openExpandedHelpsModal}
             title={modalTitle}
@@ -78,14 +80,16 @@ TranslationHelps.propTypes = {
   openExpandedHelpsModal: PropTypes.func.isRequired,
   isShowHelpsSidebar: PropTypes.bool.isRequired,
   sidebarToggle: PropTypes.func.isRequired,
-  isShowHelpsExpanded: PropTypes.bool.isRequired
+  isShowHelpsExpanded: PropTypes.bool.isRequired,
+  translate:PropTypes.func.isRequired
 }
 
 TranslationHelps.defaultProps = {
   article:"### tHelps Article",
   modalArticle: "### tHelps Modal Article",
   expandedHelpsButtonHoverText: "Click to show expanded help pane",
-  modalTitle: "translationHelps"
+  modalTitle: "translationHelps",
+  translate: k => k
 }
 
 export default TranslationHelps
