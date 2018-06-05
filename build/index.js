@@ -63616,16 +63616,8 @@ var ScripturePane = function (_Component) {
       var _this2 = this;
 
       var _props4 = this.props,
-          titleLabel = _props4.titleLabel,
-          closeButtonLabel = _props4.closeButtonLabel,
           expandedScripturePaneTitle = _props4.expandedScripturePaneTitle,
-          expandButtonHoverText = _props4.expandButtonHoverText,
-          clickToRemoveResourceLabel = _props4.clickToRemoveResourceLabel,
-          addResourceLabel = _props4.addResourceLabel,
           currentPaneSettings = _props4.currentPaneSettings,
-          clickAddResource = _props4.clickAddResource,
-          selectLanguageLabel = _props4.selectLanguageLabel,
-          selectLabel = _props4.selectLabel,
           contextId = _props4.contextId,
           editTargetVerse = _props4.editTargetVerse,
           translate = _props4.translate,
@@ -63652,13 +63644,13 @@ var ScripturePane = function (_Component) {
               _react2.default.createElement(
                 'span',
                 null,
-                titleLabel
+                translate('pane.title')
               ),
               _react2.default.createElement(_reactBootstrap.Glyphicon, {
                 onClick: this.openExpandedScripturePane,
                 glyph: "fullscreen",
                 style: { cursor: "pointer" },
-                title: expandButtonHoverText
+                title: translate('pane.expand_hover')
               })
             ),
             _react2.default.createElement(
@@ -63689,13 +63681,13 @@ var ScripturePane = function (_Component) {
                   direction: direction,
                   description: description,
                   verseElements: verseElements,
-                  clickToRemoveResourceLabel: clickToRemoveResourceLabel,
+                  clickToRemoveResourceLabel: translate('pane.remove_resource'),
                   removePane: _this2.removePane
                 });
               }),
               _react2.default.createElement(_AddBibleButton2.default, {
                 showAddBibleModal: this.showAddBibleModal,
-                clickAddResource: clickAddResource
+                clickAddResource: translate('pane.add_resource')
               })
             )
           ),
@@ -63703,7 +63695,7 @@ var ScripturePane = function (_Component) {
             show: this.state.showExpandedScripturePane,
             onHide: this.closeExpandedScripturePane,
             title: expandedScripturePaneTitle,
-            primaryLabel: closeButtonLabel,
+            primaryLabel: translate('close'),
             biblesWithHighlightedWords: biblesWithHighlightedWords,
             currentPaneSettings: currentPaneSettings,
             contextId: contextId,
@@ -63715,10 +63707,10 @@ var ScripturePane = function (_Component) {
           _react2.default.createElement(_AddPaneModal2.default, {
             show: this.state.showAddPaneModal,
             onHide: this.hideAddBibleModal,
-            title: addResourceLabel,
+            title: translate('pane.add_resource_label'),
             selectedPane: this.state.selectedPane,
-            selectLanguageLabel: selectLanguageLabel,
-            selectLabel: selectLabel,
+            selectLanguageLabel: translate('pane.select_language'),
+            selectLabel: translate('select'),
             selectSourceLanguage: this.selectSourceLanguage,
             biblesWithHighlightedWords: biblesWithHighlightedWords,
             addNewBibleResource: this.addNewBibleResource,
