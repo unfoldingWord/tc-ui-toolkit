@@ -17,6 +17,7 @@ describe('Test ExpandedHelpsModal component', () => {
           onHide={() => {}}
           title={expectedTitle}
           article={'Test article'}
+          translate={k => k}
         />
       </MuiThemeProvider>)
     expect(wrapper.find('.tool-bar-title').text(expectedTitle))
