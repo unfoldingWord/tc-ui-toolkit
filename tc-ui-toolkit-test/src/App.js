@@ -36,7 +36,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: 'var(--tool-max-height)'}}>
+      <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '100%'}}>
         <GroupMenu />
         <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
           <ScripturePane />

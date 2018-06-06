@@ -4,7 +4,7 @@
   flex-direction: column;
   background-color: var(--background-color-dark);
   font-size: 12px;
-  height: var(--tool-max-height);
+  height: 100%;
   max-width: 250px;
   width: 100%;
   overflow-y: scroll;
