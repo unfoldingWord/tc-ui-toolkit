@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 130px;
   min-width: 240px;
   flex-direction: column;
   border-right: 1px solid var(--border-color);

@@ -41,6 +41,7 @@ class App extends Component {
         <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
           <ScripturePane />
           <CheckInfoCard
+            seeMoreLabel="see more"
             toggleHelps={this.toggleHelps.bind(this)}
             showHelps={this.state.showHelps} />
           <VerseCheck/>

@@ -34,8 +34,15 @@ class ScripturePane extends Component {
   }
 
   componentWillMount() {
-    const {selections, contextId, getLexiconData, showPopover, bibles} = this.props;
-    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+    const {selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
+    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+      bibles,
+      selections,
+      contextId,
+      getLexiconData,
+      showPopover,
+      translate
+    );
     this.setState({biblesWithHighlightedWords});
   }
 
@@ -44,7 +51,14 @@ class ScripturePane extends Component {
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
     if (reParseBibleData) {
       const {selections, contextId, getLexiconData, showPopover, bibles} = nextProps;
-      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+        bibles,
+        selections,
+        contextId,
+        getLexiconData,
+        showPopover,
+        translate
+      );
       this.setState({biblesWithHighlightedWords});
     }
   }
