@@ -63532,9 +63532,10 @@ var ScripturePane = function (_Component) {
           contextId = _props.contextId,
           getLexiconData = _props.getLexiconData,
           showPopover = _props.showPopover,
-          bibles = _props.bibles;
+          bibles = _props.bibles,
+          translate = _props.translate;
 
-      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
       this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
     }
   }, {
@@ -63548,7 +63549,7 @@ var ScripturePane = function (_Component) {
             showPopover = nextProps.showPopover,
             bibles = nextProps.bibles;
 
-        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
       }
     }
@@ -65958,7 +65959,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".pane-container {\n  height: 130px;\n  flex: 1;\n  display: flex;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".pane-container {\n  min-height: 130px;\n  flex: 1;\n  display: flex;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}\n\n.pane-title-container {\n  flex: 0 0 35px;\n  display: flex;\n  justify-content: space-between;\n  margin: 5px 10px 5px 15px;\n}\n\n.pane-title-container-content {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n\n.pane-title-text {\n  font-weight: 700;\n  font-size: 1em;\n  margin-bottom: -5px;\n}\n\n.pane-subtitle-text {\n  color: var(--text-color-light);\n  font-style: bold;\n  font-family: noto sans;\n}\n\n.verse-content-container-ltr {\n  overflow-y: auto;\n  direction: ltr;\n  padding: 0 15px 10px;\n}\n\n.verse-content-container-rtl {\n  overflow-y: auto;\n  direction: rtl;\n  padding: 0 15px 10px;\n}\n\n.remove-glyph-icon {\n  color: var(--text-color-light);\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -72836,7 +72837,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".add-bible-button-container {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}", ""]);
+exports.push([module.i, ".add-bible-button-container {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 130px;\n  min-width: 240px;\n  flex-direction: column;\n  border-right: 1px solid var(--border-color);\n}", ""]);
 
 // exports
 
@@ -73105,7 +73106,7 @@ var _verseHelpers = __webpack_require__(636);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = function getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover) {
+var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = function getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate) {
   var parsedBible = {};
   Object.keys(bibles).forEach(function (languageId) {
     parsedBible[languageId] = {};
@@ -73125,7 +73126,7 @@ var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = func
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseString)(verseData, selections);
             } else if (verseData) {
               // then the verse content is an array/verse objects.
-              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseArray)(verseData, bibleId, contextId, getLexiconData, showPopover);
+              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseArray)(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
             }
           });
         } else {
@@ -73218,6 +73219,7 @@ var verseArray = exports.verseArray = function verseArray() {
   var getLexiconData = arguments[3];
   var showPopover = arguments[4];
   var isGrayVerseRow = arguments[5];
+  var translate = arguments[6];
 
   // TODO: isGrayVerseRow
   var words = _wordAligner.VerseObjectUtils.getWordListForVerse(verseText);
@@ -73264,7 +73266,7 @@ var verseArray = exports.verseArray = function verseArray() {
             {
               key: index.toString(),
               onClick: function onClick(e) {
-                return (0, _htmlElementsHelpers.onWordClick)(e, word, getLexiconData, showPopover);
+                return (0, _htmlElementsHelpers.onWordClick)(e, word, getLexiconData, showPopover, translate);
               },
               style: { cursor: 'pointer' }
             },
@@ -84164,7 +84166,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Components
-var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexiconData, showPopover) {
+var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexiconData, showPopover, translate) {
   if (word && word.strong) {
     var strong = word.strong;
 
@@ -84177,7 +84179,7 @@ var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexicon
       { style: { fontSize: '1.2em' } },
       word.word
     );
-    var wordDetails = _react2.default.createElement(_WordDetails2.default, { lexiconData: lexiconData, word: word });
+    var wordDetails = _react2.default.createElement(_WordDetails2.default, { lexiconData: lexiconData, word: word, translate: translate });
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }
 };
