@@ -32,7 +32,7 @@ export const verseString = (verseText, selections) => {
   return verseTextSpans;
 };
 
-export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, isGrayVerseRow) => {
+export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, isGrayVerseRow, translate) => {
   // TODO: isGrayVerseRow
   const words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
@@ -72,7 +72,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(
             <span
               key={index.toString()}
-              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover)}
+              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate)}
               style={{ cursor: 'pointer' }}
             >
               <span style={paddingSpanStyle}>

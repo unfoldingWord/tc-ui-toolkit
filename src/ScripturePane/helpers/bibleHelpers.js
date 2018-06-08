@@ -1,6 +1,6 @@
 import { verseString, verseArray } from './verseHelpers';
 
-export const getBiblesWithHighlightedWords = (bibles, selections, contextId, getLexiconData, showPopover) => {
+export const getBiblesWithHighlightedWords = (bibles, selections, contextId, getLexiconData, showPopover, translate) => {
   const parsedBible = {};
   Object.keys(bibles).forEach((languageId) => {
     parsedBible[languageId] = {};
@@ -22,7 +22,7 @@ export const getBiblesWithHighlightedWords = (bibles, selections, contextId, get
             if (verseData && typeof verseData === 'string') { // if the verse content is string.
              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseString(verseData, selections);
             } else if (verseData) { // then the verse content is an array/verse objects.
-             parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover);
+             parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
             }
           });
         } else {// is manifest
