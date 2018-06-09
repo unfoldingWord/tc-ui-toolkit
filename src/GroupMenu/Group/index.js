@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {withStyles} from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Glyphicon} from 'react-bootstrap';
 // components
