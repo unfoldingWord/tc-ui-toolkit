@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './VerseCheck.styles.css';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
 import SaveArea from './SaveArea';

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl } from 'react-bootstrap';
-import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-
-import { Glyphicon } from 'react-bootstrap';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { Glyphicon, FormControl } from 'react-bootstrap';
 
 import './AddPaneModal.styles.css';
 
@@ -51,10 +51,6 @@ const styles = {
     height: 25,
     marginTop: 5
   },
-  // title: {
-  //   display: 'flex',
-  //   flexDirection: 'row'
-  // },
   body: {
     textAlign: 'center'
   },

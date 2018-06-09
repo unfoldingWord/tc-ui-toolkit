@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
-import Modal from 'material-ui/Modal';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import {withStyles} from 'material-ui/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
 /**
  * Generates the dialog actions
  *
@@ -113,7 +110,6 @@ class BaseDialog extends React.Component {
     }
 
     const theme = createMuiTheme();
-    const DialogWrapper = isModal ? Modal : Dialog;
     return (
       <MuiThemeProvider theme={theme}>
         <Dialog

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from 'material-ui/Checkbox';
-import cyan from 'material-ui/colors/cyan';
-import {FormControlLabel} from 'material-ui/Form';
-import {withStyles} from 'material-ui/styles';
-
+import {withStyles} from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import cyan from '@material-ui/core/colors/cyan';
 
 const styles = theme => ({
   formControlLabelRoot: {

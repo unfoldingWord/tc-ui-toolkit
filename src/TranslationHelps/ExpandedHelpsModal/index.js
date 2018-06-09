@@ -4,12 +4,14 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {DialogActions, DialogTitle, DialogContent} from 'material-ui/Dialog';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
 import {Glyphicon} from 'react-bootstrap';
 import Markdown from 'react-remarkable';
-import { withStyles } from 'material-ui/styles';
 
 import './ExpandedHelpsModal.styles.css';
 

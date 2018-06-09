@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import EditScreen from './EditScreen';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
+// components
+import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
 import VerseEditorStepper from './VerseEditorStepper';
-import {MuiThemeProvider} from 'material-ui/styles';
+
 import './VerseEditor.styles.css';
 
 const steps = ['edit_verse', 'select_reasons'];

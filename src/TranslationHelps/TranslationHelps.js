@@ -12,7 +12,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 import './TranslationHelps.styles.css';
 import ExpandedHelpsModal from './ExpandedHelpsModal';

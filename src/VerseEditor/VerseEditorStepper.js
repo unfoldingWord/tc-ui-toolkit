@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Stepper, {Step, StepLabel} from 'material-ui/Stepper';
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
 
 const styles = theme => ({
   label: {
@@ -23,9 +25,12 @@ class VerseEditorStepper extends React.Component {
         {steps.map((step, index) => {
           return (
             <Step key={index}>
-              <StepLabel classes={{
-                label: classes.label
-              }}>{step}</StepLabel>
+              <StepLabel
+                classes={{
+                  label: classes.label
+                }}>
+                {step}
+              </StepLabel>
             </Step>
           );
         })}

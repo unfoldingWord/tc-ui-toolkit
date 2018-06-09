@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
 import {Glyphicon} from 'react-bootstrap';
 import MyTargetVerse from '../MyTargetVerse';
+
 import './MyLanguageModal.styles.css';
-import Toolbar from 'material-ui/Toolbar';
 
 class MyLanguageModal extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'deep-equal';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 
 import './ScripturePane.styles.css';
