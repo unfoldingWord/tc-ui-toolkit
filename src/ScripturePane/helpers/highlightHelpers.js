@@ -44,7 +44,7 @@ export function getWordHighlightedDetails(contextId, previousWord, word) {
   };
 }
 
-export function getWordsFromNestedMilestone(nestedWords, contextId, index, isGrayVerseRow, previousWord, wordSpacing) {
+export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) nestedWords = getDeepNestedWords(nestedWords);
 
@@ -69,8 +69,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, isGra
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
       nestedPreviousWord = nestedWord;
       const paddingSpanStyle = {
-        backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" :
-          isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
+        backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
       };
       return (
         <span key={nestedWordSpanIndex.toString()}>

@@ -37,12 +37,12 @@ class VerseRow extends Component {
       minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
       borderRight: '1px solid var(--border-color)'
     };
-    let rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
-    let isGrayVerseRow = false;
+    let rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)', width: '100%' };
+
     if (currentVerseNumber % 2 === 0) {
       rowStyle.backgroundColor = 'var(--background-color-light)';
-      isGrayVerseRow = true;
     }
+
     if (currentPaneSettings.length > 0) {
       verseCells = currentPaneSettings.map((paneSetting, index) => {
         const { languageId, bibleId } = paneSetting;

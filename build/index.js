@@ -62684,6 +62684,7 @@ var Pane = function Pane(_ref) {
       verseElements = _ref.verseElements,
       clickToRemoveResourceLabel = _ref.clickToRemoveResourceLabel;
 
+  console.log(bibleId);
   var headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : languageName || '';
   var PANECHAR = 9;
 
@@ -65764,12 +65765,12 @@ var VerseRow = function (_Component) {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
         borderRight: '1px solid var(--border-color)'
       };
-      var rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
-      var isGrayVerseRow = false;
+      var rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)', width: '100%' };
+
       if (currentVerseNumber % 2 === 0) {
         rowStyle.backgroundColor = 'var(--background-color-light)';
-        isGrayVerseRow = true;
       }
+
       if (currentPaneSettings.length > 0) {
         verseCells = currentPaneSettings.map(function (paneSetting, index) {
           var languageId = paneSetting.languageId,
@@ -69780,10 +69781,8 @@ var verseArray = exports.verseArray = function verseArray() {
   var contextId = arguments[2];
   var getLexiconData = arguments[3];
   var showPopover = arguments[4];
-  var isGrayVerseRow = arguments[5];
-  var translate = arguments[6];
+  var translate = arguments[5];
 
-  // TODO: isGrayVerseRow
   var words = _wordAligner.VerseObjectUtils.getWordListForVerse(verseText);
   var wordSpacing = '';
   var previousWord = null;
@@ -69816,9 +69815,8 @@ var verseArray = exports.verseArray = function verseArray() {
         }
         // Save word to be used as previousWord in next word.
         previousWord = word;
-        // if isGrayVerseRow is true then background is gray in the ChapterViewModal.
         var paddingSpanStyle = {
-          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
+          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
         };
 
         if (word.strong) {
@@ -69848,7 +69846,7 @@ var verseArray = exports.verseArray = function verseArray() {
         }
       } else if ((0, _stringHelpers.isNestedMilestone)(word)) {
         // if nested milestone
-        var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, isGrayVerseRow, previousWord, wordSpacing);
+        var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
         nestedMilestone.wordSpans.forEach(function (nestedWordSpan) {
           return verseSpan.push(nestedWordSpan);
         });
@@ -77973,7 +77971,7 @@ function getWordHighlightedDetails(contextId, previousWord, word) {
   };
 }
 
-function getWordsFromNestedMilestone(nestedWords, contextId, index, isGrayVerseRow, previousWord, wordSpacing) {
+function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) nestedWords = getDeepNestedWords(nestedWords);
 
@@ -77994,7 +77992,7 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, isGrayVerseR
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
       nestedPreviousWord = nestedWord;
       var paddingSpanStyle = {
-        backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
+        backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
       };
       return _react2.default.createElement(
         'span',
