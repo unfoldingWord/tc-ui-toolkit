@@ -95,6 +95,7 @@ Verse.propTypes = {
     PropTypes.number.isRequired,
   ]),
   onEdit: PropTypes.func,
+  translate: PropTypes.func.isRequired,
 };
 
 export default Verse;

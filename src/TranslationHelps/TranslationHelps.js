@@ -4,19 +4,21 @@
  *     The sidebar has a sash that expands to about 20% of the application window
  *     The sash can collapse to about 0.25in
  *     The expanded sidebar vertically wraps article text and can scroll entire article
- *     When expanded the "See More" button in panel is hidden 
- * 
- * 
+ *     When expanded the "See More" button in panel is hidden
+ *
+ *
  *   It interoperates with CheckInfoCard
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
-import './TranslationHelps.styles.css';
+// components
 import ExpandedHelpsModal from './ExpandedHelpsModal';
 import THelpsMarkDown from './THelpsMarkDown';
+
+import './TranslationHelps.styles.css';
 
 const TranslationHelps = ({
   modalArticle,
@@ -58,7 +60,7 @@ const TranslationHelps = ({
             article={modalArticle || article} />
         </div>
       </MuiThemeProvider>
-    )
+    );
   } else {
     return (
       <div className="helps-sash-closed" onClick={sidebarToggle}>
@@ -68,7 +70,7 @@ const TranslationHelps = ({
           onClick={sidebarToggle}
         />
       </div>
-    )
+    );
   }
 
 };
@@ -81,8 +83,8 @@ TranslationHelps.propTypes = {
   isShowHelpsSidebar: PropTypes.bool.isRequired,
   sidebarToggle: PropTypes.func.isRequired,
   isShowHelpsExpanded: PropTypes.bool.isRequired,
-  translate:PropTypes.func.isRequired
-}
+  translate: PropTypes.func.isRequired
+};
 
 TranslationHelps.defaultProps = {
   article:"### tHelps Article",
@@ -90,6 +92,6 @@ TranslationHelps.defaultProps = {
   expandedHelpsButtonHoverText: "Click to show expanded help pane",
   modalTitle: "translationHelps",
   translate: k => k
-}
+};
 
-export default TranslationHelps
+export default TranslationHelps;

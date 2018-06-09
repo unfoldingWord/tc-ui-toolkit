@@ -150,6 +150,7 @@ AddPaneModal.propTypes = {
   ]),
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default AddPaneModal;

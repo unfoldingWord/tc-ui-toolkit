@@ -34,7 +34,7 @@ class ScripturePane extends Component {
   }
 
   componentWillMount() {
-    const {selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
+    const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
     const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
       bibles,
       selections,
@@ -50,7 +50,7 @@ class ScripturePane extends Component {
     const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) ||
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
     if (reParseBibleData) {
-      const {selections, contextId, getLexiconData, showPopover, bibles} = nextProps;
+      const { selections, contextId, getLexiconData, showPopover, bibles, translate } = nextProps;
       const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
         bibles,
         selections,
@@ -247,6 +247,6 @@ ScripturePane.defaultProps = {
   editTargetVerse: () => {},
   translate: () => {},
   bibles: {},
-}
+};
 
 export default ScripturePane;

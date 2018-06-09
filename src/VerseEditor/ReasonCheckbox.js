@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import cyan from '@material-ui/core/colors/cyan';
 
-const styles = theme => ({
+const styles = {
   formControlLabelRoot: {
     height: 30
   },
@@ -20,7 +20,7 @@ const styles = theme => ({
     },
   },
   checked:{}
-});
+};
 
 /**
  * @callback ReasonCheckbox~onCheck
@@ -77,7 +77,8 @@ ReasonCheckbox.propTypes = {
   reason: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   selectedReasons: PropTypes.arrayOf(PropTypes.string),
-  onCheck: PropTypes.func.isRequired
+  onCheck: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 ReasonCheckbox.defaultProps = {

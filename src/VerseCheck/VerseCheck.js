@@ -3,13 +3,14 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './VerseCheck.styles.css';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
 import SaveArea from './SaveArea';
 import DialogComponent from './DialogComponent';
 import IconIndicators from './IconIndicators';
+
+import './VerseCheck.styles.css';
 
 class VerseCheck extends Component {
   render() {
@@ -141,6 +142,8 @@ VerseCheck.propTypes = {
   resourcesReducer: PropTypes.object.isRequired,
   loginReducer: PropTypes.object.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired,
+  dialogModalVisibility: PropTypes.bool.isRequired,
 };
 
 VerseCheck.defaultProps = {

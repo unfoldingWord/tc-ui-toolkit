@@ -4,7 +4,7 @@
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "build/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "eslint ./src && jest",
     "start": "webpack --watch",
     "build": "webpack",
     "start-ui-renderer": "npm run build && cd tc-ui-toolkit-test && npm start",
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -79,6 +80,9 @@
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-react": "^7.9.1",
     "jest": "^22.4.3",
     "jest-css-modules": "^1.1.0",
     "jest-enzyme": "^6.0.0",

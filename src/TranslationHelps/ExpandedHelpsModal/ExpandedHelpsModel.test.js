@@ -1,5 +1,4 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types';
+import React from 'react';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {mount} from 'enzyme';
 
@@ -19,7 +18,7 @@ describe('Test ExpandedHelpsModal component', () => {
           article={'Test article'}
           translate={k => k}
         />
-      </MuiThemeProvider>)
-    expect(wrapper.find('.tool-bar-title').text(expectedTitle))
+      </MuiThemeProvider>);
+    expect(wrapper.find('.tool-bar-title').text(expectedTitle));
   });
 });

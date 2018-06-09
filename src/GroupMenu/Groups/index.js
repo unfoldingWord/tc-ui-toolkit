@@ -9,7 +9,6 @@ const Groups = ({
   filters,
   groupsIndex = [],
   groupsData = {},
-  projectSaveLocation,
   getGroupProgress,
   groupMenuChangeGroup,
   groupMenuExpandSubMenu,

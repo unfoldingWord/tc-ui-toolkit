@@ -60,7 +60,6 @@ class Group extends React.Component {
       manifest,
       contextId,
       getSelections,
-      classes,
       isVerseFinished,
       currentToolName
     } = this.props;
@@ -109,7 +108,7 @@ class Group extends React.Component {
         </div>
       </MuiThemeProvider>
     );
-  };
+  }
 }
 
 Group.propTypes = {
@@ -122,7 +121,12 @@ Group.propTypes = {
   openGroup: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
   groupIndex: PropTypes.object.isRequired,
-  active: PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired,
+  changeCurrentContextId: PropTypes.func.isRequired,
+  getSelections: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  isVerseFinished: PropTypes.func.isRequired,
+  currentToolName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(Group);

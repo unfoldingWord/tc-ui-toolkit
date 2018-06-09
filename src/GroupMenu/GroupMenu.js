@@ -37,7 +37,7 @@ class GroupMenu extends React.Component {
       getGroupProgress
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
-    const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
+    // const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
     return (
       <div id="groups-menu-container">
         <div id="groups-menu-top">
@@ -105,10 +105,10 @@ GroupMenu.propTypes = {
   actions: PropTypes.shape({
     setFilter: PropTypes.func.isRequired,
     groupMenuChangeGroup: PropTypes.func.isRequired,
-    groupMenuExpandSubMenu: PropTypes.func.isRequired,
     groupMenuExpandSubMenu: PropTypes.func.isRequired
   }),
-  getGroupProgress: PropTypes.func.isRequired
+  getGroupProgress: PropTypes.func.isRequired,
+  getSelections: PropTypes.func.isRequired,
 };
 var i = 1;
 
@@ -169,7 +169,7 @@ GroupMenu.defaultProps = {
             "occurrence": 1
           }
         }))]
-      
+
     }
   },
   contextIdReducer: {
@@ -208,7 +208,6 @@ GroupMenu.defaultProps = {
   actions: {
     setFilter: () => {},
     groupMenuChangeGroup: () => {},
-    groupMenuExpandSubMenu: () => {},
     groupMenuExpandSubMenu: () => {}
   }
 };

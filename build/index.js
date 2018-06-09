@@ -245,6 +245,7 @@ var CheckInfoCard = function CheckInfoCard(_ref) {
 CheckInfoCard.propTypes = {
   phrase: _propTypes2.default.string,
   title: _propTypes2.default.string,
+  seeMoreLabel: _propTypes2.default.string,
   onSeeMoreClick: _propTypes2.default.func,
   showSeeMoreButton: _propTypes2.default.bool
 };
@@ -1844,8 +1845,6 @@ var _styles = __webpack_require__(20);
 
 var _reactBootstrap = __webpack_require__(117);
 
-__webpack_require__(402);
-
 var _ExpandedHelpsModal = __webpack_require__(404);
 
 var _ExpandedHelpsModal2 = _interopRequireDefault(_ExpandedHelpsModal);
@@ -1853,6 +1852,8 @@ var _ExpandedHelpsModal2 = _interopRequireDefault(_ExpandedHelpsModal);
 var _THelpsMarkDown = __webpack_require__(512);
 
 var _THelpsMarkDown2 = _interopRequireDefault(_THelpsMarkDown);
+
+__webpack_require__(402);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1916,17 +1917,19 @@ var TranslationHelps = function TranslationHelps(_ref) {
       })
     );
   }
-}; /**
-    *  TranslationHelps is a feature of the TranslationWords tool and consists of:
-    *   A collapible sidebar showing the complete artical sumarized in panel
-    *     The sidebar has a sash that expands to about 20% of the application window
-    *     The sash can collapse to about 0.25in
-    *     The expanded sidebar vertically wraps article text and can scroll entire article
-    *     When expanded the "See More" button in panel is hidden 
-    * 
-    * 
-    *   It interoperates with CheckInfoCard
-    */
+};
+// components
+/**
+ *  TranslationHelps is a feature of the TranslationWords tool and consists of:
+ *   A collapible sidebar showing the complete artical sumarized in panel
+ *     The sidebar has a sash that expands to about 20% of the application window
+ *     The sash can collapse to about 0.25in
+ *     The expanded sidebar vertically wraps article text and can scroll entire article
+ *     When expanded the "See More" button in panel is hidden
+ *
+ *
+ *   It interoperates with CheckInfoCard
+ */
 
 TranslationHelps.propTypes = {
   modalArticle: _propTypes2.default.string.isRequired,
@@ -47023,6 +47026,7 @@ var styles = {
    * new-window glyphicon button on translationHelps component.
    */
 
+
 var ExpandedHelpsModal = function ExpandedHelpsModal(_ref) {
   var show = _ref.show,
       onHide = _ref.onHide,
@@ -47074,7 +47078,9 @@ ExpandedHelpsModal.propTypes = {
   show: _propTypes2.default.bool.isRequired,
   onHide: _propTypes2.default.func.isRequired,
   title: _propTypes2.default.string.isRequired,
-  article: _propTypes2.default.string.isRequired
+  article: _propTypes2.default.string.isRequired,
+  classes: _propTypes2.default.object.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _styles.withStyles)(styles)(ExpandedHelpsModal);
@@ -62066,6 +62072,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRemarkable = __webpack_require__(448);
 
 var _reactRemarkable2 = _interopRequireDefault(_reactRemarkable);
@@ -62086,6 +62096,10 @@ var THelpsMarkDown = function THelpsMarkDown(_ref) {
       _react2.default.createElement(_reactRemarkable2.default, { options: { html: true }, source: article })
     )
   );
+};
+
+THelpsMarkDown.propTypes = {
+  article: _propTypes2.default.string.isRequired
 };
 
 exports.default = THelpsMarkDown;
@@ -62227,7 +62241,8 @@ var ScripturePane = function (_Component) {
             contextId = nextProps.contextId,
             getLexiconData = nextProps.getLexiconData,
             showPopover = nextProps.showPopover,
-            bibles = nextProps.bibles;
+            bibles = nextProps.bibles,
+            translate = nextProps.translate;
 
         var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
@@ -62684,7 +62699,6 @@ var Pane = function Pane(_ref) {
       verseElements = _ref.verseElements,
       clickToRemoveResourceLabel = _ref.clickToRemoveResourceLabel;
 
-  console.log(bibleId);
   var headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : languageName || '';
   var PANECHAR = 9;
 
@@ -64788,7 +64802,8 @@ Verse.propTypes = {
   direction: _propTypes2.default.string.isRequired,
   chapter: _propTypes2.default.number.isRequired,
   verse: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.number.isRequired]),
-  onEdit: _propTypes2.default.func
+  onEdit: _propTypes2.default.func,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = Verse;
@@ -65311,7 +65326,6 @@ var ExpandedScripturePaneModal = function ExpandedScripturePaneModal(_ref) {
   var show = _ref.show,
       onHide = _ref.onHide,
       title = _ref.title,
-      primaryLabel = _ref.primaryLabel,
       contextId = _ref.contextId,
       biblesWithHighlightedWords = _ref.biblesWithHighlightedWords,
       currentPaneSettings = _ref.currentPaneSettings,
@@ -65751,7 +65765,6 @@ var VerseRow = function (_Component) {
 
       var _props = this.props,
           chapter = _props.chapter,
-          verse = _props.verse,
           currentVerseNumber = _props.currentVerseNumber,
           currentPaneSettings = _props.currentPaneSettings,
           biblesWithHighlightedWords = _props.biblesWithHighlightedWords,
@@ -65759,7 +65772,7 @@ var VerseRow = function (_Component) {
           translate = _props.translate;
 
       var verseCells = _react2.default.createElement('div', null);
-      var isCurrent = currentVerseNumber === verse.toString();
+      // const isCurrent = currentVerseNumber === verse.toString();
 
       var colStyle = {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
@@ -65817,7 +65830,8 @@ VerseRow.propTypes = {
   verseElements: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.array.isRequired]),
   biblesWithHighlightedWords: _propTypes2.default.object.isRequired,
   onEditTargetVerse: _propTypes2.default.func.isRequired,
-  bibles: _propTypes2.default.object.isRequired
+  bibles: _propTypes2.default.object.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = VerseRow;
@@ -66496,23 +66510,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var styles = function styles(theme) {
-  return {
-    formControlLabelRoot: {
-      height: 30
-    },
-    formControlLabel: {
-      justifyContent: 'flex-start',
-      fontWeight: 700,
-      fontSize: 16
-    },
-    checkBox: {
-      '&$checked': {
-        color: _cyan2.default[500]
-      }
-    },
-    checked: {}
-  };
+var styles = {
+  formControlLabelRoot: {
+    height: 30
+  },
+  formControlLabel: {
+    justifyContent: 'flex-start',
+    fontWeight: 700,
+    fontSize: 16
+  },
+  checkBox: {
+    '&$checked': {
+      color: _cyan2.default[500]
+    }
+  },
+  checked: {}
 };
 
 /**
@@ -66584,7 +66596,8 @@ ReasonCheckbox.propTypes = {
   reason: _propTypes2.default.string.isRequired,
   label: _propTypes2.default.string.isRequired,
   selectedReasons: _propTypes2.default.arrayOf(_propTypes2.default.string),
-  onCheck: _propTypes2.default.func.isRequired
+  onCheck: _propTypes2.default.func.isRequired,
+  classes: _propTypes2.default.object.isRequired
 };
 
 ReasonCheckbox.defaultProps = {
@@ -67710,12 +67723,10 @@ var makeDialogActions = function makeDialogActions(_ref) {
   return actions;
 };
 
-var styles = function styles(theme) {
-  return {
-    actionRoot: {
-      padding: 0
-    }
-  };
+var styles = {
+  actionRoot: {
+    padding: 0
+  }
 };
 
 /**
@@ -67756,7 +67767,6 @@ var BaseDialog = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           actionsEnabled = _props.actionsEnabled,
-          modal = _props.modal,
           title = _props.title,
           secondaryLabel = _props.secondaryLabel,
           primaryLabel = _props.primaryLabel,
@@ -67764,8 +67774,7 @@ var BaseDialog = function (_React$Component) {
           onSubmit = _props.onSubmit,
           open = _props.open,
           children = _props.children,
-          actions = _props.actions,
-          classes = _props.classes;
+          actions = _props.actions;
 
 
       var dialogActions = actions ? actions : makeDialogActions({
@@ -67775,11 +67784,6 @@ var BaseDialog = function (_React$Component) {
         onPrimaryClick: onSubmit,
         onSecondaryClick: onClose
       });
-
-      var isModal = dialogActions.length !== 0;
-      if (typeof modal !== 'undefined') {
-        isModal = modal;
-      }
 
       var theme = (0, _styles.createMuiTheme)();
       return _react2.default.createElement(
@@ -67834,8 +67838,10 @@ BaseDialog.propTypes = {
   open: _propTypes2.default.bool,
   onClose: _propTypes2.default.func,
   onSubmit: _propTypes2.default.func,
-  children: _propTypes2.default.any
+  children: _propTypes2.default.any,
+  classes: _propTypes2.default.object
 };
+
 BaseDialog.defaultProps = {
   actionsEnabled: true,
   modal: false
@@ -67993,12 +67999,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var styles = function styles(theme) {
-  return {
-    label: {
-      fontSize: 14
-    }
-  };
+var styles = {
+  label: {
+    fontSize: 14
+  }
 };
 
 /**
@@ -68053,7 +68057,8 @@ var VerseEditorStepper = function (_React$Component) {
 VerseEditorStepper.propTypes = {
   style: _propTypes2.default.object,
   stepIndex: _propTypes2.default.number.isRequired,
-  steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired
+  steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
+  classes: _propTypes2.default.object
 };
 
 exports.default = (0, _styles.withStyles)(styles)(VerseEditorStepper);
@@ -69324,6 +69329,10 @@ var AddBibleSVG = function AddBibleSVG(_ref) {
   );
 };
 
+AddBibleSVG.propTypes = {
+  title: _propTypes2.default.string.isRequired
+};
+
 var AddBible = function (_React$Component) {
   _inherits(AddBible, _React$Component);
 
@@ -69607,7 +69616,8 @@ AddPaneModal.propTypes = {
     languageId: _propTypes2.default.string
   })]),
   addNewBibleResource: _propTypes2.default.func.isRequired,
-  currentPaneSettings: _propTypes2.default.array.isRequired
+  currentPaneSettings: _propTypes2.default.array.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = AddPaneModal;
@@ -81197,7 +81207,8 @@ var WordDetails = function (_React$Component) {
 
 WordDetails.propTypes = {
   word: _propTypes2.default.object.isRequired,
-  lexiconData: _propTypes2.default.object.isRequired
+  lexiconData: _propTypes2.default.object.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = WordDetails;
@@ -81694,8 +81705,6 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(742);
-
 var _styles = __webpack_require__(20);
 
 var _ActionsArea = __webpack_require__(744);
@@ -81717,6 +81726,8 @@ var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 var _IconIndicators = __webpack_require__(781);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
+
+__webpack_require__(742);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81882,7 +81893,9 @@ VerseCheck.propTypes = {
   commentsReducer: _propTypes2.default.object.isRequired,
   resourcesReducer: _propTypes2.default.object.isRequired,
   loginReducer: _propTypes2.default.object.isRequired,
-  projectDetailsReducer: _propTypes2.default.object.isRequired
+  projectDetailsReducer: _propTypes2.default.object.isRequired,
+  mode: _propTypes2.default.string.isRequired,
+  dialogModalVisibility: _propTypes2.default.bool.isRequired
 };
 
 VerseCheck.defaultProps = {
@@ -100516,7 +100529,8 @@ MyLanguageModal.propTypes = {
   chapter: _propTypes2.default.number,
   currentVerse: _propTypes2.default.number,
   manifest: _propTypes2.default.object,
-  dir: _propTypes2.default.string.isRequired
+  dir: _propTypes2.default.string.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = MyLanguageModal;
@@ -100742,7 +100756,8 @@ SelectionArea.propTypes = {
   reference: _propTypes2.default.object,
   mode: _propTypes2.default.string.isRequired,
   verseText: _propTypes2.default.string.isRequired,
-  selections: _propTypes2.default.array.isRequired
+  selections: _propTypes2.default.array.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = SelectionArea;
@@ -100937,7 +100952,8 @@ RenderSelectionTextComponent.propTypes = {
   }).isRequired,
   mode: _propTypes2.default.string.isRequired,
   verseText: _propTypes2.default.string.isRequired,
-  selections: _propTypes2.default.array.isRequired
+  selections: _propTypes2.default.array.isRequired,
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = RenderSelectionTextComponent;
@@ -102405,8 +102421,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -102459,7 +102473,7 @@ var GroupMenu = function (_React$Component) {
           getGroupProgress = _props.getGroupProgress;
 
       var filterCount = helpers.getFilterCount(filters);
-      var showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
+      // const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
       return _react2.default.createElement(
         'div',
         { id: 'groups-menu-container' },
@@ -102533,12 +102547,13 @@ GroupMenu.propTypes = {
   projectDetailsReducer: _propTypes2.default.shape({
     projectSaveLocation: _propTypes2.default.string.isRequired
   }),
-  actions: _propTypes2.default.shape(_defineProperty({
+  actions: _propTypes2.default.shape({
     setFilter: _propTypes2.default.func.isRequired,
     groupMenuChangeGroup: _propTypes2.default.func.isRequired,
     groupMenuExpandSubMenu: _propTypes2.default.func.isRequired
-  }, 'groupMenuExpandSubMenu', _propTypes2.default.func.isRequired)),
-  getGroupProgress: _propTypes2.default.func.isRequired
+  }),
+  getGroupProgress: _propTypes2.default.func.isRequired,
+  getSelections: _propTypes2.default.func.isRequired
 };
 var i = 1;
 
@@ -102636,11 +102651,11 @@ GroupMenu.defaultProps = {
       }
     }
   },
-  actions: _defineProperty({
+  actions: {
     setFilter: function setFilter() {},
     groupMenuChangeGroup: function groupMenuChangeGroup() {},
     groupMenuExpandSubMenu: function groupMenuExpandSubMenu() {}
-  }, 'groupMenuExpandSubMenu', function groupMenuExpandSubMenu() {})
+  }
 };
 
 exports.default = GroupMenu;
@@ -102702,7 +102717,7 @@ var getFilterCount = exports.getFilterCount = function getFilterCount(filters) {
 
 /**
  * @description - Determines if the item should be navigatable
- * @param {object} groupItemData 
+ * @param {object} groupItemData
  * @returns {boolean}
  */
 var groupItemIsVisible = exports.groupItemIsVisible = function groupItemIsVisible(groupItemData, filters) {
@@ -102776,7 +102791,7 @@ function inView(_ref2, _ref3) {
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-function getStatusBadges(groupItemData, verseFinished, currentToolName) {
+function getStatusBadges(groupItemData, verseFinished) {
   var glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
@@ -102794,7 +102809,7 @@ function getStatusBadges(groupItemData, verseFinished, currentToolName) {
 /**
  * @description - Takes an array of glyph names, gets their React components and then renders the status badge
  * with the first icon and then a mouse-over tooltip with the rest of the icons and a chip to say how many icons there are.
- * @param {*} glyphs 
+ * @param {*} glyphs
  */
 function makeStatusBadgeComponents(glyphs) {
   var statusGlyphs = getGlyphIcons(glyphs);
@@ -102839,7 +102854,7 @@ function makeStatusBadgeComponents(glyphs) {
 
 /**
  * @description - Takes an array of strings that are glyph names and gets the proper React component to render them
- * @param {*} glyphs 
+ * @param {*} glyphs
  */
 function getGlyphIcons(glyphs) {
   var glyphicons = [];
@@ -107193,7 +107208,6 @@ var Groups = function Groups(_ref) {
       groupsIndex = _ref$groupsIndex === undefined ? [] : _ref$groupsIndex,
       _ref$groupsData = _ref.groupsData,
       groupsData = _ref$groupsData === undefined ? {} : _ref$groupsData,
-      projectSaveLocation = _ref.projectSaveLocation,
       getGroupProgress = _ref.getGroupProgress,
       groupMenuChangeGroup = _ref.groupMenuChangeGroup,
       groupMenuExpandSubMenu = _ref.groupMenuExpandSubMenu,
@@ -107350,7 +107364,6 @@ var Group = function (_React$Component) {
           manifest = _props.manifest,
           contextId = _props.contextId,
           getSelections = _props.getSelections,
-          classes = _props.classes,
           isVerseFinished = _props.isVerseFinished,
           currentToolName = _props.currentToolName;
 
@@ -107421,7 +107434,12 @@ Group.propTypes = {
   openGroup: _propTypes2.default.func.isRequired,
   progress: _propTypes2.default.number.isRequired,
   groupIndex: _propTypes2.default.object.isRequired,
-  active: _propTypes2.default.bool.isRequired
+  active: _propTypes2.default.bool.isRequired,
+  changeCurrentContextId: _propTypes2.default.func.isRequired,
+  getSelections: _propTypes2.default.func.isRequired,
+  classes: _propTypes2.default.object.isRequired,
+  isVerseFinished: _propTypes2.default.func.isRequired,
+  currentToolName: _propTypes2.default.string.isRequired
 };
 
 exports.default = (0, _styles.withStyles)(styles)(Group);
@@ -107773,6 +107791,10 @@ exports.default = GroupItems;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -107856,15 +107878,14 @@ GroupItem.propTypes = {
   bookName: _propTypes2.default.string.isRequired,
   selectionText: _propTypes2.default.string.isRequired,
   contextId: _propTypes2.default.object.isRequired,
-  actions: _propTypes2.default.shape({
-    changeCurrentContextId: _propTypes2.default.func.isRequired
-  }),
+  changeCurrentContextId: _propTypes2.default.func.isRequired,
   statusBadge: _propTypes2.default.object.isRequired,
   active: _propTypes2.default.bool.isRequired,
-  groupMenuHeader: _propTypes2.default.object
+  groupMenuHeader: _propTypes2.default.object,
+  activeGroupItemRef: _propTypes2.default.string.isRequired
 };
 
-module.exports = GroupItem;
+exports.default = GroupItem;
 
 /***/ }),
 /* 808 */
@@ -107881,6 +107902,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 __webpack_require__(809);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -107892,6 +107917,10 @@ var NoResults = function NoResults(_ref) {
     { className: 'no-results' },
     translate('menu.no_results')
   );
+};
+
+NoResults.propTypes = {
+  translate: _propTypes2.default.func.isRequired
 };
 
 exports.default = NoResults;

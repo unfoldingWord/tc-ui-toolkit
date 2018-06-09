@@ -5,11 +5,11 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-const styles = theme => ({
+const styles = {
   label: {
     fontSize: 14
   }
-});
+};
 
 /**
  * Renders the steps for editing a verse
@@ -42,7 +42,8 @@ class VerseEditorStepper extends React.Component {
 VerseEditorStepper.propTypes = {
   style: PropTypes.object,
   stepIndex: PropTypes.number.isRequired,
-  steps: PropTypes.arrayOf(PropTypes.string).isRequired
+  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(VerseEditorStepper);

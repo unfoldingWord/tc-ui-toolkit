@@ -50,11 +50,11 @@ const makeDialogActions = ({actionsEnabled, primaryLabel, secondaryLabel, onPrim
   return actions;
 };
 
-const styles = theme => ({
+const styles = {
   actionRoot: {
     padding: 0,
   }
-});
+};
 
 
 /**
@@ -84,7 +84,6 @@ class BaseDialog extends React.Component {
   render() {
     const {
       actionsEnabled,
-      modal,
       title,
       secondaryLabel,
       primaryLabel,
@@ -93,7 +92,6 @@ class BaseDialog extends React.Component {
       open,
       children,
       actions,
-      classes
     } = this.props;
 
     let dialogActions = actions ? actions : makeDialogActions({
@@ -103,11 +101,6 @@ class BaseDialog extends React.Component {
       onPrimaryClick: onSubmit,
       onSecondaryClick: onClose
     });
-
-    let isModal = dialogActions.length !== 0;
-    if (typeof modal !== 'undefined') {
-      isModal = modal;
-    }
 
     const theme = createMuiTheme();
     return (
@@ -151,8 +144,10 @@ BaseDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
-  children: PropTypes.any
+  children: PropTypes.any,
+  classes: PropTypes.object
 };
+
 BaseDialog.defaultProps = {
   actionsEnabled: true,
   modal: false

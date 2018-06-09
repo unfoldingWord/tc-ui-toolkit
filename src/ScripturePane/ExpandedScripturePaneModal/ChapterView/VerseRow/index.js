@@ -23,7 +23,6 @@ class VerseRow extends Component {
   render () {
     const {
       chapter,
-      verse,
       currentVerseNumber,
       currentPaneSettings,
       biblesWithHighlightedWords,
@@ -31,7 +30,7 @@ class VerseRow extends Component {
       translate
     } = this.props;
     let verseCells = <div />;
-    const isCurrent = currentVerseNumber === verse.toString();
+    // const isCurrent = currentVerseNumber === verse.toString();
 
     let colStyle = {
       minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
@@ -92,6 +91,7 @@ VerseRow.propTypes = {
   biblesWithHighlightedWords: PropTypes.object.isRequired,
   onEditTargetVerse: PropTypes.func.isRequired,
   bibles: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default VerseRow;

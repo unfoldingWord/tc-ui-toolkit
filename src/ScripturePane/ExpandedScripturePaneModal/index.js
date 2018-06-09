@@ -47,7 +47,6 @@ const ExpandedScripturePaneModal = ({
   show,
   onHide,
   title,
-  primaryLabel,
   contextId,
   biblesWithHighlightedWords,
   currentPaneSettings,

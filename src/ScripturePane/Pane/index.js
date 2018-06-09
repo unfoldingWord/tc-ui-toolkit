@@ -20,7 +20,6 @@ const Pane = ({
   verseElements,
   clickToRemoveResourceLabel,
 }) => {
-  console.log(bibleId)
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
 

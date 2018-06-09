@@ -97,7 +97,8 @@ MyLanguageModal.propTypes = {
   chapter: PropTypes.number,
   currentVerse: PropTypes.number,
   manifest: PropTypes.object,
-  dir: PropTypes.string.isRequired
+  dir: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired
 };
 
 export default MyLanguageModal;

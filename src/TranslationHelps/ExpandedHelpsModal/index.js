@@ -18,6 +18,7 @@ import './ExpandedHelpsModal.styles.css';
 const styles = {
   paper: {minWidth: 800, minHeight: 500}
 };
+
 const ExpandedHelpsModal = ({
   show,
   onHide,
@@ -58,7 +59,9 @@ ExpandedHelpsModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  article: PropTypes.string.isRequired
+  article: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ExpandedHelpsModal);
