@@ -107259,11 +107259,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styles = __webpack_require__(20);
-
 var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _styles = __webpack_require__(20);
 
 var _CircularProgress = __webpack_require__(804);
 
