@@ -5,7 +5,12 @@ import * as lexiconHelpers from '../helpers/lexiconHelpers';
 
 class WordDetails extends React.Component {
   render() {
-    const {lemma, morph, strong} = this.props.word;
+    const {
+      word:{
+      lemma, morph, strong
+    },
+    translate
+  } = this.props;
     const { lexiconData } = this.props;
     const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
@@ -16,10 +21,10 @@ class WordDetails extends React.Component {
 
     return (
       <div style={{ margin: '-10px 10px -20px', maxWidth: '400px' }}>
-        <span><strong>Lemma</strong> {lemma}</span><br/>
-        <span><strong>Morphology</strong> {morph}</span><br/>
-        <span><strong>Strongs</strong> {strong}</span><br/>
-        <span><strong>Lexicon</strong> {lexicon}</span><br/>
+        <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
+        <span><strong>{translate('morph')}</strong> {morph}</span><br/>
+        <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
+        <span><strong>{translate('lexicon')}</strong> {lexicon}</span><br/>
       </div>
     );
   }
@@ -27,7 +32,8 @@ class WordDetails extends React.Component {
 
 WordDetails.propTypes = {
   word: PropTypes.object.isRequired,
-  lexiconData: PropTypes.object.isRequired
+  lexiconData: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default WordDetails;

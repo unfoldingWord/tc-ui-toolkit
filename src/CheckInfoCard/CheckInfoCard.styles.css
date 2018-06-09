@@ -9,16 +9,16 @@
 }
 
 .linkActive {
-  font-weight: bold;
   display: flex;
   justify-content: flex-end;
+  font-weight: bold;
   margin: 5px 20px;
   cursor: pointer
 }
 
 .linkInactive {
+  display: none;
   font-weight: bold;
-  color: var(--text-color);
   margin: 5px 20px;
   text-align: right;
   cursor: default;

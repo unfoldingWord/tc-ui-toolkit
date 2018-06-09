@@ -23,25 +23,25 @@ class VerseRow extends Component {
   render () {
     const {
       chapter,
-      verse,
       currentVerseNumber,
       currentPaneSettings,
       biblesWithHighlightedWords,
       bibles,
+      translate
     } = this.props;
     let verseCells = <div />;
-    const isCurrent = currentVerseNumber === verse.toString();
+    // const isCurrent = currentVerseNumber === verse.toString();
 
     let colStyle = {
       minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
       borderRight: '1px solid var(--border-color)'
     };
-    let rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)' };
-    let isGrayVerseRow = false;
+    let rowStyle = { display: 'flex', margin: '0', color: 'var(--text-color-dark)', width: '100%' };
+
     if (currentVerseNumber % 2 === 0) {
       rowStyle.backgroundColor = 'var(--background-color-light)';
-      isGrayVerseRow = true;
     }
+
     if (currentPaneSettings.length > 0) {
       verseCells = currentPaneSettings.map((paneSetting, index) => {
         const { languageId, bibleId } = paneSetting;
@@ -52,6 +52,7 @@ class VerseRow extends Component {
         return (
           <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle}>
             <Verse
+              translate={translate}
               verseElements={verseElements}
               verseText={verseText}
               bibleId={bibleId}
@@ -90,6 +91,7 @@ VerseRow.propTypes = {
   biblesWithHighlightedWords: PropTypes.object.isRequired,
   onEditTargetVerse: PropTypes.func.isRequired,
   bibles: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default VerseRow;

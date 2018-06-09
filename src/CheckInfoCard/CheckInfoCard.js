@@ -26,14 +26,15 @@ const CheckInfoCard = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 CheckInfoCard.propTypes = {
   phrase: PropTypes.string,
   title: PropTypes.string,
+  seeMoreLabel: PropTypes.string,
   onSeeMoreClick: PropTypes.func,
   showSeeMoreButton: PropTypes.bool,
-}
+};
 
-export default CheckInfoCard
+export default CheckInfoCard;

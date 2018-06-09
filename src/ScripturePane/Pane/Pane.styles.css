@@ -1,7 +1,7 @@
 @import '../../index.styles.css';
 
 .pane-container {
-  height: 130px;
+  min-height: 130px;
   flex: 1;
   display: flex;
   min-width: 240px;

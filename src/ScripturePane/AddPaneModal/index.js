@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl } from 'react-bootstrap';
-import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-
-import { Glyphicon } from 'react-bootstrap';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { Glyphicon, FormControl } from 'react-bootstrap';
 
 import './AddPaneModal.styles.css';
 
@@ -51,10 +51,6 @@ const styles = {
     height: 25,
     marginTop: 5
   },
-  // title: {
-  //   display: 'flex',
-  //   flexDirection: 'row'
-  // },
   body: {
     textAlign: 'center'
   },
@@ -75,12 +71,13 @@ const AddPaneModal = ({
   selectedPane,
   addNewBibleResource,
   currentPaneSettings,
+  translate
 }) => {
   let panes = [];
   Object.keys(biblesWithHighlightedWords).forEach((languageId) => {
     Object.keys(biblesWithHighlightedWords[languageId]).forEach((bibleId) => {
       const { resource_title, language_name } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
-      const resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : " (Current project)";
+      const resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
       const displayText = `${language_name} (${languageId}) ${resourceText}`;
       const foundInCurrentPaneSettings = currentPaneSettings.filter((paneSetting) => {
         return paneSetting.bibleId === bibleId && paneSetting.languageId === languageId;
@@ -153,6 +150,7 @@ AddPaneModal.propTypes = {
   ]),
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default AddPaneModal;

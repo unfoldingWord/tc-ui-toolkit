@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import './Verse.styles.css';
@@ -15,9 +15,6 @@ const styles = {
     height: 28
   }
 };
-
-// constants
-const PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
 
 class Verse extends Component {
   constructor(props) {
@@ -39,7 +36,8 @@ class Verse extends Component {
       direction,
       chapter,
       verse,
-      onEdit
+      onEdit,
+      translate
     } = this.props;
     const verseIsPlaceHolder = !verseElements;
     const chapterVerseContent = direction === 'rtl' ? `${verse}:${chapter} ` : `${chapter}:${verse} `;
@@ -50,7 +48,7 @@ class Verse extends Component {
     if (verseIsPlaceHolder) {
       verseSpan = (
         <span className='placeholder-text'>
-          {PLACE_HOLDER_TEXT}
+          {translate('pane.missing_bible')}
         </span>
       );
     }
@@ -97,6 +95,7 @@ Verse.propTypes = {
     PropTypes.number.isRequired,
   ]),
   onEdit: PropTypes.func,
+  translate: PropTypes.func.isRequired,
 };
 
 export default Verse;

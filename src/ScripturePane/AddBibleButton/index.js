@@ -21,6 +21,10 @@ const AddBibleSVG = ({ title }) => (
   </svg>
 );
 
+AddBibleSVG.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
 class AddBible extends React.Component {
 
   render() {

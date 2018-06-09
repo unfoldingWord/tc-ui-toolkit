@@ -4,7 +4,7 @@ import WordDetails from '../WordDetails';
 // helpers
 import * as lexiconHelpers from './lexiconHelpers';
 
-export const onWordClick = (e, word, getLexiconData, showPopover) => {
+export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
     const {strong} = word;
     const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
@@ -13,7 +13,7 @@ export const onWordClick = (e, word, getLexiconData, showPopover) => {
     const positionCoord = e.target;
     const PopoverTitle = <strong style={{ fontSize: '1.2em' }}>{word.word}</strong>;
     const wordDetails = (
-      <WordDetails lexiconData={lexiconData} word={word} />
+      <WordDetails lexiconData={lexiconData} word={word} translate={translate} />
     );
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }

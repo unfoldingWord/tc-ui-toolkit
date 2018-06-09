@@ -96,15 +96,17 @@ class ChapterView extends Component {
       verseRows = verseNumbers.map(verseNumber => {
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
         return (
-          <VerseRow key={verseNumber}
-                    chapter={chapter}
-                    verse={verse}
-                    bibles={bibles}
-                    currentVerseNumber={verseNumber}
-                    currentPaneSettings={currentPaneSettings}
-                    biblesWithHighlightedWords={biblesWithHighlightedWords}
-                    onEditTargetVerse={this.handleEditTargetVerse}
-                    ref={node => this.verseRefs[refKey] = node} />
+          <VerseRow
+            translate={translate}
+            key={verseNumber}
+            chapter={chapter}
+            verse={verse}
+            bibles={bibles}
+            currentVerseNumber={verseNumber}
+            currentPaneSettings={currentPaneSettings}
+            biblesWithHighlightedWords={biblesWithHighlightedWords}
+            onEditTargetVerse={this.handleEditTargetVerse}
+            ref={node => this.verseRefs[refKey] = node} />
         );
       });
     }

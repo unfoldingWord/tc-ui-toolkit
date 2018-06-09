@@ -32,8 +32,7 @@ export const verseString = (verseText, selections) => {
   return verseTextSpans;
 };
 
-export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, isGrayVerseRow) => {
-  // TODO: isGrayVerseRow
+export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) => {
   const words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -62,17 +61,15 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         }
         // Save word to be used as previousWord in next word.
         previousWord = word;
-        // if isGrayVerseRow is true then background is gray in the ChapterViewModal.
         const paddingSpanStyle = {
-          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" :
-            isGrayVerseRow ? 'var(--background-color-light)' : '#FFFFFF'
+          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
         };
   
         if (word.strong) { // if clickable
           verseSpan.push(
             <span
               key={index.toString()}
-              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover)}
+              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate)}
               style={{ cursor: 'pointer' }}
             >
               <span style={paddingSpanStyle}>
@@ -87,7 +84,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));
         }
       } else if (isNestedMilestone(word)) { // if nested milestone
-        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, isGrayVerseRow, previousWord, wordSpacing);
+        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
         nestedMilestone.wordSpans.forEach((nestedWordSpan) => verseSpan.push(nestedWordSpan));
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;

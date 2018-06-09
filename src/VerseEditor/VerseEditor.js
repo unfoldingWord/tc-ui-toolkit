@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import EditScreen from './EditScreen';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
+// components
+import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
 import VerseEditorStepper from './VerseEditorStepper';
-import {MuiThemeProvider} from 'material-ui/styles';
+
 import './VerseEditor.styles.css';
 
 const steps = ['edit_verse', 'select_reasons'];
@@ -125,7 +126,7 @@ class VerseEditor extends React.Component {
         screen = (<ReasonScreen translate={translate} selectedReasons={reasons} onChange={this._handleReasonChange} />);
         break;
       default:
-        screen = "Oops!";
+        screen = translate('oops');
     }
 
     let nextStepButtonTitle = translate('buttons.next_button');
@@ -192,16 +193,3 @@ VerseEditor.propTypes = {
 };
 
 export default VerseEditor;
-
-// <VerseEditor
-// onSubmit={() => this.setState({showVersEditor: false})}
-// onCancel={() => this.setState({showVersEditor: false})}
-// open={this.state.showVersEditor}
-// translate={key => key}
-// verseTitle={'Title'}
-// verseText={'Verse Text'} />
-// glQuote={glQuote}
-// translate={translate}
-// title={title}
-// showHelps={this.state.showHelps}
-// toggleHelps={this.toggleHelps.bind(this)}

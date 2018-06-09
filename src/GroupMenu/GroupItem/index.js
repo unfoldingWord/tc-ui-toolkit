@@ -46,12 +46,11 @@ GroupItem.propTypes = {
   bookName: PropTypes.string.isRequired,
   selectionText: PropTypes.string.isRequired,
   contextId: PropTypes.object.isRequired,
-  actions: PropTypes.shape({
-    changeCurrentContextId: PropTypes.func.isRequired
-  }),
+  changeCurrentContextId: PropTypes.func.isRequired,
   statusBadge: PropTypes.object.isRequired,
   active: PropTypes.bool.isRequired,
-  groupMenuHeader: PropTypes.object
+  groupMenuHeader: PropTypes.object,
+  activeGroupItemRef: PropTypes.string.isRequired,
 };
 
-module.exports = GroupItem;
+export default GroupItem;

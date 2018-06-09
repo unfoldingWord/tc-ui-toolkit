@@ -20,7 +20,7 @@ export const getFilterCount = (filters) => {
 
 /**
  * @description - Determines if the item should be navigatable
- * @param {object} groupItemData 
+ * @param {object} groupItemData
  * @returns {boolean}
  */
 export const groupItemIsVisible = (groupItemData, filters) => {
@@ -75,7 +75,7 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
 * @description - gets the status badge component for the group menu row
 * @param {object} groupItemData
 */
-export function getStatusBadges(groupItemData, verseFinished, currentToolName) {
+export function getStatusBadges(groupItemData, verseFinished) {
   const glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
@@ -93,7 +93,7 @@ export function getStatusBadges(groupItemData, verseFinished, currentToolName) {
 /**
  * @description - Takes an array of glyph names, gets their React components and then renders the status badge
  * with the first icon and then a mouse-over tooltip with the rest of the icons and a chip to say how many icons there are.
- * @param {*} glyphs 
+ * @param {*} glyphs
  */
 export function makeStatusBadgeComponents(glyphs) {
   const statusGlyphs = getGlyphIcons(glyphs);
@@ -133,7 +133,7 @@ export function makeStatusBadgeComponents(glyphs) {
 
 /**
  * @description - Takes an array of strings that are glyph names and gets the proper React component to render them
- * @param {*} glyphs 
+ * @param {*} glyphs
  */
 export function getGlyphIcons(glyphs) {
   const glyphicons = [];

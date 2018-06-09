@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'deep-equal';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 
 import './ScripturePane.styles.css';
@@ -34,8 +34,15 @@ class ScripturePane extends Component {
   }
 
   componentWillMount() {
-    const {selections, contextId, getLexiconData, showPopover, bibles} = this.props;
-    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+    const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
+    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+      bibles,
+      selections,
+      contextId,
+      getLexiconData,
+      showPopover,
+      translate
+    );
     this.setState({biblesWithHighlightedWords});
   }
 
@@ -43,8 +50,15 @@ class ScripturePane extends Component {
     const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) ||
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
     if (reParseBibleData) {
-      const {selections, contextId, getLexiconData, showPopover, bibles} = nextProps;
-      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover);
+      const { selections, contextId, getLexiconData, showPopover, bibles, translate } = nextProps;
+      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+        bibles,
+        selections,
+        contextId,
+        getLexiconData,
+        showPopover,
+        translate
+      );
       this.setState({biblesWithHighlightedWords});
     }
   }
@@ -173,6 +187,7 @@ class ScripturePane extends Component {
             projectDetailsReducer={projectDetailsReducer}
           />
           <AddPaneModal
+            translate={translate}
             show={this.state.showAddPaneModal}
             onHide={this.hideAddBibleModal}
             title={translate('pane.add_resource_label')}
@@ -232,6 +247,6 @@ ScripturePane.defaultProps = {
   editTargetVerse: () => {},
   translate: () => {},
   bibles: {},
-}
+};
 
 export default ScripturePane;

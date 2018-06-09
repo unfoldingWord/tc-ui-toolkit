@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
 import {Glyphicon} from 'react-bootstrap';
 import MyTargetVerse from '../MyTargetVerse';
+
 import './MyLanguageModal.styles.css';
-import Toolbar from 'material-ui/Toolbar';
 
 class MyLanguageModal extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class MyLanguageModal extends Component {
   }
 
   render() {
-    let {show, onHide, targetLangBible, chapter, currentVerse, manifest} = this.props;
+    let {show, onHide, targetLangBible, chapter, currentVerse, manifest, translate} = this.props;
     const {target_language, project} = manifest;
     const title = target_language && target_language.book && target_language.book.name ?
       target_language.book.name :
@@ -83,7 +83,7 @@ class MyLanguageModal extends Component {
           {MyTargetLanguage}
         </DialogContent>
         <DialogActions disableActionSpacing={true}>
-          <button className='btn-prime' onClick={onHide}>Close</button>
+          <button className='btn-prime' onClick={onHide}>{translate('close')}</button>
         </DialogActions>
       </Dialog>
     );
@@ -97,7 +97,8 @@ MyLanguageModal.propTypes = {
   chapter: PropTypes.number,
   currentVerse: PropTypes.number,
   manifest: PropTypes.object,
-  dir: PropTypes.string.isRequired
+  dir: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired
 };
 
 export default MyLanguageModal;
