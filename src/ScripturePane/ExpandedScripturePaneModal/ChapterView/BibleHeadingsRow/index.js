@@ -6,7 +6,7 @@ import './BibleHeadingsRow.styles.css';
 
 const rowStyle = {
   display: 'flex',
-  height: "120px",
+  height: "80px",
   margin: '0',
   backgroundColor: 'var(--reverse-color)'
 };
