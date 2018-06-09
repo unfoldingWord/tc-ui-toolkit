@@ -56,7 +56,8 @@ SelectionArea.propTypes = {
   reference: PropTypes.object,
   mode: PropTypes.string.isRequired,
   verseText: PropTypes.string.isRequired,
-  selections: PropTypes.array.isRequired
+  selections: PropTypes.array.isRequired,
+  translate: PropTypes.func.isRequired
 };
 
 export default SelectionArea;

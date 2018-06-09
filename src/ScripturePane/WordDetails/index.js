@@ -32,7 +32,8 @@ class WordDetails extends React.Component {
 
 WordDetails.propTypes = {
   word: PropTypes.object.isRequired,
-  lexiconData: PropTypes.object.isRequired
+  lexiconData: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default WordDetails;

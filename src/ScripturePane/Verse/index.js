@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import './Verse.styles.css';
@@ -95,6 +95,7 @@ Verse.propTypes = {
     PropTypes.number.isRequired,
   ]),
   onEdit: PropTypes.func,
+  translate: PropTypes.func.isRequired,
 };
 
 export default Verse;

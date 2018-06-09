@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import React from 'react';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {mount} from 'enzyme';
 
-import ExpandedHelpsModal from './';
+import ExpandedHelpsModal from './index';
 
 describe('Test ExpandedHelpsModal component', () => {
   test('Test initial display', () => {
@@ -19,7 +18,7 @@ describe('Test ExpandedHelpsModal component', () => {
           article={'Test article'}
           translate={k => k}
         />
-      </MuiThemeProvider>)
-    expect(wrapper.find('.tool-bar-title').text(expectedTitle))
+      </MuiThemeProvider>);
+    expect(wrapper.find('.tool-bar-title').text(expectedTitle));
   });
 });

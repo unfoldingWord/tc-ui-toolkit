@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
 import {Glyphicon} from 'react-bootstrap';
 import {getTranslatedParts} from '../helpers/localizationHelpers';
-import Toolbar from 'material-ui/Toolbar';
 
 let DialogComponent = ({
   dialogModalVisibility, translate, handleSkip, handleClose

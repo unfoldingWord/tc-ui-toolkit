@@ -1,4 +1,4 @@
-const currentPaneSettings = [
+export const currentPaneSettings = [
   {
     "languageId": "targetLanguage",
     "bibleId": "targetBible"
@@ -13,7 +13,7 @@ const currentPaneSettings = [
   }
 ];
 
-const bibles = {
+export const bibles = {
   en: {
     ult: {
       1: {

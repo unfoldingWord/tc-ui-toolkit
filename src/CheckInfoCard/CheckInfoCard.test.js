@@ -11,7 +11,7 @@ describe('CheckInfoCard', () => {
       seeMoreLabel: "See More",
       showSeeMoreButton: true,
       onSeeMoreClick: () => {}
-    }
+    };
     const tree = renderer
       .create(
         <CheckInfoCard
@@ -25,4 +25,4 @@ describe('CheckInfoCard', () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-})
+});

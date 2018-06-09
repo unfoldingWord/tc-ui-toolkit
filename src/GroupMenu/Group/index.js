@@ -1,10 +1,12 @@
 import React from 'react';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import {CircularProgress} from 'material-ui/Progress';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {Glyphicon} from 'react-bootstrap';
+// components
 import GroupItems from '../GroupItems';
-import {withStyles} from 'material-ui/styles';
+// helpers
 import * as helpers from '../helpers';
 
 const styles = {
@@ -58,7 +60,6 @@ class Group extends React.Component {
       manifest,
       contextId,
       getSelections,
-      classes,
       isVerseFinished,
       currentToolName
     } = this.props;
@@ -107,7 +108,7 @@ class Group extends React.Component {
         </div>
       </MuiThemeProvider>
     );
-  };
+  }
 }
 
 Group.propTypes = {
@@ -120,7 +121,12 @@ Group.propTypes = {
   openGroup: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
   groupIndex: PropTypes.object.isRequired,
-  active: PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired,
+  changeCurrentContextId: PropTypes.func.isRequired,
+  getSelections: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  isVerseFinished: PropTypes.func.isRequired,
+  currentToolName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(Group);

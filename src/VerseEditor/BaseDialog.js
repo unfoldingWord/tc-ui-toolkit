@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
-import Modal from 'material-ui/Modal';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import {withStyles} from 'material-ui/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
 /**
  * Generates the dialog actions
  *
@@ -53,11 +50,11 @@ const makeDialogActions = ({actionsEnabled, primaryLabel, secondaryLabel, onPrim
   return actions;
 };
 
-const styles = theme => ({
+const styles = {
   actionRoot: {
     padding: 0,
   }
-});
+};
 
 
 /**
@@ -87,7 +84,6 @@ class BaseDialog extends React.Component {
   render() {
     const {
       actionsEnabled,
-      modal,
       title,
       secondaryLabel,
       primaryLabel,
@@ -96,7 +92,6 @@ class BaseDialog extends React.Component {
       open,
       children,
       actions,
-      classes
     } = this.props;
 
     let dialogActions = actions ? actions : makeDialogActions({
@@ -107,13 +102,7 @@ class BaseDialog extends React.Component {
       onSecondaryClick: onClose
     });
 
-    let isModal = dialogActions.length !== 0;
-    if (typeof modal !== 'undefined') {
-      isModal = modal;
-    }
-
     const theme = createMuiTheme();
-    const DialogWrapper = isModal ? Modal : Dialog;
     return (
       <MuiThemeProvider theme={theme}>
         <Dialog
@@ -155,8 +144,10 @@ BaseDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
-  children: PropTypes.any
+  children: PropTypes.any,
+  classes: PropTypes.object
 };
+
 BaseDialog.defaultProps = {
   actionsEnabled: true,
   modal: false
