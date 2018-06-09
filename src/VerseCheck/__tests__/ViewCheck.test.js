@@ -1,10 +1,8 @@
 /* eslint-env jest */
 import React from 'react';
-import fs from 'fs-extra';
 import VerseCheck from '../VerseCheck';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import renderer from 'react-test-renderer';
-import isEqual from 'deep-equal';
 
 const mock_translate = (text) => (text);
 const base_props = require('./fixtures/project/loadedProjectShortened');
@@ -14,7 +12,7 @@ let currentEdited = false;
 describe('View component Tests', () => {
   currentInvalidated = false;
   currentEdited = false;
-  
+
   test('Integrated View test', () => {
     // given
     const props = getBasePropertiesAndMockActions();
@@ -27,7 +25,7 @@ describe('View component Tests', () => {
         <VerseCheck {...props} />
       </MuiThemeProvider>
     );
-    
+
     // then
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -48,7 +46,7 @@ describe('View component Tests', () => {
     // then
     expect(component.toJSON()).toMatchSnapshot();
   });
-  
+
   test('Integrated View test with invalidated', () => {
     // given
     const props = getBasePropertiesAndMockActions();
@@ -105,10 +103,10 @@ function addMockActions(props) {
     clearSelection: () => jest.fn(),
     saveSelection: () => jest.fn(),
     goToNextOrPrevious: "next",
-    findIfVerseEdited: jest.fn(() => { 
-      return ( currentEdited) }),
-    findIfVerseInvalidated: jest.fn(() => { 
-      return (currentInvalidated) })
+    findIfVerseEdited: jest.fn(() => {
+      return ( currentEdited); }),
+    findIfVerseInvalidated: jest.fn(() => {
+      return (currentInvalidated); })
   };
 }
 

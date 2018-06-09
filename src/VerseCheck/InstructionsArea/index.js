@@ -43,7 +43,7 @@ let InstructionsArea = ({
               data-class="selection-tooltip"
               data-delay-hide="100"
               style={{ 'vertical-align': 'super', 'font-size': '0.8em' }}>
-              1 
+              1
             </strong>
           </span>
         </div>
@@ -88,7 +88,8 @@ InstructionsArea.propTypes = {
   selections: PropTypes.array.isRequired,
   dontShowTranslation: PropTypes.bool,
   verseText: PropTypes.string.isRequired,
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  invalidated: PropTypes.bool
 };
 
 export default InstructionsArea;
