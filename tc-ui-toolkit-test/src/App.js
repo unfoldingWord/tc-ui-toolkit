@@ -15028,7 +15028,6 @@ class App extends Component {
             findIfVerseEdited={() => (true)}
             findIfVerseInvalidated={() => (true)}
             alignedGLText={'Dummy'}/>
-          <ReactTooltip />
         </div>
         <TranslationHelps
           isShowHelpsExpanded={this.state.showHelpsModal}

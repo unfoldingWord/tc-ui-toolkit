@@ -491,6 +491,11 @@ exports[`View component Tests Integrated View test with invalidated 1`] = `
                     1
                   </strong>
                 </span>
+                <div
+                  className="__react_component_tooltip place-top type-dark "
+                  data-id="tooltip"
+                  id={undefined}
+                />
               </div>
               <span>
                 please_select
