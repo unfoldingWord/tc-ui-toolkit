@@ -8,6 +8,7 @@ import {Glyphicon} from 'react-bootstrap';
 import GroupItems from '../GroupItems';
 // helpers
 import * as helpers from '../helpers';
+import './Group.styles.css';
 
 const styles = {
   circle: {
