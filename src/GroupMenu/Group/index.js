@@ -86,8 +86,8 @@ class Group extends React.Component {
                   value={progress * 100}
                   thickness={10}
                   size={15}
-                  color={progress ? 'primary' : 'secondary'}
-                  style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20}}
+                  color={'primary'}
+                  style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20, color:'#40BDF2'}}
                 />
               </div>
               {groupIndex.name}
