@@ -62649,7 +62649,7 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".scripture-pane-container {\n  flex: 1;\n  margin: 10px;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.inner-container {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.panes-container {\n  flex: 1;\n  display: flex;\n  overflow-x: auto;\n}", ""]);
+exports.push([module.i, ".scripture-pane-container {\n  flex: 1;\n  height: 100%;\n  margin: 10px;\n  box-shadow: 0 3px 10px var(--background-color);\n  border-radius: 2px;\n}\n\n.inner-container {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.title-bar {\n  flex: 0 0 40px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px;\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.panes-container {\n  flex: 1;\n  display: flex;\n  overflow-x: auto;\n}\n", ""]);
 
 // exports
 

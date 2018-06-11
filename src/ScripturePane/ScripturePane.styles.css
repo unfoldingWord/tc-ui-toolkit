@@ -2,6 +2,7 @@
 
 .scripture-pane-container {
   flex: 1;
+  height: 100%;
   margin: 10px;
   box-shadow: 0 3px 10px var(--background-color);
   border-radius: 2px;
