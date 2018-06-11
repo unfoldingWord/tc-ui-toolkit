@@ -35,7 +35,7 @@ let CheckArea = ({
           actions={actions}
           dir={projectDetailsReducer.manifest.target_language.direction}
           translate={translate}
-          invalidated={invalidated}
+
         />
       );
       break;
@@ -65,6 +65,7 @@ let CheckArea = ({
             selections={selections}
             alignedGLText={alignedGLText}
             translate={translate}
+            invalidated={invalidated}
           />
         </div>
       );

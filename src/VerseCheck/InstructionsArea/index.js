@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './InstructionsArea.styles.css';
 import InstructionsAreaTextSelection from '../InstructionsAreaTextSelection';
-
+import ReactTooltip from 'react-tooltip';
 
 let InstructionsArea = ({
   alignedGLText,
@@ -46,6 +46,7 @@ let InstructionsArea = ({
               1
             </strong>
           </span>
+          <ReactTooltip />
         </div>
       );
     }

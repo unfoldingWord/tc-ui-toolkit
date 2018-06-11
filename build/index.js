@@ -82646,8 +82646,8 @@ var CheckArea = function CheckArea(_ref) {
         verseChanged: verseChanged,
         actions: actions,
         dir: projectDetailsReducer.manifest.target_language.direction,
-        translate: translate,
-        invalidated: invalidated
+        translate: translate
+
       });
       break;
     case 'comment':
@@ -82677,7 +82677,8 @@ var CheckArea = function CheckArea(_ref) {
           verseText: verseText,
           selections: selections,
           alignedGLText: alignedGLText,
-          translate: translate
+          translate: translate,
+          invalidated: invalidated
         })
       );
   }
@@ -101449,6 +101450,10 @@ var _InstructionsAreaTextSelection = __webpack_require__(767);
 
 var _InstructionsAreaTextSelection2 = _interopRequireDefault(_InstructionsAreaTextSelection);
 
+var _reactTooltip = __webpack_require__(789);
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var InstructionsArea = function InstructionsArea(_ref) {
@@ -101508,7 +101513,8 @@ var InstructionsArea = function InstructionsArea(_ref) {
               style: { 'vertical-align': 'super', 'font-size': '0.8em' } },
             '1'
           )
-        )
+        ),
+        _react2.default.createElement(_reactTooltip2.default, null)
       );
     }
   }
