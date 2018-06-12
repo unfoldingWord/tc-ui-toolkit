@@ -81973,7 +81973,7 @@ VerseCheck.defaultProps = {
   },
   loginReducer: {},
   alignedGLText: '',
-  mode: 'select',
+  mode: 'default',
   commentChanged: false,
   findIfVerseEdited: function findIfVerseEdited() {
     return false;
@@ -82045,7 +82045,7 @@ var ActionsArea = function ActionsArea(_ref) {
       onChange: actions.toggleReminder }),
     _react2.default.createElement(
       'div',
-      { style: { display: "flex" } },
+      { style: { display: "flex", marginLeft: 'auto' } },
       _react2.default.createElement(
         'button',
         {
@@ -82250,6 +82250,7 @@ var Bookmark = function Bookmark(_ref) {
       classes = _ref.classes;
 
   return _react2.default.createElement(_FormControlLabel2.default, {
+    style: { paddingLeft: 10 },
     control: _react2.default.createElement(_Switch2.default, {
       value: value,
       checked: checked,
@@ -82565,7 +82566,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-start;\n}", ""]);
 
 // exports
 
