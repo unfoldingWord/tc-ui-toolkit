@@ -25,6 +25,14 @@ class App extends Component {
 ```
 
 # Contributing
+## Git Branch Management
+1. `npm i translationCoreApps/tc-ui-toolkit#branch-name` on translationCore branch
+2. make changes to your branch in tc-ui-toolkit, then `git push`
+3. `rm -rf node_modules/tc-ui-toolkit; npm i tc-ui-toolkit;` (gets new changes from your branch) on translationCore branch
+4. Repeat 2 - 3
+When you are ready for a PR, change back to the original tc-ui-toolkit version. on translationCore branch
+After the feature branch on tc-ui-toolkit gets merged and published, then do a `npm update tc-ui-toolkit` in translationCore
+
 ## Environment setup
 - Run `npm run setup`
 
