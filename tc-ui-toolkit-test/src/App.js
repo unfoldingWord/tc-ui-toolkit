@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps} from 'tc-ui-toolkit';
-import ReactTooltip from 'react-tooltip';
 
 const bibles = {
   en: {

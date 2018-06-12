@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import React from 'react';
 import VerseCheck from '../VerseCheck';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import renderer from 'react-test-renderer';
 
 const mock_translate = (text) => (text);
@@ -21,9 +20,7 @@ describe('View component Tests', () => {
 
     // when
     const component = renderer.create(
-      <MuiThemeProvider>
         <VerseCheck {...props} />
-      </MuiThemeProvider>
     );
 
     // then
@@ -38,9 +35,7 @@ describe('View component Tests', () => {
 
     // when
     const component = renderer.create(
-      <MuiThemeProvider>
         <VerseCheck {...props} />
-      </MuiThemeProvider>
     );
 
     // then
@@ -55,9 +50,7 @@ describe('View component Tests', () => {
 
     // when
     const component = renderer.create(
-      <MuiThemeProvider>
         <VerseCheck {...props} />
-      </MuiThemeProvider>
     );
 
     // then
