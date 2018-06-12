@@ -102559,7 +102559,9 @@ GroupMenu.propTypes = {
 var i = 1;
 
 GroupMenu.defaultProps = {
-  getGroupProgress: function getGroupProgress() {},
+  getGroupProgress: function getGroupProgress() {
+    return 1;
+  },
   isVerseFinished: function isVerseFinished() {
     return false;
   },
@@ -107402,8 +107404,8 @@ var Group = function (_React$Component) {
                   value: progress * 100,
                   thickness: 10,
                   size: 15,
-                  color: progress ? 'primary' : 'secondary',
-                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
+                  color: 'primary',
+                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20, color: '#40BDF2' }
                 })
               ),
               groupIndex.name
