@@ -107188,11 +107188,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Group = __webpack_require__(803);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(810);
+var _NoResults = __webpack_require__(808);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
@@ -107200,7 +107204,7 @@ var _helpers = __webpack_require__(784);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-__webpack_require__(808);
+__webpack_require__(811);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -107260,6 +107264,23 @@ var Groups = function Groups(_ref) {
     { className: 'groups' },
     groupComponents
   );
+};
+
+Groups.propTypes = {
+  changeCurrentContextId: _propTypes2.default.func.isRequired,
+  filters: _propTypes2.default.object.isRequired,
+  groupsIndex: _propTypes2.default.array.isRequired,
+  groupsData: _propTypes2.default.object.isRequired,
+  getGroupProgress: _propTypes2.default.func.isRequired,
+  groupMenuChangeGroup: _propTypes2.default.func.isRequired,
+  groupMenuExpandSubMenu: _propTypes2.default.func.isRequired,
+  isSubMenuExpanded: _propTypes2.default.bool.isRequired,
+  manifest: _propTypes2.default.object.isRequired,
+  contextId: _propTypes2.default.object.isRequired,
+  translate: _propTypes2.default.func.isRequired,
+  getSelections: _propTypes2.default.func.isRequired,
+  isVerseFinished: _propTypes2.default.func.isRequired,
+  currentToolName: _propTypes2.default.string.isRequired
 };
 
 exports.default = Groups;
@@ -107901,8 +107922,46 @@ exports.default = GroupItem;
 /* 808 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(809);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+__webpack_require__(809);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NoResults = function NoResults(_ref) {
+  var translate = _ref.translate;
+  return _react2.default.createElement(
+    'div',
+    { className: 'no-results' },
+    translate('menu.no_results')
+  );
+};
+
+NoResults.propTypes = {
+  translate: _propTypes2.default.func.isRequired
+};
+
+exports.default = NoResults;
+
+/***/ }),
+/* 809 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(810);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -107923,56 +107982,18 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 809 */
+/* 810 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-
+exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, ".groups {\n  overflow-y: scroll;\n}", ""]);
+exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
 
 // exports
 
-
-/***/ }),
-/* 810 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-__webpack_require__(811);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NoResults = function NoResults(_ref) {
-  var translate = _ref.translate;
-  return _react2.default.createElement(
-    'div',
-    { className: 'no-results' },
-    translate('menu.no_results')
-  );
-};
-
-NoResults.propTypes = {
-  translate: _propTypes2.default.func.isRequired
-};
-
-exports.default = NoResults;
 
 /***/ }),
 /* 811 */
@@ -108005,10 +108026,10 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(14)(false);
 // imports
-exports.i(__webpack_require__(15), "");
+
 
 // module
-exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px;\n  padding: 15px;\n  color: var(--reverse-color);\n}", ""]);
+exports.push([module.i, ".groups {\n  overflow-y: scroll;\n}", ""]);
 
 // exports
 

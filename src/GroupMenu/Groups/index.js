@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Group from '../Group';
 import NoResults from '../NoResults';
 //helpers
@@ -53,9 +54,26 @@ const Groups = ({
   }
   return (
     <div className='groups'>
-    {groupComponents}
+      {groupComponents}
     </div>
   );
+};
+
+Groups.propTypes = {
+  changeCurrentContextId: PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired,
+  groupsIndex : PropTypes.array.isRequired,
+  groupsData : PropTypes.object.isRequired,
+  getGroupProgress: PropTypes.func.isRequired,
+  groupMenuChangeGroup: PropTypes.func.isRequired,
+  groupMenuExpandSubMenu: PropTypes.func.isRequired,
+  isSubMenuExpanded: PropTypes.bool.isRequired,
+  manifest: PropTypes.object.isRequired,
+  contextId: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
+  getSelections: PropTypes.func.isRequired,
+  isVerseFinished: PropTypes.func.isRequired,
+  currentToolName: PropTypes.string.isRequired
 };
 
 export default Groups;
