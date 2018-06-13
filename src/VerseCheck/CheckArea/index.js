@@ -20,6 +20,7 @@ let CheckArea = ({
   selections,
   projectDetailsReducer,
   translate,
+  invalidated,
   bibles,
   alignedGLText
 }) => {
@@ -34,6 +35,7 @@ let CheckArea = ({
           actions={actions}
           dir={projectDetailsReducer.manifest.target_language.direction}
           translate={translate}
+
         />
       );
       break;
@@ -49,6 +51,7 @@ let CheckArea = ({
             alignedGLText={alignedGLText}
             mode={mode}
             translate={translate}
+            invalidated={invalidated}
           />
         </div>);
       break;
@@ -62,6 +65,7 @@ let CheckArea = ({
             selections={selections}
             alignedGLText={alignedGLText}
             translate={translate}
+            invalidated={invalidated}
           />
         </div>
       );
@@ -100,6 +104,7 @@ CheckArea.propTypes = {
   actions: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
+  invalidated: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
   verseChanged: PropTypes.bool.isRequired,
   comment: PropTypes.string.isRequired,
