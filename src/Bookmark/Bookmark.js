@@ -24,6 +24,7 @@ const Bookmark = ({
 }) => {
   return (
     <FormControlLabel
+      style={{paddingLeft:10}}
       control={
         <Switch
           value={value}
