@@ -81973,7 +81973,7 @@ VerseCheck.defaultProps = {
   },
   loginReducer: {},
   alignedGLText: '',
-  mode: 'select',
+  mode: 'default',
   commentChanged: false,
   findIfVerseEdited: function findIfVerseEdited() {
     return false;
@@ -82045,7 +82045,7 @@ var ActionsArea = function ActionsArea(_ref) {
       onChange: actions.toggleReminder }),
     _react2.default.createElement(
       'div',
-      { style: { display: "flex" } },
+      { style: { display: "flex", marginLeft: 'auto' } },
       _react2.default.createElement(
         'button',
         {
@@ -82250,6 +82250,7 @@ var Bookmark = function Bookmark(_ref) {
       classes = _ref.classes;
 
   return _react2.default.createElement(_FormControlLabel2.default, {
+    style: { paddingLeft: 10 },
     control: _react2.default.createElement(_Switch2.default, {
       value: value,
       checked: checked,
@@ -82565,7 +82566,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-start;\n}", ""]);
 
 // exports
 
@@ -102558,7 +102559,9 @@ GroupMenu.propTypes = {
 var i = 1;
 
 GroupMenu.defaultProps = {
-  getGroupProgress: function getGroupProgress() {},
+  getGroupProgress: function getGroupProgress() {
+    return 1;
+  },
   isVerseFinished: function isVerseFinished() {
     return false;
   },
@@ -107291,6 +107294,8 @@ var _helpers = __webpack_require__(784);
 
 var helpers = _interopRequireWildcard(_helpers);
 
+__webpack_require__(820);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -107399,8 +107404,8 @@ var Group = function (_React$Component) {
                   value: progress * 100,
                   thickness: 10,
                   size: 15,
-                  color: progress ? 'primary' : 'secondary',
-                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20 }
+                  color: 'primary',
+                  style: { alignSelf: 'center', position: 'absolute', width: 20, height: 20, color: '#40BDF2' }
                 })
               ),
               groupIndex.name
@@ -108492,7 +108497,46 @@ exports = module.exports = __webpack_require__(14)(false);
 exports.i(__webpack_require__(15), "");
 
 // module
-exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  height: 100%;\n  max-width: 250px;\n  width: 100%;\n  overflow-y: scroll;\n  flex-shrink: 0;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
+exports.push([module.i, "#groups-menu-container  {\n  flex-direction: column;\n  background-color: var(--background-color-dark);\n  font-size: 12px;\n  max-width: 250px;\n  width: 100%;\n}\n\n#groups-menu-container .group .group-item .status-badge {\n  position: relative;\n  margin: 0 10px 0 20px;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container .group .group-item .status-badge .glyphicon svg {\n  width: 16px !important;\n  height: 16px !important;\n  fill: var(--reverse-color) !important;\n}\n\n#groups-menu-container .group .group-item .status-badge .badge {\n  position: absolute;\n  top: -4px;\n  right: -5px;\n  font-size: 6px;\n  color: var(--background-color); /* to give the text a transparent look */\n  border: solid 1px var(--background-color); /* to give the text a transparent look */\n  background-color: var(--reverse-color);\n  padding: 2px 3px;\n  margin: 0;\n}\n\n#groups-menu-container .group .group-item.active .status-badge .badge {\n  color: var(--accent-color);\n  border: solid 1px var(--accent-color);\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  padding: 8px 0 8px 8px !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon {\n  padding: 0 !important;\n  padding-right: 8px !important;\n  color: var(--text-color-dark) !important;\n  font-size: 16px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {\n  fill: var(--text-color-dark) !important;\n}\n\n#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {\n  height: 18px !important;\n  width: 18px !important;\n  margin-bottom: 5px;\n}\n\n#groups-menu-container .group .group-item .status-tooltip {\n  background-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-right:after {\n  border-right-color: var(--background-color-light);\n}\n\n#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {\n  border-bottom-color: var(--background-color-light);\n}\n\n#groups-menu-container #groups-menu-top {\n  color: var(--reverse-color);\n  background-color: var(--accent-color-dark);\n  width: calc(100% - 12px);\n  padding: 5px 0;\n  z-index: 10;\n}\n\n#groups-menu-container #groups-menu-header {\n  background-color: var(--accent-color-dark);\n  margin: 3px;\n  padding: 0 5px;\n  line-height: 40px;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n#groups-menu-container #groups-menu-title {\n  padding-left: 10px;\n}\n\n#groups-menu-top .filter-toggle {\n  position: relative;\n  float: right;\n  cursor: pointer;\n}\n\n#groups-menu-header .filter-icon {\n  padding: 6px;\n}\n\n#groups-menu-header .filter-icon.expanded {\n  background-color: var(--reverse-color);\n  color: var(--accent-color-dark);\n  border-radius: 50%;\n}\n\n#groups-menu-header .filter-badge {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: #933;\n  padding: 2px 4px;\n  margin: 0;\n  font-weight: normal;\n  cursor: pointer;\n}\n\n\n#groups-menu-filter {\n  margin: 0 15px;\n  font-size: 14px;\n  border-top: 1px solid var(--reverse-color);\n  padding-top: 10px;\n  padding-bottom: 5px;\n}\n\n#groups-menu-filter .option.disabled {\n  color: var(--text-color-light);\n}\n\n#groups-menu-filter .option span {\n  margin: 0 5px;\n}\n\n#groups-menu-filter .option .option-icon svg {\n  margin: 0 5px 5px 5px;\n}\n\n#groups-menu-container #groups {\n  overflow-y: scroll;\n}\n\n#groups-menu-filter.bubbles-wrapper {\n  display: grid;\n  grid-template-columns: auto 1fr;\n}\n\n#groups-menu-filter .filter-bubble {\n  color: var(--accent-color-dark);\n  background-color: var(--reverse-color);\n  margin: 2px;\n  display: inline-block;\n  border-radius: 15px;\n  padding: 2px 5px;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove {\n  cursor: pointer;\n}\n\n#groups-menu-filter .filter-bubble .filter-remove:before {\n  padding-right: 3px;\n}\n\n#groups-menu-filter .filter-bubble .filter-text {\n  vertical-align: text-bottom;\n}\n\n\n.menu-item-heading-normal {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  font-weight: normal;\n  color: var(--reverse-color);\n}\n\n.menu-item-heading-current {\n  display: block;\n  padding-top: 7px;\n  padding-right: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color);\n  background-color: var(--accent-color);\n  font-weight: bold;\n  color: var(--reverse-color)\n}\n\n\n.status-icon-ok {\n  color: var(--completed-color);\n  display: initial;\n}\n\n.status-icon-comment {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-pencil {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-flagged {\n  color: var(--highlight-color);\n  display: initial;\n}\n\n.status-icon-unchecked {\n  display: none;\n}\n.status-icon-bookmark {\n  color: var(--reverse-color);\n  display: initial;\n}\n\n.status-icon-invalidated {\n  display: initial;\n  height: 16px;\n  width: 16px;\n}\n\n.status-icon-blank {\n  display: initial;\n  color: none;\n  padding-left: 15px;\n}\n\n.active-submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--accent-color);\n  z-index: 1;\n}\n\n.submenu-item {\n  height: 38;\n  align-items: center;\n  display: flex;\n  padding: 10px 0;\n  cursor: pointer;\n  border-bottom: 1px solid var(--background-color-dark);\n  color: var(--reverse-color);\n  background-color: var(--background-color);\n}\n\n.group-item-text {\n  text-overflow: ellipsis;\n  padding: 0px 20px 0px 0px;\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n.slide-button {\n  float: right;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}\n\n.slide-button-collapsed {\n  float: left;\n  margin-top: 50vh;\n  z-index: 999;\n  color: var(--reverse-color);\n  background-color: var(--text-color-dark);\n  padding: 10px 0;\n  margin-right: -15px;\n  border-radius: 0 5px 5px 0;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 820 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(821);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(16)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 821 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".group {\n  overflow-y: scroll;\n  height: 100%;\n}", ""]);
 
 // exports
 

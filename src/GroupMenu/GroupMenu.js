@@ -113,7 +113,7 @@ GroupMenu.propTypes = {
 var i = 1;
 
 GroupMenu.defaultProps = {
-  getGroupProgress: () => {},
+  getGroupProgress: () => 1,
   isVerseFinished: () => false,
   getSelections: () => 'A selection',
   translate: key => key,

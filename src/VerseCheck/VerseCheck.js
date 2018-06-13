@@ -219,7 +219,7 @@ VerseCheck.defaultProps = {
   },
   loginReducer: {},
   alignedGLText: '',
-  mode: 'select',
+  mode: 'default',
   commentChanged: false,
   findIfVerseEdited: () => false,
   tags: [],

@@ -25,8 +25,8 @@ let ActionsArea = ({
         color='primary'
         checked={remindersReducer.enabled}
         label={translate('bookmark')}
-        onChange={actions.toggleReminder} />      
-      <div style={{display: "flex"}}>
+        onChange={actions.toggleReminder} />
+      <div style={{display: "flex", marginLeft: 'auto'}}>
         <button
           style={{width: "140px", marginRigth: "5px"}}
           className='btn-second'
