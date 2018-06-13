@@ -126,7 +126,7 @@ class VerseEditor extends React.Component {
   }
 
   render() {
-    const {translate, onCancel, open, verseTitle, verseText} = this.props;
+    const {translate, open, verseTitle, verseText} = this.props;
     const {stepIndex, newVerse, reasons} = this.state;
     let text = !this.state.verseChanged ? verseText : newVerse;
     let screen;
