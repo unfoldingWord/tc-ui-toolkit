@@ -38,7 +38,7 @@ class App extends Component {
 5. When the feature you implemented is ready and all tests are passing then you are ready for PRs.
 6. Make sure that you increment the version number for `tc-ui-toolkit` branch.
    - i.e. 0.1.4 -> 0.1.5 (For minor feature implemented)
-7. **run `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;`**
+7. **run `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;`** in the translationCore root directory
    - This will ensure that you do not have the tc-ui-toolkit branch as a npm version. That was merely for testing, not production.
 8. Make a PR on the `translationCoreApps/tc-ui-toolkit` repo with your feature implementation `my-feature-branch`
 9. After the feature branch on tc-ui-toolkit gets merged and run `npm publish` (if you don't have permissions, ask a dev that does), then ensure that the latest version of the `tc-ui-toolkit` is in the translationCore repo by running `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;` once more.
