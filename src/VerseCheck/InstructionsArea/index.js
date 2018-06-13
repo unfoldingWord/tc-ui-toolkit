@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './InstructionsArea.styles.css';
 import InstructionsAreaTextSelection from '../InstructionsAreaTextSelection';
-
+import ReactTooltip from 'react-tooltip';
 
 let InstructionsArea = ({
   alignedGLText,
@@ -10,7 +10,8 @@ let InstructionsArea = ({
   dontShowTranslation,
   verseText,
   mode,
-  translate
+  translate,
+  invalidated
 }) => {
 
   if (!verseText) {
@@ -29,9 +30,32 @@ let InstructionsArea = ({
     );
   }
 
+  function getSelectionString() {
+    if (invalidated) {
+      return (
+        <div>
+          <span>{translate('selection_invalidated')}
+            <strong
+              data-tip={translate('invalidated_tooltip')}
+              data-place="top"
+              data-effect="float"
+              data-type="dark"
+              data-class="selection-tooltip"
+              data-delay-hide="100"
+              style={{ 'vertical-align': 'super', 'font-size': '0.8em' }}>
+              1
+            </strong>
+          </span>
+          <ReactTooltip />
+        </div>
+      );
+    }
+  }
+
   if (mode === 'select') {
     return (
       <div className='instructions-area'>
+        {getSelectionString()}
         <span>{translate("please_select")}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
@@ -65,7 +89,8 @@ InstructionsArea.propTypes = {
   selections: PropTypes.array.isRequired,
   dontShowTranslation: PropTypes.bool,
   verseText: PropTypes.string.isRequired,
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  invalidated: PropTypes.bool
 };
 
 export default InstructionsArea;
