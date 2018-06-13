@@ -3,6 +3,7 @@ import Group from '../Group';
 import NoResults from '../NoResults';
 //helpers
 import * as helpers from '../helpers';
+import './Groups.styles.css';
 
 const Groups = ({
   changeCurrentContextId,
@@ -50,7 +51,11 @@ const Groups = ({
       );
     });
   }
-  return groupComponents;
+  return (
+    <div className='groups'>
+    {groupComponents}
+    </div>
+  );
 };
 
 export default Groups;
