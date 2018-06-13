@@ -53,12 +53,22 @@ class VerseEditor extends React.Component {
     this._isLastStep = this._isLastStep.bind(this);
     this._handleVerseChange = this._handleVerseChange.bind(this);
     this._handleReasonChange = this._handleReasonChange.bind(this);
+    this._resetState = this._resetState.bind(this);
     this.state = {
       stepIndex: 0,
       newVerse: '',
       verseChanged: false,
       reasons: []
     };
+  }
+
+  _resetState() {
+    this.setState({
+      stepIndex: 0,
+      newVerse: '',
+      verseChanged: false,
+      reasons: []
+    });
   }
 
   _handleBack() {
@@ -71,6 +81,7 @@ class VerseEditor extends React.Component {
   _handleCancel() {
     const {onCancel} = this.props;
     onCancel();
+    this._resetState();
   }
 
   _handleNext() {
@@ -78,6 +89,7 @@ class VerseEditor extends React.Component {
     const {verseText, onSubmit} = this.props;
     if (this._isLastStep()) {
       onSubmit(verseText, newVerse, reasons);
+      this._resetState();
     } else {
       this.setState({
         stepIndex: stepIndex + 1
@@ -169,7 +181,7 @@ class VerseEditor extends React.Component {
             {translate('buttons.back_button')}
           </button>
           <button className="btn-second"
-            onClick={onCancel}>
+            onClick={this._handleCancel}>
             {translate('buttons.cancel_button')}
           </button>
           <button className="btn-prime"

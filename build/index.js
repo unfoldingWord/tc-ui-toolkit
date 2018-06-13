@@ -66007,6 +66007,7 @@ var VerseEditor = function (_React$Component) {
     _this._isLastStep = _this._isLastStep.bind(_this);
     _this._handleVerseChange = _this._handleVerseChange.bind(_this);
     _this._handleReasonChange = _this._handleReasonChange.bind(_this);
+    _this._resetState = _this._resetState.bind(_this);
     _this.state = {
       stepIndex: 0,
       newVerse: '',
@@ -66017,6 +66018,16 @@ var VerseEditor = function (_React$Component) {
   }
 
   _createClass(VerseEditor, [{
+    key: '_resetState',
+    value: function _resetState() {
+      this.setState({
+        stepIndex: 0,
+        newVerse: '',
+        verseChanged: false,
+        reasons: []
+      });
+    }
+  }, {
     key: '_handleBack',
     value: function _handleBack() {
       var stepIndex = this.state.stepIndex;
@@ -66031,6 +66042,7 @@ var VerseEditor = function (_React$Component) {
       var onCancel = this.props.onCancel;
 
       onCancel();
+      this._resetState();
     }
   }, {
     key: '_handleNext',
@@ -66045,6 +66057,7 @@ var VerseEditor = function (_React$Component) {
 
       if (this._isLastStep()) {
         onSubmit(verseText, newVerse, reasons);
+        this._resetState();
       } else {
         this.setState({
           stepIndex: stepIndex + 1
@@ -66183,7 +66196,7 @@ var VerseEditor = function (_React$Component) {
           _react2.default.createElement(
             'button',
             { className: 'btn-second',
-              onClick: onCancel },
+              onClick: this._handleCancel },
             translate('buttons.cancel_button')
           ),
           _react2.default.createElement(
