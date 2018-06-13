@@ -26,7 +26,9 @@ class App extends Component {
 
 # Contributing
 ## Git Branch Management
-- Note I am using the feature branch named `my-feature-branch` which is a branch you would have created on the `translationCoreApps/tc-ui-toolkit` repo for your feature implementation.
+Note:
+- I am using the feature branch named `my-feature-branch` which is a branch you would have created on the `translationCoreApps/tc-ui-toolkit` repo for your feature implementation.
+- You do not have to do anything different if your changes are reflected in a translationCore tool. Because the tool will get its `node_modules` from translationCore during runtime.
 
 1. Checkout the master branch for `tc-ui-toolkit`(pull latest), create/checkout your branch called `my-feature-branch`.
 2. Implement your feature on `my-feature-branch` and test it in the `tc-ui-toolkit-test` app (That workflow is outlined below)
