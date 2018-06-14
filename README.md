@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/translationCoreApps/tc-ui-toolkit.svg?branch=master)](https://travis-ci.org/translationCoreApps/tc-ui-toolkit)
 
+![npm](https://img.shields.io/npm/dt/tc-ui-toolkit.svg)
+
+
 # tc-ui-toolkit
 React components used to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
 
