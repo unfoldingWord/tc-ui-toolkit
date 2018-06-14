@@ -100481,13 +100481,13 @@ var MyLanguageModal = function (_Component) {
             { disableTypography: true, className: 'verse-check-modal-title' },
             _react2.default.createElement(
               'h4',
-              { style: { margin: 'auto', color: 'var(--reverse-color)' } },
+              { style: { color: 'var(--reverse-color)' } },
               title
             ),
             _react2.default.createElement(_reactBootstrap.Glyphicon, {
               onClick: onHide,
               glyph: "remove",
-              style: { color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px" }
+              style: { position: 'absolute', right: 0, margin: 30, color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px" }
             })
           )
         ),
@@ -100623,7 +100623,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  color: var(--reverse-color);\n}", ""]);
+exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  color: var(--reverse-color);\n  display: flex;\n  position: relative;\n  width: 100%;\n  justify-content: center;\n}", ""]);
 
 // exports
 

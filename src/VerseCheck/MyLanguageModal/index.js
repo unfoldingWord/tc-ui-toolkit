@@ -71,11 +71,11 @@ class MyLanguageModal extends Component {
         onClose={onHide}>
         <Toolbar disableGutters={true} style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)"}}>
           <DialogTitle disableTypography={true} className='verse-check-modal-title'>
-            <h4 style={{margin: 'auto', color: 'var(--reverse-color)' }}>{title}</h4>
+            <h4 style={{color: 'var(--reverse-color)' }}>{title}</h4>
             <Glyphicon
               onClick={onHide}
               glyph={"remove"}
-              style={{color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px"}}
+              style={{position:'absolute', right:0, margin:30, color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px"}}
             />
           </DialogTitle>
         </Toolbar>
