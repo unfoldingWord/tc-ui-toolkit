@@ -108249,11 +108249,11 @@ var FilterBadge = function FilterBadge(_ref) {
       filterCount = _ref.filterCount,
       handleFilterShowHideToggle = _ref.handleFilterShowHideToggle;
 
-  return !expandFilter && filterCount && _react2.default.createElement(
+  return !expandFilter && filterCount ? _react2.default.createElement(
     "span",
     { className: "filter-badge badge", onClick: handleFilterShowHideToggle },
     filterCount
-  );
+  ) : null;
 };
 
 exports.default = FilterBadge;
