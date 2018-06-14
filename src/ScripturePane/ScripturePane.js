@@ -153,6 +153,7 @@ class ScripturePane extends Component {
                   return (
                     <Pane
                       key={index.toString()}
+                      translate={translate}
                       index={index}
                       chapter={chapter}
                       verse={verse}
