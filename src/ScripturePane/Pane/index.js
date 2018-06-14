@@ -19,6 +19,7 @@ const Pane = ({
   removePane,
   verseElements,
   clickToRemoveResourceLabel,
+  translate,
 }) => {
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
@@ -56,6 +57,7 @@ const Pane = ({
       </div>
       <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
+          translate={translate}
           verseElements={verseElements}
           bibleId={bibleId}
           direction={direction}
@@ -76,6 +78,7 @@ Pane.propTypes = {
   chapter: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,

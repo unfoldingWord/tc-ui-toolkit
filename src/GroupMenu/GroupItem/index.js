@@ -50,7 +50,7 @@ GroupItem.propTypes = {
   statusBadge: PropTypes.object.isRequired,
   active: PropTypes.bool.isRequired,
   groupMenuHeader: PropTypes.object,
-  activeGroupItemRef: PropTypes.string.isRequired,
+  activeGroupItemRef: PropTypes.object.isRequired,
 };
 
 export default GroupItem;
