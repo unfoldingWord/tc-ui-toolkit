@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Group from '../Group';
 import NoResults from '../NoResults';
 //helpers
 import * as helpers from '../helpers';
+import './Groups.styles.css';
 
 const Groups = ({
   changeCurrentContextId,
@@ -50,7 +52,28 @@ const Groups = ({
       );
     });
   }
-  return groupComponents;
+  return (
+    <div className='groups'>
+      {groupComponents}
+    </div>
+  );
+};
+
+Groups.propTypes = {
+  changeCurrentContextId: PropTypes.func.isRequired,
+  filters: PropTypes.object.isRequired,
+  groupsIndex : PropTypes.array.isRequired,
+  groupsData : PropTypes.object.isRequired,
+  getGroupProgress: PropTypes.func.isRequired,
+  groupMenuChangeGroup: PropTypes.func.isRequired,
+  groupMenuExpandSubMenu: PropTypes.func.isRequired,
+  isSubMenuExpanded: PropTypes.bool.isRequired,
+  manifest: PropTypes.object.isRequired,
+  contextId: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
+  getSelections: PropTypes.func.isRequired,
+  isVerseFinished: PropTypes.func.isRequired,
+  currentToolName: PropTypes.string.isRequired
 };
 
 export default Groups;
