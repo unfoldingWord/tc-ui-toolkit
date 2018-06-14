@@ -86,7 +86,7 @@ Verse.propTypes = {
     PropTypes.element,
     PropTypes.string,
     PropTypes.array,
-  ]).isRequired,
+  ]),
   bibleId: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
