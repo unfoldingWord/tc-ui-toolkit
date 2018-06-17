@@ -138,34 +138,38 @@ class ScripturePane extends Component {
             <div className="panes-container">
               {
                 currentPaneSettings.map((paneSettings, index) => {
-                  const {languageId, bibleId} = paneSettings;
-                  const {
-                    manifest: {
-                      language_name,
-                      direction,
-                      description,
-                    },
-                    bibleData
-                  } = biblesWithHighlightedWords[languageId][bibleId];
-                  const {chapter, verse} = contextId.reference;
-                  const verseElements = bibleData[chapter][verse];
+                  try {
+                    const {languageId, bibleId} = paneSettings;
+                    const {
+                      manifest: {
+                        language_name,
+                        direction,
+                        description,
+                      },
+                      bibleData
+                    } = biblesWithHighlightedWords[languageId][bibleId];
+                    const {chapter, verse} = contextId.reference;
+                    const verseElements = bibleData[chapter][verse];
 
-                  return (
-                    <Pane
-                      key={index.toString()}
-                      translate={translate}
-                      index={index}
-                      chapter={chapter}
-                      verse={verse}
-                      bibleId={bibleId}
-                      languageName={language_name}
-                      direction={direction}
-                      description={description}
-                      verseElements={verseElements}
-                      clickToRemoveResourceLabel={translate('pane.remove_resource')}
-                      removePane={this.removePane}
-                    />
-                  );
+                    return (
+                      <Pane
+                        key={index.toString()}
+                        translate={translate}
+                        index={index}
+                        chapter={chapter}
+                        verse={verse}
+                        bibleId={bibleId}
+                        languageName={language_name}
+                        direction={direction}
+                        description={description}
+                        verseElements={verseElements}
+                        clickToRemoveResourceLabel={translate('pane.remove_resource')}
+                        removePane={this.removePane}
+                      />
+                    );
+                  } catch (err) {
+                    console.warn(err);
+                  }
                 })
               }
               <AddBibleButton
