@@ -44,24 +44,28 @@ class VerseRow extends Component {
 
     if (currentPaneSettings.length > 0) {
       verseCells = currentPaneSettings.map((paneSetting, index) => {
-        const { languageId, bibleId } = paneSetting;
-        const { manifest: { direction }, bibleData } = biblesWithHighlightedWords[languageId][bibleId];
-        const verseElements = bibleData[chapter][currentVerseNumber];
-        const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+        try {
+          const { languageId, bibleId } = paneSetting;
+          const { manifest: { direction }, bibleData } = biblesWithHighlightedWords[languageId][bibleId];
+          const verseElements = bibleData[chapter][currentVerseNumber];
+          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
-        return (
-          <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle}>
-            <Verse
-              translate={translate}
-              verseElements={verseElements}
-              verseText={verseText}
-              bibleId={bibleId}
-              direction={direction}
-              chapter={chapter}
-              verse={currentVerseNumber}
-              onEdit={this.handleEdit} />
-          </Col>
-        );
+          return (
+            <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle}>
+              <Verse
+                translate={translate}
+                verseElements={verseElements}
+                verseText={verseText}
+                bibleId={bibleId}
+                direction={direction}
+                chapter={chapter}
+                verse={currentVerseNumber}
+                onEdit={this.handleEdit} />
+            </Col>
+          );
+        } catch (error) {
+          console.log(error);
+        }
       });
     }
 
