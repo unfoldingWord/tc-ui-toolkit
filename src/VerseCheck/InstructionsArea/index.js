@@ -22,7 +22,7 @@ let InstructionsArea = ({
     );
   }
 
-  if (selections.length === 0 && dontShowTranslation) {
+  if (selections.length === 0 && dontShowTranslation && !invalidated) {
     return (
       <div className='instructions-area'>
         <span>{translate("no_selection")}</span><br />
