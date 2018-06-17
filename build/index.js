@@ -100481,13 +100481,13 @@ var MyLanguageModal = function (_Component) {
             { disableTypography: true, className: 'verse-check-modal-title' },
             _react2.default.createElement(
               'h4',
-              { style: { margin: 'auto', color: 'var(--reverse-color)' } },
+              { style: { color: 'var(--reverse-color)' } },
               title
             ),
             _react2.default.createElement(_reactBootstrap.Glyphicon, {
               onClick: onHide,
               glyph: "remove",
-              style: { color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px" }
+              style: { position: 'absolute', right: 0, margin: 30, color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px" }
             })
           )
         ),
@@ -100623,7 +100623,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  color: var(--reverse-color);\n}", ""]);
+exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  color: var(--reverse-color);\n  display: flex;\n  position: relative;\n  width: 100%;\n  justify-content: center;\n}", ""]);
 
 // exports
 
@@ -108242,6 +108242,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FilterBadge = function FilterBadge(_ref) {
@@ -108249,11 +108253,17 @@ var FilterBadge = function FilterBadge(_ref) {
       filterCount = _ref.filterCount,
       handleFilterShowHideToggle = _ref.handleFilterShowHideToggle;
 
-  return !expandFilter && filterCount && _react2.default.createElement(
-    "span",
-    { className: "filter-badge badge", onClick: handleFilterShowHideToggle },
+  return !expandFilter && filterCount ? _react2.default.createElement(
+    'span',
+    { className: 'filter-badge badge', onClick: handleFilterShowHideToggle },
     filterCount
-  );
+  ) : null;
+};
+
+FilterBadge.propTypes = {
+  expandFilter: _propTypes2.default.bool.isRequired,
+  filterCount: _propTypes2.default.number.isRequired,
+  handleFilterShowHideToggle: _propTypes2.default.func.isRequired
 };
 
 exports.default = FilterBadge;
