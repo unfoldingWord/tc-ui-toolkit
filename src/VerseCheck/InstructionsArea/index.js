@@ -22,7 +22,7 @@ let InstructionsArea = ({
     );
   }
 
-  if (selections.length === 0 && dontShowTranslation && !invalidated) {
+  if (selections.length === 0 && dontShowTranslation && !invalidated) { // if invalidated we had previous selection
     return (
       <div className='instructions-area'>
         <span>{translate("no_selection")}</span><br />
@@ -52,7 +52,7 @@ let InstructionsArea = ({
     }
   }
 
-  if (mode === 'select') {
+  if (mode === 'select' || invalidated) { // if invalidated we had previous selection
     return (
       <div className='instructions-area'>
         {getSelectionString()}
