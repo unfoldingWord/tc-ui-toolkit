@@ -108,7 +108,7 @@ class ScripturePane extends Component {
   }
 
   render() {
-    const {
+    let {
       expandedScripturePaneTitle,
       currentPaneSettings,
       contextId,
@@ -121,6 +121,10 @@ class ScripturePane extends Component {
     // material-ui-theme, new color themes could be added here in the future
     const theme = createMuiTheme();
     const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
+    // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
+    currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
+      return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
+    });
 
     return (
       <MuiThemeProvider theme={theme}>
