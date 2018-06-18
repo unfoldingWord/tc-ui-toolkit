@@ -101496,7 +101496,8 @@ var InstructionsArea = function InstructionsArea(_ref) {
     );
   }
 
-  if (selections.length === 0 && dontShowTranslation) {
+  if (selections.length === 0 && dontShowTranslation && !invalidated) {
+    // if invalidated we had previous selection
     return _react2.default.createElement(
       'div',
       { className: 'instructions-area' },
@@ -101536,7 +101537,8 @@ var InstructionsArea = function InstructionsArea(_ref) {
     }
   }
 
-  if (mode === 'select') {
+  if (mode === 'select' || invalidated) {
+    // if invalidated we had previous selection
     return _react2.default.createElement(
       'div',
       { className: 'instructions-area' },
