@@ -88,7 +88,7 @@ let ActionsArea = ({
       </button>
     </div>
   );
-
+console.log(newSelections, selections);
   const confirmSelectionArea = (
     <div className='actions-area'>
       <button
