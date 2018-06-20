@@ -42,7 +42,7 @@ let InstructionsArea = ({
               data-type="dark"
               data-class="selection-tooltip"
               data-delay-hide="100"
-              style={{ 'vertical-align': 'super', 'font-size': '0.8em' }}>
+              style={{ verticalAlign: 'super', fontSize: '0.8em' }}>
               1
             </strong>
           </span>

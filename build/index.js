@@ -62331,6 +62331,10 @@ var ScripturePane = function (_Component) {
 
       var theme = (0, _styles.createMuiTheme)();
       var biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
+      // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
+      currentPaneSettings = currentPaneSettings.filter(function (paneSetting) {
+        return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
+      });
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -62360,34 +62364,38 @@ var ScripturePane = function (_Component) {
               'div',
               { className: 'panes-container' },
               currentPaneSettings.map(function (paneSettings, index) {
-                var languageId = paneSettings.languageId,
-                    bibleId = paneSettings.bibleId;
-                var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
-                    _biblesWithHighlighte2 = _biblesWithHighlighte.manifest,
-                    language_name = _biblesWithHighlighte2.language_name,
-                    direction = _biblesWithHighlighte2.direction,
-                    description = _biblesWithHighlighte2.description,
-                    bibleData = _biblesWithHighlighte.bibleData;
-                var _contextId$reference = contextId.reference,
-                    chapter = _contextId$reference.chapter,
-                    verse = _contextId$reference.verse;
+                try {
+                  var languageId = paneSettings.languageId,
+                      bibleId = paneSettings.bibleId;
+                  var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+                      _biblesWithHighlighte2 = _biblesWithHighlighte.manifest,
+                      language_name = _biblesWithHighlighte2.language_name,
+                      direction = _biblesWithHighlighte2.direction,
+                      description = _biblesWithHighlighte2.description,
+                      bibleData = _biblesWithHighlighte.bibleData;
+                  var _contextId$reference = contextId.reference,
+                      chapter = _contextId$reference.chapter,
+                      verse = _contextId$reference.verse;
 
-                var verseElements = bibleData[chapter][verse];
+                  var verseElements = bibleData[chapter][verse];
 
-                return _react2.default.createElement(_Pane2.default, {
-                  key: index.toString(),
-                  translate: translate,
-                  index: index,
-                  chapter: chapter,
-                  verse: verse,
-                  bibleId: bibleId,
-                  languageName: language_name,
-                  direction: direction,
-                  description: description,
-                  verseElements: verseElements,
-                  clickToRemoveResourceLabel: translate('pane.remove_resource'),
-                  removePane: _this2.removePane
-                });
+                  return _react2.default.createElement(_Pane2.default, {
+                    key: index.toString(),
+                    translate: translate,
+                    index: index,
+                    chapter: chapter,
+                    verse: verse,
+                    bibleId: bibleId,
+                    languageName: language_name,
+                    direction: direction,
+                    description: description,
+                    verseElements: verseElements,
+                    clickToRemoveResourceLabel: translate('pane.remove_resource'),
+                    removePane: _this2.removePane
+                  });
+                } catch (err) {
+                  console.warn(err);
+                }
               }),
               _react2.default.createElement(_AddBibleButton2.default, {
                 showAddBibleModal: this.showAddBibleModal,
@@ -65790,28 +65798,32 @@ var VerseRow = function (_Component) {
 
       if (currentPaneSettings.length > 0) {
         verseCells = currentPaneSettings.map(function (paneSetting, index) {
-          var languageId = paneSetting.languageId,
-              bibleId = paneSetting.bibleId;
-          var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
-              direction = _biblesWithHighlighte.manifest.direction,
-              bibleData = _biblesWithHighlighte.bibleData;
+          try {
+            var languageId = paneSetting.languageId,
+                bibleId = paneSetting.bibleId;
+            var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+                direction = _biblesWithHighlighte.manifest.direction,
+                bibleData = _biblesWithHighlighte.bibleData;
 
-          var verseElements = bibleData[chapter][currentVerseNumber];
-          var verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+            var verseElements = bibleData[chapter][currentVerseNumber];
+            var verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
-          return _react2.default.createElement(
-            _reactBootstrap.Col,
-            { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
-            _react2.default.createElement(_Verse2.default, {
-              translate: translate,
-              verseElements: verseElements,
-              verseText: verseText,
-              bibleId: bibleId,
-              direction: direction,
-              chapter: chapter,
-              verse: currentVerseNumber,
-              onEdit: _this2.handleEdit })
-          );
+            return _react2.default.createElement(
+              _reactBootstrap.Col,
+              { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
+              _react2.default.createElement(_Verse2.default, {
+                translate: translate,
+                verseElements: verseElements,
+                verseText: verseText,
+                bibleId: bibleId,
+                direction: direction,
+                chapter: chapter,
+                verse: currentVerseNumber,
+                onEdit: _this2.handleEdit })
+            );
+          } catch (error) {
+            console.log(error);
+          }
         });
       }
 
@@ -69822,6 +69834,7 @@ var verseArray = exports.verseArray = function verseArray() {
       PLACE_HOLDER_TEXT
     ));
   } else {
+    words = Array.isArray(words) ? words : words.verseObject;
     words.forEach(function (word, index, wordsArray) {
       var nextWord = wordsArray[index + 1];
       if ((0, _stringHelpers.isWord)(word)) {
@@ -81013,7 +81026,7 @@ function punctuationWordSpacing(word) {
 
 function textIsEmptyInVerseObject(verseText) {
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    return word.type === "milestone" || word.type === "word" && word.text.length > 0;
+    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0;
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
@@ -101528,7 +101541,7 @@ var InstructionsArea = function InstructionsArea(_ref) {
               'data-type': 'dark',
               'data-class': 'selection-tooltip',
               'data-delay-hide': '100',
-              style: { 'vertical-align': 'super', 'font-size': '0.8em' } },
+              style: { verticalAlign: 'super', fontSize: '0.8em' } },
             '1'
           )
         ),
@@ -108062,7 +108075,7 @@ GroupItem.propTypes = {
   statusBadge: _propTypes2.default.object.isRequired,
   active: _propTypes2.default.bool.isRequired,
   groupMenuHeader: _propTypes2.default.object,
-  activeGroupItemRef: _propTypes2.default.object.isRequired
+  activeGroupItemRef: _propTypes2.default.object
 };
 
 exports.default = GroupItem;

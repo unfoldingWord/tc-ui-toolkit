@@ -33,7 +33,7 @@ export const verseString = (verseText, selections) => {
 };
 
 export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) => {
-  const words = VerseObjectUtils.getWordListForVerse(verseText);
+  let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
@@ -41,6 +41,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText)) { // if empty verse string.
     verseSpan.push(<span key={PLACE_HOLDER_TEXT}>{PLACE_HOLDER_TEXT}</span>);
   } else {
+    words = Array.isArray(words) ? words : words.verseObject;
     words.forEach((word, index, wordsArray) => {
       const nextWord = wordsArray[index + 1];
       if (isWord(word)) {
@@ -49,7 +50,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         const text = (word.word || word.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
-  
+
         if (bibleId === 'ugnt' && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
@@ -64,7 +65,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         const paddingSpanStyle = {
           backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
         };
-  
+
         if (word.strong) { // if clickable
           verseSpan.push(
             <span
