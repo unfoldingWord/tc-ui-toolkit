@@ -82143,7 +82143,6 @@ var ActionsArea = function ActionsArea(_ref) {
       translate("save")
     )
   );
-
   var confirmSelectionArea = _react2.default.createElement(
     'div',
     { className: 'actions-area' },
