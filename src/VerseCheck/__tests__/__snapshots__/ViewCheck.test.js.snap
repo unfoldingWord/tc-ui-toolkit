@@ -497,8 +497,8 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                     data-type="dark"
                     style={
                       Object {
-                        "font-size": "0.8em",
-                        "vertical-align": "super",
+                        "fontSize": "0.8em",
+                        "verticalAlign": "super",
                       }
                     }
                   >
@@ -954,8 +954,8 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                     data-type="dark"
                     style={
                       Object {
-                        "font-size": "0.8em",
-                        "vertical-align": "super",
+                        "fontSize": "0.8em",
+                        "verticalAlign": "super",
                       }
                     }
                   >
