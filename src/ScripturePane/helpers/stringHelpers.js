@@ -29,7 +29,7 @@ export function punctuationWordSpacing(word) {
 
 export function textIsEmptyInVerseObject(verseText) {
   const emptyVerse = !verseText.verseObjects.some((word) => {
-    return word.type === "milestone" || ((word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== "↵↵");
+    return word.type === "milestone" || ((word.type === "word" || word.type === "text") && word.text.length > 0);
   });
 
   return typeof verseText === 'object' && emptyVerse;
