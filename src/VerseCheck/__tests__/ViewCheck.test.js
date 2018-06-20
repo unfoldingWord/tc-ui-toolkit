@@ -8,7 +8,7 @@ const base_props = require('./fixtures/project/loadedProjectShortened');
 let currentInvalidated = false;
 let currentEdited = false;
 
-describe('View component Tests', () => {
+describe('VerseCheck component:', () => {
   currentInvalidated = false;
   currentEdited = false;
 
@@ -50,7 +50,23 @@ describe('View component Tests', () => {
 
     // when
     const component = renderer.create(
-        <VerseCheck {...props} />
+      <VerseCheck {...props} />
+    );
+
+    // then
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  test('Integrated View test with default and invalidated', () => {
+    // given
+    const props = getBasePropertiesAndMockActions();
+    props.mode = ''; // default mode
+    currentInvalidated = true;
+    currentEdited = false;
+
+    // when
+    const component = renderer.create(
+      <VerseCheck {...props} />
     );
 
     // then
