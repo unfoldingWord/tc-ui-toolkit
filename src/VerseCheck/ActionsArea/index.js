@@ -90,7 +90,7 @@ let ActionsArea = ({
   );
 
   const confirmSelectionArea = (
-    <div className='select-actions-area'>
+    <div className='actions-area'>
       <button
         className='btn-second'
         style={{alignSelf: 'flex-start'}}
