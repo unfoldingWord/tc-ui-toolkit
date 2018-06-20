@@ -81026,7 +81026,7 @@ function punctuationWordSpacing(word) {
 
 function textIsEmptyInVerseObject(verseText) {
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== "↵↵";
+    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0;
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
