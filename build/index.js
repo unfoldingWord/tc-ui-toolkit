@@ -82146,7 +82146,7 @@ var ActionsArea = function ActionsArea(_ref) {
 
   var confirmSelectionArea = _react2.default.createElement(
     'div',
-    { className: 'actions-area' },
+    { className: 'select-actions-area' },
     _react2.default.createElement(
       'button',
       {
@@ -82589,7 +82589,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-start;\n}", ""]);
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-start;\n}\n\n.select-actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
 
 // exports
 

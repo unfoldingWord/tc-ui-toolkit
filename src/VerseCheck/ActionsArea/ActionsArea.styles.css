@@ -3,3 +3,9 @@
   display: flex;
   justify-content: flex-start;
 }
+
+.select-actions-area {
+  flex: 0 0 55px;
+  display: flex;
+  justify-content: flex-end;
+}
