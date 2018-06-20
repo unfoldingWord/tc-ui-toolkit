@@ -178,7 +178,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="select-actions-area"
       >
         <button
           className="btn-second"
@@ -989,7 +989,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="select-actions-area"
       >
         <button
           className="btn-second"
@@ -1218,7 +1218,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="select-actions-area"
       >
         <button
           className="btn-second"
