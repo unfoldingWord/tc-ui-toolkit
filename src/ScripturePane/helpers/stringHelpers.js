@@ -29,7 +29,8 @@ export function punctuationWordSpacing(word) {
 
 export function textIsEmptyInVerseObject(verseText) {
   const emptyVerse = !verseText.verseObjects.some((word) => {
-    return word.type === "milestone" || ((word.type === "word" || word.type === "text") && word.text.length > 0);
+    return word.type === "milestone" || ((word.type === "word" || word.type === "text") && word.text.length > 0) &&
+    (word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'); // exclude empty verses that inlcude the enter or space symbol.
   });
 
   return typeof verseText === 'object' && emptyVerse;
