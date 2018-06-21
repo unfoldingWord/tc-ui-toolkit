@@ -20,7 +20,7 @@ export const getBiblesWithHighlightedWords = (bibles, selections, contextId, get
           Object.keys(chapterData).forEach(verseNumber => {
             const verseData = chapterData[verseNumber];
             if (verseData && typeof verseData === 'string') { // if the verse content is string.
-              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseString(verseData, selections);
+              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseString(verseData, selections, translate);
             } else if (verseData) { // then the verse content is an array/verse objects.
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
             }

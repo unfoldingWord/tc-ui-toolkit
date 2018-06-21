@@ -48,7 +48,7 @@ class Verse extends Component {
     if (verseIsPlaceHolder) {
       verseSpan = (
         <span className='placeholder-text'>
-          {translate('pane.missing_bible')}
+          {translate('pane.missing_verse_warning')}
         </span>
       );
     }

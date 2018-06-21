@@ -254,7 +254,7 @@ ScripturePane.defaultProps = {
   showPopover: () => {},
   projectDetailsReducer: {},
   editTargetVerse: () => {},
-  translate: () => {},
+  translate: k => k,
   bibles: {},
 };
 
