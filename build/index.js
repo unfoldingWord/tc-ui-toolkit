@@ -62477,7 +62477,9 @@ ScripturePane.defaultProps = {
   showPopover: function showPopover() {},
   projectDetailsReducer: {},
   editTargetVerse: function editTargetVerse() {},
-  translate: function translate() {},
+  translate: function translate(k) {
+    return k;
+  },
   bibles: {}
 };
 
@@ -64773,7 +64775,7 @@ var Verse = function (_Component) {
         verseSpan = _react2.default.createElement(
           'span',
           { className: 'placeholder-text' },
-          translate('pane.missing_bible')
+          translate('pane.missing_verse_warning')
         );
       }
 
@@ -69724,7 +69726,7 @@ var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = func
             var verseData = chapterData[verseNumber];
             if (verseData && typeof verseData === 'string') {
               // if the verse content is string.
-              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseString)(verseData, selections);
+              parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseString)(verseData, selections, translate);
             } else if (verseData) {
               // then the verse content is an array/verse objects.
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseArray)(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
@@ -69782,16 +69784,12 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// constants
-
 // helpers
-var PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
-
-var verseString = exports.verseString = function verseString(verseText, selections) {
+var verseString = exports.verseString = function verseString(verseText, selections, translate) {
   verseText = (0, _usfmHelpers.removeMarker)(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
   // if empty string then verseText = place holder warning.
-  if (verseText.length === 0) verseText = PLACE_HOLDER_TEXT;
+  if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
   var verseTextSpans = _react2.default.createElement(
     'span',
     null,
@@ -69830,8 +69828,8 @@ var verseArray = exports.verseArray = function verseArray() {
     // if empty verse string.
     verseSpan.push(_react2.default.createElement(
       'span',
-      { key: PLACE_HOLDER_TEXT },
-      PLACE_HOLDER_TEXT
+      { key: translate('pane.missing_verse_warning') },
+      translate('pane.missing_verse_warning')
     ));
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
@@ -81026,7 +81024,7 @@ function punctuationWordSpacing(word) {
 
 function textIsEmptyInVerseObject(verseText) {
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0;
+    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;

@@ -46,22 +46,26 @@ class App extends Component {
         <GroupMenu />
         <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
           <ScripturePane
+            translate={k => k}
             bibles={bibles}
             contextId={contextId}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer}
           />
           <CheckInfoCard
+            translate={k => k}
             seeMoreLabel="see more"
             toggleHelps={this.toggleHelps.bind(this)}
             showHelps={this.state.showHelps} />
           <VerseCheck
+            translate={k => k}
             verseText={'dummy text'}
             findIfVerseEdited={() => (true)}
             findIfVerseInvalidated={() => (true)}
             alignedGLText={'Dummy'}/>
         </div>
         <TranslationHelps
+          translate={k => k}
           isShowHelpsExpanded={this.state.showHelpsModal}
           openExpandedHelpsModal={this.toggleHelpsModal.bind(this)}
           sidebarToggle={this.toggleHelps.bind(this)}
