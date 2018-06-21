@@ -82156,7 +82156,6 @@ var ActionsArea = function ActionsArea(_ref) {
       translate("save")
     )
   );
-
   var confirmSelectionArea = _react2.default.createElement(
     'div',
     { className: 'actions-area' },
@@ -82173,7 +82172,7 @@ var ActionsArea = function ActionsArea(_ref) {
       'button',
       {
         className: 'btn-second',
-        disabled: selections.length > 0 ? false : true,
+        disabled: newSelections.length > 0 ? false : true,
         onClick: clearSelection.bind(undefined)
       },
       _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'erase', style: { marginRight: '10px' } }),
@@ -82602,7 +82601,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-start;\n}", ""]);
+exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n  justify-content: flex-end;\n}", ""]);
 
 // exports
 

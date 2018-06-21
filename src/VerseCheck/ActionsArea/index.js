@@ -88,7 +88,6 @@ let ActionsArea = ({
       </button>
     </div>
   );
-
   const confirmSelectionArea = (
     <div className='actions-area'>
       <button
@@ -100,7 +99,7 @@ let ActionsArea = ({
       </button>
       <button
         className='btn-second'
-        disabled={selections.length > 0 ? false : true}
+        disabled={newSelections.length > 0 ? false : true}
         onClick={clearSelection.bind(this)}
       >
         <Glyphicon glyph='erase' style={{marginRight: '10px'}} />

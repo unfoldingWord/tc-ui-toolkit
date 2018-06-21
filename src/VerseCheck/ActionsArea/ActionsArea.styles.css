@@ -1,5 +1,5 @@
 .actions-area {
   flex: 0 0 55px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
