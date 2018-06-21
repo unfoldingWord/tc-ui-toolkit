@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps} from 'tc-ui-toolkit';
-import { bibles, contextId } from './assets/scripturePaneProps';
+import {
+  bibles,
+  contextId,
+  currentPaneSettings,
+  projectDetailsReducer
+} from './assets/scripturePaneProps';
 
 class App extends Component {
   constructor(props) {
@@ -43,34 +48,8 @@ class App extends Component {
           <ScripturePane
             bibles={bibles}
             contextId={contextId}
-            currentPaneSettings={[
-              {
-                "languageId": "targetLanguage",
-                "bibleId": "targetBible"
-              },
-              {
-                "languageId": "originalLanguage",
-                "bibleId": "ugnt"
-              },
-              {
-                "languageId": "en",
-                "bibleId": "ult"
-              }
-            ]}
-            projectDetailsReducer={{
-              manifest: {
-                project: {
-                  name: 'titus'
-                },
-                target_language: {
-                  book: {
-                    name: 'titus',
-                    id: 'tit'
-                  },
-                  direction: 'ltr'
-                }
-              }
-            }}
+            currentPaneSettings={currentPaneSettings}
+            projectDetailsReducer={projectDetailsReducer}
           />
           <CheckInfoCard
             seeMoreLabel="see more"

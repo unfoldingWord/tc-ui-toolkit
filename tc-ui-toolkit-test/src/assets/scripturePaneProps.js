@@ -10,327 +10,68 @@ export const contextId = {
   }
 };
 
+export const currentPaneSettings = [
+  {
+    "languageId": "targetLanguage",
+    "bibleId": "targetBible"
+  },
+  {
+    "languageId": "originalLanguage",
+    "bibleId": "ugnt"
+  },
+  {
+    "languageId": "en",
+    "bibleId": "ult"
+  }
+];
+
+export const projectDetailsReducer = {
+  manifest: {
+    project: {
+      name: 'titus'
+    },
+    target_language: {
+      book: {
+        name: 'titus',
+        id: 'tit'
+      },
+      direction: 'ltr'
+    }
+  }
+};
+
 export const bibles = {
   en: {
     ult: {
       1: {
         "1": {
-          "verseObject": [
+          "verseObjects": [
             {
-              text: "Paul and Timothy, servants of Christ Jesus, to all those set apart in Christ Jesus who are at Philippi, with the overseers and deacons.↵",
+              content: "+ \ft The best ancient copies omit v. 21, \fqa But this kind of demon does not go out except with prayer and fasting \fqa* . ",
+              tag: "f",
+              type: "footnote"
+            },
+            {
+              text: "↵↵",
               type: "text"
+            },
+            {
+              tag: "s5",
+              text: "↵",
+              type: "section"
+            },
+            {
+              tag: "p",
+              text: "↵",
+              type: "paragraph"
             }
           ]
         },
         "2": {
           "verseObjects": [
             {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐπί",
-              "morph": "Gr,P,,,,,D,,,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G19090",
-              "content": "ἐπ’",
-              "children": [
-                {
-                  "text": "with",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐλπίς",
-              "morph": "Gr,N,,,,,DFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G16800",
-              "content": "ἐλπίδι",
-              "children": [
-                {
-                  "text": "the",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 2
-                },
-                {
-                  "text": "certain",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "hope",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ζωή",
-              "morph": "Gr,N,,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G22220",
-              "content": "ζωῆς",
-              "children": [
-                {
-                  "text": "of",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 2
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "αἰώνιος",
-              "morph": "Gr,AA,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G01660",
-              "content": "αἰωνίου",
-              "children": [
-                {
-                  "text": "everlasting",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ζωή",
-              "morph": "Gr,N,,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G22220",
-              "content": "ζωῆς",
-              "children": [
-                {
-                  "text": "life",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ὅς",
-              "morph": "Gr,RR,,,,AFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G37390",
-              "content": "ἣν",
-              "children": [
-                {
-                  "text": "that",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "θεός",
-              "morph": "Gr,N,,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G23160",
-              "content": "Θεὸς",
-              "children": [
-                {
-                  "text": "God",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ὁ",
-              "morph": "Gr,EA,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G35880",
-              "content": "ὁ",
-              "children": [
-                {
-                  "text": "who",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἀψευδής",
-              "morph": "Gr,AA,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G08930",
-              "content": "ἀψευδὴς",
-              "children": [
-                {
-                  "text": "does",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "not",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "lie",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐπαγγέλλω",
-              "morph": "Gr,VTIAM3,,S,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G18610",
-              "content": "ἐπηγγείλατο",
-              "children": [
-                {
-                  "text": "promised",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "πρό",
-              "morph": "Gr,P,,,,,G,,,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G42530",
-              "content": "πρὸ",
-              "children": [
-                {
-                  "text": "before",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "αἰώνιος",
-              "morph": "Gr,AA,,,,GMP,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G01660",
-              "content": "αἰωνίων",
-              "children": [
-                {
-                  "text": "all",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "the",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 2,
-                  "occurrences": 2
-                },
-                {
-                  "text": "ages",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "of",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 2,
-                  "occurrences": 2
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "χρόνος",
-              "morph": "Gr,N,,,,,GMP,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G55500",
-              "content": "χρόνων",
-              "children": [
-                {
-                  "text": "time",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ". \n"
+              text: "Paul and Timothy, servants of Christ Jesus, to all those set apart in Christ Jesus who are at Philippi, with the overseers and deacons.↵",
+              type: "text"
             }
           ]
         },
