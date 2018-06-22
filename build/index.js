@@ -69826,11 +69826,11 @@ var verseArray = exports.verseArray = function verseArray() {
 
   if (verseText.verseObjects && (0, _stringHelpers.textIsEmptyInVerseObject)(verseText, bibleId)) {
     // if empty verse string.
-    console.log(translate('pane.missing_verse_warning'), '---heyyy!!3333');
+    console.log(verseText, '---heyyy!!3333');
     verseSpan.push(_react2.default.createElement(
       'span',
       { key: 'pane.missing_verse_warning' },
-      translate('pane.missing_verse_warning') + 'no way'
+      translate('pane.missing_verse_warning') + ' NOOO way'
     ));
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
@@ -81026,8 +81026,11 @@ function punctuationWordSpacing(word) {
 function textIsEmptyInVerseObject(verseText, bibleId) {
   if (bibleId === 'ult') console.log(verseText);
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    var condition = word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
-    return condition;
+    var condition1 = (word.type === "word" || word.type === "text") && word.text.length > 0;
+    var condition2 = word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
+    var condition3 = word.type === "milestone" || condition1;
+
+    return condition3 && condition2;
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
