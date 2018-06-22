@@ -69829,8 +69829,8 @@ var verseArray = exports.verseArray = function verseArray() {
     console.log(translate('pane.missing_verse_warning'), '---heyyy!!22');
     verseSpan.push(_react2.default.createElement(
       'span',
-      { key: translate('pane.missing_verse_warning') },
-      translate('pane.missing_verse_warning')
+      { key: 'pane.missing_verse_warning' },
+      translate('pane.missing_verse_warning') + 'no way'
     ));
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
