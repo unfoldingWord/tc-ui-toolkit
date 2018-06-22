@@ -69823,7 +69823,6 @@ var verseArray = exports.verseArray = function verseArray() {
   var wordSpacing = '';
   var previousWord = null;
   var verseSpan = [];
-  console.log('---heyyy!! there');
 
   if (verseText.verseObjects && (0, _stringHelpers.textIsEmptyInVerseObject)(verseText, bibleId)) {
     // if empty verse string.
@@ -81027,7 +81026,8 @@ function punctuationWordSpacing(word) {
 function textIsEmptyInVerseObject(verseText, bibleId) {
   if (bibleId === 'ult') console.log(verseText);
   var emptyVerse = !verseText.verseObjects.some(function (word) {
-    return word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
+    var condition = word.type === "milestone" || (word.type === "word" || word.type === "text") && word.text.length > 0 && word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
+    return condition;
   });
 
   return (typeof verseText === 'undefined' ? 'undefined' : _typeof(verseText)) === 'object' && emptyVerse;
