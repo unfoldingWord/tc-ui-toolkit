@@ -69826,11 +69826,11 @@ var verseArray = exports.verseArray = function verseArray() {
 
   if (verseText.verseObjects && (0, _stringHelpers.textIsEmptyInVerseObject)(verseText, bibleId)) {
     // if empty verse string.
-    console.log(verseText, '---heyyy!!3333');
+    console.log(verseText, '---heyyy!! FINALLL');
     verseSpan.push(_react2.default.createElement(
       'span',
-      { key: 'pane.missing_verse_warning' },
-      translate('pane.missing_verse_warning') + ' NOOO way'
+      { key: translate('pane.missing_verse_warning') },
+      translate('pane.missing_verse_warning')
     ));
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
@@ -81023,11 +81023,10 @@ function punctuationWordSpacing(word) {
   return lastChar === '"' || lastChar === "'" || lastChar === "-" ? '' : ' ';
 }
 
-function textIsEmptyInVerseObject(verseText, bibleId) {
-  if (bibleId === 'ult') console.log(verseText);
+function textIsEmptyInVerseObject(verseText) {
   var emptyVerse = !verseText.verseObjects.some(function (word) {
     var condition1 = (word.type === "word" || word.type === "text") && word.text.length > 0;
-    var condition2 = word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'; // exclude empty verses that inlcude the return character.
+    var condition2 = word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵' && word.text !== '\n\n' && word.text !== '\n' && word.text !== '\n\n\n'; // exclude empty verses that inlcude the return character.
     var condition3 = word.type === "milestone" || condition1;
 
     return condition3 && condition2;

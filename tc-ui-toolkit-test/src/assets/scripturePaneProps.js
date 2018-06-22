@@ -47,23 +47,23 @@ export const bibles = {
         "1": {
           "verseObjects": [
             {
-              content: "+ \ft The best ancient copies omit v. 21, \fqa But this kind of demon does not go out except with prayer and fasting \fqa* . ",
-              tag: "f",
-              type: "footnote"
+              "tag": "f",
+              "type": "footnote",
+              "content": "+ \\ft The best ancient copies omit v. 21, \\fqa But this kind of demon does not go out except with prayer and fasting \\fqa* . "
             },
             {
-              text: "↵↵",
-              type: "text"
+              "type": "text",
+              "text": "\n\n"
             },
             {
-              tag: "s5",
-              text: "↵",
-              type: "section"
+              "tag": "s5",
+              "type": "section",
+              "text": "\n"
             },
             {
-              tag: "p",
-              text: "↵",
-              type: "paragraph"
+              "tag": "p",
+              "type": "paragraph",
+              "text": "\n"
             }
           ]
         },

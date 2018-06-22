@@ -27,11 +27,10 @@ export function punctuationWordSpacing(word) {
   return ((lastChar === '"') || (lastChar === "'") || (lastChar === "-")) ? '' : ' ';
 }
 
-export function textIsEmptyInVerseObject(verseText, bibleId) {
-  if (bibleId === 'ult') console.log(verseText);
+export function textIsEmptyInVerseObject(verseText) {
   const emptyVerse = !verseText.verseObjects.some((word) => {
     const condition1 = (word.type === "word" || word.type === "text") && word.text.length > 0;
-    const condition2 = (word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'); // exclude empty verses that inlcude the return character.
+    const condition2 = (word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵') && (word.text !== '\n\n' && word.text !== '\n' && word.text !== '\n\n\n'); // exclude empty verses that inlcude the return character.
     const condition3 = word.type === "milestone" || condition1;
 
     return condition3 && condition2;
