@@ -37,7 +37,6 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   const verseSpan = [];
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
-    console.log(verseText, '---heyyy!! FINALLL');
     verseSpan.push(
       <span key={translate('pane.missing_verse_warning')}>
         {translate('pane.missing_verse_warning')}
