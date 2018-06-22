@@ -69826,7 +69826,7 @@ var verseArray = exports.verseArray = function verseArray() {
 
   if (verseText.verseObjects && (0, _stringHelpers.textIsEmptyInVerseObject)(verseText, bibleId)) {
     // if empty verse string.
-    console.log(translate('pane.missing_verse_warning'), '---heyyy!!22');
+    console.log(translate('pane.missing_verse_warning'), '---heyyy!!3333');
     verseSpan.push(_react2.default.createElement(
       'span',
       { key: 'pane.missing_verse_warning' },
