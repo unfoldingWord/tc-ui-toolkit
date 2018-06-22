@@ -28,7 +28,7 @@ export function punctuationWordSpacing(word) {
 }
 
 export function textIsEmptyInVerseObject(verseText, bibleId) {
-  if (bibleId === 'ult') console.log(verseText)
+  if (bibleId === 'ult') console.log(verseText);
   const emptyVerse = !verseText.verseObjects.some((word) => {
     return word.type === "milestone" || ((word.type === "word" || word.type === "text") && word.text.length > 0) &&
       (word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵'); // exclude empty verses that inlcude the return character.

@@ -38,7 +38,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   console.log('---heyyy!! there');
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
-    console.log(translate('pane.missing_verse_warning'), '---heyyy!!22')
+    console.log(translate('pane.missing_verse_warning'), '---heyyy!!22');
     verseSpan.push(<span key={translate('pane.missing_verse_warning')}>{translate('pane.missing_verse_warning')}</span>);
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
