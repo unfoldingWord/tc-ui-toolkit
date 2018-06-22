@@ -7,14 +7,12 @@ import * as highlightHelpers from './highlightHelpers';
 import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
 import { removeMarker } from './usfmHelpers';
 import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject } from './stringHelpers';
-// constants
-const PLACE_HOLDER_TEXT = '[WARNING: This Bible version does not include text for this reference.]';
 
-export const verseString = (verseText, selections) => {
+export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
   // if empty string then verseText = place holder warning.
-  if (verseText.length === 0) verseText = PLACE_HOLDER_TEXT;
+  if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
   let verseTextSpans = <span>{verseText}</span>;
 
   if (selections && selections.length > 0) {
@@ -38,8 +36,12 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   let previousWord = null;
   const verseSpan = [];
 
-  if (verseText.verseObjects && textIsEmptyInVerseObject(verseText)) { // if empty verse string.
-    verseSpan.push(<span key={PLACE_HOLDER_TEXT}>{PLACE_HOLDER_TEXT}</span>);
+  if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
+    verseSpan.push(
+      <span key={translate('pane.missing_verse_warning')}>
+        {translate('pane.missing_verse_warning')}
+      </span>
+    );
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
     words.forEach((word, index, wordsArray) => {

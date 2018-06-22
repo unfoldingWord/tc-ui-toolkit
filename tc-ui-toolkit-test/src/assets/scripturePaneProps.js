@@ -10,327 +10,68 @@ export const contextId = {
   }
 };
 
+export const currentPaneSettings = [
+  {
+    "languageId": "targetLanguage",
+    "bibleId": "targetBible"
+  },
+  {
+    "languageId": "originalLanguage",
+    "bibleId": "ugnt"
+  },
+  {
+    "languageId": "en",
+    "bibleId": "ult"
+  }
+];
+
+export const projectDetailsReducer = {
+  manifest: {
+    project: {
+      name: 'titus'
+    },
+    target_language: {
+      book: {
+        name: 'titus',
+        id: 'tit'
+      },
+      direction: 'ltr'
+    }
+  }
+};
+
 export const bibles = {
   en: {
     ult: {
       1: {
         "1": {
-          "verseObject": [
+          "verseObjects": [
             {
-              text: "Paul and Timothy, servants of Christ Jesus, to all those set apart in Christ Jesus who are at Philippi, with the overseers and deacons.↵",
-              type: "text"
+              "tag": "f",
+              "type": "footnote",
+              "content": "+ \\ft The best ancient copies omit v. 21, \\fqa But this kind of demon does not go out except with prayer and fasting \\fqa* . "
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "tag": "s5",
+              "type": "section",
+              "text": "\n"
+            },
+            {
+              "tag": "p",
+              "type": "paragraph",
+              "text": "\n"
             }
           ]
         },
         "2": {
           "verseObjects": [
             {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐπί",
-              "morph": "Gr,P,,,,,D,,,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G19090",
-              "content": "ἐπ’",
-              "children": [
-                {
-                  "text": "with",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐλπίς",
-              "morph": "Gr,N,,,,,DFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G16800",
-              "content": "ἐλπίδι",
-              "children": [
-                {
-                  "text": "the",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 2
-                },
-                {
-                  "text": "certain",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "hope",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ζωή",
-              "morph": "Gr,N,,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G22220",
-              "content": "ζωῆς",
-              "children": [
-                {
-                  "text": "of",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 2
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "αἰώνιος",
-              "morph": "Gr,AA,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G01660",
-              "content": "αἰωνίου",
-              "children": [
-                {
-                  "text": "everlasting",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ζωή",
-              "morph": "Gr,N,,,,,GFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G22220",
-              "content": "ζωῆς",
-              "children": [
-                {
-                  "text": "life",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ὅς",
-              "morph": "Gr,RR,,,,AFS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G37390",
-              "content": "ἣν",
-              "children": [
-                {
-                  "text": "that",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "θεός",
-              "morph": "Gr,N,,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G23160",
-              "content": "Θεὸς",
-              "children": [
-                {
-                  "text": "God",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ὁ",
-              "morph": "Gr,EA,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G35880",
-              "content": "ὁ",
-              "children": [
-                {
-                  "text": "who",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἀψευδής",
-              "morph": "Gr,AA,,,,NMS,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G08930",
-              "content": "ἀψευδὴς",
-              "children": [
-                {
-                  "text": "does",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "not",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "lie",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "ἐπαγγέλλω",
-              "morph": "Gr,VTIAM3,,S,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G18610",
-              "content": "ἐπηγγείλατο",
-              "children": [
-                {
-                  "text": "promised",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "πρό",
-              "morph": "Gr,P,,,,,G,,,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G42530",
-              "content": "πρὸ",
-              "children": [
-                {
-                  "text": "before",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "αἰώνιος",
-              "morph": "Gr,AA,,,,GMP,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G01660",
-              "content": "αἰωνίων",
-              "children": [
-                {
-                  "text": "all",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "the",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 2,
-                  "occurrences": 2
-                },
-                {
-                  "text": "ages",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                },
-                {
-                  "text": "of",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 2,
-                  "occurrences": 2
-                }
-              ]
-            },
-            {
-              "tag": "zaln",
-              "type": "milestone",
-              "lemma": "χρόνος",
-              "morph": "Gr,N,,,,,GMP,",
-              "occurrence": 1,
-              "occurrences": 1,
-              "strong": "G55500",
-              "content": "χρόνων",
-              "children": [
-                {
-                  "text": "time",
-                  "tag": "w",
-                  "type": "word",
-                  "occurrence": 1,
-                  "occurrences": 1
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ". \n"
+              text: "Paul and Timothy, servants of Christ Jesus, to all those set apart in Christ Jesus who are at Philippi, with the overseers and deacons.↵",
+              type: "text"
             }
           ]
         },
@@ -11953,191 +11694,16 @@ export const bibles = {
         "1": {
           "verseObjects": [
             {
-              "type": "text",
-              "text": "\n"
+              lemma: "",
+              morph: "Gr,",
+              strong: "G00000",
+              tag: "w",
+              text: "",
+              type: "word"
             },
             {
-              "tag": "p",
-              "type": "paragraph",
-              "text": "\n"
-            },
-            {
-              "text": "Παῦλος",
-              "tag": "w",
-              "type": "word",
-              "lemma": "Παῦλος",
-              "strong": "G39720",
-              "morph": "Gr,N,,,,,NMS,",
-              "tw": "rc://*/tw/dict/bible/names/paul"
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "text": "δοῦλος",
-              "tag": "w",
-              "type": "word",
-              "lemma": "δοῦλος",
-              "strong": "G14010",
-              "morph": "Gr,N,,,,,NMS,",
-              "tw": "rc://*/tw/dict/bible/other/servant"
-            },
-            {
-              "text": "Θεοῦ",
-              "tag": "w",
-              "type": "word",
-              "lemma": "θεός",
-              "strong": "G23160",
-              "morph": "Gr,N,,,,,GMS,",
-              "tw": "rc://*/tw/dict/bible/kt/god"
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "text": "ἀπόστολος",
-              "tag": "w",
-              "type": "word",
-              "lemma": "ἀπόστολος",
-              "strong": "G06520",
-              "morph": "Gr,N,,,,,NMS,",
-              "tw": "rc://*/tw/dict/bible/kt/apostle"
-            },
-            {
-              "text": "δὲ",
-              "tag": "w",
-              "type": "word",
-              "lemma": "δέ",
-              "strong": "G11610",
-              "morph": "Gr,CC,,,,,,,,"
-            },
-            {
-              "tag": "k",
-              "type": "milestone",
-              "tw": "rc://*/tw/dict/bible/kt/jesus",
-              "children": [
-                {
-                  "text": "Ἰησοῦ",
-                  "tag": "w",
-                  "type": "word",
-                  "lemma": "Ἰησοῦς",
-                  "strong": "G24240",
-                  "morph": "Gr,N,,,,,GMS,"
-                },
-                {
-                  "text": "Χριστοῦ",
-                  "tag": "w",
-                  "type": "word",
-                  "lemma": "χριστός",
-                  "strong": "G55470",
-                  "morph": "Gr,N,,,,,GMS,",
-                  "tw": "rc://*/tw/dict/bible/kt/christ"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "text": "κατὰ",
-              "tag": "w",
-              "type": "word",
-              "lemma": "κατά",
-              "strong": "G25960",
-              "morph": "Gr,P,,,,,A,,,"
-            },
-            {
-              "text": "πίστιν",
-              "tag": "w",
-              "type": "word",
-              "lemma": "πίστις",
-              "strong": "G41020",
-              "morph": "Gr,N,,,,,AFS,",
-              "tw": "rc://*/tw/dict/bible/kt/faith"
-            },
-            {
-              "text": "ἐκλεκτῶν",
-              "tag": "w",
-              "type": "word",
-              "lemma": "ἐκλεκτός",
-              "strong": "G15880",
-              "morph": "Gr,NS,,,,GMP,",
-              "tw": "rc://*/tw/dict/bible/kt/elect"
-            },
-            {
-              "text": "Θεοῦ",
-              "tag": "w",
-              "type": "word",
-              "lemma": "θεός",
-              "strong": "G23160",
-              "morph": "Gr,N,,,,,GMS,",
-              "tw": "rc://*/tw/dict/bible/kt/god"
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "text": "καὶ",
-              "tag": "w",
-              "type": "word",
-              "lemma": "καί",
-              "strong": "G25320",
-              "morph": "Gr,CC,,,,,,,,"
-            },
-            {
-              "text": "ἐπίγνωσιν",
-              "tag": "w",
-              "type": "word",
-              "lemma": "ἐπίγνωσις",
-              "strong": "G19220",
-              "morph": "Gr,N,,,,,AFS,",
-              "tw": "rc://*/tw/dict/bible/other/know"
-            },
-            {
-              "text": "ἀληθείας",
-              "tag": "w",
-              "type": "word",
-              "lemma": "ἀλήθεια",
-              "strong": "G02250",
-              "morph": "Gr,N,,,,,GFS,",
-              "tw": "rc://*/tw/dict/bible/kt/true"
-            },
-            {
-              "type": "text",
-              "text": ","
-            },
-            {
-              "text": "τῆς",
-              "tag": "w",
-              "type": "word",
-              "lemma": "ὁ",
-              "strong": "G35880",
-              "morph": "Gr,RR,,,,GFS,"
-            },
-            {
-              "text": "κατ’",
-              "tag": "w",
-              "type": "word",
-              "lemma": "κατά",
-              "strong": "G25960",
-              "morph": "Gr,P,,,,,A,,,"
-            },
-            {
-              "text": "εὐσέβειαν",
-              "tag": "w",
-              "type": "word",
-              "lemma": "εὐσέβεια",
-              "strong": "G21500",
-              "morph": "Gr,N,,,,,AFS,",
-              "tw": "rc://*/tw/dict/bible/kt/godly"
-            },
-            {
-              "type": "text",
-              "text": "\n\n"
+              text: "↵↵",
+              type: "text"
             }
           ]
         },
