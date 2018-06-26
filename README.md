@@ -28,6 +28,17 @@ class App extends Component {
 ```
 
 # Contributing
+## Environment setup
+- Run `npm run setup`
+
+  or
+- `npm i`
+- `npm run build`
+- `npm link`
+- `cd tc-ui-toolkit-test`
+- `npm i`
+- `npm link tc-ui-toolkit`
+
 ## Git Branch Management
 Note:
 - I am using the feature branch named `my-feature-branch` which is a branch you would have created on the `translationCoreApps/tc-ui-toolkit` repo for your feature implementation.
@@ -58,17 +69,6 @@ Note:
 6. `npm i`
 7. `npm publish`
 8. `git push`
-
-## Environment setup
-- Run `npm run setup`
-
-  or
-- `npm i`
-- `npm run build`
-- `npm link`
-- `cd tc-ui-toolkit-test`
-- `npm i`
-- `npm link tc-ui-toolkit`
 
 ## Component Development
 `tc-ui-toolkit` components should be developed inside their own folder in the `src` folder.
