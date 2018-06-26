@@ -41,16 +41,23 @@ Note:
 4. Ensure all changes work as expected on translationCore branch.
     - Note the workflow to make more changes from your `my-feature-branch` and test them on translationCore is to simply repeat step 3, and then run `rm -rf node_modules/tc-ui-toolkit; npm i tc-ui-toolkit;` in the translationCore root directory. This will give you the pushed changes without having to re-install all the `node_modules`
 5. When the feature you implemented is ready and all tests are passing then you are ready for PRs.
-6. Make sure that you increment the version number for `tc-ui-toolkit` branch.
-   - i.e. 0.1.4 -> 0.1.5 (For minor feature implemented)
-7. **run `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;`** in the translationCore root directory
+6. **run `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;`** in the translationCore root directory
    - This will ensure that you do not have the tc-ui-toolkit branch as a npm version. That was merely for testing, not production.
-8. Make a PR on the `translationCoreApps/tc-ui-toolkit` repo with your feature implementation `my-feature-branch`
-9. After the feature branch on tc-ui-toolkit gets merged and run `npm publish` (if you don't have permissions, ask a dev that does), then ensure that the latest version of the `tc-ui-toolkit` is in the translationCore repo by running `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;` once more.
-   - Note you can also make sure the published worked by checking the latest version here https://www.npmjs.com/package/tc-ui-toolkit
-10. Make a PR on the `translationCore` repo with a new branch that includes the latest `tc-ui-toolkit` version
+7. Make a PR on the `translationCoreApps/tc-ui-toolkit` repo with your feature implementation `my-feature-branch`
+8. After the feature branch on tc-ui-toolkit gets merged make a PR on the `translationCore` repo with a new branch that includes the latest `tc-ui-toolkit` version
     - Note: up until now you did not have to push any changes to a branch for the `tc-ui-toolkit` feature implementation. At this point you will have to do so in order to see changes you made in `my-feature-branch`, reflected in translationCore.
-11. Once the PR has been merged, verify the fix from `my-feature-branch` is still working, and you are :+1:
+9. Once the PR has been merged, verify the fix from `my-feature-branch` is still working.
+
+## Publish Workflow
+1. Review and test PR
+2. If requirements are met merge it
+3. Checkout to `master` branch
+4. run `git pull`
+5. Bump package version number
+   - Usually will usually be a minor version check for me https://docs.npmjs.com/cli/version
+6. `npm i`
+7. `npm publish`
+8. `git push`
 
 ## Environment setup
 - Run `npm run setup`
