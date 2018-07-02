@@ -69774,9 +69774,9 @@ var _highlightHelpers = __webpack_require__(640);
 
 var highlightHelpers = _interopRequireWildcard(_highlightHelpers);
 
-var _htmlElementsHelpers = __webpack_require__(732);
+var _htmlElementsHelpers = __webpack_require__(737);
 
-var _usfmHelpers = __webpack_require__(735);
+var _usfmHelpers = __webpack_require__(732);
 
 var _stringHelpers = __webpack_require__(731);
 
@@ -69788,6 +69788,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var verseString = exports.verseString = function verseString(verseText, selections, translate) {
   verseText = (0, _usfmHelpers.removeMarker)(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
+
+  // remove \s5 and \p markers from string
+  var regString = '\\\\\\w[0-9]*';
+  var regex = new RegExp(regString, 'g');
+  verseText = verseText.replace(regex, '');
+  // if string only contains spaces then make it an empty string
+  verseText.replace(/\s/g, '').length == 0 ? verseText = '' : verseText;
+
   // if empty string then verseText = place holder warning.
   if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
   var verseTextSpans = _react2.default.createElement(
@@ -69875,7 +69883,7 @@ var verseArray = exports.verseArray = function verseArray() {
             _react2.default.createElement(
               'span',
               { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
-              text
+              (0, _usfmHelpers.removeMarker)(text)
             )
           ));
         } else {
@@ -77965,6 +77973,8 @@ var _isEqual2 = _interopRequireDefault(_isEqual);
 
 var _stringHelpers = __webpack_require__(731);
 
+var _usfmHelpers = __webpack_require__(732);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function isWordArrayMatch(word, contextId) {
@@ -78042,7 +78052,7 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
         _react2.default.createElement(
           'span',
           { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
-          nestedWord.text
+          (0, _usfmHelpers.removeMarker)(nestedWord.text)
         )
       );
     } else if (nestedWord.text) {
@@ -78052,13 +78062,13 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
         return _react2.default.createElement(
           'span',
           { key: nestedWordSpanIndex, style: { backgroundColor: 'var(--highlight-color)' } },
-          nestedWord.text
+          (0, _usfmHelpers.removeMarker)(nestedWord.text)
         );
       } else {
         return _react2.default.createElement(
           'span',
           { key: nestedWordSpanIndex },
-          nestedWord.text
+          (0, _usfmHelpers.removeMarker)(nestedWord.text)
         );
       }
     }
@@ -81044,248 +81054,9 @@ function textIsEmptyInVerseObject(verseText) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createHighlightedSpan = exports.createTextSpan = exports.createNonClickableSpan = exports.onWordClick = undefined;
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _WordDetails = __webpack_require__(733);
-
-var _WordDetails2 = _interopRequireDefault(_WordDetails);
-
-var _lexiconHelpers = __webpack_require__(734);
-
-var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Components
-var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexiconData, showPopover, translate) {
-  if (word && word.strong) {
-    var strong = word.strong;
-
-    var entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
-    var lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
-    var lexiconData = getLexiconData(lexiconId, entryId);
-    var positionCoord = e.target;
-    var PopoverTitle = _react2.default.createElement(
-      'strong',
-      { style: { fontSize: '1.2em' } },
-      word.word
-    );
-    var wordDetails = _react2.default.createElement(_WordDetails2.default, { lexiconData: lexiconData, word: word, translate: translate });
-    showPopover(PopoverTitle, wordDetails, positionCoord);
-  }
-};
-// helpers
-var createNonClickableSpan = exports.createNonClickableSpan = function createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text) {
-  return _react2.default.createElement(
-    'span',
-    { key: index.toString() },
-    _react2.default.createElement(
-      'span',
-      { style: paddingSpanStyle },
-      padding
-    ),
-    _react2.default.createElement(
-      'span',
-      { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
-      text
-    )
-  );
-};
-
-var createTextSpan = exports.createTextSpan = function createTextSpan(index, text) {
-  return _react2.default.createElement(
-    'span',
-    { key: index },
-    text
-  );
-};
-
-var createHighlightedSpan = exports.createHighlightedSpan = function createHighlightedSpan(index, text) {
-  return _react2.default.createElement(
-    'span',
-    { key: index, style: { backgroundColor: 'var(--highlight-color)' } },
-    text
-  );
-};
-
-/***/ }),
-/* 733 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _lexiconHelpers = __webpack_require__(734);
-
-var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// helpers
-
-
-var WordDetails = function (_React$Component) {
-  _inherits(WordDetails, _React$Component);
-
-  function WordDetails() {
-    _classCallCheck(this, WordDetails);
-
-    return _possibleConstructorReturn(this, (WordDetails.__proto__ || Object.getPrototypeOf(WordDetails)).apply(this, arguments));
-  }
-
-  _createClass(WordDetails, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          _props$word = _props.word,
-          lemma = _props$word.lemma,
-          morph = _props$word.morph,
-          strong = _props$word.strong,
-          translate = _props.translate;
-      var lexiconData = this.props.lexiconData;
-
-      var entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
-      var lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
-      var lexicon = void 0;
-      if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
-        lexicon = lexiconData[lexiconId][entryId].long;
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { style: { margin: '-10px 10px -20px', maxWidth: '400px' } },
-        _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement(
-            'strong',
-            null,
-            translate('lemma')
-          ),
-          ' ',
-          lemma
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement(
-            'strong',
-            null,
-            translate('morph')
-          ),
-          ' ',
-          morph
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement(
-            'strong',
-            null,
-            translate('strongs')
-          ),
-          ' ',
-          strong
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement(
-            'strong',
-            null,
-            translate('lexicon')
-          ),
-          ' ',
-          lexicon
-        ),
-        _react2.default.createElement('br', null)
-      );
-    }
-  }]);
-
-  return WordDetails;
-}(_react2.default.Component);
-
-WordDetails.propTypes = {
-  word: _propTypes2.default.object.isRequired,
-  lexiconData: _propTypes2.default.object.isRequired,
-  translate: _propTypes2.default.func.isRequired
-};
-
-exports.default = WordDetails;
-
-/***/ }),
-/* 734 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/**
- * @description - Get the lexiconId from the strong's number
- * @param {String} strong - the strong's number to get the entryId from
- * @return {String} - the id of the lexicon
- */
-var lexiconIdFromStrongs = exports.lexiconIdFromStrongs = function lexiconIdFromStrongs(strong) {
-  var lexiconId = strong.replace(/\d+/, '') === 'G' ? 'ugl' : 'uhl';
-  return lexiconId;
-};
-/**
- * @description - Get the lexicon entryId from the strong's number
- * @param {String} strong - the strong's number to get the entryId from
- * @return {int} - the number of the entry
- */
-var lexiconEntryIdFromStrongs = exports.lexiconEntryIdFromStrongs = function lexiconEntryIdFromStrongs(strong) {
-  var entryId = parseInt(strong.replace(/\w/, '').slice(0, -1));
-  return entryId;
-};
-
-/***/ }),
-/* 735 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.removeMarker = undefined;
 
-var _usfmJs = __webpack_require__(736);
+var _usfmJs = __webpack_require__(733);
 
 var _usfmJs2 = _interopRequireDefault(_usfmJs);
 
@@ -81303,18 +81074,18 @@ var removeMarker = exports.removeMarker = function removeMarker(verseText) {
 };
 
 /***/ }),
-/* 736 */
+/* 733 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports.toJSON = __webpack_require__(737).usfmToJSON;
-module.exports.toUSFM = __webpack_require__(738).jsonToUSFM;
-module.exports.removeMarker = __webpack_require__(739).removeMarker;
+module.exports.toJSON = __webpack_require__(734).usfmToJSON;
+module.exports.toUSFM = __webpack_require__(735).jsonToUSFM;
+module.exports.removeMarker = __webpack_require__(736).removeMarker;
 
 /***/ }),
-/* 737 */
+/* 734 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81549,7 +81320,7 @@ var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
 };
 
 /***/ }),
-/* 738 */
+/* 735 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81661,7 +81432,7 @@ var jsonToUSFM = exports.jsonToUSFM = function jsonToUSFM(json) {
 };
 
 /***/ }),
-/* 739 */
+/* 736 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81691,6 +81462,247 @@ var removeMarker = exports.removeMarker = function removeMarker() {
     string = string.replace(_regex, '');
   }
   return string;
+};
+
+/***/ }),
+/* 737 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createHighlightedSpan = exports.createTextSpan = exports.createNonClickableSpan = exports.onWordClick = undefined;
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _WordDetails = __webpack_require__(738);
+
+var _WordDetails2 = _interopRequireDefault(_WordDetails);
+
+var _lexiconHelpers = __webpack_require__(739);
+
+var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
+
+var _usfmHelpers = __webpack_require__(732);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// helpers
+var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexiconData, showPopover, translate) {
+  if (word && word.strong) {
+    var strong = word.strong;
+
+    var entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
+    var lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
+    var lexiconData = getLexiconData(lexiconId, entryId);
+    var positionCoord = e.target;
+    var PopoverTitle = _react2.default.createElement(
+      'strong',
+      { style: { fontSize: '1.2em' } },
+      word.word
+    );
+    var wordDetails = _react2.default.createElement(_WordDetails2.default, { lexiconData: lexiconData, word: word, translate: translate });
+    showPopover(PopoverTitle, wordDetails, positionCoord);
+  }
+};
+// Components
+var createNonClickableSpan = exports.createNonClickableSpan = function createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text) {
+  return _react2.default.createElement(
+    'span',
+    { key: index.toString() },
+    _react2.default.createElement(
+      'span',
+      { style: paddingSpanStyle },
+      padding
+    ),
+    _react2.default.createElement(
+      'span',
+      { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
+      (0, _usfmHelpers.removeMarker)(text)
+    )
+  );
+};
+
+var createTextSpan = exports.createTextSpan = function createTextSpan(index, text) {
+  return _react2.default.createElement(
+    'span',
+    { key: index },
+    (0, _usfmHelpers.removeMarker)(text)
+  );
+};
+
+var createHighlightedSpan = exports.createHighlightedSpan = function createHighlightedSpan(index, text) {
+  return _react2.default.createElement(
+    'span',
+    { key: index, style: { backgroundColor: 'var(--highlight-color)' } },
+    (0, _usfmHelpers.removeMarker)(text)
+  );
+};
+
+/***/ }),
+/* 738 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _lexiconHelpers = __webpack_require__(739);
+
+var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// helpers
+
+
+var WordDetails = function (_React$Component) {
+  _inherits(WordDetails, _React$Component);
+
+  function WordDetails() {
+    _classCallCheck(this, WordDetails);
+
+    return _possibleConstructorReturn(this, (WordDetails.__proto__ || Object.getPrototypeOf(WordDetails)).apply(this, arguments));
+  }
+
+  _createClass(WordDetails, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          _props$word = _props.word,
+          lemma = _props$word.lemma,
+          morph = _props$word.morph,
+          strong = _props$word.strong,
+          translate = _props.translate;
+      var lexiconData = this.props.lexiconData;
+
+      var entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
+      var lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
+      var lexicon = void 0;
+      if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
+        lexicon = lexiconData[lexiconId][entryId].long;
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { style: { margin: '-10px 10px -20px', maxWidth: '400px' } },
+        _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(
+            'strong',
+            null,
+            translate('lemma')
+          ),
+          ' ',
+          lemma
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(
+            'strong',
+            null,
+            translate('morph')
+          ),
+          ' ',
+          morph
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(
+            'strong',
+            null,
+            translate('strongs')
+          ),
+          ' ',
+          strong
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(
+            'strong',
+            null,
+            translate('lexicon')
+          ),
+          ' ',
+          lexicon
+        ),
+        _react2.default.createElement('br', null)
+      );
+    }
+  }]);
+
+  return WordDetails;
+}(_react2.default.Component);
+
+WordDetails.propTypes = {
+  word: _propTypes2.default.object.isRequired,
+  lexiconData: _propTypes2.default.object.isRequired,
+  translate: _propTypes2.default.func.isRequired
+};
+
+exports.default = WordDetails;
+
+/***/ }),
+/* 739 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * @description - Get the lexiconId from the strong's number
+ * @param {String} strong - the strong's number to get the entryId from
+ * @return {String} - the id of the lexicon
+ */
+var lexiconIdFromStrongs = exports.lexiconIdFromStrongs = function lexiconIdFromStrongs(strong) {
+  var lexiconId = strong.replace(/\d+/, '') === 'G' ? 'ugl' : 'uhl';
+  return lexiconId;
+};
+/**
+ * @description - Get the lexicon entryId from the strong's number
+ * @param {String} strong - the strong's number to get the entryId from
+ * @return {int} - the number of the entry
+ */
+var lexiconEntryIdFromStrongs = exports.lexiconEntryIdFromStrongs = function lexiconEntryIdFromStrongs(strong) {
+  var entryId = parseInt(strong.replace(/\w/, '').slice(0, -1));
+  return entryId;
 };
 
 /***/ }),

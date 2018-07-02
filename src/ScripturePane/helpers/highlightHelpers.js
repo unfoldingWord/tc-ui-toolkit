@@ -1,6 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import { isWord, punctuationWordSpacing } from './stringHelpers';
+import { removeMarker } from './usfmHelpers';
 
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
@@ -77,7 +78,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
             {padding}
           </span>
           <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
-            {nestedWord.text}
+            {removeMarker(nestedWord.text)}
           </span>
         </span>
       );
@@ -87,13 +88,13 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
         return (
           <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
-            {nestedWord.text}
+            {removeMarker(nestedWord.text)}
           </span>
         );
       } else {
         return (
           <span key={nestedWordSpanIndex}>
-            {nestedWord.text}
+            {removeMarker(nestedWord.text)}
           </span>
         );
       }

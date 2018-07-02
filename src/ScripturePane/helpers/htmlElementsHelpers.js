@@ -3,6 +3,7 @@ import React from 'react';
 import WordDetails from '../WordDetails';
 // helpers
 import * as lexiconHelpers from './lexiconHelpers';
+import { removeMarker } from './usfmHelpers';
 
 export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
@@ -26,7 +27,7 @@ export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighl
         {padding}
       </span>
       <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
-        {text}
+        {removeMarker(text)}
       </span>
     </span>
   );
@@ -35,7 +36,7 @@ export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighl
 export const createTextSpan = (index, text) => {
   return (
     <span key={index}>
-      {text}
+      {removeMarker(text)}
     </span>
   );
 };
@@ -43,7 +44,7 @@ export const createTextSpan = (index, text) => {
 export const createHighlightedSpan = (index, text) => {
   return (
     <span key={index} style={{ backgroundColor: 'var(--highlight-color)' }}>
-      {text}
+      {removeMarker(text)}
     </span>
   );
 };
