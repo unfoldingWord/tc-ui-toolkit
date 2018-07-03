@@ -11,6 +11,14 @@ import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseOb
 export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
+
+  // remove \s5 and \p markers from string
+  const regString = '\\\\\\w[0-9]*';
+  const regex = new RegExp(regString, 'g');
+  verseText = verseText.replace(regex, '');
+  // if string only contains spaces then make it an empty string
+  verseText.replace(/\s/g, '').length == 0 ? verseText = '' : verseText;
+
   // if empty string then verseText = place holder warning.
   if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
   let verseTextSpans = <span>{verseText}</span>;
@@ -79,7 +87,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
                 {padding}
               </span>
               <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
-                {text}
+                {removeMarker(text)}
               </span>
             </span>
           );
