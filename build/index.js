@@ -69853,7 +69853,7 @@ var verseArray = exports.verseArray = function verseArray() {
         if (bibleId === 'ugnt' && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !(0, _deepEqual2.default)(previousWord, word) && highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
-        } else if (bibleId === 'ulb' || bibleId === 'ult' || bibleId === 'udt' && contextId.quote && word.content) {
+        } else if (contextId.quote && word.content) {
           var highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
