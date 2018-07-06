@@ -6,6 +6,7 @@ import { removeMarker } from './usfmHelpers';
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
   if (word && word.content && contextId && contextId.quote) {
+    console.log(word, word.content);
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
       if (contextId.quote.split(' ').includes(wordItem.content)) {
