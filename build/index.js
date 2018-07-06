@@ -69853,7 +69853,7 @@ var verseArray = exports.verseArray = function verseArray() {
         if (bibleId === 'ugnt' && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !(0, _deepEqual2.default)(previousWord, word) && highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
-        } else if (bibleId === 'ulb' || bibleId === 'ult' || bibleId === 'udt' && contextId.quote && word.content) {
+        } else if (contextId.quote && word.content) {
           var highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
@@ -77979,7 +77979,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function isWordArrayMatch(word, contextId) {
   var isMatch = false;
-  if (word && word.content && contextId && contextId.quote) {
+  if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(function (wordItem) {
       var foundMatch = false;
       if (contextId.quote.split(' ').includes(wordItem.content)) {
