@@ -69788,7 +69788,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var verseString = exports.verseString = function verseString(verseText, selections, translate) {
   verseText = (0, _usfmHelpers.removeMarker)(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
-
+  // remove \pi marker
+  verseText = verseText.replace(/\\pi/g, '');
   // remove \s5 and \p markers from string
   var regString = '\\\\\\w[0-9]*';
   var regex = new RegExp(regString, 'g');

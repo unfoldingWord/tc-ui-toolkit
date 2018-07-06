@@ -14041,7 +14041,7 @@ export const bibles = {
   targetLanguage: {
     targetBible: {
       1: {
-        "1": "\\f + \\ft The best ancient copies omit v. 21, \\fqa But this kind of demon does not go out except with prayer and fasting \\fqa* . \\f*\n\n\\s5\n\\p",
+        "1": "\\f + \\ft The best ancient copies omit v. 21, \\fqa But this kind of demon does not go out except with prayer and fasting \\fqa* . \\f*\n\n\\s5\n\\p \\pi hello",
         "2": "तैस हमेंशरी ज़िन्दगरे उमीदी पुड़, ज़ैसेरो वेइदो परमेशरे ज़ै झूठ न ज़ोए पेहिलो देंतेरो कीयोरोए|",
         "3": "पण ठीक वक्ते पुड़ अपनो वचन तैस प्रचारे सैहीं बांदो केरो, ज़ै इशे मुक्ति देंने बाले परमेशरेरे हुकमेरे मुताबिक मीं सोंफोरोए|",
         "4": "तीतुसेरे नोंवे ज़ैन विशवासे सैहीं मेरू सच़ू मठ्ठूए: बाजी परमेशर ते इशे मुक्ति देंने बाले प्रभु यीशु मसीहेरे तरफाँ अनुग्रह ते शान्ति भोती राए|\n\\s क्रेते मां तीतुसेरू कम्म",
