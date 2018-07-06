@@ -4,9 +4,8 @@ import { isWord, punctuationWordSpacing } from './stringHelpers';
 import { removeMarker } from './usfmHelpers';
 
 export function isWordArrayMatch(word, contextId) {
-  console.log(word);
   let isMatch = false;
-  if (word && word.content && contextId && contextId.quote) {
+  if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
       if (contextId.quote.split(' ').includes(wordItem.content)) {
