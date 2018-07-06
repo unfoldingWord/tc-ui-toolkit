@@ -11,7 +11,8 @@ import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseOb
 export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
-
+  // remove \pi marker
+  verseText = verseText.replace(/\\pi/g, '');
   // remove \s5 and \p markers from string
   const regString = '\\\\\\w[0-9]*';
   const regex = new RegExp(regString, 'g');
