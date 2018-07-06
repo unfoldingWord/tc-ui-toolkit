@@ -77979,7 +77979,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function isWordArrayMatch(word, contextId) {
   var isMatch = false;
-  if (word && word.content && contextId && contextId.quote) {
+  if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(function (wordItem) {
       var foundMatch = false;
       if (contextId.quote.split(' ').includes(wordItem.content)) {
