@@ -72,15 +72,17 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
 }
 
 /**
-* @description - gets the status badge component for the group menu row
-* @param {object} groupItemData
-*/
-export function getStatusBadges(groupItemData, verseFinished) {
+ * @description - gets the status badge component for the group menu row
+ * @param {object} groupItemData
+ * @param verseFinished
+ * @param verseIsValid
+ */
+export function getStatusBadges(groupItemData, verseFinished, verseIsValid) {
   const glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
     // The below ifs are in order of precedence of the status badges we show
-    if (groupItemData.invalidated) glyphs.push('invalidated');
+    if (groupItemData.invalidated || !verseIsValid) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
     if (groupItemData.selections || verseFinished) glyphs.push('ok');
     if (groupItemData.verseEdits) glyphs.push('pencil');

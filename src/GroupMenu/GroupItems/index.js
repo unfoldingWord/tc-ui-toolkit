@@ -11,6 +11,7 @@ const GroupItems = ({
   manifest,
   contextId,
   isVerseFinished,
+  isVerseValid,
   currentToolName,
   getSelections
 }) => {
@@ -33,7 +34,7 @@ const GroupItems = ({
         contextId={groupItemData.contextId}
         changeCurrentContextId={changeCurrentContextId}
         key={index}
-        statusBadge={helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), currentToolName)}
+        statusBadge={helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), isVerseValid(chapter, verse), currentToolName)}
         activeGroupItemRef={active ? activeGroupItemRef : null}
         active={active}
         bookName={bookName}
