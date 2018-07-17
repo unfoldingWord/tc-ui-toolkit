@@ -83,7 +83,7 @@ class GroupMenu extends React.Component {
 }
 
 GroupMenu.propTypes = {
-  isVerseValid: PropTypes.func,
+  isVerseValid: PropTypes.func.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   toolsReducer: PropTypes.shape({

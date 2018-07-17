@@ -22,6 +22,8 @@ const GroupItems = ({
       continue;
     }
 
+    console.warn('group items', isVerseValid);
+
     let active = isEqual(groupItemData.contextId, contextId);
     let useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
     let bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
