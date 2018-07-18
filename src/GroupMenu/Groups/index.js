@@ -20,6 +20,7 @@ const Groups = ({
   translate,
   getSelections,
   isVerseFinished,
+  isVerseValid,
   currentToolName
 }) => {
   let groupComponents = <NoResults translate={translate} />;
@@ -34,6 +35,7 @@ const Groups = ({
       return (
         <Group
           currentToolName={currentToolName}
+          isVerseValid={isVerseValid}
           isVerseFinished={isVerseFinished}
           contextId={contextId}
           getSelections={getSelections}
@@ -73,6 +75,7 @@ Groups.propTypes = {
   translate: PropTypes.func.isRequired,
   getSelections: PropTypes.func.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
+  isVerseValid: PropTypes.func.isRequired,
   currentToolName: PropTypes.string.isRequired
 };
 

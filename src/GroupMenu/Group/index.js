@@ -61,6 +61,7 @@ class Group extends React.Component {
       contextId,
       getSelections,
       isVerseFinished,
+      isVerseValid,
       currentToolName
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
@@ -97,6 +98,7 @@ class Group extends React.Component {
             (<GroupItems
               currentToolName={currentToolName}
               isVerseFinished={isVerseFinished}
+              isVerseValid={isVerseValid}
               getSelections={getSelections}
               changeCurrentContextId={changeCurrentContextId}
               contextId={contextId}
@@ -126,6 +128,7 @@ Group.propTypes = {
   getSelections: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
+  isVerseValid: PropTypes.func.isRequired,
   currentToolName: PropTypes.string.isRequired,
 };
 

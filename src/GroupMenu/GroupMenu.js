@@ -34,6 +34,7 @@ class GroupMenu extends React.Component {
       actions,
       getSelections,
       isVerseFinished,
+      isVerseValid,
       getGroupProgress
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
@@ -62,6 +63,7 @@ class GroupMenu extends React.Component {
         <Groups
           currentToolName={currentToolName}
           isVerseFinished={isVerseFinished}
+          isVerseValid={isVerseValid}
           getSelections={getSelections}
           translate={translate}
           changeCurrentContextId={actions.changeCurrentContextId}
@@ -81,6 +83,7 @@ class GroupMenu extends React.Component {
 }
 
 GroupMenu.propTypes = {
+  isVerseValid: PropTypes.func.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   toolsReducer: PropTypes.shape({
@@ -115,6 +118,7 @@ var i = 1;
 GroupMenu.defaultProps = {
   getGroupProgress: () => 1,
   isVerseFinished: () => false,
+  isVerseValid: () => true,
   getSelections: () => 'A selection',
   translate: key => key,
   toolsReducer: {currentToolName: 'translationWords'},
