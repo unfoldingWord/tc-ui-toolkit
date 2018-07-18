@@ -107967,8 +107967,6 @@ var GroupItems = function GroupItems(_ref) {
         continue;
       }
 
-      console.warn('group items', isVerseValid);
-
       var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
       var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
       var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
