@@ -104091,6 +104091,7 @@ var GroupMenu = function (_React$Component) {
           actions = _props.actions,
           getSelections = _props.getSelections,
           isVerseFinished = _props.isVerseFinished,
+          isVerseValid = _props.isVerseValid,
           getGroupProgress = _props.getGroupProgress;
 
       var filterCount = helpers.getFilterCount(filters);
@@ -104126,6 +104127,7 @@ var GroupMenu = function (_React$Component) {
         _react2.default.createElement(_Groups2.default, {
           currentToolName: currentToolName,
           isVerseFinished: isVerseFinished,
+          isVerseValid: isVerseValid,
           getSelections: getSelections,
           translate: translate,
           changeCurrentContextId: actions.changeCurrentContextId,
@@ -104147,6 +104149,7 @@ var GroupMenu = function (_React$Component) {
 }(_react2.default.Component);
 
 GroupMenu.propTypes = {
+  isVerseValid: _propTypes2.default.func.isRequired,
   isVerseFinished: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
   toolsReducer: _propTypes2.default.shape({
@@ -104184,6 +104187,9 @@ GroupMenu.defaultProps = {
   },
   isVerseFinished: function isVerseFinished() {
     return false;
+  },
+  isVerseValid: function isVerseValid() {
+    return true;
   },
   getSelections: function getSelections() {
     return 'A selection';
@@ -104411,15 +104417,17 @@ function inView(_ref2, _ref3) {
 }
 
 /**
-* @description - gets the status badge component for the group menu row
-* @param {object} groupItemData
-*/
-function getStatusBadges(groupItemData, verseFinished) {
+ * @description - gets the status badge component for the group menu row
+ * @param {object} groupItemData
+ * @param verseFinished
+ * @param verseIsValid
+ */
+function getStatusBadges(groupItemData, verseFinished, verseIsValid) {
   var glyphs = [];
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
     // The below ifs are in order of precedence of the status badges we show
-    if (groupItemData.invalidated) glyphs.push('invalidated');
+    if (groupItemData.invalidated || !verseIsValid) glyphs.push('invalidated');
     if (groupItemData.reminders) glyphs.push('bookmark');
     if (groupItemData.selections || verseFinished) glyphs.push('ok');
     if (groupItemData.verseEdits) glyphs.push('pencil');
@@ -107403,6 +107411,7 @@ var Groups = function Groups(_ref) {
       translate = _ref.translate,
       getSelections = _ref.getSelections,
       isVerseFinished = _ref.isVerseFinished,
+      isVerseValid = _ref.isVerseValid,
       currentToolName = _ref.currentToolName;
 
   var groupComponents = _react2.default.createElement(_NoResults2.default, { translate: translate });
@@ -107416,6 +107425,7 @@ var Groups = function Groups(_ref) {
       var active = contextId ? contextId.groupId === groupId : false;
       return _react2.default.createElement(_Group2.default, {
         currentToolName: currentToolName,
+        isVerseValid: isVerseValid,
         isVerseFinished: isVerseFinished,
         contextId: contextId,
         getSelections: getSelections,
@@ -107456,6 +107466,7 @@ Groups.propTypes = {
   translate: _propTypes2.default.func.isRequired,
   getSelections: _propTypes2.default.func.isRequired,
   isVerseFinished: _propTypes2.default.func.isRequired,
+  isVerseValid: _propTypes2.default.func.isRequired,
   currentToolName: _propTypes2.default.string.isRequired
 };
 
@@ -107572,6 +107583,7 @@ var Group = function (_React$Component) {
           contextId = _props.contextId,
           getSelections = _props.getSelections,
           isVerseFinished = _props.isVerseFinished,
+          isVerseValid = _props.isVerseValid,
           currentToolName = _props.currentToolName;
 
       var groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
@@ -107616,6 +107628,7 @@ var Group = function (_React$Component) {
           active && isSubMenuExpanded ? _react2.default.createElement(_GroupItems2.default, {
             currentToolName: currentToolName,
             isVerseFinished: isVerseFinished,
+            isVerseValid: isVerseValid,
             getSelections: getSelections,
             changeCurrentContextId: changeCurrentContextId,
             contextId: contextId,
@@ -107646,6 +107659,7 @@ Group.propTypes = {
   getSelections: _propTypes2.default.func.isRequired,
   classes: _propTypes2.default.object.isRequired,
   isVerseFinished: _propTypes2.default.func.isRequired,
+  isVerseValid: _propTypes2.default.func.isRequired,
   currentToolName: _propTypes2.default.string.isRequired
 };
 
@@ -107935,6 +107949,7 @@ var GroupItems = function GroupItems(_ref) {
       manifest = _ref.manifest,
       contextId = _ref.contextId,
       isVerseFinished = _ref.isVerseFinished,
+      isVerseValid = _ref.isVerseValid,
       currentToolName = _ref.currentToolName,
       getSelections = _ref.getSelections;
 
@@ -107952,6 +107967,8 @@ var GroupItems = function GroupItems(_ref) {
         continue;
       }
 
+      console.warn('group items', isVerseValid);
+
       var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
       var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
       var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
@@ -107963,7 +107980,7 @@ var GroupItems = function GroupItems(_ref) {
         contextId: groupItemData.contextId,
         changeCurrentContextId: changeCurrentContextId,
         key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), currentToolName),
+        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), isVerseValid(chapter, verse), currentToolName),
         activeGroupItemRef: active ? activeGroupItemRef : null,
         active: active,
         bookName: bookName,
