@@ -12,7 +12,9 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
-    const PopoverTitle = <strong style={{ fontSize: '1.2em' }}>{word.word}</strong>;
+    const PopoverTitle = (
+      <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
+    );
     const wordDetails = (
       <WordLexiconDetails lexiconData={lexiconData} word={word} translate={translate} />
     );
