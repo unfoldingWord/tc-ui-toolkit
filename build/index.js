@@ -81516,9 +81516,9 @@ var onWordClick = exports.onWordClick = function onWordClick(e, word, getLexicon
     var PopoverTitle = _react2.default.createElement(
       'strong',
       { style: { fontSize: '1.2em' } },
-      word.word
+      word.text
     );
-    var wordDetails = _react2.default.createElement(_WordLexiconDetails2.default, { lexiconData: lexiconData, word: word, translate: translate });
+    var wordDetails = _react2.default.createElement(_WordLexiconDetails2.default, { lexiconData: lexiconData, wordObject: word, translate: translate });
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }
 };
@@ -81628,10 +81628,10 @@ var WordLexiconDetails = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          _props$word = _props.word,
-          lemma = _props$word.lemma,
-          morph = _props$word.morph,
-          strong = _props$word.strong,
+          _props$wordObject = _props.wordObject,
+          lemma = _props$wordObject.lemma,
+          morph = _props$wordObject.morph,
+          strong = _props$wordObject.strong,
           translate = _props.translate,
           lexiconData = _props.lexiconData;
 
@@ -81705,7 +81705,7 @@ var WordLexiconDetails = function (_React$Component) {
 
 WordLexiconDetails.propTypes = {
   translate: _propTypes2.default.func.isRequired,
-  word: _propTypes2.default.shape({
+  wordObject: _propTypes2.default.shape({
     lemma: _propTypes2.default.string.isRequired,
     morph: _propTypes2.default.string.isRequired,
     strong: _propTypes2.default.string.isRequired
