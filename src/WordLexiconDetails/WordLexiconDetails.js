@@ -5,7 +5,7 @@ import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
 
 class WordLexiconDetails extends React.Component {
   render() {
-    const { word: { lemma, morph, strong }, translate, lexiconData } = this.props;
+    const { wordObject: { lemma, morph, strong }, translate, lexiconData } = this.props;
     let lexicon;
 
     if (strong) {
@@ -29,7 +29,7 @@ class WordLexiconDetails extends React.Component {
 
 WordLexiconDetails.propTypes = {
   translate: PropTypes.func.isRequired,
-  word: PropTypes.shape({
+  wordObject: PropTypes.shape({
     lemma: PropTypes.string.isRequired,
     morph: PropTypes.string.isRequired,
     strong: PropTypes.string.isRequired
