@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import WordDetails from '../WordDetails';
+import WordLexiconDetails from '../../WordLexiconDetails';
 // helpers
 import * as lexiconHelpers from './lexiconHelpers';
 import { removeMarker } from './usfmHelpers';
@@ -12,9 +12,11 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
-    const PopoverTitle = <strong style={{ fontSize: '1.2em' }}>{word.word}</strong>;
+    const PopoverTitle = (
+      <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
+    );
     const wordDetails = (
-      <WordDetails lexiconData={lexiconData} word={word} translate={translate} />
+      <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate} />
     );
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }
