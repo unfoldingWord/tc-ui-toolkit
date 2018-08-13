@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/translationCoreApps/tc-ui-toolkit.svg?branch=master)](https://travis-ci.org/translationCoreApps/tc-ui-toolkit)
 
-![npm](https://img.shields.io/npm/dt/tc-ui-toolkit.svg)
+![npm](https://img.shields.io/npm/dt/source-content-updater.svg)
 
 
 # tc-ui-toolkit
