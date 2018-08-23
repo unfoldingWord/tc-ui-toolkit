@@ -42,37 +42,21 @@
   border: solid 1px var(--accent-color);
 }
 
-#groups-menu-container .group .group-item .status-tooltip {
+.group-menu-status-tooltip {
   padding: 8px 0 8px 8px !important;
 }
-
-#groups-menu-container .group .group-item .status-tooltip .glyphicon {
+.group-menu-status-tooltip .glyphicon {
   padding: 0 !important;
   padding-right: 8px !important;
   color: var(--text-color-dark) !important;
-  font-size: 16px;
+  font-size: 16px!important;
 }
-
-#groups-menu-container .group .group-item .status-tooltip .glyphicon svg {
+.group-menu-status-tooltip .glyphicon svg {
   fill: var(--text-color-dark) !important;
 }
-
-#groups-menu-container .group .group-item .status-tooltip .glyphicon-invalidated svg {
+.group-menu-status-tooltip .glyphicon-invalidated svg {
   height: 18px !important;
   width: 18px !important;
-  margin-bottom: 5px;
-}
-
-#groups-menu-container .group .group-item .status-tooltip {
-  background-color: var(--background-color-light);
-}
-
-#groups-menu-container .group .group-item .status-tooltip.place-right:after {
-  border-right-color: var(--background-color-light);
-}
-
-#groups-menu-container .group .group-item .status-tooltip.place-bottom:after {
-  border-bottom-color: var(--background-color-light);
 }
 
 #groups-menu-container #groups-menu-top {

@@ -110,15 +110,14 @@ export function makeStatusBadgeComponents(glyphs) {
           data-html="true"
           data-place="bottom"
           data-effect="float"
-          data-class="status-tooltip"
-          data-delay-hide="100"
-          data-offset="{'bottom': -5, 'right': 5}" >
+          data-type="light"
+          data-class="group-menu-status-tooltip"
+          data-delay-hide="100">
           {mainGlyph}
           <div className="badge">
             {statusGlyphs.length}
           </div>
         </div>
-        <ReactTooltip />
       </div>
     );
   } else {
