@@ -36,7 +36,7 @@ class GroupItem extends React.Component {
             </span>
           }
         </span>
-        <ReactTooltip />
+        {/*<ReactTooltip />*/}
       </div>
     );
   }
