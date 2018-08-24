@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import ReactTooltip from 'react-tooltip';
 import {Glyphicon} from 'react-bootstrap';
 import InvalidatedIcon from '../GroupsMenuFilter/InvalidatedIcon';
 const MENU_BAR_HEIGHT = 30;
