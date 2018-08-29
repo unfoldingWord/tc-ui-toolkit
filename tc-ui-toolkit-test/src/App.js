@@ -43,7 +43,10 @@ class App extends Component {
   render() {
     return (
       <div style={{display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh'}}>
-        <GroupMenu />
+        <GroupMenu
+          isVerseFinished={() => true}
+          isVerseValid={() => false}
+        />
         <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
           <ScripturePane
             translate={k => k}

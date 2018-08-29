@@ -7,6 +7,7 @@ import Groups from './Groups';
 import FilterMenuHeader from './FilterMenuHeader';
 import GroupsMenuFilter from './GroupsMenuFilter';
 import './GroupMenu.styles.css';
+import ReactTooltip from 'react-tooltip';
 
 class GroupMenu extends React.Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class GroupMenu extends React.Component {
             translate={translate}
             setFilter={actions.setFilter} />
         </div>
+        <ReactTooltip/>
         <Groups
           currentToolName={currentToolName}
           isVerseFinished={isVerseFinished}
