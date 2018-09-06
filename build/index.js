@@ -82572,8 +82572,7 @@ var removeMarker = exports.removeMarker = function removeMarker() {
 
   if (typeof types === 'string') types = [types];
   if (!types || types.includes('f')) {
-    var regString = '\\\\f[\\S\\s]*\\\\f[^a-z|A-Z|0-9|\\s]*';
-    var regex = new RegExp(regString, 'g');
+    var regex = new RegExp(/\\f[\S\s]*\\f[^a-z|A-Z|0-9|\s|\\]*/g);
     string = string.replace(regex, '');
   }
   if (!types || types.includes('q')) {
@@ -82597,8 +82596,8 @@ var removeMarker = exports.removeMarker = function removeMarker() {
           // if no more USFM tags, then done
           break;
         }
-        var _regString = '\\\\' + type;
-        var _regex2 = new RegExp(_regString, 'g');
+        var regString = '\\\\' + type;
+        var _regex2 = new RegExp(regString, 'g');
         string = string.replace(_regex2, '');
       }
     } catch (err) {
