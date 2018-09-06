@@ -11,14 +11,8 @@ import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseOb
 export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
   verseText = verseText.replace(/\s+/g, ' ');
-  // remove \pi marker
-  verseText = verseText.replace(/\\pi/g, '');
-  // remove \s5 and \p markers from string
-  const regString = '\\\\\\w[0-9]*';
-  const regex = new RegExp(regString, 'g');
-  verseText = verseText.replace(regex, '');
   // if string only contains spaces then make it an empty string
-  verseText.replace(/\s/g, '').length == 0 ? verseText = '' : verseText;
+  verseText.replace(/\s/g, '').length === 0 ? verseText = '' : verseText;
 
   // if empty string then verseText = place holder warning.
   if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
