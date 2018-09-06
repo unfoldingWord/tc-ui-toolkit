@@ -6,10 +6,12 @@
   "scripts": {
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
-    "build": "webpack",
     "start-ui-renderer": "npm run build && cd tc-ui-toolkit-test && npm start",
-    "prepublishOnly": "npm run build",
-    "setup": "npm i && npm run build && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit"
+    "setup": "npm i && npm run build && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
+    "prebuild": "rm -rf ./build",
+    "build": "webpack",
+    "prepare": "if [ ! -d './build/' ]; then npm run build; fi",
+    "dist": "npm test && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
