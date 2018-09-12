@@ -76,6 +76,7 @@ const AddPaneModal = ({
 }) => {
   let panes = [];
   const availableResources = getAvailableScripturePaneSelections();
+  console.log("availableResources: " + JSON.stringify(availableResources, null, 2));
   Object.keys(biblesWithHighlightedWords).forEach((languageId) => {
     Object.keys(biblesWithHighlightedWords[languageId]).forEach((bibleId) => {
       const { resource_title, language_name } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
