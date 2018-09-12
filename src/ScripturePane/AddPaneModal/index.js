@@ -71,9 +71,11 @@ const AddPaneModal = ({
   selectedPane,
   addNewBibleResource,
   currentPaneSettings,
-  translate
+  translate,
+  getAvailableScripturePaneSelections
 }) => {
   let panes = [];
+  const availableResources = getAvailableScripturePaneSelections();
   Object.keys(biblesWithHighlightedWords).forEach((languageId) => {
     Object.keys(biblesWithHighlightedWords[languageId]).forEach((bibleId) => {
       const { resource_title, language_name } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
@@ -151,6 +153,7 @@ AddPaneModal.propTypes = {
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,
+  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
 };
 
 export default AddPaneModal;

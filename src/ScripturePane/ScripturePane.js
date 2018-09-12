@@ -81,12 +81,13 @@ class ScripturePane extends Component {
   }
 
   addNewBibleResource() {
-    let {currentPaneSettings, setToolSettings} = this.props;
+    let {currentPaneSettings, setToolSettings, makeSureBiblesLoadedForTool} = this.props;
     try {
       if (currentPaneSettings) {
         if (this.state.selectedPane) {
           currentPaneSettings.push(this.state.selectedPane);
           setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
+          makeSureBiblesLoadedForTool();
           this.hideAddBibleModal();
         }
       }
@@ -116,6 +117,7 @@ class ScripturePane extends Component {
       translate,
       projectDetailsReducer,
       bibles,
+      getAvailableScripturePaneSelections
     } = this.props;
 
     // material-ui-theme, new color themes could be added here in the future
@@ -207,6 +209,7 @@ class ScripturePane extends Component {
             biblesWithHighlightedWords={biblesWithHighlightedWords}
             addNewBibleResource={this.addNewBibleResource}
             currentPaneSettings={currentPaneSettings}
+            getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
           />
         </div>
       </MuiThemeProvider>
@@ -234,6 +237,8 @@ ScripturePane.propTypes = {
   editTargetVerse: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   bibles: PropTypes.object.isRequired,
+  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
+  makeSureBiblesLoadedForTool: PropTypes.func.isRequired
 };
 
 ScripturePane.defaultProps = {
@@ -256,6 +261,8 @@ ScripturePane.defaultProps = {
   editTargetVerse: () => {},
   translate: k => k,
   bibles: {},
+  getAvailableScripturePaneSelections: () => {},
+  makeSureBiblesLoadedForTool: () => {},
 };
 
 export default ScripturePane;
