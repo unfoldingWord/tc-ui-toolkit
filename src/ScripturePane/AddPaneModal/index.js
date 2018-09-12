@@ -67,36 +67,33 @@ const AddPaneModal = ({
   selectLanguageLabel,
   selectLabel,
   selectSourceLanguage,
-  biblesWithHighlightedWords,
   selectedPane,
   addNewBibleResource,
   currentPaneSettings,
   translate,
   getAvailableScripturePaneSelections
 }) => {
-  let panes = [];
-  const availableResources = getAvailableScripturePaneSelections();
-  console.log("availableResources: " + JSON.stringify(availableResources, null, 2));
-  Object.keys(biblesWithHighlightedWords).forEach((languageId) => {
-    Object.keys(biblesWithHighlightedWords[languageId]).forEach((bibleId) => {
-      const { resource_title, language_name } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
-      const resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
-      const displayText = `${language_name} (${languageId}) ${resourceText}`;
-      const foundInCurrentPaneSettings = currentPaneSettings.filter((paneSetting) => {
-        return paneSetting.bibleId === bibleId && paneSetting.languageId === languageId;
-      }).length > 0;
+  const panes = [];
+  const availableResources = [];
+  getAvailableScripturePaneSelections(availableResources);
+  for (let resource of availableResources) {
+    const { resource_title, language_name } = resource.manifest;
+    const resourceText = resource.bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
+    const displayText = `${language_name} (${resource.languageId}) ${resourceText}`;
+    const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => {
+      return paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId;
+    }) >= 0;
 
-      panes.push(
-        <option
-          key={`${languageId}_${bibleId}`}
-          value={`${languageId}_${bibleId}`}
-          disabled={foundInCurrentPaneSettings}
-        >
-          {displayText}
-        </option>
-      );
-    });
-  });
+    panes.push(
+      <option
+        key={`${resource.languageId}_${resource.bibleId}`}
+        value={`${resource.languageId}_${resource.bibleId}`}
+        disabled={foundInCurrentPaneSettings}
+      >
+        {displayText}
+      </option>
+    );
+  }
 
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
@@ -143,7 +140,6 @@ AddPaneModal.propTypes = {
   selectLanguageLabel: PropTypes.string.isRequired,
   selectLabel: PropTypes.string.isRequired,
   selectSourceLanguage: PropTypes.func.isRequired,
-  biblesWithHighlightedWords: PropTypes.object.isRequired,
   selectedPane: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({

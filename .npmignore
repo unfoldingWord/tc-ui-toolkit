@@ -3,4 +3,5 @@ __tests__
 __mocks__
 testSetUp
 tc-ui-toolkit-test
+src
 .vscode

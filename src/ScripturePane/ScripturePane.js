@@ -206,7 +206,6 @@ class ScripturePane extends Component {
             selectLanguageLabel={translate('pane.select_language')}
             selectLabel={translate('select')}
             selectSourceLanguage={this.selectSourceLanguage}
-            biblesWithHighlightedWords={biblesWithHighlightedWords}
             addNewBibleResource={this.addNewBibleResource}
             currentPaneSettings={currentPaneSettings}
             getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
