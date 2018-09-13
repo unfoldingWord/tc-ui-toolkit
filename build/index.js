@@ -62292,13 +62292,15 @@ var ScripturePane = function (_Component) {
     value: function addNewBibleResource() {
       var _props2 = this.props,
           currentPaneSettings = _props2.currentPaneSettings,
-          setToolSettings = _props2.setToolSettings;
+          setToolSettings = _props2.setToolSettings,
+          makeSureBiblesLoadedForTool = _props2.makeSureBiblesLoadedForTool;
 
       try {
         if (currentPaneSettings) {
           if (this.state.selectedPane) {
             currentPaneSettings.push(this.state.selectedPane);
             setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
+            makeSureBiblesLoadedForTool();
             this.hideAddBibleModal();
           }
         }
@@ -62334,7 +62336,8 @@ var ScripturePane = function (_Component) {
           editTargetVerse = _props4.editTargetVerse,
           translate = _props4.translate,
           projectDetailsReducer = _props4.projectDetailsReducer,
-          bibles = _props4.bibles;
+          bibles = _props4.bibles,
+          getAvailableScripturePaneSelections = _props4.getAvailableScripturePaneSelections;
 
       // material-ui-theme, new color themes could be added here in the future
 
@@ -62434,9 +62437,9 @@ var ScripturePane = function (_Component) {
             selectLanguageLabel: translate('pane.select_language'),
             selectLabel: translate('select'),
             selectSourceLanguage: this.selectSourceLanguage,
-            biblesWithHighlightedWords: biblesWithHighlightedWords,
             addNewBibleResource: this.addNewBibleResource,
-            currentPaneSettings: currentPaneSettings
+            currentPaneSettings: currentPaneSettings,
+            getAvailableScripturePaneSelections: getAvailableScripturePaneSelections
           })
         )
       );
@@ -62465,7 +62468,9 @@ ScripturePane.propTypes = {
   projectDetailsReducer: _propTypes2.default.object.isRequired,
   editTargetVerse: _propTypes2.default.func.isRequired,
   translate: _propTypes2.default.func.isRequired,
-  bibles: _propTypes2.default.object.isRequired
+  bibles: _propTypes2.default.object.isRequired,
+  getAvailableScripturePaneSelections: _propTypes2.default.func.isRequired,
+  makeSureBiblesLoadedForTool: _propTypes2.default.func.isRequired
 };
 
 ScripturePane.defaultProps = {
@@ -62489,7 +62494,9 @@ ScripturePane.defaultProps = {
   translate: function translate(k) {
     return k;
   },
-  bibles: {}
+  bibles: {},
+  getAvailableScripturePaneSelections: function getAvailableScripturePaneSelections() {},
+  makeSureBiblesLoadedForTool: function makeSureBiblesLoadedForTool() {}
 };
 
 exports.default = ScripturePane;
@@ -69552,36 +69559,62 @@ var AddPaneModal = function AddPaneModal(_ref) {
       selectLanguageLabel = _ref.selectLanguageLabel,
       selectLabel = _ref.selectLabel,
       selectSourceLanguage = _ref.selectSourceLanguage,
-      biblesWithHighlightedWords = _ref.biblesWithHighlightedWords,
       selectedPane = _ref.selectedPane,
       addNewBibleResource = _ref.addNewBibleResource,
       currentPaneSettings = _ref.currentPaneSettings,
-      translate = _ref.translate;
+      translate = _ref.translate,
+      getAvailableScripturePaneSelections = _ref.getAvailableScripturePaneSelections;
 
   var panes = [];
-  Object.keys(biblesWithHighlightedWords).forEach(function (languageId) {
-    Object.keys(biblesWithHighlightedWords[languageId]).forEach(function (bibleId) {
-      var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId]['manifest'],
-          resource_title = _biblesWithHighlighte.resource_title,
-          language_name = _biblesWithHighlighte.language_name;
+  var availableResources = [];
+  getAvailableScripturePaneSelections(availableResources);
 
-      var resourceText = bibleId !== "targetBible" ? " (" + resource_title + ")" : ' (' + translate('pane.current_project') + ')';
-      var displayText = language_name + ' (' + languageId + ') ' + resourceText;
-      var foundInCurrentPaneSettings = currentPaneSettings.filter(function (paneSetting) {
-        return paneSetting.bibleId === bibleId && paneSetting.languageId === languageId;
-      }).length > 0;
+  var _loop = function _loop(resource) {
+    var _resource$manifest = resource.manifest,
+        resource_title = _resource$manifest.resource_title,
+        language_name = _resource$manifest.language_name;
 
-      panes.push(_react2.default.createElement(
-        'option',
-        {
-          key: languageId + '_' + bibleId,
-          value: languageId + '_' + bibleId,
-          disabled: foundInCurrentPaneSettings
-        },
-        displayText
-      ));
-    });
-  });
+    var resourceText = resource.bibleId !== "targetBible" ? " (" + resource_title + ")" : ' (' + translate('pane.current_project') + ')';
+    var displayText = language_name + ' (' + resource.languageId + ') ' + resourceText;
+    var foundInCurrentPaneSettings = currentPaneSettings.findIndex(function (paneSetting) {
+      return paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId;
+    }) >= 0;
+
+    panes.push(_react2.default.createElement(
+      'option',
+      {
+        key: resource.languageId + '_' + resource.bibleId,
+        value: resource.languageId + '_' + resource.bibleId,
+        disabled: foundInCurrentPaneSettings
+      },
+      displayText
+    ));
+  };
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = availableResources[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var resource = _step.value;
+
+      _loop(resource);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
 
   return _react2.default.createElement(
     _Dialog2.default,
@@ -69649,14 +69682,14 @@ AddPaneModal.propTypes = {
   selectLanguageLabel: _propTypes2.default.string.isRequired,
   selectLabel: _propTypes2.default.string.isRequired,
   selectSourceLanguage: _propTypes2.default.func.isRequired,
-  biblesWithHighlightedWords: _propTypes2.default.object.isRequired,
   selectedPane: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.shape({
     bibleId: _propTypes2.default.string,
     languageId: _propTypes2.default.string
   })]),
   addNewBibleResource: _propTypes2.default.func.isRequired,
   currentPaneSettings: _propTypes2.default.array.isRequired,
-  translate: _propTypes2.default.func.isRequired
+  translate: _propTypes2.default.func.isRequired,
+  getAvailableScripturePaneSelections: _propTypes2.default.func.isRequired
 };
 
 exports.default = AddPaneModal;
