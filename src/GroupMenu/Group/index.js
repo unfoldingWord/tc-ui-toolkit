@@ -114,7 +114,6 @@ Group.propTypes = {
   active: PropTypes.bool.isRequired,
   changeCurrentContextId: PropTypes.func.isRequired,
   getSelections: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   isVerseValid: PropTypes.func.isRequired,
   currentToolName: PropTypes.string.isRequired,
