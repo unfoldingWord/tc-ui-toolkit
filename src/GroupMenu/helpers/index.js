@@ -151,3 +151,15 @@ export function getGlyphIcons(glyphs) {
   }
   return glyphicons;
 }
+
+export const forLoop = (items, callback) => {
+  let table = [];
+
+  for (let i = 0; i < items.length; i++) {
+    table.push(items[i]);
+    callback();
+  }
+
+  console.log(table);
+  return table;
+};
