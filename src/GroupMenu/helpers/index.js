@@ -138,14 +138,15 @@ export function makeStatusBadgeComponents(glyphs) {
 export function getGlyphIcons(glyphs) {
   const glyphicons = [];
   if (glyphs && glyphs.length) {
-    glyphs.forEach((glyph) => {
+    for (let i = 0; i < glyphs.length; i++) {
+      const glyph = glyphs[i];
       if (glyph === 'invalidated') {
         glyphicons.push(<div key={glyph} className={'glyphicon glyphicon-invalidated'}><InvalidatedIcon height={16} width={16} /></div>);
       } else {
         let className = 'status-icon-' + glyph;
         glyphicons.push(<Glyphicon key={glyph} glyph={glyph} className={className} />);
       }
-    });
+    }
   } else {
     glyphicons.push(<div key="blank" className="glyphicon glyphicon-blank status-icon-blank" />);
   }

@@ -105713,7 +105713,8 @@ function makeStatusBadgeComponents(glyphs) {
 function getGlyphIcons(glyphs) {
   var glyphicons = [];
   if (glyphs && glyphs.length) {
-    glyphs.forEach(function (glyph) {
+    for (var i = 0; i < glyphs.length; i++) {
+      var glyph = glyphs[i];
       if (glyph === 'invalidated') {
         glyphicons.push(_react2.default.createElement(
           'div',
@@ -105724,7 +105725,7 @@ function getGlyphIcons(glyphs) {
         var className = 'status-icon-' + glyph;
         glyphicons.push(_react2.default.createElement(_reactBootstrap.Glyphicon, { key: glyph, glyph: glyph, className: className }));
       }
-    });
+    }
   } else {
     glyphicons.push(_react2.default.createElement('div', { key: 'blank', className: 'glyphicon glyphicon-blank status-icon-blank' }));
   }
