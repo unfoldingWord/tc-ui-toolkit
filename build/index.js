@@ -62348,6 +62348,8 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
+      console.log('fix: manny colon september 24, 2018');
+
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
         { theme: theme },
@@ -62800,6 +62802,10 @@ Pane.propTypes = {
   translate: _propTypes2.default.func.isRequired,
   clickToRemoveResourceLabel: _propTypes2.default.string.isRequired,
   verseElements: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string, _propTypes2.default.array]).isRequired
+};
+
+Pane.defaultProps = {
+  verseElements: []
 };
 
 exports.default = Pane;
@@ -108913,7 +108919,6 @@ Group.propTypes = {
   active: _propTypes2.default.bool.isRequired,
   changeCurrentContextId: _propTypes2.default.func.isRequired,
   getSelections: _propTypes2.default.func.isRequired,
-  classes: _propTypes2.default.object.isRequired,
   isVerseFinished: _propTypes2.default.func.isRequired,
   isVerseValid: _propTypes2.default.func.isRequired,
   currentToolName: _propTypes2.default.string.isRequired
