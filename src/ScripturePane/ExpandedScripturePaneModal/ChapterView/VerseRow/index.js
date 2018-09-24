@@ -43,7 +43,11 @@ class VerseRow extends Component {
     }
 
     if (currentPaneSettings.length > 0) {
-      verseCells = currentPaneSettings.map((paneSetting, index) => {
+      verseCells = [];
+
+      for (let i = 0; i < currentPaneSettings.length; i++) {
+        const paneSetting = currentPaneSettings[i];
+        const index = i;
         try {
           const { languageId, bibleId } = paneSetting;
           const { manifest: { direction }, bibleData } = biblesWithHighlightedWords[languageId][bibleId];
@@ -66,7 +70,7 @@ class VerseRow extends Component {
         } catch (error) {
           console.log(error);
         }
-      });
+      }
     }
 
     return (

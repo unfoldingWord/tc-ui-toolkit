@@ -62325,10 +62325,49 @@ var ScripturePane = function (_Component) {
       }
     }
   }, {
+    key: 'getPanes',
+    value: function getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
+      for (var i = 0; i < currentPaneSettings.length; i++) {
+        var paneSettings = currentPaneSettings[i];
+        var index = i;
+
+        try {
+          var languageId = paneSettings.languageId,
+              bibleId = paneSettings.bibleId;
+          var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
+              _biblesWithHighlighte2 = _biblesWithHighlighte.manifest,
+              language_name = _biblesWithHighlighte2.language_name,
+              direction = _biblesWithHighlighte2.direction,
+              description = _biblesWithHighlighte2.description,
+              bibleData = _biblesWithHighlighte.bibleData;
+          var _contextId$reference = contextId.reference,
+              chapter = _contextId$reference.chapter,
+              verse = _contextId$reference.verse;
+
+          var verseElements = bibleData[chapter][verse];
+
+          return _react2.default.createElement(_Pane2.default, {
+            key: index.toString(),
+            translate: translate,
+            index: index,
+            chapter: chapter,
+            verse: verse,
+            bibleId: bibleId,
+            languageName: language_name,
+            direction: direction,
+            description: description,
+            verseElements: verseElements,
+            clickToRemoveResourceLabel: translate('pane.remove_resource'),
+            removePane: this.removePane
+          });
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props4 = this.props,
           expandedScripturePaneTitle = _props4.expandedScripturePaneTitle,
           currentPaneSettings = _props4.currentPaneSettings,
@@ -62348,7 +62387,7 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('fix: manny colon september 24, 2018');
+      console.log('fix: manny colon september 24, 2018 2');
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -62377,40 +62416,7 @@ var ScripturePane = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'panes-container' },
-              currentPaneSettings.map(function (paneSettings, index) {
-                try {
-                  var languageId = paneSettings.languageId,
-                      bibleId = paneSettings.bibleId;
-                  var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId],
-                      _biblesWithHighlighte2 = _biblesWithHighlighte.manifest,
-                      language_name = _biblesWithHighlighte2.language_name,
-                      direction = _biblesWithHighlighte2.direction,
-                      description = _biblesWithHighlighte2.description,
-                      bibleData = _biblesWithHighlighte.bibleData;
-                  var _contextId$reference = contextId.reference,
-                      chapter = _contextId$reference.chapter,
-                      verse = _contextId$reference.verse;
-
-                  var verseElements = bibleData[chapter][verse];
-
-                  return _react2.default.createElement(_Pane2.default, {
-                    key: index.toString(),
-                    translate: translate,
-                    index: index,
-                    chapter: chapter,
-                    verse: verse,
-                    bibleId: bibleId,
-                    languageName: language_name,
-                    direction: direction,
-                    description: description,
-                    verseElements: verseElements,
-                    clickToRemoveResourceLabel: translate('pane.remove_resource'),
-                    removePane: _this2.removePane
-                  });
-                } catch (err) {
-                  console.warn(err);
-                }
-              }),
+              this.getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate),
               _react2.default.createElement(_AddBibleButton2.default, {
                 showAddBibleModal: this.showAddBibleModal,
                 clickAddResource: translate('pane.add_resource')
@@ -65623,9 +65629,13 @@ var ChapterView = function (_Component) {
       var verseRows = _react2.default.createElement('div', null);
 
       if (verseNumbers.length > 0) {
-        verseRows = verseNumbers.map(function (verseNumber) {
+        verseRows = [];
+
+        var _loop = function _loop(i) {
+          var verseNumber = verseNumbers[i];
           var refKey = ChapterView.makeRefKey(chapter, verseNumber);
-          return _react2.default.createElement(_VerseRow2.default, {
+
+          verseRows.push(_react2.default.createElement(_VerseRow2.default, {
             translate: translate,
             key: verseNumber,
             chapter: chapter,
@@ -65637,8 +65647,12 @@ var ChapterView = function (_Component) {
             onEditTargetVerse: _this2.handleEditTargetVerse,
             ref: function ref(node) {
               return _this2.verseRefs[refKey] = node;
-            } });
-        });
+            } }));
+        };
+
+        for (var i = 0; i < verseNumbers.length; i++) {
+          _loop(i);
+        }
       }
 
       var editVerse = this.state.editVerse;
@@ -65797,8 +65811,6 @@ var VerseRow = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           chapter = _props.chapter,
           currentVerseNumber = _props.currentVerseNumber,
@@ -65821,7 +65833,11 @@ var VerseRow = function (_Component) {
       }
 
       if (currentPaneSettings.length > 0) {
-        verseCells = currentPaneSettings.map(function (paneSetting, index) {
+        verseCells = [];
+
+        for (var i = 0; i < currentPaneSettings.length; i++) {
+          var paneSetting = currentPaneSettings[i];
+          var index = i;
           try {
             var languageId = paneSetting.languageId,
                 bibleId = paneSetting.bibleId;
@@ -65843,12 +65859,12 @@ var VerseRow = function (_Component) {
                 direction: direction,
                 chapter: chapter,
                 verse: currentVerseNumber,
-                onEdit: _this2.handleEdit })
+                onEdit: this.handleEdit })
             );
           } catch (error) {
             console.log(error);
           }
-        });
+        }
       }
 
       return _react2.default.createElement(
@@ -69234,7 +69250,11 @@ var BibleHeadingsRow = function (_Component) {
           biblesWithHighlightedWords = _props.biblesWithHighlightedWords,
           projectDetailsReducer = _props.projectDetailsReducer;
 
-      var bibleHeadings = currentPaneSettings.map(function (paneSetting, index) {
+      var bibleHeadings = [];
+
+      for (var i = 0; i < currentPaneSettings.length; i++) {
+        var paneSetting = currentPaneSettings[i];
+        var index = i;
         var languageId = paneSetting.languageId;
         var bibleId = paneSetting.bibleId;
         var _biblesWithHighlighte = biblesWithHighlightedWords[languageId][bibleId]['manifest'],
@@ -69251,7 +69271,7 @@ var BibleHeadingsRow = function (_Component) {
           borderBottom: '3px solid var(--border-color)', direction: dir
         };
 
-        return _react2.default.createElement(
+        bibleHeadings.push(_react2.default.createElement(
           _reactBootstrap.Col,
           { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
           _react2.default.createElement(
@@ -69259,8 +69279,8 @@ var BibleHeadingsRow = function (_Component) {
             null,
             headingText
           )
-        );
-      });
+        ));
+      }
 
       return _react2.default.createElement(
         _reactBootstrap.Row,
@@ -69856,14 +69876,18 @@ var verseString = exports.verseString = function verseString(verseText, selectio
 
   if (selections && selections.length > 0) {
     var _selectionArray = _stringPunctuationTokenizer2.default.selectionArray(verseText, selections);
+    verseTextSpans = [];
 
-    verseTextSpans = _selectionArray.map(function (selection, index) {
-      return _react2.default.createElement(
+    for (var i = 0; i < _selectionArray.length; i++) {
+      var selection = _selectionArray[i];
+      var index = i;
+
+      verseTextSpans.push(_react2.default.createElement(
         'span',
         { key: index, style: { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' } },
         selection.text
-      );
-    });
+      ));
+    }
   }
 
   return verseTextSpans;
@@ -78086,8 +78110,13 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
   var isBetweenHighlightedWord = false;
   var nestedPreviousWord = previousWord;
   var nestedWordSpacing = wordSpacing;
+  var wordSpans = [];
 
-  var wordSpans = nestedWords.map(function (nestedWord, nestedWordIndex, wordsArray) {
+  for (var i = 0; i < nestedWords.length; i++) {
+    var nestedWord = nestedWords[i];
+    var nestedWordIndex = i;
+    var wordsArray = nestedWords;
+
     var nestedWordSpanIndex = index.toString() + '_' + nestedWordIndex.toString() + '_' + nestedWord.text;
     var nestedNextWord = wordsArray[index + 1];
     if ((0, _stringHelpers.isWord)(nestedWord)) {
@@ -78101,7 +78130,7 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
       var paddingSpanStyle = {
         backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
       };
-      return _react2.default.createElement(
+      wordSpans.push(_react2.default.createElement(
         'span',
         { key: nestedWordSpanIndex.toString() },
         _react2.default.createElement(
@@ -78114,25 +78143,25 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
           { style: { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" } },
           (0, _usfmHelpers.removeMarker)(nestedWord.text)
         )
-      );
+      ));
     } else if (nestedWord.text) {
       nestedWordSpacing = (0, _stringHelpers.punctuationWordSpacing)(nestedWord); // spacing before words
 
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
-        return _react2.default.createElement(
+        wordSpans.push(_react2.default.createElement(
           'span',
           { key: nestedWordSpanIndex, style: { backgroundColor: 'var(--highlight-color)' } },
           (0, _usfmHelpers.removeMarker)(nestedWord.text)
-        );
+        ));
       } else {
-        return _react2.default.createElement(
+        wordSpans.push(_react2.default.createElement(
           'span',
           { key: nestedWordSpanIndex },
           (0, _usfmHelpers.removeMarker)(nestedWord.text)
-        );
+        ));
       }
     }
-  });
+  }
 
   return {
     wordSpans: wordSpans,

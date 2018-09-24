@@ -53,8 +53,13 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
   let isBetweenHighlightedWord = false;
   let nestedPreviousWord = previousWord;
   let nestedWordSpacing = wordSpacing;
+  const wordSpans =[];
 
-  const wordSpans = nestedWords.map((nestedWord, nestedWordIndex, wordsArray) => {
+  for (let i = 0; i < nestedWords.length; i++) {
+    const nestedWord = nestedWords[i];
+    const nestedWordIndex = i;
+    const wordsArray = nestedWords;
+
     const nestedWordSpanIndex = `${index.toString()}_${nestedWordIndex.toString()}_${nestedWord.text}`;
     const nestedNextWord = wordsArray[index + 1];
     if (isWord(nestedWord)) {
@@ -72,7 +77,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       const paddingSpanStyle = {
         backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
       };
-      return (
+      wordSpans.push(
         <span key={nestedWordSpanIndex.toString()}>
           <span style={paddingSpanStyle}>
             {padding}
@@ -86,20 +91,20 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
 
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
-        return (
+        wordSpans.push(
           <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {removeMarker(nestedWord.text)}
           </span>
         );
       } else {
-        return (
+        wordSpans.push(
           <span key={nestedWordSpanIndex}>
             {removeMarker(nestedWord.text)}
           </span>
         );
       }
     }
-  });
+  }
 
   return {
     wordSpans,

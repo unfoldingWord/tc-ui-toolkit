@@ -20,14 +20,18 @@ export const verseString = (verseText, selections, translate) => {
 
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
+    verseTextSpans = [];
 
-    verseTextSpans = _selectionArray.map((selection, index) => {
-      return (
+    for (let i = 0; i < _selectionArray.length; i++) {
+      const selection = _selectionArray[i];
+      const index = i;
+
+      verseTextSpans.push(
         <span key={index} style={{ backgroundColor: selection.selected ? 'var(--highlight-color)' : '' }}>
           {selection.text}
         </span>
       );
-    });
+    }
   }
 
   return verseTextSpans;

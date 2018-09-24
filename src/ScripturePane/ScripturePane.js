@@ -15,6 +15,15 @@ import * as bibleHelpers from './helpers/bibleHelpers';
 // constant
 const NAMESPACE = 'ScripturePane';
 
+
+
+
+
+
+
+
+
+
 class ScripturePane extends Component {
   constructor() {
     super();
@@ -108,6 +117,47 @@ class ScripturePane extends Component {
     }
   }
 
+
+  getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
+    for (let i = 0; i < currentPaneSettings.length; i++) {
+      const paneSettings = currentPaneSettings[i];
+      const index = i;
+
+      try {
+        const {languageId, bibleId} = paneSettings;
+        const {
+          manifest: {
+            language_name,
+            direction,
+            description,
+          },
+          bibleData
+        } = biblesWithHighlightedWords[languageId][bibleId];
+        const {chapter, verse} = contextId.reference;
+        const verseElements = bibleData[chapter][verse];
+
+        return (
+          <Pane
+            key={index.toString()}
+            translate={translate}
+            index={index}
+            chapter={chapter}
+            verse={verse}
+            bibleId={bibleId}
+            languageName={language_name}
+            direction={direction}
+            description={description}
+            verseElements={verseElements}
+            clickToRemoveResourceLabel={translate('pane.remove_resource')}
+            removePane={this.removePane}
+          />
+        );
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  }
+
   render() {
     let {
       expandedScripturePaneTitle,
@@ -128,7 +178,7 @@ class ScripturePane extends Component {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
-    console.log('fix: manny colon september 24, 2018');
+    console.log('fix: manny colon september 24, 2018 2');
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -144,42 +194,7 @@ class ScripturePane extends Component {
               />
             </div>
             <div className="panes-container">
-              {
-                currentPaneSettings.map((paneSettings, index) => {
-                  try {
-                    const {languageId, bibleId} = paneSettings;
-                    const {
-                      manifest: {
-                        language_name,
-                        direction,
-                        description,
-                      },
-                      bibleData
-                    } = biblesWithHighlightedWords[languageId][bibleId];
-                    const {chapter, verse} = contextId.reference;
-                    const verseElements = bibleData[chapter][verse];
-
-                    return (
-                      <Pane
-                        key={index.toString()}
-                        translate={translate}
-                        index={index}
-                        chapter={chapter}
-                        verse={verse}
-                        bibleId={bibleId}
-                        languageName={language_name}
-                        direction={direction}
-                        description={description}
-                        verseElements={verseElements}
-                        clickToRemoveResourceLabel={translate('pane.remove_resource')}
-                        removePane={this.removePane}
-                      />
-                    );
-                  } catch (err) {
-                    console.warn(err);
-                  }
-                })
-              }
+              {this.getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate)}
               <AddBibleButton
                 showAddBibleModal={this.showAddBibleModal}
                 clickAddResource={translate('pane.add_resource')}

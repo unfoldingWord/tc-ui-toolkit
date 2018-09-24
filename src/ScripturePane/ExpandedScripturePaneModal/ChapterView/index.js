@@ -93,9 +93,13 @@ class ChapterView extends Component {
     let verseRows = <div/>;
 
     if (verseNumbers.length > 0) {
-      verseRows = verseNumbers.map(verseNumber => {
+      verseRows = [];
+
+      for (let i = 0; i < verseNumbers.length; i++) {
+        const verseNumber = verseNumbers[i];
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
-        return (
+
+        verseRows.push(
           <VerseRow
             translate={translate}
             key={verseNumber}
@@ -108,7 +112,7 @@ class ChapterView extends Component {
             onEditTargetVerse={this.handleEditTargetVerse}
             ref={node => this.verseRefs[refKey] = node} />
         );
-      });
+      }
     }
 
     const { editVerse } = this.state;
