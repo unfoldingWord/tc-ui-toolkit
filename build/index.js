@@ -69753,18 +69753,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = function getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate) {
   var parsedBible = {};
-  Object.keys(bibles).forEach(function (languageId) {
+
+  for (var i = 0; i < Object.keys(bibles).length; i++) {
+    var languageId = Object.keys(bibles)[i];
     parsedBible[languageId] = {};
     var currentBible = bibles[languageId];
-    Object.keys(currentBible).forEach(function (bibleId) {
+
+    for (var j = 0; j < Object.keys(currentBible).length; j++) {
+      var bibleId = Object.keys(currentBible)[j];
       parsedBible[languageId][bibleId] = { bibleData: {} };
-      Object.keys(currentBible[bibleId]).forEach(function (chapterNumber) {
+
+      for (var k = 0; k < Object.keys(currentBible[bibleId]).length; k++) {
+        var chapterNumber = Object.keys(currentBible[bibleId])[k];
         if (chapterNumber !== 'manifest') {
           parsedBible[languageId][bibleId] = _extends({}, parsedBible[languageId][bibleId], {
             bibleData: _extends({}, parsedBible[languageId][bibleId]['bibleData'], _defineProperty({}, chapterNumber, {}))
           });
           var chapterData = currentBible[bibleId][chapterNumber];
-          Object.keys(chapterData).forEach(function (verseNumber) {
+
+          for (var l = 0; l < Object.keys(chapterData).length; l++) {
+            var verseNumber = Object.keys(chapterData)[l];
             var verseData = chapterData[verseNumber];
             if (verseData && typeof verseData === 'string') {
               // if the verse content is string.
@@ -69773,16 +69781,15 @@ var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = func
               // then the verse content is an array/verse objects.
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = (0, _verseHelpers.verseArray)(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
             }
-          });
+          }
         } else {
           // is manifest
           var manifest = currentBible[bibleId][chapterNumber];
           parsedBible[languageId][bibleId] = _extends({}, parsedBible[languageId][bibleId], _defineProperty({}, chapterNumber, manifest));
         }
-      });
-    });
-  });
-
+      }
+    }
+  }
   return parsedBible;
 };
 
@@ -69878,7 +69885,11 @@ var verseArray = exports.verseArray = function verseArray() {
     ));
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
-    words.forEach(function (word, index, wordsArray) {
+
+    var _loop = function _loop(i) {
+      var word = words[i];
+      var index = i;
+      var wordsArray = words;
       var nextWord = wordsArray[index + 1];
       if ((0, _stringHelpers.isWord)(word)) {
         var padding = wordSpacing;
@@ -69929,9 +69940,11 @@ var verseArray = exports.verseArray = function verseArray() {
       } else if ((0, _stringHelpers.isNestedMilestone)(word)) {
         // if nested milestone
         var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
-        nestedMilestone.wordSpans.forEach(function (nestedWordSpan) {
-          return verseSpan.push(nestedWordSpan);
-        });
+
+        for (var _i = 0; _i < nestedMilestone.wordSpans.length; _i++) {
+          var nestedWordSpan = nestedMilestone.wordSpans[_i];
+          verseSpan.push(nestedWordSpan);
+        }
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) {
@@ -69943,7 +69956,11 @@ var verseArray = exports.verseArray = function verseArray() {
           verseSpan.push((0, _htmlElementsHelpers.createTextSpan)(index, word.text));
         }
       }
-    });
+    };
+
+    for (var i = 0; i < words.length; i++) {
+      _loop(i);
+    }
   }
 
   return verseSpan;
@@ -78133,13 +78150,17 @@ function isPuntuationAndNeedsNoSpace(wordObject) {
  */
 function getDeepNestedWords(nestedWords) {
   var deepNestedWords = null;
-  nestedWords.forEach(function (nestedWord) {
+
+  for (var i = 0; i < nestedWords.length; i++) {
+    var nestedWord = nestedWords[i];
+
     if (nestedWord.text) {
       deepNestedWords = nestedWords;
     } else {
       deepNestedWords = getDeepNestedWords(nestedWord);
     }
-  });
+  }
+
   return deepNestedWords;
 }
 
@@ -81053,14 +81074,18 @@ var isNestedMilestone = exports.isNestedMilestone = function isNestedMilestone(w
 
 var isDeepNestedChild = exports.isDeepNestedChild = function isDeepNestedChild(words) {
   var deepNestedChild = false;
-  words.forEach(function (wordItem) {
+
+  for (var i = 0; i < words.length; i++) {
+    var wordItem = words[i];
+
     if (wordItem.type === 'word') {
       deepNestedChild = true;
       return;
     } else {
       deepNestedChild = isDeepNestedChild(wordItem);
     }
-  });
+  }
+
   return deepNestedChild;
 };
 

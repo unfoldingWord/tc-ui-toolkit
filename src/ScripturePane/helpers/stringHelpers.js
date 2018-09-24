@@ -11,14 +11,18 @@ export const isNestedMilestone = word => {
 
 export const isDeepNestedChild = words => {
   let deepNestedChild = false;
-  words.forEach(wordItem => {
+
+  for (let i = 0; i < words.length; i++) {
+    const wordItem = words[i];
+
     if (wordItem.type === 'word') {
       deepNestedChild = true;
       return;
     } else {
       deepNestedChild = isDeepNestedChild(wordItem);
     }
-  });
+  }
+
   return deepNestedChild;
 };
 

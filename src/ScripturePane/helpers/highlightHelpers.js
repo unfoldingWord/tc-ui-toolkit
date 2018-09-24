@@ -123,13 +123,17 @@ function isPuntuationAndNeedsNoSpace(wordObject) {
  */
 export function getDeepNestedWords(nestedWords) {
   let deepNestedWords = null;
-  nestedWords.forEach(nestedWord => {
+
+  for (let i = 0; i < nestedWords.length; i++) {
+    const nestedWord = nestedWords[i];
+
     if (nestedWord.text) {
       deepNestedWords = nestedWords;
     } else {
       deepNestedWords = getDeepNestedWords(nestedWord);
     }
-  });
+  }
+
   return deepNestedWords;
 }
 
