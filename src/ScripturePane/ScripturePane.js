@@ -111,6 +111,8 @@ class ScripturePane extends Component {
 
 
   getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
+    const panes = [];
+
     for (let i = 0; i < currentPaneSettings.length; i++) {
       const paneSettings = currentPaneSettings[i];
       const index = i;
@@ -128,7 +130,7 @@ class ScripturePane extends Component {
         const {chapter, verse} = contextId.reference;
         const verseElements = bibleData[chapter][verse];
 
-        return (
+        panes.push(
           <Pane
             key={index.toString()}
             translate={translate}
@@ -148,6 +150,8 @@ class ScripturePane extends Component {
         console.warn(err);
       }
     }
+
+    return panes;
   }
 
   render() {
