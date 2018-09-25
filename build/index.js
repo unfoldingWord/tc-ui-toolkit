@@ -62327,6 +62327,8 @@ var ScripturePane = function (_Component) {
   }, {
     key: 'getPanes',
     value: function getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
+      var panes = [];
+
       for (var i = 0; i < currentPaneSettings.length; i++) {
         var paneSettings = currentPaneSettings[i];
         var index = i;
@@ -62346,7 +62348,7 @@ var ScripturePane = function (_Component) {
 
           var verseElements = bibleData[chapter][verse];
 
-          return _react2.default.createElement(_Pane2.default, {
+          panes.push(_react2.default.createElement(_Pane2.default, {
             key: index.toString(),
             translate: translate,
             index: index,
@@ -62359,11 +62361,13 @@ var ScripturePane = function (_Component) {
             verseElements: verseElements,
             clickToRemoveResourceLabel: translate('pane.remove_resource'),
             removePane: this.removePane
-          });
+          }));
         } catch (err) {
           console.warn(err);
         }
       }
+
+      return panes;
     }
   }, {
     key: 'render',
