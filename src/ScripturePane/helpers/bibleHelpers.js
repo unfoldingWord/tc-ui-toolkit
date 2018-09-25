@@ -11,16 +11,16 @@ import { verseString, verseArray } from './verseHelpers';
 export const getCurrentVersesWithHighlightedWords = (bibles, selections, contextId, getLexiconData, showPopover, translate) => {
   const parsedBible = {};
 
-  for (let i = 0; i < Object.keys(bibles).length; i++) {
+  for (let i = 0, bLen = Object.keys(bibles).length; i < bLen; i++) {
     const languageId = Object.keys(bibles)[i];
     parsedBible[languageId] = {};
     const currentBible = bibles[languageId];
 
-    for (let j = 0; j < Object.keys(currentBible).length; j++) {
+    for (let j = 0, cbLen = Object.keys(currentBible).length; j < cbLen; j++) {
       const bibleId = Object.keys(currentBible)[j];
       parsedBible[languageId][bibleId] = { bibleData: {} };
 
-      for (let k = 0; k < Object.keys(currentBible[bibleId]).length; k++) {
+      for (let k = 0, cbiLen = Object.keys(currentBible[bibleId]).length; k < cbiLen; k++) {
         const chapterNumber = Object.keys(currentBible[bibleId])[k];
         if (chapterNumber !== 'manifest') {
           parsedBible[languageId][bibleId] = {

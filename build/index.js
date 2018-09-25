@@ -69793,16 +69793,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var getCurrentVersesWithHighlightedWords = exports.getCurrentVersesWithHighlightedWords = function getCurrentVersesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate) {
   var parsedBible = {};
 
-  for (var i = 0; i < Object.keys(bibles).length; i++) {
+  for (var i = 0, bLen = Object.keys(bibles).length; i < bLen; i++) {
     var languageId = Object.keys(bibles)[i];
     parsedBible[languageId] = {};
     var currentBible = bibles[languageId];
 
-    for (var j = 0; j < Object.keys(currentBible).length; j++) {
+    for (var j = 0, cbLen = Object.keys(currentBible).length; j < cbLen; j++) {
       var bibleId = Object.keys(currentBible)[j];
       parsedBible[languageId][bibleId] = { bibleData: {} };
 
-      for (var k = 0; k < Object.keys(currentBible[bibleId]).length; k++) {
+      for (var k = 0, cbiLen = Object.keys(currentBible[bibleId]).length; k < cbiLen; k++) {
         var chapterNumber = Object.keys(currentBible[bibleId])[k];
         if (chapterNumber !== 'manifest') {
           parsedBible[languageId][bibleId] = _extends({}, parsedBible[languageId][bibleId], {
