@@ -16,14 +16,6 @@ import * as bibleHelpers from './helpers/bibleHelpers';
 const NAMESPACE = 'ScripturePane';
 
 
-
-
-
-
-
-
-
-
 class ScripturePane extends Component {
   constructor() {
     super();
@@ -178,7 +170,7 @@ class ScripturePane extends Component {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
-    console.log('fix: manny colon september 24, 2018 2');
+    console.log('fix: manny colon september 24, 2018 3');
 
     return (
       <MuiThemeProvider theme={theme}>
