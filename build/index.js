@@ -132,7 +132,7 @@ Object.defineProperty(exports, 'VerseEditor', {
   }
 });
 
-var _VerseCheck = __webpack_require__(742);
+var _VerseCheck = __webpack_require__(737);
 
 Object.defineProperty(exports, 'VerseCheck', {
   enumerable: true,
@@ -141,7 +141,7 @@ Object.defineProperty(exports, 'VerseCheck', {
   }
 });
 
-var _GroupMenu = __webpack_require__(798);
+var _GroupMenu = __webpack_require__(793);
 
 Object.defineProperty(exports, 'GroupMenu', {
   enumerable: true,
@@ -150,7 +150,7 @@ Object.defineProperty(exports, 'GroupMenu', {
   }
 });
 
-var _Bookmark = __webpack_require__(745);
+var _Bookmark = __webpack_require__(740);
 
 Object.defineProperty(exports, 'Bookmark', {
   enumerable: true,
@@ -159,7 +159,7 @@ Object.defineProperty(exports, 'Bookmark', {
   }
 });
 
-var _WordLexiconDetails = __webpack_require__(739);
+var _WordLexiconDetails = __webpack_require__(734);
 
 Object.defineProperty(exports, 'WordLexiconDetails', {
   enumerable: true,
@@ -62238,7 +62238,7 @@ var ScripturePane = function (_Component) {
           bibles = _props.bibles,
           translate = _props.translate;
 
-      var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
+      var biblesWithHighlightedWords = bibleHelpers.getCurrentVersesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
       this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
     }
   }, {
@@ -62253,7 +62253,7 @@ var ScripturePane = function (_Component) {
             bibles = nextProps.bibles,
             translate = nextProps.translate;
 
-        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
+        var biblesWithHighlightedWords = bibleHelpers.getCurrentVersesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
       }
     }
@@ -62387,7 +62387,7 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('fix: manny colon september 24, 2018 2');
+      console.log('fix: manny colon september 24, 2018 3 (big change)');
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -69769,7 +69769,7 @@ exports.push([module.i, "", ""]);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBiblesWithHighlightedWords = undefined;
+exports.getBiblesWithHighlightedWords = exports.getCurrentVersesWithHighlightedWords = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -69777,6 +69777,66 @@ var _verseHelpers = __webpack_require__(604);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/**
+ * Generates bible data with Highlighted Words for the current verses based on the context id.
+ * @param {object} bibles
+ * @param {array} selections
+ * @param {object} contextId
+ * @param {function} getLexiconData
+ * @param {function} showPopover
+ * @param {function} translate
+ */
+var getCurrentVersesWithHighlightedWords = exports.getCurrentVersesWithHighlightedWords = function getCurrentVersesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate) {
+  var parsedBible = {};
+
+  for (var i = 0; i < Object.keys(bibles).length; i++) {
+    var languageId = Object.keys(bibles)[i];
+    parsedBible[languageId] = {};
+    var currentBible = bibles[languageId];
+
+    for (var j = 0; j < Object.keys(currentBible).length; j++) {
+      var bibleId = Object.keys(currentBible)[j];
+      parsedBible[languageId][bibleId] = { bibleData: {} };
+
+      for (var k = 0; k < Object.keys(currentBible[bibleId]).length; k++) {
+        var chapterNumber = Object.keys(currentBible[bibleId])[k];
+        if (chapterNumber !== 'manifest') {
+          parsedBible[languageId][bibleId] = _extends({}, parsedBible[languageId][bibleId], {
+            bibleData: _extends({}, parsedBible[languageId][bibleId]['bibleData'], _defineProperty({}, chapterNumber, {}))
+          });
+          var chapterData = currentBible[bibleId][chapterNumber];
+          var verse = contextId.reference.verse;
+
+          var verseData = chapterData[verse];
+
+          if (verseData && typeof verseData === 'string') {
+            // if the verse content is string.
+            parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verse] = (0, _verseHelpers.verseString)(verseData, selections, translate);
+          } else if (verseData) {
+            // then the verse content is an array/verse objects.
+            parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verse] = (0, _verseHelpers.verseArray)(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+          }
+        } else {
+          // is manifest
+          var manifest = currentBible[bibleId][chapterNumber];
+          parsedBible[languageId][bibleId] = _extends({}, parsedBible[languageId][bibleId], _defineProperty({}, chapterNumber, manifest));
+        }
+      }
+    }
+  }
+
+  return parsedBible;
+};
+
+/**
+ * Generates bible data with Highlighted Words for the entire chapter.
+ * @param {object} bibles
+ * @param {array} selections
+ * @param {object} contextId
+ * @param {function} getLexiconData
+ * @param {function} showPopover
+ * @param {function} translate
+ */
 var getBiblesWithHighlightedWords = exports.getBiblesWithHighlightedWords = function getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate) {
   var parsedBible = {};
 
@@ -69849,7 +69909,7 @@ var _highlightHelpers = __webpack_require__(640);
 
 var highlightHelpers = _interopRequireWildcard(_highlightHelpers);
 
-var _htmlElementsHelpers = __webpack_require__(738);
+var _htmlElementsHelpers = __webpack_require__(733);
 
 var _usfmHelpers = __webpack_require__(732);
 
@@ -75258,8 +75318,16 @@ var getOrderedVerseObjectsFromString = exports.getOrderedVerseObjectsFromString 
   }).join(' ');
   var nonWordVerseObjectCount = 0;
   _verseObjects.forEach(function (_verseObject) {
-    if (_verseObject.text) {
-      _stringPunctuationTokenizer2.default.tokenizeWithPunctuation(_verseObject.text).forEach(function (text) {
+    var vsObjText = _verseObject.text;
+    if (vsObjText && vsObjText.trim()) {
+      // only if non-whitespace characters in text
+      if (_verseObject.type !== 'text') {
+        // preseserve non-text verseObject except for text part which will be split into words
+        delete _verseObject.text;
+        verseObjects.push(_verseObject);
+        nonWordVerseObjectCount++;
+      }
+      _stringPunctuationTokenizer2.default.tokenizeWithPunctuation(vsObjText).forEach(function (text) {
         var verseObject = void 0;
         if (_stringPunctuationTokenizer2.default.word.test(text)) {
           // if the text has word characters, its a word object
@@ -75512,7 +75580,10 @@ var getWordListFromVerseObjectArray = exports.getWordListFromVerseObjectArray = 
 };
 
 var addContentAttributeToChildren = function addContentAttributeToChildren(childrens, parentObject, grandParentObject) {
-  return childrens.map(function (child) {
+  var childrensWithAttribute = [];
+
+  for (var i = 0; i < childrens.length; i++) {
+    var child = childrens[i];
     if (child.children) {
       child = addContentAttributeToChildren(child.children, child, parentObject);
     } else if (!child.content && parentObject.content) {
@@ -75520,8 +75591,10 @@ var addContentAttributeToChildren = function addContentAttributeToChildren(child
       if (grandParentObject) childrenContent.push(grandParentObject);
       child.content = childrenContent;
     }
-    return child;
-  });
+    childrensWithAttribute.push(child);
+  }
+
+  return childrensWithAttribute;
 };
 
 /**
@@ -75530,39 +75603,19 @@ var addContentAttributeToChildren = function addContentAttributeToChildren(child
  * @param {array} words - output array that will be filled with flattened verseObjects
  */
 var flattenVerseObjects = function flattenVerseObjects(verse, words) {
-  var _iteratorNormalCompletion5 = true;
-  var _didIteratorError5 = false;
-  var _iteratorError5 = undefined;
-
-  try {
-    for (var _iterator5 = (0, _getIterator3.default)(verse), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-      var object = _step5.value;
-
-      if (object) {
-        if (object.type === 'word') {
-          object.strong = object.strong || object.strongs;
-          words.push(object);
-        } else if (object.type === 'milestone') {
-          // get children of milestone
-          // add content attibute to children
-          var newObject = addContentAttributeToChildren(object.children, object);
-          flattenVerseObjects(newObject, words);
-        } else {
-          words.push(object);
-        }
-      }
-    }
-  } catch (err) {
-    _didIteratorError5 = true;
-    _iteratorError5 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion5 && _iterator5.return) {
-        _iterator5.return();
-      }
-    } finally {
-      if (_didIteratorError5) {
-        throw _iteratorError5;
+  for (var i = 0; i < verse.length; i++) {
+    var object = verse[i];
+    if (object) {
+      if (object.type === 'word') {
+        object.strong = object.strong || object.strongs;
+        words.push(object);
+      } else if (object.type === 'milestone') {
+        // get children of milestone
+        // add content attibute to children
+        var newObject = addContentAttributeToChildren(object.children, object);
+        flattenVerseObjects(newObject, words);
+      } else {
+        words.push(object);
       }
     }
   }
@@ -75912,7 +75965,7 @@ var removeLeadingSpace = function removeLeadingSpace(text) {
 */
 var parseWord = function parseWord(state, wordContent) {
   var object = {};
-  var wordParts = wordContent.split('|');
+  var wordParts = (wordContent || "").split('|');
   var word = wordParts[0].trim();
   var attributeContent = wordParts[1];
   object = {
@@ -76549,7 +76602,7 @@ var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
   var lastLine = lines.length - 1;
   for (var i = 0; i < lines.length; i++) {
     var parsedLine = parseLine(lines[i], i >= lastLine);
-    markers = markers.concat(parsedLine);
+    markers.push.apply(markers, parsedLine);
   }
   var state = {
     currentChapter: 0,
@@ -76791,13 +76844,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // type descriptions for tags
 var MARKER_TYPE = exports.MARKER_TYPE = {
+  b: "paragraph",
+  cls: "paragraph",
   f: "footnote",
+  m: "paragraph",
+  mi: "paragraph",
+  nb: "paragraph",
   p: "paragraph",
-  q: "quote",
+  pc: "paragraph",
+  ph1: "paragraph",
+  ph2: "paragraph",
+  ph3: "paragraph",
+  ph4: "paragraph",
+  ph5: "paragraph",
+  ph: "paragraph",
+  pi1: "paragraph",
+  pi2: "paragraph",
+  pi3: "paragraph",
+  pi4: "paragraph",
+  pi5: "paragraph",
+  pi: "paragraph",
+  pm: "paragraph",
+  pmc: "paragraph",
+  pmo: "paragraph",
+  pmr: "paragraph",
+  po: "paragraph",
+  pr: "paragraph",
   q1: "quote",
   q2: "quote",
   q3: "quote",
   q4: "quote",
+  q: "quote",
   qa: "quote",
   qac: "quote",
   qc: "quote",
@@ -76805,19 +76882,19 @@ var MARKER_TYPE = exports.MARKER_TYPE = {
   qr: "quote",
   qs: "quote",
   qt: "quote",
-  s: "section",
   s1: "section",
   s2: "section",
   s3: "section",
   s4: "section",
-  s5: "section"
+  s5: "section",
+  s: "section"
 };
 
 // for these tags we support number attribute
 var MARKERS_WITH_NUMBERS = exports.MARKERS_WITH_NUMBERS = ["c", "v"];
 
 // for these tags we embed the contained text as a displayable text attribute instead of content
-var MARK_CONTENT_AS_TEXT = exports.MARK_CONTENT_AS_TEXT = ["add", "bd", "bdit", "bk", "dc", "em", "it", "k", "lit", "nd", "no", "ord", "p", "pn", "q", "q1", "q2", "q3", "q4", "qa", "qac", "qc", "qm", "qr", "qs", "qt", "s", "s1", "s2", "s3", "s4", "s5", "sc", "sig", "sls", "sp", "tl", "v", "w", "wa", "wg", "wh", "wj"];
+var MARK_CONTENT_AS_TEXT = exports.MARK_CONTENT_AS_TEXT = ["add", "b", "bd", "bdit", "bk", "cls", "dc", "em", "it", "k", "lit", "m", "mi", "nb", "nd", "no", "ord", "p", "pc", "ph", "ph1", "ph2", "ph3", "ph4", "ph5", "pi", "pi1", "pi2", "pi3", "pi4", "pi5", "pm", "pmc", "pmo", "pmr", "pn", "po", "pr", "q", "q1", "q2", "q3", "q4", "qa", "qac", "qc", "qm", "qr", "qs", "qt", "s", "s1", "s2", "s3", "s4", "s5", "sc", "sig", "sls", "sp", "tl", "v", "w", "wa", "wg", "wh", "wj"];
 
 // for these tags we must embed following text in content until we find an end marker,
 var NEED_TERMINATION_MARKERS = exports.NEED_TERMINATION_MARKERS = ["bd", "bdit", "bk", "ca", "cat", "dc", "ef", "em", "ex", "f", "fa", "fdc", "fe", "fig", "fm", "fqa", "fv", "imte", "imte1", "imte2", "imte3", "ior", "iqt", "it", "jmp", "k", "lik", "litl", "liv", "liv1", "liv2", "liv3", "nd", "ndx", "no", "ord", "pn", "png", "pro", "qac", "qs", "qt", "rb", "rq", "rt", "sc", "sig", "sis", "tl", "va", "vp", "w", "wa", "wg", "wh", "wj", "x", "xdc", "xnt", "xop", "xot", "xta"];
@@ -77312,8 +77389,7 @@ var removeMarker = exports.removeMarker = function removeMarker() {
 
   if (typeof types === 'string') types = [types];
   if (!types || types.includes('f')) {
-    var regString = '\\\\f[\\S\\s]*\\\\f[^a-z|A-Z|0-9|\\s]*';
-    var regex = new RegExp(regString, 'g');
+    var regex = new RegExp(/\\f[\S\s]*\\f[^a-z|A-Z|0-9|\s|\\]*/g);
     string = string.replace(regex, '');
   }
   if (!types || types.includes('q')) {
@@ -77337,8 +77413,8 @@ var removeMarker = exports.removeMarker = function removeMarker() {
           // if no more USFM tags, then done
           break;
         }
-        var _regString = '\\\\' + type;
-        var _regex2 = new RegExp(_regString, 'g');
+        var regString = '\\\\' + type;
+        var _regex2 = new RegExp(regString, 'g');
         string = string.replace(_regex2, '');
       }
     } catch (err) {
@@ -77643,8 +77719,8 @@ var merge = exports.merge = function merge(alignments, wordBank, verseString) {
  * @param {Array} alignments - array of aligned word objects {bottomWords, topWords}
  * @param {Array} wordBank - array of unused topWords for aligning
  * @param {Object} verseObjects - verse objects from verse string to be checked
- * @return {boolean} - returns if the given verse objects from a string are contained in
- * the given alignments
+ * @return {Array} - returns array of word verse objects from a string that are not contained in
+ *                      the given alignments
  */
 function verseStringWordsContainedInAlignments(alignments, wordBank, verseObjects) {
   return verseObjects.filter(function (verseObject) {
@@ -81153,7 +81229,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.removeMarker = undefined;
 
-var _usfmJs = __webpack_require__(733);
+var _usfmJs = __webpack_require__(628);
 
 var _usfmJs2 = _interopRequireDefault(_usfmJs);
 
@@ -81177,1547 +81253,6 @@ var removeMarker = exports.removeMarker = function removeMarker(verseText) {
 "use strict";
 
 
-module.exports.toJSON = __webpack_require__(734).usfmToJSON;
-module.exports.toUSFM = __webpack_require__(736).jsonToUSFM;
-module.exports.removeMarker = __webpack_require__(737).removeMarker;
-
-/***/ }),
-/* 734 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.usfmToJSON = undefined;
-
-var _keys = __webpack_require__(630);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _getIterator2 = __webpack_require__(625);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-var _USFM = __webpack_require__(735);
-
-var USFM = _interopRequireWildcard(_USFM);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var VERSE_SPAN_REGEX = /(^-\d+\s)/; /**
-                                     * @description for converting from USFM to json format.  Main method is usfmToJSON()
-                                     */
-
-var NUMBER = /(\d+)/;
-
-/**
- * @description - Finds all of the regex matches in a string
- * @param {String} string - the string to find matches in
- * @param {RegExp} regex - the RegExp to find matches with, must use global flag /.../g
- * @param {Boolean} lastLine - true if last line of file
- * @return {Array} - array of results
-*/
-var getMatches = function getMatches(string, regex, lastLine) {
-  var matches = [];
-  var match = void 0;
-  if (string.match(regex)) {
-    // check so you don't get caught in a loop
-    while (match = regex.exec(string)) {
-      // preserve white space
-      var nextChar = null;
-      var endPos = match.index + match[0].length;
-      if (!lastLine && endPos >= string.length) {
-        nextChar = "\n"; // save new line
-      } else {
-        var char = string[endPos];
-        if (char === ' ') {
-          nextChar = char; // save space
-        }
-      }
-      if (nextChar) {
-        match.nextChar = nextChar;
-      }
-      matches.push(match);
-    }
-  }
-  return matches;
-};
-
-/**
- * @description - Parses the marker that opens and describes content
- * @param {String} markerOpen - the string that contains the marker '\v 1', '\p', ...
- * @return {Object} - the object of tag and number if it exists
-*/
-var parseMarkerOpen = function parseMarkerOpen(markerOpen) {
-  var object = {};
-  if (markerOpen) {
-    var regex = /(\w+)\s*(\d*)/g;
-    var matches = getMatches(markerOpen, regex, true);
-    object = {
-      tag: matches[0][1],
-      number: matches[0][2]
-    };
-  }
-  return object;
-};
-
-/**
- * @description - trim a leading space
- * @param {String} text - text to trim
- * @return {String} trimmed string
- */
-var removeLeadingSpace = function removeLeadingSpace(text) {
-  if (text && text.length > 1 && text[0] === " ") {
-    text = text.substr(1);
-  }
-  return text;
-};
-
-/**
- * @description - Parses the word marker into word object
- * @param {object} state - holds parsing state information
- * @param {String} wordContent - the string to find the data/attributes
- * @return {Object} - object of the word attributes
-*/
-var parseWord = function parseWord(state, wordContent) {
-  var object = {};
-  var wordParts = (wordContent || "").split('|');
-  var word = wordParts[0].trim();
-  var attributeContent = wordParts[1];
-  object = {
-    text: word,
-    tag: 'w',
-    type: 'word'
-  };
-  if (state.params["content-source"]) {
-    object["content-source"] = state.params["content-source"];
-  }
-  if (attributeContent) {
-    var regex = /[x-]*([\w-]+)=['"](.*?)['"]/g;
-    var matches = getMatches(attributeContent, regex, true);
-    matches.forEach(function (match) {
-      var key = match[1];
-      if (key === "strongs") {
-        // fix invalid 'strongs' key
-        key = "strong";
-      }
-      if (state.params.map && state.params.map[key]) {
-        // see if we should convert this key
-        key = state.params.map[key];
-      }
-      var value = match[2];
-      if (state.params.convertToInt && state.params.convertToInt.includes(key)) {
-        value = parseInt(value, 10);
-      }
-      object[key] = value;
-    });
-  }
-  return object;
-};
-
-/**
- * @description - make a marker object that contains the text
- * @param {string} text - text to embed in object
- * @return {{content: *}} new text marker
- */
-var makeTextMarker = function makeTextMarker(text) {
-  return {
-    content: text
-  };
-};
-
-/**
- * @description create marker object from text
- * @param {String} text - text to put in marker
- * @return {object} new marker
- */
-var createMarkerFromText = function createMarkerFromText(text) {
-  return {
-    open: text,
-    tag: text
-  };
-};
-
-/**
- * @description - Parses the line and determines what content is in it
- * @param {String} line - the string to find the markers and content
- * @param {Boolean} lastLine - true if last line of file
- * @return {Array} - array of objects that describe open/close and content
-*/
-var parseLine = function parseLine(line, lastLine) {
-  var array = [];
-  if (line.trim() === '') {
-    if (!lastLine) {
-      var object = makeTextMarker(line + '\n');
-      array.push(object);
-    }
-    return array;
-  }
-  var regex = /([^\\]+)?\\(\w+\s*\d*)(?!\w)\s*([^\\]+)?(\\\w\*)?/g;
-  var matches = getMatches(line, regex, lastLine);
-  var lastObject = null;
-  if (regex.exec(line)) {
-    // normal formatting with marker followed by content
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = (0, _getIterator3.default)(matches), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var match = _step.value;
-
-        var orphan = match[1];
-        if (orphan) {
-          var _object3 = { content: orphan };
-          array.push(_object3);
-        }
-        var open = match[2] ? match[2].trim() : undefined;
-        var content = match[3] || undefined;
-        var close = match[4] ? match[4].trim() : undefined;
-        var marker = parseMarkerOpen(open);
-        var _object2 = {
-          open: open,
-          tag: marker.tag,
-          number: marker.number,
-          content: content
-        };
-
-        var whiteSpaceInOpen = open !== match[2];
-        if (whiteSpaceInOpen && !marker.number) {
-          var shouldMatch = '\\' + open + (content ? ' ' + content : "");
-          if (removeLeadingSpace(match[0]) !== shouldMatch) {
-            // look for dropped inside white space
-            var _endPos = match.index + match[0].length;
-            var lineLength = line.length;
-            var runToEnd = _endPos >= lineLength;
-            if (runToEnd) {
-              _object2.content = match[2].substr(open.length) + (content || "");
-            }
-          }
-        }
-
-        if (marker.number && !USFM.markerSupportsNumbers(marker.tag)) {
-          // this tag doesn't have number, move to content
-          delete _object2.number;
-          var newContent = void 0;
-          var tagPos = match[0].indexOf(marker.tag);
-          if (tagPos >= 0) {
-            newContent = match[0].substr(tagPos + marker.tag.length + 1);
-          } else {
-            newContent = marker.number + ' ' + (content || "");
-          }
-          _object2.content = newContent;
-        }
-        if (close) {
-          array.push(_object2);
-          var closeTag = close.substr(1);
-          _object2 = createMarkerFromText(closeTag);
-        }
-        if (match.nextChar) {
-          _object2.nextChar = match.nextChar;
-        }
-        array.push(_object2);
-        lastObject = _object2;
-      }
-      // check for leftover text at end of line
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-
-    if (matches.length) {
-      var lastMatch = matches[matches.length - 1];
-      var endPos = lastMatch.index + lastMatch[0].length;
-      if (endPos < line.length) {
-        var orphanText = line.substr(endPos) + '\n';
-        if (lastObject && lastObject.nextChar && lastObject.nextChar === ' ') {
-          orphanText = orphanText.substr(1); // remove first space since already handled
-        }
-        var _object = makeTextMarker(orphanText);
-        array.push(_object);
-      }
-    }
-  } else {
-    // doesn't have a marker but may have content
-    // this is considered an orphaned line
-    var _object4 = makeTextMarker(line + '\n');
-    array.push(_object4);
-  }
-  return array;
-};
-
-/**
- * get top phrase if doing phrase (milestone)
- * @param {object} state - holds parsing state information
- * @return {object} location to add to phrase or null
- */
-var getLastPhrase = function getLastPhrase(state) {
-  if (state.phrase !== null) {
-    return state.phrase[state.phrase.length - 1];
-  }
-  return null;
-};
-
-/**
- * @description - get location for chapter/verse, if location doesn't exist, create it.
- * @param {object} state - holds parsing state information
- * @return {array} location to place verse content
- */
-var getSaveToLocation = function getSaveToLocation(state) {
-  var phrase = getLastPhrase(state);
-  if (phrase !== null) {
-    return phrase;
-  }
-
-  if (state.params.chunk) {
-    if (!state.verses[state.currentVerse]) {
-      state.verses[state.currentVerse] = [];
-    }
-    return state.verses[state.currentVerse];
-  }
-
-  if (!state.currentVerse) {
-    state.currentVerse = 'front';
-  }
-  if (!state.chapters[state.currentChapter][state.currentVerse]) state.chapters[state.currentChapter][state.currentVerse] = [];
-
-  return state.chapters[state.currentChapter][state.currentVerse];
-};
-
-/**
- * @description - create a USFM object with fields passed
- * @param {string|null} tag - string to use for tag
- * @param {string|null} number - optional number attribute
- * @param {string} content - optional content (may be saved as content or text depending on tag)
- * @return {{tag: *}} USFM object
- */
-var createUsfmObject = function createUsfmObject(tag, number, content) {
-  var output = {};
-  var contentAttr = void 0;
-  if (tag) {
-    output.tag = tag;
-    if (USFM.MARKER_TYPE[tag]) {
-      output.type = USFM.MARKER_TYPE[tag];
-    }
-    contentAttr = USFM.markContentAsText(tag) ? 'text' : 'content';
-  } else {
-    // default to text type
-    contentAttr = output.type = "text";
-  }
-  if (number) {
-    if (USFM.markerSupportsNumbers(tag)) {
-      output.number = number;
-    } else {
-      // handle rare case that parser places part of content as number
-      var newContent = number;
-      if (content) {
-        newContent += ' ' + content;
-      }
-      content = newContent;
-    }
-  }
-  if (content) {
-    output[contentAttr] = content;
-  }
-  return output;
-};
-
-/**
- * @description push usfm object to array, and concat strings of last array item is also string
- * @param {object} state - holds parsing state information
- * @param {array} saveTo - location to place verse content
- * @param {object|string} usfmObject - object that contains usfm marker, or could be raw text
- */
-var pushObject = function pushObject(state, saveTo, usfmObject) {
-  if (!Array.isArray(saveTo)) {
-    var phrase = getLastPhrase(state);
-    if (phrase === null) {
-      var isNestedMarker = state.nested.length > 0;
-      if (isNestedMarker) {
-        // if this marker is nested in another marker, then we need to add to content as string
-        var last = state.nested.length - 1;
-        var contentAttr = USFM.markContentAsText(usfmObject.tag) ? 'text' : 'content';
-        var lastObject = state.nested[last];
-        var output = lastObject[contentAttr];
-        if (typeof usfmObject === "string") {
-          output += usfmObject;
-        } else {
-          output += '\\' + usfmObject.tag;
-          var content = usfmObject.text || usfmObject.content;
-          if (content) {
-            if (content[0] !== ' ') {
-              output += ' ';
-            }
-            output += content;
-          }
-        }
-        lastObject[contentAttr] = output;
-        return;
-      }
-    } else {
-      saveTo = phrase;
-    }
-  }
-
-  if (typeof usfmObject === "string") {
-    // if raw text, convert to object
-    if (usfmObject === '') {
-      // skip empty strings
-      return;
-    }
-    usfmObject = createUsfmObject(null, null, usfmObject);
-  }
-
-  saveTo = Array.isArray(saveTo) ? saveTo : getSaveToLocation(state);
-  if (saveTo.length && usfmObject.type === "text") {
-    // see if we can append to previous string
-    var lastPos = saveTo.length - 1;
-    var _lastObject = saveTo[lastPos];
-    if (_lastObject.type === "text") {
-      _lastObject.text += usfmObject.text;
-      return;
-    }
-  }
-  saveTo.push(usfmObject);
-};
-
-/**
- * @description test if last character was newline (or return) char
- * @param {String} line - line to test
- * @return {boolean} true if newline
- */
-var isLastCharNewLine = function isLastCharNewLine(line) {
-  var lastChar = line ? line.substr(line.length - 1) : '';
-  var index = ['\n', '\r'].indexOf(lastChar);
-  return index >= 0;
-};
-
-/**
- * @description test if next to last character is quote
- * @param {String} line - line to test
- * @return {boolean} true if newline
- */
-var isNextToLastCharQuote = function isNextToLastCharQuote(line) {
-  var nextToLastChar = line && line.length >= 2 ? line.substr(line.length - 2, 1) : '';
-  var index = ['"', '“'].indexOf(nextToLastChar);
-  return index >= 0;
-};
-
-/**
- * @description - remove previous new line from text
- * @param {object} state - holds parsing state information
- * @param {boolean} ignoreQuote - if true then don't remove last new line if preceded by quote.
- */
-var removeLastNewLine = function removeLastNewLine(state) {
-  var ignoreQuote = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var saveTo = getSaveToLocation(state);
-  if (saveTo && saveTo.length) {
-    var lastObject = saveTo[saveTo.length - 1];
-    if (lastObject.type === 'text') {
-      var text = lastObject.text;
-      if (isLastCharNewLine(text)) {
-        var removeNewLine = !ignoreQuote || !isNextToLastCharQuote(text);
-        if (removeNewLine) {
-          if (text.length === 1) {
-            saveTo.pop();
-          } else {
-            lastObject.text = text.substr(0, text.length - 1);
-          }
-        }
-      }
-    }
-  }
-};
-
-/**
- * @description - rollback nested to endpoint for this tag
- * @param {object} state - holds parsing state information
- * @param {String} content - usfm marker content
- * @param {String} tag - usfm marker tag
- * @param {string} nextChar - next character after marker
- */
-var unPopNestedMarker = function unPopNestedMarker(state, content, tag, nextChar) {
-  var extra = content.substr(1); // pull out data after end marker
-  if (tag[tag.length - 1] === "*") {
-    tag = tag.substr(0, tag.length - 1);
-  }
-  var found = false;
-  for (var j = state.nested.length - 1; j >= 0; j--) {
-    var stackTYpe = state.nested[j].tag;
-    if (tag === stackTYpe) {
-      while (state.nested.length > j) {
-        // rollback nested to this point
-        state.nested.pop();
-      }
-      found = true;
-      break;
-    }
-  }
-  if (!found) {
-    // since nested and not in stack, add end marker to text content
-    pushObject(state, null, '\\' + tag + '*');
-  }
-  if (extra) {
-    pushObject(state, null, extra);
-  }
-  if (nextChar) {
-    pushObject(state, null, nextChar);
-  }
-};
-
-/**
- * @description - save the usfm object to specified place and handle nested data
- * @param {object} state - holds parsing state information
- * @param {String} tag - usfm marker tag
- * @param {object} usfmObject - object that contains usfm marker
- */
-var saveUsfmObject = function saveUsfmObject(state, tag, usfmObject) {
-  var isNestedMarker = state.nested.length > 0;
-  if (isNestedMarker) {
-    pushObject(state, null, usfmObject);
-  } else {
-    // not nested
-    var saveTo = getSaveToLocation(state);
-    saveTo.push(usfmObject);
-    if (USFM.markerRequiresTermination(tag)) {
-      // need to handle nested data
-      state.nested.push(usfmObject);
-    }
-  }
-};
-
-/**
- * @description normalize the numbers in string by removing leading '0'
- * @param {string} text - number string to normalize
- * @return {string} normalized number string
- */
-var stripLeadingZeros = function stripLeadingZeros(text) {
-  while (text.length > 1 && text[0] === '0') {
-    text = text.substr(1);
-  }
-  return text;
-};
-
-/**
- * @description - adds usfm object to current verse and handles nested USFM objects
- * @param {object} state - holds parsing state information
- * @param {object} usfmObject - object that contains usfm marker
- * @param {String} tag - usfm marker tag
- */
-var addToCurrentVerse = function addToCurrentVerse(state, usfmObject) {
-  var tag = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-  tag = tag || usfmObject.tag;
-  if (!tag) {
-    pushObject(state, null, usfmObject);
-    return;
-  }
-
-  var content = usfmObject.content || "";
-  var isEndMarker = content && content[0] === "*" || tag[tag.length - 1] === "*";
-  if (isEndMarker) {
-    // check for end marker
-    unPopNestedMarker(state, content, tag, usfmObject.nextChar);
-  } else {
-    if (usfmObject.nextChar && !usfmObject.close) {
-      content += usfmObject.nextChar;
-    }
-    var output = createUsfmObject(tag, null, content);
-    saveUsfmObject(state, tag, output);
-  }
-};
-
-/**
- * @description - process marker as a verse
- * @param {object} state - holds parsing state information
- * @param {object} marker - marker object containing content
- */
-var parseAsVerse = function parseAsVerse(state, marker) {
-  state.nested = [];
-  marker.content = marker.content || "";
-  if (marker.nextChar === "\n") {
-    marker.content += marker.nextChar;
-  }
-  state.currentVerse = stripLeadingZeros(marker.number);
-
-  // check for verse span
-  var spanMatch = VERSE_SPAN_REGEX.exec(marker.content);
-  if (spanMatch) {
-    state.currentVerse += spanMatch[0][0] + stripLeadingZeros(spanMatch[0].substr(1).trim());
-    marker.content = marker.content.substr(spanMatch[0].length);
-  }
-
-  if (state.params.chunk && !state.onSameChapter) {
-    if (state.verses[state.currentVerse]) {
-      state.onSameChapter = true;
-    } else {
-      state.verses[state.currentVerse] = [];
-      pushObject(state, null, marker.content);
-    }
-  } else if (state.chapters[state.currentChapter] && !state.onSameChapter) {
-    // if the current chapter exists, not on same chapter, and there is content to store
-    if (state.chapters[state.currentChapter][state.currentVerse]) {
-      // If the verse already exists, then we are flagging as 'on the same chapter'
-      state.onSameChapter = true;
-    } else {
-      pushObject(state, null, marker.content);
-    }
-  }
-};
-
-/**
- * @description - process marker as text
- * @param {object} state - holds parsing state information
- * @param {object} marker - marker object containing content
- */
-var processAsText = function processAsText(state, marker) {
-  if (state.currentChapter > 0 && marker.content) {
-    addToCurrentVerse(state, marker.content);
-  } else if (state.currentChapter === 0 && !state.currentVerse) {
-    // if we haven't seen chapter yet, its a header
-    pushObject(state, state.headers, createUsfmObject(marker.tag, marker.number, marker.content));
-  }
-  if (state.params.chunk && state.currentVerse > 0 && marker.content) {
-    if (!state.verses[state.currentVerse]) state.verses[state.currentVerse] = [];
-    pushObject(state, state.verses[state.currentVerse], marker.content);
-  }
-};
-
-/**
- * @description - convert marker to text
- * @param {object} marker - object to convert to text
- * @return {string} text representation of marker
- */
-var markerToText = function markerToText(marker) {
-  var text = '\\' + marker.tag;
-  if (marker.number) {
-    text += " " + marker.number;
-  }
-  text += marker.content ? " " + marker.content : "";
-  if (marker.nextChar) {
-    text += marker.nextChar;
-  }
-  return text;
-};
-
-/**
- * @description - process marker as a chapter
- * @param {object} state - holds parsing state information
- * @param {object} marker - marker object containing content
- */
-var processAsChapter = function processAsChapter(state, marker) {
-  state.nested = [];
-  state.currentChapter = stripLeadingZeros(marker.number);
-  state.chapters[state.currentChapter] = {};
-  // resetting 'on same chapter' flag
-  state.onSameChapter = false;
-  state.currentVerse = 0;
-};
-
-/**
- * @description - see if verse number in content
- * @param {object} marker - marker object containing content
- */
-var extractNumberFromContent = function extractNumberFromContent(marker) {
-  var numberMatch = NUMBER.exec(marker.content);
-  if (numberMatch) {
-    marker.number = numberMatch[0];
-    marker.content = marker.content.substr(numberMatch.length);
-  }
-};
-
-var getVerseObjectsForChapter = function getVerseObjectsForChapter(currentChapter) {
-  var outputChapter = {};
-  var _iteratorNormalCompletion2 = true;
-  var _didIteratorError2 = false;
-  var _iteratorError2 = undefined;
-
-  try {
-    for (var _iterator2 = (0, _getIterator3.default)((0, _keys2.default)(currentChapter)), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-      var verseNum = _step2.value;
-
-      var verseObjects = currentChapter[verseNum];
-      outputChapter[verseNum] = {
-        verseObjects: verseObjects
-      };
-    }
-  } catch (err) {
-    _didIteratorError2 = true;
-    _iteratorError2 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion2 && _iterator2.return) {
-        _iterator2.return();
-      }
-    } finally {
-      if (_didIteratorError2) {
-        throw _iteratorError2;
-      }
-    }
-  }
-
-  return outputChapter;
-};
-
-var getVerseObjectsForBook = function getVerseObjectsForBook(usfmJSON, state) {
-  usfmJSON.chapters = {};
-  var _iteratorNormalCompletion3 = true;
-  var _didIteratorError3 = false;
-  var _iteratorError3 = undefined;
-
-  try {
-    for (var _iterator3 = (0, _getIterator3.default)((0, _keys2.default)(state.chapters)), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-      var chapterNum = _step3.value;
-
-      var currentChapter = state.chapters[chapterNum];
-      usfmJSON.chapters[chapterNum] = getVerseObjectsForChapter(currentChapter);
-    }
-  } catch (err) {
-    _didIteratorError3 = true;
-    _iteratorError3 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion3 && _iterator3.return) {
-        _iterator3.return();
-      }
-    } finally {
-      if (_didIteratorError3) {
-        throw _iteratorError3;
-      }
-    }
-  }
-};
-
-/**
- * @description - Parses the usfm string and returns an object
- * @param {String} usfm - the raw usfm string
- * @param {Object} params - extra params to use for chunk parsing. Properties:
- *                    chunk {boolean} - if true then output is just a small piece of book
- *                    content-source {String} - content source attribute to add to word imports
- *                    convertToInt {Array} - attributes to convert to integer
- * @return {Object} - json object that holds the parsed usfm data, headers and chapters
-*/
-var usfmToJSON = exports.usfmToJSON = function usfmToJSON(usfm) {
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  USFM.init();
-  var lines = usfm.split(/\r?\n/); // get all the lines
-  var usfmJSON = {};
-  var markers = [];
-  var lastLine = lines.length - 1;
-  for (var i = 0; i < lines.length; i++) {
-    var parsedLine = parseLine(lines[i], i >= lastLine);
-    markers.push.apply(markers, parsedLine);
-  }
-  var state = {
-    currentChapter: 0,
-    currentVerse: 0,
-    chapters: {},
-    verses: {},
-    headers: [],
-    nested: [],
-    phrase: null,
-    onSameChapter: false,
-    params: params
-  };
-  for (var _i = 0; _i < markers.length; _i++) {
-    var marker = markers[_i];
-    switch (marker.tag) {
-      case 'c':
-        {
-          // chapter
-          if (!marker.number && marker.content) {
-            // if no number, try to find in content
-            extractNumberFromContent(marker);
-          }
-          if (marker.number) {
-            processAsChapter(state, marker);
-          } else {
-            // no chapter number, add as text
-            marker.content = markerToText(marker);
-            processAsText(state, marker);
-          }
-          break;
-        }
-      case 'v':
-        {
-          // verse
-          if (!marker.number && marker.content) {
-            // if no number, try to find in content
-            extractNumberFromContent(marker);
-          }
-          if (marker.number) {
-            parseAsVerse(state, marker);
-          } else {
-            // no verse number, add as text
-            marker.content = markerToText(marker);
-            processAsText(state, marker);
-          }
-          break;
-        }
-      case 'k':
-      case 'zaln':
-        {
-          // phrase
-          removeLastNewLine(state);
-          var phrase = parseWord(state, marker.content); // very similar to word marker, so start with this and modify
-          phrase.type = "milestone";
-          var milestone = phrase.text.trim();
-          if (milestone === '-s') {
-            // milestone start
-            var saveTo = getSaveToLocation(state);
-            phrase.tag = marker.tag;
-            delete phrase.text;
-            if (state.phrase === null) {
-              state.phrase = []; // create new phrase stack
-            }
-            state.phrase.push([]); // push new empty list onto phrase stack
-            phrase.children = getLastPhrase(state); // point to top of phrase stack
-            pushObject(state, saveTo, phrase);
-          } else if (milestone === '-e') {
-            // milestone end
-            if (state.phrase.length > 1) {
-              state.phrase.pop(); // remove last phrases
-            } else {
-              state.phrase = null; // stop adding to phrases
-            }
-            if (_i + 1 < markers.length && markers[_i + 1].content) {
-              var content = markers[_i + 1].content;
-              var trimLength = 0;
-              if (content.substr(0, 2) === "\\*") {
-                // check if next marker is part of milestone end
-                trimLength = 2;
-              }
-              if (content[0] === "*") {
-                // check if next marker is part of milestone end
-                trimLength = 1;
-              }
-              if (trimLength) {
-                if (content.substr(trimLength, 1) === '\n') {
-                  trimLength++;
-                }
-                content = content.substr(trimLength); // remove phrase end marker
-                if (content) {
-                  markers[_i + 1].content = content;
-                } else {
-                  // no text after end marker
-                  _i++; // skip following text
-                }
-              }
-            }
-          }
-          break;
-        }
-      case 'w':
-        {
-          // word
-          removeLastNewLine(state, true);
-          var wordObject = parseWord(state, marker.content);
-          pushObject(state, null, wordObject);
-          if (marker.nextChar) {
-            pushObject(state, null, marker.nextChar);
-          }
-          break;
-        }
-      case 'w*':
-        {
-          if (marker.nextChar && marker.nextChar !== ' ') {
-            pushObject(state, null, marker.nextChar);
-          }
-          break;
-        }
-      case undefined:
-        {
-          // likely orphaned text for the preceding verse marker
-          processAsText(state, marker);
-          break;
-        }
-      default:
-        {
-          var tag0 = marker.tag ? marker.tag.substr(0, 1) : "";
-          if (tag0 === 'v' || tag0 === 'c') {
-            // check for mangled verses and chapters
-            var number = marker.tag.substr(1);
-            var isInt = /^\+?\d+$/.test(number);
-            if (isInt) {
-              // separate number from tag
-              marker.tag = tag0;
-              if (marker.number) {
-                marker.content = marker.number + (marker.content ? " " + marker.content : "");
-              }
-              marker.number = number;
-              if (tag0 === 'v') {
-                parseAsVerse(state, marker);
-                marker = null;
-              } else if (tag0 === 'c') {
-                processAsChapter(state, marker);
-                marker = null;
-              }
-            } else if (marker.tag.length === 1) {
-              // convert line to text
-              marker.content = markerToText(marker);
-              processAsText(state, marker);
-              marker = null;
-            }
-          }
-          if (marker) {
-            // if not yet processed
-            if (state.currentChapter === 0 && !state.currentVerse) {
-              // if we haven't seen chapter yet, its a header
-              pushObject(state, state.headers, createUsfmObject(marker.tag, marker.number, marker.content));
-            } else if (state.currentChapter || state.params.chunk && state.currentVerse) {
-              addToCurrentVerse(state, marker);
-            }
-          }
-        }
-    }
-  }
-  usfmJSON.headers = state.headers;
-  getVerseObjectsForBook(usfmJSON, state);
-  if ((0, _keys2.default)(state.verses).length > 0) {
-    usfmJSON.verses = getVerseObjectsForChapter(state.verses);
-  }
-  return usfmJSON;
-};
-
-/***/ }),
-/* 735 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.markerSupportsNumbers = exports.markContentAsText = exports.markerRequiresTermination = exports.init = exports.MARKERS_WITH_NUMBERS_LOOKUP = exports.MARK_CONTENT_AS_TEXT_LOOKUP = exports.NEED_TERMINATION_MARKERS_LOOKUP = exports.initLookup = exports.NEED_TERMINATION_MARKERS = exports.MARK_CONTENT_AS_TEXT = exports.MARKERS_WITH_NUMBERS = exports.MARKER_TYPE = undefined;
-
-var _getIterator2 = __webpack_require__(625);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * USFM definitions
- */
-
-// type descriptions for tags
-var MARKER_TYPE = exports.MARKER_TYPE = {
-  b: "paragraph",
-  cls: "paragraph",
-  f: "footnote",
-  m: "paragraph",
-  mi: "paragraph",
-  nb: "paragraph",
-  p: "paragraph",
-  pc: "paragraph",
-  ph1: "paragraph",
-  ph2: "paragraph",
-  ph3: "paragraph",
-  ph4: "paragraph",
-  ph5: "paragraph",
-  ph: "paragraph",
-  pi1: "paragraph",
-  pi2: "paragraph",
-  pi3: "paragraph",
-  pi4: "paragraph",
-  pi5: "paragraph",
-  pi: "paragraph",
-  pm: "paragraph",
-  pmc: "paragraph",
-  pmo: "paragraph",
-  pmr: "paragraph",
-  po: "paragraph",
-  pr: "paragraph",
-  q1: "quote",
-  q2: "quote",
-  q3: "quote",
-  q4: "quote",
-  q: "quote",
-  qa: "quote",
-  qac: "quote",
-  qc: "quote",
-  qm: "quote",
-  qr: "quote",
-  qs: "quote",
-  qt: "quote",
-  s1: "section",
-  s2: "section",
-  s3: "section",
-  s4: "section",
-  s5: "section",
-  s: "section"
-};
-
-// for these tags we support number attribute
-var MARKERS_WITH_NUMBERS = exports.MARKERS_WITH_NUMBERS = ["c", "v"];
-
-// for these tags we embed the contained text as a displayable text attribute instead of content
-var MARK_CONTENT_AS_TEXT = exports.MARK_CONTENT_AS_TEXT = ["add", "b", "bd", "bdit", "bk", "cls", "dc", "em", "it", "k", "lit", "m", "mi", "nb", "nd", "no", "ord", "p", "pc", "ph", "ph1", "ph2", "ph3", "ph4", "ph5", "pi", "pi1", "pi2", "pi3", "pi4", "pi5", "pm", "pmc", "pmo", "pmr", "pn", "po", "pr", "q", "q1", "q2", "q3", "q4", "qa", "qac", "qc", "qm", "qr", "qs", "qt", "s", "s1", "s2", "s3", "s4", "s5", "sc", "sig", "sls", "sp", "tl", "v", "w", "wa", "wg", "wh", "wj"];
-
-// for these tags we must embed following text in content until we find an end marker,
-var NEED_TERMINATION_MARKERS = exports.NEED_TERMINATION_MARKERS = ["bd", "bdit", "bk", "ca", "cat", "dc", "ef", "em", "ex", "f", "fa", "fdc", "fe", "fig", "fm", "fqa", "fv", "imte", "imte1", "imte2", "imte3", "ior", "iqt", "it", "jmp", "k", "lik", "litl", "liv", "liv1", "liv2", "liv3", "nd", "ndx", "no", "ord", "pn", "png", "pro", "qac", "qs", "qt", "rb", "rq", "rt", "sc", "sig", "sis", "tl", "va", "vp", "w", "wa", "wg", "wh", "wj", "x", "xdc", "xnt", "xop", "xot", "xta"];
-
-/**
- * @description - initialize by putting tags in object for fast lookup
- * @param {object} lookup - target lookup dictionary
- * @param {array} keys - list of tags for lookup
- */
-var initLookup = exports.initLookup = function initLookup(lookup, keys) {
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = (0, _getIterator3.default)(keys), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var item = _step.value;
-
-      lookup[item] = true;
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
-};
-
-var NEED_TERMINATION_MARKERS_LOOKUP = exports.NEED_TERMINATION_MARKERS_LOOKUP = {};
-var MARK_CONTENT_AS_TEXT_LOOKUP = exports.MARK_CONTENT_AS_TEXT_LOOKUP = {};
-var MARKERS_WITH_NUMBERS_LOOKUP = exports.MARKERS_WITH_NUMBERS_LOOKUP = {};
-
-/**
- * description - initialize by putting tags in dictionary for fast lookup
- */
-var init = exports.init = function init() {
-  initLookup(NEED_TERMINATION_MARKERS_LOOKUP, NEED_TERMINATION_MARKERS);
-  initLookup(MARK_CONTENT_AS_TEXT_LOOKUP, MARK_CONTENT_AS_TEXT);
-  initLookup(MARKERS_WITH_NUMBERS_LOOKUP, MARKERS_WITH_NUMBERS);
-};
-
-var markerRequiresTermination = exports.markerRequiresTermination = function markerRequiresTermination(tag) {
-  return NEED_TERMINATION_MARKERS_LOOKUP[tag] === true;
-};
-
-var markContentAsText = exports.markContentAsText = function markContentAsText(tag) {
-  return MARK_CONTENT_AS_TEXT_LOOKUP[tag] === true;
-};
-
-var markerSupportsNumbers = exports.markerSupportsNumbers = function markerSupportsNumbers(tag) {
-  return MARKERS_WITH_NUMBERS_LOOKUP[tag] === true;
-};
-
-/***/ }),
-/* 736 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.jsonToUSFM = undefined;
-
-var _getIterator2 = __webpack_require__(625);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-var _keys = __webpack_require__(630);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _USFM = __webpack_require__(735);
-
-var USFM = _interopRequireWildcard(_USFM);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var params_ = {}; /**
-                   * @description for converting from json format to USFM.  Main method is jsonToUSFM()
-                   */
-
-var wordMap_ = {};
-var wordIgnore_ = [];
-var milestoneMap_ = {};
-var milestoneIgnore_ = [];
-
-/**
- * @description checks if we need to add a newline if next object is not text or newline
- * @param {Object} nextObject - next object to be output
- * @return {String} either newline or empty string
- */
-var needsNewLine = function needsNewLine(nextObject) {
-  var retVal = '\n';
-  if (nextObject && nextObject.type === 'text' && nextObject.text.substr(0, 1) !== '\n') {
-    retVal = '';
-  }
-  return retVal;
-};
-
-/**
- * @description test if last character was newline (or return) char
- * @param {String} line - line to test
- * @return {boolean} true if newline
- */
-var lastCharIsNewLine = function lastCharIsNewLine(line) {
-  var lastChar = line ? line.substr(line.length - 1) : '';
-  return lastChar === '\n';
-};
-
-/**
- * @description Takes in word json and outputs it as USFM.
- * @param {Object} wordObject - word in JSON
- * @param {Object} nextObject - next object to be output
- * @return {String} - word in USFM
- */
-var generateWord = function generateWord(wordObject, nextObject) {
-  var keys = (0, _keys2.default)(wordObject);
-  var attributes = [];
-  var word = wordObject.text;
-  keys.forEach(function (key) {
-    if (!wordIgnore_.includes(key)) {
-      var value = wordObject[key];
-      if (wordMap_[key]) {
-        // see if we should convert this key
-        key = wordMap_[key];
-      }
-      var prefix = key === 'lemma' || key === 'strong' ? '' : 'x-';
-      var attribute = prefix + key + '="' + value + '"';
-      attributes.push(attribute);
-    }
-  });
-  var line = '\\w ' + word + '|' + attributes.join(' ') + '\\w*';
-  return line;
-};
-
-/**
- * @description Takes in word json and outputs it as USFM.
- * @param {Object} phraseObject - word in JSON
- * @param {Object} nextObject - next object to be output
- * @return {String} - word in USFM
- */
-var generatePhrase = function generatePhrase(phraseObject, nextObject) {
-  var tag = phraseObject.tag || 'zaln';
-  var keys = (0, _keys2.default)(phraseObject);
-  var attributes = [];
-  keys.forEach(function (key) {
-    if (!milestoneIgnore_.includes(key)) {
-      var value = phraseObject[key];
-      if (milestoneMap_[key]) {
-        // see if we should convert this key
-        key = milestoneMap_[key];
-      }
-      var prefix = 'x-';
-      var attribute = prefix + key + '="' + value + '"';
-      attributes.push(attribute);
-    }
-  });
-  var line = '\\' + tag + '-s | ' + attributes.join(' ') + '\n';
-
-  /* eslint-disable no-use-before-define */
-  line = objectToString(phraseObject.children, line);
-  /* eslint-enable no-use-before-define */
-  if (!lastCharIsNewLine(line)) {
-    line += '\n';
-  }
-  line += '\\' + tag + '-e\\*' + needsNewLine(nextObject);
-  return line;
-};
-
-/**
- * @description convert usfm marker to string
- * @param {object} usfmObject - usfm object to output
- * @return {String} Text equivalent of marker.
- */
-var usfmMarkerToString = function usfmMarkerToString(usfmObject) {
-  var output = "";
-  var content = usfmObject.text || usfmObject.content || "";
-  var markerRequiresTermination = USFM.markerRequiresTermination(usfmObject.tag);
-  if (usfmObject.tag) {
-    output = '\\' + usfmObject.tag;
-    if (usfmObject.number) {
-      output += ' ' + usfmObject.number;
-    }
-    var firstChar = content.substr(0, 1);
-    if (!markerRequiresTermination && firstChar !== '' && firstChar !== '\n' && content !== ' \n') {
-      output += ' ';
-    } else if (markerRequiresTermination && firstChar !== ' ') {
-      output += ' ';
-    }
-  }
-
-  if (content) {
-    output += content;
-  }
-
-  if (markerRequiresTermination) {
-    output += '\\' + usfmObject.tag + '*';
-  }
-  return output;
-};
-
-/**
- * @description adds text to the line and makes sure it is on a new line
- * @param {String} text - to add
- * @param {String} output - string to add to
- * @return {String} updated output
- */
-var addOnNewLine = function addOnNewLine(text, output) {
-  output = output || "";
-  if (text) {
-    var lastChar = output ? output.substr(output.length - 1) : '';
-    if (!lastChar || ['\n', '"', '“'].indexOf(lastChar) < 0) {
-      text = '\n' + text;
-    }
-    output += text;
-  }
-  return output;
-};
-
-/**
- * @description converts object to string and appends to line
- * @param {string|array|object} object - marker to print
- * @param {string} output - marker to print
- * @param {String|array|object} nextObject - optional object that is next entry.  Used to determine if we need to
- *                                add a space between current marker and following text
- * @return {String} Text equivalent of marker appended to output.
- */
-var objectToString = function objectToString(object, output, nextObject) {
-  if (!object) {
-    return "";
-  }
-
-  output = output || "";
-
-  if (object.type === 'text') {
-    return output + object.text;
-  }
-
-  if (object.verseObjects) {
-    // support new verse object format
-    object = object.verseObjects;
-  }
-
-  if (Array.isArray(object)) {
-    for (var i = 0; i < object.length; i++) {
-      var objectN = object[i];
-      var _nextObject = i + 1 < object.length ? object[i + 1] : null;
-      output = objectToString(objectN, output, _nextObject);
-    }
-    return output;
-  }
-
-  if (object.type === 'word') {
-    // usfm word marker
-    return addOnNewLine(generateWord(object, nextObject), output);
-  }
-
-  if (object.type === 'milestone') {
-    // usfm keyterm with milestone (phrase)
-    return addOnNewLine(generatePhrase(object, nextObject), output);
-  }
-
-  if (object.tag) {
-    // any other USFM marker tag
-    return output + usfmMarkerToString(object);
-  }
-  return output;
-};
-
-/**
- * @description Takes in verse json and outputs it as a USFM line array.
- * @param {String} verseNumber - number to use for the verse
- * @param {Array|Object} verseObjects - verse in JSON
- * @return {String} - verse in USFM
- */
-var generateVerse = function generateVerse(verseNumber, verseObjects) {
-  var verseText = objectToString(verseObjects);
-  var object = {
-    tag: 'v',
-    number: verseNumber,
-    text: verseText
-  };
-  return usfmMarkerToString(object);
-};
-
-/**
- * @description adds verse to lines array, makes sure there is a newline before verse
- * @param {Array} lines - array to add to
- * @param {String} verse - line to add
- * @return {Array} updated lines array
- */
-var addVerse = function addVerse(lines, verse) {
-  if (lines && lines.length) {
-    var lastLine = lines[lines.length - 1];
-    if (!lastCharIsNewLine(lastLine)) {
-      // need to add newline
-      var quoted = lastLine.indexOf('\n\\q') >= 0;
-      if (!quoted) {
-        // don't add newline before verse if quoted
-        verse = '\n' + verse;
-      }
-    }
-  }
-  lines = lines.concat(verse);
-  return lines;
-};
-
-/**
- * @description adds chapter to lines array, makes sure there is a newline before chapters
- * @param {Array} lines - array to add to
- * @param {Array} chapter - chapter lines to add
- * @return {Array} updated lines array
- */
-var addChapter = function addChapter(lines, chapter) {
-  if (lines && lines.length) {
-    var lastLine = lines[lines.length - 1];
-    if (!lastCharIsNewLine(lastLine)) {
-      // need to add newline
-      if (chapter && chapter.length) {
-        chapter[0] = '\n' + chapter[0]; // add newline to start of chapter
-      }
-    }
-  }
-  lines = lines.concat(chapter);
-  return lines;
-};
-
-/**
- * @description Takes in chapter json and outputs it as a USFM line array.
- * @param {String} chapterNumber - number to use for the chapter
- * @param {Object} chapterObject - chapter in JSON
- * @return {Array} - chapter in USFM lines/string
- */
-var generateChapterLines = function generateChapterLines(chapterNumber, chapterObject) {
-  var lines = [];
-  lines.push('\\c ' + chapterNumber + '\n');
-  if (chapterObject.front) {
-    // handle front matter first
-    var verseText = objectToString(chapterObject.front);
-    lines = lines.concat(verseText);
-    delete chapterObject.front;
-  }
-  var verseNumbers = (0, _keys2.default)(chapterObject).sort(function (a, b) {
-    return parseInt(a, 10) - parseInt(b, 10);
-  });
-  verseNumbers.forEach(function (verseNumber) {
-    // check if verse is inside previous line (such as \q)
-    var lastLine = lines.length ? lines[lines.length - 1] : "";
-    var lastChar = lastLine ? lastLine.substr(lastLine.length - 1) : "";
-    if (lastChar && lastChar !== '\n' && lastChar !== '') {
-      // do we need white space
-      lines[lines.length - 1] = lastLine + ' ';
-    }
-    var verseObjects = chapterObject[verseNumber];
-    var verseLine = generateVerse(verseNumber, verseObjects);
-    lines = addVerse(lines, verseLine);
-  });
-  return lines;
-};
-
-/**
- * @description convert object to text and add to array.  Objects are terminated with newline
- * @param {array} output - array where text is appended
- * @param {Object} usfmObject - USFM object to convert to string
- */
-var outputHeaderObject = function outputHeaderObject(output, usfmObject) {
-  var text = usfmMarkerToString(usfmObject);
-  if (usfmObject.tag) {
-    text += '\n';
-  }
-  output.push(text);
-};
-
-/**
- * @description Goes through parameters and populates ignore lists and parameter maps
- *                for words and milestones
- */
-var processParams = function processParams() {
-  wordMap_ = params_.map ? params_.map : {};
-  wordMap_.strongs = 'strong';
-  wordIgnore_ = ['text', 'tag', 'type'];
-  if (params_.ignore) {
-    wordIgnore_ = wordIgnore_.concat(params_.ignore);
-  }
-  milestoneMap_ = params_.mileStoneMap ? params_.mileStoneMap : {};
-  milestoneMap_.strongs = 'strong';
-  milestoneIgnore_ = ['children', 'tag', 'type'];
-  if (params_.mileStoneIgnore) {
-    milestoneIgnore_ = milestoneIgnore_.concat(params_.mileStoneIgnore);
-  }
-};
-
-/**
- * @description Takes in scripture json and outputs it as a USFM string.
- * @param {Object} json - Scripture in JSON
- * @param {Object} params - optional parameters like attributes to ignore.  Properties:
- *                    chunk {boolean} - if true then output is just a small piece of book
- *                    ignore (Array} - list of attributes to ignore on word objects
- *                    map {Object} - dictionary of attribute names to map to new name on word objects
- *                    mileStoneIgnore (Array} - list of attributes to ignore on milestone objects
- *                    mileStoneMap {Object} - dictionary of attribute names to map to new name on milestone objects
- * @return {String} - Scripture in USFM
- */
-var jsonToUSFM = exports.jsonToUSFM = function jsonToUSFM(json, params) {
-  params_ = params || {}; // save current parameters
-  processParams();
-  USFM.init();
-  var output = [];
-  if (json.headers) {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = (0, _getIterator3.default)(json.headers), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var header = _step.value;
-
-        outputHeaderObject(output, header);
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  }
-  if (json.chapters) {
-    var chapterNumbers = (0, _keys2.default)(json.chapters);
-    chapterNumbers.forEach(function (chapterNumber) {
-      var chapterObject = json.chapters[chapterNumber];
-      var chapterLines = generateChapterLines(chapterNumber, chapterObject);
-      output = addChapter(output, chapterLines);
-    });
-  }
-  if (json.verses) {
-    var verseNumbers = (0, _keys2.default)(json.verses);
-    verseNumbers.forEach(function (verseNumber) {
-      var verseObjects = json.verses[verseNumber];
-      var verse = generateVerse(verseNumber, verseObjects);
-      output = addVerse(output, verse);
-    });
-  }
-  return output.join('');
-};
-
-/***/ }),
-/* 737 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.removeMarker = undefined;
-
-var _getIterator2 = __webpack_require__(625);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* Method to filter specified usfm marker from a string
- * @param {string} string - The string to remove specfic marker from
- * @param {string} type - The type of marker to remove i.e. f | h. If no type is given all markers are removed
- * @return {string}
- */
-var removeMarker = exports.removeMarker = function removeMarker() {
-  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var types = arguments[1];
-
-  if (typeof types === 'string') types = [types];
-  if (!types || types.includes('f')) {
-    var regex = new RegExp(/\\f[\S\s]*\\f[^a-z|A-Z|0-9|\s|\\]*/g);
-    string = string.replace(regex, '');
-  }
-  if (!types || types.includes('q')) {
-    var _regex = new RegExp('\\\\q', 'g');
-    string = string.replace(_regex, '');
-  }
-  if (types) {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = (0, _getIterator3.default)(types), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var type = _step.value;
-
-        if (type === 'f' || type === 'q') {
-          // if this type was already handled, skip
-          continue;
-        }
-        if (!string.includes('\\')) {
-          // if no more USFM tags, then done
-          break;
-        }
-        var regString = '\\\\' + type;
-        var _regex2 = new RegExp(regString, 'g');
-        string = string.replace(_regex2, '');
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  }
-  return string;
-};
-
-/***/ }),
-/* 738 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -82727,11 +81262,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _WordLexiconDetails = __webpack_require__(739);
+var _WordLexiconDetails = __webpack_require__(734);
 
 var _WordLexiconDetails2 = _interopRequireDefault(_WordLexiconDetails);
 
-var _lexiconHelpers = __webpack_require__(741);
+var _lexiconHelpers = __webpack_require__(736);
 
 var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
 
@@ -82794,7 +81329,7 @@ var createHighlightedSpan = exports.createHighlightedSpan = function createHighl
 };
 
 /***/ }),
-/* 739 */
+/* 734 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82804,7 +81339,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _WordLexiconDetails = __webpack_require__(740);
+var _WordLexiconDetails = __webpack_require__(735);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -82816,7 +81351,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 740 */
+/* 735 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82836,7 +81371,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _lexiconHelpers = __webpack_require__(741);
+var _lexiconHelpers = __webpack_require__(736);
 
 var lexiconHelpers = _interopRequireWildcard(_lexiconHelpers);
 
@@ -82953,7 +81488,7 @@ WordLexiconDetails.propTypes = {
 exports.default = WordLexiconDetails;
 
 /***/ }),
-/* 741 */
+/* 736 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82982,7 +81517,7 @@ var lexiconEntryIdFromStrongs = exports.lexiconEntryIdFromStrongs = function lex
 };
 
 /***/ }),
-/* 742 */
+/* 737 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82992,7 +81527,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _VerseCheck = __webpack_require__(743);
+var _VerseCheck = __webpack_require__(738);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -83004,7 +81539,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 743 */
+/* 738 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83026,27 +81561,27 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _styles = __webpack_require__(20);
 
-var _ActionsArea = __webpack_require__(744);
+var _ActionsArea = __webpack_require__(739);
 
 var _ActionsArea2 = _interopRequireDefault(_ActionsArea);
 
-var _CheckArea = __webpack_require__(751);
+var _CheckArea = __webpack_require__(746);
 
 var _CheckArea2 = _interopRequireDefault(_CheckArea);
 
-var _SaveArea = __webpack_require__(791);
+var _SaveArea = __webpack_require__(786);
 
 var _SaveArea2 = _interopRequireDefault(_SaveArea);
 
-var _DialogComponent = __webpack_require__(794);
+var _DialogComponent = __webpack_require__(789);
 
 var _DialogComponent2 = _interopRequireDefault(_DialogComponent);
 
-var _IconIndicators = __webpack_require__(796);
+var _IconIndicators = __webpack_require__(791);
 
 var _IconIndicators2 = _interopRequireDefault(_IconIndicators);
 
-__webpack_require__(759);
+__webpack_require__(754);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83318,7 +81853,7 @@ VerseCheck.defaultProps = {
 exports.default = VerseCheck;
 
 /***/ }),
-/* 744 */
+/* 739 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83338,11 +81873,11 @@ var _deepEqual = __webpack_require__(515);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _Bookmark = __webpack_require__(745);
+var _Bookmark = __webpack_require__(740);
 
 var _Bookmark2 = _interopRequireDefault(_Bookmark);
 
-__webpack_require__(749);
+__webpack_require__(744);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83504,7 +82039,7 @@ var ActionsArea = function ActionsArea(_ref) {
 exports.default = ActionsArea;
 
 /***/ }),
-/* 745 */
+/* 740 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83514,7 +82049,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Bookmark = __webpack_require__(746);
+var _Bookmark = __webpack_require__(741);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -83526,7 +82061,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 746 */
+/* 741 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83544,7 +82079,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Switch = __webpack_require__(747);
+var _Switch = __webpack_require__(742);
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
@@ -83608,7 +82143,7 @@ Bookmark.propTypes = {
 exports.default = (0, _styles.withStyles)(styles)(Bookmark);
 
 /***/ }),
-/* 747 */
+/* 742 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83626,10 +82161,10 @@ Object.defineProperty(exports, "default", {
   }
 });
 
-var _Switch = _interopRequireDefault(__webpack_require__(748));
+var _Switch = _interopRequireDefault(__webpack_require__(743));
 
 /***/ }),
-/* 748 */
+/* 743 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83858,11 +82393,11 @@ var _default = (0, _withStyles.default)(styles, {
 exports.default = _default;
 
 /***/ }),
-/* 749 */
+/* 744 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(750);
+var content = __webpack_require__(745);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -83883,7 +82418,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 750 */
+/* 745 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -83897,7 +82432,7 @@ exports.push([module.i, ".actions-area {\n  flex: 0 0 55px;\n  display: flex;\n 
 
 
 /***/ }),
-/* 751 */
+/* 746 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83915,27 +82450,27 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _DefaultArea = __webpack_require__(752);
+var _DefaultArea = __webpack_require__(747);
 
 var _DefaultArea2 = _interopRequireDefault(_DefaultArea);
 
-var _SelectionArea = __webpack_require__(761);
+var _SelectionArea = __webpack_require__(756);
 
 var _SelectionArea2 = _interopRequireDefault(_SelectionArea);
 
-var _InstructionsArea = __webpack_require__(766);
+var _InstructionsArea = __webpack_require__(761);
 
 var _InstructionsArea2 = _interopRequireDefault(_InstructionsArea);
 
-var _EditVerseArea = __webpack_require__(783);
+var _EditVerseArea = __webpack_require__(778);
 
 var _EditVerseArea2 = _interopRequireDefault(_EditVerseArea);
 
-var _CommentArea = __webpack_require__(786);
+var _CommentArea = __webpack_require__(781);
 
 var _CommentArea2 = _interopRequireDefault(_CommentArea);
 
-__webpack_require__(789);
+__webpack_require__(784);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84052,7 +82587,7 @@ CheckArea.propTypes = {
 exports.default = CheckArea;
 
 /***/ }),
-/* 752 */
+/* 747 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84072,15 +82607,15 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _selectionHelpers = __webpack_require__(753);
+var _selectionHelpers = __webpack_require__(748);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _MyLanguageModal = __webpack_require__(755);
+var _MyLanguageModal = __webpack_require__(750);
 
 var _MyLanguageModal2 = _interopRequireDefault(_MyLanguageModal);
 
-__webpack_require__(759);
+__webpack_require__(754);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84234,7 +82769,7 @@ DefaultArea.propTypes = {
 exports.default = DefaultArea;
 
 /***/ }),
-/* 753 */
+/* 748 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84245,7 +82780,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.normalizeString = exports.occurrencesInString = exports.optimizeSelections = exports.rangesToSelections = exports.optimizeRanges = exports.selectionArray = exports.selectionsToRanges = exports.spliceStringOnRanges = undefined;
 
-var _lodash = __webpack_require__(754);
+var _lodash = __webpack_require__(749);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -84557,7 +83092,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 // console.log(selectionArray)
 
 /***/ }),
-/* 754 */
+/* 749 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -101640,7 +100175,7 @@ var normalizeString = exports.normalizeString = function normalizeString(string)
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(23), __webpack_require__(713)(module)))
 
 /***/ }),
-/* 755 */
+/* 750 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101682,11 +100217,11 @@ var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _MyTargetVerse = __webpack_require__(756);
+var _MyTargetVerse = __webpack_require__(751);
 
 var _MyTargetVerse2 = _interopRequireDefault(_MyTargetVerse);
 
-__webpack_require__(757);
+__webpack_require__(752);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101828,7 +100363,7 @@ MyLanguageModal.propTypes = {
 exports.default = MyLanguageModal;
 
 /***/ }),
-/* 756 */
+/* 751 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101892,11 +100427,11 @@ MyTargetVerse.propTypes = {
 exports.default = MyTargetVerse;
 
 /***/ }),
-/* 757 */
+/* 752 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(758);
+var content = __webpack_require__(753);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -101917,7 +100452,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 758 */
+/* 753 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -101931,11 +100466,11 @@ exports.push([module.i, ".verse-check-modal-title {\n  text-align: center;\n  co
 
 
 /***/ }),
-/* 759 */
+/* 754 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(760);
+var content = __webpack_require__(755);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -101956,7 +100491,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 760 */
+/* 755 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -101970,7 +100505,7 @@ exports.push([module.i, ".verse-check {\n  margin: 10px;\n  height: 100%;\n  dis
 
 
 /***/ }),
-/* 761 */
+/* 756 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101990,9 +100525,9 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(759);
+__webpack_require__(754);
 
-var _RenderSelectionTextComponent = __webpack_require__(762);
+var _RenderSelectionTextComponent = __webpack_require__(757);
 
 var _RenderSelectionTextComponent2 = _interopRequireDefault(_RenderSelectionTextComponent);
 
@@ -102094,7 +100629,7 @@ SelectionArea.propTypes = {
 exports.default = SelectionArea;
 
 /***/ }),
-/* 762 */
+/* 757 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102118,15 +100653,15 @@ var _deepEqual = __webpack_require__(515);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _windowSelectionHelpers = __webpack_require__(763);
+var _windowSelectionHelpers = __webpack_require__(758);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
-var _selectionHelpers = __webpack_require__(765);
+var _selectionHelpers = __webpack_require__(760);
 
 var selectionHelpers = _interopRequireWildcard(_selectionHelpers);
 
-var _stringHelpers = __webpack_require__(764);
+var _stringHelpers = __webpack_require__(759);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -102290,7 +100825,7 @@ RenderSelectionTextComponent.propTypes = {
 exports.default = RenderSelectionTextComponent;
 
 /***/ }),
-/* 763 */
+/* 758 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102302,7 +100837,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPrescedingTextFromElementSiblings = exports.getPrescedingTextFromElement = exports.getPrescedingTextFromElementAndSiblings = exports.getPrescedingTextFromWindowSelection = exports.getSelectedTextFromWindowSelection = exports.getCurrentWindowSelection = exports.getSelectionFromCurrentWindowSelection = undefined;
 exports.shouldRenderEllipsis = shouldRenderEllipsis;
 
-var _stringHelpers = __webpack_require__(764);
+var _stringHelpers = __webpack_require__(759);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -102451,7 +100986,7 @@ function shouldRenderEllipsis(selections, verseText) {
 }
 
 /***/ }),
-/* 764 */
+/* 759 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102517,7 +101052,7 @@ var generateSelection = exports.generateSelection = function generateSelection(s
 };
 
 /***/ }),
-/* 765 */
+/* 760 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102532,11 +101067,11 @@ var _deepEqual = __webpack_require__(515);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _lodash = __webpack_require__(754);
+var _lodash = __webpack_require__(749);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _stringHelpers = __webpack_require__(764);
+var _stringHelpers = __webpack_require__(759);
 
 var stringHelpers = _interopRequireWildcard(_stringHelpers);
 
@@ -102745,7 +101280,7 @@ var addSelectionToSelections = exports.addSelectionToSelections = function addSe
 };
 
 /***/ }),
-/* 766 */
+/* 761 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102763,13 +101298,13 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(767);
+__webpack_require__(762);
 
-var _InstructionsAreaTextSelection = __webpack_require__(769);
+var _InstructionsAreaTextSelection = __webpack_require__(764);
 
 var _InstructionsAreaTextSelection2 = _interopRequireDefault(_InstructionsAreaTextSelection);
 
-var _reactTooltip = __webpack_require__(770);
+var _reactTooltip = __webpack_require__(765);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -102906,11 +101441,11 @@ InstructionsArea.propTypes = {
 exports.default = InstructionsArea;
 
 /***/ }),
-/* 767 */
+/* 762 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(768);
+var content = __webpack_require__(763);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -102931,7 +101466,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 768 */
+/* 763 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -102945,7 +101480,7 @@ exports.push([module.i, ".instructions-area {\n  padding: 5px;\n  text-align: ce
 
 
 /***/ }),
-/* 769 */
+/* 764 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102963,7 +101498,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _windowSelectionHelpers = __webpack_require__(763);
+var _windowSelectionHelpers = __webpack_require__(758);
 
 var windowSelectionHelpers = _interopRequireWildcard(_windowSelectionHelpers);
 
@@ -103036,7 +101571,7 @@ QuoatationMarks.propTypes = {
 };
 
 /***/ }),
-/* 770 */
+/* 765 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103073,45 +101608,45 @@ var _classnames = __webpack_require__(203);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _staticMethods = __webpack_require__(771);
+var _staticMethods = __webpack_require__(766);
 
 var _staticMethods2 = _interopRequireDefault(_staticMethods);
 
-var _windowListener = __webpack_require__(773);
+var _windowListener = __webpack_require__(768);
 
 var _windowListener2 = _interopRequireDefault(_windowListener);
 
-var _customEvent = __webpack_require__(774);
+var _customEvent = __webpack_require__(769);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
-var _isCapture = __webpack_require__(775);
+var _isCapture = __webpack_require__(770);
 
 var _isCapture2 = _interopRequireDefault(_isCapture);
 
-var _getEffect = __webpack_require__(776);
+var _getEffect = __webpack_require__(771);
 
 var _getEffect2 = _interopRequireDefault(_getEffect);
 
-var _trackRemoval = __webpack_require__(777);
+var _trackRemoval = __webpack_require__(772);
 
 var _trackRemoval2 = _interopRequireDefault(_trackRemoval);
 
-var _getPosition = __webpack_require__(778);
+var _getPosition = __webpack_require__(773);
 
 var _getPosition2 = _interopRequireDefault(_getPosition);
 
-var _getTipContent = __webpack_require__(779);
+var _getTipContent = __webpack_require__(774);
 
 var _getTipContent2 = _interopRequireDefault(_getTipContent);
 
-var _aria = __webpack_require__(780);
+var _aria = __webpack_require__(775);
 
-var _nodeListToArray = __webpack_require__(781);
+var _nodeListToArray = __webpack_require__(776);
 
 var _nodeListToArray2 = _interopRequireDefault(_nodeListToArray);
 
-var _style = __webpack_require__(782);
+var _style = __webpack_require__(777);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -103654,7 +102189,7 @@ var ReactTooltip = (0, _staticMethods2.default)(_class = (0, _windowListener2.de
 module.exports = ReactTooltip;
 
 /***/ }),
-/* 771 */
+/* 766 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103713,7 +102248,7 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(772);
+var _constant = __webpack_require__(767);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -103738,7 +102273,7 @@ var dispatchGlobalEvent = function dispatchGlobalEvent(eventName, opts) {
     */
 
 /***/ }),
-/* 772 */
+/* 767 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103757,7 +102292,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 773 */
+/* 768 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103804,14 +102339,14 @@ exports.default = function (target) {
   };
 };
 
-var _constant = __webpack_require__(772);
+var _constant = __webpack_require__(767);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 774 */
+/* 769 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103928,7 +102463,7 @@ var customListeners = {
 };
 
 /***/ }),
-/* 775 */
+/* 770 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103945,7 +102480,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 776 */
+/* 771 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103963,7 +102498,7 @@ exports.default = function (target) {
 };
 
 /***/ }),
-/* 777 */
+/* 772 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104021,7 +102556,7 @@ var getMutationObserverClass = function getMutationObserverClass() {
 };
 
 /***/ }),
-/* 778 */
+/* 773 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104379,7 +102914,7 @@ var getParent = function getParent(currentTarget) {
 };
 
 /***/ }),
-/* 779 */
+/* 774 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104417,7 +102952,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 780 */
+/* 775 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104447,7 +102982,7 @@ function parseAria(props) {
 }
 
 /***/ }),
-/* 781 */
+/* 776 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104468,7 +103003,7 @@ exports.default = function (nodeList) {
 };
 
 /***/ }),
-/* 782 */
+/* 777 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104480,7 +103015,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = '.__react_component_tooltip{border-radius:3px;display:inline-block;font-size:13px;left:-999em;opacity:0;padding:8px 21px;position:fixed;pointer-events:none;transition:opacity 0.3s ease-out;top:-999em;visibility:hidden;z-index:999}.__react_component_tooltip:before,.__react_component_tooltip:after{content:"";width:0;height:0;position:absolute}.__react_component_tooltip.show{opacity:0.9;margin-top:0px;margin-left:0px;visibility:visible}.__react_component_tooltip.type-dark{color:#fff;background-color:#222}.__react_component_tooltip.type-dark.place-top:after{border-top-color:#222;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-dark.place-bottom:after{border-bottom-color:#222;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-dark.place-left:after{border-left-color:#222;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-dark.place-right:after{border-right-color:#222;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-dark.border{border:1px solid #fff}.__react_component_tooltip.type-dark.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-dark.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-dark.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-dark.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-success{color:#fff;background-color:#8DC572}.__react_component_tooltip.type-success.place-top:after{border-top-color:#8DC572;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-success.place-bottom:after{border-bottom-color:#8DC572;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-success.place-left:after{border-left-color:#8DC572;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-success.place-right:after{border-right-color:#8DC572;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-success.border{border:1px solid #fff}.__react_component_tooltip.type-success.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-success.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-success.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-success.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-warning{color:#fff;background-color:#F0AD4E}.__react_component_tooltip.type-warning.place-top:after{border-top-color:#F0AD4E;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-warning.place-bottom:after{border-bottom-color:#F0AD4E;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-warning.place-left:after{border-left-color:#F0AD4E;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-warning.place-right:after{border-right-color:#F0AD4E;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-warning.border{border:1px solid #fff}.__react_component_tooltip.type-warning.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-warning.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-warning.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-warning.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-error{color:#fff;background-color:#BE6464}.__react_component_tooltip.type-error.place-top:after{border-top-color:#BE6464;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-error.place-bottom:after{border-bottom-color:#BE6464;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-error.place-left:after{border-left-color:#BE6464;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-error.place-right:after{border-right-color:#BE6464;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-error.border{border:1px solid #fff}.__react_component_tooltip.type-error.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-error.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-error.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-error.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-info{color:#fff;background-color:#337AB7}.__react_component_tooltip.type-info.place-top:after{border-top-color:#337AB7;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-info.place-bottom:after{border-bottom-color:#337AB7;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-info.place-left:after{border-left-color:#337AB7;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-info.place-right:after{border-right-color:#337AB7;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-info.border{border:1px solid #fff}.__react_component_tooltip.type-info.border.place-top:before{border-top:8px solid #fff}.__react_component_tooltip.type-info.border.place-bottom:before{border-bottom:8px solid #fff}.__react_component_tooltip.type-info.border.place-left:before{border-left:8px solid #fff}.__react_component_tooltip.type-info.border.place-right:before{border-right:8px solid #fff}.__react_component_tooltip.type-light{color:#222;background-color:#fff}.__react_component_tooltip.type-light.place-top:after{border-top-color:#fff;border-top-style:solid;border-top-width:6px}.__react_component_tooltip.type-light.place-bottom:after{border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}.__react_component_tooltip.type-light.place-left:after{border-left-color:#fff;border-left-style:solid;border-left-width:6px}.__react_component_tooltip.type-light.place-right:after{border-right-color:#fff;border-right-style:solid;border-right-width:6px}.__react_component_tooltip.type-light.border{border:1px solid #222}.__react_component_tooltip.type-light.border.place-top:before{border-top:8px solid #222}.__react_component_tooltip.type-light.border.place-bottom:before{border-bottom:8px solid #222}.__react_component_tooltip.type-light.border.place-left:before{border-left:8px solid #222}.__react_component_tooltip.type-light.border.place-right:before{border-right:8px solid #222}.__react_component_tooltip.place-top{margin-top:-10px}.__react_component_tooltip.place-top:before{border-left:10px solid transparent;border-right:10px solid transparent;bottom:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-top:after{border-left:8px solid transparent;border-right:8px solid transparent;bottom:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-bottom{margin-top:10px}.__react_component_tooltip.place-bottom:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}.__react_component_tooltip.place-bottom:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;left:50%;margin-left:-8px}.__react_component_tooltip.place-left{margin-left:-10px}.__react_component_tooltip.place-left:before{border-top:6px solid transparent;border-bottom:6px solid transparent;right:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-left:after{border-top:5px solid transparent;border-bottom:5px solid transparent;right:-6px;top:50%;margin-top:-4px}.__react_component_tooltip.place-right{margin-left:10px}.__react_component_tooltip.place-right:before{border-top:6px solid transparent;border-bottom:6px solid transparent;left:-8px;top:50%;margin-top:-5px}.__react_component_tooltip.place-right:after{border-top:5px solid transparent;border-bottom:5px solid transparent;left:-6px;top:50%;margin-top:-4px}.__react_component_tooltip .multi-line{display:block;padding:2px 0px;text-align:center}';
 
 /***/ }),
-/* 783 */
+/* 778 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104500,7 +103035,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(117);
 
-__webpack_require__(784);
+__webpack_require__(779);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104606,11 +103141,11 @@ EditVerseArea.propTypes = {
 exports.default = EditVerseArea;
 
 /***/ }),
-/* 784 */
+/* 779 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(785);
+var content = __webpack_require__(780);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104631,7 +103166,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 785 */
+/* 780 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104645,7 +103180,7 @@ exports.push([module.i, ".edit-area {\n  flex: auto;\n  display: flex;\n  flex-d
 
 
 /***/ }),
-/* 786 */
+/* 781 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104665,7 +103200,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(117);
 
-__webpack_require__(787);
+__webpack_require__(782);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104710,11 +103245,11 @@ CommentArea.propTypes = {
 exports.default = CommentArea;
 
 /***/ }),
-/* 787 */
+/* 782 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(788);
+var content = __webpack_require__(783);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104735,7 +103270,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 788 */
+/* 783 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104749,11 +103284,11 @@ exports.push([module.i, ".comment-area {\n  flex: auto;\n  display: flex;\n  fle
 
 
 /***/ }),
-/* 789 */
+/* 784 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(790);
+var content = __webpack_require__(785);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104774,7 +103309,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 790 */
+/* 785 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104788,7 +103323,7 @@ exports.push([module.i, ".check-area {\n  min-height: 130px;\n  height: 100%;\n 
 
 
 /***/ }),
-/* 791 */
+/* 786 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104808,7 +103343,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(117);
 
-__webpack_require__(792);
+__webpack_require__(787);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104866,11 +103401,11 @@ SaveArea.propTypes = {
 exports.default = SaveArea;
 
 /***/ }),
-/* 792 */
+/* 787 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(793);
+var content = __webpack_require__(788);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -104891,7 +103426,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 793 */
+/* 788 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -104905,7 +103440,7 @@ exports.push([module.i, ".save-area {\n  flex: 0 0 55px;\n  display: flex;\n  ju
 
 
 /***/ }),
-/* 794 */
+/* 789 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104941,7 +103476,7 @@ var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _localizationHelpers = __webpack_require__(795);
+var _localizationHelpers = __webpack_require__(790);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105052,7 +103587,7 @@ DialogComponent.propTypes = {
 exports.default = DialogComponent;
 
 /***/ }),
-/* 795 */
+/* 790 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105084,7 +103619,7 @@ var getTranslatedParts = exports.getTranslatedParts = function getTranslatedPart
 };
 
 /***/ }),
-/* 796 */
+/* 791 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105104,7 +103639,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _InvalidatedIcon = __webpack_require__(797);
+var _InvalidatedIcon = __webpack_require__(792);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -105192,7 +103727,7 @@ IconIndicators.propTypes = {
 exports.default = IconIndicators;
 
 /***/ }),
-/* 797 */
+/* 792 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105251,7 +103786,7 @@ InvalidatedIcon.defaultProps = {
 exports.default = InvalidatedIcon;
 
 /***/ }),
-/* 798 */
+/* 793 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105261,7 +103796,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _GroupMenu = __webpack_require__(799);
+var _GroupMenu = __webpack_require__(794);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -105273,7 +103808,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 799 */
+/* 794 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105295,27 +103830,27 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _styles = __webpack_require__(20);
 
-var _reactTooltip = __webpack_require__(770);
+var _reactTooltip = __webpack_require__(765);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
-var _helpers = __webpack_require__(800);
+var _helpers = __webpack_require__(795);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _Groups = __webpack_require__(805);
+var _Groups = __webpack_require__(800);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _FilterMenuHeader = __webpack_require__(816);
+var _FilterMenuHeader = __webpack_require__(811);
 
 var _FilterMenuHeader2 = _interopRequireDefault(_FilterMenuHeader);
 
-var _GroupsMenuFilter = __webpack_require__(818);
+var _GroupsMenuFilter = __webpack_require__(813);
 
 var _GroupsMenuFilter2 = _interopRequireDefault(_GroupsMenuFilter);
 
-__webpack_require__(823);
+__webpack_require__(818);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -105578,7 +104113,7 @@ GroupMenu.defaultProps = {
 exports.default = GroupMenu;
 
 /***/ }),
-/* 800 */
+/* 795 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105599,13 +104134,13 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(801);
+var _server = __webpack_require__(796);
 
 var _server2 = _interopRequireDefault(_server);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _InvalidatedIcon = __webpack_require__(804);
+var _InvalidatedIcon = __webpack_require__(799);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -105805,19 +104340,19 @@ var forLoop = exports.forLoop = function forLoop(items, callback) {
 };
 
 /***/ }),
-/* 801 */
+/* 796 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(802);
+  module.exports = __webpack_require__(797);
 }
 
 
 /***/ }),
-/* 802 */
+/* 797 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105844,7 +104379,7 @@ var React = __webpack_require__(3);
 var emptyFunction = __webpack_require__(6);
 var emptyObject = __webpack_require__(245);
 var hyphenateStyleName = __webpack_require__(246);
-var memoizeStringOnly = __webpack_require__(803);
+var memoizeStringOnly = __webpack_require__(798);
 var warning = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(11);
 var camelizeStyleName = __webpack_require__(248);
@@ -108562,7 +107097,7 @@ module.exports = server_browser;
 
 
 /***/ }),
-/* 803 */
+/* 798 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108595,7 +107130,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 804 */
+/* 799 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108654,7 +107189,7 @@ InvalidatedIcon.defaultProps = {
 exports.default = InvalidatedIcon;
 
 /***/ }),
-/* 805 */
+/* 800 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108672,19 +107207,19 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Group = __webpack_require__(806);
+var _Group = __webpack_require__(801);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _NoResults = __webpack_require__(811);
+var _NoResults = __webpack_require__(806);
 
 var _NoResults2 = _interopRequireDefault(_NoResults);
 
-var _helpers = __webpack_require__(800);
+var _helpers = __webpack_require__(795);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-__webpack_require__(814);
+__webpack_require__(809);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -108778,7 +107313,7 @@ Groups.propTypes = {
 exports.default = Groups;
 
 /***/ }),
-/* 806 */
+/* 801 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108798,17 +107333,17 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _CircularProgress = __webpack_require__(807);
+var _CircularProgress = __webpack_require__(802);
 
 var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _GroupItems = __webpack_require__(809);
+var _GroupItems = __webpack_require__(804);
 
 var _GroupItems2 = _interopRequireDefault(_GroupItems);
 
-var _helpers = __webpack_require__(800);
+var _helpers = __webpack_require__(795);
 
 var helpers = _interopRequireWildcard(_helpers);
 
@@ -108956,7 +107491,7 @@ Group.propTypes = {
 exports.default = Group;
 
 /***/ }),
-/* 807 */
+/* 802 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108974,10 +107509,10 @@ Object.defineProperty(exports, "default", {
   }
 });
 
-var _CircularProgress = _interopRequireDefault(__webpack_require__(808));
+var _CircularProgress = _interopRequireDefault(__webpack_require__(803));
 
 /***/ }),
-/* 808 */
+/* 803 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109201,7 +107736,7 @@ var _default = (0, _withStyles.default)(styles, {
 exports.default = _default;
 
 /***/ }),
-/* 809 */
+/* 804 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109215,11 +107750,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _helpers = __webpack_require__(800);
+var _helpers = __webpack_require__(795);
 
 var helpers = _interopRequireWildcard(_helpers);
 
-var _GroupItem = __webpack_require__(810);
+var _GroupItem = __webpack_require__(805);
 
 var _GroupItem2 = _interopRequireDefault(_GroupItem);
 
@@ -109297,7 +107832,7 @@ var GroupItems = function GroupItems(_ref) {
 exports.default = GroupItems;
 
 /***/ }),
-/* 810 */
+/* 805 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109395,7 +107930,7 @@ GroupItem.propTypes = {
 exports.default = GroupItem;
 
 /***/ }),
-/* 811 */
+/* 806 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109413,7 +107948,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(812);
+__webpack_require__(807);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -109433,11 +107968,11 @@ NoResults.propTypes = {
 exports.default = NoResults;
 
 /***/ }),
-/* 812 */
+/* 807 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(813);
+var content = __webpack_require__(808);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -109458,7 +107993,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 813 */
+/* 808 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -109472,11 +108007,11 @@ exports.push([module.i, ".no-results {\n  font-style: italic;\n  font-size: 16px
 
 
 /***/ }),
-/* 814 */
+/* 809 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(815);
+var content = __webpack_require__(810);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -109497,7 +108032,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 815 */
+/* 810 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -109511,7 +108046,7 @@ exports.push([module.i, ".groups {\n  overflow-y: scroll;\n}", ""]);
 
 
 /***/ }),
-/* 816 */
+/* 811 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109527,7 +108062,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(117);
 
-var _FilterBadge = __webpack_require__(817);
+var _FilterBadge = __webpack_require__(812);
 
 var _FilterBadge2 = _interopRequireDefault(_FilterBadge);
 
@@ -109557,7 +108092,7 @@ var FilterMenuHeader = function FilterMenuHeader(_ref) {
 exports.default = FilterMenuHeader;
 
 /***/ }),
-/* 817 */
+/* 812 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109598,7 +108133,7 @@ FilterBadge.propTypes = {
 exports.default = FilterBadge;
 
 /***/ }),
-/* 818 */
+/* 813 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109616,11 +108151,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ExpandedFilter = __webpack_require__(819);
+var _ExpandedFilter = __webpack_require__(814);
 
 var _ExpandedFilter2 = _interopRequireDefault(_ExpandedFilter);
 
-var _CollapsedFilter = __webpack_require__(821);
+var _CollapsedFilter = __webpack_require__(816);
 
 var _CollapsedFilter2 = _interopRequireDefault(_CollapsedFilter);
 
@@ -109664,7 +108199,7 @@ GroupsMenuFilter.propTypes = {
 exports.default = GroupsMenuFilter;
 
 /***/ }),
-/* 819 */
+/* 814 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109682,11 +108217,11 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterOption = __webpack_require__(820);
+var _GroupsMenuFilterOption = __webpack_require__(815);
 
 var _GroupsMenuFilterOption2 = _interopRequireDefault(_GroupsMenuFilterOption);
 
-var _InvalidatedIcon = __webpack_require__(804);
+var _InvalidatedIcon = __webpack_require__(799);
 
 var _InvalidatedIcon2 = _interopRequireDefault(_InvalidatedIcon);
 
@@ -109785,7 +108320,7 @@ ExpandedFilter.propTypes = {
 exports.default = ExpandedFilter;
 
 /***/ }),
-/* 820 */
+/* 815 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109854,7 +108389,7 @@ GroupsMenuFilterOption.propTypes = {
 exports.default = GroupsMenuFilterOption;
 
 /***/ }),
-/* 821 */
+/* 816 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -109872,7 +108407,7 @@ var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _GroupsMenuFilterBubble = __webpack_require__(822);
+var _GroupsMenuFilterBubble = __webpack_require__(817);
 
 var _GroupsMenuFilterBubble2 = _interopRequireDefault(_GroupsMenuFilterBubble);
 
@@ -109962,7 +108497,7 @@ CollapsedFilter.propTypes = {
 exports.default = CollapsedFilter;
 
 /***/ }),
-/* 822 */
+/* 817 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110015,11 +108550,11 @@ GroupsMenuFilterBubble.propTypes = {
 exports.default = GroupsMenuFilterBubble;
 
 /***/ }),
-/* 823 */
+/* 818 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(824);
+var content = __webpack_require__(819);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -110040,7 +108575,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 824 */
+/* 819 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);

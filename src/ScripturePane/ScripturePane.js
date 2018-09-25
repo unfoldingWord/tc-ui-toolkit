@@ -36,7 +36,7 @@ class ScripturePane extends Component {
 
   componentWillMount() {
     const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
-    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+    const biblesWithHighlightedWords = bibleHelpers.getCurrentVersesWithHighlightedWords(
       bibles,
       selections,
       contextId,
@@ -52,7 +52,7 @@ class ScripturePane extends Component {
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
     if (reParseBibleData) {
       const { selections, contextId, getLexiconData, showPopover, bibles, translate } = nextProps;
-      const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+      const biblesWithHighlightedWords = bibleHelpers.getCurrentVersesWithHighlightedWords(
         bibles,
         selections,
         contextId,
@@ -170,7 +170,7 @@ class ScripturePane extends Component {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
-    console.log('fix: manny colon september 24, 2018 3');
+    console.log('fix: manny colon september 24, 2018 3 (big change)');
 
     return (
       <MuiThemeProvider theme={theme}>
