@@ -32,7 +32,7 @@ const Groups = ({
   if (groupsIndex.length) {
     groupComponents = [];
 
-    for (let i = 0; i < groupsIndex.length; i++) {
+    for (let i = 0, len = groupsIndex.length; i < len; i++) {
       const groupIndex = groupsIndex[i];
       let groupId = groupIndex.id;
         let currentGroupData = helpers.getGroupData(groupsData, groupId);

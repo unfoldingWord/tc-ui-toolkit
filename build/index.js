@@ -62391,7 +62391,7 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('fix: manny colon september 24, 2018 4 (big change)');
+      console.log('fix: manny colon september 24, 2018 #5 (big change)');
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -104126,7 +104126,7 @@ exports.default = GroupMenu;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.forLoop = exports.groupIsVisible = exports.groupItemIsVisible = exports.getFilterCount = undefined;
+exports.groupIsVisible = exports.groupItemIsVisible = exports.getFilterCount = undefined;
 exports.getGroupData = getGroupData;
 exports.scrollIntoView = scrollIntoView;
 exports.inView = inView;
@@ -104185,30 +104185,11 @@ var groupIsVisible = exports.groupIsVisible = function groupIsVisible(groupData,
   if (!getFilterCount(filters)) {
     return true;
   }
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
 
-  try {
-    for (var _iterator = groupData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var groupItemData = _step.value;
-
-      if (groupItemIsVisible(groupItemData, filters)) {
-        return true;
-      }
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
+  for (var i = 0, len = groupData.length; i < len; i++) {
+    var groupItemData = groupData[i];
+    if (groupItemIsVisible(groupItemData, filters)) {
+      return true;
     }
   }
 
@@ -104307,12 +104288,12 @@ function makeStatusBadgeComponents(glyphs) {
 
 /**
  * @description - Takes an array of strings that are glyph names and gets the proper React component to render them
- * @param {*} glyphs
+ * @param {array} glyphs
  */
 function getGlyphIcons(glyphs) {
   var glyphicons = [];
   if (glyphs && glyphs.length) {
-    for (var i = 0; i < glyphs.length; i++) {
+    for (var i = 0, len = glyphs.length; i < len; i++) {
       var glyph = glyphs[i];
       if (glyph === 'invalidated') {
         glyphicons.push(_react2.default.createElement(
@@ -104330,18 +104311,6 @@ function getGlyphIcons(glyphs) {
   }
   return glyphicons;
 }
-
-var forLoop = exports.forLoop = function forLoop(items, callback) {
-  var table = [];
-
-  for (var i = 0; i < items.length; i++) {
-    table.push(items[i]);
-    callback();
-  }
-
-  console.log(table);
-  return table;
-};
 
 /***/ }),
 /* 796 */
@@ -107258,7 +107227,7 @@ var Groups = function Groups(_ref) {
   if (groupsIndex.length) {
     groupComponents = [];
 
-    var _loop = function _loop(i) {
+    var _loop = function _loop(i, len) {
       var groupIndex = groupsIndex[i];
       var groupId = groupIndex.id;
       var currentGroupData = helpers.getGroupData(groupsData, groupId);
@@ -107285,8 +107254,8 @@ var Groups = function Groups(_ref) {
       }));
     };
 
-    for (var i = 0; i < groupsIndex.length; i++) {
-      _loop(i);
+    for (var i = 0, len = groupsIndex.length; i < len; i++) {
+      _loop(i, len);
     }
   }
   return _react2.default.createElement(
@@ -107784,52 +107753,32 @@ var GroupItems = function GroupItems(_ref) {
 
   var items = [];
   var index = 0;
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
 
-  try {
-    for (var _iterator = groupData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var groupItemData = _step.value;
-
-      if (!helpers.groupItemIsVisible(groupItemData, filters)) {
-        continue;
-      }
-
-      var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
-      var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
-      var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
-      var _groupItemData$contex = groupItemData.contextId.reference,
-          chapter = _groupItemData$contex.chapter,
-          verse = _groupItemData$contex.verse;
-
-      items.push(_react2.default.createElement(_GroupItem2.default, {
-        contextId: groupItemData.contextId,
-        changeCurrentContextId: changeCurrentContextId,
-        key: index,
-        statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), isVerseValid(chapter, verse), currentToolName),
-        activeGroupItemRef: active ? activeGroupItemRef : null,
-        active: active,
-        bookName: bookName,
-        selectionText: getSelections(groupItemData.contextId)
-      }));
-      index++;
+  for (var i = 0, len = groupData.length; i < len; i++) {
+    var groupItemData = groupData[i];
+    if (!helpers.groupItemIsVisible(groupItemData, filters)) {
+      continue;
     }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
+
+    var active = (0, _deepEqual2.default)(groupItemData.contextId, contextId);
+    var useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
+    var bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
+    var _groupItemData$contex = groupItemData.contextId.reference,
+        chapter = _groupItemData$contex.chapter,
+        verse = _groupItemData$contex.verse;
+
+    items.push(_react2.default.createElement(_GroupItem2.default, {
+      contextId: groupItemData.contextId,
+      changeCurrentContextId: changeCurrentContextId,
+      key: index,
+      statusBadge: helpers.getStatusBadges(groupItemData, isVerseFinished(chapter, verse), isVerseValid(chapter, verse), currentToolName),
+      activeGroupItemRef: active ? activeGroupItemRef : null,
+      active: active,
+      bookName: bookName,
+      selectionText: getSelections(groupItemData.contextId)
+    }));
+    index++;
   }
-
   return items;
 };
 
