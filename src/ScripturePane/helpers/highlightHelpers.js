@@ -55,7 +55,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
   let nestedWordSpacing = wordSpacing;
   const wordSpans =[];
 
-  for (let i = 0; i < nestedWords.length; i++) {
+  for (let i = 0, len = nestedWords.length; i < len; i++) {
     const nestedWord = nestedWords[i];
     const nestedWordIndex = i;
     const wordsArray = nestedWords;
@@ -129,7 +129,7 @@ function isPuntuationAndNeedsNoSpace(wordObject) {
 export function getDeepNestedWords(nestedWords) {
   let deepNestedWords = null;
 
-  for (let i = 0; i < nestedWords.length; i++) {
+  for (let i = 0, len = nestedWords.length; i < len; i++) {
     const nestedWord = nestedWords[i];
 
     if (nestedWord.text) {

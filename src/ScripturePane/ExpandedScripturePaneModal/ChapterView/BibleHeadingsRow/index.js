@@ -20,7 +20,7 @@ class BibleHeadingsRow extends Component {
     } = this.props;
     const bibleHeadings = [];
 
-    for (let i = 0; i < currentPaneSettings.length; i++) {
+    for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
       const paneSetting = currentPaneSettings[i];
       const index = i;
       const languageId = paneSetting.languageId;

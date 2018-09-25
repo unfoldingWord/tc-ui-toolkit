@@ -95,7 +95,7 @@ class ChapterView extends Component {
     if (verseNumbers.length > 0) {
       verseRows = [];
 
-      for (let i = 0; i < verseNumbers.length; i++) {
+      for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
 

@@ -22,7 +22,7 @@ export const verseString = (verseText, selections, translate) => {
     const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
     verseTextSpans = [];
 
-    for (let i = 0; i < _selectionArray.length; i++) {
+    for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
       const index = i;
 
@@ -51,7 +51,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
     );
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
-    for (let i = 0; i < words.length; i++) {
+    for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
       const index = i;
       const wordsArray = words;
@@ -99,7 +99,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
       } else if (isNestedMilestone(word)) { // if nested milestone
         const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
 
-        for (let i = 0; i < nestedMilestone.wordSpans.length; i++) {
+        for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[i];
           verseSpan.push(nestedWordSpan);
         }

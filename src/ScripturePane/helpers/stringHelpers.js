@@ -12,7 +12,7 @@ export const isNestedMilestone = word => {
 export const isDeepNestedChild = words => {
   let deepNestedChild = false;
 
-  for (let i = 0; i < words.length; i++) {
+  for (let i = 0, len = words.length; i < len; i++) {
     const wordItem = words[i];
 
     if (wordItem.type === 'word') {

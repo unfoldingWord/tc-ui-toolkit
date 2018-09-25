@@ -113,7 +113,7 @@ class ScripturePane extends Component {
   getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
     const panes = [];
 
-    for (let i = 0; i < currentPaneSettings.length; i++) {
+    for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
       const paneSettings = currentPaneSettings[i];
       const index = i;
 
@@ -174,7 +174,7 @@ class ScripturePane extends Component {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
-    console.log('fix: manny colon september 24, 2018 3 (big change)');
+    console.log('fix: manny colon september 24, 2018 4 (big change)');
 
     return (
       <MuiThemeProvider theme={theme}>

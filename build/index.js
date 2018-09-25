@@ -62329,7 +62329,7 @@ var ScripturePane = function (_Component) {
     value: function getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
       var panes = [];
 
-      for (var i = 0; i < currentPaneSettings.length; i++) {
+      for (var i = 0, len = currentPaneSettings.length; i < len; i++) {
         var paneSettings = currentPaneSettings[i];
         var index = i;
 
@@ -62391,7 +62391,7 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('fix: manny colon september 24, 2018 3 (big change)');
+      console.log('fix: manny colon september 24, 2018 4 (big change)');
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -65635,7 +65635,7 @@ var ChapterView = function (_Component) {
       if (verseNumbers.length > 0) {
         verseRows = [];
 
-        var _loop = function _loop(i) {
+        var _loop = function _loop(i, len) {
           var verseNumber = verseNumbers[i];
           var refKey = ChapterView.makeRefKey(chapter, verseNumber);
 
@@ -65654,8 +65654,8 @@ var ChapterView = function (_Component) {
             } }));
         };
 
-        for (var i = 0; i < verseNumbers.length; i++) {
-          _loop(i);
+        for (var i = 0, len = verseNumbers.length; i < len; i++) {
+          _loop(i, len);
         }
       }
 
@@ -69256,7 +69256,7 @@ var BibleHeadingsRow = function (_Component) {
 
       var bibleHeadings = [];
 
-      for (var i = 0; i < currentPaneSettings.length; i++) {
+      for (var i = 0, len = currentPaneSettings.length; i < len; i++) {
         var paneSetting = currentPaneSettings[i];
         var index = i;
         var languageId = paneSetting.languageId;
@@ -69942,7 +69942,7 @@ var verseString = exports.verseString = function verseString(verseText, selectio
     var _selectionArray = _stringPunctuationTokenizer2.default.selectionArray(verseText, selections);
     verseTextSpans = [];
 
-    for (var i = 0; i < _selectionArray.length; i++) {
+    for (var i = 0, len = _selectionArray.length; i < len; i++) {
       var selection = _selectionArray[i];
       var index = i;
 
@@ -69980,7 +69980,7 @@ var verseArray = exports.verseArray = function verseArray() {
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
 
-    var _loop = function _loop(i) {
+    var _loop = function _loop(i, len) {
       var word = words[i];
       var index = i;
       var wordsArray = words;
@@ -70035,8 +70035,8 @@ var verseArray = exports.verseArray = function verseArray() {
         // if nested milestone
         var nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
 
-        for (var _i = 0; _i < nestedMilestone.wordSpans.length; _i++) {
-          var nestedWordSpan = nestedMilestone.wordSpans[_i];
+        for (var j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
+          var nestedWordSpan = nestedMilestone.wordSpans[i];
           verseSpan.push(nestedWordSpan);
         }
         previousWord = nestedMilestone.nestedPreviousWord;
@@ -70052,8 +70052,8 @@ var verseArray = exports.verseArray = function verseArray() {
       }
     };
 
-    for (var i = 0; i < words.length; i++) {
-      _loop(i);
+    for (var i = 0, len = words.length; i < len; i++) {
+      _loop(i, len);
     }
   }
 
@@ -78192,7 +78192,7 @@ function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord
   var nestedWordSpacing = wordSpacing;
   var wordSpans = [];
 
-  for (var i = 0; i < nestedWords.length; i++) {
+  for (var i = 0, len = nestedWords.length; i < len; i++) {
     var nestedWord = nestedWords[i];
     var nestedWordIndex = i;
     var wordsArray = nestedWords;
@@ -78266,7 +78266,7 @@ function isPuntuationAndNeedsNoSpace(wordObject) {
 function getDeepNestedWords(nestedWords) {
   var deepNestedWords = null;
 
-  for (var i = 0; i < nestedWords.length; i++) {
+  for (var i = 0, len = nestedWords.length; i < len; i++) {
     var nestedWord = nestedWords[i];
 
     if (nestedWord.text) {
@@ -81190,7 +81190,7 @@ var isNestedMilestone = exports.isNestedMilestone = function isNestedMilestone(w
 var isDeepNestedChild = exports.isDeepNestedChild = function isDeepNestedChild(words) {
   var deepNestedChild = false;
 
-  for (var i = 0; i < words.length; i++) {
+  for (var i = 0, len = words.length; i < len; i++) {
     var wordItem = words[i];
 
     if (wordItem.type === 'word') {
