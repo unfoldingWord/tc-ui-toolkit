@@ -198,19 +198,24 @@ class ScripturePane extends Component {
               />
             </div>
           </div>
-          <ExpandedScripturePaneModal
-            show={this.state.showExpandedScripturePane}
-            onHide={this.closeExpandedScripturePane}
-            title={expandedScripturePaneTitle}
-            primaryLabel={translate('close')}
-            biblesWithHighlightedWords={biblesWithHighlightedWords}
-            currentPaneSettings={currentPaneSettings}
-            contextId={contextId}
-            bibles={bibles}
-            editTargetVerse={editTargetVerse}
-            translate={translate}
-            projectDetailsReducer={projectDetailsReducer}
-          />
+          {
+            this.state.showExpandedScripturePane ?
+              <ExpandedScripturePaneModal
+                show={this.state.showExpandedScripturePane}
+                onHide={this.closeExpandedScripturePane}
+                title={expandedScripturePaneTitle}
+                primaryLabel={translate('close')}
+                biblesWithHighlightedWords={biblesWithHighlightedWords}
+                currentPaneSettings={currentPaneSettings}
+                contextId={contextId}
+                bibles={bibles}
+                editTargetVerse={editTargetVerse}
+                translate={translate}
+                projectDetailsReducer={projectDetailsReducer}
+            />
+            :
+              <div/>
+          }
           {
             this.state.showAddPaneModal ?
               <AddPaneModal

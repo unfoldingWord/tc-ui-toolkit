@@ -62427,7 +62427,7 @@ var ScripturePane = function (_Component) {
               })
             )
           ),
-          _react2.default.createElement(_ExpandedScripturePaneModal2.default, {
+          this.state.showExpandedScripturePane ? _react2.default.createElement(_ExpandedScripturePaneModal2.default, {
             show: this.state.showExpandedScripturePane,
             onHide: this.closeExpandedScripturePane,
             title: expandedScripturePaneTitle,
@@ -62439,7 +62439,7 @@ var ScripturePane = function (_Component) {
             editTargetVerse: editTargetVerse,
             translate: translate,
             projectDetailsReducer: projectDetailsReducer
-          }),
+          }) : _react2.default.createElement('div', null),
           this.state.showAddPaneModal ? _react2.default.createElement(_AddPaneModal2.default, {
             translate: translate,
             show: this.state.showAddPaneModal,
@@ -65641,7 +65641,7 @@ var ChapterView = function (_Component) {
 
           verseRows.push(_react2.default.createElement(_VerseRow2.default, {
             translate: translate,
-            key: verseNumber,
+            key: verseNumber.toString(),
             chapter: chapter,
             verse: verse,
             bibles: bibles,
@@ -65854,7 +65854,7 @@ var VerseRow = function (_Component) {
 
             return _react2.default.createElement(
               _reactBootstrap.Col,
-              { key: index, md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
+              { key: index.toString(), md: 4, sm: 4, xs: 4, lg: 4, style: colStyle },
               _react2.default.createElement(_Verse2.default, {
                 translate: translate,
                 verseElements: verseElements,

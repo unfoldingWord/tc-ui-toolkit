@@ -102,7 +102,7 @@ class ChapterView extends Component {
         verseRows.push(
           <VerseRow
             translate={translate}
-            key={verseNumber}
+            key={verseNumber.toString()}
             chapter={chapter}
             verse={verse}
             bibles={bibles}
