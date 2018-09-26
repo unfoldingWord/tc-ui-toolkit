@@ -2,16 +2,17 @@
   "name": "tc-ui-toolkit",
   "version": "0.9.22",
   "description": "React components used to develop tools for the desktop app translationCore",
-  "main": "build/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
     "start-ui-renderer": "npm run build && cd tc-ui-toolkit-test && npm start",
     "setup": "npm i && npm run build && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
-    "prebuild": "rm -rf ./build",
+    "prebuild": "rm -rf ./dist",
     "build": "webpack",
-    "prepare": "if [ ! -d './build/' ]; then npm run build; fi",
-    "dist": "npm test && npm run build && npm publish"
+    "compile": "webpack -p",
+    "prepare": "if [ ! -d './dist/' ]; then npm run build; fi",
+    "prepublishOnly": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
@@ -75,11 +76,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.24.1",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",

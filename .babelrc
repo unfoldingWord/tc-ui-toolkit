@@ -1,5 +1,10 @@
 {
-  "presets": ["env"],
+  "presets": [
+    ["env", {
+      "useBuiltIns": "entry",
+      "modules": false
+    }]
+  ],
   "plugins": [
     "transform-object-rest-spread",
     "transform-react-jsx"
