@@ -62391,8 +62391,6 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('fix: manny colon september 24, 2018 #5 (big change)');
-
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
         { theme: theme },
@@ -82653,8 +82651,6 @@ var DefaultArea = function (_React$Component) {
   _createClass(DefaultArea, [{
     key: 'displayText',
     value: function displayText(verseText, selections) {
-      var _this2 = this;
-
       // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
       verseText = (0, _selectionHelpers.normalizeString)(verseText);
       var verseTextSpans = _react2.default.createElement(
@@ -82664,20 +82660,27 @@ var DefaultArea = function (_React$Component) {
       );
       if (selections && selections.length > 0) {
         var _selectionArray = (0, _selectionHelpers.selectionArray)(verseText, selections);
-        selections.forEach(function (selection) {
+
+        for (var j = 0, len = selections.length; j < len; j++) {
+          var selection = selections[j];
+
           if ((0, _selectionHelpers.occurrencesInString)(verseText, selection.text) !== selection.occurrences) {
             // validate selections and remove ones that do not apply
-            _this2.props.actions.validateSelections(verseText);
+            this.props.actions.validateSelections(verseText);
           }
-        });
-        verseTextSpans = _selectionArray.map(function (selection, index) {
-          var style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
-          return _react2.default.createElement(
+        }
+
+        for (var i = 0, _len = _selectionArray.length; i < _len; i++) {
+          verseTextSpans = [];
+          var _selection = _selectionArray[i];
+          var index = i;
+          var style = _selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
+          verseTextSpans.push(_react2.default.createElement(
             'span',
             { key: index, style: style },
-            selection.text
-          );
-        });
+            _selection.text
+          ));
+        }
       }
       return _react2.default.createElement(
         'div',
@@ -82688,7 +82691,7 @@ var DefaultArea = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var _props = this.props,
           manifest = _props.manifest,
@@ -82729,7 +82732,7 @@ var DefaultArea = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { onClick: function onClick() {
-                _this3.setState({ modalVisibility: true });
+                _this2.setState({ modalVisibility: true });
               } },
             _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'fullscreen', title: translate("click_show_expanded"), style: { cursor: "pointer" } })
           ),
@@ -82742,7 +82745,7 @@ var DefaultArea = function (_React$Component) {
             currentVerse: reference.verse,
             dir: dir ? dir : "ltr",
             onHide: function onHide() {
-              return _this3.setState({ modalVisibility: false });
+              return _this2.setState({ modalVisibility: false });
             }
           })
         ),
@@ -101512,9 +101515,50 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ELLIPSIS = '…';
 
-var InstructionsAreaTextSelection = function InstructionsAreaTextSelection(_ref) {
-  var selections = _ref.selections,
-      verseText = _ref.verseText;
+var QuoatationMarks = function QuoatationMarks(_ref) {
+  var children = _ref.children;
+  return _react2.default.createElement(
+    'strong',
+    { style: { color: 'var(--accent-color)' } },
+    '"',
+    children,
+    '"'
+  );
+};
+
+QuoatationMarks.propTypes = {
+  children: _propTypes2.default.array.isRequired
+};
+
+var getSelectionSpans = function getSelectionSpans(selections) {
+  var results = [];
+
+  for (var i = 0, len = selections.length; i < len; i++) {
+    var selection = selections[i];
+    var index = i;
+
+    results.push(_react2.default.createElement(
+      'span',
+      { key: index },
+      _react2.default.createElement(
+        'strong',
+        { style: { color: 'var(--accent-color)' } },
+        '' + selection.text.trim()
+      ),
+      selections[index + 1] ? _react2.default.createElement(
+        'span',
+        null,
+        " "
+      ) : null
+    ));
+  }
+
+  return results;
+};
+
+var InstructionsAreaTextSelection = function InstructionsAreaTextSelection(_ref2) {
+  var selections = _ref2.selections,
+      verseText = _ref2.verseText;
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return _react2.default.createElement(
@@ -101532,47 +101576,17 @@ var InstructionsAreaTextSelection = function InstructionsAreaTextSelection(_ref)
     return _react2.default.createElement(
       QuoatationMarks,
       null,
-      selections.map(function (selection, index) {
-        return _react2.default.createElement(
-          'span',
-          { key: index },
-          _react2.default.createElement(
-            'strong',
-            { style: { color: 'var(--accent-color)' } },
-            '' + selection.text.trim()
-          ),
-          selections[index + 1] ? _react2.default.createElement(
-            'span',
-            null,
-            " "
-          ) : null
-        );
-      })
+      getSelectionSpans(selections)
     );
   }
 };
-
-exports.default = InstructionsAreaTextSelection;
 
 InstructionsAreaTextSelection.propTypes = {
   selections: _propTypes2.default.array.isRequired,
   verseText: _propTypes2.default.string.isRequired
 };
 
-var QuoatationMarks = function QuoatationMarks(_ref2) {
-  var children = _ref2.children;
-  return _react2.default.createElement(
-    'strong',
-    { style: { color: 'var(--accent-color)' } },
-    '"',
-    children,
-    '"'
-  );
-};
-
-QuoatationMarks.propTypes = {
-  children: _propTypes2.default.array.isRequired
-};
+exports.default = InstructionsAreaTextSelection;
 
 /***/ }),
 /* 765 */
