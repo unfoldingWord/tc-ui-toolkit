@@ -11,5 +11,18 @@
   "plugins": [
     "transform-object-rest-spread",
     "transform-react-jsx"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "useBuiltIns": "entry",
+          "modules": "commonjs",
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ]
+    }
+  }
 }
