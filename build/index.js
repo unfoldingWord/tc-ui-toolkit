@@ -62438,7 +62438,7 @@ var ScripturePane = function (_Component) {
             translate: translate,
             projectDetailsReducer: projectDetailsReducer
           }),
-          _react2.default.createElement(_AddPaneModal2.default, {
+          this.state.showAddPaneModal && _react2.default.createElement(_AddPaneModal2.default, {
             translate: translate,
             show: this.state.showAddPaneModal,
             onHide: this.hideAddBibleModal,
