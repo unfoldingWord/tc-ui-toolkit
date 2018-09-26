@@ -62391,7 +62391,7 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
-      console.log('manny colon v7');
+      console.log('manny colon v8');
 
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
@@ -62440,7 +62440,7 @@ var ScripturePane = function (_Component) {
             translate: translate,
             projectDetailsReducer: projectDetailsReducer
           }),
-          this.state.showAddPaneModal && _react2.default.createElement(_AddPaneModal2.default, {
+          this.state.showAddPaneModal ? _react2.default.createElement(_AddPaneModal2.default, {
             translate: translate,
             show: this.state.showAddPaneModal,
             onHide: this.hideAddBibleModal,
@@ -62452,7 +62452,7 @@ var ScripturePane = function (_Component) {
             addNewBibleResource: this.addNewBibleResource,
             currentPaneSettings: currentPaneSettings,
             getAvailableScripturePaneSelections: getAvailableScripturePaneSelections
-          })
+          }) : _react2.default.createElement('div', null)
         )
       );
     }
