@@ -9,9 +9,9 @@
     "start-ui-renderer": "webpack && cd tc-ui-toolkit-test && npm start",
     "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
-    "compile": "webpack -p",
-    "prepare": "if [ ! -d './dist/' ]; then npm run compile; fi",
-    "prepublishOnly": "npm test && npm run compile"
+    "build": "webpack -p",
+    "prepare": "if [ ! -d './dist/' ]; then npm run build; fi",
+    "prepublishOnly": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
