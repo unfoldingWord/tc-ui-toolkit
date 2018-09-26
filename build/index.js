@@ -62391,6 +62391,8 @@ var ScripturePane = function (_Component) {
         return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
       });
 
+      console.log('manny colon v7');
+
       return _react2.default.createElement(
         _styles.MuiThemeProvider,
         { theme: theme },
