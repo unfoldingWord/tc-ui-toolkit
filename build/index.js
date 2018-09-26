@@ -69599,7 +69599,8 @@ var AddPaneModal = function AddPaneModal(_ref) {
   var availableResources = [];
   getAvailableScripturePaneSelections(availableResources);
 
-  var _loop = function _loop(resource) {
+  var _loop = function _loop(i, len) {
+    var resource = availableResources[i];
     var _resource$manifest = resource.manifest,
         resource_title = _resource$manifest.resource_title,
         language_name = _resource$manifest.language_name;
@@ -69613,7 +69614,7 @@ var AddPaneModal = function AddPaneModal(_ref) {
     panes.push(_react2.default.createElement(
       'option',
       {
-        key: resource.languageId + '_' + resource.bibleId,
+        key: '' + i + resource.languageId + '_' + resource.bibleId,
         value: resource.languageId + '_' + resource.bibleId,
         disabled: foundInCurrentPaneSettings
       },
@@ -69621,29 +69622,8 @@ var AddPaneModal = function AddPaneModal(_ref) {
     ));
   };
 
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = availableResources[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var resource = _step.value;
-
-      _loop(resource);
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
+  for (var i = 0, len = availableResources.length; i < len; i++) {
+    _loop(i, len);
   }
 
   return _react2.default.createElement(

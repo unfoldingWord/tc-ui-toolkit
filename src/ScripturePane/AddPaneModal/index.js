@@ -76,7 +76,8 @@ const AddPaneModal = ({
   const panes = [];
   const availableResources = [];
   getAvailableScripturePaneSelections(availableResources);
-  for (let resource of availableResources) {
+  for (let i = 0, len = availableResources.length; i < len; i++) {
+    const resource = availableResources[i];
     const { resource_title, language_name } = resource.manifest;
     const resourceText = resource.bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
     const displayText = `${language_name} (${resource.languageId}) ${resourceText}`;
@@ -86,7 +87,7 @@ const AddPaneModal = ({
 
     panes.push(
       <option
-        key={`${resource.languageId}_${resource.bibleId}`}
+        key={`${i}${resource.languageId}_${resource.bibleId}`}
         value={`${resource.languageId}_${resource.bibleId}`}
         disabled={foundInCurrentPaneSettings}
       >
