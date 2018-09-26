@@ -208,19 +208,22 @@ class ScripturePane extends Component {
             translate={translate}
             projectDetailsReducer={projectDetailsReducer}
           />
-          <AddPaneModal
-            translate={translate}
-            show={this.state.showAddPaneModal}
-            onHide={this.hideAddBibleModal}
-            title={translate('pane.add_resource_label')}
-            selectedPane={this.state.selectedPane}
-            selectLanguageLabel={translate('pane.select_language')}
-            selectLabel={translate('select')}
-            selectSourceLanguage={this.selectSourceLanguage}
-            addNewBibleResource={this.addNewBibleResource}
-            currentPaneSettings={currentPaneSettings}
-            getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
-          />
+          {
+            this.state.showAddPaneModal &&
+            <AddPaneModal
+              translate={translate}
+              show={this.state.showAddPaneModal}
+              onHide={this.hideAddBibleModal}
+              title={translate('pane.add_resource_label')}
+              selectedPane={this.state.selectedPane}
+              selectLanguageLabel={translate('pane.select_language')}
+              selectLabel={translate('select')}
+              selectSourceLanguage={this.selectSourceLanguage}
+              addNewBibleResource={this.addNewBibleResource}
+              currentPaneSettings={currentPaneSettings}
+              getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
+            />
+          }
         </div>
       </MuiThemeProvider>
     );
