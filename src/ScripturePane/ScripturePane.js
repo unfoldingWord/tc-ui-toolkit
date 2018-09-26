@@ -174,9 +174,6 @@ class ScripturePane extends Component {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
-
-    console.log('manny colon v8');
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="scripture-pane-container">
