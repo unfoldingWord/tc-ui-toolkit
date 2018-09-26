@@ -2,7 +2,10 @@
   "presets": [
     ["env", {
       "useBuiltIns": "entry",
-      "modules": false
+      "modules": false,
+      "targets": {
+        "node": "current"
+      }
     }]
   ],
   "plugins": [
