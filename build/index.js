@@ -62311,11 +62311,10 @@ var ScripturePane = function (_Component) {
               case 4:
                 expandedBiblesWithHighlightedWords = _context.sent;
 
-                console.log(expandedBiblesWithHighlightedWords);
-                this.setState({ loadingExpandedScripturePane: false });
-                this.setState({ showExpandedScripturePane: true, expandedBiblesWithHighlightedWords: expandedBiblesWithHighlightedWords });
 
-              case 8:
+                this.setState({ loadingExpandedScripturePane: false, showExpandedScripturePane: true, expandedBiblesWithHighlightedWords: expandedBiblesWithHighlightedWords });
+
+              case 6:
               case 'end':
                 return _context.stop();
             }

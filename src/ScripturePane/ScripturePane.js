@@ -87,9 +87,8 @@ class ScripturePane extends Component {
       showPopover,
       translate
     );
-    console.log(expandedBiblesWithHighlightedWords);
-    this.setState({ loadingExpandedScripturePane: false});
-    this.setState({showExpandedScripturePane: true, expandedBiblesWithHighlightedWords});
+
+    this.setState({ loadingExpandedScripturePane: false, showExpandedScripturePane: true, expandedBiblesWithHighlightedWords});
   }
 
   closeExpandedScripturePane() {this.setState({showExpandedScripturePane: false})}
