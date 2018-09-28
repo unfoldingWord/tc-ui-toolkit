@@ -45,7 +45,7 @@ class VerseRow extends Component {
     if (currentPaneSettings.length > 0) {
       verseCells = [];
 
-      for (let i = 0; i < currentPaneSettings.length; i++) {
+      for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
         const index = i;
         try {
@@ -54,7 +54,7 @@ class VerseRow extends Component {
           const verseElements = bibleData[chapter][currentVerseNumber];
           const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
-          return (
+          verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
                 translate={translate}
