@@ -1,4 +1,6 @@
 import { verseString, verseArray } from './verseHelpers';
+import { delay } from './utils';
+
 /**
  * Generates bible data with Highlighted Words for the current verses based on the context id.
  * @param {object} bibles
@@ -68,6 +70,7 @@ export const getCurrentVersesWithHighlightedWords = (bibles, selections, context
  * @param {function} translate
  */
 export const getBiblesWithHighlightedWords = async (bibles, selections, contextId, getLexiconData, showPopover, translate) => {
+  await delay(40); // added extremely slight delay to allow spinner to render.
   try {
     const parsedBible = {};
 
