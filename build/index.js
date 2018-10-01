@@ -62280,10 +62280,8 @@ var ScripturePane = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      console.log('componentWillReceiveProps');
       var reParseBibleData = !(0, _deepEqual2.default)(this.props.selections, nextProps.selections) || !(0, _deepEqual2.default)(this.props.contextId, nextProps.contextId) || !(0, _deepEqual2.default)(this.props.bibles, nextProps.bibles);
       if (reParseBibleData) {
-        console.log('reParseBibleData');
         var selections = nextProps.selections,
             contextId = nextProps.contextId,
             getLexiconData = nextProps.getLexiconData,
@@ -62291,7 +62289,7 @@ var ScripturePane = function (_Component) {
             bibles = nextProps.bibles,
             translate = nextProps.translate;
 
-        var biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
+        var biblesWithHighlightedWords = bibleHelpers.getCurrentVersesWithHighlightedWords(bibles, selections, contextId, getLexiconData, showPopover, translate);
         this.setState({ biblesWithHighlightedWords: biblesWithHighlightedWords });
       }
     }
