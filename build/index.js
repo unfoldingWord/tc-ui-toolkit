@@ -62280,8 +62280,10 @@ var ScripturePane = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      console.log('componentWillReceiveProps');
       var reParseBibleData = !(0, _deepEqual2.default)(this.props.selections, nextProps.selections) || !(0, _deepEqual2.default)(this.props.contextId, nextProps.contextId) || !(0, _deepEqual2.default)(this.props.bibles, nextProps.bibles);
       if (reParseBibleData) {
+        console.log('reParseBibleData');
         var selections = nextProps.selections,
             contextId = nextProps.contextId,
             getLexiconData = nextProps.getLexiconData,
