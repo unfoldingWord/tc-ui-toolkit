@@ -76,19 +76,23 @@ class ScripturePane extends Component {
     }
   }
 
-   async openExpandedScripturePane() {
+  openExpandedScripturePane() {
     this.setState({ loadingExpandedScripturePane: true});
     const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
-    const expandedBiblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
+    bibleHelpers.getBiblesWithHighlightedWords(
       bibles,
       selections,
       contextId,
       getLexiconData,
       showPopover,
       translate
-    );
-
-    this.setState({ loadingExpandedScripturePane: false, showExpandedScripturePane: true, expandedBiblesWithHighlightedWords});
+    ).then(expandedBiblesWithHighlightedWords => {
+      this.setState({
+        loadingExpandedScripturePane: false,
+        showExpandedScripturePane: true,
+        expandedBiblesWithHighlightedWords
+      });
+    });
   }
 
   closeExpandedScripturePane() {this.setState({showExpandedScripturePane: false})}
