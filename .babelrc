@@ -1,8 +1,29 @@
 {
-  "presets": ["env"],
+  "presets": [
+    ["env", {
+      "useBuiltIns": true,
+      "modules": false,
+      "targets": {
+        "node": "current"
+      }
+    }]
+  ],
   "plugins": [
     "transform-runtime",
     "transform-object-rest-spread",
     "transform-react-jsx"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {
+          "useBuiltIns": "entry",
+          "modules": "commonjs",
+          "targets": {
+            "node": "current"
+          }
+        }]
+      ]
+    }
+  }
 }
