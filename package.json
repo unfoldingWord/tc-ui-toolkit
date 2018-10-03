@@ -1,15 +1,17 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.9.22",
+  "version": "0.10.0",
   "description": "React components used to develop tools for the desktop app translationCore",
-  "main": "build/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
-    "build": "webpack",
-    "start-ui-renderer": "npm run build && cd tc-ui-toolkit-test && npm start",
-    "prepublishOnly": "npm run build",
-    "setup": "npm i && npm run build && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit"
+    "start-ui-renderer": "webpack && cd tc-ui-toolkit-test && npm start",
+    "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
+    "prebuild": "rm -rf ./dist",
+    "build": "webpack -p",
+    "prepare": "if [ ! -d './dist/' ]; then npm run build; fi",
+    "prepublishOnly": "npm test && npm run build"
   },
   "repository": {
     "type": "git",
@@ -68,16 +70,17 @@
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.8.0",
     "usfm-js": "^1.0.3",
-    "webpack": "^4.5.0",
     "word-aligner": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.24.1",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -89,6 +92,7 @@
     "jest-enzyme": "^6.0.0",
     "react-test-renderer": "^16.3.2",
     "style-loader": "^0.20.3",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "webpack": "^4.5.0"
   }
 }
