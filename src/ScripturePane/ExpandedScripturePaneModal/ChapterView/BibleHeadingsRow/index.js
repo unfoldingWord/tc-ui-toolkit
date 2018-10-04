@@ -18,7 +18,11 @@ class BibleHeadingsRow extends Component {
       biblesWithHighlightedWords,
       projectDetailsReducer,
     } = this.props;
-    let bibleHeadings = currentPaneSettings.map((paneSetting, index) => {
+    const bibleHeadings = [];
+
+    for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
+      const paneSetting = currentPaneSettings[i];
+      const index = i;
       const languageId = paneSetting.languageId;
       const bibleId = paneSetting.bibleId;
       const {
@@ -35,12 +39,12 @@ class BibleHeadingsRow extends Component {
         borderBottom: '3px solid var(--border-color)', direction: dir
       };
 
-      return (
+      bibleHeadings.push(
         <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle} >
           <span>{headingText}</span>
         </Col>
       );
-    });
+    }
 
     return (
       <Row style={rowStyle}>

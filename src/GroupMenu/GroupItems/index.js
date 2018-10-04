@@ -17,7 +17,9 @@ const GroupItems = ({
 }) => {
   const items = [];
   let index = 0;
-  for (let groupItemData of groupData) {
+
+  for (let i = 0, len = groupData.length; i < len; i++) {
+    const groupItemData = groupData[i];
     if (!helpers.groupItemIsVisible(groupItemData, filters)) {
       continue;
     }

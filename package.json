@@ -6,7 +6,7 @@
   "scripts": {
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
-    "start-ui-renderer": "webpack && cd tc-ui-toolkit-test && npm start",
+    "render-ui": "webpack && cd tc-ui-toolkit-test && npm start",
     "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
     "build": "webpack -p",
@@ -59,8 +59,9 @@
   "dependencies": {
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.0.0-beta.43",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "deep-equal": "^1.0.1",
-    "lodash": "4.17.4",
+    "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
@@ -70,7 +71,7 @@
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.8.0",
     "usfm-js": "^1.0.3",
-    "word-aligner": "^0.1.0"
+    "word-aligner": "^0.1.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
