@@ -13,6 +13,7 @@
   "plugins": [
     "transform-object-rest-spread",
     "transform-async-to-generator",
+    "transform-decorators-legacy",
     "jest-hoist"
   ],
   "env": {
