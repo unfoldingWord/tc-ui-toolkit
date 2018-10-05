@@ -79,7 +79,7 @@ class Group extends React.Component {
         <div className="group">
           <div ref={this.currentGroupRef} className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
-            <div onClick={openGroup}>
+            <div onClick={openGroup} style={{display: 'flex'}}>
               <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
                 <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
                 <CircularProgress
