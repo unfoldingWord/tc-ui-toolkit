@@ -87,10 +87,8 @@ export const selectionsToRanges = (string, selections) => {
  * @returns {array} - array of objects
  */
 export const selectionArray = (string, selections) => {
-    let selectionArray = [];
-    let ranges = module.exports.selectionsToRanges(string, selections);
-    selectionArray = module.exports.spliceStringOnRanges(string, ranges);
-    return selectionArray;
+    let ranges = selectionsToRanges(string, selections);
+    return spliceStringOnRanges(string, ranges);
 };
 //
 // Use the following lines to test the previous function
@@ -184,9 +182,9 @@ export const rangesToSelections = (string, ranges) => {
  */
 export const optimizeSelections = (string, selections) => {
     let optimizedSelections; // return
-    let ranges = module.exports.selectionsToRanges(string, selections).map(rangeObject => rangeObject.range); // get char ranges of each selection
-    ranges = module.exports.optimizeRanges(ranges); // optimize the ranges
-    optimizedSelections = module.exports.rangesToSelections(string, ranges); // convert optimized ranges into selections
+    let ranges = selectionsToRanges(string, selections).map(rangeObject => rangeObject.range); // get char ranges of each selection
+    ranges = optimizeRanges(ranges); // optimize the ranges
+    optimizedSelections = rangesToSelections(string, ranges); // convert optimized ranges into selections
     return optimizedSelections;
 };
 //
