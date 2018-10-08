@@ -1,5 +1,414 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          edit_verse
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          style={
+            Object {
+              "WebkitUserSelect": "none",
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              <span
+                className="glyphicon glyphicon-fullscreen"
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="click_show_expanded"
+              />
+            </div>
+          </div>
+          <div
+            className="ltr-content"
+          >
+            <div
+              style={
+                Object {
+                  "color": "var(--text-color-light)",
+                  "userSelect": "none",
+                }
+              }
+            >
+              <span>
+                Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            className="edit-area"
+          >
+            <div
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              <span
+                className="glyphicon glyphicon-pencil"
+                style={
+                  Object {
+                    "marginRight": "5px",
+                  }
+                }
+              />
+              edit_verse
+            </div>
+            <div
+              className="form-group"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": "auto",
+                  "flexDirection": "column",
+                  "marginBottom": "5px",
+                }
+              }
+            >
+              <textarea
+                autoFocus={true}
+                className="form-control"
+                defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
+\\\\s5
+"
+                id="formControlsTextarea"
+                onBlur={[Function]}
+                onInput={[Function]}
+                style={
+                  Object {
+                    "direction": "ltr",
+                    "flex": "auto",
+                  }
+                }
+                type="text"
+              />
+              <div
+                style={
+                  Object {
+                    "flex": "0 0 65px",
+                    "fontSize": "0.9em",
+                    "marginTop": "5px",
+                  }
+                }
+              >
+                first_make_change
+                <br />
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "flex": "1",
+                      }
+                    }
+                  >
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        spelling
+                      </label>
+                    </div>
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        punctuation
+                      </label>
+                    </div>
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        word_choice
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "flex": "1",
+                      }
+                    }
+                  >
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        meaning
+                      </label>
+                    </div>
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        grammar
+                      </label>
+                    </div>
+                    <div
+                      className="checkbox disabled"
+                      style={
+                        Object {
+                          "color": "var(--text-color-light)",
+                          "marginLeft": "10px",
+                          "marginRight": "10px",
+                        }
+                      }
+                    >
+                      <label
+                        title=""
+                      >
+                        <input
+                          checked={false}
+                          disabled={true}
+                          onChange={[Function]}
+                          type="checkbox"
+                        />
+                        other
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="actions-area"
+      >
+        <button
+          className="btn-second"
+          onClick={[Function]}
+        >
+          cancel
+        </button>
+        <button
+          className="btn-prime"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "marginRight": "10px",
+              }
+            }
+          />
+          save
+        </button>
+      </div>
+    </div>
+    <div />
+  </div>
+  <div />
+</div>
+`;
+
 exports[`VerseCheck component: Integrated View test 1`] = `
 <div
   className="verse-check"

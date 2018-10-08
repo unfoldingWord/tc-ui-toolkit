@@ -14,6 +14,7 @@ let CheckArea = ({
   mode,
   tags,
   verseText,
+  unfilteredVerseText,
   verseChanged,
   comment,
   newSelections,
@@ -30,7 +31,7 @@ let CheckArea = ({
       modeArea = (
         <EditVerseArea
           tags={tags}
-          verseText={verseText}
+          verseText={unfilteredVerseText}
           verseChanged={verseChanged}
           actions={actions}
           dir={projectDetailsReducer.manifest.target_language.direction}
@@ -106,6 +107,7 @@ CheckArea.propTypes = {
   tags: PropTypes.array.isRequired,
   invalidated: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
+  unfilteredVerseText: PropTypes.string.isRequired,
   verseChanged: PropTypes.bool.isRequired,
   comment: PropTypes.string.isRequired,
   contextId: PropTypes.object,
