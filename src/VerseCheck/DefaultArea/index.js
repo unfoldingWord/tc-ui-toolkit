@@ -27,20 +27,27 @@ class DefaultArea extends React.Component {
     let verseTextSpans = <span>{verseText}</span>;
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
-      selections.forEach(selection => {
+
+      for (let j = 0, len = selections.length; j < len; j++) {
+        const selection = selections[j];
+
         if (occurrencesInString(verseText, selection.text) !== selection.occurrences) {
           // validate selections and remove ones that do not apply
           this.props.actions.validateSelections(verseText);
         }
-      });
-      verseTextSpans = _selectionArray.map((selection, index) => {
+      }
+
+      for (let i = 0, len = _selectionArray.length; i < len; i++) {
+        verseTextSpans = [];
+        const selection = _selectionArray[i];
+        const index = i;
         let style = selection.selected ? {backgroundColor: 'var(--highlight-color)'} : {};
-        return (
+        verseTextSpans.push(
           <span key={index} style={style}>
             {selection.text}
           </span>
         );
-      });
+      }
     }
     return (
       <div style={{userSelect: 'none', color: 'var(--text-color-light)'}}>

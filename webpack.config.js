@@ -7,6 +7,7 @@ module.exports = {
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
+  devtool: "source-map",
   module: {
     rules: [
       {

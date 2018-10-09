@@ -11,11 +11,11 @@ const IconIndicators = ({
   invalidated,
   comment
 }) => {
-  
+
   function getInvalidatedIcon() {
     if (invalidated) {
       return (
-        <div key='invalidated' 
+        <div key='invalidated'
              className={'glyphicon glyphicon-invalidated'}
              style={{
                margin: '0px 20px'

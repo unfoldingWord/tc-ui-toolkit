@@ -87,4 +87,8 @@ Pane.propTypes = {
   ]).isRequired,
 };
 
+Pane.defaultProps = {
+  verseElements: []
+};
+
 export default Pane;
