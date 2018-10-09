@@ -42,6 +42,11 @@
   border: solid 1px var(--accent-color);
 }
 
+.selection-tooltip {
+  max-width: 200px;
+  opacity: 1!important;
+}
+
 .group-menu-status-tooltip {
   padding: 8px 0 8px 8px !important;
 }
