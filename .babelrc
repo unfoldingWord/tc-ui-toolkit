@@ -1,28 +1,34 @@
 {
   "presets": [
-    ["env", {
-      "useBuiltIns": true,
-      "modules": false,
-      "targets": {
-        "node": "current"
+    [
+      "env",
+      {
+        "targets": {
+          "node": "8.2.1"
+        }
       }
-    }]
+    ],
+    "react"
   ],
   "plugins": [
-    "transform-runtime",
     "transform-object-rest-spread",
-    "transform-react-jsx"
+    "transform-async-to-generator",
+    "transform-decorators-legacy",
+    "jest-hoist"
   ],
   "env": {
     "test": {
       "presets": [
-        ["env", {
-          "useBuiltIns": "entry",
-          "modules": "commonjs",
-          "targets": {
-            "node": "current"
+        [
+          "env",
+          {
+            "useBuiltIns": "entry",
+            "modules": "commonjs",
+            "targets": {
+              "node": "8.2.1"
+            }
           }
-        }]
+        ]
       ]
     }
   }
