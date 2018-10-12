@@ -194,8 +194,8 @@ export const addSelectionToSelections = (selection, selections, string) => {
  */
 export const selectionArray = (string, selections) => {
   let selectionArray = [];
-  let ranges = module.exports.selectionsToRanges(string, selections);
-  selectionArray = module.exports.spliceStringOnRanges(string, ranges);
+  let ranges = selectionsToRanges(string, selections);
+  selectionArray = spliceStringOnRanges(string, ranges);
   return selectionArray;
 };
 
