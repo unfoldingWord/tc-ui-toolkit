@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // helpers
-import {
-  selectionArray,
-  occurrencesInString,
-  normalizeString
-} from '../utils/selectionHelpers';
+import {selectionArray, normalizeString} from '../helpers/selectionHelpers';
+import {occurrencesInString} from '../helpers/stringHelpers';
 // components
 import {Glyphicon} from 'react-bootstrap';
 import MyLanguageModal from '../MyLanguageModal';

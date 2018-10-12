@@ -6,7 +6,5 @@ import usfmjs from 'usfm-js';
  * @return {String}
  */
 export const removeMarker = (verseText) => {
-  const cleaned = usfmjs.removeMarker(verseText, ['f', '\\w[\\d|\\w]*']); // remove these markers, 'f' is predefined
-  // the rest are regex (these will be prefixed with '\\\\')
-  return cleaned;
+  return usfmjs.removeMarker(verseText); // remove USFM markers
 };
