@@ -6,6 +6,5 @@ import usfmjs from 'usfm-js';
  * @return {String}
  */
 export const removeMarker = (verseText) => {
-   // remove USFM markers
-  return usfmjs.removeMarker(verseText);
+  return usfmjs.removeMarker(verseText); // remove USFM markers
 };
