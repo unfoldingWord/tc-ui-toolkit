@@ -185,3 +185,26 @@ export const addSelectionToSelections = (selection, selections, string) => {
   selections = optimizeSelections(string, selections);
   return selections;
 };
+
+/**
+ * Splice string into array of substrings, flagging what is selected
+ * @param {String} string - text used to get the ranges of
+ * @param {array} selections - array of selections [obj,...]
+ * @returns {array} - array of objects
+ */
+export const selectionArray = (string, selections) => {
+  let selectionArray = [];
+  let ranges = selectionsToRanges(string, selections);
+  selectionArray = spliceStringOnRanges(string, ranges);
+  return selectionArray;
+};
+
+/**
+ * @description Function that normalizes a string including whitespace
+ * @param {String} string - the string to normalize
+ * @preturns {String} - The returned normalized string
+ */
+export const normalizeString = (string) => {
+  string = string.replace(/\s+/g, ' ');
+  return string;
+};
