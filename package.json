@@ -10,7 +10,7 @@
     "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
     "build": "webpack -p",
-    "prepare": "if [ ! -d './dist/' ]; then npm run build; fi",
+    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build"
   },
   "repository": {
