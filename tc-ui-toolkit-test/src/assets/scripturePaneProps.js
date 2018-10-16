@@ -5965,7 +5965,7 @@ export const bibles = {
     }
   },
   hi: {
-    ult: {
+    ulb: {
       1: {
         1: {
           "verseObjects": [
