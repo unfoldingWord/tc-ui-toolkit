@@ -100,7 +100,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
-          const nestedWordSpan = nestedMilestone.wordSpans[i];
+          const nestedWordSpan = nestedMilestone.wordSpans[j];
           verseSpan.push(nestedWordSpan);
         }
         previousWord = nestedMilestone.nestedPreviousWord;
