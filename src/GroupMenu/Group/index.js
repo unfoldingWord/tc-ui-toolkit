@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {withStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
 import * as helpers from '../helpers';
-
-const styles = {
-  circle: {
-    width: 40,
-    height: 40
-  }
-};
 
 class Group extends React.Component {
   constructor(props) {
@@ -73,9 +64,7 @@ class Group extends React.Component {
     let collapsedGlyph = (
       <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
     );
-    const theme = createMuiTheme();
     return (
-      <MuiThemeProvider theme={theme}>
         <div className="group">
           <div ref={this.currentGroupRef} className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
@@ -108,7 +97,6 @@ class Group extends React.Component {
               manifest={manifest} />)
             : null}
         </div>
-      </MuiThemeProvider>
     );
   }
 }
@@ -126,10 +114,9 @@ Group.propTypes = {
   active: PropTypes.bool.isRequired,
   changeCurrentContextId: PropTypes.func.isRequired,
   getSelections: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   isVerseValid: PropTypes.func.isRequired,
   currentToolName: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(Group);
+export default Group;

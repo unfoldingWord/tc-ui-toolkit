@@ -20,14 +20,18 @@ export const verseString = (verseText, selections, translate) => {
 
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
+    verseTextSpans = [];
 
-    verseTextSpans = _selectionArray.map((selection, index) => {
-      return (
+    for (let i = 0, len = _selectionArray.length; i < len; i++) {
+      const selection = _selectionArray[i];
+      const index = i;
+
+      verseTextSpans.push(
         <span key={index} style={{ backgroundColor: selection.selected ? 'var(--highlight-color)' : '' }}>
           {selection.text}
         </span>
       );
-    });
+    }
   }
 
   return verseTextSpans;
@@ -47,7 +51,10 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
     );
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
-    words.forEach((word, index, wordsArray) => {
+    for (let i = 0, len = words.length; i < len; i++) {
+      const word = words[i];
+      const index = i;
+      const wordsArray = words;
       const nextWord = wordsArray[index + 1];
       if (isWord(word)) {
         const padding = wordSpacing;
@@ -91,7 +98,11 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         }
       } else if (isNestedMilestone(word)) { // if nested milestone
         const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
-        nestedMilestone.wordSpans.forEach((nestedWordSpan) => verseSpan.push(nestedWordSpan));
+
+        for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
+          const nestedWordSpan = nestedMilestone.wordSpans[j];
+          verseSpan.push(nestedWordSpan);
+        }
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
@@ -102,7 +113,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createTextSpan(index, word.text));
         }
       }
-    });
+    }
   }
 
   return verseSpan;

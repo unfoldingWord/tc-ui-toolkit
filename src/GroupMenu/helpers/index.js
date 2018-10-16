@@ -42,11 +42,14 @@ export const groupIsVisible = (groupData, filters) => {
   if (!getFilterCount(filters)) {
     return true;
   }
-  for (let groupItemData of groupData) {
+
+  for (let i = 0, len = groupData.length; i < len; i++) {
+    const groupItemData = groupData[i];
     if (groupItemIsVisible(groupItemData, filters)) {
       return true;
     }
   }
+
   return false;
 };
 
@@ -133,19 +136,20 @@ export function makeStatusBadgeComponents(glyphs) {
 
 /**
  * @description - Takes an array of strings that are glyph names and gets the proper React component to render them
- * @param {*} glyphs
+ * @param {array} glyphs
  */
 export function getGlyphIcons(glyphs) {
   const glyphicons = [];
   if (glyphs && glyphs.length) {
-    glyphs.forEach((glyph) => {
+    for (let i = 0, len = glyphs.length; i < len; i++) {
+      const glyph = glyphs[i];
       if (glyph === 'invalidated') {
         glyphicons.push(<div key={glyph} className={'glyphicon glyphicon-invalidated'}><InvalidatedIcon height={16} width={16} /></div>);
       } else {
         let className = 'status-icon-' + glyph;
         glyphicons.push(<Glyphicon key={glyph} glyph={glyph} className={className} />);
       }
-    });
+    }
   } else {
     glyphicons.push(<div key="blank" className="glyphicon glyphicon-blank status-icon-blank" />);
   }

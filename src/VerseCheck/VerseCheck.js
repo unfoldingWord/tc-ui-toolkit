@@ -24,6 +24,7 @@ class VerseCheck extends Component {
       selectionsReducer,
       alignedGLText,
       verseText,
+      unfilteredVerseText,
       mode,
       actions,
       dialogModalVisibility,
@@ -84,6 +85,7 @@ class VerseCheck extends Component {
                 mode={mode}
                 tags={tags}
                 verseText={verseText}
+                unfilteredVerseText={unfilteredVerseText}
                 verseChanged={verseChanged}
                 comment={commentsReducer.text}
                 newSelections={selections}
@@ -133,6 +135,7 @@ VerseCheck.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
   verseText: PropTypes.string,
+  unfilteredVerseText: PropTypes.string,
   remindersReducer: PropTypes.object.isRequired,
   groupsDataReducer: PropTypes.object.isRequired,
   toolsReducer: PropTypes.object.isRequired,
@@ -235,6 +238,7 @@ VerseCheck.defaultProps = {
   clearSelection: () => {},
   handleSkip: () => {},
   verseText: '',
+  unfilteredVerseText: '',
   dialogModalVisibility: false
 };
 

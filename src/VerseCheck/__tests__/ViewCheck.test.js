@@ -72,6 +72,22 @@ describe('VerseCheck component:', () => {
     // then
     expect(component.toJSON()).toMatchSnapshot();
   });
+
+  test('Integrated View test - edit mode', () => {
+    // given
+    const props = getBasePropertiesAndMockActions();
+    currentInvalidated = false;
+    currentEdited = false;
+    props.mode = "edit";
+
+    // when
+    const component = renderer.create(
+      <VerseCheck {...props} />
+    );
+
+    // then
+    expect(component.toJSON()).toMatchSnapshot();
+  });
 });
 
 //
