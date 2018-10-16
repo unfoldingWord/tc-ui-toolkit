@@ -31,7 +31,7 @@ it('removes f tags with following p tag', () => {
 
 it('removes f and pi tags', () => {
   const input = "\\f + \\ft Acts 28:29—Some ancient copies have verse 29: \\fqa When he had said these things, the Jews went away. They were having a great dispute among themselves \\fqa* . \\f*\\pi more";
-  const expected = 'more';
+  const expected = ' more';
   const output = removeMarker(input);
   expect(output).toEqual(expected);
 });
