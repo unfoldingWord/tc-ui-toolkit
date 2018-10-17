@@ -17,7 +17,7 @@ export const isDeepNestedChild = words => {
 
     if (wordItem.type === 'word') {
       deepNestedChild = true;
-      return;
+      return deepNestedChild;
     } else {
       deepNestedChild = isDeepNestedChild(wordItem);
     }
