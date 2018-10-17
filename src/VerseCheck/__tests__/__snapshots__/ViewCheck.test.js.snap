@@ -944,7 +944,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         className="actions-area"
       >
         <label
-          className="MuiFormControlLabel-root-55"
+          className="MuiFormControlLabel-root-39"
           style={
             Object {
               "paddingLeft": 10,
@@ -952,10 +952,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-59"
+            className="MuiSwitch-root-42"
           >
             <span
-              className="MuiButtonBase-root-78 MuiIconButton-root-72 MuiSwitchBase-root-68 MuiSwitch-switchBase-62 MuiSwitch-colorPrimary-64 Bookmark-colorPrimary-54"
+              className="MuiButtonBase-root-61 MuiIconButton-root-55 MuiSwitchBase-root-51 MuiSwitch-switchBase-45 MuiSwitch-colorPrimary-47 Bookmark-colorPrimary-38"
               onBlur={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -970,36 +970,33 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-77"
+                className="MuiIconButton-label-60"
               >
                 <span
-                  className="MuiSwitch-icon-60"
+                  className="MuiSwitch-icon-43"
                 />
                 <input
-                  autoFocus={undefined}
                   checked={false}
-                  className="MuiSwitchBase-input-71"
+                  className="MuiSwitchBase-input-54"
                   disabled={false}
                   id={undefined}
                   name={undefined}
                   onChange={[Function]}
-                  readOnly={undefined}
-                  required={undefined}
                   tabIndex={undefined}
                   type="checkbox"
                   value="bookmark"
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-81"
+                className="MuiTouchRipple-root-64"
               />
             </span>
             <span
-              className="MuiSwitch-bar-67"
+              className="MuiSwitch-bar-50"
             />
           </span>
           <span
-            className="MuiTypography-root-88 MuiTypography-body1-97 MuiFormControlLabel-label-58 Bookmark-label-53"
+            className="MuiTypography-root-71 MuiTypography-body1-80 MuiFormControlLabel-label-41 Bookmark-label-37"
           >
             bookmark
           </span>
