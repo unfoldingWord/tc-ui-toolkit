@@ -23,6 +23,7 @@ class GroupItem extends React.Component {
           data-place="bottom"
           data-effect="float"
           data-type="dark"
+          style={{minWidth: 0}}
           data-class="selection-tooltip"
           data-delay-hide="100">
           {reference.chapterVerseMenu ?
