@@ -51,7 +51,7 @@
 .selection-tooltip:after {
   max-width: 200px;
   opacity: 1!important;
-  background-color: var(--background-color-light);
+  border-bottom-color: var(--background-color-light);
 }
 
 .group-menu-status-tooltip {
