@@ -13,6 +13,7 @@ class GroupItem extends React.Component {
       activeGroupItemRef
     } = this.props;
     const {reference} = contextId;
+    const bookTitle = selectionText ? reference.bookId : bookName;
     return (
       <div ref={activeGroupItemRef} onClick={() => changeCurrentContextId(contextId)}
         className={"group-item" + (active ? " active active-submenu-item" : " submenu-item")}>
@@ -22,7 +23,7 @@ class GroupItem extends React.Component {
           data-tip={selectionText}
           data-place="bottom"
           data-effect="float"
-          data-type="dark"
+          data-type="light"
           style={{minWidth: 0}}
           data-class="selection-tooltip"
           data-delay-hide="100">
@@ -32,7 +33,7 @@ class GroupItem extends React.Component {
             </span>
             :
             <span className={'group-item-text'}>
-              {" " + bookName + " " + reference.chapter + ":" + reference.verse + " " + selectionText}
+              {" " + bookTitle + " " + reference.chapter + ":" + reference.verse + " " + selectionText}
             </span>
           }
         </span>
