@@ -33,11 +33,18 @@ class Group extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const {contextId: oldContext} = prevProps;
+    const {active, contextId: newContext} = this.props;
+    if(active && newContext.groupId !== oldContext.groupId) {
+      this.scrollToCurrentCheck();
+    }
+  }
+
   render() {
     const {
       changeCurrentContextId,
       active,
-      groupMenuExpandSubMenu,
       openGroup,
       isSubMenuExpanded,
       progress,
