@@ -34,8 +34,9 @@ class DefaultArea extends React.Component {
         }
       }
 
+      verseTextSpans = [];
+
       for (let i = 0, len = _selectionArray.length; i < len; i++) {
-        verseTextSpans = [];
         const selection = _selectionArray[i];
         const index = i;
         let style = selection.selected ? {backgroundColor: 'var(--highlight-color)'} : {};
