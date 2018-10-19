@@ -28,13 +28,9 @@ class Group extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.active)
+    if (this.props.active) {
       this.scrollToCurrentCheck();
-  }
-
-  componentDidUpdate() {
-    if (this.props.active)
-    this.scrollToCurrentCheck();
+    }
   }
 
   render() {
@@ -57,18 +53,19 @@ class Group extends React.Component {
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
-    let glyphAction = active ? groupMenuExpandSubMenu : openGroup;
     let expandedGlyph = (
-      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(false)} />
+      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}}/>
     );
     let collapsedGlyph = (
-      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={() => glyphAction(true)} />
+      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}}/>
     );
     return (
         <div className="group">
-          <div ref={this.currentGroupRef} className={groupMenuItemHeadingClassName}>
+          <div ref={this.currentGroupRef}
+               onClick={openGroup}
+               className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
-            <div onClick={openGroup} style={{display: 'flex'}}>
+            <div style={{display: 'flex'}}>
               <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
                 <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
                 <CircularProgress
