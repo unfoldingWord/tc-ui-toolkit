@@ -26,9 +26,14 @@ export const isDeepNestedChild = words => {
   return deepNestedChild;
 };
 
+/**
+ * returns space unless character is type of punctuation.  In that case an empty string is returned
+ * @param {string} word
+ * @return {string} spacing before word
+ */
 export function punctuationWordSpacing(word) {
   const lastChar = word.text.substr(word.text.length - 1);
-  return ((lastChar === '"') || (lastChar === "'") || (lastChar === "-")) ? '' : ' ';
+  return (['"', "'", '-', '”', '“'].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
 }
 
 export function textIsEmptyInVerseObject(verseText) {
