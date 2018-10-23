@@ -182,7 +182,7 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
  */
 export function addSpace(verseSpan) {
   verseSpan.push(
-    <span style={"transparent"}>
+    <span style={{ backgroundColor: "transparent"}}>
       {' '}
     </span>
   );
