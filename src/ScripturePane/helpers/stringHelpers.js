@@ -1,4 +1,4 @@
-
+export const whiteSpace = '&nbsp;';
 const quotesRegex = /[.,:;?]["”“']$/; // look for quote following line punctuation
 
 export const isWord = word => {
@@ -50,7 +50,7 @@ export function padQuotes(text) {
     const match = quotesRegex.exec(text);
     if (match) {
       const pos = match.index + 1;
-      text = text.substr(0, pos) + '°' + text.substr(pos);
+      text = text.substr(0, pos) + whiteSpace + text.substr(pos);
     }
   }
   return text;

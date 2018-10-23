@@ -175,3 +175,15 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
     return false;
   }
 }
+
+/**
+ * pushes a span to the array
+ * @param {Array} verseSpan
+ */
+export function addSpace(verseSpan) {
+  verseSpan.push(
+    <span style={"transparent"}>
+      {' '}
+    </span>
+  );
+}

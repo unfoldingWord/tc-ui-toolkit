@@ -6,8 +6,7 @@ import { VerseObjectUtils } from 'word-aligner';
 import * as highlightHelpers from './highlightHelpers';
 import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
 import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
-  padQuotes } from './stringHelpers';
+import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject, padQuotes } from './stringHelpers';
 
 export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
@@ -107,8 +106,11 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
+        let text = padQuotes(word.text);
+        if (word.tag && wordSpacing) { // if this was not just simple text, may need to add whitespace
+          highlightHelpers.addSpace(verseSpan);
+        }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
-        const text = padQuotes(word.text);
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {

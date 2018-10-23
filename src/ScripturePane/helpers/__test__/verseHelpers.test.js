@@ -6,6 +6,9 @@ describe('verseHelpers.verseArray', () => {
   it('should succeed with heb-12-27.grc', () => {
     generateTest('heb-12-27.grc', 'ugnt');
   });
+  it('should succeed with mat-4-6', () => {
+    generateTest('mat-4-6', 'ult');
+  });
 });
 
 //
