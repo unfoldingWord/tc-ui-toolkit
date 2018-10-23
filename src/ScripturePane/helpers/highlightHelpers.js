@@ -1,7 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
-import { isWord, punctuationWordSpacing } from './stringHelpers';
-import { removeMarker } from './usfmHelpers';
+import {isWord, punctuationWordSpacing} from './stringHelpers';
+import {removeMarker} from './usfmHelpers';
 
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
@@ -89,17 +89,17 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       );
     } else if (nestedWord.text) {
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
-
+      const text = removeMarker(nestedWord.text);
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
         wordSpans.push(
           <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
-            {removeMarker(nestedWord.text)}
+            {text}
           </span>
         );
       } else {
         wordSpans.push(
           <span key={nestedWordSpanIndex}>
-            {removeMarker(nestedWord.text)}
+            {text}
           </span>
         );
       }
@@ -173,4 +173,17 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
   } else {
     return false;
   }
+}
+
+let spaceCounter = 0;
+/**
+ * pushes a span to the array
+ * @param {Array} verseSpan
+ */
+export function addSpace(verseSpan) {
+  verseSpan.push(
+    <span key={'space_' +(++spaceCounter)} style={{ backgroundColor: "transparent"}}>
+      {' '}
+    </span>
+  );
 }

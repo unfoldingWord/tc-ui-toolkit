@@ -10,6 +10,25 @@ describe('stringHelpers.isDeepNestedChild', () => {
   });
 });
 
+describe('stringHelpers.punctuationWordSpacing', () => {
+  const tests = [
+    { test: "", expected: " "},
+    { test: " .'", expected: ""},
+    { test: " ,\"  ", expected: " "},
+    { test: "    , '", expected: ""},
+    { test: ":”  ", expected: " "},
+    { test: "  ;\"", expected: ""},
+    { test: "   “", expected: ""},
+    { test: "\" ; '", expected: ""},
+  ];
+
+  for (let test of tests) {
+    it('test: "' + test.test + '"', () => {
+      expect(stringHelpers.punctuationWordSpacing({ text: test.test})).toEqual(test.expected);
+    });
+  }
+});
+
 // test data
 const deepNestedChild = [
   [

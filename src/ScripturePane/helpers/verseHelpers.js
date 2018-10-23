@@ -106,6 +106,9 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
+        if (word.tag) { // if this was not just simple text, need to add whitespace
+          highlightHelpers.addSpace(verseSpan);
+        }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
           verseSpan.push(createHighlightedSpan(index, word.text));
