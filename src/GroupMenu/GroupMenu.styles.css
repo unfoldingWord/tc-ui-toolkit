@@ -45,6 +45,7 @@
 .selection-tooltip {
   max-width: 200px;
   opacity: 1!important;
+  color: #222!important;
   background-color: var(--background-color-light)!important;
   box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.54);
 }
