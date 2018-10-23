@@ -1,4 +1,4 @@
-export const whiteSpace = '&nbsp;';
+export const whiteSpace = ' ';
 const quotesRegex = /[.,:;?]["”“']$/; // look for quote following line punctuation
 
 export const isWord = word => {
