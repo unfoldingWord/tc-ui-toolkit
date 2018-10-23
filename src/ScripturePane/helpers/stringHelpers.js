@@ -1,5 +1,5 @@
 
-const quotesRegex = /[.,:;?]["”“']/g; // look for quote following line punctuation
+const quotesRegex = /[.,:;?]["”“']$/; // look for quote following line punctuation
 
 export const isWord = word => {
   return (typeof word !== 'string') && (word.word || (word.type === 'word'));

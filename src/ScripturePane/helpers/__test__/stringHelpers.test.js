@@ -34,14 +34,15 @@ describe('stringHelpers.padQuotes', () => {
     { test: "", expected: ""},
     { test: null, expected: null},
     { test: " .'", expected: " . '"},
-    { test: " ,\"  ", expected: " , \"  "},
+    { test: " ,\"  ", expected: " ,\"  "},
+    { test: " ,\"", expected: " , \""},
     { test: "    , '", expected: "    , '"},
-    { test: ":”  ", expected: ": ”  "},
+    { test: ":”  ", expected: ":”  "},
+    { test: ":”", expected: ": ”"},
     { test: "  ;\"", expected: "  ; \""},
-    { test: "   ?“  ", expected: "   ? “  "},
+    { test: "   ?“  ", expected: "   ?“  "},
+    { test: "?“", expected: "? “"},
     { test: "\" ; '", expected: "\" ; '"},
-    { test: " and said to him,\"If you ", expected: " and said to him, \"If you "},
-    { test: "καὶ λέγει αὐτῷ,“εἰ Υἱὸς ", expected: "καὶ λέγει αὐτῷ, “εἰ Υἱὸς "},
   ];
 
   for (let test of tests) {
