@@ -176,13 +176,14 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
   }
 }
 
+let spaceCounter = 0;
 /**
  * pushes a span to the array
  * @param {Array} verseSpan
  */
 export function addSpace(verseSpan) {
   verseSpan.push(
-    <span style={{ backgroundColor: "transparent"}}>
+    <span key={'space_' +(++spaceCounter)} style={{ backgroundColor: "transparent"}}>
       {' '}
     </span>
   );
