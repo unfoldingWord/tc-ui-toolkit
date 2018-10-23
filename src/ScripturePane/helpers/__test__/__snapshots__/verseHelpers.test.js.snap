@@ -510,7 +510,7 @@ Array [
     </span>
   </span>,
   <span>
-    ,°"
+    ,"
   </span>,
   <span>
     <span
@@ -801,6 +801,15 @@ Array [
   <span>
     ,
   </span>,
+  <span
+    style={
+      Object {
+        "backgroundColor": "transparent",
+      }
+    }
+  >
+     
+  </span>,
   <span>
     '
   </span>,
@@ -1005,11 +1014,29 @@ Array [
     </span>
   </span>,
   <span>
-    ,°'
+    ,'
+  </span>,
+  <span
+    style={
+      Object {
+        "backgroundColor": "transparent",
+      }
+    }
+  >
+     
   </span>,
   <span>
     and,
 
+  </span>,
+  <span
+    style={
+      Object {
+        "backgroundColor": "transparent",
+      }
+    }
+  >
+     
   </span>,
   <span>
     '

@@ -29,30 +29,6 @@ describe('stringHelpers.punctuationWordSpacing', () => {
   }
 });
 
-describe('stringHelpers.padQuotes', () => {
-  const tests = [
-    { test: "", expected: ""},
-    { test: null, expected: null},
-    { test: " .'", expected: " . '"},
-    { test: " ,\"  ", expected: " ,\"  "},
-    { test: " ,\"", expected: " , \""},
-    { test: "    , '", expected: "    , '"},
-    { test: ":”  ", expected: ":”  "},
-    { test: ":”", expected: ": ”"},
-    { test: "  ;\"", expected: "  ; \""},
-    { test: "   ?“  ", expected: "   ?“  "},
-    { test: "?“", expected: "? “"},
-    { test: "\" ; '", expected: "\" ; '"},
-  ];
-
-  for (let test of tests) {
-    it('test: "' + test.test + '"', () => {
-      expect(stringHelpers.padQuotes(test.test)).toEqual(test.expected);
-    });
-  }
-});
-
-
 // test data
 const deepNestedChild = [
   [
