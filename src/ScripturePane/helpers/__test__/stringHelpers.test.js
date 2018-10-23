@@ -10,6 +10,48 @@ describe('stringHelpers.isDeepNestedChild', () => {
   });
 });
 
+describe('stringHelpers.punctuationWordSpacing', () => {
+  const tests = [
+    { test: "", expected: " "},
+    { test: " .'", expected: ""},
+    { test: " ,\"  ", expected: " "},
+    { test: "    , '", expected: ""},
+    { test: ":”  ", expected: " "},
+    { test: "  ;\"", expected: ""},
+    { test: "   “", expected: ""},
+    { test: "\" ; '", expected: ""},
+  ];
+
+  for (let test of tests) {
+    it('test: "' + test.test + '"', () => {
+      expect(stringHelpers.punctuationWordSpacing({ text: test.test})).toEqual(test.expected);
+    });
+  }
+});
+
+describe('stringHelpers.padQuotes', () => {
+  const tests = [
+    { test: "", expected: ""},
+    { test: null, expected: null},
+    { test: " .'", expected: " . '"},
+    { test: " ,\"  ", expected: " , \"  "},
+    { test: "    , '", expected: "    , '"},
+    { test: ":”  ", expected: ": ”  "},
+    { test: "  ;\"", expected: "  ; \""},
+    { test: "   ?“  ", expected: "   ? “  "},
+    { test: "\" ; '", expected: "\" ; '"},
+    { test: " and said to him,\"If you ", expected: " and said to him, \"If you "},
+    { test: "καὶ λέγει αὐτῷ,“εἰ Υἱὸς ", expected: "καὶ λέγει αὐτῷ, “εἰ Υἱὸς "},
+  ];
+
+  for (let test of tests) {
+    it('test: "' + test.test + '"', () => {
+      expect(stringHelpers.padQuotes(test.test)).toEqual(test.expected);
+    });
+  }
+});
+
+
 // test data
 const deepNestedChild = [
   [

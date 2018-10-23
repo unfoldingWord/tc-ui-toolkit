@@ -1,4 +1,6 @@
 
+const quotesRegex = /[.,:;?]["”“']/g; // look for quote following line punctuation
+
 export const isWord = word => {
   return (typeof word !== 'string') && (word.word || (word.type === 'word'));
 };
@@ -27,13 +29,31 @@ export const isDeepNestedChild = words => {
 };
 
 /**
- * returns space unless character is type of punctuation.  In that case an empty string is returned
+ * checks to see if there should be space before next word.  Returns space unless character
+ *    is type of punctuation.  In that case an empty string is returned
  * @param {string} word
  * @return {string} spacing before word
  */
 export function punctuationWordSpacing(word) {
   const lastChar = word.text.substr(word.text.length - 1);
   return (['"', "'", '-', '”', '“'].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
+}
+
+/**
+ * checks for quotes crammed against punctuation (e.g. ` ," `) and adds a space for readability
+ * @param {String} text - string to pad
+ * @return {String} padded string
+ */
+export function padQuotes(text) {
+  if (text) {
+    quotesRegex.lastIndex = 0; // reset state if previous execs
+    const match = quotesRegex.exec(text);
+    if (match) {
+      const pos = match.index + 1;
+      text = text.substr(0, pos) + ' ' + text.substr(pos);
+    }
+  }
+  return text;
 }
 
 export function textIsEmptyInVerseObject(verseText) {
