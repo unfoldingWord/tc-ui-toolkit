@@ -29,12 +29,15 @@ export const isDeepNestedChild = words => {
 /**
  * checks to see if there should be space before next word.  Returns space unless character
  *    is type of punctuation.  In that case an empty string is returned
- * @param {string} word
- * @return {string} spacing before word
+ * @param {string} verseObject - to test
+ * @return {string} spacing to use before next word
  */
-export function punctuationWordSpacing(word) {
-  const lastChar = word.text.substr(word.text.length - 1);
-  return (['"', "'", '-', '”', '“'].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
+export function punctuationWordSpacing(verseObject) {
+  const lastChar = verseObject.text.substr(verseObject.text.length - 1);
+  return (['"', "'", '-',
+    '“', // LEFT DOUBLE QUOTATION MARK
+    '‘' // LEFT SINGLE QUOTATION MARK
+  ].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
 }
 
 export function textIsEmptyInVerseObject(verseText) {

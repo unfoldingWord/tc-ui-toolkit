@@ -13,13 +13,15 @@ describe('stringHelpers.isDeepNestedChild', () => {
 describe('stringHelpers.punctuationWordSpacing', () => {
   const tests = [
     { test: "", expected: " "},
-    { test: " .'", expected: ""},
+    { test: " .'", expected: ""}, // last character APOSTROPHE - no space
     { test: " ,\"  ", expected: " "},
-    { test: "    , '", expected: ""},
-    { test: ":”  ", expected: " "},
-    { test: "  ;\"", expected: ""},
-    { test: "   “", expected: ""},
-    { test: "\" ; '", expected: ""},
+    { test: ":”  ", expected: " "}, // last character SPACE - should add space
+    { test: "  ;\"", expected: ""}, // last character QUOTATION MARK - no space
+    { test: "\" ; '", expected: ""}, // last character APOSTROPHE - no space
+    { test: "   “", expected: ""}, // last character LEFT DOUBLE QUOTATION MARK - no space
+    { test: "   ”", expected: " "}, // last character RIGHT DOUBLE QUOTATION MARK - should add space
+    { test: "    , ‘", expected: ""}, // last character LEFT SINGLE QUOTATION MARK - no space
+    { test: "   ’", expected: " "}, // last character RIGHT SINGLE QUOTATION MARK - should add space
   ];
 
   for (let test of tests) {
