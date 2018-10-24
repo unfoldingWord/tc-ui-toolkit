@@ -6,7 +6,8 @@ import { VerseObjectUtils } from 'word-aligner';
 import * as highlightHelpers from './highlightHelpers';
 import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
 import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject } from './stringHelpers';
+import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
+          isIsolatedLeftQuote} from './stringHelpers';
 
 export const verseString = (verseText, selections, translate) => {
   verseText = removeMarker(verseText);
@@ -106,14 +107,15 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
-        if (word.tag) { // if this was not just simple text, need to add whitespace
+        const text = word.text;
+        if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
-          verseSpan.push(createHighlightedSpan(index, word.text));
+          verseSpan.push(createHighlightedSpan(index, text));
         } else {
-          verseSpan.push(createTextSpan(index, word.text));
+          verseSpan.push(createTextSpan(index, text));
         }
       }
     }

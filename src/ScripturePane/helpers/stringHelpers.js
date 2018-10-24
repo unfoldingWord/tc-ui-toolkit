@@ -40,6 +40,16 @@ export function punctuationWordSpacing(verseObject) {
   ].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
 }
 
+/**
+ * see if we need spacing for case before isolated left quote
+ * @param text
+ * @return {string}
+ */
+export function isIsolatedLeftQuote(text) {
+  return (text === '“') || // LEFT DOUBLE QUOTATION MARK
+         (text === '‘'); // LEFT SINGLE QUOTATION MARK
+}
+
 export function textIsEmptyInVerseObject(verseText) {
   const emptyVerse = !verseText.verseObjects.some((word) => {
     const condition1 = (word.type === "word" || word.type === "text") && word.text.length > 0;

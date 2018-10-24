@@ -31,6 +31,33 @@ describe('stringHelpers.punctuationWordSpacing', () => {
   }
 });
 
+describe('stringHelpers.isIsolatedLeftQuote', () => {
+  const tests = [
+    { test: "", expected: false},
+    { test: " .'", expected: false},
+    { test: " ,\"  ", expected: false},
+    { test: ":”  ", expected: false},
+    { test: "  ;\"", expected: false}, // last character QUOTATION MARK - false
+    { test: "\"", expected: false}, // single QUOTATION MARK - false
+    { test: "\" ; '", expected: false}, // last character APOSTROPHE - false
+    { test: "'", expected: false}, // single APOSTROPHE - false
+    { test: "   “", expected: false}, // last character LEFT DOUBLE QUOTATION MARK - false
+    { test: "“", expected: true}, // single LEFT DOUBLE QUOTATION MARK - true
+    { test: "   ”", expected: false}, // last character RIGHT DOUBLE QUOTATION MARK - false
+    { test: "”", expected: false}, // single RIGHT DOUBLE QUOTATION MARK - false
+    { test: "    , ‘", expected: false}, // last character LEFT SINGLE QUOTATION MARK - false
+    { test: "‘", expected: true}, // single LEFT SINGLE QUOTATION MARK - true
+    { test: "   ’", expected: false}, // last character RIGHT SINGLE QUOTATION MARK - false
+    { test: "’", expected: false}, // single RIGHT SINGLE QUOTATION MARK - false
+  ];
+
+  for (let test of tests) {
+    it('test: "' + test.test + '"', () => {
+      expect(stringHelpers.isIsolatedLeftQuote(test.test)).toEqual(test.expected);
+    });
+  }
+});
+
 // test data
 const deepNestedChild = [
   [
