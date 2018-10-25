@@ -14,7 +14,7 @@ class Group extends React.Component {
     this.groupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
     this.onMenuClick = this.onMenuClick.bind(this);
-    this.isInView = this.isInView.bind(this);
+    this.isInViewport = this.isInViewport.bind(this);
   }
 
   scrollToCurrentCheck() {
@@ -33,11 +33,14 @@ class Group extends React.Component {
    * Checks if this group is visible
    * @return {boolean}
    */
-  isInView() {
-    var rectGroup = this.groupRef.current.getBoundingClientRect();
-    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    console.log(`view height: ${viewHeight}. group top: ${rectGroup.top}`);
-    return rectGroup.top + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+  isInViewport(offset = 0) {
+    if(this.groupRef && this.groupRef.current) {
+      var top = this.groupRef.current.getBoundingClientRect().top;
+      console.log(`window height: ${window.innerHeight}. group top: ${top + offset}. group bottom: ${top - offset}`);
+      return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
+    } else {
+      return false;
+    }
   }
 
   componentDidMount() {
@@ -51,7 +54,7 @@ class Group extends React.Component {
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
       // scroll to menu if out of view
-      if(!this.isInView()) {
+      if(!this.isInViewport()) {
         console.warn('scrolling into view');
         scrollIntoView(this.groupRef);
       }
