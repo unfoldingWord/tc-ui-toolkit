@@ -125,6 +125,7 @@ export function makeStatusBadgeComponents(glyphs) {
       <div className="status-badge-wrapper">
         <div
           className="status-badge"
+          data-for="groups-tooltip"
           data-tip={tooltip}
           data-html="true"
           data-place="bottom"
