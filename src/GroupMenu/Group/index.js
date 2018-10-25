@@ -36,6 +36,7 @@ class Group extends React.Component {
   isInView() {
     var rectGroup = this.groupRef.current.getBoundingClientRect();
     var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    console.log(`view height: ${viewHeight}. group top: ${rectGroup.top}`);
     return rectGroup.top + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
   }
 
@@ -51,6 +52,7 @@ class Group extends React.Component {
     if(active && newContext.groupId !== oldContext.groupId) {
       // scroll to menu if out of view
       if(!this.isInView()) {
+        console.warn('scrolling into view');
         scrollIntoView(this.groupRef);
       }
       // this.scrollToCurrentCheck();
