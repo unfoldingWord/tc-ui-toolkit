@@ -38,7 +38,7 @@ class Group extends React.Component {
     const {contextId: oldContext} = prevProps;
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
-      this.scrollToCurrentCheck();
+      // this.scrollToCurrentCheck();
     }
   }
 
