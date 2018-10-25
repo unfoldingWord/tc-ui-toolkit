@@ -13,6 +13,7 @@ class Group extends React.Component {
     this.activeGroupItemRef = React.createRef();
     this.currentGroupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
+    this.onMenuClick = this.onMenuClick.bind(this);
   }
 
   scrollToCurrentCheck() {
@@ -41,6 +42,18 @@ class Group extends React.Component {
     }
   }
 
+  onMenuClick() {
+    const {
+      active,
+      openGroup,
+      groupMenuExpandSubMenu
+    } = this.props;
+
+    // TRICKY: open closed menu's or collapse if already opened
+    const groupAction = active ? groupMenuExpandSubMenu : openGroup;
+    groupAction(!active);
+  }
+
   render() {
     const {
       changeCurrentContextId,
@@ -61,7 +74,7 @@ class Group extends React.Component {
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
-    const groupAction = active ? groupMenuExpandSubMenu : openGroup;
+    // const groupAction = active ? groupMenuExpandSubMenu : openGroup;
 
     let expandedGlyph = (
       <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}}/>
@@ -72,7 +85,7 @@ class Group extends React.Component {
     return (
         <div className="group">
           <div ref={this.currentGroupRef}
-               onClick={groupAction}
+               onClick={this.onMenuClick}
                className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
             <div style={{display: 'flex'}}>
