@@ -9,7 +9,7 @@ describe('WordDetails', () => {
         lexiconData={{}}
          wordObject={{
            lemma: 'lemma',
-           morph: 'morph',
+           morph: 'Gr,NS,,,,GMP,',
            strong: 'strong'
          }}
          translate={k=>k}/>
