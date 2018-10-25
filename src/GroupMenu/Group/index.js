@@ -46,6 +46,7 @@ class Group extends React.Component {
       changeCurrentContextId,
       active,
       openGroup,
+      groupMenuExpandSubMenu,
       isSubMenuExpanded,
       progress,
       groupIndex,
@@ -60,6 +61,8 @@ class Group extends React.Component {
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
+    const groupAction = active ? groupMenuExpandSubMenu : openGroup;
+
     let expandedGlyph = (
       <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}}/>
     );
@@ -69,7 +72,7 @@ class Group extends React.Component {
     return (
         <div className="group">
           <div ref={this.currentGroupRef}
-               onClick={openGroup}
+               onClick={groupAction}
                className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
             <div style={{display: 'flex'}}>
