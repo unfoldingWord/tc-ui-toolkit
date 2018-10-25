@@ -5,27 +5,38 @@ import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import * as helpers from '../helpers';
+import {MENU_BAR_HEIGHT, MENU_ITEM_HEIGHT, scrollIntoView, inView} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
     super(props);
     this.activeGroupItemRef = React.createRef();
-    this.currentGroupRef = React.createRef();
+    this.groupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
     this.onMenuClick = this.onMenuClick.bind(this);
+    this.isInView = this.isInView.bind(this);
   }
 
   scrollToCurrentCheck() {
-    if (helpers.inView(this.currentGroupRef, this.activeGroupItemRef)) {
+    if (inView(this.groupRef, this.activeGroupItemRef)) {
       //If the menu and current check are able to be rendered in the
       //same window scroll to the group menu item
-      helpers.scrollIntoView(this.currentGroupRef);
+      scrollIntoView(this.groupRef);
     }
     else {
       //Scroll to the current check item
-      helpers.scrollIntoView(this.activeGroupItemRef);
+      scrollIntoView(this.activeGroupItemRef);
     }
+  }
+
+  /**
+   * Checks if this group is visible
+   * @return {boolean}
+   */
+  isInView() {
+    var rectGroup = this.groupRef.current.getBoundingClientRect();
+    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return rectGroup.top + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
   }
 
   componentDidMount() {
@@ -38,6 +49,10 @@ class Group extends React.Component {
     const {contextId: oldContext} = prevProps;
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
+      // scroll to menu if out of view
+      if(!this.isInView()) {
+        scrollIntoView(this.groupRef);
+      }
       // this.scrollToCurrentCheck();
     }
   }
@@ -59,8 +74,6 @@ class Group extends React.Component {
     const {
       changeCurrentContextId,
       active,
-      openGroup,
-      groupMenuExpandSubMenu,
       isSubMenuExpanded,
       progress,
       groupIndex,
@@ -75,8 +88,6 @@ class Group extends React.Component {
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
-    // const groupAction = active ? groupMenuExpandSubMenu : openGroup;
-
     let expandedGlyph = (
       <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}}/>
     );
@@ -85,7 +96,7 @@ class Group extends React.Component {
     );
     return (
         <div className="group">
-          <div ref={this.currentGroupRef}
+          <div ref={this.groupRef}
                onClick={this.onMenuClick}
                className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
