@@ -75,6 +75,22 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
 }
 
 /**
+ * Checks if the react ref is vertically within the viewport.
+ * @param ref - the react ref
+ * @return {boolean}
+ */
+export function isInViewport(ref) {
+  if(ref && ref.current) {
+    const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT;
+    var top = ref.current.getBoundingClientRect().top;
+    return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
+  } else {
+    return false;
+  }
+}
+
+
+/**
  * @description - gets the status badge component for the group menu row
  * @param {object} groupItemData
  * @param verseFinished

@@ -5,7 +5,7 @@ import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import {MENU_BAR_HEIGHT, MENU_ITEM_HEIGHT, scrollIntoView, inView} from '../helpers';
+import {scrollIntoView, inView, isInViewport} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class Group extends React.Component {
     this.groupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
     this.onMenuClick = this.onMenuClick.bind(this);
-    this.isInViewport = this.isInViewport.bind(this);
   }
 
   scrollToCurrentCheck() {
@@ -29,19 +28,6 @@ class Group extends React.Component {
     }
   }
 
-  /**
-   * Checks if this group is visible
-   * @return {boolean}
-   */
-  isInViewport(offset = 0) {
-    if(this.groupRef && this.groupRef.current) {
-      var top = this.groupRef.current.getBoundingClientRect().top;
-      return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
-    } else {
-      return false;
-    }
-  }
-
   componentDidMount() {
     if (this.props.active) {
       this.scrollToCurrentCheck();
@@ -53,7 +39,7 @@ class Group extends React.Component {
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
       // scroll to menu if out of view
-      if(!this.isInViewport(MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT)) {
+      if(!isInViewport(this.groupRef)) {
         scrollIntoView(this.groupRef);
       }
     }
