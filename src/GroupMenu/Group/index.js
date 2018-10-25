@@ -36,7 +36,6 @@ class Group extends React.Component {
   isInViewport(offset = 0) {
     if(this.groupRef && this.groupRef.current) {
       var top = this.groupRef.current.getBoundingClientRect().top;
-      console.log(`window height: ${window.innerHeight}. group top: ${top + offset}. group bottom: ${top - offset}`);
       return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
     } else {
       return false;
@@ -54,11 +53,9 @@ class Group extends React.Component {
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
       // scroll to menu if out of view
-      if(!this.isInViewport()) {
-        console.warn('scrolling into view');
+      if(!this.isInViewport(MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT)) {
         scrollIntoView(this.groupRef);
       }
-      // this.scrollToCurrentCheck();
     }
   }
 
