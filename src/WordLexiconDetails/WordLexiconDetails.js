@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // helpers
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
-import * as morphologyHelpers from '../ScripturePane/helpers/morphologyHelpers';
 
 class WordLexiconDetails extends React.Component {
   render() {
     const { wordObject: { lemma, morphFull, strong }, translate, lexiconData } = this.props;
-    let lexicon, morphString;
+    let lexicon;
 
     if (strong) {
       const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);

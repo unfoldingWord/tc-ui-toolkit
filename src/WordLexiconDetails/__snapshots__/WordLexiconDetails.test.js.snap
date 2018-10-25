@@ -13,7 +13,7 @@ exports[`WordDetails renders 1`] = `
     <strong>
       lemma
     </strong>
-
+     
     lemma
   </span>
   <br />
@@ -21,15 +21,14 @@ exports[`WordDetails renders 1`] = `
     <strong>
       morphology
     </strong>
-
-    tools.noun, tools.substatitive_adj, tools.genitive, tools.masculine, tools.plural
+     
   </span>
   <br />
   <span>
     <strong>
       strongs
     </strong>
-
+     
     strong
   </span>
   <br />
@@ -37,7 +36,7 @@ exports[`WordDetails renders 1`] = `
     <strong>
       lexicon
     </strong>
-
+     
   </span>
   <br />
 </div>
