@@ -46,12 +46,13 @@ class Group extends React.Component {
     const {
       active,
       openGroup,
+      isSubMenuExpanded,
       groupMenuExpandSubMenu
     } = this.props;
 
-    // TRICKY: open closed menu's or collapse if already opened
-    const groupAction = active ? groupMenuExpandSubMenu : openGroup;
-    groupAction(!active);
+    const menuAction = active ? groupMenuExpandSubMenu : openGroup;
+    const expandMenu = !isSubMenuExpanded;
+    menuAction(expandMenu);
   }
 
   render() {
