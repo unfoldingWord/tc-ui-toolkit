@@ -37,7 +37,7 @@ export const getCurrentVersesWithHighlightedWords = (bibles, selections, context
             const { reference: { verse } } = contextId;
             const verseData = chapterData[verse];
 
-           if (verseData.length === 0 && typeof verseData === 'string') { // if the verse content is string.
+           if (typeof verseData === 'string') { // if the verse content is string.
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verse] = verseString(verseData, selections, translate);
             } else if (verseData) { // then the verse content is an array/verse objects.
               parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verse] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
@@ -99,7 +99,7 @@ export const getBiblesWithHighlightedWords = async (bibles, selections, contextI
               const verseNumber = Object.keys(chapterData)[l];
               const verseData = chapterData[verseNumber];
 
-              if (verseData.length === 0 && typeof verseData === 'string') { // if the verse content is string.
+              if (typeof verseData === 'string') { // if the verse content is string.
                 parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseString(verseData, selections, translate);
               } else if (verseData) { // then the verse content is an array/verse objects.
                 parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
