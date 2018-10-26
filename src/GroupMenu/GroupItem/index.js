@@ -20,6 +20,7 @@ class GroupItem extends React.Component {
         {statusBadge}
         <span
           className="selection"
+          data-for="groups-tooltip"
           data-tip={selectionText}
           data-place="bottom"
           data-effect="float"
