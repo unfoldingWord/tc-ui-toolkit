@@ -5,25 +5,26 @@ import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import * as helpers from '../helpers';
+import {scrollIntoView, inView, isInViewport} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
     super(props);
     this.activeGroupItemRef = React.createRef();
-    this.currentGroupRef = React.createRef();
+    this.groupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
+    this.onMenuClick = this.onMenuClick.bind(this);
   }
 
   scrollToCurrentCheck() {
-    if (helpers.inView(this.currentGroupRef, this.activeGroupItemRef)) {
+    if (inView(this.groupRef, this.activeGroupItemRef)) {
       //If the menu and current check are able to be rendered in the
       //same window scroll to the group menu item
-      helpers.scrollIntoView(this.currentGroupRef);
+      scrollIntoView(this.groupRef);
     }
     else {
       //Scroll to the current check item
-      helpers.scrollIntoView(this.activeGroupItemRef);
+      scrollIntoView(this.activeGroupItemRef);
     }
   }
 
@@ -37,15 +38,30 @@ class Group extends React.Component {
     const {contextId: oldContext} = prevProps;
     const {active, contextId: newContext} = this.props;
     if(active && newContext.groupId !== oldContext.groupId) {
-      this.scrollToCurrentCheck();
+      // scroll to menu if out of view
+      if(!isInViewport(this.groupRef)) {
+        scrollIntoView(this.groupRef);
+      }
     }
+  }
+
+  onMenuClick() {
+    const {
+      active,
+      openGroup,
+      isSubMenuExpanded,
+      groupMenuExpandSubMenu
+    } = this.props;
+
+    const menuAction = active ? groupMenuExpandSubMenu : openGroup;
+    const expandMenu = !isSubMenuExpanded;
+    menuAction(expandMenu);
   }
 
   render() {
     const {
       changeCurrentContextId,
       active,
-      openGroup,
       isSubMenuExpanded,
       progress,
       groupIndex,
@@ -68,8 +84,8 @@ class Group extends React.Component {
     );
     return (
         <div className="group">
-          <div ref={this.currentGroupRef}
-               onClick={openGroup}
+          <div ref={this.groupRef}
+               onClick={this.onMenuClick}
                className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
             <div style={{display: 'flex'}}>
