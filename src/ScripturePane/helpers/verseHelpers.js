@@ -38,7 +38,7 @@ export const verseString = (verseText, selections, translate) => {
 };
 
 export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) => {
-  let words = VerseObjectUtils.getWordListForVerse(verseText, translate);
+  let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
