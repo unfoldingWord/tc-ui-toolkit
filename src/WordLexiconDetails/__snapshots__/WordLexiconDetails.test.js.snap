@@ -22,6 +22,7 @@ exports[`WordDetails renders 1`] = `
       morphology
     </strong>
      
+    morph
   </span>
   <br />
   <span>
