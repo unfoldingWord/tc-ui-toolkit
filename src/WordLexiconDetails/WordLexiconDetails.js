@@ -16,11 +16,12 @@ class WordLexiconDetails extends React.Component {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
     }
+    const morphFull = MorphUtils.getFullMorphologicalString(morph, translate);
 
     return (
       <div style={{ margin: '-10px 10px -20px', maxWidth: '400px' }}>
-        <span><strong>{translate('noun')}</strong> {lemma}</span><br/>
-        <span><strong>{translate('morphology')}</strong> {MorphUtils.getFullMorphologicalString(morph, translate)}</span><br/>
+        <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
+        <span><strong>{translate('morphology')}</strong> {morphFull}</span><br/>
         <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
         <span><strong>{translate('lexicon')}</strong> {lexicon}</span><br/>
       </div>
