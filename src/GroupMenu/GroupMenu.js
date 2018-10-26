@@ -25,6 +25,10 @@ class GroupMenu extends React.Component {
     this.setState({expandFilter: !this.state.expandFilter});
   }
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     const {
       translate,
@@ -66,7 +70,7 @@ class GroupMenu extends React.Component {
               translate={translate}
               setFilter={actions.setFilter} />
           </div>
-          <ReactTooltip/>
+          <ReactTooltip id="groups-tooltip"/>
           <Groups
             currentToolName={currentToolName}
             isVerseFinished={isVerseFinished}

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Glyphicon} from 'react-bootstrap';
 import InvalidatedIcon from '../GroupsMenuFilter/InvalidatedIcon';
-const MENU_BAR_HEIGHT = 30;
-const MENU_ITEM_HEIGHT = 38;
+export const MENU_BAR_HEIGHT = 30;
+export const MENU_ITEM_HEIGHT = 38;
 
 export function getGroupData(groupsData, groupId) {
   let groupData;
@@ -59,6 +59,7 @@ export function scrollIntoView({current}) {
 }
 
 /**
+ *
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
 * The consts MENU_BAR_HEIGHT & MENU_ITEM_HEIGHT are set to account for the static window avialablity
 * @param {object} currentGroupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
@@ -72,6 +73,22 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
     return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
   }
 }
+
+/**
+ * Checks if the react ref is vertically within the viewport.
+ * @param ref - the react ref
+ * @return {boolean}
+ */
+export function isInViewport(ref) {
+  if(ref && ref.current) {
+    const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT;
+    var top = ref.current.getBoundingClientRect().top;
+    return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
+  } else {
+    return false;
+  }
+}
+
 
 /**
  * @description - gets the status badge component for the group menu row
@@ -108,6 +125,7 @@ export function makeStatusBadgeComponents(glyphs) {
       <div className="status-badge-wrapper">
         <div
           className="status-badge"
+          data-for="groups-tooltip"
           data-tip={tooltip}
           data-html="true"
           data-place="bottom"
