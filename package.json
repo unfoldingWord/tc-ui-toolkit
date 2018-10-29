@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "scripts": {
