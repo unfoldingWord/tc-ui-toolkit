@@ -68,7 +68,7 @@
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.8.1",
     "usfm-js": "^1.0.7",
-    "word-aligner": "^0.2.3"
+    "word-aligner": "^0.2.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
