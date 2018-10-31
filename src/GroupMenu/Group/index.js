@@ -5,7 +5,7 @@ import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import {scrollIntoView, inView, isInViewport} from '../helpers';
+import {scrollIntoView, scrollIntoViewEnd, inView, isInViewport} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Group extends React.Component {
     this.activeGroupItemRef = React.createRef();
     this.groupRef = React.createRef();
     this.scrollToCurrentCheck = this.scrollToCurrentCheck.bind(this);
-    this.onMenuClick = this.onMenuClick.bind(this);
+    this.onExpandClick = this.onExpandClick.bind(this);
   }
 
   scrollToCurrentCheck() {
@@ -24,7 +24,7 @@ class Group extends React.Component {
     }
     else {
       //Scroll to the current check item
-      scrollIntoView(this.activeGroupItemRef);
+      scrollIntoViewEnd(this.activeGroupItemRef);
     }
   }
 
@@ -34,34 +34,36 @@ class Group extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const {contextId: oldContext} = prevProps;
-    const {active, contextId: newContext} = this.props;
-    if(active && newContext.groupId !== oldContext.groupId) {
+  componentDidUpdate() {
+    const {active} = this.props;
+    if(active) {
       // scroll to menu if out of view
-      if(!isInViewport(this.groupRef)) {
-        scrollIntoView(this.groupRef);
+      if(!isInViewport(this.activeGroupItemRef)) {
+        this.scrollToCurrentCheck(this.activeGroupItemRef);
       }
     }
   }
 
-  onMenuClick() {
+  onExpandClick() {
     const {
       active,
       openGroup,
-      isSubMenuExpanded,
       groupMenuExpandSubMenu
     } = this.props;
 
-    const menuAction = active ? groupMenuExpandSubMenu : openGroup;
-    const expandMenu = !isSubMenuExpanded;
-    menuAction(expandMenu);
+    if (active) {
+      groupMenuExpandSubMenu(true);
+    } else {
+      openGroup(true);
+    }
   }
 
   render() {
     const {
       changeCurrentContextId,
       active,
+      openGroup,
+      groupMenuExpandSubMenu,
       isSubMenuExpanded,
       progress,
       groupIndex,
@@ -77,18 +79,18 @@ class Group extends React.Component {
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
     let expandedGlyph = (
-      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}}/>
+      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}} onClick={() => groupMenuExpandSubMenu(false)} />
     );
     let collapsedGlyph = (
-      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}}/>
+      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={this.onExpandClick} />
     );
     return (
         <div className="group">
           <div ref={this.groupRef}
-               onClick={this.onMenuClick}
                className={groupMenuItemHeadingClassName}>
             {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
-            <div style={{display: 'flex'}}>
+             <div style={{display: 'flex'}}
+                 onClick={() => openGroup(true)}>
               <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
                 <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
                 <CircularProgress
