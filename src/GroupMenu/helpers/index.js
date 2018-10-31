@@ -64,6 +64,16 @@ export function scrollIntoView({current}) {
 }
 
 /**
+ * scrolls into view, but will be toward bottom
+ * @param {object} item
+ */
+export function scrollIntoViewEnd({current}) {
+  if (current && current.scrollIntoView) {
+    current.scrollIntoView(false); // must use boolean value here because we are using an older chromium that does not yet support scrollIntoViewOptions
+  }
+}
+
+/**
  *
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
 * The consts MENU_BAR_HEIGHT & MENU_ITEM_HEIGHT are set to account for the static window avialablity
