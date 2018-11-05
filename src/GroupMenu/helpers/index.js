@@ -96,7 +96,7 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
  */
 export function isInViewport(ref) {
   if(ref && ref.current) {
-    const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT;
+    const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT * 2;
     const top = ref.current.getBoundingClientRect().top;
     return (top >= 0) && (top + offset <= window.innerHeight);
   } else {
