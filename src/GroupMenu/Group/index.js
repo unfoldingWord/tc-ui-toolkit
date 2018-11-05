@@ -5,7 +5,7 @@ import {Glyphicon} from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import {scrollIntoView, scrollIntoViewEnd, inView, isInViewport} from '../helpers';
+import {scrollIntoView, inView, isInViewport} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Group extends React.Component {
     }
     else {
       //Scroll to the current check item
-      scrollIntoViewEnd(this.activeGroupItemRef);
+      scrollIntoView(this.activeGroupItemRef);
     }
   }
 
