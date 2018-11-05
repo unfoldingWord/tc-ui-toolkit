@@ -85,7 +85,7 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
     const rectGroup = currentGroupMenu.getBoundingClientRect();
     const rectItem = currentGroupItem.getBoundingClientRect();
     const viewHeight = Math.min(document.documentElement.clientHeight, window.innerHeight);
-    return Math.abs(rectGroup.top - rectItem.top) + (MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT * 3) <= viewHeight;
+    return Math.abs(rectGroup.top - rectItem.top) + (MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT * 2) <= viewHeight;
   }
 }
 
