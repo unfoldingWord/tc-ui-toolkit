@@ -59,6 +59,10 @@ class ScripturePane extends Component {
     this.setState({biblesWithHighlightedWords});
   }
 
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
   componentWillReceiveProps(nextProps) {
     const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) ||
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
