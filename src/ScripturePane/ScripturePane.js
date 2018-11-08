@@ -1,3 +1,4 @@
+'use strict';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
@@ -59,10 +60,6 @@ class ScripturePane extends Component {
     this.setState({biblesWithHighlightedWords});
   }
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
-
   componentWillReceiveProps(nextProps) {
     const reParseBibleData = !isEqual(this.props.selections, nextProps.selections) ||
       !isEqual(this.props.contextId, nextProps.contextId) || !isEqual(this.props.bibles, nextProps.bibles);
@@ -99,12 +96,7 @@ class ScripturePane extends Component {
     });
   }
 
-  closeExpandedScripturePane() {
-    this.setState({
-      showExpandedScripturePane: false,
-      expandedBiblesWithHighlightedWords: {}
-    });
-  }
+  closeExpandedScripturePane() {this.setState({showExpandedScripturePane: false, expandedBiblesWithHighlightedWords:null})}
 
   showAddBibleModal() {this.setState({showAddPaneModal: true})}
 
@@ -148,8 +140,7 @@ class ScripturePane extends Component {
   }
 
 
-  getPanes(currentPaneSettings, contextId, translate) {
-    const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
+  getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
     const panes = [];
 
     for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
@@ -207,6 +198,7 @@ class ScripturePane extends Component {
     } = this.props;
     // material-ui-theme, new color themes could be added here in the future
     const theme = createMuiTheme();
+    const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
@@ -231,7 +223,7 @@ class ScripturePane extends Component {
               }
             </div>
             <div className="panes-container">
-              {this.getPanes(currentPaneSettings, contextId, translate)}
+              {this.getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate)}
               <AddBibleButton
                 showAddBibleModal={this.showAddBibleModal}
                 clickAddResource={translate('pane.add_resource')}

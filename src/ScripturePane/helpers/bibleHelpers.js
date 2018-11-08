@@ -1,3 +1,4 @@
+'use strict';
 import { verseString, verseArray } from './verseHelpers';
 import { delay } from './utils';
 
@@ -70,7 +71,7 @@ export const getCurrentVersesWithHighlightedWords = (bibles, selections, context
  * @param {function} translate
  */
 export const getBiblesWithHighlightedWords = async (bibles, selections, contextId, getLexiconData, showPopover, translate) => {
-  //await delay(40); // added extremely slight delay to allow spinner to render.
+  await delay(40); // added extremely slight delay to allow spinner to render.
   try {
     const parsedBible = {};
 
@@ -102,8 +103,7 @@ export const getBiblesWithHighlightedWords = async (bibles, selections, contextI
               if (typeof verseData === 'string') { // if the verse content is string.
                 parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseString(verseData, selections, translate);
               } else if (verseData) { // then the verse content is an array/verse objects.
-                const verseArrayResult = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
-                parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArrayResult;
+                parsedBible[languageId][bibleId]['bibleData'][chapterNumber][verseNumber] = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
               }
             }
           } else {// is manifest

@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
@@ -10,17 +11,17 @@ import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseOb
           isIsolatedLeftQuote} from './stringHelpers';
 
 export const verseString = (verseText, selections, translate) => {
-  let newVerseText = removeMarker(verseText);
-  newVerseText = newVerseText.replace(/\s+/g, ' ');
+  verseText = removeMarker(verseText);
+  verseText = verseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
-  newVerseText.replace(/\s/g, '').length === 0 ? newVerseText = '' : newVerseText;
+  verseText.replace(/\s/g, '').length === 0 ? verseText = '' : verseText;
 
-  // if empty string then newVerseText = place holder warning.
-  if (newVerseText.length === 0) newVerseText = translate('pane.missing_verse_warning');
-  let verseTextSpans = <span>{newVerseText}</span>;
+  // if empty string then verseText = place holder warning.
+  if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
+  let verseTextSpans = <span>{verseText}</span>;
 
   if (selections && selections.length > 0) {
-    const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
+    const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
     verseTextSpans = [];
 
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
