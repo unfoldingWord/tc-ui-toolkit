@@ -139,7 +139,8 @@ class ScripturePane extends Component {
   }
 
 
-  getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate) {
+  getPanes(currentPaneSettings, contextId, translate) {
+    const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
     const panes = [];
 
     for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
@@ -197,7 +198,6 @@ class ScripturePane extends Component {
     } = this.props;
     // material-ui-theme, new color themes could be added here in the future
     const theme = createMuiTheme();
-    const biblesWithHighlightedWords = this.state.biblesWithHighlightedWords || {};
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
@@ -222,7 +222,7 @@ class ScripturePane extends Component {
               }
             </div>
             <div className="panes-container">
-              {this.getPanes(currentPaneSettings, biblesWithHighlightedWords, contextId, translate)}
+              {this.getPanes(currentPaneSettings, contextId, translate)}
               <AddBibleButton
                 showAddBibleModal={this.showAddBibleModal}
                 clickAddResource={translate('pane.add_resource')}
