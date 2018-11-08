@@ -99,7 +99,12 @@ class ScripturePane extends Component {
     });
   }
 
-  closeExpandedScripturePane() {this.setState({showExpandedScripturePane: false, expandedBiblesWithHighlightedWords:null})}
+  closeExpandedScripturePane() {
+    this.setState({
+      showExpandedScripturePane: false,
+      expandedBiblesWithHighlightedWords: {}
+    });
+  }
 
   showAddBibleModal() {this.setState({showAddPaneModal: true})}
 

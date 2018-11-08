@@ -70,7 +70,7 @@ export const getCurrentVersesWithHighlightedWords = (bibles, selections, context
  * @param {function} translate
  */
 export const getBiblesWithHighlightedWords = async (bibles, selections, contextId, getLexiconData, showPopover, translate) => {
-  await delay(40); // added extremely slight delay to allow spinner to render.
+  //await delay(40); // added extremely slight delay to allow spinner to render.
   try {
     const parsedBible = {};
 

@@ -29,8 +29,7 @@ class VerseRow extends Component {
       bibles,
       translate
     } = this.props;
-    let verseCells = <div />;
-    // const isCurrent = currentVerseNumber === verse.toString();
+    let verseCells = [];
 
     let colStyle = {
       minWidth: '240px', alignItems: 'stretch', padding: '10px', paddingTop: '20px',
@@ -43,8 +42,6 @@ class VerseRow extends Component {
     }
 
     if (currentPaneSettings.length > 0) {
-      verseCells = [];
-
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
         const index = i;

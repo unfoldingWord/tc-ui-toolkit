@@ -90,11 +90,9 @@ class ChapterView extends Component {
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(biblesWithHighlightedWords['en']['ult'].bibleData[chapter]);
     this.verseRefs = {};
-    let verseRows = <div/>;
+    let verseRows = [];
 
     if (verseNumbers.length > 0) {
-      verseRows = [];
-
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
