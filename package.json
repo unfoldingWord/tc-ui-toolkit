@@ -9,7 +9,7 @@
     "render-ui": "webpack && cd tc-ui-toolkit-test && npm start",
     "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
-    "build": "webpack -d",
+    "build": "webpack -p",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build"
   },
