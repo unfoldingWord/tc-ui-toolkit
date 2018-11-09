@@ -46,9 +46,9 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
-  componentDidMount() {
-    this.props.onFinishLoad();
-  }
+  // componentDidMount() {
+  //   this.props.onFinishLoad();
+  // }
 
   render() {
     const {
