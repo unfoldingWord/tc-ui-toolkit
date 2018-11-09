@@ -46,9 +46,32 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
-  // componentDidMount() {
-  //   this.props.onFinishLoad();
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      biblesWithHighlightedWords: null
+    };
+  }
+
+  async componentDidMount() {
+    const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
+
+    const biblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
+      bibles,
+      selections,
+      contextId,
+      getLexiconData,
+      showPopover,
+      translate
+    );
+
+    this.setState({ biblesWithHighlightedWords });
+  }
+
+  componentWillUnmount() {
+    console.log('ExpandedScripturePaneModal componentWillUnmount');
+    this.setState({ biblesWithHighlightedWords: null });
+  }
 
   render() {
     const {
@@ -61,19 +84,7 @@ class ExpandedScripturePaneModal extends Component {
       translate,
       projectDetailsReducer,
       bibles,
-      selections,
-      getLexiconData,
-      showPopover,
     } = this.props;
-
-    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
-      bibles,
-      selections,
-      contextId,
-      getLexiconData,
-      showPopover,
-      translate
-    );
 
     return (
       <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
@@ -86,18 +97,23 @@ class ExpandedScripturePaneModal extends Component {
           </IconButton>
         </Toolbar>
         <DialogContent style={styles.dialogContent}>
-        <BibleHeadingsRow
-          currentPaneSettings={currentPaneSettings}
-          biblesWithHighlightedWords={biblesWithHighlightedWords}
-          projectDetailsReducer={projectDetailsReducer} />
-          <ChapterView
-            contextId={contextId}
-            currentPaneSettings={currentPaneSettings}
-            biblesWithHighlightedWords={biblesWithHighlightedWords}
-            editTargetVerse={editTargetVerse}
-            translate={translate}
-            bibles={bibles}
-            projectDetailsReducer={projectDetailsReducer} />
+        {
+          this.state.biblesWithHighlightedWords &&
+          <div>
+            <BibleHeadingsRow
+              currentPaneSettings={currentPaneSettings}
+              biblesWithHighlightedWords={this.state.biblesWithHighlightedWords}
+              projectDetailsReducer={projectDetailsReducer} />
+            <ChapterView
+              contextId={contextId}
+              currentPaneSettings={currentPaneSettings}
+              biblesWithHighlightedWords={this.state.biblesWithHighlightedWords}
+              editTargetVerse={editTargetVerse}
+              translate={translate}
+              bibles={bibles}
+              projectDetailsReducer={projectDetailsReducer} />
+          </div>
+        }
         </DialogContent>
         <DialogActions disableActionSpacing style={styles.dialogActions}>
           <button className="btn-prime" onClick={onHide}>
@@ -115,7 +131,6 @@ ExpandedScripturePaneModal.propTypes = {
   title: PropTypes.string.isRequired,
   primaryLabel: PropTypes.string.isRequired,
   contextId: PropTypes.object.isRequired,
-  biblesWithHighlightedWords: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,

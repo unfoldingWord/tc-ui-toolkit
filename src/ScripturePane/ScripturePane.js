@@ -33,7 +33,6 @@ class ScripturePane extends Component {
       showAddPaneModal: false,
       selectedPane: false,
       biblesWithHighlightedWords: null,
-      loadingExpandedScripturePane: false
     };
     this.openExpandedScripturePane = this.openExpandedScripturePane.bind(this);
     this.closeExpandedScripturePane = this.closeExpandedScripturePane.bind(this);
@@ -76,11 +75,7 @@ class ScripturePane extends Component {
   }
 
   openExpandedScripturePane() {
-    this.setState({ loadingExpandedScripturePane: true, showExpandedScripturePane: true });
-  }
-
-  onFinishLoadingExpandedScripturePane() {
-    this.setState({ loadingExpandedScripturePane: false });
+    this.setState({ showExpandedScripturePane: true });
   }
 
   closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
@@ -225,7 +220,6 @@ class ScripturePane extends Component {
               <ExpandedScripturePaneModal
                 show={this.state.showExpandedScripturePane}
                 onHide={this.closeExpandedScripturePane}
-                onFinishLoad={this.onFinishLoadingExpandedScripturePane}
                 title={expandedScripturePaneTitle}
                 primaryLabel={translate('close')}
                 currentPaneSettings={currentPaneSettings}
