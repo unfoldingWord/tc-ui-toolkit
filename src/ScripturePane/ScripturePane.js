@@ -76,11 +76,11 @@ class ScripturePane extends Component {
   }
 
   openExpandedScripturePane() {
-    this.setState({ loadingExpandedScripturePane: true});
+    this.setState({ loadingExpandedScripturePane: true, showExpandedScripturePane: true });
   }
 
-  displayExpandedScripturePane() {
-    this.setState({ loadingExpandedScripturePane: false, showExpandedScripturePane: true });
+  onFinishLoadingExpandedScripturePane() {
+    this.setState({ loadingExpandedScripturePane: false });
   }
 
   closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
@@ -225,7 +225,7 @@ class ScripturePane extends Component {
               <ExpandedScripturePaneModal
                 show={this.state.showExpandedScripturePane}
                 onHide={this.closeExpandedScripturePane}
-                onFinishLoad={this.displayExpandedScripturePane}
+                onFinishLoad={this.onFinishLoadingExpandedScripturePane}
                 title={expandedScripturePaneTitle}
                 primaryLabel={translate('close')}
                 currentPaneSettings={currentPaneSettings}
