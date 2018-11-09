@@ -94,10 +94,9 @@ export const getBiblesWithHighlightedWords = async (bibles, selections, contextI
               }
             };
             const chapterData = currentBible[bibleId][chapterNumber];
-            const { reference: { verse } } = contextId;
 
             for (let l = 0, lLength = Object.keys(chapterData).length; l < lLength; l++) {
-              const verseNumber = verse;
+              const verseNumber = Object.keys(chapterData)[l];
               const verseData = chapterData[verseNumber];
 
               if (typeof verseData === 'string') { // if the verse content is string.
