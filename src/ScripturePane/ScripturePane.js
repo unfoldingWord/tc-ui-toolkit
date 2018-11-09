@@ -175,6 +175,7 @@ class ScripturePane extends Component {
             removePane={this.removePane}
           />
         );
+        panes.length = 0;
       } catch (err) {
         console.warn(err);
       }
