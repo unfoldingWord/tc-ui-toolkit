@@ -43,7 +43,7 @@ class Verse extends Component {
     const chapterVerseContent = direction === 'rtl' ? `${verse}:${chapter} ` : `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
-    let verseSpan = verseElements;
+    let verseSpan = null;
 
     if (verseIsPlaceHolder) {
       verseSpan = (
@@ -51,6 +51,8 @@ class Verse extends Component {
           {translate('pane.missing_verse_warning')}
         </span>
       );
+    } else {
+      verseSpan = verseElements;
     }
 
     let edit = null;
