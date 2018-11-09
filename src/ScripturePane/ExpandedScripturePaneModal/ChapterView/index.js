@@ -29,6 +29,10 @@ class ChapterView extends Component {
     if (element) element.scrollIntoView();
   }
 
+  componentWillUnmount() {
+    this.verseRefs = null;
+  }
+
   /**
    * Generates a key to use for verse ref's
    * @param chapter
