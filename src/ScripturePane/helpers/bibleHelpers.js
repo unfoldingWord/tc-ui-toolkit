@@ -1,4 +1,3 @@
-'use strict';
 import { verseString, verseArray } from './verseHelpers';
 import { delay } from './utils';
 
@@ -95,9 +94,10 @@ export const getBiblesWithHighlightedWords = async (bibles, selections, contextI
               }
             };
             const chapterData = currentBible[bibleId][chapterNumber];
+            const { reference: { verse } } = contextId;
 
             for (let l = 0, lLength = Object.keys(chapterData).length; l < lLength; l++) {
-              const verseNumber = Object.keys(chapterData)[l];
+              const verseNumber = verse;
               const verseData = chapterData[verseNumber];
 
               if (typeof verseData === 'string') { // if the verse content is string.

@@ -1,4 +1,3 @@
-'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
