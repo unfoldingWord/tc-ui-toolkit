@@ -33,7 +33,6 @@ class ScripturePane extends Component {
       showAddPaneModal: false,
       selectedPane: false,
       biblesWithHighlightedWords: null,
-      expandedBiblesWithHighlightedWords: null,
       loadingExpandedScripturePane: false
     };
     this.openExpandedScripturePane = this.openExpandedScripturePane.bind(this);
@@ -76,26 +75,15 @@ class ScripturePane extends Component {
     }
   }
 
-  async openExpandedScripturePane() {
+  openExpandedScripturePane() {
     this.setState({ loadingExpandedScripturePane: true});
-    const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
-    const expandedBiblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
-      bibles,
-      selections,
-      contextId,
-      getLexiconData,
-      showPopover,
-      translate
-    );
-
-    this.setState({
-      loadingExpandedScripturePane: false,
-      showExpandedScripturePane: true,
-      expandedBiblesWithHighlightedWords
-    });
   }
 
-  closeExpandedScripturePane() {this.setState({showExpandedScripturePane: false, expandedBiblesWithHighlightedWords:null})}
+  displayExpandedScripturePane() {
+    this.setState({ loadingExpandedScripturePane: false, showExpandedScripturePane: true });
+  }
+
+  closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
 
   showAddBibleModal() {this.setState({showAddPaneModal: true})}
 
@@ -175,7 +163,6 @@ class ScripturePane extends Component {
             removePane={this.removePane}
           />
         );
-        panes.length = 0;
       } catch (err) {
         console.warn(err);
       }
@@ -194,7 +181,10 @@ class ScripturePane extends Component {
       projectDetailsReducer,
       bibles,
       getAvailableScripturePaneSelections,
-      classes
+      classes,
+      selections,
+      getLexiconData,
+      showPopover,
     } = this.props;
     // material-ui-theme, new color themes could be added here in the future
     const theme = createMuiTheme();
@@ -235,15 +225,18 @@ class ScripturePane extends Component {
               <ExpandedScripturePaneModal
                 show={this.state.showExpandedScripturePane}
                 onHide={this.closeExpandedScripturePane}
+                onFinishLoad={this.displayExpandedScripturePane}
                 title={expandedScripturePaneTitle}
                 primaryLabel={translate('close')}
-                biblesWithHighlightedWords={this.state.expandedBiblesWithHighlightedWords}
                 currentPaneSettings={currentPaneSettings}
                 contextId={contextId}
                 bibles={bibles}
                 editTargetVerse={editTargetVerse}
                 translate={translate}
                 projectDetailsReducer={projectDetailsReducer}
+                selections={selections}
+                getLexiconData={getLexiconData}
+                showPopover={showPopover}
             />
             :
               <div/>

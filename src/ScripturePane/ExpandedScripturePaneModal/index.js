@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +12,8 @@ import './ExpandedScripturePaneModal.styles.css';
 // components
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
+// helpers
+import * as bibleHelpers from './helpers/bibleHelpers';
 
 const styles = {
   toolBar: {
@@ -43,50 +45,69 @@ const styles = {
   }
 };
 
-const ExpandedScripturePaneModal = ({
-  show,
-  onHide,
-  title,
-  contextId,
-  biblesWithHighlightedWords,
-  currentPaneSettings,
-  editTargetVerse,
-  translate,
-  projectDetailsReducer,
-  bibles,
-}) => {
-  return (
-    <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
-      <Toolbar style={styles.toolBar}>
-        <div style={styles.title}>
-          {title}
-        </div>
-        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
-          <Glyphicon glyph="remove" />
-        </IconButton>
-      </Toolbar>
-      <DialogContent style={styles.dialogContent}>
-      <BibleHeadingsRow
-        currentPaneSettings={currentPaneSettings}
-        biblesWithHighlightedWords={biblesWithHighlightedWords}
-        projectDetailsReducer={projectDetailsReducer} />
-        <ChapterView
-          contextId={contextId}
+class ExpandedScripturePaneModal extends Component {
+  componentDidMount() {
+    this.props.onFinishLoad();
+  }
+
+  render() {
+    const {
+      show,
+      onHide,
+      title,
+      contextId,
+      currentPaneSettings,
+      editTargetVerse,
+      translate,
+      projectDetailsReducer,
+      bibles,
+      selections,
+      getLexiconData,
+      showPopover,
+    } = this.props;
+
+    const biblesWithHighlightedWords = bibleHelpers.getBiblesWithHighlightedWords(
+      bibles,
+      selections,
+      contextId,
+      getLexiconData,
+      showPopover,
+      translate
+    );
+
+    return (
+      <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
+        <Toolbar style={styles.toolBar}>
+          <div style={styles.title}>
+            {title}
+          </div>
+          <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
+            <Glyphicon glyph="remove" />
+          </IconButton>
+        </Toolbar>
+        <DialogContent style={styles.dialogContent}>
+        <BibleHeadingsRow
           currentPaneSettings={currentPaneSettings}
           biblesWithHighlightedWords={biblesWithHighlightedWords}
-          editTargetVerse={editTargetVerse}
-          translate={translate}
-          bibles={bibles}
           projectDetailsReducer={projectDetailsReducer} />
-      </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
-        <button className="btn-prime" onClick={onHide}>
-          {translate('close')}
-        </button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+          <ChapterView
+            contextId={contextId}
+            currentPaneSettings={currentPaneSettings}
+            biblesWithHighlightedWords={biblesWithHighlightedWords}
+            editTargetVerse={editTargetVerse}
+            translate={translate}
+            bibles={bibles}
+            projectDetailsReducer={projectDetailsReducer} />
+        </DialogContent>
+        <DialogActions disableActionSpacing style={styles.dialogActions}>
+          <button className="btn-prime" onClick={onHide}>
+            {translate('close')}
+          </button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
 
 ExpandedScripturePaneModal.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -100,6 +121,10 @@ ExpandedScripturePaneModal.propTypes = {
   translate: PropTypes.func.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   bibles: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  onFinishLoad: PropTypes.func.isRequired,
 };
 
 export default ExpandedScripturePaneModal;
