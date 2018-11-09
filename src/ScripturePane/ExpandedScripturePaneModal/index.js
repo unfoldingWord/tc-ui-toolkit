@@ -13,7 +13,7 @@ import './ExpandedScripturePaneModal.styles.css';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 // helpers
-import * as bibleHelpers from './helpers/bibleHelpers';
+import * as bibleHelpers from '../helpers/bibleHelpers';
 
 const styles = {
   toolBar: {
