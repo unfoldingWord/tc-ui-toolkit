@@ -78,6 +78,10 @@ class ChapterView extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.verseRefs = null;
+  }
+
   render () {
     const {
       contextId,
