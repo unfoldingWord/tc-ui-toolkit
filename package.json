@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.11.12",
+  "version": "0.12.0",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "scripts": {
@@ -88,6 +88,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-react": "^7.9.1",
+    "file-loader": "^2.0.0",
     "jest": "^22.4.3",
     "jest-css-modules": "^1.1.0",
     "jest-enzyme": "^6.0.0",

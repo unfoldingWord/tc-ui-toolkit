@@ -15,8 +15,8 @@ class BibleHeadingsRow extends Component {
   render () {
     const {
       currentPaneSettings,
-      biblesWithHighlightedWords,
       projectDetailsReducer,
+      bibles
     } = this.props;
     const bibleHeadings = [];
 
@@ -28,7 +28,8 @@ class BibleHeadingsRow extends Component {
       const {
         language_name,
         direction,
-      } = biblesWithHighlightedWords[languageId][bibleId]['manifest'];
+      } = bibles[languageId][bibleId]['manifest'];
+
       const resourceText = bibleId !== "targetBible" ? " (" + bibleId.toUpperCase() + ")" : "" ;
       const headingText = language_name + resourceText;
       let dir = direction;
@@ -56,8 +57,8 @@ class BibleHeadingsRow extends Component {
 
 BibleHeadingsRow.propTypes = {
   currentPaneSettings: PropTypes.array.isRequired,
-  biblesWithHighlightedWords: PropTypes.object.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  bibles: PropTypes.object.isRequired,
 };
 
 export default BibleHeadingsRow;
