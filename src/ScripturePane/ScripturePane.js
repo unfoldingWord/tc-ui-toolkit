@@ -41,7 +41,7 @@ class ScripturePane extends Component {
     this.removePane = this.removePane.bind(this);
   }
 
-  openExpandedScripturePane() {this.setState({ showExpandedScripturePane: true, loadingExpandedScripturePane: true })}
+  openExpandedScripturePane() {this.setState({ loadingExpandedScripturePane: true , showExpandedScripturePane: true })}
 
   closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
 
