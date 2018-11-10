@@ -6,15 +6,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Glyphicon } from 'react-bootstrap';
-
-import './ExpandedScripturePaneModal.styles.css';
-
 // components
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
-import SpinningLogo from '../../SpinningLogo';
-// helpers
-// import * as bibleHelpers from '../helpers/bibleHelpers';
+
+import './ExpandedScripturePaneModal.styles.css';
 
 const styles = {
   toolBar: {
