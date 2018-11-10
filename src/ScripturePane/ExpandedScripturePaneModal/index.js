@@ -49,12 +49,6 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
-  componentWillUnmount() {
-    this.props.onFinishLoad();
-  }
-
-  componentWillUnmount
-
   render() {
     const {
       show,
@@ -121,7 +115,6 @@ ExpandedScripturePaneModal.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
-  onFinishLoad: PropTypes.func.isRequired,
 };
 
 export default ExpandedScripturePaneModal;
