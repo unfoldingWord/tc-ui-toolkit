@@ -53,31 +53,9 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     biblesWithHighlightedWords: null
-  //   };
-  // }
-
-  // async componentDidMount() {
-  //   const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
-
-  //   const biblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
-  //     bibles,
-  //     selections,
-  //     contextId,
-  //     getLexiconData,
-  //     showPopover,
-  //     translate
-  //   );
-
-  //   this.setState({ biblesWithHighlightedWords });
-  // }
-
-  // componentWillUnmount() {
-  //   this.setState({ biblesWithHighlightedWords: null });
-  // }
+  componentDidMount() {
+    this.props.onFinishLoad();
+  }
 
   render() {
     const {
@@ -145,6 +123,7 @@ ExpandedScripturePaneModal.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  onFinishLoad: PropTypes.func.isRequired,
 };
 
 export default ExpandedScripturePaneModal;

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 import './ScripturePane.styles.css';
 // components
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
@@ -13,11 +14,21 @@ import { verseString, verseArray } from './helpers/verseHelpers';
 // constant
 const NAMESPACE = 'ScripturePane';
 
+const styles = {
+  progressRoot: {
+    color: '#ffffff',
+  },
+  progressSvg: {
+    margin: '5px'
+  }
+};
+
 class ScripturePane extends Component {
   constructor() {
     super();
     this.state = {
       showExpandedScripturePane: false,
+      loadingExpandedScripturePane: false,
       showAddPaneModal: false,
       selectedPane: false,
     };
@@ -30,7 +41,7 @@ class ScripturePane extends Component {
     this.removePane = this.removePane.bind(this);
   }
 
-  openExpandedScripturePane() {this.setState({ showExpandedScripturePane: true })}
+  openExpandedScripturePane() {this.setState({ showExpandedScripturePane: true, loadingExpandedScripturePane: true })}
 
   closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
 
@@ -132,6 +143,7 @@ class ScripturePane extends Component {
 
   render() {
     let {
+      classes,
       expandedScripturePaneTitle,
       currentPaneSettings,
       contextId,
@@ -157,12 +169,17 @@ class ScripturePane extends Component {
           <div className="inner-container">
             <div className="title-bar">
               <span>{translate('pane.title')}</span>
-              <Glyphicon
-                onClick={this.openExpandedScripturePane}
-                glyph={"fullscreen"}
-                style={{cursor: "pointer"}}
-                title={translate('pane.expand_hover')}
-              />
+              {
+                this.state.loadingExpandedScripturePane ?
+                  <CircularProgress classes={{root: classes.progressRoot, svg: classes.progressSvg}} thickness={7} />
+                :
+                  <Glyphicon
+                    onClick={this.openExpandedScripturePane}
+                    glyph={"fullscreen"}
+                    style={{cursor: "pointer"}}
+                    title={translate('pane.expand_hover')}
+                  />
+              }
             </div>
             <div className="panes-container">
               {
@@ -190,6 +207,7 @@ class ScripturePane extends Component {
                 selections={selections}
                 getLexiconData={getLexiconData}
                 showPopover={showPopover}
+                onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
             />
             :
               <div/>
@@ -219,6 +237,7 @@ class ScripturePane extends Component {
 }
 
 ScripturePane.propTypes = {
+  classes: PropTypes.object.isRequired,
   titleLabel: PropTypes.string.isRequired,
   closeButtonLabel: PropTypes.string.isRequired,
   addResourceLabel: PropTypes.string.isRequired,
@@ -266,4 +285,4 @@ ScripturePane.defaultProps = {
   makeSureBiblesLoadedForTool: () => {},
 };
 
-export default ScripturePane;
+export default withStyles(styles)(ScripturePane);
