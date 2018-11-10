@@ -14,7 +14,7 @@ import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 import SpinningLogo from '../../SpinningLogo';
 // helpers
-import * as bibleHelpers from '../helpers/bibleHelpers';
+// import * as bibleHelpers from '../helpers/bibleHelpers';
 
 const styles = {
   toolBar: {
@@ -54,32 +54,31 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      biblesWithHighlightedWords: null
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     biblesWithHighlightedWords: null
+  //   };
+  // }
 
-  async componentDidMount() {
-    const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
+  // async componentDidMount() {
+  //   const { selections, contextId, getLexiconData, showPopover, bibles, translate } = this.props;
 
-    const biblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
-      bibles,
-      selections,
-      contextId,
-      getLexiconData,
-      showPopover,
-      translate
-    );
+  //   const biblesWithHighlightedWords = await bibleHelpers.getBiblesWithHighlightedWords(
+  //     bibles,
+  //     selections,
+  //     contextId,
+  //     getLexiconData,
+  //     showPopover,
+  //     translate
+  //   );
 
-    this.setState({ biblesWithHighlightedWords });
-  }
+  //   this.setState({ biblesWithHighlightedWords });
+  // }
 
-  componentWillUnmount() {
-    console.log('ExpandedScripturePaneModal componentWillUnmount');
-    this.setState({ biblesWithHighlightedWords: null });
-  }
+  // componentWillUnmount() {
+  //   this.setState({ biblesWithHighlightedWords: null });
+  // }
 
   render() {
     const {
@@ -92,6 +91,9 @@ class ExpandedScripturePaneModal extends Component {
       translate,
       projectDetailsReducer,
       bibles,
+      selections,
+      getLexiconData,
+      showPopover,
     } = this.props;
 
     return (
@@ -105,25 +107,20 @@ class ExpandedScripturePaneModal extends Component {
           </IconButton>
         </Toolbar>
         <DialogContent style={styles.dialogContent}>
-        {
-          !this.state.biblesWithHighlightedWords ?
-              <SpinningLogo/>
-            :
-              <div>
-                <BibleHeadingsRow
-                  bibles={bibles}
-                  currentPaneSettings={currentPaneSettings}
-                  projectDetailsReducer={projectDetailsReducer} />
-                <ChapterView
-                  bibles={bibles}
-                  contextId={contextId}
-                  translate={translate}
-                  editTargetVerse={editTargetVerse}
-                  projectDetailsReducer={projectDetailsReducer}
-                  currentPaneSettings={currentPaneSettings}
-                  biblesWithHighlightedWords={this.state.biblesWithHighlightedWords} />
-              </div>
-        }
+          <BibleHeadingsRow
+            bibles={bibles}
+            currentPaneSettings={currentPaneSettings}
+            projectDetailsReducer={projectDetailsReducer} />
+          <ChapterView
+            bibles={bibles}
+            contextId={contextId}
+            translate={translate}
+            editTargetVerse={editTargetVerse}
+            projectDetailsReducer={projectDetailsReducer}
+            currentPaneSettings={currentPaneSettings}
+            selections={selections}
+            showPopover={showPopover}
+            getLexiconData={getLexiconData} />
         </DialogContent>
         <DialogActions disableActionSpacing style={styles.dialogActions}>
           <button className="btn-prime" onClick={onHide}>
@@ -149,7 +146,6 @@ ExpandedScripturePaneModal.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
-  onFinishLoad: PropTypes.func.isRequired,
 };
 
 export default ExpandedScripturePaneModal;

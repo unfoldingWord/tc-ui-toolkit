@@ -82,13 +82,16 @@ class ChapterView extends Component {
     const {
       contextId,
       currentPaneSettings,
-      biblesWithHighlightedWords,
       projectDetailsReducer,
       translate,
       bibles,
+      selections,
+      getLexiconData,
+      showPopover,
     } = this.props;
+
     const { chapter, verse } = contextId.reference;
-    const verseNumbers = Object.keys(biblesWithHighlightedWords['en']['ult'].bibleData[chapter]);
+    const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
     this.verseRefs = {};
     let verseRows = [];
 
@@ -104,9 +107,12 @@ class ChapterView extends Component {
             chapter={chapter}
             verse={verse}
             bibles={bibles}
+            contextId={contextId}
+            selections={selections}
+            showPopover={showPopover}
+            getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
             currentPaneSettings={currentPaneSettings}
-            biblesWithHighlightedWords={biblesWithHighlightedWords}
             onEditTargetVerse={this.handleEditTargetVerse}
             ref={node => this.verseRefs[refKey] = node} />
         );
@@ -146,11 +152,13 @@ class ChapterView extends Component {
 ChapterView.propTypes = {
   contextId: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
-  biblesWithHighlightedWords: PropTypes.object.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   bibles: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
 };
 
 export default ChapterView;
