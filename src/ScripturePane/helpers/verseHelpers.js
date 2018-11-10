@@ -23,6 +23,7 @@ export const verseString = (verseText, selections, translate) => {
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
     verseTextSpans = [];
+    verseTextSpans.length = 0;
 
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
@@ -44,6 +45,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
+  verseSpan.length = 0;
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
     verseSpan.push(
