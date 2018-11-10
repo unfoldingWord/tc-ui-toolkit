@@ -35,7 +35,6 @@ const styles = {
     marginLeft: 'auto'
   },
   dialogContent: {
-    display: 'flex',
     padding: '0px',
     margin: '0px'
   },

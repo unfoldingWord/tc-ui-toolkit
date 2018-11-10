@@ -1,3 +1,4 @@
+'use strict';
 import { verseString, verseArray } from './verseHelpers';
 import { delay } from './utils';
 

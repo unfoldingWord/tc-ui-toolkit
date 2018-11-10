@@ -60,7 +60,6 @@ class VerseRow extends Component {
         try {
           const { languageId, bibleId } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
-//-----///
           let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
 
@@ -70,12 +69,6 @@ class VerseRow extends Component {
             verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
           }
 
-
-
-
-          // const { bibleData } = biblesWithHighlightedWords[languageId][bibleId];
-          // const verseElements = bibleData[chapter][currentVerseNumber];
-//-----///
           const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
           verseCells.push(
