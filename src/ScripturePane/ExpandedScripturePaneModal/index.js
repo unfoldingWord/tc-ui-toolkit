@@ -12,6 +12,7 @@ import './ExpandedScripturePaneModal.styles.css';
 // components
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
+import SpinningLogo from '../../SpinningLogo';
 // helpers
 import * as bibleHelpers from '../helpers/bibleHelpers';
 
@@ -34,6 +35,7 @@ const styles = {
     marginLeft: 'auto'
   },
   dialogContent: {
+    display: 'flex',
     padding: '0px',
     margin: '0px'
   },
@@ -42,6 +44,12 @@ const styles = {
     padding: '10px',
     margin: '0px',
     borderTop: '1px solid var(--border-color)'
+  },
+  progressRoot: {
+    color: 'var(--accent-color-dark)',
+  },
+  progressSvg: {
+    margin: '5px'
   }
 };
 
@@ -98,21 +106,23 @@ class ExpandedScripturePaneModal extends Component {
         </Toolbar>
         <DialogContent style={styles.dialogContent}>
         {
-          this.state.biblesWithHighlightedWords &&
-          <div>
-            <BibleHeadingsRow
-              currentPaneSettings={currentPaneSettings}
-              biblesWithHighlightedWords={this.state.biblesWithHighlightedWords}
-              projectDetailsReducer={projectDetailsReducer} />
-            <ChapterView
-              contextId={contextId}
-              currentPaneSettings={currentPaneSettings}
-              biblesWithHighlightedWords={this.state.biblesWithHighlightedWords}
-              editTargetVerse={editTargetVerse}
-              translate={translate}
-              bibles={bibles}
-              projectDetailsReducer={projectDetailsReducer} />
-          </div>
+          !this.state.biblesWithHighlightedWords ?
+              <SpinningLogo/>
+            :
+              <div>
+                <BibleHeadingsRow
+                  bibles={bibles}
+                  currentPaneSettings={currentPaneSettings}
+                  projectDetailsReducer={projectDetailsReducer} />
+                <ChapterView
+                  bibles={bibles}
+                  contextId={contextId}
+                  translate={translate}
+                  editTargetVerse={editTargetVerse}
+                  projectDetailsReducer={projectDetailsReducer}
+                  currentPaneSettings={currentPaneSettings}
+                  biblesWithHighlightedWords={this.state.biblesWithHighlightedWords} />
+              </div>
         }
         </DialogContent>
         <DialogActions disableActionSpacing style={styles.dialogActions}>
