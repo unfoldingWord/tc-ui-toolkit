@@ -79,7 +79,7 @@ class ChapterView extends Component {
   }
 
   componentWillUnmount() {
-    this.verseRefs = null;
+    this.verseRefs = {};
   }
 
   render () {
