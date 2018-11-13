@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // helpers
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
+import {MorphUtils} from 'word-aligner';
 
 class WordLexiconDetails extends React.Component {
   render() {
@@ -15,11 +16,12 @@ class WordLexiconDetails extends React.Component {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
     }
+    const morphFull = MorphUtils.getFullMorphologicalString(morph, translate);
 
     return (
       <div style={{ margin: '-10px 10px -20px', maxWidth: '400px' }}>
         <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
-        <span><strong>{translate('morphology')}</strong> {morph}</span><br/>
+        <span><strong>{translate('morphology')}</strong> {morphFull}</span><br/>
         <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
         <span><strong>{translate('lexicon')}</strong> {lexicon}</span><br/>
       </div>

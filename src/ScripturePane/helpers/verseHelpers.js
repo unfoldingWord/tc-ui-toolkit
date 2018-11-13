@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
@@ -10,18 +11,19 @@ import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseOb
           isIsolatedLeftQuote} from './stringHelpers';
 
 export const verseString = (verseText, selections, translate) => {
-  verseText = removeMarker(verseText);
-  verseText = verseText.replace(/\s+/g, ' ');
+  let newVerseText = removeMarker(verseText);
+  newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
-  verseText.replace(/\s/g, '').length === 0 ? verseText = '' : verseText;
+  newVerseText.replace(/\s/g, '').length === 0 ? newVerseText = '' : newVerseText;
 
-  // if empty string then verseText = place holder warning.
-  if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
-  let verseTextSpans = <span>{verseText}</span>;
+  // if empty string then newVerseText = place holder warning.
+  if (newVerseText.length === 0) newVerseText = translate('pane.missing_verse_warning');
+  let verseTextSpans = <span>{newVerseText}</span>;
 
   if (selections && selections.length > 0) {
-    const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
+    const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
     verseTextSpans = [];
+    verseTextSpans.length = 0;
 
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
@@ -43,6 +45,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
+  verseSpan.length = 0;
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
     verseSpan.push(
