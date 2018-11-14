@@ -94,7 +94,10 @@ class ScripturePane extends Component {
       const index = i;
 
       try {
-        const { languageId, bibleId } = paneSettings;
+        let { languageId, bibleId } = paneSettings;
+        if ((languageId === 'grc') || (languageId === 'hbo')) {
+          bibleId = (languageId === 'grc') ? 'ugnt' : 'uhb'; // if switching between NT and OT books, make sure we have right bible for language
+        }
         const { manifest: { language_name, direction, description } } = bibles[languageId][bibleId];
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
