@@ -40,7 +40,7 @@ export const verseString = (verseText, selections, translate) => {
   return verseTextSpans;
 };
 
-export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) => {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -125,4 +125,4 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   }
 
   return verseSpan;
-};
+}
