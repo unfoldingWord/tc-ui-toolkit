@@ -44,7 +44,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
-  const verseSpan = [];
+  let verseSpan = [];
   verseSpan.length = 0;
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
@@ -55,9 +55,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
     );
   } else {
     words = Array.isArray(words) ? words : words.verseObject;
-    for (let i = 0, len = words.length; i < len; i++) {
-      const word = words[i];
-      const index = i;
+    verseSpan = words.map((word, index) => {
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
       if (isWord(word)) {
@@ -83,7 +81,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         };
 
         if (word.strong) { // if clickable
-          verseSpan.push(
+          return (
             <span
               key={index.toString()}
               onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate)}
@@ -98,14 +96,14 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
             </span>
           );
         } else {
-          verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));
+          return (createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));
         }
       } else if (isNestedMilestone(word)) { // if nested milestone
         const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[j];
-          verseSpan.push(nestedWordSpan);
+          return (nestedWordSpan);
         }
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
@@ -116,12 +114,12 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
-          verseSpan.push(createHighlightedSpan(index, text));
+          return (createHighlightedSpan(index, text));
         } else {
-          verseSpan.push(createTextSpan(index, text));
+          return (createTextSpan(index, text));
         }
       }
-    }
+    });
   }
 
   return verseSpan;
