@@ -7,12 +7,12 @@ describe('WordDetails', () => {
     const wrapper = renderer.create(
       <WordDetails
         lexiconData={{}}
-         wordObject={{
-           lemma: 'lemma',
-           morph: 'Gr,NS,,,,GMP,',
-           strong: 'strong'
-         }}
-         translate={k=>k}/>
+        wordObject={{
+          lemma: 'lemma',
+          morph: 'Gr,NS,,,,GMPF',
+          strong: 'strong'
+        }}
+        translate={k=>k}/>
     );
     expect(wrapper).toMatchSnapshot();
   });

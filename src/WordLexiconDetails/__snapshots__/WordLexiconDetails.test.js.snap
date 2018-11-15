@@ -22,7 +22,7 @@ exports[`WordDetails renders 1`] = `
       morphology
     </strong>
      
-    noun, substantive_adj, genitive, masculine, plural
+    noun, substantive_adj, genitive, masculine, plural, F
   </span>
   <br />
   <span>
