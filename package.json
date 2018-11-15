@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "prebuild": "rm -rf ./dist",
     "build": "webpack -p",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run build"
+    "prepublishOnly": "npm test && npm run build",
+    "postpublish": "git tag $npm_package_version && git push origin $npm_package_version"
   },
   "repository": {
     "type": "git",
