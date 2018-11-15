@@ -67,7 +67,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
 
-        if (bibleId === 'ugnt' && contextId.quote && word.text) {
+        if ((bibleId === 'ugnt' || bibleId === 'uhb') && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
