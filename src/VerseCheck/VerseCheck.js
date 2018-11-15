@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
 import SaveArea from './SaveArea';
@@ -63,61 +62,58 @@ class VerseCheck extends Component {
             selections={selectionsReducer.selections}
             translate={translate} />);
     }
-    // material-ui-theme, new color themes could be added here in the future
-    const theme = createMuiTheme();
+
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className='verse-check'>
+      <div className='verse-check'>
         <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
-            <div className='verse-check-card'>
-              <div className='title-bar'>
-                <span>{titleText}</span>
-                <IconIndicators
-                  verseEdited={findIfVerseEdited()}
-                  selections={selectionsReducer.selections}
-                  comment={commentsReducer.text}
-                  bookmarkEnabled={remindersReducer.enabled}
-                  translate={translate}
-                  invalidated={findIfVerseInvalidated()} />
-              </div>
-              <CheckArea
-                actions={actions}
-                mode={mode}
-                tags={tags}
-                verseText={verseText}
-                unfilteredVerseText={unfilteredVerseText}
-                verseChanged={verseChanged}
+          <div className='verse-check-card'>
+            <div className='title-bar'>
+              <span>{titleText}</span>
+              <IconIndicators
+                verseEdited={findIfVerseEdited()}
+                selections={selectionsReducer.selections}
                 comment={commentsReducer.text}
-                newSelections={selections}
-                selections={selectionsReducer.selections}
+                bookmarkEnabled={remindersReducer.enabled}
                 translate={translate}
-                projectDetailsReducer={projectDetailsReducer}
-                contextId={contextIdReducer.contextId}
-                bibles={resourcesReducer.bibles}
-                alignedGLText={alignedGLText}
                 invalidated={findIfVerseInvalidated()} />
-              <ActionsArea
-                mode={mode}
-                tags={tags}
-                actions={actions}
-                commentChanged={commentChanged}
-                selections={selectionsReducer.selections}
-                newSelections={selections}
-                remindersReducer={remindersReducer}
-                saveSelection={saveSelection}
-                cancelSelection={cancelSelection}
-                clearSelection={clearSelection}
-                translate={translate} />
             </div>
-            {saveArea}
+            <CheckArea
+              actions={actions}
+              mode={mode}
+              tags={tags}
+              verseText={verseText}
+              unfilteredVerseText={unfilteredVerseText}
+              verseChanged={verseChanged}
+              comment={commentsReducer.text}
+              newSelections={selections}
+              selections={selectionsReducer.selections}
+              translate={translate}
+              projectDetailsReducer={projectDetailsReducer}
+              contextId={contextIdReducer.contextId}
+              bibles={resourcesReducer.bibles}
+              alignedGLText={alignedGLText}
+              invalidated={findIfVerseInvalidated()} />
+            <ActionsArea
+              mode={mode}
+              tags={tags}
+              actions={actions}
+              commentChanged={commentChanged}
+              selections={selectionsReducer.selections}
+              newSelections={selections}
+              remindersReducer={remindersReducer}
+              saveSelection={saveSelection}
+              cancelSelection={cancelSelection}
+              clearSelection={clearSelection}
+              translate={translate} />
           </div>
-          <DialogComponent
-            handleSkip={handleSkip}
-            dialogModalVisibility={dialogModalVisibility}
-            handleClose={actions.handleCloseDialog}
-            translate={translate} />
+          {saveArea}
         </div>
-      </MuiThemeProvider>
+        <DialogComponent
+          handleSkip={handleSkip}
+          dialogModalVisibility={dialogModalVisibility}
+          handleClose={actions.handleCloseDialog}
+          translate={translate} />
+      </div>
     );
   }
 }
