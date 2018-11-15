@@ -94,7 +94,7 @@ class ScripturePane extends Component {
       const index = i;
 
       try {
-        let { languageId, bibleId } = paneSettings;
+        const { languageId, bibleId } = paneSettings;
         const { manifest: { language_name, direction, description } } = bibles[languageId][bibleId];
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
