@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 import './ScripturePane.styles.css';
 // components
@@ -144,77 +143,74 @@ class ScripturePane extends Component {
       getLexiconData,
       showPopover,
     } = this.props;
-    // material-ui-theme, new color themes could be added here in the future
-    const theme = createMuiTheme();
+
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
       return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
     });
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="scripture-pane-container">
-          <div className="inner-container">
-            <div className="title-bar">
-              <span>{translate('pane.title')}</span>
-              <Glyphicon
-                onClick={this.openExpandedScripturePane}
-                glyph={"fullscreen"}
-                style={{cursor: "pointer"}}
-                title={translate('pane.expand_hover')}
-              />
-            </div>
-            <div className="panes-container">
-              {
-                this.getPanes()
-              }
-              <AddBibleButton
-                showAddBibleModal={this.showAddBibleModal}
-                clickAddResource={translate('pane.add_resource')}
-              />
-            </div>
-          </div>
-          {
-            this.state.showExpandedScripturePane ?
-              <ExpandedScripturePaneModal
-                show={this.state.showExpandedScripturePane}
-                onHide={this.closeExpandedScripturePane}
-                title={expandedScripturePaneTitle}
-                primaryLabel={translate('close')}
-                currentPaneSettings={currentPaneSettings}
-                contextId={contextId}
-                bibles={bibles}
-                editTargetVerse={editTargetVerse}
-                translate={translate}
-                projectDetailsReducer={projectDetailsReducer}
-                selections={selections}
-                getLexiconData={getLexiconData}
-                showPopover={showPopover}
-                onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
+      <div className="scripture-pane-container">
+        <div className="inner-container">
+          <div className="title-bar">
+            <span>{translate('pane.title')}</span>
+            <Glyphicon
+              onClick={this.openExpandedScripturePane}
+              glyph={"fullscreen"}
+              style={{cursor: "pointer"}}
+              title={translate('pane.expand_hover')}
             />
-            :
-              <div/>
-          }
-          {
-            this.state.showAddPaneModal ?
-              <AddPaneModal
-                translate={translate}
-                show={this.state.showAddPaneModal}
-                onHide={this.hideAddBibleModal}
-                title={translate('pane.add_resource_label')}
-                selectedPane={this.state.selectedPane}
-                selectLanguageLabel={translate('pane.select_language')}
-                selectLabel={translate('select')}
-                selectSourceLanguage={this.selectSourceLanguage}
-                addNewBibleResource={this.addNewBibleResource}
-                currentPaneSettings={currentPaneSettings}
-                getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
-              />
-            :
-              <div/>
-          }
+          </div>
+          <div className="panes-container">
+            {
+              this.getPanes()
+            }
+            <AddBibleButton
+              showAddBibleModal={this.showAddBibleModal}
+              clickAddResource={translate('pane.add_resource')}
+            />
+          </div>
         </div>
-      </MuiThemeProvider>
+        {
+          this.state.showExpandedScripturePane ?
+            <ExpandedScripturePaneModal
+              show={this.state.showExpandedScripturePane}
+              onHide={this.closeExpandedScripturePane}
+              title={expandedScripturePaneTitle}
+              primaryLabel={translate('close')}
+              currentPaneSettings={currentPaneSettings}
+              contextId={contextId}
+              bibles={bibles}
+              editTargetVerse={editTargetVerse}
+              translate={translate}
+              projectDetailsReducer={projectDetailsReducer}
+              selections={selections}
+              getLexiconData={getLexiconData}
+              showPopover={showPopover}
+              onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
+          />
+          :
+            <div/>
+        }
+        {
+          this.state.showAddPaneModal ?
+            <AddPaneModal
+              translate={translate}
+              show={this.state.showAddPaneModal}
+              onHide={this.hideAddBibleModal}
+              title={translate('pane.add_resource_label')}
+              selectedPane={this.state.selectedPane}
+              selectLanguageLabel={translate('pane.select_language')}
+              selectLabel={translate('select')}
+              selectSourceLanguage={this.selectSourceLanguage}
+              addNewBibleResource={this.addNewBibleResource}
+              currentPaneSettings={currentPaneSettings}
+              getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
+            />
+          :
+            <div/>
+        }
+      </div>
     );
   }
 }
