@@ -10,8 +10,9 @@ class WordLexiconDetails extends React.Component {
     let lexicon;
 
     if (strong) {
-      const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
-      const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
+      const strong_ = lexiconHelpers.findStrongs(strong);
+      const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong_);
+      const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong_);
       if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
         lexicon = lexiconData[lexiconId][entryId].long;
       }

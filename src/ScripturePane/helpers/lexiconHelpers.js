@@ -1,4 +1,23 @@
 /**
+ * checks for formats such as `c:d:H0776` and extracts the strongs number
+ * @param {String} strong - the strong's number to get the entryId from
+ * @return {String} new Strongs number
+ */
+export const findStrongs = (strong) => {
+  if (strong.includes(':')) {
+    const parts = strong.split(':');
+    for (let i = 0, len = parts.length; i < len; i++) {
+      const char = parts[i][0];
+      if ((parts.length >= 2) && ((char === 'G') || (char === 'H'))) {
+        strong = parts[i];
+        break;
+      }
+    }
+  }
+  return strong;
+};
+
+/**
  * @description - Get the lexiconId from the strong's number
  * @param {String} strong - the strong's number to get the entryId from
  * @return {String} - the id of the lexicon
