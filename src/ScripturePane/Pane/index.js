@@ -23,7 +23,7 @@ const Pane = ({
 }) => {
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
-
+  const localizedDescription = translate(`pane.${description.replace(' ', '_')}`);
   return (
     <div className="pane-container">
       <div className="pane-title-container">
@@ -37,12 +37,12 @@ const Pane = ({
             {
               ({ width }) =>
               <span
-                className={description.length > width/PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
-                aria-label={description}>
+                className={localizedDescription.length > width/PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
+                aria-label={localizedDescription}>
                 {
-                  description.length > width/PANECHAR ?
-                    description.slice(0, Math.round(width/PANECHAR)) + "..." :
-                    description
+                  localizedDescription.length > width/PANECHAR ?
+                    localizedDescription.slice(0, Math.round(width/PANECHAR)) + "..." :
+                    localizedDescription
                 }
               </span>
             }
