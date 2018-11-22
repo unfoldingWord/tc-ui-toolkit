@@ -3,13 +3,26 @@ import WordDetails from './WordLexiconDetails';
 import renderer from 'react-test-renderer';
 
 describe('WordDetails', () => {
-  it('renders', () => {
+  it('renders Greek', () => {
     const wrapper = renderer.create(
       <WordDetails
         lexiconData={{}}
         wordObject={{
           lemma: 'lemma',
           morph: 'Gr,NS,,,,GMPF',
+          strong: 'strong'
+        }}
+        translate={k=>k}/>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+  it('renders Hebrew', () => {
+    const wrapper = renderer.create(
+      <WordDetails
+        lexiconData={{}}
+        wordObject={{
+          lemma: 'lemma',
+          morph: 'He,C:Td:Ncbsa',
           strong: 'strong'
         }}
         translate={k=>k}/>

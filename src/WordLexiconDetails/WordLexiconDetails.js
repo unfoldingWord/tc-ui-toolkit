@@ -4,6 +4,34 @@ import PropTypes from 'prop-types';
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
 import {MorphUtils} from 'word-aligner';
 
+/**
+ * splits compound word into parts
+ * @param morph
+ * @return {*}
+ */
+function getMorphKeys(morph) {
+  const morphKeys = MorphUtils.getMorphLocalizationKeys(morph);
+  const morphKeysForParts = [];
+  let lastPos = 0;
+  let pos = 0;
+  let part;
+  if ((pos = morphKeys.indexOf(':')) >= 0) {
+    while (pos >= 0) {
+      part = morphKeys.slice(lastPos, pos);
+      morphKeysForParts.push(part);
+      lastPos = pos + 1;
+      pos = morphKeys.indexOf(':', lastPos);
+    }
+    part = morphKeys.slice(lastPos);
+    if (part.length) {
+      morphKeysForParts.push(part);
+    }
+  } else {
+    morphKeysForParts.push(morphKeys);
+  }
+  return morphKeysForParts;
+}
+
 class WordLexiconDetails extends React.Component {
   render() {
     const { wordObject: { lemma, morph, strong }, translate, lexiconData } = this.props;
@@ -17,16 +45,20 @@ class WordLexiconDetails extends React.Component {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
     }
-    const morphKeys = MorphUtils.getMorphLocalizationKeys(morph);
-    const translatedMorphs = [];
-    morphKeys.forEach(key => {
-      if (key.startsWith('*')) {
-        translatedMorphs.push(key.substr(1));
-      } else {
-        translatedMorphs.push(translate(key));
-      }
+    const morphKeysForParts = getMorphKeys(morph);
+    const morphStrs = [];
+    morphKeysForParts.forEach(morphKeys => {
+      const translatedMorphs = [];
+      morphKeys.forEach(key => {
+        if (key.startsWith('*')) {
+          translatedMorphs.push(key.substr(1));
+        } else {
+          translatedMorphs.push(translate(key));
+        }
+      });
+      morphStrs.push(translatedMorphs.join(', '));
     });
-    const morphStr = translatedMorphs.join(', ');
+    const morphStr = morphStrs.join(': ');
 
     return (
       <div style={{ margin: '-10px 10px -20px', maxWidth: '400px' }}>

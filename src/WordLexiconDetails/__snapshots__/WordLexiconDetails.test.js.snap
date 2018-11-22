@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WordDetails renders 1`] = `
+exports[`WordDetails renders Greek 1`] = `
 <div
   style={
     Object {
@@ -23,6 +23,49 @@ exports[`WordDetails renders 1`] = `
     </strong>
      
     noun, substantive_adj, genitive, masculine, plural, F
+  </span>
+  <br />
+  <span>
+    <strong>
+      strongs
+    </strong>
+     
+    strong
+  </span>
+  <br />
+  <span>
+    <strong>
+      lexicon
+    </strong>
+     
+  </span>
+  <br />
+</div>
+`;
+
+exports[`WordDetails renders Hebrew 1`] = `
+<div
+  style={
+    Object {
+      "margin": "-10px 10px -20px",
+      "maxWidth": "400px",
+    }
+  }
+>
+  <span>
+    <strong>
+      lemma
+    </strong>
+     
+    lemma
+  </span>
+  <br />
+  <span>
+    <strong>
+      morphology
+    </strong>
+     
+    conjunction: particle, definite_article: noun, common, both_genders, singular, absolute
   </span>
   <br />
   <span>
