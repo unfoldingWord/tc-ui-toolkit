@@ -23,7 +23,7 @@ export const findStrongs = (strong) => {
  * @return {String} - the id of the lexicon
  */
 export const lexiconIdFromStrongs = (strong) => {
-  const lexiconId = (strong.replace(/\d+/,'') === 'G') ? 'ugl': 'uhl';
+  const lexiconId = strong.startsWith('G') ? 'ugl': 'uhl';
   return lexiconId;
 };
 /**
@@ -32,6 +32,10 @@ export const lexiconIdFromStrongs = (strong) => {
  * @return {int} - the number of the entry
  */
 export const lexiconEntryIdFromStrongs = (strong) => {
-  const entryId = parseInt(strong.replace(/\w/,''));
+  let strongsCode = strong.replace(/\w/,'');
+  if (!strong.startsWith('H')) { // Greek has an extra 0 at end
+    strongsCode = strongsCode.slice(0,-1);
+  }
+  const entryId = parseInt(strongsCode);
   return entryId;
 };
