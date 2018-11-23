@@ -15,12 +15,13 @@ function getMorphKeys(morph) {
   let lastPos = 0;
   let pos = 0;
   let part;
-  if ((pos = morphKeys.indexOf(':')) >= 0) {
+  const divider = '*:';
+  if ((pos = morphKeys.indexOf(divider)) >= 0) {
     while (pos >= 0) {
       part = morphKeys.slice(lastPos, pos);
       morphKeysForParts.push(part);
       lastPos = pos + 1;
-      pos = morphKeys.indexOf(':', lastPos);
+      pos = morphKeys.indexOf(divider, lastPos);
     }
     part = morphKeys.slice(lastPos);
     if (part.length) {
