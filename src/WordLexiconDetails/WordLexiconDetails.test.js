@@ -22,8 +22,8 @@ describe('WordDetails', () => {
         lexiconData={{}}
         wordObject={{
           lemma: 'lemma',
-          morph: 'He,C:Td:Ncbsa',
-          strong: 'strong'
+          morph: 'He,R:Ncfsa',
+          strong: 'b:H7225'
         }}
         translate={k=>k}/>
     );

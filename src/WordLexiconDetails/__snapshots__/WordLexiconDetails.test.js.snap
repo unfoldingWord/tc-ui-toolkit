@@ -65,7 +65,7 @@ exports[`WordDetails renders Hebrew 1`] = `
       morphology
     </strong>
      
-    conjunction: particle, definite_article: noun, common, both_genders, singular, absolute
+    preposition: noun, common, feminine, singular, absolute
   </span>
   <br />
   <span>
@@ -73,7 +73,7 @@ exports[`WordDetails renders Hebrew 1`] = `
       strongs
     </strong>
      
-    strong
+    b:H7225
   </span>
   <br />
   <span>

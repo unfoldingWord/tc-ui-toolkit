@@ -32,6 +32,6 @@ export const lexiconIdFromStrongs = (strong) => {
  * @return {int} - the number of the entry
  */
 export const lexiconEntryIdFromStrongs = (strong) => {
-  const entryId = parseInt(strong.replace(/\w/,'').slice(0,-1));
+  const entryId = parseInt(strong.replace(/\w/,''));
   return entryId;
 };
