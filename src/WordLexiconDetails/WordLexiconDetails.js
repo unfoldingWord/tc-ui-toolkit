@@ -66,7 +66,7 @@ class WordLexiconDetails extends React.Component {
         <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
         <span><strong>{translate('morphology')}</strong> {morphStr}</span><br/>
         <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
-        <span><strong>{translate('lexicon')}</strong> {lexicon}</span><br/>
+        <span><strong>{translate('lexicon')}</strong> <div className="content" dangerouslySetInnerHTML={{__html: lexicon}}></div></span><br/>
       </div>
     );
   }
