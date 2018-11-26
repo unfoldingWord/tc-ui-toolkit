@@ -39,7 +39,7 @@ class WordLexiconDetails extends React.Component {
     const props = {
       dangerouslySetInnerHTML: { __html: DOMPurify.sanitize(html) },
     };
-    return <div {...props}></div>;
+    return <span {...props}></span>;
   }
 
   render() {
