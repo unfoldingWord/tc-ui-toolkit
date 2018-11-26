@@ -8,7 +8,7 @@ import { removeMarker } from './usfmHelpers';
 export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
     const {strong} = word;
-    const strongs_ = lexiconHelpers.findStrongs(strong);
+    const {strong: strongs_} = lexiconHelpers.findStrongs(strong);
     const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strongs_);
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
     const lexiconData = getLexiconData(lexiconId, entryId);
@@ -17,7 +17,8 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
       <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
     );
     const wordDetails = (
-      <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate} />
+      <WordLexiconDetails lexiconData={lexiconData} wordObject={word}
+                          translate={translate} wordPart={1} />
     );
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }

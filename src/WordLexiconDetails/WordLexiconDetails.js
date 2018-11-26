@@ -7,8 +7,8 @@ import {MorphUtils} from 'word-aligner';
 
 /**
  * splits compound word into parts
- * @param morph
- * @return {*}
+ * @param {string} morph - morph code to convert
+ * @return {Array} locale code for each key
  */
 function getMorphKeys(morph) {
   const morphKeys = MorphUtils.getMorphLocalizationKeys(morph);
@@ -34,6 +34,29 @@ function getMorphKeys(morph) {
   return morphKeysForParts;
 }
 
+/**
+ * lookup translations and convert to morph description
+ * @param {string} morph - morph code to convert
+ * @param {Function} translate
+ * @return {Array} morph description for each part
+ */
+function getWordParts(morph, translate) {
+  const morphKeysForParts = getMorphKeys(morph);
+  const morphStrs = [];
+  morphKeysForParts.forEach(morphKeys => {
+    const translatedMorphs = [];
+    morphKeys.forEach(key => {
+      if (key.startsWith('*')) {
+        translatedMorphs.push(key.substr(1));
+      } else {
+        translatedMorphs.push(translate(key));
+      }
+    });
+    morphStrs.push(translatedMorphs.join(', '));
+  });
+  return morphStrs;
+}
+
 class WordLexiconDetails extends React.Component {
   getFormatted(html) {
     const props = {
@@ -43,37 +66,31 @@ class WordLexiconDetails extends React.Component {
   }
 
   render() {
-    const { wordObject: { lemma, morph, strong }, translate, lexiconData } = this.props;
+    const { wordObject: { lemma, morph, strong, text }, translate, lexiconData, wordPart } = this.props;
     let lexicon;
+    let isPart = false;
 
     if (strong) {
-      const strong_ = lexiconHelpers.findStrongs(strong);
+      const {strong: strong_, pos} = lexiconHelpers.findStrongs(strong);
       const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong_);
       const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong_);
       if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
+      isPart = (wordPart === pos);
     }
-    const morphKeysForParts = getMorphKeys(morph);
-    const morphStrs = [];
-    morphKeysForParts.forEach(morphKeys => {
-      const translatedMorphs = [];
-      morphKeys.forEach(key => {
-        if (key.startsWith('*')) {
-          translatedMorphs.push(key.substr(1));
-        } else {
-          translatedMorphs.push(translate(key));
-        }
-      });
-      morphStrs.push(translatedMorphs.join(', '));
-    });
-    const morphStr = morphStrs.join('.<br/>');
+    const morphStrs = getWordParts(morph, text, translate);
+    const morphStr = (morphStrs && (morphStrs.length >= wordPart)) ? morphStrs[wordPart] : "";
 
     return (
       <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-        <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
+        if (!isPart) {
+          <span><strong>{translate('lemma')}</strong> {lemma}</span> < br / >
+        }
         <span><strong>{translate('morphology')}</strong> {this.getFormatted(morphStr)} </span><br/>
-        <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
+        if (!isPart) {
+          <span><strong>{translate('strongs')}</strong> {strong}</span> < br / >
+        }
         <span><strong>{translate('lexicon')}</strong> {this.getFormatted(lexicon)} </span><br/>
       </div>
     );
