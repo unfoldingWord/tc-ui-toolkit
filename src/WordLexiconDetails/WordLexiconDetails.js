@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DOMPurify from 'dompurify';
 // helpers
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
 import {MorphUtils} from 'word-aligner';
@@ -34,6 +35,13 @@ function getMorphKeys(morph) {
 }
 
 class WordLexiconDetails extends React.Component {
+  getFormatted(html) {
+    const props = {
+      dangerouslySetInnerHTML: { __html: DOMPurify.sanitize(html) },
+    };
+    return <div {...props}></div>;
+  }
+
   render() {
     const { wordObject: { lemma, morph, strong }, translate, lexiconData } = this.props;
     let lexicon;
@@ -59,14 +67,14 @@ class WordLexiconDetails extends React.Component {
       });
       morphStrs.push(translatedMorphs.join(', '));
     });
-    const morphStr = morphStrs.join(': ');
+    const morphStr = morphStrs.join('.<br/>');
 
     return (
-      <div style={{ margin: '-10px 10px -20px', maxWidth: '400px' }}>
+      <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
         <span><strong>{translate('lemma')}</strong> {lemma}</span><br/>
-        <span><strong>{translate('morphology')}</strong> {morphStr}</span><br/>
+        <span><strong>{translate('morphology')}</strong> {this.getFormatted(morphStr)} </span><br/>
         <span><strong>{translate('strongs')}</strong> {strong}</span><br/>
-        <span><strong>{translate('lexicon')}</strong> <div className="content" dangerouslySetInnerHTML={{__html: lexicon}}></div></span><br/>
+        <span><strong>{translate('lexicon')}</strong> {this.getFormatted(lexicon)} </span><br/>
       </div>
     );
   }
