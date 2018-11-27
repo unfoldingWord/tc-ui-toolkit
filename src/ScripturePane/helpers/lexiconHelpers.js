@@ -4,7 +4,7 @@
  * @return {{string, number}} - actual Strongs number and position
  */
 export const findStrongs = (strong) => {
-  let pos = -1;
+  let pos = 0;
   if (strong.includes(':')) {
     const parts = strong.split(':');
     for (let i = 0, len = parts.length; i < len; i++) {

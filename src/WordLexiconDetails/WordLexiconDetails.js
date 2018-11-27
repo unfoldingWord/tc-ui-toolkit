@@ -110,7 +110,7 @@ class WordLexiconDetails extends React.Component {
     const morphStrs = getWordParts(morph, translate);
     if (morphStrs.length < 2) {
       return (
-        getWordPart(translate, lemma, morphStrs[0], strong, lexicon, 0, 0)
+        getWordPart(translate, lemma, morphStrs[0], strong, lexicon, wordParts[0], 0, 0)
       );
     }
 
