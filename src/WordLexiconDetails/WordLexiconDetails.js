@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DOMPurify from 'dompurify';
 // helpers
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
 import {MorphUtils} from 'word-aligner';
