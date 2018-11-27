@@ -71,7 +71,7 @@
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.8.1",
     "usfm-js": "^1.0.10",
-    "word-aligner": "github:translationCoreApps/word-aligner#feature-mcleanb-5134"
+    "word-aligner": "0.2.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
