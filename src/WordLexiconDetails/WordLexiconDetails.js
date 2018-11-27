@@ -81,7 +81,7 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
       {getSegment(translate('lemma'), lemma)}<br/>
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
-      {getSegment(translate('lexicon'), lexicon)}<br/>
+      {getSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
