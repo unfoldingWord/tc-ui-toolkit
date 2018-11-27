@@ -59,7 +59,7 @@ function getWordParts(morph, translate) {
 
 function getFormatted(html) {
   const props = {
-    dangerouslySetInnerHTML: { __html: DOMPurify.sanitize(html) },
+    dangerouslySetInnerHTML: { __html: html },
   };
   return <span {...props}></span>;
 }
