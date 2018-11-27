@@ -57,18 +57,47 @@ function getWordParts(morph, translate) {
   return morphStrs;
 }
 
-class WordLexiconDetails extends React.Component {
-  getFormatted(html) {
-    const props = {
-      dangerouslySetInnerHTML: { __html: DOMPurify.sanitize(html) },
-    };
-    return <span {...props}></span>;
+function getFormatted(html) {
+  const props = {
+    dangerouslySetInnerHTML: { __html: DOMPurify.sanitize(html) },
+  };
+  return <span {...props}></span>;
+}
+
+function getSegment(label, text, isFormatted = false) {
+  return (isFormatted ?
+      <span><strong>{label}</strong> {getFormatted(text)} </span>
+      :
+      <span><strong>{label}</strong> {text}</span>
+  );
+}
+
+function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos) {
+  const isMainPos = (pos === mainPos);
+  if (isMainPos) {
+    return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+      {(pos > 0) ? <hr/> : ""}
+      {getSegment(translate('lemma'), lemma)}<br/>
+      {getSegment(translate('morphology'), morphStr)}<br/>
+      {getSegment(translate('strongs'), strong)}<br/>
+      {getSegment(translate('lexicon'), lexicon)}<br/>
+    </div>;
+  } else {
+    return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+      {(pos > 0) ? <hr/> : ""}
+      {getSegment(translate('morphology'), morphStr)}<br/>
+      {getSegment(translate('strongs'), strong)}<br/>
+    </div>;
   }
+}
+
+class WordLexiconDetails extends React.Component {
 
   render() {
-    const { wordObject: { lemma, morph, strong, text }, translate, lexiconData, wordPart } = this.props;
+    const { wordObject: { lemma, morph, strong }, translate, lexiconData, wordParts } = this.props;
     let lexicon;
-    let isPart = false;
+    let mainPos = -1;
+    const wordParts_ = wordParts || [];
 
     if (strong) {
       const {strong: strong_, pos} = lexiconHelpers.findStrongs(strong);
@@ -77,23 +106,21 @@ class WordLexiconDetails extends React.Component {
       if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
-      isPart = (wordPart === pos);
+      mainPos = pos;
     }
-    const morphStrs = getWordParts(morph, text, translate);
-    const morphStr = (morphStrs && (morphStrs.length >= wordPart)) ? morphStrs[wordPart] : "";
+    const morphStrs = getWordParts(morph, translate);
+    if (morphStrs.length < 2) {
+      return (
+        getWordPart(translate, lemma, morphStrs[0], strong, lexicon, 0, 0)
+      );
+    }
 
-    return (
-      <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-        if (!isPart) {
-          <span><strong>{translate('lemma')}</strong> {lemma}</span> < br / >
-        }
-        <span><strong>{translate('morphology')}</strong> {this.getFormatted(morphStr)} </span><br/>
-        if (!isPart) {
-          <span><strong>{translate('strongs')}</strong> {strong}</span> < br / >
-        }
-        <span><strong>{translate('lexicon')}</strong> {this.getFormatted(lexicon)} </span><br/>
-      </div>
-    );
+    return morphStrs.map((morphStr, pos) => {
+      const word = ((wordParts_.length > pos) && wordParts_[pos]) || "";
+      return (
+        getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos)
+      );
+    });
   }
 }
 
@@ -104,7 +131,8 @@ WordLexiconDetails.propTypes = {
     morph: PropTypes.string.isRequired,
     strong: PropTypes.string.isRequired
   }).isRequired,
-  lexiconData: PropTypes.object.isRequired
+  lexiconData: PropTypes.object.isRequired,
+  wordParts: PropTypes.array.optional
 };
 
 export default WordLexiconDetails;
