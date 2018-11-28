@@ -77,7 +77,7 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
   const strong_ = ((strongsParts.length > pos) && strongsParts[pos]) || "";
   if (isMainPos) {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {(pos > 0) ? <hr/> : ""}
+      {(pos > 0) ? <hr style={{height: '12px', 'border-top': '1px solid black'}}/> : ""}
       {(strongsParts.length > 1) ? <strong style={{fontSize: '1.2em'}}>{word}</strong> : ""}
       {getSegment(translate('lemma'), lemma)}<br/>
       {getSegment(translate('morphology'), morphStr)}<br/>
@@ -86,7 +86,7 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
     </div>;
   } else {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {(pos > 0) ? <hr/> : ""}
+      {(pos > 0) ? <hr style={{height: '12px', 'border-top': '1px solid black'}}/> : ""}
       {(strongsParts.length > 1) ? <strong style={{fontSize: '1.2em'}}>{word}</strong> : ""}
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
