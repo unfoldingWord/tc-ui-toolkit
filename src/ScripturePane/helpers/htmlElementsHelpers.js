@@ -16,12 +16,11 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
     const wordParts = word.text.split(ZERO_WIDTH_SPACE);
-    for (let i = 0; i < word.text.length; i++) {
-      console.log("char " + i + " = " + word.text.charCodeAt(i));
-    }
-    const wordText = wordParts.join('\u00A0\u00A0\u00A0');
+    // for (let i = 0; i < word.text.length; i++) {
+    //   console.log("char " + i + " = " + word.text.charCodeAt(i));
+    // }
     const PopoverTitle = (
-      <strong style={{fontSize: '1.2em'}}>{wordText}</strong>
+      <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
     );
     const wordDetails = (
       <WordLexiconDetails lexiconData={lexiconData} wordObject={word}
