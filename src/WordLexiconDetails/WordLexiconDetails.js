@@ -78,6 +78,7 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
   if (isMainPos) {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {(pos > 0) ? <hr/> : ""}
+      {(strongsParts.length > 1) ? <strong style={{fontSize: '1.2em'}}>{word}</strong> : ""}
       {getSegment(translate('lemma'), lemma)}<br/>
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
@@ -86,6 +87,7 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
   } else {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {(pos > 0) ? <hr/> : ""}
+      {(strongsParts.length > 1) ? <strong style={{fontSize: '1.2em'}}>{word}</strong> : ""}
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
     </div>;
