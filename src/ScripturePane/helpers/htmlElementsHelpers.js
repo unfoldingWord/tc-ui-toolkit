@@ -5,6 +5,8 @@ import WordLexiconDetails from '../../WordLexiconDetails';
 import * as lexiconHelpers from './lexiconHelpers';
 import { removeMarker } from './usfmHelpers';
 
+const ZERO_WIDTH_SPACE = '\u200B';
+
 export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
     const {strong} = word;
@@ -13,7 +15,7 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
-    const wordParts = word.text.split('\u8203');
+    const wordParts = word.text.split(ZERO_WIDTH_SPACE);
     for (let i = 0; i < word.text.length; i++) {
       console.log("char " + i + " = " + word.text.charCodeAt(i));
     }
