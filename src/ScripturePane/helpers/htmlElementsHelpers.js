@@ -13,7 +13,7 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
-    const wordParts = word.text.split('\n8203');
+    const wordParts = word.text.split('\u8203');
     for (let i = 0; i < word.text.length; i++) {
       console.log("char " + i + " = " + word.text.charCodeAt(i));
     }
