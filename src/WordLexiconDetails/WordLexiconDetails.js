@@ -110,7 +110,23 @@ class WordLexiconDetails extends React.Component {
       );
     }
 
-    return Array.from({length: partCount}).map((value, pos) => {
+    let majorHighest = 0;
+    let majorPos = 0;
+    let indices = Array.from({ length: partCount }).map((u, i) => i);
+    indices.forEach(i => {
+      // sort by part length, longest first
+      const partLen = ((wordParts && (wordParts.length > i) && wordParts[i]) || "").length;
+      if (partLen > majorHighest) {
+        majorHighest = partLen;
+        majorPos = i;
+      }
+    });
+    if (majorPos > 0) { // move
+      indices.splice(majorPos, 1);
+      indices.unshift(majorPos);
+    }
+
+    return indices.map((pos) => {
       const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || translate('morph_missing');
       const word = ((wordParts.length > pos) && wordParts[pos]) || "";
       return (
