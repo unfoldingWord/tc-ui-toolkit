@@ -71,6 +71,19 @@ function getSegment(label, text, isFormatted = false) {
   );
 }
 
+function getLine(pos) {
+  return (pos > 0) ? <hr style={{height: '12px', 'border-bottom': '1px solid black'}}/> : "";
+}
+
+function getWordLine(multipart, word) {
+  return multipart ?
+    <div>
+      <strong style={{fontSize: '1.2em'}}>{word}</strong>
+      <br/>
+    </div>
+    : "";
+}
+
 function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos) {
   const isMainPos = (pos === mainPos);
   const strongsParts = lexiconHelpers.getStrongsParts(strong);
@@ -78,17 +91,17 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
   const multipart = strongsParts.length > 1;
   if (isMainPos) {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {(pos > 0) ? <hr style={{height: '12px', 'border-bottom': '1px solid black'}}/> : ""}
-      {multipart ? <strong style={{fontSize: '1.2em'}}>{word + '\n'}</strong> : ""}
+      {getLine(pos)}
+      {getWordLine(multipart, word)}
       {getSegment(translate('lemma'), lemma)}<br/>
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
       {getSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
-  } else {
+  } else { // not main word
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {(pos > 0) ? <hr style={{height: '12px', 'border-top': '1px solid black'}}/> : ""}
-      {multipart ? <strong style={{fontSize: '1.2em'}}>{word + '\n'}</strong> : ""}
+      {getLine(pos)}
+      {getWordLine(multipart, word)}
       {getSegment(translate('morphology'), morphStr)}<br/>
       {getSegment(translate('strongs'), strong_)}<br/>
     </div>;
