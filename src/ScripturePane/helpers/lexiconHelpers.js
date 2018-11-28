@@ -1,6 +1,21 @@
+const ZERO_WIDTH_SPACE = '\u200B';
+
+/**
+ * splits a word by zero width spaces
+ * @param {String} word - compound word to split
+ * @return {Array} split parts
+ */
+export const getWordParts = (word) => {
+  if (word) {
+    const wordParts = word.split(ZERO_WIDTH_SPACE);
+    return wordParts;
+  }
+  return [];
+};
+
 /**
  * checks for formats such as `c:d:H0776` and extracts the strongs number
- * @param {String} strong_ - the strong's number to get the entryId from
+ * @param {String} strong - the strong's number to get the entryId from
  * @return {{string, number}} - actual Strongs number and position
  */
 export const findStrongs = (strong) => {

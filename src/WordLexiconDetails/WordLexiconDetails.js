@@ -89,7 +89,10 @@ function getWordLine(multipart, word) {
 function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos) {
   const isMainPos = (pos === mainPos);
   const strongsParts = lexiconHelpers.getStrongsParts(strong);
-  const strong_ = ((strongsParts.length > pos) && strongsParts[pos]) || "";
+  let strong_ = ((strongsParts.length > pos) && strongsParts[pos]);
+  if (!strong_) {
+    strong_ = (strongsParts.length === 1) ? strongsParts[0] : ""; // if strongs was not split into parts, use first
+  }
   const multipart = strongsParts.length > 1;
   if (isMainPos) {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
@@ -105,7 +108,6 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
       {getLine(pos)}
       {getWordLine(multipart, word)}
       {getSegment(translate('morphology'), morphStr)}<br/>
-      {getSegment(translate('strongs'), strong_)}<br/>
     </div>;
   }
 }
