@@ -1,3 +1,5 @@
+import {MorphUtils} from "word-aligner";
+
 const ZERO_WIDTH_SPACE = '\u200B';
 
 /**
@@ -11,6 +13,35 @@ export const getWordParts = (word) => {
     return wordParts;
   }
   return [];
+};
+
+/**
+ * splits morph of compound word into parts
+ * @param {string} morph - morph string to convert
+ * @return {Array} morphology for each part
+ */
+export const getMorphKeys = (morph) => {
+  const morphKeys = MorphUtils.getMorphLocalizationKeys(morph);
+  const morphKeysForParts = [];
+  let lastPos = 0;
+  let pos = 0;
+  let part;
+  const divider = '*:';
+  if ((pos = morphKeys.indexOf(divider)) >= 0) {
+    while (pos >= 0) {
+      part = morphKeys.slice(lastPos, pos);
+      morphKeysForParts.push(part);
+      lastPos = pos + 1;
+      pos = morphKeys.indexOf(divider, lastPos);
+    }
+    part = morphKeys.slice(lastPos);
+    if (part.length) {
+      morphKeysForParts.push(part);
+    }
+  } else {
+    morphKeysForParts.push(morphKeys);
+  }
+  return morphKeysForParts;
 };
 
 /**
@@ -37,7 +68,7 @@ export const findStrongs = (strong) => {
 /**
  * checks for formats such as `c:d:H0776` and splits into parts
  * @param {String} strong - the strong's number to get the entryId from
- * @return {{string, number}} - actual Strongs number and position
+ * @return {Array} - list of parts
  */
 export const getStrongsParts = (strong) => {
   let parts = null;

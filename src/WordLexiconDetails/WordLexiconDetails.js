@@ -2,36 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // helpers
 import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
-import {MorphUtils} from 'word-aligner';
-
-/**
- * splits compound word into parts
- * @param {string} morph - morph code to convert
- * @return {Array} locale code for each key
- */
-function getMorphKeys(morph) {
-  const morphKeys = MorphUtils.getMorphLocalizationKeys(morph);
-  const morphKeysForParts = [];
-  let lastPos = 0;
-  let pos = 0;
-  let part;
-  const divider = '*:';
-  if ((pos = morphKeys.indexOf(divider)) >= 0) {
-    while (pos >= 0) {
-      part = morphKeys.slice(lastPos, pos);
-      morphKeysForParts.push(part);
-      lastPos = pos + 1;
-      pos = morphKeys.indexOf(divider, lastPos);
-    }
-    part = morphKeys.slice(lastPos);
-    if (part.length) {
-      morphKeysForParts.push(part);
-    }
-  } else {
-    morphKeysForParts.push(morphKeys);
-  }
-  return morphKeysForParts;
-}
 
 /**
  * lookup translations and convert to morph description
@@ -40,7 +10,7 @@ function getMorphKeys(morph) {
  * @return {Array} morph description for each part
  */
 function getWordParts(morph, translate) {
-  const morphKeysForParts = getMorphKeys(morph);
+  const morphKeysForParts = lexiconHelpers.getMorphKeys(morph);
   const morphStrs = [];
   morphKeysForParts.forEach(morphKeys => {
     const translatedMorphs = [];
