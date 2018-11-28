@@ -74,12 +74,13 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mai
       {getSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
+    const showStrongs = strong_ && (strong_.startsWith('H')); // make sure actual strongs number
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {getLine(pos)}
       {getWordLine(multipart, word)}
       {getSegment(translate('morphology'), morphStr)}<br/>
-      {strong_ ? getSegment(translate('strongs'), strong_) : ""}
-      {strong_ ? <br/> : ""}
+      {showStrongs ? getSegment(translate('strongs'), strong_) : ""}
+      {showStrongs ? <br/> : ""}
     </div>;
   }
 }
