@@ -13,13 +13,11 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
-    const wordParts = lexiconHelpers.getWordParts(word.text);
     const PopoverTitle = (
       <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
     );
     const wordDetails = (
-      <WordLexiconDetails lexiconData={lexiconData} wordObject={word}
-                          translate={translate} wordParts={wordParts} />
+      <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate} />
     );
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }

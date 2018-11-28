@@ -9,6 +9,8 @@ exports[`WordDetails renders Greek 1`] = `
     }
   }
 >
+  
+  
   <span>
     <strong>
       lemma
@@ -38,50 +40,129 @@ exports[`WordDetails renders Greek 1`] = `
       lexicon
     </strong>
      
+    
+     
   </span>
   <br />
 </div>
 `;
 
 exports[`WordDetails renders Hebrew 1`] = `
-<div
-  style={
-    Object {
-      "margin": "-10px 10px -20px",
-      "maxWidth": "400px",
+Array [
+  <div
+    style={
+      Object {
+        "margin": "-10px 10px -20px",
+        "maxWidth": "400px",
+      }
     }
-  }
->
-  <span>
-    <strong>
+  >
+    
+    <div
+      style={
+        Object {
+          "margin": "0",
+          "padding": "0",
+        }
+      }
+    >
+      <strong
+        style={
+          Object {
+            "fontSize": "1.2em",
+          }
+        }
+      >
+        
+      </strong>
+      <br />
+    </div>
+    <span>
+      <strong>
+        morphology
+      </strong>
+       
+      preposition
+    </span>
+    <br />
+    <span>
+      <strong>
+        strongs
+      </strong>
+       
+      b
+    </span>
+    <br />
+  </div>,
+  <div
+    style={
+      Object {
+        "margin": "-10px 10px -20px",
+        "maxWidth": "400px",
+      }
+    }
+  >
+    <hr
+      style={
+        Object {
+          "border-bottom": "1px solid gray",
+          "height": "6px",
+          "margin-bottom": "5px",
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "margin": "0",
+          "padding": "0",
+        }
+      }
+    >
+      <strong
+        style={
+          Object {
+            "fontSize": "1.2em",
+          }
+        }
+      >
+        
+      </strong>
+      <br />
+    </div>
+    <span>
+      <strong>
+        lemma
+      </strong>
+       
       lemma
-    </strong>
-     
-    lemma
-  </span>
-  <br />
-  <span>
-    <strong>
-      morphology
-    </strong>
-     
-    preposition: noun, common, feminine, singular, absolute
-  </span>
-  <br />
-  <span>
-    <strong>
-      strongs
-    </strong>
-     
-    b:H7225
-  </span>
-  <br />
-  <span>
-    <strong>
-      lexicon
-    </strong>
-     
-  </span>
-  <br />
-</div>
+    </span>
+    <br />
+    <span>
+      <strong>
+        morphology
+      </strong>
+       
+      noun, common, feminine, singular, absolute
+    </span>
+    <br />
+    <span>
+      <strong>
+        strongs
+      </strong>
+       
+      H7225
+    </span>
+    <br />
+    <span>
+      <strong>
+        lexicon
+      </strong>
+       
+      
+       
+    </span>
+    <br />
+  </div>,
+]
 `;

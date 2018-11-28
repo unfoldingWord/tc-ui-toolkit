@@ -51,7 +51,7 @@ export const getMorphKeys = (morph) => {
  */
 export const findStrongs = (strong) => {
   let pos = 0;
-  if (strong.includes(':')) {
+  if (strong && strong.includes(':')) {
     const parts = strong.split(':');
     for (let i = 0, len = parts.length; i < len; i++) {
       const char = parts[i][0];
@@ -71,13 +71,16 @@ export const findStrongs = (strong) => {
  * @return {Array} - list of parts
  */
 export const getStrongsParts = (strong) => {
-  let parts = null;
-  if (strong.includes(':')) {
-    parts = strong.split(':');
-  } else {
-    parts = [strong];
+  if (strong) {
+    let parts = null;
+    if (strong.includes(':')) {
+      parts = strong.split(':');
+    } else {
+      parts = [strong];
+    }
+    return parts;
   }
-  return parts;
+  return [];
 };
 
 /**
@@ -86,7 +89,7 @@ export const getStrongsParts = (strong) => {
  * @return {String} - the id of the lexicon
  */
 export const lexiconIdFromStrongs = (strong) => {
-  const lexiconId = strong.startsWith('G') ? 'ugl': 'uhl';
+  const lexiconId = (strong && strong.startsWith('G')) ? 'ugl': 'uhl';
   return lexiconId;
 };
 /**

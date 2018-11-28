@@ -4,8 +4,6 @@ import path from 'path-extra';
 import ospath from 'ospath';
 import * as lexiconHelpers from '../lexiconHelpers';
 
-const assert = require('assert');
-
 const RESOURCE_PATH = path.join(ospath.home(), 'translationCore', 'resources');
 const OT_PATH = path.join(RESOURCE_PATH, 'hbo/bibles/uhb/v1.4.1');
 const outputFolder = path.join(__dirname, 'fixtures/words');
@@ -119,6 +117,7 @@ describe('lexiconHelpers', () => {
       ["וְ​אֵ֥ת", ["וְ", "אֵ֥ת"]],
       ["וְ​הָ​אָ֗רֶץ", ["וְ", "הָ", "אָ֗רֶץ"]],
       ["חֲכָמֶ֑י​הָ", ["חֲכָמֶ֑י", "הָ"]], // gen 41:8
+      ["Ἰάκωβος", ["Ἰάκωβος"]]
     ];
     for (let test of wordTests) {
       const word = test[0];
