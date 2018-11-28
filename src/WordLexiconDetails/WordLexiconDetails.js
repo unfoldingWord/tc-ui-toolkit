@@ -72,12 +72,14 @@ function getSegment(label, text, isFormatted = false) {
 }
 
 function getLine(pos) {
-  return (pos > 0) ? <hr style={{height: '6px', 'border-bottom': '1px solid black'}}/> : "";
+  return (pos > 0) ?
+    <hr style={{height: '6px', 'border-bottom': '1px solid gray', 'margin-bottom': '5px'}}/>
+    : "";
 }
 
 function getWordLine(multipart, word) {
   return multipart ?
-    <div>
+    <div style={{margin: '0', padding: '0'}}>
       <strong style={{fontSize: '1.2em'}}>{word}</strong>
       <br/>
     </div>
