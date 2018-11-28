@@ -72,7 +72,7 @@ function getSegment(label, text, isFormatted = false) {
 }
 
 function getLine(pos) {
-  return (pos > 0) ? <hr style={{height: '12px', 'border-bottom': '1px solid black'}}/> : "";
+  return (pos > 0) ? <hr style={{height: '6px', 'border-bottom': '1px solid black'}}/> : "";
 }
 
 function getWordLine(multipart, word) {

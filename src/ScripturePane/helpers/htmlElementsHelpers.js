@@ -19,7 +19,7 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     for (let i = 0; i < word.text.length; i++) {
       console.log("char " + i + " = " + word.text.charCodeAt(i));
     }
-    const wordText = wordParts.join('\u00A0\u00A0-\u00A0\u00A0');
+    const wordText = wordParts.join('\u00A0\u00A0\u00A0');
     const PopoverTitle = (
       <strong style={{fontSize: '1.2em'}}>{wordText}</strong>
     );
