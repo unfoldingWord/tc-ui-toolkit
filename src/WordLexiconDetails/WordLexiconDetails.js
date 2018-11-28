@@ -82,21 +82,38 @@ function getWordPart(translate, lemma, morphStr, strong, lexicon, word, itemNum,
   }
 }
 
+function movePrimaryWordToTop(partCount, wordParts) {
+  let majorHighest = 0;
+  let majorPos = 0;
+  let indices = Array.from({length: partCount}).map((u, i) => i);
+  indices.forEach(i => {
+    // sort by part length, longest first
+    const partLen = ((wordParts && (wordParts.length > i) && wordParts[i]) || "").length;
+    if (partLen > majorHighest) {
+      majorHighest = partLen;
+      majorPos = i;
+    }
+  });
+  if (majorPos > 0) { // move
+    indices.splice(majorPos, 1);
+    indices.unshift(majorPos);
+  }
+  return indices;
+}
+
 class WordLexiconDetails extends React.Component {
 
   render() {
     const { wordObject: { lemma, morph, strong, text }, translate, lexiconData } = this.props;
     let lexicon;
-    let mainPos = -1;
     const wordParts = lexiconHelpers.getWordParts(text);
     if (strong) {
-      const {strong: strong_, pos} = lexiconHelpers.findStrongs(strong);
+      const {strong: strong_} = lexiconHelpers.findStrongs(strong);
       const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strong_);
       const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong_);
       if (lexiconData[lexiconId] && lexiconData[lexiconId][entryId]) {
         lexicon = lexiconData[lexiconId][entryId].long;
       }
-      mainPos = pos;
     }
     const morphStrs = getWordParts(morph, translate);
     const strongsParts = lexiconHelpers.getStrongsParts(strong);
@@ -106,23 +123,7 @@ class WordLexiconDetails extends React.Component {
         getWordPart(translate, lemma, morphStrs[0], strong, lexicon, wordParts[0], 0, 0, partCount)
       );
     }
-
-    let majorHighest = 0;
-    let majorPos = 0;
-    let indices = Array.from({ length: partCount }).map((u, i) => i);
-    indices.forEach(i => {
-      // sort by part length, longest first
-      const partLen = ((wordParts && (wordParts.length > i) && wordParts[i]) || "").length;
-      if (partLen > majorHighest) {
-        majorHighest = partLen;
-        majorPos = i;
-      }
-    });
-    if (majorPos > 0) { // move
-      indices.splice(majorPos, 1);
-      indices.unshift(majorPos);
-    }
-
+    const indices = movePrimaryWordToTop(partCount, wordParts);
     return indices.map((pos, index) => {
       const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || translate('morph_missing');
       const word = ((wordParts.length > pos) && wordParts[pos]) || "";
