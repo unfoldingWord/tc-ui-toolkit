@@ -10,7 +10,7 @@ describe('WordDetails', () => {
         wordObject={{
           lemma: 'lemma',
           morph: 'Gr,NS,,,,GMPF',
-          strong: 'strong'
+          strong: 'G1230'
         }}
         translate={k=>k}/>
     );

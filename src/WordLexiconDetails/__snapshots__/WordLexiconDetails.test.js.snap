@@ -32,7 +32,7 @@ exports[`WordDetails renders Greek 1`] = `
       strongs
     </strong>
      
-    strong
+    G1230
   </span>
   <br />
   <span>
@@ -155,8 +155,6 @@ Array [
       morph_missing
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;
@@ -171,15 +169,7 @@ Array [
       }
     }
   >
-    <hr
-      style={
-        Object {
-          "border-bottom": "1px solid gray",
-          "height": "6px",
-          "margin-bottom": "5px",
-        }
-      }
-    />
+    
     <div
       style={
         Object {
@@ -241,7 +231,15 @@ Array [
       }
     }
   >
-    
+    <hr
+      style={
+        Object {
+          "border-bottom": "1px solid gray",
+          "height": "6px",
+          "margin-bottom": "5px",
+        }
+      }
+    />
     <div
       style={
         Object {
@@ -269,8 +267,6 @@ Array [
       preposition
     </span>
     <br />
-    
-    
   </div>,
   <div
     style={
@@ -316,8 +312,6 @@ Array [
       particle, definite_article
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;
@@ -379,15 +373,7 @@ Array [
       }
     }
   >
-    <hr
-      style={
-        Object {
-          "border-bottom": "1px solid gray",
-          "height": "6px",
-          "margin-bottom": "5px",
-        }
-      }
-    />
+    
     <div
       style={
         Object {
@@ -449,7 +435,15 @@ Array [
       }
     }
   >
-    
+    <hr
+      style={
+        Object {
+          "border-bottom": "1px solid gray",
+          "height": "6px",
+          "margin-bottom": "5px",
+        }
+      }
+    />
     <div
       style={
         Object {
@@ -477,8 +471,6 @@ Array [
       conjunction
     </span>
     <br />
-    
-    
   </div>,
   <div
     style={
@@ -524,8 +516,6 @@ Array [
       particle, definite_article
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;
@@ -540,15 +530,7 @@ Array [
       }
     }
   >
-    <hr
-      style={
-        Object {
-          "border-bottom": "1px solid gray",
-          "height": "6px",
-          "margin-bottom": "5px",
-        }
-      }
-    />
+    
     <div
       style={
         Object {
@@ -610,7 +592,15 @@ Array [
       }
     }
   >
-    
+    <hr
+      style={
+        Object {
+          "border-bottom": "1px solid gray",
+          "height": "6px",
+          "margin-bottom": "5px",
+        }
+      }
+    />
     <div
       style={
         Object {
@@ -638,8 +628,6 @@ Array [
       preposition
     </span>
     <br />
-    
-    
   </div>,
   <div
     style={
@@ -685,8 +673,6 @@ Array [
       suffix, pronominal, third, masculine, singular
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;
@@ -701,15 +687,7 @@ Array [
       }
     }
   >
-    <hr
-      style={
-        Object {
-          "border-bottom": "1px solid gray",
-          "height": "6px",
-          "margin-bottom": "5px",
-        }
-      }
-    />
+    
     <div
       style={
         Object {
@@ -771,7 +749,15 @@ Array [
       }
     }
   >
-    
+    <hr
+      style={
+        Object {
+          "border-bottom": "1px solid gray",
+          "height": "6px",
+          "margin-bottom": "5px",
+        }
+      }
+    />
     <div
       style={
         Object {
@@ -799,8 +785,6 @@ Array [
       preposition
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;
@@ -913,8 +897,6 @@ Array [
       suffix, pronominal, third, masculine, singular
     </span>
     <br />
-    
-    
   </div>,
 ]
 `;

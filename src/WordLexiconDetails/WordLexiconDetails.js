@@ -33,7 +33,7 @@ function getFormatted(html) {
   return <span {...props}></span>;
 }
 
-function getSegment(label, text, isFormatted = false) {
+function getDataSegment(label, text, isFormatted = false) {
   return (isFormatted ?
       <span><strong>{label}</strong> {(text && getFormatted(text)) || ""} </span>
       :
@@ -47,7 +47,7 @@ function getLine(pos) {
     : "";
 }
 
-function getWordLine(multipart, word) {
+function getWordEntry(multipart, word) {
   return multipart ?
     <div style={{margin: '0', padding: '0'}}>
       <strong style={{fontSize: '1.2em'}}>{word}</strong>
@@ -56,31 +56,28 @@ function getWordLine(multipart, word) {
     : "";
 }
 
-function getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos, count) {
-  const isMainPos = (pos === mainPos);
+function getWordPart(translate, lemma, morphStr, strong, lexicon, word, itemNum, pos, count) {
   const strongsParts = lexiconHelpers.getStrongsParts(strong);
-  let strong_ = ((strongsParts.length > pos) && strongsParts[pos]);
+  let strong_ = ((strongsParts.length > itemNum) && strongsParts[itemNum]);
   if (!strong_) {
-    strong_ = ((strongsParts.length === 1) && isMainPos) ? strongsParts[0] : ""; // if strongs was not split into parts, use first
+    strong_ = ((strongsParts.length === 1) && (pos === 0)) ? strongsParts[0] : ""; // if strongs was not split into parts, use first
   }
+  const showStrongs = strong_ && (['H','G'].includes(strong_[0])); // make sure actual strongs number
   const multipart = count > 1;
-  if (isMainPos) {
+  if (showStrongs) {
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {getLine(pos)}
-      {getWordLine(multipart, word)}
-      {getSegment(translate('lemma'), lemma)}<br/>
-      {getSegment(translate('morphology'), morphStr)}<br/>
-      {getSegment(translate('strongs'), strong_)}<br/>
-      {getSegment(translate('lexicon'), lexicon, true)}<br/>
+      {getWordEntry(multipart, word)}
+      {getDataSegment(translate('lemma'), lemma)}<br/>
+      {getDataSegment(translate('morphology'), morphStr)}<br/>
+      {getDataSegment(translate('strongs'), strong_)}<br/>
+      {getDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
-    const showStrongs = strong_ && (strong_.startsWith('H')); // make sure actual strongs number
     return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {getLine(pos)}
-      {getWordLine(multipart, word)}
-      {getSegment(translate('morphology'), morphStr)}<br/>
-      {showStrongs ? getSegment(translate('strongs'), strong_) : ""}
-      {showStrongs ? <br/> : ""}
+      {getWordEntry(multipart, word)}
+      {getDataSegment(translate('morphology'), morphStr)}<br/>
     </div>;
   }
 }
@@ -126,11 +123,11 @@ class WordLexiconDetails extends React.Component {
       indices.unshift(majorPos);
     }
 
-    return indices.map((pos) => {
+    return indices.map((pos, index) => {
       const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || translate('morph_missing');
       const word = ((wordParts.length > pos) && wordParts[pos]) || "";
       return (
-        getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, mainPos, partCount)
+        getWordPart(translate, lemma, morphStr, strong, lexicon, word, pos, index, partCount)
       );
     });
   }
