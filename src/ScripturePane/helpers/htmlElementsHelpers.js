@@ -14,8 +14,8 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate) => 
     const lexiconData = getLexiconData(lexiconId, entryId);
     const positionCoord = e.target;
     const wordParts = word.text.split('\n8203');
-    for (let i = 0; i < wordParts.length; i++) {
-      console.log("char " + i + " = " + wordParts.charCodeAt(i));
+    for (let i = 0; i < word.text.length; i++) {
+      console.log("char " + i + " = " + word.text.charCodeAt(i));
     }
     const wordText = wordParts.join('&nbsp;&nbsp;--&nbsp;&nbsp;');
 
