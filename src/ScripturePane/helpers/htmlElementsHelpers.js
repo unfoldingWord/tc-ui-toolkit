@@ -4,14 +4,39 @@ import WordLexiconDetails from '../../WordLexiconDetails';
 // helpers
 import * as lexiconHelpers from './lexiconHelpers';
 import { removeMarker } from './usfmHelpers';
+import {getStrongsParts} from "./lexiconHelpers";
+import {lexiconEntryIdFromStrongs} from "./lexiconHelpers";
+
+/**
+ * looks up the strongs numbers for each part of a multipart strongs
+ * @param {String} strong
+ * @param {Function} getLexiconData
+ * @return {*}
+ */
+export const lookupStrongsNumbers = (strong, getLexiconData) => {
+  let lexiconData;
+  const parts = getStrongsParts(strong);
+  for (let i = 0, len = parts.length; i < len; i++) {
+    const part = parts[i];
+    const entryId = lexiconEntryIdFromStrongs(part);
+    if (entryId) {
+      const lexiconId = lexiconHelpers.lexiconIdFromStrongs(part);
+      const lexiconData_ = getLexiconData(lexiconId, entryId);
+      if (lexiconData_) {
+        if (lexiconData) { // if already exists combine data
+          lexiconData[lexiconId][entryId] = lexiconData_[lexiconId][entryId];
+        } else { // copy data
+          lexiconData = lexiconData_;
+        }
+      }
+    }
+  }
+  return lexiconData;
+};
 
 export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
-    const {strong} = word;
-    const {strong: strongs_} = lexiconHelpers.findStrongsNumbers(strong);
-    const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strongs_);
-    const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
-    const lexiconData = getLexiconData(lexiconId, entryId);
+    let lexiconData = lookupStrongsNumbers(word.strong, getLexiconData);
     const positionCoord = e.target;
     const PopoverTitle = (
       <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
