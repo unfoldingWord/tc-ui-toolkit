@@ -69,7 +69,7 @@
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.8.1",
     "usfm-js": "^1.0.10",
-    "word-aligner": "^0.2.6"
+    "word-aligner": "0.2.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -93,6 +93,8 @@
     "jest": "^22.4.3",
     "jest-css-modules": "^1.1.0",
     "jest-enzyme": "^6.0.0",
+    "ospath": "1.2.2",
+    "path": "0.12.7",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-test-renderer": "^16.3.2",
