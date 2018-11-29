@@ -1,2 +1,2 @@
 export { default } from './ScripturePane';
-export * from './lexiconHelpers';
+export * from './helpers/lexiconHelpers';
