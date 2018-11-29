@@ -14,7 +14,7 @@ import {lexiconEntryIdFromStrongs} from "./lexiconHelpers";
  * @return {*}
  */
 export const lookupStrongsNumbers = (strong, getLexiconData) => {
-  let lexiconData;
+  let lexiconData = null;
   const parts = getStrongsParts(strong);
   for (let i = 0, len = parts.length; i < len; i++) {
     const part = parts[i];
