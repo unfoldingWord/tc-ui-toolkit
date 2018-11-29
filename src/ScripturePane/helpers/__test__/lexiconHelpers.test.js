@@ -1,6 +1,5 @@
-jest.unmock('fs-extra');
-import fs from 'fs-extra';
-import path from 'path-extra';
+import fs from 'fs';
+import path from 'path';
 import ospath from 'ospath';
 import * as lexiconHelpers from '../lexiconHelpers';
 
@@ -170,7 +169,7 @@ describe('lexiconHelpers', () => {
           const bookPath = path.join(OT_PATH, bookId);
           const files = fs.readdirSync(bookPath);
           for (let file of files) {
-            const chapter = fs.readJsonSync(path.join(bookPath, file));
+            const chapter = JSON.parse(fs.readFileSync(path.join(bookPath, file), 'utf8'));
             const cRef = bookId + "-" + file.split('.')[0] + ":";
             const verses = Object.keys(chapter);
             for (let verseNum of verses) {
@@ -259,7 +258,7 @@ describe('lexiconHelpers', () => {
           }
           output = '{\n' + output + '\n}\n';
           const outFile = path.join(outputFolder, bookId + '-word-checks.json');
-          fs.outputFileSync(outFile, output);
+          fs.writeFileSync(outFile, output, {encoding: 'utf8'});
         });
       }
     });
