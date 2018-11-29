@@ -1,2 +1,3 @@
+export const lexiconHelpers = require('./helpers/lexiconHelpers');
 export { default } from './ScripturePane';
-export * from './helpers/lexiconHelpers';
+
