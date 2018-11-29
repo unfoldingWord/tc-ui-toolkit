@@ -98,3 +98,30 @@ export const lexiconEntryIdFromStrongs = (strong) => {
   }
   return 0;
 };
+
+/**
+ * looks up the strongs numbers for each part of a multipart strongs
+ * @param {String} strong
+ * @param {Function} getLexiconData
+ * @return {*}
+ */
+export const lookupStrongsNumbers = (strong, getLexiconData) => {
+  let lexiconData = null;
+  const parts = getStrongsParts(strong);
+  for (let i = 0, len = parts.length; i < len; i++) {
+    const part = parts[i];
+    const entryId = lexiconEntryIdFromStrongs(part);
+    if (entryId) {
+      const lexiconId = lexiconIdFromStrongs(part);
+      const lexiconData_ = getLexiconData(lexiconId, entryId);
+      if (lexiconData_) {
+        if (lexiconData) { // if already exists combine data
+          lexiconData[lexiconId][entryId] = lexiconData_[lexiconId][entryId];
+        } else { // copy data
+          lexiconData = lexiconData_;
+        }
+      }
+    }
+  }
+  return lexiconData;
+};
