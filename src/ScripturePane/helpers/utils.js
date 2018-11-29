@@ -7,3 +7,22 @@ export function delay(ms) {
     setTimeout(resolve, ms)
   );
 }
+
+/**
+ * lookup translation for text or key.  First looks for a static translation and then tries a dynamic translation
+ * @param {Function} translate - translation function
+ * @param {String} text - string or key to translate
+ * @param {String} deflt - default string to use if no translation is found
+ * @param {Object} params - Params to use for printing
+ * @return {String} translated text
+ */
+export function getTranslation(translate, text, deflt) {
+  let key = text.toLowerCase();
+  key = key.replace(' ', '_');
+  let translation;
+  translation = translate(key);
+  if (!translation || (translation.indexOf("Missing translation key") >= 0)) { // if not translated, return original text
+    translation = deflt;
+  }
+  return translation;
+}
