@@ -84,16 +84,18 @@ export const BIBLE_BOOKS = {
 describe('lexiconHelpers', () => {
   describe('test stongs parsing', () => {
     const strongsTests = [
-      ['b:H7225', 7225, 'uhl', 2],
-      ['c:d:H0776', 776, 'uhl', 3],
-      ['H1961', 1961, 'uhl', 1],
-      ['H5921a', 5921, 'uhl', 1],
-      ['G33260', 3326, 'ugl', 1]
+      ['b:H7225', [0, 7225], ['uhl', 'uhl'], 2],
+      ['H123:H7225', [123, 7225], ['uhl', 'uhl'], 2],
+      ['c:d:H0776', [0, 0, 776], ['uhl', 'uhl', 'uhl'], 3],
+      ['H1961', [1961], ['uhl'], 1],
+      ['H5921a', [5921], ['uhl'], 1],
+      ['G33260', [3326], ['ugl'], 1],
+      [null, [], [], 0]
     ];
 
     for (let test of strongsTests) {
       const strongs = test[0];
-      const expectedEntryId = test[1];
+      const expectedEntryIds = test[1];
       const expectedLexiconId = test[2];
       const expectedPartCount = test[3];
 
@@ -103,8 +105,8 @@ describe('lexiconHelpers', () => {
         const results = extractStrongs(strongs);
 
         // then
-        expect(results.entryId).toEqual(expectedEntryId);
-        expect(results.lexiconId).toEqual(expectedLexiconId);
+        expect(results.entryIds).toEqual(expectedEntryIds);
+        expect(results.lexiconIds).toEqual(expectedLexiconId);
         expect(results.parts.length).toEqual(expectedPartCount);
       });
     }
@@ -170,8 +172,8 @@ describe('lexiconHelpers', () => {
               anomallies += warning + '\n';
               // console.warn(warning);
             } else {
-              const {pos} = lexiconHelpers.findStrongs(strongs);
-              if (pos < 0) {
+              const valid = lexiconHelpers.containsValidStrongsNumber(strongs);
+              if (!valid) {
                 const warning = "Missing strongs Number: " + JSON.stringify(word);
                 anomallies += warning + '\n';
                 // console.warn(warning);
@@ -243,11 +245,16 @@ describe('lexiconHelpers', () => {
 //
 
 function extractStrongs(strongs) {
-  const {strong: strongs_} = lexiconHelpers.findStrongs(strongs);
-  const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strongs_);
-  const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
   const parts = lexiconHelpers.getStrongsParts(strongs);
-  return {entryId, lexiconId, parts};
+  const lexiconIds = [];
+  const entryIds = [];
+  for (let found of parts) {
+    const lexiconId = lexiconHelpers.lexiconIdFromStrongs(found);
+    lexiconIds.push(lexiconId);
+    const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(found);
+    entryIds.push(entryId);
+  }
+  return {entryIds, lexiconIds, parts};
 }
 
 function getWords(objects, words, ref) {

@@ -45,47 +45,37 @@ export const getMorphKeys = (morph) => {
 };
 
 /**
- * checks for formats such as `c:d:H0776` and extracts the strongs number
- * @param {String} strong - the strong's number to get the entryId from
- * @return {{string, number}} - actual Strongs number and position
- */
-export const findStrongs = (strong) => {
-  let pos = 0;
-  if (strong && strong.includes(':')) {
-    const parts = strong.split(':');
-    for (let i = 0, len = parts.length; i < len; i++) {
-      const char = parts[i][0];
-      if ((parts.length >= 2) && ((char === 'G') || (char === 'H'))) {
-        strong = parts[i];
-        pos = i;
-        break;
-      }
-    }
-  }
-  return {strong, pos};
-};
-
-/**
  * checks for formats such as `c:d:H0776` and splits into parts
- * @param {String} strong - the strong's number to get the entryId from
+ * @param {String} strong - the strong's number to get the entryIds from
  * @return {Array} - list of parts
  */
 export const getStrongsParts = (strong) => {
   if (strong) {
-    let parts = null;
-    if (strong.includes(':')) {
-      parts = strong.split(':');
-    } else {
-      parts = [strong];
-    }
+    const parts = strong.split(':');
     return parts;
   }
   return [];
 };
 
 /**
- * @description - Get the lexiconId from the strong's number
- * @param {String} strong - the strong's number to get the entryId from
+ * searches through the parts to see if there is a valid strongs number
+ * @param strong
+ * @return {boolean}
+ */
+export const containsValidStrongsNumber = (strong) => {
+  const parts = getStrongsParts(strong);
+  for (let i = 0, len = parts.length; i < len; i++) {
+    const entryId = lexiconEntryIdFromStrongs(parts[i]);
+    if (entryId) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * @description - Get the lexiconIds from the strong's number
+ * @param {String} strong - the strong's number to get the entryIds from
  * @return {String} - the id of the lexicon
  */
 export const lexiconIdFromStrongs = (strong) => {
@@ -93,15 +83,18 @@ export const lexiconIdFromStrongs = (strong) => {
   return lexiconId;
 };
 /**
- * @description - Get the lexicon entryId from the strong's number
- * @param {String} strong - the strong's number to get the entryId from
+ * @description - Get the lexicon entryIds from the strong's number
+ * @param {String} strong - the strong's number to get the entryIds from
  * @return {int} - the number of the entry
  */
 export const lexiconEntryIdFromStrongs = (strong) => {
-  let strongsCode = strong.replace(/\w/,'');
-  if (!strong.startsWith('H')) { // Greek has an extra 0 at end
-    strongsCode = strongsCode.slice(0,-1);
+  if (strong) {
+    let strongsCode = strong.replace(/\w/, '');
+    if (!strong.startsWith('H')) { // Greek has an extra 0 at end
+      strongsCode = strongsCode.slice(0, -1);
+    }
+    const entryId = (strongsCode && parseInt(strongsCode)) || 0;
+    return entryId;
   }
-  const entryId = parseInt(strongsCode);
-  return entryId;
+  return 0;
 };

@@ -122,9 +122,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -234,9 +234,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -279,9 +279,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -438,9 +438,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -483,9 +483,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -595,9 +595,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -640,9 +640,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -752,9 +752,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />
@@ -864,9 +864,9 @@ Array [
     <hr
       style={
         Object {
-          "border-bottom": "1px solid gray",
+          "borderBottom": "1px solid gray",
           "height": "6px",
-          "margin-bottom": "5px",
+          "marginBottom": "5px",
         }
       }
     />

@@ -8,7 +8,7 @@ import { removeMarker } from './usfmHelpers';
 export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
   if (word && word.strong) {
     const {strong} = word;
-    const {strong: strongs_} = lexiconHelpers.findStrongs(strong);
+    const {strong: strongs_} = lexiconHelpers.findStrongsNumbers(strong);
     const entryId = lexiconHelpers.lexiconEntryIdFromStrongs(strongs_);
     const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strongs_);
     const lexiconData = getLexiconData(lexiconId, entryId);
