@@ -96,8 +96,9 @@ function getWordEntry(multipart, word) {
 function getWordPart(translate, lemma, morphStr, strong, strongNum, lexicon, word, itemNum, pos, count) {
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
+  const key = 'lexicon_details_' + pos;
   if (strong) {
-    return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {getLine(pos)}
       {getWordEntry(multipart, word)}
       {getDataSegment(translate('lemma'), lemma)}<br/>
@@ -106,7 +107,7 @@ function getWordPart(translate, lemma, morphStr, strong, strongNum, lexicon, wor
       {getDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
-    return <div style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
       {getLine(pos)}
       {getWordEntry(multipart, word)}
       {getDataSegment(translate('morphology'), morphStr)}<br/>
