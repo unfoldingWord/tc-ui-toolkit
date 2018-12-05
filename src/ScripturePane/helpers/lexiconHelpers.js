@@ -106,7 +106,7 @@ export const lexiconEntryIdFromStrongs = (strong) => {
  * @return {*}
  */
 export const lookupStrongsNumbers = (strong, getLexiconData) => {
-  let lexiconData = null;
+  let lexiconData = [];
   const parts = getStrongsParts(strong);
   for (let i = 0, len = parts.length; i < len; i++) {
     const part = parts[i];
