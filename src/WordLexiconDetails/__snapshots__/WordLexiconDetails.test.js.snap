@@ -900,3 +900,90 @@ Array [
   </div>,
 ]
 `;
+
+exports[`WordDetails renders Hebrew with no strongs number 1`] = `
+Array [
+  <div
+    style={
+      Object {
+        "margin": "-10px 10px -20px",
+        "maxWidth": "400px",
+      }
+    }
+  >
+    
+    <div
+      style={
+        Object {
+          "margin": "0",
+          "padding": "0",
+        }
+      }
+    >
+      <strong
+        style={
+          Object {
+            "fontSize": "1.2em",
+          }
+        }
+      >
+        בּֽ
+      </strong>
+      <br />
+    </div>
+    <span>
+      <strong>
+        morphology
+      </strong>
+       
+      preposition
+    </span>
+    <br />
+  </div>,
+  <div
+    style={
+      Object {
+        "margin": "-10px 10px -20px",
+        "maxWidth": "400px",
+      }
+    }
+  >
+    <hr
+      style={
+        Object {
+          "borderBottom": "1px solid gray",
+          "height": "6px",
+          "marginBottom": "5px",
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "margin": "0",
+          "padding": "0",
+        }
+      }
+    >
+      <strong
+        style={
+          Object {
+            "fontSize": "1.2em",
+          }
+        }
+      >
+        וֹ
+      </strong>
+      <br />
+    </div>
+    <span>
+      <strong>
+        morphology
+      </strong>
+       
+      suffix, pronominal, third, masculine, singular
+    </span>
+    <br />
+  </div>,
+]
+`;

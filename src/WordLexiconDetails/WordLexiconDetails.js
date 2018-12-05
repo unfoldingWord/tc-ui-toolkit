@@ -159,10 +159,9 @@ function getStrongsAndLexicon(strong, lexiconData, pos) {
   }
   const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
   strongNumber = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
-  if (lexiconData[lexiconId] && lexiconData[lexiconId][strongNumber]) {
+  if (lexiconData && lexiconData[lexiconId] && lexiconData[lexiconId][strongNumber]) {
     lexicon = lexiconData[lexiconId][strongNumber].long;
   }
-
   return {strongNumber, lexicon, strong};
 }
 

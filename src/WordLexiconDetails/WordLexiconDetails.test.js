@@ -122,4 +122,18 @@ describe('WordDetails', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders Hebrew with no strongs number', () => { // jdg-1:1 last
+    const wrapper = renderer.create(
+      <WordDetails
+        lexiconData={{}}
+        wordObject={{
+          text: "בּֽ​וֹ",
+          lemma: '',
+          morph: 'He,R:Sp3ms',
+          strong: 'b'
+        }}
+        translate={k=>k}/>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

@@ -106,7 +106,7 @@ export const lexiconEntryIdFromStrongs = (strong) => {
  * @return {*}
  */
 export const lookupStrongsNumbers = (strong, getLexiconData) => {
-  let lexiconData = null;
+  let lexiconData = {};
   const parts = getStrongsParts(strong);
   for (let i = 0, len = parts.length; i < len; i++) {
     const part = parts[i];
@@ -115,10 +115,11 @@ export const lookupStrongsNumbers = (strong, getLexiconData) => {
       const lexiconId = lexiconIdFromStrongs(part);
       const lexiconData_ = getLexiconData(lexiconId, entryId);
       if (lexiconData_) {
-        if (lexiconData) { // if already exists combine data
+        if (lexiconData && lexiconData_[lexiconId] && lexiconData_[lexiconId][entryId]) { // if already exists combine data
+          if (!lexiconData[lexiconId]) {
+            lexiconData[lexiconId] = {};
+          }
           lexiconData[lexiconId][entryId] = lexiconData_[lexiconId][entryId];
-        } else { // copy data
-          lexiconData = lexiconData_;
         }
       }
     }
