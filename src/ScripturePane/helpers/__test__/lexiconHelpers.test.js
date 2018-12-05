@@ -89,9 +89,10 @@ describe('lexiconHelpers', () => {
       ['H1961', {"uhl": {"1961": "uhl-1961"}}],
       ['H5921a', {"uhl": {"5921": "uhl-5921"}}],
       ['G33260', {"ugl": {"3326": "ugl-3326"}}],
-      ['', null],
-      ['b', null],
-      [null, null]
+      ['H7225:b', {"uhl": {"7225": "uhl-7225"}}],
+      ['', {}],
+      ['b', {}],
+      [null, {}]
     ];
 
     for (let test of strongsTests) {
