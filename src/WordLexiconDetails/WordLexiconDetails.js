@@ -45,7 +45,7 @@ function getFormatted(html) {
  * @param {boolean} isFormatted - if true then text contains html formatting
  * @return {*}
  */
-function getDataSegment(label, text, isFormatted = false) {
+function generateDataSegment(label, text, isFormatted = false) {
   return (isFormatted ?
       <span><strong>{label}</strong> {(text && getFormatted(text)) || ""} </span>
       :
@@ -58,7 +58,7 @@ function getDataSegment(label, text, isFormatted = false) {
  * @param {Number} pos - order of part on screen (0 is top)
  * @return {*}
  */
-function getLine(pos) {
+function generateLine(pos) {
   return (pos > 0) ?
     <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px'}}/>
     : "";
@@ -70,7 +70,7 @@ function getLine(pos) {
  * @param {string} word
  * @return {*}
  */
-function getWordEntry(multipart, word) {
+function generateWordEntry(multipart, word) {
   return multipart ?
     <div style={{margin: '0', padding: '0'}}>
       <strong style={{fontSize: '1.2em'}}>{word}</strong>
@@ -84,8 +84,8 @@ function getWordEntry(multipart, word) {
  * @param {function} translate
  * @param {string} lemma
  * @param {string} morphStr
- * @param {string} strong
- * @param {Number} strongNum
+ * @param {Number} strongsNum
+ * @param {string} strongs
  * @param {string} lexicon
  * @param {string} word
  * @param {Number} itemNum - number of part in word
@@ -93,24 +93,24 @@ function getWordEntry(multipart, word) {
  * @param {Number} count - total number of parts to show
  * @return {*}
  */
-function getWordPart(translate, lemma, morphStr, strong, strongNum, lexicon, word, itemNum, pos, count) {
+function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexicon, word, itemNum, pos, count) {
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
-  if (strong) {
+  if (strongsNum) {
     return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {getLine(pos)}
-      {getWordEntry(multipart, word)}
-      {getDataSegment(translate('lemma'), lemma)}<br/>
-      {getDataSegment(translate('morphology'), morphStr)}<br/>
-      {getDataSegment(translate('strongs'), strongNum)}<br/>
-      {getDataSegment(translate('lexicon'), lexicon, true)}<br/>
+      {generateLine(pos)}
+      {generateWordEntry(multipart, word)}
+      {generateDataSegment(translate('lemma'), lemma)}<br/>
+      {generateDataSegment(translate('morphology'), morphStr)}<br/>
+      {generateDataSegment(translate('strongs'), strongs)}<br/>
+      {generateDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
     return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
-      {getLine(pos)}
-      {getWordEntry(multipart, word)}
-      {getDataSegment(translate('morphology'), morphStr)}<br/>
+      {generateLine(pos)}
+      {generateWordEntry(multipart, word)}
+      {generateDataSegment(translate('morphology'), morphStr)}<br/>
     </div>;
   }
 }
@@ -165,29 +165,46 @@ function getStrongsAndLexicon(strong, lexiconData, pos) {
   return {strongNumber, lexicon, strong};
 }
 
-class WordLexiconDetails extends React.Component {
-
-  render() {
-    const { wordObject: { lemma, morph, strong, text }, translate, lexiconData } = this.props;
-    const wordParts = lexiconHelpers.getWordParts(text);
-    const morphStrs = getWordParts(morph, translate);
-    const strongsParts = lexiconHelpers.getStrongsParts(strong);
-    const partCount = Math.max(morphStrs.length, strongsParts.length, wordParts.length); // since there may be inconsistancies, use largest count
-    if (partCount < 2) {
-      const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(strong, lexiconData, 0);
-      return (
-        getWordPart(translate, lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount)
-      );
-    }
+/**
+ *
+ * @param {String} text - displayed test
+ * @param {String} strong - single or multipart strongs number
+ * @param {String} morph - single or multipart morphology
+ * @param {String} lemma - single or multipart lemma
+ * @param {String} lexiconData - contains lexicon for strongs
+ * @param {Function} translate
+ * @param {Function} generateWordPart
+ * @return {*[]}
+ */
+export function generateWordLexiconDetails(text, strong, morph, lemma, lexiconData, translate, generateWordPart) {
+  let wordLexiconDetails;
+  const wordParts = lexiconHelpers.getWordParts(text);
+  const morphStrs = getWordParts(morph, translate);
+  const strongsParts = lexiconHelpers.getStrongsParts(strong);
+  const partCount = Math.max(morphStrs.length, strongsParts.length, wordParts.length); // since there may be inconsistancies, use largest count
+  if (partCount < 2) {
+    const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(strong, lexiconData, 0);
+    wordLexiconDetails = generateWordPart(translate, lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount);
+  } else {
     const indices = movePrimaryWordToTop(partCount, wordParts);
-    return indices.map((pos, index) => {
+    wordLexiconDetails = indices.map((pos, index) => {
       const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || "";
       const word = ((wordParts.length > pos) && wordParts[pos]) || "";
       const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(strong, lexiconData, pos);
+      const lemmaStr = (index === 0) ? lemma : "";
       return (
-        getWordPart(translate, lemma, morphStr, strongNumber, strongs, lexicon, word, pos, index, partCount)
+        generateWordPart(translate, lemmaStr, morphStr, strongNumber, strongs, lexicon, word, pos, index, partCount)
       );
     });
+  }
+  return wordLexiconDetails;
+}
+
+class WordLexiconDetails extends React.Component {
+  render() {
+    const { wordObject: { lemma, morph, strong, text }, translate, lexiconData } = this.props;
+    let wordLexiconDetails = generateWordLexiconDetails(text, strong, morph, lemma, lexiconData, translate, generateWordPart);
+    return wordLexiconDetails;
   }
 }
 

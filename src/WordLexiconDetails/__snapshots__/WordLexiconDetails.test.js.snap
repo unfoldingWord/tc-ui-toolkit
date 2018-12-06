@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WordDetails renders Greek 1`] = `
+exports[`WordLexiconDetails rendering  renders Greek 1`] = `
 <div
   style={
     Object {
@@ -47,7 +47,7 @@ exports[`WordDetails renders Greek 1`] = `
 </div>
 `;
 
-exports[`WordDetails renders Hebrew extra word part 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew extra word part 1`] = `
 Array [
   <div
     style={
@@ -159,7 +159,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew missing strongs part 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew missing strongs part 1`] = `
 Array [
   <div
     style={
@@ -316,7 +316,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew single part 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
 <div
   style={
     Object {
@@ -363,7 +363,7 @@ exports[`WordDetails renders Hebrew single part 1`] = `
 </div>
 `;
 
-exports[`WordDetails renders Hebrew three part 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew three part 1`] = `
 Array [
   <div
     style={
@@ -520,7 +520,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew three part with suffix 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew three part with suffix 1`] = `
 Array [
   <div
     style={
@@ -677,7 +677,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew two part 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew two part 1`] = `
 Array [
   <div
     style={
@@ -789,7 +789,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew two part with suffix 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew two part with suffix 1`] = `
 Array [
   <div
     style={
@@ -901,7 +901,7 @@ Array [
 ]
 `;
 
-exports[`WordDetails renders Hebrew with no strongs number 1`] = `
+exports[`WordLexiconDetails rendering  renders Hebrew with no strongs number 1`] = `
 Array [
   <div
     style={
