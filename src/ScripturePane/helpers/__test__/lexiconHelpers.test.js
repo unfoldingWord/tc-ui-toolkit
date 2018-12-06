@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import fs from 'fs';
 import path from 'path';
 import ospath from 'ospath';
@@ -303,7 +304,7 @@ function getWords(objects, words, ref) {
   }
 }
 
-export function getLexiconData(lexiconId, entryId) {
+function getLexiconData(lexiconId, entryId) {
   return {
     [lexiconId]: {
       [entryId]: lexiconId + '-' + entryId
