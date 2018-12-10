@@ -3,6 +3,7 @@
   "version": "0.12.7",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
+  "display": "library",
   "scripts": {
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
