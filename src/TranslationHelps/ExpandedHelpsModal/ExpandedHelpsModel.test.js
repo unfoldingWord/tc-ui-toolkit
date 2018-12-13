@@ -7,7 +7,14 @@ import ExpandedHelpsModal from './index';
 describe('Test ExpandedHelpsModal component', () => {
   test('Test initial display', () => {
 
-    const theme = createMuiTheme({scrollbarThumb: {borderRadius: '10px'}});
+    const theme = createMuiTheme({
+      typography: {
+        useNextVariants: true,
+      },
+      scrollbarThumb: {
+        borderRadius: '10px'
+      }
+    });
     const expectedTitle = 'Title';
     const wrapper = mount(
       <MuiThemeProvider theme={theme}>
