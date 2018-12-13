@@ -216,7 +216,6 @@ class ScripturePane extends Component {
 }
 
 ScripturePane.propTypes = {
-  classes: PropTypes.object.isRequired,
   titleLabel: PropTypes.string.isRequired,
   closeButtonLabel: PropTypes.string.isRequired,
   addResourceLabel: PropTypes.string.isRequired,
