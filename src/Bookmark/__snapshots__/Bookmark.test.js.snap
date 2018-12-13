@@ -10,10 +10,10 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
   }
 >
   <span
-    className="MuiSwitch-root-6"
+    className="MuiSwitch-root-9"
   >
     <span
-      className="MuiButtonBase-root-25 MuiIconButton-root-19 MuiSwitchBase-root-15 MuiSwitch-switchBase-9 MuiSwitch-colorPrimary-11 Bookmark-colorPrimary-2"
+      className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -24,37 +24,33 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
-      role={undefined}
       tabIndex={null}
     >
       <span
-        className="MuiIconButton-label-24"
+        className="MuiIconButton-label-27"
       >
         <span
-          className="MuiSwitch-icon-7"
+          className="MuiSwitch-icon-10"
         />
         <input
           checked={false}
-          className="MuiSwitchBase-input-18"
+          className="MuiPrivateSwitchBase-input-21"
           disabled={false}
-          id={undefined}
-          name={undefined}
           onChange={[Function]}
-          tabIndex={undefined}
           type="checkbox"
           value="bookmark"
         />
       </span>
       <span
-        className="MuiTouchRipple-root-28"
+        className="MuiTouchRipple-root-66"
       />
     </span>
     <span
-      className="MuiSwitch-bar-14"
+      className="MuiSwitch-bar-17"
     />
   </span>
   <span
-    className="MuiTypography-root-35 MuiTypography-body1-44 MuiFormControlLabel-label-5 Bookmark-label-1"
+    className="MuiTypography-root-31 MuiTypography-body1-40 MuiFormControlLabel-label-8 Bookmark-label-1"
   >
     Bookmark
   </span>
@@ -71,10 +67,10 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
   }
 >
   <span
-    className="MuiSwitch-root-6"
+    className="MuiSwitch-root-9"
   >
     <span
-      className="MuiButtonBase-root-25 MuiIconButton-root-19 MuiSwitchBase-root-15 MuiSwitch-switchBase-9 MuiSwitch-colorPrimary-11 Bookmark-colorPrimary-2 MuiSwitchBase-checked-16 MuiSwitch-checked-10"
+      className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2 MuiPrivateSwitchBase-checked-19 MuiSwitch-checked-13"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -85,37 +81,33 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
       onTouchEnd={[Function]}
       onTouchMove={[Function]}
       onTouchStart={[Function]}
-      role={undefined}
       tabIndex={null}
     >
       <span
-        className="MuiIconButton-label-24"
+        className="MuiIconButton-label-27"
       >
         <span
-          className="MuiSwitch-icon-7 MuiSwitch-iconChecked-8"
+          className="MuiSwitch-icon-10 MuiSwitch-iconChecked-11"
         />
         <input
           checked={true}
-          className="MuiSwitchBase-input-18"
+          className="MuiPrivateSwitchBase-input-21"
           disabled={false}
-          id={undefined}
-          name={undefined}
           onChange={[Function]}
-          tabIndex={undefined}
           type="checkbox"
           value="bookmark"
         />
       </span>
       <span
-        className="MuiTouchRipple-root-28"
+        className="MuiTouchRipple-root-66"
       />
     </span>
     <span
-      className="MuiSwitch-bar-14"
+      className="MuiSwitch-bar-17"
     />
   </span>
   <span
-    className="MuiTypography-root-35 MuiTypography-body1-44 MuiFormControlLabel-label-5 Bookmark-label-1"
+    className="MuiTypography-root-31 MuiTypography-body1-40 MuiFormControlLabel-label-8 Bookmark-label-1"
   >
     Bookmark
   </span>
