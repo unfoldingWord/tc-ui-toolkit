@@ -917,7 +917,6 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 <div
                   className="__react_component_tooltip place-top type-dark "
                   data-id="tooltip"
-                  id={undefined}
                 />
               </div>
               <span>
@@ -944,7 +943,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         className="actions-area"
       >
         <label
-          className="MuiFormControlLabel-root-12"
+          className="MuiFormControlLabel-root-19"
           style={
             Object {
               "paddingLeft": 10,
@@ -952,10 +951,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-15"
+            className="MuiSwitch-root-25"
           >
             <span
-              className="MuiButtonBase-root-34 MuiIconButton-root-28 MuiSwitchBase-root-24 MuiSwitch-switchBase-18 MuiSwitch-colorPrimary-20 Bookmark-colorPrimary-11"
+              className="MuiButtonBase-root-44 MuiIconButton-root-38 MuiPrivateSwitchBase-root-34 MuiSwitch-switchBase-28 MuiSwitch-colorPrimary-30 Bookmark-colorPrimary-18"
               onBlur={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -966,37 +965,33 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              role={undefined}
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-33"
+                className="MuiIconButton-label-43"
               >
                 <span
-                  className="MuiSwitch-icon-16"
+                  className="MuiSwitch-icon-26"
                 />
                 <input
                   checked={false}
-                  className="MuiSwitchBase-input-27"
+                  className="MuiPrivateSwitchBase-input-37"
                   disabled={false}
-                  id={undefined}
-                  name={undefined}
                   onChange={[Function]}
-                  tabIndex={undefined}
                   type="checkbox"
                   value="bookmark"
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-37"
+                className="MuiTouchRipple-root-82"
               />
             </span>
             <span
-              className="MuiSwitch-bar-23"
+              className="MuiSwitch-bar-33"
             />
           </span>
           <span
-            className="MuiTypography-root-44 MuiTypography-body1-53 MuiFormControlLabel-label-14 Bookmark-label-10"
+            className="MuiTypography-root-47 MuiTypography-body1-56 MuiFormControlLabel-label-24 Bookmark-label-17"
           >
             bookmark
           </span>
@@ -1374,7 +1369,6 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                 <div
                   className="__react_component_tooltip place-top type-dark "
                   data-id="tooltip"
-                  id={undefined}
                 />
               </div>
               <span>
