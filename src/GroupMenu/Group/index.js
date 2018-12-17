@@ -17,15 +17,18 @@ class Group extends React.Component {
   }
 
   scrollToCurrentCheck() {
-    if (inView(this.groupRef, this.activeGroupItemRef)) {
-      //If the menu and current check are able to be rendered in the
-      //same window scroll to the group menu item
-      scrollIntoView(this.groupRef);
-    }
-    else {
-      //Scroll to the current check item
-      scrollIntoView(this.activeGroupItemRef);
-    }
+    // TRICKY: push scrolling onto the timing thread so the ui thread can flush out the dom
+    setTimeout(() => {
+      if (inView(this.groupRef, this.activeGroupItemRef)) {
+        //If the menu and current check are able to be rendered in the
+        //same window scroll to the group menu item
+        scrollIntoView(this.groupRef);
+      } else {
+        //Scroll to the current check item
+        scrollIntoView(this.activeGroupItemRef);
+      }
+    }, 200);
+
   }
 
   componentDidMount() {
