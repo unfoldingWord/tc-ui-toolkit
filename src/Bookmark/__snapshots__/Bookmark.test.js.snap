@@ -15,6 +15,7 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
     <span
       className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2"
       onBlur={[Function]}
+      onContextMenu={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
@@ -72,6 +73,7 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
     <span
       className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2 MuiPrivateSwitchBase-checked-19 MuiSwitch-checked-13"
       onBlur={[Function]}
+      onContextMenu={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
