@@ -956,6 +956,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             <span
               className="MuiButtonBase-root-44 MuiIconButton-root-38 MuiPrivateSwitchBase-root-34 MuiSwitch-switchBase-28 MuiSwitch-colorPrimary-30 Bookmark-colorPrimary-18"
               onBlur={[Function]}
+              onContextMenu={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
