@@ -94,10 +94,15 @@ class ScripturePane extends Component {
 
       try {
         const { languageId, bibleId } = paneSettings;
-        const { manifest: { language_name, direction, description } } = bibles[languageId][bibleId];
+        let { manifest: { language_name, direction, description } } = bibles[languageId][bibleId];
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
+
+        if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
+          const manifest = bibles[languageId][bibleId].manifest;
+          language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
+        }
 
         if (typeof verseData === 'string') { // if the verse content is string.
           verseElements = verseString(verseData, selections, translate);
