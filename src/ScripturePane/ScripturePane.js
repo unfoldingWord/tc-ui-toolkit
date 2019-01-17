@@ -101,7 +101,7 @@ class ScripturePane extends Component {
 
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
           const manifest = bibles[languageId][bibleId].manifest;
-          language_name = manifest.language_name + " (" + manifest.language_id + ")";
+          language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
