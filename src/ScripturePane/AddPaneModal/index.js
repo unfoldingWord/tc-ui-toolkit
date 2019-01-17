@@ -78,9 +78,15 @@ const AddPaneModal = ({
   getAvailableScripturePaneSelections(availableResources);
   for (let i = 0, len = availableResources.length; i < len; i++) {
     const resource = availableResources[i];
-    const { resource_title, language_name } = resource.manifest;
-    const resourceText = resource.bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
-    const displayText = `${language_name} (${resource.languageId}) ${resourceText}`;
+    const { resource_title, language_name, language_id } = resource.manifest;
+    let displayText = "";
+    if (resource.bibleId !== "targetBible") {
+      const languageId = (resource.languageId !== 'originalLanguage') ? resource.languageId : translate('pane.original_language');
+      displayText = `${language_name} (${languageId})  (${resource_title})`;
+    } else {
+      displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
+    }
+
     const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => {
       return paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId;
     }) >= 0;
