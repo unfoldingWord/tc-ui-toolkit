@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +11,7 @@ import ProgressIcon from './ProgressIcon';
 /**
  * Utility to apply styles based on props
  */
-const styledBy = (property, mapping) => props => mapping[props[property]];
+// const styledBy = (property, mapping) => props => mapping[props[property]];
 
 const styles = {
   textRoot: {
@@ -20,16 +20,12 @@ const styles = {
   text: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: styledBy('selected', {
-      true: 700,
-      false: 'normal'
-    }),
-    '&$selected': {
-      backgroundColor: '#2196F3',
-      '&:hover': {
-        backgroundColor: '#2196F3'
-      }
-    }
+    fontWeight: 'normal'
+  },
+  selectedText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 700
   },
   root: {
     // paddingRight: 0,
@@ -85,8 +81,7 @@ class MenuGroup extends React.Component {
           inset
           classes={{
             root: classes.textRoot,
-            primary: classes.text,
-            selected: classes.selected
+            primary: selected ? classes.selectedText : classes.text
           }}
           primary={label}
         />

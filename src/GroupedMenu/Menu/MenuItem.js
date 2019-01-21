@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -62,7 +62,7 @@ function arrowGenerator(color) {
 /**
  * Utility to apply styles based on props
  */
-const styledBy = (property, mapping) => props => mapping[props[property]];
+// const styledBy = (property, mapping) => props => mapping[props[property]];
 
 const styles = {
   root: {
@@ -94,14 +94,20 @@ const styles = {
   badge: {
     backgroundColor: '#ffffff',
     border: 'solid 2px #747474',
-    borderColor: styledBy("selected", {
-      true: "#2196F3",
-      false: "#747474"
-    }),
-    color: styledBy("selected", {
-      true: "#2196F3",
-      false: "#747474"
-    }),
+    borderColor: "#747474",
+    color: "#747474",
+    fontWeight: 'bold',
+    fontSize: '75%',
+    width: 18,
+    height: 18,
+    marginTop: 5,
+    marginRight: 5
+  },
+  selectedBadge: {
+    backgroundColor: '#ffffff',
+    border: 'solid 2px #747474',
+    borderColor: "#2196F3",
+    color: "#2196F3",
     fontWeight: 'bold',
     fontSize: '75%',
     width: 18,
@@ -192,7 +198,8 @@ class MenuItem extends React.Component {
    * @param {object} status - the item status. this is an object of boolean keys
    * @param {object[]} statusIcons - an array of available status icons
    */
-  generateStatusIcon = memoize((status, statusIcons) => {
+  generateStatusIcon = memoize((status, statusIcons, selected) => {
+    const {classes} = this.props;
     if (!statusIcons || !status) return null;
     const icons = [];
     for (let i = 0, len = statusIcons.length; i < len; i++) {
@@ -229,7 +236,7 @@ class MenuItem extends React.Component {
             <Badge
               badgeContent={icons.length}
               classes={{
-                badge: this.props.classes.badge
+                badge: selected ? classes.selectedBadge : classes.badge
               }}
             >
               {icons[0]}
@@ -255,7 +262,7 @@ class MenuItem extends React.Component {
     // TRICKY: we don't need a tooltip for short text
     // TODO: it would be better to only display if the text is truncated.
     const enableTooltip = title.length > 20;
-    const icon = this.generateStatusIcon(status, statusIcons);
+    const icon = this.generateStatusIcon(status, statusIcons, selected);
 
     return (
       <ListItem
