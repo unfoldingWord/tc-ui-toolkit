@@ -1,11 +1,79 @@
 import React, {Component} from 'react';
-import {ScripturePane, VerseCheck, CheckInfoCard, GroupMenu, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
+import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
 import {
   bibles,
   contextId,
   currentPaneSettings,
   projectDetailsReducer
 } from './assets/scripturePaneProps';
+
+const sampleIndex = [
+  {
+    id: "chapter_1",
+    name: "Chapter 1"
+  },
+  {
+    id: "chapter_2",
+    name: "Chapter 2"
+  }
+];
+
+const sampleData = {
+  chapter_1: [
+    {
+      contextId: {
+        groupId: "chapter_1",
+        reference: {
+          bookId: "gal",
+          chapter: 1,
+          verse: 1
+        }
+      }
+    },
+    {
+      contextId: {
+        groupId: "chapter_1",
+        reference: {
+          bookId: "gal",
+          chapter: 1,
+          verse: 2
+        }
+      }
+    },
+    {
+      contextId: {
+        groupId: "chapter_1",
+        reference: {
+          bookId: "gal",
+          chapter: 1,
+          verse: 3
+        }
+      }
+    }
+  ],
+  chapter_2: [
+    {
+      contextId: {
+        groupId: "chapter_2",
+        reference: {
+          bookId: "gal",
+          chapter: 2,
+          verse: 1
+        }
+      }
+    },
+    {
+      contextId: {
+        groupId: "chapter_2",
+        reference: {
+          bookId: "gal",
+          chapter: 2,
+          verse: 2
+        }
+      }
+    }
+  ]
+};
 
 class App extends Component {
   constructor(props) {
@@ -43,12 +111,15 @@ class App extends Component {
   render() {
     const theme = createTcuiTheme({scrollbarThumb: {borderRadius: '10px'}});
 
+    const entries = generateMenuData(sampleIndex, sampleData, 'completed');
+
     return (
       <TcuiThemeProvider theme={theme}>
         <div style={{display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh'}}>
-          <GroupMenu
-            isVerseFinished={() => true}
-            isVerseValid={() => false}
+          <GroupedMenu
+            title="Menu"
+            filters={[]}
+            entries={entries}
           />
           <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
             <ScripturePane

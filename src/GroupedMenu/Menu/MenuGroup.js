@@ -23,7 +23,13 @@ const styles = {
     fontWeight: styledBy('selected', {
       true: 700,
       false: 'normal'
-    })
+    }),
+    '&$selected': {
+      backgroundColor: '#2196F3',
+      '&:hover': {
+        backgroundColor: '#2196F3'
+      }
+    }
   },
   root: {
     // paddingRight: 0,
@@ -79,7 +85,8 @@ class MenuGroup extends React.Component {
           inset
           classes={{
             root: classes.textRoot,
-            primary: classes.text
+            primary: classes.text,
+            selected: classes.selected
           }}
           primary={label}
         />
