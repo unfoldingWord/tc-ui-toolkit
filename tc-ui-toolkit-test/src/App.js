@@ -6,6 +6,10 @@ import {
   currentPaneSettings,
   projectDetailsReducer
 } from './assets/scripturePaneProps';
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+import CheckIcon from "@material-ui/icons/Check";
+import BlockIcon from "@material-ui/icons/Block";
+import EditIcon from "@material-ui/icons/Edit";
 
 const sampleIndex = [
   {
@@ -21,6 +25,7 @@ const sampleIndex = [
 const sampleData = {
   chapter_1: [
     {
+      done: true,
       contextId: {
         groupId: "chapter_1",
         reference: {
@@ -31,6 +36,7 @@ const sampleData = {
       }
     },
     {
+      edited: true,
       contextId: {
         groupId: "chapter_1",
         reference: {
@@ -41,6 +47,7 @@ const sampleData = {
       }
     },
     {
+      bookmarked: true,
       contextId: {
         groupId: "chapter_1",
         reference: {
@@ -53,6 +60,8 @@ const sampleData = {
   ],
   chapter_2: [
     {
+      done: true,
+      edited: true,
       contextId: {
         groupId: "chapter_2",
         reference: {
@@ -111,14 +120,44 @@ class App extends Component {
   render() {
     const theme = createTcuiTheme({scrollbarThumb: {borderRadius: '10px'}});
 
-    const entries = generateMenuData(sampleIndex, sampleData, 'completed');
+    const filters = [
+      {
+        label: "Bookmarked",
+        key: 'bookmarked',
+        icon: <BookmarkIcon style={{color: "white"}}/>
+      },
+      {
+        label: "Complete",
+        key: 'done',
+        disables: ['incomplete'],
+        icon: <CheckIcon style={{color: "white"}}/>
+      },
+      {
+        label: "Incomplete",
+        id: 'incomplete',
+        key: 'done',
+        value: false,
+        disables: ['done'],
+        icon: <BlockIcon style={{color: "white"}}/>
+      },
+      {
+        label: "Edited",
+        key: 'edited',
+        icon: <EditIcon style={{color: "white"}}/>
+      }
+    ];
+
+    const statusIcons = filters.filter(f => f.id !== "incomplete");
+
+    const entries = generateMenuData(sampleIndex, sampleData, 'done');
 
     return (
       <TcuiThemeProvider theme={theme}>
         <div style={{display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh'}}>
           <GroupedMenu
             title="Menu"
-            filters={[]}
+            filters={filters}
+            statusIcons={statusIcons}
             entries={entries}
           />
           <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
