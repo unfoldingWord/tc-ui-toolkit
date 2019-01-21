@@ -43,7 +43,7 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
         />
       </span>
       <span
-        className="MuiTouchRipple-root-66"
+        className="MuiTouchRipple-root-67"
       />
     </span>
     <span
@@ -101,7 +101,7 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
         />
       </span>
       <span
-        className="MuiTouchRipple-root-66"
+        className="MuiTouchRipple-root-67"
       />
     </span>
     <span

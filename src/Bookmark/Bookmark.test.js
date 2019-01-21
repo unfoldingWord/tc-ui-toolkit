@@ -5,10 +5,11 @@ import { mount } from 'enzyme';
 
 describe('Tests for Bookmark', () => {
   it('renders bookmark not selected correctly', () => {
+    const onChange = jest.fn();
     const props = {
       value: 'bookmark',
       label: 'Bookmark',
-      onChange: jest.fn(),
+      onChange,
       checked: false
     };
     const tree = renderer.create(
@@ -18,10 +19,11 @@ describe('Tests for Bookmark', () => {
   });
 
   it('renders bookmark selected correctly', () => {
+    const onChange = jest.fn();
     const props = {
       value: 'bookmark',
       label: 'Bookmark',
-      onChange: jest.fn(),
+      onChange,
       checked: true
     };
     const tree = renderer.create(
