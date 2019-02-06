@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.13.11",
+  "version": "0.13.12",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "display": "library",
@@ -71,8 +71,8 @@
     "react-remarkable": "^1.1.3",
     "react-tooltip": "^3.5.1",
     "string-punctuation-tokenizer": "^0.9.4",
-    "usfm-js": "^1.0.12",
-    "word-aligner": "^0.2.9"
+    "usfm-js": "^1.0.13",
+    "word-aligner": "^0.2.11"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
