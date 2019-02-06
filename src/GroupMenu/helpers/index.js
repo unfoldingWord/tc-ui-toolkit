@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Glyphicon} from 'react-bootstrap';
 import InvalidatedIcon from '../GroupsMenuFilter/InvalidatedIcon';
-const MENU_BAR_HEIGHT = 30;
-const MENU_ITEM_HEIGHT = 38;
+export const MENU_BAR_HEIGHT = 30;
+export const MENU_ITEM_HEIGHT = 38;
 
 export function getGroupData(groupsData, groupId) {
   let groupData;
@@ -53,12 +53,28 @@ export const groupIsVisible = (groupData, filters) => {
   return false;
 };
 
+/**
+ * scrolls into view, but will be toward top
+ * @param {object} current
+ */
 export function scrollIntoView({current}) {
-  if (current && current.scrollIntoView)
+  if (current && current.scrollIntoView) {
     current.scrollIntoView({block: 'start', behavior: 'smooth'});
+  }
 }
 
 /**
+ * scrolls into view, but will be toward bottom
+ * @param {object} item
+ */
+export function scrollIntoViewEnd({current}) {
+  if (current && current.scrollIntoView) {
+    current.scrollIntoView(false); // must use boolean value here because we are using an older chromium that does not yet support scrollIntoViewOptions
+  }
+}
+
+/**
+ *
 * @description - Tests if the the two elements are in the scope of the window (scroll bar)
 * The consts MENU_BAR_HEIGHT & MENU_ITEM_HEIGHT are set to account for the static window avialablity
 * @param {object} currentGroupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
@@ -66,10 +82,25 @@ export function scrollIntoView({current}) {
 */
 export function inView({current: currentGroupMenu}, {current: currentGroupItem}) {
   if (currentGroupMenu && currentGroupItem) {
-    var rectGroup = currentGroupMenu.getBoundingClientRect();
-    var rectItem = currentGroupItem.getBoundingClientRect();
-    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    return Math.abs(rectGroup.top - rectItem.top) + MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT <= viewHeight;
+    const rectGroup = currentGroupMenu.getBoundingClientRect();
+    const rectItem = currentGroupItem.getBoundingClientRect();
+    const viewHeight = Math.min(document.documentElement.clientHeight, window.innerHeight);
+    return Math.abs(rectGroup.top - rectItem.top) + (MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT * 2) <= viewHeight;
+  }
+}
+
+/**
+ * Checks if the react ref is vertically within the viewport.
+ * @param ref - the react ref
+ * @return {boolean}
+ */
+export function isInViewport(ref) {
+  if(ref && ref.current) {
+    const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT;
+    const top = ref.current.getBoundingClientRect().top;
+    return (top >= 0) && (top + offset <= window.innerHeight);
+  } else {
+    return false;
   }
 }
 
@@ -108,6 +139,7 @@ export function makeStatusBadgeComponents(glyphs) {
       <div className="status-badge-wrapper">
         <div
           className="status-badge"
+          data-for="groups-tooltip"
           data-tip={tooltip}
           data-html="true"
           data-place="bottom"

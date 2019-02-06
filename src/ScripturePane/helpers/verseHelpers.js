@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
@@ -6,21 +7,23 @@ import { VerseObjectUtils } from 'word-aligner';
 import * as highlightHelpers from './highlightHelpers';
 import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
 import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject } from './stringHelpers';
+import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
+          isIsolatedLeftQuote} from './stringHelpers';
 
 export const verseString = (verseText, selections, translate) => {
-  verseText = removeMarker(verseText);
-  verseText = verseText.replace(/\s+/g, ' ');
+  let newVerseText = removeMarker(verseText);
+  newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
-  verseText.replace(/\s/g, '').length === 0 ? verseText = '' : verseText;
+  newVerseText.replace(/\s/g, '').length === 0 ? newVerseText = '' : newVerseText;
 
-  // if empty string then verseText = place holder warning.
-  if (verseText.length === 0) verseText = translate('pane.missing_verse_warning');
-  let verseTextSpans = <span>{verseText}</span>;
+  // if empty string then newVerseText = place holder warning.
+  if (newVerseText.length === 0) newVerseText = translate('pane.missing_verse_warning');
+  let verseTextSpans = <span>{newVerseText}</span>;
 
   if (selections && selections.length > 0) {
-    const _selectionArray = stringTokenizer.selectionArray(verseText, selections);
+    const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
     verseTextSpans = [];
+    verseTextSpans.length = 0;
 
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
@@ -37,11 +40,12 @@ export const verseString = (verseText, selections, translate) => {
   return verseTextSpans;
 };
 
-export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) => {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
+  verseSpan.length = 0;
 
   if (verseText.verseObjects && textIsEmptyInVerseObject(verseText, bibleId)) { // if empty verse string.
     verseSpan.push(
@@ -63,7 +67,7 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
 
-        if (bibleId === 'ugnt' && contextId.quote && word.text) {
+        if ((bibleId === 'ugnt' || bibleId === 'uhb') && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
@@ -106,15 +110,19 @@ export const verseArray = (verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
+        const text = word.text;
+        if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
+          highlightHelpers.addSpace(verseSpan);
+        }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
-          verseSpan.push(createHighlightedSpan(index, word.text));
+          verseSpan.push(createHighlightedSpan(index, text));
         } else {
-          verseSpan.push(createTextSpan(index, word.text));
+          verseSpan.push(createTextSpan(index, text));
         }
       }
     }
   }
 
   return verseSpan;
-};
+}

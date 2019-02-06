@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import {MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 /**
  * Generates the dialog actions
  *
@@ -102,34 +102,31 @@ class BaseDialog extends React.Component {
       onSecondaryClick: onClose
     });
 
-    const theme = createMuiTheme();
     return (
-      <MuiThemeProvider theme={theme}>
-        <Dialog
-          fullWidth={true}
-          open={open}
-          onClose={onClose}>
-          <DialogTitle
-            disableTypography={true}
-            style={{
-              color: 'var(--reverse-color)',
-              backgroundColor: 'var(--accent-color-dark)',
-              padding: '15px',
-              display: 'block',
-              width: '100%',
-              fontSize: 22,
-              fontWeight: 400
-            }}>
-            {title}
-          </DialogTitle>
-          <DialogContent className='stepper-body'>
-            {children}
-          </DialogContent>
-          <DialogActions disableActionSpacing={true}>
-            {dialogActions}
-          </DialogActions>
-        </Dialog>
-      </MuiThemeProvider>
+      <Dialog
+        fullWidth={true}
+        open={open}
+        onClose={onClose}>
+        <DialogTitle
+          disableTypography={true}
+          style={{
+            color: 'var(--reverse-color)',
+            backgroundColor: 'var(--accent-color-dark)',
+            padding: '15px',
+            display: 'block',
+            width: '100%',
+            fontSize: 22,
+            fontWeight: 400
+          }}>
+          {title}
+        </DialogTitle>
+        <DialogContent className='stepper-body'>
+          {children}
+        </DialogContent>
+        <DialogActions disableActionSpacing={true}>
+          {dialogActions}
+        </DialogActions>
+      </Dialog>
     );
   }
 }

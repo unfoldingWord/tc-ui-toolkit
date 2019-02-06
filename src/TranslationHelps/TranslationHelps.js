@@ -12,7 +12,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Glyphicon} from 'react-bootstrap';
 // components
 import ExpandedHelpsModal from './ExpandedHelpsModal';
@@ -31,35 +30,32 @@ const TranslationHelps = ({
   modalTitle,                    // Title for the expanded helps modal
   translate
 }) => {
-  const theme = createMuiTheme({scrollbarThumb: {borderRadius: '10px'}});
 
   if (isShowHelpsSidebar) {
     return (
-      <MuiThemeProvider theme={theme}>
-        <div className="helps-sash-container">
-          <div className="helps-sash-closed" onClick={sidebarToggle}>
-            <Glyphicon
-              glyph="chevron-right"
-              style={{cursor: "pointer"}} />
-          </div>
-          <div className="helps">
-            <div className="helps-title-bar">
-              <Glyphicon
-                onClick={openExpandedHelpsModal}
-                glyph={"fullscreen"}
-                style={{cursor: "pointer"}}
-                title={expandedHelpsButtonHoverText} />
-            </div>
-            <THelpsMarkDown article={article} />
-          </div>
-          <ExpandedHelpsModal
-            translate={translate}
-            show={isShowHelpsExpanded}
-            onHide={openExpandedHelpsModal}
-            title={modalTitle}
-            article={modalArticle || article} />
+      <div className="helps-sash-container">
+        <div className="helps-sash-closed" onClick={sidebarToggle}>
+          <Glyphicon
+            glyph="chevron-right"
+            style={{cursor: "pointer"}} />
         </div>
-      </MuiThemeProvider>
+        <div className="helps">
+          <div className="helps-title-bar">
+            <Glyphicon
+              onClick={openExpandedHelpsModal}
+              glyph={"fullscreen"}
+              style={{cursor: "pointer"}}
+              title={expandedHelpsButtonHoverText} />
+          </div>
+          <THelpsMarkDown article={article} />
+        </div>
+        <ExpandedHelpsModal
+          translate={translate}
+          show={isShowHelpsExpanded}
+          onHide={openExpandedHelpsModal}
+          title={modalTitle}
+          article={modalArticle || article} />
+      </div>
     );
   } else {
     return (

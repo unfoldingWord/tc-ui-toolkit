@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import ReactTooltip from 'react-tooltip';
 //helpers
 import * as helpers from './helpers/';
@@ -25,6 +24,10 @@ class GroupMenu extends React.Component {
     this.setState({expandFilter: !this.state.expandFilter});
   }
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     const {
       translate,
@@ -42,50 +45,47 @@ class GroupMenu extends React.Component {
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
     // const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
-    const theme = createMuiTheme();
 
     return (
-      <MuiThemeProvider theme={theme}>
-        <div id="groups-menu-container">
-          <div id="groups-menu-top">
-            <div id="groups-menu-header">
-              <span id="groups-menu-title">
-                {translate('menu.menu')}
-              </span>
-              <FilterMenuHeader
-                filterCount={filterCount}
-                handleFilterShowHideToggle={this.handleFilterShowHideToggle}
-                currentToolName={currentToolName}
-                expandFilter={this.state.expandFilter} />
-            </div>
-            <GroupsMenuFilter
+      <div id="groups-menu-container">
+        <div id="groups-menu-top">
+          <div id="groups-menu-header">
+            <span id="groups-menu-title">
+              {translate('menu.menu')}
+            </span>
+            <FilterMenuHeader
               filterCount={filterCount}
+              handleFilterShowHideToggle={this.handleFilterShowHideToggle}
               currentToolName={currentToolName}
-              expandFilter={this.state.expandFilter}
-              filters={filters}
-              translate={translate}
-              setFilter={actions.setFilter} />
+              expandFilter={this.state.expandFilter} />
           </div>
-          <ReactTooltip/>
-          <Groups
+          <GroupsMenuFilter
+            filterCount={filterCount}
             currentToolName={currentToolName}
-            isVerseFinished={isVerseFinished}
-            isVerseValid={isVerseValid}
-            getSelections={getSelections}
+            expandFilter={this.state.expandFilter}
+            filters={filters}
             translate={translate}
-            changeCurrentContextId={actions.changeCurrentContextId}
-            getGroupProgress={getGroupProgress}
-            isSubMenuExpanded={isSubMenuExpanded}
-            groupsIndex={groupsIndex}
-            groupsData={groupsData}
-            contextId={contextId}
-            manifest={manifest}
-            projectSaveLocation={projectSaveLocation}
-            groupMenuExpandSubMenu={actions.groupMenuExpandSubMenu}
-            groupMenuChangeGroup={actions.groupMenuChangeGroup}
-            filters={filters} />
+            setFilter={actions.setFilter} />
         </div>
-      </MuiThemeProvider>
+        <ReactTooltip id="groups-tooltip"/>
+        <Groups
+          currentToolName={currentToolName}
+          isVerseFinished={isVerseFinished}
+          isVerseValid={isVerseValid}
+          getSelections={getSelections}
+          translate={translate}
+          changeCurrentContextId={actions.changeCurrentContextId}
+          getGroupProgress={getGroupProgress}
+          isSubMenuExpanded={isSubMenuExpanded}
+          groupsIndex={groupsIndex}
+          groupsData={groupsData}
+          contextId={contextId}
+          manifest={manifest}
+          projectSaveLocation={projectSaveLocation}
+          groupMenuExpandSubMenu={actions.groupMenuExpandSubMenu}
+          groupMenuChangeGroup={actions.groupMenuChangeGroup}
+          filters={filters} />
+      </div>
     );
   }
 }

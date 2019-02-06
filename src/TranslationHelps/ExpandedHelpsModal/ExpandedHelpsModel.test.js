@@ -1,13 +1,20 @@
 import React from 'react';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {mount} from 'enzyme';
-
+import { mount } from 'enzyme';
 import ExpandedHelpsModal from './index';
 
 describe('Test ExpandedHelpsModal component', () => {
   test('Test initial display', () => {
 
-    const theme = createMuiTheme({scrollbarThumb: {borderRadius: '10px'}});
+    const theme = createMuiTheme({
+      typography: {
+        useNextVariants: true,
+      },
+      scrollbarThumb: {
+        borderRadius: '10px'
+      }
+    });
+
     const expectedTitle = 'Title';
     const wrapper = mount(
       <MuiThemeProvider theme={theme}>

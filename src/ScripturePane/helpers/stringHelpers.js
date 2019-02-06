@@ -26,9 +26,28 @@ export const isDeepNestedChild = words => {
   return deepNestedChild;
 };
 
-export function punctuationWordSpacing(word) {
-  const lastChar = word.text.substr(word.text.length - 1);
-  return ((lastChar === '"') || (lastChar === "'") || (lastChar === "-")) ? '' : ' ';
+/**
+ * checks to see if there should be space before next word.  Returns space unless character
+ *    is type of punctuation.  In that case an empty string is returned
+ * @param {string} verseObject - to test
+ * @return {string} spacing to use before next word
+ */
+export function punctuationWordSpacing(verseObject) {
+  const lastChar = verseObject.text.substr(verseObject.text.length - 1);
+  return (['"', "'", '-',
+    '“', // LEFT DOUBLE QUOTATION MARK
+    '‘' // LEFT SINGLE QUOTATION MARK
+  ].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
+}
+
+/**
+ * see if we need spacing for case before isolated left quote
+ * @param text
+ * @return {string}
+ */
+export function isIsolatedLeftQuote(text) {
+  return (text === '“') || // LEFT DOUBLE QUOTATION MARK
+         (text === '‘'); // LEFT SINGLE QUOTATION MARK
 }
 
 export function textIsEmptyInVerseObject(verseText) {
