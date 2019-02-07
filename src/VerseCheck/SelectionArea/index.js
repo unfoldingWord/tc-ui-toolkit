@@ -20,7 +20,7 @@ class SelectionArea extends Component {
       target_language.book.name : project.name;
     const languageName = manifest.target_language ? manifest.target_language.name : null;
     return (
-      <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+      <div style={{flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'scroll'}}>
         <div className='verse-title'>
           <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
             <span className='verse-title-title'>
