@@ -369,6 +369,7 @@ class Menu extends React.Component {
                             selected={this.isItemSelected(item)}
                             statusIcons={normalizedStatusIcons}
                             onClick={this.handleClick(item)}
+                            tooltip={item.tooltip}
                             title={item.title}
                           />
                         </RootRef>

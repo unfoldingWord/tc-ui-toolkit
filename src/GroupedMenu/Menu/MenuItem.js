@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge';
 import memoize from 'memoize-one';
-import _ from "lodash";
+import _ from 'lodash';
 
 /**
  * Utility to generate styles for a tooltip arrow
@@ -94,8 +94,8 @@ const styles = {
   badge: {
     backgroundColor: '#ffffff',
     border: 'solid 2px #747474',
-    borderColor: "#747474",
-    color: "#747474",
+    borderColor: '#747474',
+    color: '#747474',
     fontWeight: 'bold',
     fontSize: '75%',
     width: 18,
@@ -106,8 +106,8 @@ const styles = {
   selectedBadge: {
     backgroundColor: '#ffffff',
     border: 'solid 2px #747474',
-    borderColor: "#2196F3",
-    color: "#2196F3",
+    borderColor: '#2196F3',
+    color: '#2196F3',
     fontWeight: 'bold',
     fontSize: '75%',
     width: 18,
@@ -116,18 +116,18 @@ const styles = {
     marginRight: 5
   },
   lightTooltip: {
-    backgroundColor: "#fff",
-    color: "#000",
-    boxShadow: "#000",
+    backgroundColor: '#fff',
+    color: '#000',
+    boxShadow: '#000',
     fontSize: 14,
     padding: 15
   },
   lightTooltipSmall: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     color: '#333333',
-    boxShadow: "#000"
+    boxShadow: '#000'
   },
-  arrowPopper: arrowGenerator("#fff"),
+  arrowPopper: arrowGenerator('#fff'),
   arrow: {
     position: 'absolute',
     fontSize: 7,
@@ -142,9 +142,9 @@ const styles = {
       borderStyle: 'solid'
     }
   },
-  bootstrapPopper: arrowGenerator("#000"),
+  bootstrapPopper: arrowGenerator('#000'),
   bootstrapTooltip: {
-    backgroundColor: "#000"
+    backgroundColor: '#000'
   },
   bootstrapPlacementLeft: {
     margin: '0 8px'
@@ -258,10 +258,11 @@ class MenuItem extends React.Component {
   }
 
   render() {
-    const {classes, title, statusIcons, status, key, selected} = this.props;
+    const {classes, title, statusIcons, status, key, selected, tooltip} = this.props;
     // TRICKY: we don't need a tooltip for short text
     // TODO: it would be better to only display if the text is truncated.
     const enableTooltip = title.length > 20;
+    const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
 
     return (
@@ -283,7 +284,7 @@ class MenuItem extends React.Component {
           enterDelay={300}
           title={
             <React.Fragment>
-              {title}
+              {tooltipText}
               <span className={classes.arrow} ref={this.handleArrowRef}/>
             </React.Fragment>
           }
@@ -326,6 +327,7 @@ class MenuItem extends React.Component {
 MenuItem.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  tooltip: PropTypes.string,
   key: PropTypes.any,
   onClick: PropTypes.func,
   selected: PropTypes.bool,

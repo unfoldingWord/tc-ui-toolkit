@@ -95,6 +95,7 @@ function processMenuItem(data) {
     ...data,
     groupId,
     itemId: passageTitle,
-    title: passageTitle
+    title: passageTitle,
+    tooltip: passageTitle
   };
 }
