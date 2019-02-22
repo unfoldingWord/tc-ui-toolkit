@@ -117,6 +117,8 @@ class MenuFilter extends React.Component {
     const { selected, classes, filters, title } = this.props;
     const { open } = this.state;
 
+    const filterCount = open ? 0 : selected.length;
+
     return (
       <ListSubheader disableGutters className={classes.root}>
         <ListItem button className={classes.header} onClick={this.handleOpen}>
@@ -126,7 +128,7 @@ class MenuFilter extends React.Component {
             }}
             primary={title}
           />
-          <MenuFilterIcon enabledFilterCount={selected.length} />
+          <MenuFilterIcon enabledFilterCount={filterCount} open={open} />
         </ListItem>
         <Collapse
           in={!open && selected.length > 0}

@@ -15,13 +15,36 @@ const theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: [
       '"Noto Sans"',
-      'Roboto'
+      'Roboto',
+      'Arial'
     ].join(','),
     fontSize: 12
   },
   props: {
     MuiButtonBase: {
       disableRipple: true
+    }
+  },
+  overrides: {
+    MuiListItem: {
+      root: {
+        paddingTop: 6,
+        paddingBottom: 6
+      },
+      gutters: {
+        paddingLeft: 10,
+        paddingRight: 5
+      }
+    },
+    MuiListItemText: {
+      root: {
+        paddingLeft: 5
+      }
+    },
+    MuiListItemIcon: {
+      root: {
+        marginRight: 5
+      }
     }
   }
 });
