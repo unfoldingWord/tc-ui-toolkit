@@ -45,6 +45,24 @@ const theme = createMuiTheme({
       root: {
         marginRight: 5
       }
+    },
+    MuiChip: {
+      root: {
+        margin: 2,
+        height: 26,
+      },
+      label: {
+        paddingLeft: 8,
+        paddingRight: 8
+      },
+      deleteIcon: {
+        marginRight: 2
+      }
+    },
+    MuiListSubheader: {
+      root: {
+        lineHeight: "inherit"
+      }
     }
   }
 });
