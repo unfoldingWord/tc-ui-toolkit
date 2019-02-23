@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import RootRef from '@material-ui/core/RootRef';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -170,8 +171,11 @@ const styles = {
  */
 class MenuItem extends React.Component {
   state = {
-    arrowRef: null
+    arrowRef: null,
+    overflow: false
   };
+  textRef = React.createRef();
+  listItemTextRef = React.createRef();
 
   /**
    * Handles the node ref used for the tooltip arrow
@@ -181,6 +185,18 @@ class MenuItem extends React.Component {
     this.setState({
       arrowRef: node
     });
+  };
+
+  /**
+   * Check for the tooltip text overflow
+   */
+  checkOverflow = () => {
+    const overflow =
+      this.listItemTextRef.current.offsetWidth <
+      this.textRef.current.offsetWidth;
+    if (overflow !== this.state.overflow) {
+      this.setState({overflow});
+    }
   };
 
   /**
@@ -249,19 +265,45 @@ class MenuItem extends React.Component {
     }
   });
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     // TRICKY: we should technically check for an update to statusIcons
     // however that is not a known use case and it's faster to ignore it.
     const {title, key, selected, status} = this.props;
-    return title !== nextProps.title || key !== nextProps.key ||
-      selected !== nextProps.selected || !_.isEqual(status, nextProps.status);
+    const {overflow} = this.state;
+    return (
+      overflow !== nextState.overflow ||
+      title !== nextProps.title ||
+      key !== nextProps.key ||
+      selected !== nextProps.selected ||
+      !_.isEqual(status, nextProps.status)
+    );
+  }
+
+  componentDidUpdate() {
+    this.checkOverflow();
+  }
+
+  componentDidMount() {
+    this.checkOverflow();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.title !== this.props.title) {
+      this.setState({overflow: false});
+    }
   }
 
   render() {
-    const {classes, title, statusIcons, status, key, selected, tooltip} = this.props;
-    // TRICKY: we don't need a tooltip for short text
-    // TODO: it would be better to only display if the text is truncated.
-    const enableTooltip = title.length > 20;
+    const {
+      classes,
+      title,
+      statusIcons,
+      status,
+      key,
+      selected,
+      tooltip
+    } = this.props;
+    const {overflow} = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
 
@@ -280,45 +322,47 @@ class MenuItem extends React.Component {
         }}
       >
         {icon}
-        <Tooltip
-          enterDelay={300}
-          title={
-            <React.Fragment>
-              {tooltipText}
-              <span className={classes.arrow} ref={this.handleArrowRef}/>
-            </React.Fragment>
-          }
-          disableFocusListener={!enableTooltip}
-          disableHoverListener={!enableTooltip}
-          disableTouchListener={!enableTooltip}
-          classes={{
-            tooltip: classes.lightTooltip,
-            popper: classes.arrowPopper,
-            tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-            tooltipPlacementRight: classes.bootstrapPlacementRight,
-            tooltipPlacementTop: classes.bootstrapPlacementTop,
-            tooltipPlacementBottom: classes.bootstrapPlacementBottom
-          }}
-          PopperProps={{
-            popperOptions: {
-              modifiers: {
-                arrow: {
-                  enabled: Boolean(this.state.arrowRef),
-                  element: this.state.arrowRef
+        <RootRef rootRef={this.listItemTextRef}>
+          <Tooltip
+            enterDelay={300}
+            title={
+              <React.Fragment>
+                {tooltipText}
+                <span className={classes.arrow} ref={this.handleArrowRef}/>
+              </React.Fragment>
+            }
+            disableFocusListener={!overflow}
+            disableHoverListener={!overflow}
+            disableTouchListener={!overflow}
+            classes={{
+              tooltip: classes.lightTooltip,
+              popper: classes.arrowPopper,
+              tooltipPlacementLeft: classes.bootstrapPlacementLeft,
+              tooltipPlacementRight: classes.bootstrapPlacementRight,
+              tooltipPlacementTop: classes.bootstrapPlacementTop,
+              tooltipPlacementBottom: classes.bootstrapPlacementBottom
+            }}
+            PopperProps={{
+              popperOptions: {
+                modifiers: {
+                  arrow: {
+                    enabled: Boolean(this.state.arrowRef),
+                    element: this.state.arrowRef
+                  }
                 }
               }
-            }
-          }}
-        >
-          <ListItemText
-            inset={!icon}
-            classes={{
-              root: classes.textRoot,
-              primary: classes.text
             }}
-            primary={title}
-          />
-        </Tooltip>
+          >
+            <ListItemText
+              inset={!icon}
+              classes={{
+                root: classes.textRoot,
+                primary: classes.text
+              }}
+              primary={<span ref={this.textRef}>{title}</span>}
+            />
+          </Tooltip>
+        </RootRef>
       </ListItem>
     );
   }
