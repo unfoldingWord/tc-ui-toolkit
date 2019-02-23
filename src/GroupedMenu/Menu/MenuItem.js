@@ -119,14 +119,14 @@ const styles = {
   lightTooltip: {
     backgroundColor: '#fff',
     color: '#000',
-    boxShadow: '#000',
+    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
     fontSize: 14,
     padding: 15
   },
   lightTooltipSmall: {
     backgroundColor: '#fff',
     color: '#333333',
-    boxShadow: '#000'
+    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)'
   },
   arrowPopper: arrowGenerator('#fff'),
   arrow: {
@@ -154,10 +154,10 @@ const styles = {
     margin: '0 8px'
   },
   bootstrapPlacementTop: {
-    margin: '8px 0'
+    margin: '8px 40px'
   },
   bootstrapPlacementBottom: {
-    margin: '8px 0'
+    margin: '8px 40px'
   }
 };
 
