@@ -100,8 +100,8 @@ const styles = {
     fontSize: '75%',
     width: 18,
     height: 18,
-    marginTop: 5,
-    marginRight: 5
+    marginTop: 6,
+    marginRight: 6
   },
   selectedBadge: {
     backgroundColor: '#ffffff',
@@ -112,8 +112,8 @@ const styles = {
     fontSize: '75%',
     width: 18,
     height: 18,
-    marginTop: 5,
-    marginRight: 5
+    marginTop: 6,
+    marginRight: 6
   },
   lightTooltip: {
     backgroundColor: '#fff',
@@ -311,7 +311,7 @@ class MenuItem extends React.Component {
           }}
         >
           <ListItemText
-            inset
+            inset={!icon}
             classes={{
               root: classes.textRoot,
               primary: classes.text

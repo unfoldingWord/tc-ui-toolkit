@@ -29,7 +29,8 @@ const theme = createMuiTheme({
     MuiListItem: {
       root: {
         paddingTop: 6,
-        paddingBottom: 6
+        paddingBottom: 6,
+        minHeight: 40
       },
       gutters: {
         paddingLeft: 10,
@@ -39,6 +40,9 @@ const theme = createMuiTheme({
     MuiListItemText: {
       root: {
         paddingLeft: 5
+      },
+      inset: {
+        paddingLeft: "35px!important"
       }
     },
     MuiListItemIcon: {
