@@ -37,12 +37,17 @@ const theme = createMuiTheme({
         paddingRight: 5
       }
     },
+    MuiSvgIcon: {
+      root: {
+        fontSize: 22
+      }
+    },
     MuiListItemText: {
       root: {
         paddingLeft: 5
       },
       inset: {
-        paddingLeft: "35px!important"
+        paddingLeft: '35px!important'
       }
     },
     MuiListItemIcon: {
@@ -53,7 +58,7 @@ const theme = createMuiTheme({
     MuiChip: {
       root: {
         margin: 2,
-        height: 26,
+        height: 26
       },
       label: {
         paddingLeft: 8,
@@ -65,7 +70,7 @@ const theme = createMuiTheme({
     },
     MuiListSubheader: {
       root: {
-        lineHeight: "inherit"
+        lineHeight: 'inherit'
       }
     }
   }
@@ -292,7 +297,7 @@ class Menu extends React.Component {
     const activeItem = this.getActive();
     const {
       groupId,
-      itemId,
+      itemId
     } = item;
     return (
       activeItem &&
