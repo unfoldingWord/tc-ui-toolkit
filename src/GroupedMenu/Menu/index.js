@@ -47,7 +47,7 @@ const theme = createMuiTheme({
         paddingLeft: 5
       },
       inset: {
-        paddingLeft: '35px!important'
+        paddingLeft: '32px!important'
       }
     },
     MuiListItemIcon: {
