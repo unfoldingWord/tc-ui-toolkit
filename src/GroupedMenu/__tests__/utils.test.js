@@ -52,7 +52,8 @@ describe('generate menu data', () => {
             customField: 'hello world',
             groupId: 'adoption',
             itemId: "gal 4:5",
-            title: 'gal'
+            title: 'gal',
+            tooltip: 'gal 4:5'
           }],
         id: 'adoption',
         progress: 0,
@@ -123,7 +124,8 @@ describe('generate menu data', () => {
             completed: true,
             groupId: "abraham",
             itemId: "gal 3:6",
-            title: 'gal 3:6'
+            title: 'gal 3:6',
+            tooltip: 'gal 3:6'
           },
           {
             contextId: {
@@ -133,7 +135,8 @@ describe('generate menu data', () => {
             },
             groupId: "abraham",
             itemId: "gal 3:7",
-            title: 'gal 3:7'
+            title: 'gal 3:7',
+            tooltip: 'gal 3:7'
           }],
         id: 'abraham',
         progress: 50,
@@ -149,7 +152,8 @@ describe('generate menu data', () => {
             },
             groupId: "adoption",
             itemId: "gal 4:5",
-            title: 'gal 4:5'
+            title: 'gal 4:5',
+            tooltip: 'gal 4:5'
           }],
         id: 'adoption',
         progress: 0,
