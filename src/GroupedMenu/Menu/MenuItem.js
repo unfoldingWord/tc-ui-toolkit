@@ -101,8 +101,8 @@ const styles = {
     fontSize: '75%',
     width: 18,
     height: 18,
-    marginTop: 6,
-    marginRight: 6
+    marginTop: 2,
+    marginRight: 2
   },
   selectedBadge: {
     backgroundColor: '#ffffff',
@@ -113,8 +113,8 @@ const styles = {
     fontSize: '75%',
     width: 18,
     height: 18,
-    marginTop: 6,
-    marginRight: 6
+    marginTop: 2,
+    marginRight: 2
   },
   lightTooltip: {
     backgroundColor: '#fff',

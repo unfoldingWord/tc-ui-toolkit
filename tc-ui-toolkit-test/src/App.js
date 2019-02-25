@@ -7,7 +7,7 @@ import {
   projectDetailsReducer
 } from './assets/scripturePaneProps';
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-import CheckIcon from "@material-ui/icons/Check";
+import CheckIcon from "tc-ui-toolkit";
 import BlockIcon from "@material-ui/icons/Block";
 import EditIcon from "@material-ui/icons/Edit";
 
