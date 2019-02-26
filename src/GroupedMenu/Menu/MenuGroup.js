@@ -78,7 +78,7 @@ class MenuGroup extends React.Component {
           <ProgressIcon progress={progress}/>
         </ListItemIcon>
         <ListItemText
-          inset
+          inset={false}
           classes={{
             root: classes.textRoot,
             primary: selected ? classes.selectedText : classes.text

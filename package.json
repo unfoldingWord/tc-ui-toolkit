@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.13.12",
+  "version": "0.13.13",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "display": "library",
@@ -8,7 +8,7 @@
     "test": "eslint ./src && jest",
     "start": "webpack --watch",
     "render-ui": "webpack && cd tc-ui-toolkit-test && npm start",
-    "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
+    "setup": "npm ci && webpack && npm link && cd tc-ui-toolkit-test && npm ci && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
     "build": "webpack -p",
     "prepare": "npm run build",
