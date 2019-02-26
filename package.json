@@ -10,7 +10,9 @@
     "render-ui": "webpack && cd tc-ui-toolkit-test && npm start",
     "setup": "npm i && webpack && npm link && cd tc-ui-toolkit-test && npm i && npm link tc-ui-toolkit",
     "prebuild": "rm -rf ./dist",
-    "build": "webpack -p",
+    "RESTORE_BELOW - for testing": "webpack -p",
+    "build": "webpack -d",
+    "RESTORE_ABOVE": "webpack -p",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build",
     "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"

@@ -99,15 +99,18 @@ class ScripturePane extends Component {
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
 
+        // TODO: this is temporary hack, there is a later issue to make this value user adjustable
+        const setFontSize = (languageId === 'hbo') ? 200 : 0;
+
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
           const manifest = bibles[languageId][bibleId].manifest;
           language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate);
+          verseElements = verseString(verseData, selections, translate, setFontSize);
         } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
 
         panes.push(
