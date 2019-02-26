@@ -100,7 +100,7 @@ class ScripturePane extends Component {
         let verseElements = [];
 
         // TODO: this is temporary hack, there is a later issue to make this value user adjustable
-        const setFontSize = (languageId === 'hbo') ? 200 : 0;
+        const setFontSize = (language_name === 'Ancient Hebrew') ? 200 : 0;
 
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
           const manifest = bibles[languageId][bibleId].manifest;
