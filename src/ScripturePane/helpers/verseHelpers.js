@@ -10,7 +10,15 @@ import { removeMarker } from './usfmHelpers';
 import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
           isIsolatedLeftQuote} from './stringHelpers';
 
-export const verseString = (verseText, selections, translate) => {
+/**
+ *
+ * @param {String} verseText
+ * @param {Array} selections - text selections to highlight
+ * @param {Function} translate
+ * @param {Number} fontSize
+ * @return {*}
+ */
+export const verseString = (verseText, selections, translate, fontSize = 0) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
@@ -28,9 +36,12 @@ export const verseString = (verseText, selections, translate) => {
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
       const index = i;
-
+      const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
+      if (fontSize) {
+        spanStyle.fontSize = Math.round(fontSize) + '%';
+      }
       verseTextSpans.push(
-        <span key={index} style={{ backgroundColor: selection.selected ? 'var(--highlight-color)' : '' }}>
+        <span key={index} style={spanStyle}>
           {selection.text}
         </span>
       );
@@ -40,7 +51,18 @@ export const verseString = (verseText, selections, translate) => {
   return verseTextSpans;
 };
 
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) {
+/**
+ * create verse elements from an array of verse objects
+ * @param {Array|Object} verseText - verse data
+ * @param {String} bibleId
+ * @param {Object} contextId
+ * @param {Function} getLexiconData
+ * @param {Boolean} showPopover
+ * @param {Function} translate
+ * @param {Number} fontSize - if zero, will default to 100%
+ * @return {Array} - verse elements to display
+ */
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontSize = 0) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -83,6 +105,10 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         };
 
         if (word.strong) { // if clickable
+          const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
+          if (fontSize) {
+            spanStyle.fontSize = Math.round(fontSize) + '%';
+          }
           verseSpan.push(
             <span
               key={index.toString()}
@@ -92,7 +118,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
               <span style={paddingSpanStyle}>
                 {padding}
               </span>
-              <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
+              <span style={spanStyle}>
                 {removeMarker(text)}
               </span>
             </span>
