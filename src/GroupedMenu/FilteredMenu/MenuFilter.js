@@ -118,6 +118,22 @@ class MenuFilter extends React.Component {
     return true;
   };
 
+  getChips = (selected, classes) => {
+    const sortedSelected = selected.sort((a, b) => (a.order ? (a.order - b.order) : 0));
+    return sortedSelected.map(filter => (
+      <Chip
+        key={filter.id}
+        label={filter.label}
+        classes={{
+          deleteIcon: classes.chipDeleteIcon,
+          label: classes.chipLabel
+        }}
+        onDelete={this.handleToggle(filter)}
+        className={classes.chip}
+      />
+    ));
+  };
+
   render() {
     const {selected, classes, filters, title} = this.props;
     const {open} = this.state;
@@ -142,20 +158,7 @@ class MenuFilter extends React.Component {
         >
           <Divider variant="middle" classes={{middle: classes.divider}}/>
           <div>
-            {selected.
-              sort((a,b) => (a.order ? (a.order - b.order) : 0)).
-              map(filter => (
-              <Chip
-                key={filter.id}
-                label={filter.label}
-                classes={{
-                  deleteIcon: classes.chipDeleteIcon,
-                  label: classes.chipLabel
-                }}
-                onDelete={this.handleToggle(filter)}
-                className={classes.chip}
-              />
-            ))}
+            {this.getChips(selected, classes)}
           </div>
         </Collapse>
         <Collapse in={open} timeout="auto" unmountOnExit>
