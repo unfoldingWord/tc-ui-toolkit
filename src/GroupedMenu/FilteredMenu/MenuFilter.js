@@ -142,7 +142,9 @@ class MenuFilter extends React.Component {
         >
           <Divider variant="middle" classes={{middle: classes.divider}}/>
           <div>
-            {selected.map(filter => (
+            {selected.
+              sort((a,b) => (a.index ? (a.index - b.index) : 0)).
+              map(filter => (
               <Chip
                 key={filter.id}
                 label={filter.label}
