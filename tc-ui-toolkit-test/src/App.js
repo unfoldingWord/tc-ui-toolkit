@@ -123,11 +123,13 @@ class App extends Component {
       {
         label: "Bookmarked",
         key: 'bookmarked',
+        order: 1,
         icon: <BookmarkIcon style={{color: "white"}}/>
       },
       {
         label: "Complete",
         key: 'done',
+        order: 2,
         disables: ['incomplete'],
         icon: <CheckIcon style={{color: "white"}}/>
       },
@@ -135,6 +137,7 @@ class App extends Component {
         label: "Incomplete",
         id: 'incomplete',
         key: 'done',
+        order: 3,
         value: false,
         disables: ['done'],
         icon: <BlockIcon style={{color: "white"}}/>
@@ -142,6 +145,7 @@ class App extends Component {
       {
         label: "Edited",
         key: 'edited',
+        order: 4,
         icon: <EditIcon style={{color: "white"}}/>
       }
     ];
