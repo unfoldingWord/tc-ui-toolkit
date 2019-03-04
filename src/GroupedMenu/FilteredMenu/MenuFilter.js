@@ -118,6 +118,27 @@ class MenuFilter extends React.Component {
     return true;
   };
 
+  getOrder = filter => {
+    if (!(filter.order > 0)) { // if order not defined or invalid, set it
+      const {filters} = this.props;
+      filter.order = -1;
+      for (let i = 0, l = filters.length; i < l; i++) {
+        const f = filters[i];
+        if (f.id === filter.id) {
+          filter.order = i + 1; // cache order of filter
+          break;
+        }
+      }
+    }
+    return filter.order;
+  };
+
+  /**
+   * create a chip in a table element
+   * @param {Object} filter - to create chip for
+   * @param {Object} classes - to apply to filter
+   * @return {*}
+   */
   getChip = (filter, classes) => {
     return (
       <td>
@@ -134,6 +155,14 @@ class MenuFilter extends React.Component {
       </td>);
   };
 
+  /**
+   * get a single table row
+   * @param {Array} selected - array of filters
+   * @param {Number} start - filter number for start of row
+   * @param {Number} count - number of items in a row
+   * @param {Object} classes - to apply to filter
+   * @return {*} table row
+   */
   getRow = (selected, start, count, classes) => {
     const chips = [];
     for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
@@ -142,10 +171,15 @@ class MenuFilter extends React.Component {
     return ( <tr>{chips}</tr> );
   };
 
+  /**
+   * get all the chips sort them and format in a table
+   * @param {Array} selected - array of filters
+   * @param {Object} classes - to apply to filter
+   * @return {*} table
+   */
   getChips = (selected, classes) => {
-    console.log("selected.length=" + selected.length);
     if (selected && selected.length) {
-      const sortedSelected = selected.sort((a, b) => (a.order ? (a.order - b.order) : 0));
+      const sortedSelected = selected.sort((a, b) => (this.getOrder(a) - this.getOrder(b)));
       const rows = [];
       const columns = 2;
       for (let i = 0, l = sortedSelected.length; i < l; i+=columns) {
