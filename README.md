@@ -36,7 +36,7 @@ class App extends Component {
   or
 - `npm i`
 - `npm run build`
-- `npm link`
+- `npm link` or `sudo npm link`
 - `cd tc-ui-toolkit-test`
 - `npm i`
 - `npm link tc-ui-toolkit`

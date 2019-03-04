@@ -118,6 +118,81 @@ class MenuFilter extends React.Component {
     return true;
   };
 
+  getOrder = filter => {
+    if (!(filter.order > 0)) { // if order not defined or invalid, set it
+      const {filters} = this.props;
+      filter.order = -1;
+      for (let i = 0, l = filters.length; i < l; i++) {
+        const f = filters[i];
+        if (f.id === filter.id) {
+          filter.order = i + 1; // cache order of filter
+          break;
+        }
+      }
+    }
+    return filter.order;
+  };
+
+  /**
+   * create a chip in a table element
+   * @param {Object} filter - to create chip for
+   * @param {Object} classes - to apply to filter
+   * @return {*}
+   */
+  getChip = (filter, classes) => {
+    return (
+      <td key={"chip_td_" + filter.id}>
+        <Chip
+          key={filter.id}
+          label={filter.label}
+          classes={{
+            deleteIcon: classes.chipDeleteIcon,
+            label: classes.chipLabel
+          }}
+          onDelete={this.handleToggle(filter)}
+          className={classes.chip}
+        />
+      </td>);
+  };
+
+  /**
+   * get a single table row
+   * @param {Array} selected - array of filters
+   * @param {Number} start - filter number for start of row
+   * @param {Number} count - number of items in a row
+   * @param {Object} classes - to apply to filter
+   * @return {*} table row
+   */
+  getRow = (selected, start, count, classes) => {
+    const chips = [];
+    for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
+      chips.push(this.getChip(selected[i], classes));
+    }
+    return ( <tr key={"chip_tr_" + start}>
+        {chips}
+      </tr> );
+  };
+
+  /**
+   * get all the chips sort them and format in a table
+   * @param {Array} selected - array of filters
+   * @param {Object} classes - to apply to filter
+   * @return {*} table
+   */
+  getChips = (selected, classes) => {
+    if (selected && selected.length) {
+      const sortedSelected = selected.sort((a, b) => (this.getOrder(a) - this.getOrder(b)));
+      const rows = [];
+      const columns = 2;
+      for (let i = 0, l = sortedSelected.length; i < l; i+=columns) {
+        rows.push(this.getRow(selected, i, columns, classes));
+      }
+      return (<table>
+          <tbody>{rows}</tbody>
+        </table>);
+    }
+  };
+
   render() {
     const {selected, classes, filters, title} = this.props;
     const {open} = this.state;
@@ -142,18 +217,7 @@ class MenuFilter extends React.Component {
         >
           <Divider variant="middle" classes={{middle: classes.divider}}/>
           <div>
-            {selected.map(filter => (
-              <Chip
-                key={filter.id}
-                label={filter.label}
-                classes={{
-                  deleteIcon: classes.chipDeleteIcon,
-                  label: classes.chipLabel
-                }}
-                onDelete={this.handleToggle(filter)}
-                className={classes.chip}
-              />
-            ))}
+            {this.getChips(selected, classes)}
           </div>
         </Collapse>
         <Collapse in={open} timeout="auto" unmountOnExit>
