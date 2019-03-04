@@ -141,7 +141,7 @@ class MenuFilter extends React.Component {
    */
   getChip = (filter, classes) => {
     return (
-      <td key={"td_" + filter.id}>
+      <td key={"chip_td_" + filter.id}>
         <Chip
           key={filter.id}
           label={filter.label}
@@ -168,7 +168,9 @@ class MenuFilter extends React.Component {
     for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
       chips.push(this.getChip(selected[i], classes));
     }
-    return ( <tr>{chips}</tr> );
+    return ( <tr key={"chip_td_" + start}>
+        {chips}
+      </tr> );
   };
 
   /**
