@@ -168,7 +168,7 @@ class MenuFilter extends React.Component {
     for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
       chips.push(this.getChip(selected[i], classes));
     }
-    return ( <tr key={"chip_td_" + start}>
+    return ( <tr key={"chip_tr_" + start}>
         {chips}
       </tr> );
   };
