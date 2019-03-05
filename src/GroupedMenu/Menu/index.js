@@ -160,10 +160,9 @@ class Menu extends React.Component {
       this.setState({
         opened: active.groupId
       });
-    } else if (autoScroll && prevState.opened !== this.state.opened &&
-      this.state.opened) {
-      console.log("componentDidUpdate: scroll to the selection when opened");
-      // scroll to the selection when opened
+    } else if (autoScroll) {
+      console.log("componentDidUpdate: scroll to the selection");
+      // scroll to the selection
       this.scrollToSelectedItem();
     } else {
       console.log("componentDidUpdate: DID NOTHING");
@@ -194,19 +193,19 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly
    */
   scrollIntoView = (ref, instant = true) => {
-    console.log("scrollToSelectedItem: ref=" + ref);
+    console.log("scrollIntoView: ref=" + ref);
     if (
       ref &&
       ref.scrollIntoView &&
       !this.isRefInView(ref)
     ) {
-      console.log("scrollToSelectedItem: scrolling into view");
+      console.log("scrollIntoView: scrolling into view");
       ref.scrollIntoView({
         block: 'center',
         behavior: instant ? 'instant' : 'smooth'
       });
     } else {
-      console.log("scrollToSelectedItem: already in view?");
+      console.log("scrollIntoView: already in view?");
     }
   };
 
