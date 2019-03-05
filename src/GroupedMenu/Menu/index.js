@@ -155,14 +155,18 @@ class Menu extends React.Component {
       prevActive.groupId !== active.groupId &&
       active.groupId !== opened
     ) {
+      console.log("componentDidUpdate: open the active group if it was changed externally");
       // open the active group if it was changed externally
       this.setState({
         opened: active.groupId
       });
     } else if (autoScroll && prevState.opened !== this.state.opened &&
       this.state.opened) {
+      console.log("componentDidUpdate: scroll to the selection when opened");
       // scroll to the selection when opened
       this.scrollToSelectedItem();
+    } else {
+      console.log("componentDidUpdate: DID NOTHING");
     }
   }
 
@@ -171,6 +175,7 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly.
    */
   scrollToSelectedGroup = (instant = true) => {
+    console.log("scrollToSelectedGroup:");
     this.scrollIntoView(this.selectedGroupRef, instant);
   };
 
@@ -179,6 +184,7 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly.
    */
   scrollToSelectedItem = (instant = true) => {
+    console.log("scrollToSelectedItem:");
     this.scrollIntoView(this.selectedItemRef, instant);
   };
 
@@ -188,15 +194,19 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly
    */
   scrollIntoView = (ref, instant = true) => {
+    console.log("scrollToSelectedItem: ref=" + JSON.stringify(ref));
     if (
       ref &&
       ref.scrollIntoView &&
       !this.isRefInView(ref)
     ) {
+      console.log("scrollToSelectedItem: scrolling into view");
       ref.scrollIntoView({
         block: 'center',
         behavior: instant ? 'instant' : 'smooth'
       });
+    } else {
+      console.log("scrollToSelectedItem: already in view?");
     }
   };
 
@@ -206,12 +216,22 @@ class Menu extends React.Component {
    * @returns {boolean}
    */
   isRefInView = (ref) => {
+    console.log("scrollToSelectedItem: ref=" + JSON.stringify(ref));
     if (ref && ref.getBoundingClientRect && this.menuRef &&
       this.menuRef.current && this.menuRef.current.getBoundingClientRect) {
       const rect = ref.getBoundingClientRect();
+      console.log("scrollToSelectedItem: ref.getBoundingClientRect=" + JSON.stringify(rect));
       const menuRect = this.menuRef.current.getBoundingClientRect();
-      return rect.top >= menuRect.top && rect.bottom <= menuRect.bottom;
+      console.log("scrollToSelectedItem: this.menuRef.current.getBoundingClientRect=" + JSON.stringify(menuRect));
+      const inView = rect.top >= menuRect.top && rect.bottom <= menuRect.bottom;
+      console.log("scrollToSelectedItem: inView=" + inView);
+      return inView;
     } else {
+      const rect = ref.getBoundingClientRect || "NULL";
+      console.log("scrollToSelectedItem: ref.getBoundingClientRect=" + JSON.stringify(rect));
+      if (!this.menuRef) {
+        console.log("scrollToSelectedItem: this.menuRef in NULL");
+      }
       return false;
     }
   };
