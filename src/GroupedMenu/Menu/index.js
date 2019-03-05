@@ -155,17 +155,13 @@ class Menu extends React.Component {
       prevActive.groupId !== active.groupId &&
       active.groupId !== opened
     ) {
-      console.log("componentDidUpdate: open the active group if it was changed externally");
       // open the active group if it was changed externally
       this.setState({
         opened: active.groupId
       });
     } else if (autoScroll) {
-      console.log("componentDidUpdate: scroll to the selection");
-      // scroll to the selection
+      // scroll to the current selection
       this.scrollToSelectedItem();
-    } else {
-      console.log("componentDidUpdate: DID NOTHING");
     }
   }
 
@@ -174,7 +170,6 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly.
    */
   scrollToSelectedGroup = (instant = true) => {
-    console.log("scrollToSelectedGroup:");
     this.scrollIntoView(this.selectedGroupRef, instant);
   };
 
@@ -183,7 +178,6 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly.
    */
   scrollToSelectedItem = (instant = true) => {
-    console.log("scrollToSelectedItem:");
     this.scrollIntoView(this.selectedItemRef, instant);
   };
 
@@ -193,19 +187,15 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly
    */
   scrollIntoView = (ref, instant = true) => {
-    console.log("scrollIntoView: ref=" + ref);
     if (
       ref &&
       ref.scrollIntoView &&
       !this.isRefInView(ref)
     ) {
-      console.log("scrollIntoView: scrolling into view");
       ref.scrollIntoView({
         block: 'center',
         behavior: instant ? 'instant' : 'smooth'
       });
-    } else {
-      console.log("scrollIntoView: already in view?");
     }
   };
 
@@ -215,22 +205,12 @@ class Menu extends React.Component {
    * @returns {boolean}
    */
   isRefInView = (ref) => {
-    console.log("isRefInView: ref=" + ref);
     if (ref && ref.getBoundingClientRect && this.menuRef &&
       this.menuRef.current && this.menuRef.current.getBoundingClientRect) {
       const rect = ref.getBoundingClientRect();
-      console.log("isRefInView: ref.getBoundingClientRect=" + JSON.stringify(rect));
       const menuRect = this.menuRef.current.getBoundingClientRect();
-      console.log("isRefInView: this.menuRef.current.getBoundingClientRect=" + JSON.stringify(menuRect));
-      const inView = rect.top >= menuRect.top && rect.bottom <= menuRect.bottom;
-      console.log("isRefInView: inView=" + inView);
-      return inView;
+      return rect.top >= menuRect.top && rect.bottom <= menuRect.bottom;
     } else {
-      const rect = ref.getBoundingClientRect || "NULL";
-      console.log("isRefInView: ref.getBoundingClientRect=" + JSON.stringify(rect));
-      if (!this.menuRef) {
-        console.log("isRefInView: this.menuRef in NULL");
-      }
       return false;
     }
   };
