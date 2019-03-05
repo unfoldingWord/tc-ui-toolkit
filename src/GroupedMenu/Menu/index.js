@@ -194,7 +194,7 @@ class Menu extends React.Component {
    * @param {boolean} [instant=true] - makes the scroll execute instantly
    */
   scrollIntoView = (ref, instant = true) => {
-    console.log("scrollToSelectedItem: ref=" + JSON.stringify(ref));
+    console.log("scrollToSelectedItem: ref=" + ref);
     if (
       ref &&
       ref.scrollIntoView &&
@@ -216,21 +216,21 @@ class Menu extends React.Component {
    * @returns {boolean}
    */
   isRefInView = (ref) => {
-    console.log("scrollToSelectedItem: ref=" + JSON.stringify(ref));
+    console.log("isRefInView: ref=" + ref);
     if (ref && ref.getBoundingClientRect && this.menuRef &&
       this.menuRef.current && this.menuRef.current.getBoundingClientRect) {
       const rect = ref.getBoundingClientRect();
-      console.log("scrollToSelectedItem: ref.getBoundingClientRect=" + JSON.stringify(rect));
+      console.log("isRefInView: ref.getBoundingClientRect=" + JSON.stringify(rect));
       const menuRect = this.menuRef.current.getBoundingClientRect();
-      console.log("scrollToSelectedItem: this.menuRef.current.getBoundingClientRect=" + JSON.stringify(menuRect));
+      console.log("isRefInView: this.menuRef.current.getBoundingClientRect=" + JSON.stringify(menuRect));
       const inView = rect.top >= menuRect.top && rect.bottom <= menuRect.bottom;
-      console.log("scrollToSelectedItem: inView=" + inView);
+      console.log("isRefInView: inView=" + inView);
       return inView;
     } else {
       const rect = ref.getBoundingClientRect || "NULL";
-      console.log("scrollToSelectedItem: ref.getBoundingClientRect=" + JSON.stringify(rect));
+      console.log("isRefInView: ref.getBoundingClientRect=" + JSON.stringify(rect));
       if (!this.menuRef) {
-        console.log("scrollToSelectedItem: this.menuRef in NULL");
+        console.log("isRefInView: this.menuRef in NULL");
       }
       return false;
     }
