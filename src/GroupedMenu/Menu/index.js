@@ -159,9 +159,8 @@ class Menu extends React.Component {
       this.setState({
         opened: active.groupId
       });
-    } else if (autoScroll && prevState.opened !== this.state.opened &&
-      this.state.opened) {
-      // scroll to the selection when opened
+    } else if (autoScroll && this.state.opened) {
+      // scroll to the current selection
       this.scrollToSelectedItem();
     }
   }

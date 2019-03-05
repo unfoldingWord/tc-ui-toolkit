@@ -9,6 +9,7 @@ import {
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BlockIcon from "@material-ui/icons/Block";
 import EditIcon from "@material-ui/icons/Edit";
+import ModeCommentIcon from '@material-ui/icons/ModeComment';
 
 const sampleIndex = [
   {
@@ -143,6 +144,11 @@ class App extends Component {
         label: "Edited",
         key: 'edited',
         icon: <EditIcon style={{color: "white"}}/>
+      },
+      {
+        label: "Comments",
+        key: 'comments',
+        icon: <ModeCommentIcon/>
       }
     ];
 
