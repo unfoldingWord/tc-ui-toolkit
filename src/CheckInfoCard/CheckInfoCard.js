@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import './CheckInfoCard.styles.css';
 
-function getOffset( el ) {
+function getOffset(el) {
   var _x = 0;
   var _y = 0;
-  while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-      _x += el.offsetLeft - el.scrollLeft;
-      _y += el.offsetTop - el.scrollTop;
-      el = el.offsetParent;
+  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+    _x += el.offsetLeft - el.scrollLeft;
+    _y += el.offsetTop - el.scrollTop;
+    el = el.offsetParent;
   }
-  return { top: _y, left: _x };
+  return {top: _y, left: _x};
 }
 
 const CheckInfoCard = ({
@@ -26,10 +26,10 @@ const CheckInfoCard = ({
   let scriptureRef;
   let popOverRef;
   let phraseWithPopover;
-  const rcMatch = phrase.match(/\[\w+.+:\d+\]\(rc:\/\/(\w+)\/(\w+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
+  const rcMatch = phrase.match(/\[(\w+.+:\d+)]\(rc:\/\/(\w+)\/(\w+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
   const showPopover = rcMatch.length > 0;
   if (showPopover) {
-    const [wholeMatch, lang, id, book, chapter, verse] = rcMatch;
+    const [wholeMatch, referenceText , lang, id, book, chapter, verse] = rcMatch;
     const [preReference, postReference] = phrase.split(wholeMatch);
     const popoverLabel = getScriptureFromReference(lang, id, book, chapter, verse);
     phraseWithPopover = (<div>
@@ -39,12 +39,15 @@ const CheckInfoCard = ({
         popOverRef.style.top = `${top}px`;
         popOverRef.style.left = `${left}px`;
         popOverRef.style.width = `${scriptureRef.offsetWidth}px`;
-        popOverRef.style.height = `${scriptureRef.offsetheight}px`;
+        popOverRef.style.height = `${scriptureRef.offsetHeight}px`;
       }} style={{position: 'relative'}}>
         <div ref={(ref) => popOverRef = ref} aria-label={popoverLabel} className="hint--top hint--medium" style={{
           position: 'fixed'
         }} />
-        <span ref={(ref) => scriptureRef = ref}>{wholeMatch}</span>
+        <span style={{
+          whiteSpace: 'nowrap',
+          textDecoration: 'underline'
+        }} ref={(ref) => scriptureRef = ref}>{referenceText}</span>
       </span>
       {postReference}
     </div>
