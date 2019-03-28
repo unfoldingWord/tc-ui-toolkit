@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 
 import './CheckInfoCard.styles.css';
 
+function getOffset( el ) {
+  var _x = 0;
+  var _y = 0;
+  while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+      _x += el.offsetLeft - el.scrollLeft;
+      _y += el.offsetTop - el.scrollTop;
+      el = el.offsetParent;
+  }
+  return { top: _y, left: _x };
+}
+
 const CheckInfoCard = ({
   title,
   phrase,
@@ -11,18 +22,33 @@ const CheckInfoCard = ({
   showSeeMoreButton,
   getScriptureFromReference
 }) => {
+  /** @type HTMLElement */
+  let scriptureRef;
+  let popOverRef;
   let phraseWithPopover;
   const rcMatch = phrase.match(/\[\w+.+:\d+\]\(rc:\/\/(\w+)\/(\w+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
   const showPopover = rcMatch.length > 0;
   if (showPopover) {
     // eslint-disable-next-line no-unused-vars
     const [wholeMatch, lang, id, book, chapter, verse] = rcMatch;
-    console.log(wholeMatch);
     const [preReference, postReference] = phrase.split(wholeMatch);
     const popoverLabel = getScriptureFromReference(lang, id, book, chapter, verse);
     phraseWithPopover = (<div>
       {preReference}
-      <span aria-label={popoverLabel} className="hint--top hint--medium">{wholeMatch}</span>
+      <span onMouseEnter={() => {
+        const {top, left} = getOffset(scriptureRef);
+        popOverRef.style.top = `${top}px`;
+        popOverRef.style.left = `${left}px`;
+        popOverRef.style.width = `${scriptureRef.offsetWidth}px`;
+        popOverRef.style.height = `${scriptureRef.offsetheight}px`;
+      }} style={{position: 'relative'}}>
+        <div ref={(ref) => popOverRef = ref} aria-label={popoverLabel} className="hint--top hint--medium" style={{
+          position: 'fixed',
+          height: 30,
+          width: 100
+        }} />
+        <span ref={(ref) => scriptureRef = ref}>{wholeMatch}</span>
+      </span>
       {postReference}
     </div>
     );
