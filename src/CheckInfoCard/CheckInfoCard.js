@@ -29,7 +29,6 @@ const CheckInfoCard = ({
   const rcMatch = phrase.match(/\[\w+.+:\d+\]\(rc:\/\/(\w+)\/(\w+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
   const showPopover = rcMatch.length > 0;
   if (showPopover) {
-    // eslint-disable-next-line no-unused-vars
     const [wholeMatch, lang, id, book, chapter, verse] = rcMatch;
     const [preReference, postReference] = phrase.split(wholeMatch);
     const popoverLabel = getScriptureFromReference(lang, id, book, chapter, verse);
@@ -43,9 +42,7 @@ const CheckInfoCard = ({
         popOverRef.style.height = `${scriptureRef.offsetheight}px`;
       }} style={{position: 'relative'}}>
         <div ref={(ref) => popOverRef = ref} aria-label={popoverLabel} className="hint--top hint--medium" style={{
-          position: 'fixed',
-          height: 30,
-          width: 100
+          position: 'fixed'
         }} />
         <span ref={(ref) => scriptureRef = ref}>{wholeMatch}</span>
       </span>
