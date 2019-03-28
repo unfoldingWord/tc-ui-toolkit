@@ -169,6 +169,8 @@ class App extends Component {
               projectDetailsReducer={projectDetailsReducer}
             />
             <CheckInfoCard
+              getScriptureFromReference={() => "Scripture Reference"}
+              phrase="For the grace of God has appeared for the salvation of all people. Paul speaks of the grace of God [Titus 2:11](rc://en/ulb/book/tit/02/11) as if it were a person who goes to other people and trains them to live holy lives."
               translate={k => k}
               seeMoreLabel="see more"
               toggleHelps={this.toggleHelps.bind(this)}
