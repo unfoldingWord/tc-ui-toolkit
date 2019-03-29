@@ -70,7 +70,7 @@ class DefaultArea extends React.Component {
     const dir = manifest.target_language ? manifest.target_language.direction : null;
 
     return (
-      <div style={{WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column',  overflowY: 'scroll'}}>
+      <div style={{WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column'}}>
         <div className='verse-title'>
           <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
             <span className='verse-title-title'>
