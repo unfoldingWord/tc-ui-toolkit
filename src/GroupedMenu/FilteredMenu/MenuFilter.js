@@ -1,54 +1,59 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import Collapse from "@material-ui/core/Collapse";
-import ListItem from "@material-ui/core/ListItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Divider from "@material-ui/core/Divider";
-import CheckBoxOutlineIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuFilterIcon from "./MenuFilterIcon";
-import Chip from "@material-ui/core/Chip";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {withStyles} from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import Collapse from '@material-ui/core/Collapse';
+import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Divider from '@material-ui/core/Divider';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuFilterIcon from './MenuFilterIcon';
+import Chip from '@material-ui/core/Chip';
 
 const styles = () => ({
   root: {
-    backgroundColor: "#19579E",
+    backgroundColor: '#19579E',
     zIndex: 10,
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     paddingTop: 5,
     paddingBottom: 5
   },
+  filterItemRoot: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    minHeight: 'auto'
+  },
   divider: {
-    borderBottom: "solid 1px #FFFFFF9e"
+    borderBottom: 'solid 1px #FFFFFF9e'
   },
   text: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
+    color: '#FFFFFF',
+    fontWeight: 'bold',
     fontSize: 16
   },
   filterText: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontWeight: 700,
     fontSize: 14
   },
   checkbox: {
-    color: "#FFFFFF"
+    color: '#FFFFFF'
   },
   chip: {
-    color: "#19579E",
+    color: '#19579E',
     margin: 5
   },
   chipLabel: {
     fontSize: 12,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   chipDeleteIcon: {
-    color: "#19579E99",
-    "&:hover": {
-      color: "#19579E"
+    color: '#19579E99',
+    '&:hover': {
+      color: '#19579E'
     }
   },
   hover: {}
@@ -71,7 +76,7 @@ class MenuFilter extends React.Component {
    * Handles opening the filter menu
    */
   handleOpen = () => {
-    this.setState(state => ({ open: !state.open }));
+    this.setState(state => ({open: !state.open}));
   };
 
   /**
@@ -79,7 +84,7 @@ class MenuFilter extends React.Component {
    * @param {object} filter - the filter being toggled
    */
   handleToggle = filter => () => {
-    const { onToggle } = this.props;
+    const {onToggle} = this.props;
     onToggle(filter);
   };
 
@@ -89,7 +94,7 @@ class MenuFilter extends React.Component {
    * @return {boolean} true if the filter is selected
    */
   isChecked = filter => {
-    const { selected } = this.props;
+    const {selected} = this.props;
     for (let i = 0, len = selected.length; i < len; i++) {
       if (selected[i].id === filter.id) {
         return true;
@@ -103,7 +108,7 @@ class MenuFilter extends React.Component {
    * @param {object} filter - the filter
    */
   isEnabled = filter => {
-    const { selected } = this.props;
+    const {selected} = this.props;
 
     for (const f of selected) {
       if (f.disables.indexOf(filter.id) >= 0) {
@@ -113,9 +118,86 @@ class MenuFilter extends React.Component {
     return true;
   };
 
+  getOrder = filter => {
+    if (!(filter.order > 0)) { // if order not defined or invalid, set it
+      const {filters} = this.props;
+      filter.order = -1;
+      for (let i = 0, l = filters.length; i < l; i++) {
+        const f = filters[i];
+        if (f.id === filter.id) {
+          filter.order = i + 1; // cache order of filter
+          break;
+        }
+      }
+    }
+    return filter.order;
+  };
+
+  /**
+   * create a chip in a table element
+   * @param {Object} filter - to create chip for
+   * @param {Object} classes - to apply to filter
+   * @return {*}
+   */
+  getChip = (filter, classes) => {
+    return (
+      <td key={"chip_td_" + filter.id}>
+        <Chip
+          key={filter.id}
+          label={filter.label}
+          classes={{
+            deleteIcon: classes.chipDeleteIcon,
+            label: classes.chipLabel
+          }}
+          onDelete={this.handleToggle(filter)}
+          className={classes.chip}
+        />
+      </td>);
+  };
+
+  /**
+   * get a single table row
+   * @param {Array} selected - array of filters
+   * @param {Number} start - filter number for start of row
+   * @param {Number} count - number of items in a row
+   * @param {Object} classes - to apply to filter
+   * @return {*} table row
+   */
+  getRow = (selected, start, count, classes) => {
+    const chips = [];
+    for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
+      chips.push(this.getChip(selected[i], classes));
+    }
+    return ( <tr key={"chip_tr_" + start}>
+        {chips}
+      </tr> );
+  };
+
+  /**
+   * get all the chips sort them and format in a table
+   * @param {Array} selected - array of filters
+   * @param {Object} classes - to apply to filter
+   * @return {*} table
+   */
+  getChips = (selected, classes) => {
+    if (selected && selected.length) {
+      const sortedSelected = selected.sort((a, b) => (this.getOrder(a) - this.getOrder(b)));
+      const rows = [];
+      const columns = 2;
+      for (let i = 0, l = sortedSelected.length; i < l; i+=columns) {
+        rows.push(this.getRow(selected, i, columns, classes));
+      }
+      return (<table>
+          <tbody>{rows}</tbody>
+        </table>);
+    }
+  };
+
   render() {
-    const { selected, classes, filters, title } = this.props;
-    const { open } = this.state;
+    const {selected, classes, filters, title} = this.props;
+    const {open} = this.state;
+
+    const filterCount = open ? 0 : selected.length;
 
     return (
       <ListSubheader disableGutters className={classes.root}>
@@ -126,50 +208,42 @@ class MenuFilter extends React.Component {
             }}
             primary={title}
           />
-          <MenuFilterIcon enabledFilterCount={selected.length} />
+          <MenuFilterIcon enabledFilterCount={filterCount} open={open}/>
         </ListItem>
         <Collapse
           in={!open && selected.length > 0}
           timeout="auto"
           unmountOnExit
         >
-          <Divider variant="middle" classes={{ middle: classes.divider }} />
+          <Divider variant="middle" classes={{middle: classes.divider}}/>
           <div>
-            {selected.map(filter => (
-              <Chip
-                key={filter.id}
-                label={filter.label}
-                classes={{
-                  deleteIcon: classes.chipDeleteIcon,
-                  label: classes.chipLabel
-                }}
-                onDelete={this.handleToggle(filter)}
-                className={classes.chip}
-              />
-            ))}
+            {this.getChips(selected, classes)}
           </div>
         </Collapse>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <Divider variant="middle" classes={{ middle: classes.divider }} />
+          <Divider variant="middle" classes={{middle: classes.divider}}/>
           <List component="div" disablePadding>
             {filters.map((item, index) => (
               <ListItem
                 key={index}
                 button
+                classes={{
+                  root: classes.filterItemRoot
+                }}
                 disabled={!this.isEnabled(item)}
                 onClick={this.handleToggle(item)}
               >
                 <ListItemIcon>
                   {this.isChecked(item) ? (
-                    <CheckBoxIcon className={classes.checkbox} />
+                    <CheckBoxIcon className={classes.checkbox}/>
                   ) : (
-                    <CheckBoxOutlineIcon className={classes.checkbox} />
+                    <CheckBoxOutlineIcon className={classes.checkbox}/>
                   )}
                 </ListItemIcon>
                 {item.icon
                   ? React.cloneElement(item.icon, {
-                      style: { color: "#ffffff" }
-                    })
+                    style: {color: '#ffffff'}
+                  })
                   : null}
                 <ListItemText
                   classes={{

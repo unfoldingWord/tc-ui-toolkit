@@ -16,8 +16,7 @@ import _ from "lodash";
 class FilteredMenu extends React.Component {
   state = {
     filtersOpen: false,
-    selectedFilters: [],
-    selectedFilterKeys: []
+    selectedFilters: []
   };
 
   /**
@@ -32,22 +31,18 @@ class FilteredMenu extends React.Component {
    * @param {object} filter - the filter being toggled
    */
   handleToggleFilter = filter => {
-    const { selectedFilters, selectedFilterKeys } = this.state;
-    const currentIndex = selectedFilterKeys.indexOf(filter.id);
-    const newCheckedKeys = [...selectedFilterKeys];
+    const { selectedFilters } = this.state;
+    const currentIndex = selectedFilters.findIndex(selected => (selected.id === filter.id));
     const newChecked = [...selectedFilters];
 
     if (currentIndex === -1) {
       newChecked.push(filter);
-      newCheckedKeys.push(filter.id);
     } else {
       newChecked.splice(currentIndex, 1);
-      newCheckedKeys.splice(currentIndex, 1);
     }
 
     this.setState({
-      selectedFilters: newChecked,
-      selectedFilterKeys: newCheckedKeys
+      selectedFilters: newChecked
     });
   };
 

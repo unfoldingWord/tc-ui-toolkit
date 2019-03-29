@@ -176,6 +176,12 @@ const item = {
 }
 ```
 
+#### Tooltips
+
+The menu will automatically display tooltips if the text within a menu item overflows.
+By default the tooltip will contain the item title.
+However, you can provide a custom tooltip by adding a `tooltip` field while pre-processing menu items as described above.
+
 ### Calculating Group Progress
 
 We previously alluded to the concept of calculating group progress.
