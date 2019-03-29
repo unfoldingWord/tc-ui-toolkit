@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
+import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme, CheckIcon} from 'tc-ui-toolkit';
 import {
   bibles,
   contextId,
@@ -7,9 +7,9 @@ import {
   projectDetailsReducer
 } from './assets/scripturePaneProps';
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-import CheckIcon from "@material-ui/icons/Check";
 import BlockIcon from "@material-ui/icons/Block";
 import EditIcon from "@material-ui/icons/Edit";
+import ModeCommentIcon from '@material-ui/icons/ModeComment';
 
 const sampleIndex = [
   {
@@ -144,6 +144,11 @@ class App extends Component {
         label: "Edited",
         key: 'edited',
         icon: <EditIcon style={{color: "white"}}/>
+      },
+      {
+        label: "Comments",
+        key: 'comments',
+        icon: <ModeCommentIcon/>
       }
     ];
 

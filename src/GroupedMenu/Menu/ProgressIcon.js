@@ -25,15 +25,15 @@ const ProgressIcon = ({ classes, progress }) => (
   <div className={classes.root}>
     <CircularProgress
       className={classes.shadow}
-      size={24}
-      thickness={8}
+      size={22}
+      thickness={6}
       variant="static"
       value={100}
     />
     <CircularProgress
       className={classes.progress}
-      size={24}
-      thickness={8}
+      size={22}
+      thickness={7}
       variant="static"
       value={progress}
     />

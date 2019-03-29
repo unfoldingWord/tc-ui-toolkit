@@ -11,6 +11,7 @@ export { default as GroupMenu } from './GroupMenu';
 export { default as GroupedMenu, generateMenuItem, generateMenuData } from './GroupedMenu';
 export { default as FunnelIcon } from './icons/Funnel';
 export { default as InvalidatedIcon } from './icons/Invalidated';
+export { default as CheckIcon } from './icons/Check';
 export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
 exports.lexiconHelpers = require('./ScripturePane/helpers/lexiconHelpers');

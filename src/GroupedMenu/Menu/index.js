@@ -15,13 +15,63 @@ const theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: [
       '"Noto Sans"',
-      'Roboto'
+      'Roboto',
+      'Arial'
     ].join(','),
     fontSize: 12
   },
   props: {
     MuiButtonBase: {
       disableRipple: true
+    }
+  },
+  overrides: {
+    MuiListItem: {
+      root: {
+        paddingTop: 6,
+        paddingBottom: 6,
+        minHeight: 40
+      },
+      gutters: {
+        paddingLeft: 10,
+        paddingRight: 5
+      }
+    },
+    MuiSvgIcon: {
+      root: {
+        fontSize: 22
+      }
+    },
+    MuiListItemText: {
+      root: {
+        paddingLeft: 5
+      },
+      inset: {
+        paddingLeft: '32px!important'
+      }
+    },
+    MuiListItemIcon: {
+      root: {
+        marginRight: 5
+      }
+    },
+    MuiChip: {
+      root: {
+        margin: 2,
+        height: 26
+      },
+      label: {
+        paddingLeft: 8,
+        paddingRight: 8
+      },
+      deleteIcon: {
+        marginRight: 2
+      }
+    },
+    MuiListSubheader: {
+      root: {
+        lineHeight: 'inherit'
+      }
     }
   }
 });
@@ -109,9 +159,8 @@ class Menu extends React.Component {
       this.setState({
         opened: active.groupId
       });
-    } else if (autoScroll && prevState.opened !== this.state.opened &&
-      this.state.opened) {
-      // scroll to the selection when opened
+    } else if (autoScroll && this.state.opened) {
+      // scroll to the current selection
       this.scrollToSelectedItem();
     }
   }
@@ -247,7 +296,7 @@ class Menu extends React.Component {
     const activeItem = this.getActive();
     const {
       groupId,
-      itemId,
+      itemId
     } = item;
     return (
       activeItem &&
@@ -328,6 +377,7 @@ class Menu extends React.Component {
                             selected={this.isItemSelected(item)}
                             statusIcons={normalizedStatusIcons}
                             onClick={this.handleClick(item)}
+                            tooltip={item.tooltip ? item.tooltip : item.title}
                             title={item.title}
                           />
                         </RootRef>

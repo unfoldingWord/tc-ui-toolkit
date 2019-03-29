@@ -94,20 +94,23 @@ class ScripturePane extends Component {
 
       try {
         const { languageId, bibleId } = paneSettings;
-        let { manifest: { language_name, direction, description } } = bibles[languageId][bibleId];
+        const { manifest } = bibles[languageId][bibleId];
+        let language_name = manifest.language_name;
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
 
+        // TODO: this is temporary hack, there is a later issue to make font size user adjustable
+        const setFontSize = (manifest.language_id === 'hbo') ? 200 : 0;
+
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
-          const manifest = bibles[languageId][bibleId].manifest;
           language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate);
+          verseElements = verseString(verseData, selections, translate, setFontSize);
         } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
 
         panes.push(
@@ -119,8 +122,8 @@ class ScripturePane extends Component {
             verse={verse}
             bibleId={bibleId}
             languageName={language_name}
-            direction={direction}
-            description={description}
+            direction={manifest.direction}
+            description={manifest.description}
             verseElements={verseElements}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
             removePane={this.removePane}
