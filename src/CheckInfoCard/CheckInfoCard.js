@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './CheckInfoCard.styles.css';
+import PhraseWithToolTip from './PhraseWithToolTip';
+
 
 const CheckInfoCard = ({
   title,
@@ -9,6 +11,7 @@ const CheckInfoCard = ({
   seeMoreLabel,
   onSeeMoreClick,
   showSeeMoreButton,
+  getScriptureFromReference
 }) => {
   return (
     <div className="checkInfo">
@@ -19,9 +22,9 @@ const CheckInfoCard = ({
       </div>
       <div className="rightSide">
         <div className="phrase">
-          {phrase}
+          <PhraseWithToolTip getScriptureFromReference={getScriptureFromReference} phrase={phrase} />
         </div>
-        <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive' }>
+        <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive'}>
           {seeMoreLabel}
         </div>
       </div>
@@ -35,6 +38,7 @@ CheckInfoCard.propTypes = {
   seeMoreLabel: PropTypes.string,
   onSeeMoreClick: PropTypes.func,
   showSeeMoreButton: PropTypes.bool,
+  getScriptureFromReference: PropTypes.func
 };
 
 export default CheckInfoCard;
