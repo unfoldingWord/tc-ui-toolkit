@@ -118,7 +118,12 @@ class App extends Component {
   }
 
   render() {
-    const theme = createTcuiTheme({scrollbarThumb: {borderRadius: '10px'}});
+    const theme = createTcuiTheme({
+      typography: {
+        useNextVariants: true,
+      },
+      scrollbarThumb: {borderRadius: '10px'}
+    });
 
     const filters = [
       {
