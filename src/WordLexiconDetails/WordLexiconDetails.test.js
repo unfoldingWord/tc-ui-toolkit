@@ -407,6 +407,25 @@ describe('WordLexiconDetails', () => {
             "morph": "morph_missing",
             "itemNum": 1
           }
+        ]},
+      {"text":"הַ⁠שֹּׁפְטִ֔ים","lemma":"שָׁפַט","strong":"d:H8199","morph": "He,Td:Vqrmpa", // Ruth 1:1 - zero space joiner
+        results: [
+          {
+            "word": "שֹּׁפְטִ֔ים",
+            "strongNum": 8199,
+            "strong": "H8199",
+            "lemma": "שָׁפַט",
+            "morph": "verb, qal, participle_active, masculine, plural, absolute",
+            "lexicon": "uhl-8199",
+            "itemNum": 1
+          },
+          {
+            "word": "הַ",
+            "strong": "d",
+            "morph": "particle, definite_article",
+            "itemNum": 0
+          },
+
         ]}
     ];
 
