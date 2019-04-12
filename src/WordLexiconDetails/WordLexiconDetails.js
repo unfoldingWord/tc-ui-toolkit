@@ -98,7 +98,7 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
   if (strongsNum) {
-    return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '-10px 10px 0px', maxWidth: '400px'}}>
       {generateLine(pos)}
       {generateWordEntry(multipart, word)}
       {generateDataSegment(translate('lemma'), lemma)}<br/>
@@ -107,7 +107,7 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
       {generateDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
-    return <div key={key} style={{margin: '-10px 10px -20px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '-10px 10px 0px', maxWidth: '400px'}}>
       {generateLine(pos)}
       {generateWordEntry(multipart, word)}
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
