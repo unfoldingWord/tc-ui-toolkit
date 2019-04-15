@@ -1,6 +1,7 @@
 import {MorphUtils} from "word-aligner";
 
 const ZERO_WIDTH_SPACE = '\u200B';
+const ZERO_WIDTH_JOINER = '\u2060';
 
 /**
  * splits a word by zero width spaces
@@ -9,7 +10,12 @@ const ZERO_WIDTH_SPACE = '\u200B';
  */
 export const getWordParts = (word) => {
   if (word) {
-    const wordParts = word.split(ZERO_WIDTH_SPACE);
+    let wordParts = [word];
+    if (word.includes(ZERO_WIDTH_JOINER)) {
+      wordParts = word.split(ZERO_WIDTH_JOINER);
+    } else if (word.includes(ZERO_WIDTH_SPACE)) {
+      wordParts = word.split(ZERO_WIDTH_SPACE);
+    }
     return wordParts;
   }
   return [];
