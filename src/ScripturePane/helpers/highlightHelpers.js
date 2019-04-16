@@ -31,7 +31,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
   let _occurrence = 0;
   for (let i = 0; i <= index; i++) {
     const wordItem = words[i];
-    if (wordItem.text === wordText) {
+    if ((wordItem.type === "word") && (wordItem.text === wordText)) {
       _occurrence++;
     }
   }
@@ -61,8 +61,14 @@ export function isWordMatch(word, contextId, words, index) {
           }
         }
       }
-    } else if (word.text === contextId.quote) {
-      isMatch = getOccurrenceOfWord(index, words, word.text, contextId.occurrence);
+    } else { // is string with one or more words
+      const quotes = contextId.quote.split(' ');
+      for (let i = 0, l = quotes.length; i < l; i++) {
+        const quote = quotes[i];
+        if (quote === word.text) {
+          isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
+        }
+      }
     }
   }
   return isMatch;
