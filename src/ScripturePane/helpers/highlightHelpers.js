@@ -9,7 +9,15 @@ export function isWordArrayMatch(word, contextId) {
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
-      if (contextId.quote.split(' ').includes(wordItem.content)) {
+      if (Array.isArray(contextId.quote)) {
+        for (let i = 0, l = contextId.quote.length; i < l; i++) {
+          const quote = contextId.quote[i];
+          if ((quote.word === word.occurrence) && (quote.occurrence === wordItem.occurrence)) {
+            foundMatch = true;
+            break;
+          }
+        }
+      } else if (contextId.quote.split(' ').includes(wordItem.content)) {
         foundMatch = (contextId.occurrence === wordItem.occurrence);
       }
       return foundMatch;
