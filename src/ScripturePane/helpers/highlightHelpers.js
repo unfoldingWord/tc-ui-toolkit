@@ -12,7 +12,7 @@ export function isWordArrayMatch(word, contextId) {
       if (Array.isArray(contextId.quote)) {
         for (let i = 0, l = contextId.quote.length; i < l; i++) {
           const quote = contextId.quote[i];
-          if ((quote.word === word.occurrence) && (quote.occurrence === wordItem.occurrence)) {
+          if ((quote.word === wordItem.content) && (quote.occurrence === wordItem.occurrence)) {
             foundMatch = true;
             break;
           }
