@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "0.13.22",
+  "version": "0.14.2",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "dist/bundle.js",
   "display": "library",
@@ -62,7 +62,7 @@
     "@material-ui/core": "^3.8.3",
     "@material-ui/icons": "^3.0.2",
     "deep-equal": "^1.0.1",
-    "jest-environment-jsdom": "^23.4.0",
+    "jest-environment-jsdom": "^24.0.0",
     "lodash": "^4.17.5",
     "memoize-one": "^5.0.0",
     "prop-types": "^15.6.1",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`verseHelpers.verseArray should succeed with heb-12-27.grc 1`] = `
+exports[`verseHelpers.verseArray should succeed with heb-12-27.el-x-koine 1`] = `
 Array [
   <span
     onClick={[Function]}
