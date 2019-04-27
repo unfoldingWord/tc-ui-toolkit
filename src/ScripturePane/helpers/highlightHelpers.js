@@ -9,7 +9,15 @@ export function isWordArrayMatch(word, contextId) {
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
-      if (contextId.quote.split(' ').includes(wordItem.content)) {
+      if (Array.isArray(contextId.quote)) {
+        for (let i = 0, l = contextId.quote.length; i < l; i++) {
+          const quote = contextId.quote[i];
+          if ((quote.word === wordItem.content) && (quote.occurrence === wordItem.occurrence)) {
+            foundMatch = true;
+            break;
+          }
+        }
+      } else if (contextId.quote.split(' ').includes(wordItem.content)) {
         foundMatch = (contextId.occurrence === wordItem.occurrence);
       }
       return foundMatch;
@@ -18,19 +26,57 @@ export function isWordArrayMatch(word, contextId) {
   return isMatch;
 }
 
+/**
+ * search word list to find occurrence of word
+ * @param {number} index - position of word
+ * @param {Array} words - list of word objects to search
+ * @param {String} wordText - text to match
+ * @param {number} occurrence - to match
+ * @return {Boolean} - true if same occurrence
+ */
+function getOccurrenceOfWord(index, words, wordText, occurrence) {
+// get occurrence of word
+  let _occurrence = 0;
+  for (let i = 0; i <= index; i++) {
+    const wordItem = words[i];
+    if ((wordItem.type === "word") && (wordItem.text === wordText)) {
+      _occurrence++;
+    }
+  }
+  const isMatch = (_occurrence === occurrence);
+  return isMatch;
+}
+
+/**
+ * see if this word is part of quote for current context
+ * @param {Object} word
+ * @param {Object} contextId
+ * @param {Array} words
+ * @param {number} index
+ * @return {boolean} - true if in quote
+ */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
   if (word && word.text && contextId && contextId.quote) {
-    if (contextId.quote.split(' ').includes(word.text)) {
-      // get occurrence of word
-      let occurrence = 0;
-      for (let i = 0; i <= index; i++) {
-        const wordItem = words[i];
-        if (wordItem.text === word.text) {
-          occurrence++;
+    if (Array.isArray(contextId.quote)) {
+      // if list of words in quote see if this word matches one of the words
+      for (let i = 0, l = contextId.quote.length; i < l; i++) {
+        const quote = contextId.quote[i];
+        if (quote.word === word.text) {
+          isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+          if (isMatch) {
+            break;
+          }
         }
       }
-      isMatch = (occurrence === contextId.occurrence);
+    } else { // is string with one or more words
+      const quotes = contextId.quote.split(' ');
+      for (let i = 0, l = quotes.length; i < l; i++) {
+        const quote = quotes[i];
+        if (quote === word.text) {
+          isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
+        }
+      }
     }
   }
   return isMatch;
