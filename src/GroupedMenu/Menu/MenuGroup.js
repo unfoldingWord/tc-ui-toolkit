@@ -30,9 +30,7 @@ const styles = {
   root: {
     // paddingRight: 0,
     borderBottom: 'solid #ffffff4d 1px',
-    '&:hover': {
-      backgroundColor: 'transparent'
-    },
+    cursor: 'pointer',
     '&$selected': {
       backgroundColor: '#2196F3',
       '&:hover': {
@@ -64,7 +62,6 @@ class MenuGroup extends React.Component {
 
     return (
       <ListItem
-        button
         disableRipple={true}
         disableGutters={false}
         selected={selected}
