@@ -76,11 +76,6 @@ const styles = {
       }
     }
   },
-  button: {
-    '&:hover': {
-      backgroundColor: '#747474'
-    }
-  },
   selected: {},
   textRoot: {
     paddingRight: 0
@@ -310,14 +305,12 @@ class MenuItem extends React.Component {
     return (
       <ListItem
         key={key}
-        button
         disableGutters={false}
         disableRipple={true}
         selected={selected}
         onClick={this.handleClick}
         classes={{
           root: classes.root,
-          button: classes.button,
           selected: classes.selected
         }}
       >
