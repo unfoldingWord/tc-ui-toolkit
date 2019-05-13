@@ -9,8 +9,6 @@ export function isWordArrayMatch(word, contextId) {
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
-      console.log('wordItem.content', wordItem.content);
-      console.log('included in quote', contextId.quote.split(' ').includes(wordItem.content));
 
       if (Array.isArray(contextId.quote)) {
         for (let i = 0, l = contextId.quote.length; i < l; i++) {
@@ -21,7 +19,11 @@ export function isWordArrayMatch(word, contextId) {
           }
         }
       } else if (contextId.quote.split(' ').includes(wordItem.content)) {
-        foundMatch = (contextId.occurrence === wordItem.occurrence);
+        let stringOccurrence = contextId.occurrence;
+        if (typeof stringOccurrence === 'string' && stringOccurrence.length === 0) {
+          stringOccurrence = 1;
+        }
+        foundMatch = (stringOccurrence === wordItem.occurrence);
       }
       return foundMatch;
     });
@@ -86,9 +88,6 @@ export function isWordMatch(word, contextId, words, index) {
 }
 
 export function getWordHighlightedDetails(contextId, previousWord, word) {
-  console.log('getWordHighlightedDetails()');
-  console.log('word', word);
-  console.log('quote', contextId.quote);
   const isHighlightedWord = isWordArrayMatch(word, contextId);
   const isBetweenHighlightedWord = isHighlightedWord && previousWord && !isEqual(previousWord, word)
       && isWordArrayMatch(previousWord, contextId);

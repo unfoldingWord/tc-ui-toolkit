@@ -63,7 +63,6 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
  * @return {Array} - verse elements to display
  */
 export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontSize = 0) {
-  console.log('-------- verseArray() -------- ')
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -90,15 +89,11 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
 
-        console.log('word', word, word.content)
-
         if ((bibleId === 'ugnt' || bibleId === 'uhb') && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
         } else if (contextId.quote && word.content) {
-          console.log('getWordHighlightedDetails()', 'bibleId', bibleId);
-
           const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
