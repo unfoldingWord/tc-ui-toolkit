@@ -63,6 +63,7 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
  * @return {Array} - verse elements to display
  */
 export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontSize = 0) {
+  console.log('-------- verseArray() -------- ')
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
