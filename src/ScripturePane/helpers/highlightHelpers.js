@@ -20,11 +20,7 @@ export function isWordArrayMatch(word, contextId) {
         }
       } else if (contextId.quote.split(' ').includes(wordItem.content)) {
         let stringOccurrence = contextId.occurrence;
-        console.log('====================================');
-        console.log(stringOccurrence);
-        console.log('====================================');
         if (typeof stringOccurrence === 'string' && stringOccurrence.length === 0) {
-          console.log('inside');
           stringOccurrence = 1;
         }
         foundMatch = (stringOccurrence === wordItem.occurrence);
