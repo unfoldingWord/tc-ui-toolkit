@@ -221,15 +221,20 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
 
   if (previousWord && previousWord.text === "πίστει") {
     console.log('previousWord', previousWord, 'nextWord', nextWord);
-    console.log(isWordArrayMatch, 'previousWord', isWordArrayMatch(previousWord, contextId), 'nextWord', isWordArrayMatch(nextWord, contextId));
+    console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId), 'nextWord', isWordMatch(nextWord, contextId));
   }
 
+  const isPreviousWordMatch = previousWord && previousWord.content ?
+      isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId);
+  const isNextWordMatch = nextWord && nextWord.content ?
+      isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId);
+
   if (previousWord && nextWord) {
-    return isWordArrayMatch(previousWord, contextId) && isWordArrayMatch(nextWord, contextId);
+    return isPreviousWordMatch && isNextWordMatch;
   } else if (previousWord) {
-    return isWordArrayMatch(previousWord, contextId);
+    return isPreviousWordMatch;
   } else if (nextWord) {
-    return isWordArrayMatch(nextWord, contextId);
+    return isNextWordMatch;
   } else {
     return false;
   }
