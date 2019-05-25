@@ -219,11 +219,12 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
     }
   }
 
-  if (previousWord && previousWord.text) {
+  if (previousWord && previousWord.text && nextWord && nextWord.text) {
     console.log('previousWord.text', previousWord.text);
+    console.log('nextWord.text', nextWord.text);
   }
 
-  console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
+  console.log('isWordArrayMatch', 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
       isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index);
