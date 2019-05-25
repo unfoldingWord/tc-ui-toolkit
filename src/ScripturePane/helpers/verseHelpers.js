@@ -82,9 +82,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       const index = i;
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
-      console.log('word', word);
       if (isWord(word)) {
-        console.log('isWord');
         const padding = wordSpacing;
         wordSpacing = ' '; // spacing between words
         const text = (word.word || word.text);
@@ -129,7 +127,6 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));
         }
       } else if (isNestedMilestone(word)) { // if nested milestone
-        console.log('isNestedMilestone');
         const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
