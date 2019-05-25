@@ -147,7 +147,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         console.log('previousWord', previousWord);
         console.log('isPunctuationHighlighted', highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId));
 
-        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {
           verseSpan.push(createTextSpan(index, text));

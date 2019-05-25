@@ -56,7 +56,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
 }
 
 /**
- * see if this word is part of quote for current context
+ * see if this word is part of quote for current context id.
  * @param {Object} word
  * @param {Object} contextId
  * @param {Array} words
@@ -204,7 +204,7 @@ export function getDeepNestedWords(nestedWords) {
  * @param {object} contextId
  * @returns {bool} true or false. highlighted or not highlighted.
  */
-export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
+export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index) {
   // handle nested previous words
   if (previousWord && Array.isArray(previousWord[0])) {
     const nestedPreviousWord = getDeepNestedWords(previousWord);
@@ -221,13 +221,13 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
 
   if (previousWord && previousWord.text === "πίστει") {
     console.log('previousWord', previousWord, 'nextWord', nextWord);
-    console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId), 'nextWord', isWordMatch(nextWord, contextId));
+    console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
   }
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
-      isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId);
+      isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index);
   const isNextWordMatch = nextWord && nextWord.content ?
-      isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId);
+      isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index);
 
   if (previousWord && nextWord) {
     return isPreviousWordMatch && isNextWordMatch;
