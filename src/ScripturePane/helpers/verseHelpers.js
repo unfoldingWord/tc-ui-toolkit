@@ -141,13 +141,6 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
-
-        console.log('is not Word');
-        console.log('word', word);
-        console.log('words', words);
-        console.log('previousWord', previousWord);
-        console.log('isPunctuationHighlighted', highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index));
-
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {

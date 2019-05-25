@@ -6,9 +6,6 @@ import {removeMarker} from './usfmHelpers';
 
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
-  if (word && word.text === "πίστει") {
-    console.log('πίστει', word);
-  }
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
@@ -52,12 +49,6 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
     }
   }
 
-  if (wordText === 'ἡμῶν') {
-    console.log('3- _occurrence', _occurrence, 'occurrence', occurrence);
-    console.log('index', index);
-    console.log('words', words);
-  }
-
   const isMatch = (_occurrence === occurrence);
   return isMatch;
 }
@@ -72,22 +63,13 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
  */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
-  if (word && word.text === 'ἡμῶν') {
-    console.log('1- isWordMatch', word);
-  }
   if (word && word.text && contextId && contextId.quote) {
-    if (word && word.text === 'ἡμῶν') {
-      console.log('2-', word, 'contextId', contextId);
-    }
     if (Array.isArray(contextId.quote)) {
       // if list of words in quote see if this word matches one of the words
       for (let i = 0, l = contextId.quote.length; i < l; i++) {
         const quote = contextId.quote[i];
         if (quote.word === word.text) {
           isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
-            if (word && word.text === 'ἡμῶν') {
-              console.log('4- isWordMatch', word, 'isMatch', isMatch);
-            }
           if (isMatch) {
             break;
           }
@@ -234,13 +216,6 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
       nextWord = nestedNextWords[0];
     }
   }
-
-  if (previousWord && previousWord.text && nextWord && nextWord.text) {
-    console.log('previousWord.text', previousWord.text);
-    console.log('nextWord.text', nextWord.text);
-  }
-
-  console.log('isWordArrayMatch', 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
       isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1);
