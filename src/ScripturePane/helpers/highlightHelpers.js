@@ -218,7 +218,7 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
 
   if (previousWord.text === "πίστει") {
     console.log('previousWord', previousWord, 'nextWord', nextWord);
-    console.log(isWordArrayMatch, 'previousWord', isWordArrayMatch(previousWord, contextId), 'nextWord', isWordArrayMatch(nextWord, contextId);)
+    console.log(isWordArrayMatch, 'previousWord', isWordArrayMatch(previousWord, contextId), 'nextWord', isWordArrayMatch(nextWord, contextId));
   }
 
   if (previousWord && nextWord) {
