@@ -141,6 +141,14 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
+
+        if (previousWord === "πίστει") {
+          console.log('====================================');
+          console.log('word', word);
+          console.log('isPunctuationHighlighted', highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId));
+          console.log('====================================');
+        }
+
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {
