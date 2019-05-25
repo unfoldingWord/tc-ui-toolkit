@@ -51,6 +51,11 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
       _occurrence++;
     }
   }
+
+  if (wordText === 'ἡμῶν') {
+    console.log('3- _occurrence', _occurrence, 'occurrence', occurrence);
+  }
+
   const isMatch = (_occurrence === occurrence);
   return isMatch;
 }
@@ -65,13 +70,22 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
  */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
+  if (word && word.text === 'ἡμῶν') {
+    console.log('1- isWordMatch', word);
+  }
   if (word && word.text && contextId && contextId.quote) {
+    if (word && word.text === 'ἡμῶν') {
+      console.log('2-', word, 'contextId', contextId);
+    }
     if (Array.isArray(contextId.quote)) {
       // if list of words in quote see if this word matches one of the words
       for (let i = 0, l = contextId.quote.length; i < l; i++) {
         const quote = contextId.quote[i];
         if (quote.word === word.text) {
           isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+            if (word && word.text === 'ἡμῶν') {
+              console.log('3- isWordMatch', word, 'isMatch', isMatch);
+            }
           if (isMatch) {
             break;
           }
