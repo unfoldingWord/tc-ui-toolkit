@@ -219,10 +219,11 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
     }
   }
 
-  if (previousWord && previousWord.text === "πίστει") {
-    console.log('previousWord', previousWord, 'nextWord', nextWord);
-    console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
+  if (previousWord && previousWord.text) {
+    console.log('previousWord.text', previousWord.text);
   }
+
+  console.log(isWordArrayMatch, 'previousWord', isWordMatch(previousWord, contextId, words, index), 'nextWord', isWordMatch(nextWord, contextId, words, index));
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
       isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index);
