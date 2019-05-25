@@ -145,15 +145,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
 
+        console.log('is not Word');
         console.log('word', word);
-
-        if (previousWord === "πίστει") {
-          console.log('====================================');
-          console.log('word', word);
-          console.log('isPunctuationHighlighted', highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId));
-          console.log('====================================');
-        }
-
+        console.log('previousWord', previousWord);
         console.log('isPunctuationHighlighted', highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId));
 
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
