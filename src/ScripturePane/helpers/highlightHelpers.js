@@ -54,6 +54,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
 
   if (wordText === 'ἡμῶν') {
     console.log('3- _occurrence', _occurrence, 'occurrence', occurrence);
+    console.log('index', index);
     console.log('words', words);
   }
 
