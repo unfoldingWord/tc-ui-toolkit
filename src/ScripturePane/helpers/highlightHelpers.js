@@ -55,7 +55,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
   if (wordText === 'ἡμῶν') {
     console.log('3- _occurrence', _occurrence, 'occurrence', occurrence);
     console.log('words', words);
-  }
+
 
   const isMatch = (_occurrence === occurrence);
   return isMatch;
@@ -85,7 +85,7 @@ export function isWordMatch(word, contextId, words, index) {
         if (quote.word === word.text) {
           isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
             if (word && word.text === 'ἡμῶν') {
-              console.log('3- isWordMatch', word, 'isMatch', isMatch);
+              console.log('4- isWordMatch', word, 'isMatch', isMatch);
             }
           if (isMatch) {
             break;
