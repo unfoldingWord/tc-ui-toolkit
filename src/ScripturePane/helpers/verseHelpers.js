@@ -141,7 +141,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
-        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {
           verseSpan.push(createTextSpan(index, text));

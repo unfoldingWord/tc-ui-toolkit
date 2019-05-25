@@ -48,12 +48,13 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
       _occurrence++;
     }
   }
+
   const isMatch = (_occurrence === occurrence);
   return isMatch;
 }
 
 /**
- * see if this word is part of quote for current context
+ * see if this word is part of quote for current context id.
  * @param {Object} word
  * @param {Object} contextId
  * @param {Array} words
@@ -201,7 +202,7 @@ export function getDeepNestedWords(nestedWords) {
  * @param {object} contextId
  * @returns {bool} true or false. highlighted or not highlighted.
  */
-export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
+export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index) {
   // handle nested previous words
   if (previousWord && Array.isArray(previousWord[0])) {
     const nestedPreviousWord = getDeepNestedWords(previousWord);
@@ -216,12 +217,17 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId) {
     }
   }
 
+  const isPreviousWordMatch = previousWord && previousWord.content ?
+      isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1);
+  const isNextWordMatch = nextWord && nextWord.content ?
+      isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index + 1);
+
   if (previousWord && nextWord) {
-    return isWordArrayMatch(previousWord, contextId) && isWordArrayMatch(nextWord, contextId);
+    return isPreviousWordMatch && isNextWordMatch;
   } else if (previousWord) {
-    return isWordArrayMatch(previousWord, contextId);
+    return isPreviousWordMatch;
   } else if (nextWord) {
-    return isWordArrayMatch(nextWord, contextId);
+    return isNextWordMatch;
   } else {
     return false;
   }
