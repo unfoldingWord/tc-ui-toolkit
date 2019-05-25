@@ -6,6 +6,9 @@ import {removeMarker} from './usfmHelpers';
 
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
+  if (word && word.text === "πίστει") {
+    console.log('πίστει', word);
+  }
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
     isMatch = word.content.some(wordItem => {
       let foundMatch = false;
