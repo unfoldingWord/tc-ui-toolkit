@@ -49,10 +49,6 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
     }
   }
 
-  if (wordText === 'ἔθνεσιν') {
-    console.log('_occurrence', _occurrence, 'occurrence', occurrence);
-  }
-
   const isMatch = (_occurrence === occurrence);
   return isMatch;
 }
@@ -83,8 +79,8 @@ export function isWordMatch(word, contextId, words, index) {
             const wordText = word.text.replace('’', '');
             console.log('word.text', word.text+'__');
 
-            // cloning array to avoid referencing the old array address in memory
-            const newWords = [...words];
+            // Deep cloning array to avoid referencing the old array address in memory
+            const newWords = JSON.parse(JSON.stringify(words));
             // remove apostrophe from each word in the words array
             const wordsWithoutApostrophe = [];
             for (let i = 0; i <= index; i++) {
