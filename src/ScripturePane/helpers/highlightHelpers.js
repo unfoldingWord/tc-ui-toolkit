@@ -99,7 +99,7 @@ export function isWordMatch(word, contextId, words, index) {
             //   wordsWithoutApostrophe.push(wordItem);
             // }
 
-            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+            isMatch = getOccurrenceOfWord(index, words, wordText, quote.occurrence);
             if (wordText === 'ἔθνεσιν') {
               console.log('isMatch', isMatch);
             }
