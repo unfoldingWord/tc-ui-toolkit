@@ -63,6 +63,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
  */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
+  console.log('isWordMatch');
   if (word && word.text && contextId && contextId.quote) {
     if (Array.isArray(contextId.quote)) {
       // if list of words in quote see if this word matches one of the words
@@ -74,7 +75,11 @@ export function isWordMatch(word, contextId, words, index) {
             break;
           }
         } else if (word.text.includes('’') && word.text.replace('’', '') === quote.word) {
+          console.log('happens lol');
           const wordText = word.text.replace('’', '');
+          if (wordText === 'ἔθνεσιν') {
+            console.log(wordText);
+          }
           // remove apostrophe from each word in the words array
           const wordsWithoutApostrophe = [];
           for (let i = 0; i <= index; i++) {
@@ -84,6 +89,9 @@ export function isWordMatch(word, contextId, words, index) {
           }
 
           isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+          if (wordText === 'ἔθνεσιν') {
+            console.log('isMatch', isMatch);
+          }
           if (isMatch) {
             break;
           }
