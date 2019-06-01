@@ -49,6 +49,10 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
     }
   }
 
+  if (wordText === 'ἔθνεσιν') {
+    console.log('_occurrence', _occurrence, 'occurrence', occurrence);
+  }
+
   const isMatch = (_occurrence === occurrence);
   return isMatch;
 }
@@ -74,7 +78,8 @@ export function isWordMatch(word, contextId, words, index) {
           console.log('word.text', word.text);
           console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
         }
-          if (quote.word === word.text) {
+
+        if (quote.word === word.text) {
           isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
           if (isMatch) {
             break;
