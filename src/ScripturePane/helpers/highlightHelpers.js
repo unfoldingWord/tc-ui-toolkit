@@ -73,9 +73,17 @@ export function isWordMatch(word, contextId, words, index) {
           if (isMatch) {
             break;
           }
-        } else if (quote.word.includes('’') && quote.word.replace('’', '') === word.text) {
-          const wordText = `${word.text}’`;
-          isMatch = getOccurrenceOfWord(index, words, wordText, quote.occurrence);
+        } else if (word.text.includes('’') && word.text.replace('’', '') === quote.word) {
+          const wordText = word.text.replace('’', '');
+          // remove apostrophe from each word in the words array
+          const wordsWithoutApostrophe = [];
+          for (let i = 0; i <= index; i++) {
+            const wordItem = words[i];
+            if (wordItem.includes('’')) wordItem.replace('’', '');
+            wordsWithoutApostrophe.push(wordItem);
+          }
+
+          isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
           if (isMatch) {
             break;
           }
