@@ -71,6 +71,7 @@ export function isWordMatch(word, contextId, words, index) {
         const quote = contextId.quote[i];
 
         if (word.text === 'ἔθνεσιν' || word.text === 'ἔθνεσιν’') {
+          console.log('word.text', word.text);
           console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
         }
           if (quote.word === word.text) {
