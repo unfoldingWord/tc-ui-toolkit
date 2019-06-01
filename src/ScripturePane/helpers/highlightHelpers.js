@@ -68,56 +68,60 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
   console.log('isWordMatch');
-  if (word && word.text && contextId && contextId.quote) {
-    if (Array.isArray(contextId.quote)) {
-      // if list of words in quote see if this word matches one of the words
-      for (let i = 0, l = contextId.quote.length; i < l; i++) {
-        const quote = contextId.quote[i];
+  try {
+    if (word && word.text && contextId && contextId.quote) {
+      if (Array.isArray(contextId.quote)) {
+        // if list of words in quote see if this word matches one of the words
+        for (let i = 0, l = contextId.quote.length; i < l; i++) {
+          const quote = contextId.quote[i];
 
-        if (word.text === 'ἔθνεσιν' || word.text === 'ἔθνεσιν’') {
-          console.log('word.text', word.text);
-          console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
+          if (word.text === 'ἔθνεσιν' || word.text === 'ἔθνεσιν’') {
+            console.log('word.text', word.text);
+            console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
+          }
+
+          if (quote.word === word.text) {
+            isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+            if (isMatch) {
+              break;
+            }
+          } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
+            console.log('happens lol');
+            const wordText = word.text.replace('’', '');
+            if (wordText === 'ἔθνεσιν') {
+              console.log(wordText);
+            }
+            // remove apostrophe from each word in the words array
+            const wordsWithoutApostrophe = [];
+            for (let i = 0; i <= index; i++) {
+              const wordItem = words[i];
+              if (wordItem && wordItem.includes('’')) wordItem.replace('’', '');
+              wordsWithoutApostrophe.push(wordItem);
+            }
+
+            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+            if (wordText === 'ἔθνεσιν') {
+              console.log('isMatch', isMatch);
+            }
+            if (isMatch) {
+              break;
+            }
+          }
         }
-
-        if (quote.word === word.text) {
-          isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
-          if (isMatch) {
-            break;
+      } else { // is string with one or more words
+        const quotes = contextId.quote.split(' ');
+        for (let i = 0, l = quotes.length; i < l; i++) {
+          const quote = quotes[i];
+          if (quote === word.text) {
+            isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
           }
-        } else if (word.text.includes('’') && word.text.replace('’', '') === quote.word) {
-          console.log('happens lol');
-          const wordText = word.text.replace('’', '');
-          if (wordText === 'ἔθνεσιν') {
-            console.log(wordText);
-          }
-          // remove apostrophe from each word in the words array
-          const wordsWithoutApostrophe = [];
-          for (let i = 0; i <= index; i++) {
-            const wordItem = words[i];
-            if (wordItem && wordItem.includes('’')) wordItem.replace('’', '');
-            wordsWithoutApostrophe.push(wordItem);
-          }
-
-          isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
-          if (wordText === 'ἔθνεσιν') {
-            console.log('isMatch', isMatch);
-          }
-          if (isMatch) {
-            break;
-          }
-        }
-      }
-    } else { // is string with one or more words
-      const quotes = contextId.quote.split(' ');
-      for (let i = 0, l = quotes.length; i < l; i++) {
-        const quote = quotes[i];
-        if (quote === word.text) {
-          isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
         }
       }
     }
+    return isMatch;
+  } catch (e) {
+    console.error(e);
   }
-  return isMatch;
 }
 
 export function getWordHighlightedDetails(contextId, previousWord, word) {
