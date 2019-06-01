@@ -73,6 +73,12 @@ export function isWordMatch(word, contextId, words, index) {
           if (isMatch) {
             break;
           }
+        } else if (quote.word.includes('’') && quote.word.replace('’', '') === word.text) {
+          const wordText = `${word.text}’`;
+          isMatch = getOccurrenceOfWord(index, words, wordText, quote.occurrence);
+          if (isMatch) {
+            break;
+          }
         }
       }
     } else { // is string with one or more words
