@@ -92,6 +92,9 @@ export function isWordMatch(word, contextId, words, index) {
               if (wordItem.text && wordItem.text.includes('’')) wordItem.text = wordItem.text.replace('’', '');
               wordsWithoutApostrophe.push(wordItem);
             }
+            console.log('words', words);
+            console.log('newWords', newWords);
+
             isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
             if (isMatch) {
               break;
