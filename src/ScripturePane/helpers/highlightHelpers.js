@@ -92,14 +92,14 @@ export function isWordMatch(word, contextId, words, index) {
               console.log(wordText);
             }
             // remove apostrophe from each word in the words array
-            // const wordsWithoutApostrophe = [];
-            // for (let i = 0; i <= index; i++) {
-            //   const wordItem = words[i];
-            //   if (wordItem && wordItem.includes('’')) wordItem.replace('’', '');
-            //   wordsWithoutApostrophe.push(wordItem);
-            // }
+            const wordsWithoutApostrophe = [];
+            for (let i = 0; i <= index; i++) {
+              const wordItem = words[i];
+              if (wordItem.text && wordItem.text.includes('’')) wordItem.replace('’', '');
+              wordsWithoutApostrophe.push(wordItem);
+            }
 
-            isMatch = getOccurrenceOfWord(index, words, wordText, quote.occurrence);
+            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
             if (wordText === 'ἔθνεσιν') {
               console.log('isMatch', isMatch);
             }
