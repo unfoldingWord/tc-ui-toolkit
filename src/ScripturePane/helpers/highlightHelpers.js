@@ -79,12 +79,8 @@ export function isWordMatch(word, contextId, words, index) {
               break;
             }
           } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
+            console.log('word.text', word.text+'__');
             const wordText = word.text.replace('’', '');
-            if (wordText === 'δι' || wordText === 'δι’') {
-              console.log('happens lol');
-              console.log(wordText);
-            }
-
             // cloning array to avoid referencing the old array address in memory
             const newWords = [...words];
             // remove apostrophe from each word in the words array
@@ -92,17 +88,9 @@ export function isWordMatch(word, contextId, words, index) {
             for (let i = 0; i <= index; i++) {
               const wordItem = newWords[i];
               if (wordItem.text && wordItem.text.includes('’')) wordItem.text = wordItem.text.replace('’', '');
-
-              if (wordItem.text === 'δι' || wordItem.text === 'δι’') {
-                console.log('wordItem.text', wordItem.text);
-              }
               wordsWithoutApostrophe.push(wordItem);
             }
-
             isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
-            if (wordText === 'δι' || wordText === 'δι’') {
-              console.log('isMatch', isMatch);
-            }
             if (isMatch) {
               break;
             }
