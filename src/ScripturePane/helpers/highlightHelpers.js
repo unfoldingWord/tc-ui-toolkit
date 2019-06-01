@@ -69,7 +69,11 @@ export function isWordMatch(word, contextId, words, index) {
       // if list of words in quote see if this word matches one of the words
       for (let i = 0, l = contextId.quote.length; i < l; i++) {
         const quote = contextId.quote[i];
-        if (quote.word === word.text) {
+
+        if (word.text === 'ἔθνεσιν' || word.text === 'ἔθνεσιν’') {
+          console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
+        }
+          if (quote.word === word.text) {
           isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
           if (isMatch) {
             break;
