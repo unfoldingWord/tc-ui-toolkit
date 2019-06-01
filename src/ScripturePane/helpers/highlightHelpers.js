@@ -88,7 +88,8 @@ export function isWordMatch(word, contextId, words, index) {
             const wordsWithoutApostrophe = [];
             for (let i = 0; i <= index; i++) {
               const wordItem = words[i];
-              if (wordItem.text && wordItem.text.includes('’')) wordItem.text.replace('’', '');
+              if (wordItem.text && wordItem.text.includes('’')) wordItem.text = wordItem.text.replace('’', '');
+
               if (wordItem.text === 'δι' || wordItem.text === 'δι’') {
                 console.log('wordItem.text', wordItem.text);
               }
