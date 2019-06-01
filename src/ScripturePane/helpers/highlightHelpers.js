@@ -81,6 +81,8 @@ export function isWordMatch(word, contextId, words, index) {
           } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
             console.log('word.text', word.text+'__');
             const wordText = word.text.replace('’', '');
+            console.log('word.text', word.text+'__');
+
             // cloning array to avoid referencing the old array address in memory
             const newWords = [...words];
             // remove apostrophe from each word in the words array
