@@ -96,7 +96,7 @@ export function isWordMatch(word, contextId, words, index) {
             for (let i = 0; i <= index; i++) {
               const wordItem = words[i];
               console.log('for wordItem', wordItem);
-              if (wordItem.text && wordItem.text.includes('’')) wordItem.replace('’', '');
+              if (wordItem.text && wordItem.text.includes('’')) wordItem.text.replace('’', '');
               wordsWithoutApostrophe.push(wordItem);
             }
 
