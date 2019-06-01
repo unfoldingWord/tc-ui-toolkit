@@ -67,41 +67,36 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
  */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
-  console.log('isWordMatch');
   try {
     if (word && word.text && contextId && contextId.quote) {
       if (Array.isArray(contextId.quote)) {
         // if list of words in quote see if this word matches one of the words
         for (let i = 0, l = contextId.quote.length; i < l; i++) {
           const quote = contextId.quote[i];
-
-          if (word.text === 'ἔθνεσιν' || word.text === 'ἔθνεσιν’') {
-            console.log('word.text', word.text);
-            console.log(word.text.includes('’'), word.text.replace('’', '') === quote.word);
-          }
-
           if (quote.word === word.text) {
             isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
             if (isMatch) {
               break;
             }
           } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
-            console.log('happens lol');
             const wordText = word.text.replace('’', '');
-            if (wordText === 'ἔθνεσιν') {
+            if (wordText === 'δι' || wordText === 'δι’') {
+              console.log('happens lol');
               console.log(wordText);
             }
             // remove apostrophe from each word in the words array
             const wordsWithoutApostrophe = [];
             for (let i = 0; i <= index; i++) {
               const wordItem = words[i];
-              console.log('for wordItem', wordItem);
               if (wordItem.text && wordItem.text.includes('’')) wordItem.text.replace('’', '');
+              if (wordItem.text === 'δι' || wordItem.text === 'δι’') {
+                console.log('wordItem.text', wordItem.text);
+              }
               wordsWithoutApostrophe.push(wordItem);
             }
 
             isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
-            if (wordText === 'ἔθνεσιν') {
+            if (wordText === 'δι' || wordText === 'δι’') {
               console.log('isMatch', isMatch);
             }
             if (isMatch) {
