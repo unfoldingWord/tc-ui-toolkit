@@ -75,10 +75,7 @@ export function isWordMatch(word, contextId, words, index) {
               break;
             }
           } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
-            console.log('word.text', word.text+'__');
             const wordText = word.text.replace('’', '');
-            console.log('word.text', word.text+'__');
-
             // Deep cloning array to avoid referencing the old array address in memory
             const newWords = JSON.parse(JSON.stringify(words));
             // remove apostrophe from each word in the words array
@@ -88,8 +85,6 @@ export function isWordMatch(word, contextId, words, index) {
               if (wordItem.text && wordItem.text.includes('’')) wordItem.text = wordItem.text.replace('’', '');
               wordsWithoutApostrophe.push(wordItem);
             }
-            console.log('words', words);
-            console.log('newWords', newWords);
 
             isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
             if (isMatch) {
