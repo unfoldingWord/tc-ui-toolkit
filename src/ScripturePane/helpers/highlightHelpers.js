@@ -63,29 +63,49 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
  */
 export function isWordMatch(word, contextId, words, index) {
   let isMatch = false;
-  if (word && word.text && contextId && contextId.quote) {
-    if (Array.isArray(contextId.quote)) {
-      // if list of words in quote see if this word matches one of the words
-      for (let i = 0, l = contextId.quote.length; i < l; i++) {
-        const quote = contextId.quote[i];
-        if (quote.word === word.text) {
-          isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
-          if (isMatch) {
-            break;
+  try {
+    if (word && word.text && contextId && contextId.quote) {
+      if (Array.isArray(contextId.quote)) {
+        // if list of words in quote see if this word matches one of the words
+        for (let i = 0, l = contextId.quote.length; i < l; i++) {
+          const quote = contextId.quote[i];
+          if (quote.word === word.text) {
+            isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+            if (isMatch) {
+              break;
+            }
+          } else if (word.text && word.text.includes('’') && word.text.replace('’', '') === quote.word) {
+            const wordText = word.text.replace('’', '');
+            // Deep cloning array to avoid referencing the old array address in memory
+            const newWords = JSON.parse(JSON.stringify(words));
+            // remove apostrophe from each word in the words array
+            const wordsWithoutApostrophe = [];
+            for (let i = 0; i <= index; i++) {
+              const wordItem = newWords[i];
+              if (wordItem.text && wordItem.text.includes('’')) wordItem.text = wordItem.text.replace('’', '');
+              wordsWithoutApostrophe.push(wordItem);
+            }
+
+            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+            if (isMatch) {
+              break;
+            }
+          }
+        }
+      } else { // is string with one or more words
+        const quotes = contextId.quote.split(' ');
+        for (let i = 0, l = quotes.length; i < l; i++) {
+          const quote = quotes[i];
+          if (quote === word.text) {
+            isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
           }
         }
       }
-    } else { // is string with one or more words
-      const quotes = contextId.quote.split(' ');
-      for (let i = 0, l = quotes.length; i < l; i++) {
-        const quote = quotes[i];
-        if (quote === word.text) {
-          isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
-        }
-      }
     }
+    return isMatch;
+  } catch (e) {
+    console.error(e);
   }
-  return isMatch;
 }
 
 export function getWordHighlightedDetails(contextId, previousWord, word) {
