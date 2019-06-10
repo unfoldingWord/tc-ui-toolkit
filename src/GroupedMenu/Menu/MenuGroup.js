@@ -62,7 +62,6 @@ class MenuGroup extends React.Component {
 
     return (
       <ListItem
-        disableRipple={true}
         disableGutters={false}
         selected={selected}
         classes={{
