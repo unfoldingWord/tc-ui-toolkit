@@ -36,7 +36,8 @@ class VerseCheck extends Component {
       saveSelection,
       cancelSelection,
       clearSelection,
-      handleSkip
+      handleSkip,
+      nothingToSelect
     } = this.props;
 
     let titleText;
@@ -97,6 +98,7 @@ class VerseCheck extends Component {
               mode={mode}
               tags={tags}
               actions={actions}
+              nothingToSelect={nothingToSelect}
               commentChanged={commentChanged}
               selections={selectionsReducer.selections}
               newSelections={selections}
@@ -147,6 +149,7 @@ VerseCheck.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   dialogModalVisibility: PropTypes.bool.isRequired,
+  nothingToSelect: PropTypes.bool.isRequired,
 };
 
 VerseCheck.defaultProps = {
@@ -197,29 +200,6 @@ VerseCheck.defaultProps = {
   remindersReducer: {
     enabled: false
   },
-  actions: {
-    handleGoToNext: () => {},
-    handleGoToPrevious: () => {},
-    handleOpenDialog: () => {},
-    handleCloseDialog: () => {},
-    skipToNext: () => {},
-    skipToPrevious: () => {},
-    changeSelectionsInLocalState: () => {},
-    changeMode: () => {},
-    handleComment: () => {},
-    checkComment: () => {},
-    cancelComment: () => {},
-    saveComment: () => {},
-    handleTagsCheckbox: () => {},
-    handleEditVerse: () => {},
-    checkVerse: () => {},
-    cancelEditVerse: () => {},
-    saveEditVerse: () => {},
-    validateSelections: () => {},
-    toggleReminder: () => {},
-    openAlertDialog: () => {},
-    selectModalTab: () => {},
-  },
   loginReducer: {},
   alignedGLText: '',
   mode: 'default',
@@ -235,7 +215,8 @@ VerseCheck.defaultProps = {
   handleSkip: () => {},
   verseText: '',
   unfilteredVerseText: '',
-  dialogModalVisibility: false
+  dialogModalVisibility: false,
+  nothingToSelect: false
 };
 
 export default VerseCheck;
