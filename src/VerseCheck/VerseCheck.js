@@ -99,7 +99,7 @@ class VerseCheck extends Component {
               tags={tags}
               actions={actions}
               toggleNothingToSelect={toggleNothingToSelect}
-              nothingToSelect={selectionsReducer.nothingToSelect}
+              nothingToSelect={!!selectionsReducer.nothingToSelect}
               commentChanged={commentChanged}
               selections={selectionsReducer.selections}
               newSelections={selections}
