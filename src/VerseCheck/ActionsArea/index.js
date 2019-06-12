@@ -43,6 +43,7 @@ let ActionsArea = ({
   translate,
   nothingToSelect,
   classes,
+  toggleNothingToSelect,
 }) => {
 
   const changeModeArea = (
@@ -132,7 +133,7 @@ let ActionsArea = ({
             <Checkbox
               checked={nothingToSelect}
               disabled={newSelections && newSelections.length > 0}
-              onChange={actions.toggleNothingToSelect('nothingToSelect')}
+              onChange={event => toggleNothingToSelect(event.target.checked)}
               value="nothingToSelect"
               color="primary"
               classes={{

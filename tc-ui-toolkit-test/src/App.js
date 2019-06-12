@@ -100,8 +100,8 @@ class App extends Component {
                 changeMode: (mode) => this.setState({ mode }),
                 cancelComment: () => this.setState({ mode: 'default' }),
                 cancelEditVerse: () => this.setState({ mode: 'default' }),
-                toggleNothingToSelect: name => event => this.setState({ [name]: event.target.checked }),
               }}
+              toggleNothingToSelect={nothingToSelect => this.setState({ nothingToSelect })}
               // selections={verseCheckSelections}
               nothingToSelect={this.state.nothingToSelect}
               cancelSelection={() => this.setState({ mode: 'default' })}
