@@ -1,88 +1,22 @@
 import React, {Component} from 'react';
-import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme, CheckIcon} from 'tc-ui-toolkit';
+import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
+import {
+  sampleIndex,
+  sampleData,
+  groupedMenufilters
+} from './assets/groupedMenuProps';
 import {
   bibles,
   contextId,
   currentPaneSettings,
   projectDetailsReducer
 } from './assets/scripturePaneProps';
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import BlockIcon from "@material-ui/icons/Block";
-import EditIcon from "@material-ui/icons/Edit";
-import ModeCommentIcon from '@material-ui/icons/ModeComment';
+import {
+  verseCheckActions,
+  verseCheckSelections
+} from './assets/verseCheckProps';
 
-const sampleIndex = [
-  {
-    id: "chapter_1",
-    name: "Chapter 1"
-  },
-  {
-    id: "chapter_2",
-    name: "Chapter 2"
-  }
-];
 
-const sampleData = {
-  chapter_1: [
-    {
-      done: true,
-      contextId: {
-        groupId: "chapter_1",
-        reference: {
-          bookId: "gal",
-          chapter: 1,
-          verse: 1
-        }
-      }
-    },
-    {
-      edited: true,
-      contextId: {
-        groupId: "chapter_1",
-        reference: {
-          bookId: "gal",
-          chapter: 1,
-          verse: 2
-        }
-      }
-    },
-    {
-      bookmarked: true,
-      contextId: {
-        groupId: "chapter_1",
-        reference: {
-          bookId: "gal",
-          chapter: 1,
-          verse: 3
-        }
-      }
-    }
-  ],
-  chapter_2: [
-    {
-      done: true,
-      edited: true,
-      contextId: {
-        groupId: "chapter_2",
-        reference: {
-          bookId: "gal",
-          chapter: 2,
-          verse: 1
-        }
-      }
-    },
-    {
-      contextId: {
-        groupId: "chapter_2",
-        reference: {
-          bookId: "gal",
-          chapter: 2,
-          verse: 2
-        }
-      }
-    }
-  ]
-};
 
 class App extends Component {
   constructor(props) {
@@ -92,6 +26,10 @@ class App extends Component {
       showHelpsModal: false,
       remindersReducer: {
         enabled: false
+      },
+      verseCheck: {
+        mode: 'default',
+        nothingToSelect: false
       }
     };
   }
@@ -125,39 +63,9 @@ class App extends Component {
       scrollbarThumb: {borderRadius: '10px'}
     });
 
-    const filters = [
-      {
-        label: "Bookmarked",
-        key: 'bookmarked',
-        icon: <BookmarkIcon style={{color: "white"}}/>
-      },
-      {
-        label: "Complete",
-        key: 'done',
-        disables: ['incomplete'],
-        icon: <CheckIcon style={{color: "white"}}/>
-      },
-      {
-        label: "Incomplete",
-        id: 'incomplete',
-        key: 'done',
-        value: false,
-        disables: ['done'],
-        icon: <BlockIcon style={{color: "white"}}/>
-      },
-      {
-        label: "Edited",
-        key: 'edited',
-        icon: <EditIcon style={{color: "white"}}/>
-      },
-      {
-        label: "Comments",
-        key: 'comments',
-        icon: <ModeCommentIcon/>
-      }
-    ];
 
-    const statusIcons = filters.filter(f => f.id !== "incomplete");
+
+    const statusIcons = groupedMenufilters.filter(f => f.id !== "incomplete");
 
     const entries = generateMenuData(sampleIndex, sampleData, 'done');
 
@@ -166,7 +74,7 @@ class App extends Component {
         <div style={{display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh'}}>
           <GroupedMenu
             title="Menu"
-            filters={filters}
+            filters={groupedMenufilters}
             statusIcons={statusIcons}
             entries={entries}
           />
@@ -186,6 +94,17 @@ class App extends Component {
               toggleHelps={this.toggleHelps.bind(this)}
               showHelps={this.state.showHelps} />
             <VerseCheck
+              mode={this.state.mode}
+              actions={{
+                ...verseCheckActions,
+                changeMode: (mode) => this.setState({ mode }),
+                cancelComment: () => this.setState({ mode: 'default' }),
+                cancelEditVerse: () => this.setState({ mode: 'default' }),
+                toggleNothingToSelect: name => event => this.setState({ [name]: event.target.checked }),
+              }}
+              // selections={verseCheckSelections}
+              nothingToSelect={this.state.nothingToSelect}
+              cancelSelection={() => this.setState({ mode: 'default' })}
               translate={k => k}
               verseText={'dummy text'}
               findIfVerseEdited={() => (true)}

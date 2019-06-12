@@ -1,8 +1,33 @@
 import React from 'react';
 import {Glyphicon} from 'react-bootstrap';
 import isEqual from 'deep-equal';
+import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ReactTooltip from 'react-tooltip';
+// components
 import Bookmark from '../../Bookmark';
+// css
 import './ActionsArea.styles.css';
+
+const styles = {
+  formControl: {
+    margin: '0'
+  },
+  label: {
+    color: 'var(--accent-color-dark)',
+    fontWeight: "normal",
+    fontSize: 14,
+  },
+  checkBoxRoot: {
+    padding: '12px 5px',
+    color: 'var(--accent-color-dark)',
+    '&$checked': {
+      color: 'var(--accent-color-dark)',
+    },
+  },
+  checked: {},
+};
 
 let ActionsArea = ({
   tags,
@@ -15,7 +40,9 @@ let ActionsArea = ({
   saveSelection,
   cancelSelection,
   clearSelection,
-  translate
+  translate,
+  nothingToSelect,
+  classes,
 }) => {
 
   const changeModeArea = (
@@ -89,30 +116,64 @@ let ActionsArea = ({
     </div>
   );
   const confirmSelectionArea = (
-    <div className='actions-area'>
-      <button
-        className='btn-second'
-        style={{alignSelf: 'flex-start'}}
-        onClick={cancelSelection.bind(this)}
+    <div className='selection-actions-area'>
+      <div
+        data-tip={translate('nothing_to_select_description')}
+        data-place="top"
+        data-effect="float"
+        data-type="dark"
+        data-class="selection-tooltip"
+        data-delay-hide="100"
+        style={{ verticalAlign: 'super', fontSize: '0.8em' }}
       >
-        {translate("cancel")}
-      </button>
-      <button
-        className='btn-second'
-        disabled={newSelections.length > 0 ? false : true}
-        onClick={clearSelection.bind(this)}
-      >
-        <Glyphicon glyph='erase' style={{marginRight: '10px'}} />
-        {translate("clear_selection")}
-      </button>
-      <button
-        className='btn-prime'
-        disabled={isEqual(newSelections, selections)}
-        onClick={saveSelection.bind(this)}
-      >
-        <Glyphicon glyph='ok' style={{marginRight: '10px'}} />
-        {translate("save")}
-      </button>
+        <FormControlLabel
+          value="end"
+          control={
+            <Checkbox
+              checked={nothingToSelect}
+              disabled={newSelections && newSelections.length > 0}
+              onChange={actions.toggleNothingToSelect('nothingToSelect')}
+              value="nothingToSelect"
+              color="primary"
+              classes={{
+                root: classes.checkBoxRoot,
+                checked: classes.checked,
+              }}
+            />
+          }
+          label="No selection needed"
+          classes={{
+            root: classes.formControl,
+            label: classes.label
+          }}
+        />
+        <ReactTooltip/>
+      </div>
+      <div>
+        <button
+          className='btn-second'
+          style={{alignSelf: 'flex-start'}}
+          onClick={cancelSelection.bind(this)}
+        >
+          {translate("cancel")}
+        </button>
+        <button
+          className='btn-second'
+          disabled={newSelections.length > 0 ? false : true}
+          onClick={clearSelection.bind(this)}
+        >
+          <Glyphicon glyph='erase' style={{marginRight: '10px'}} />
+          {translate("clear_selection")}
+        </button>
+        <button
+          className='btn-prime'
+          disabled={isEqual(newSelections, selections)}
+          onClick={saveSelection.bind(this)}
+        >
+          <Glyphicon glyph='ok' style={{marginRight: '10px'}} />
+          {translate("save")}
+        </button>
+      </div>
     </div>
   );
 
@@ -137,4 +198,4 @@ let ActionsArea = ({
   return modeArea;
 };
 
-export default ActionsArea;
+export default withStyles(styles)(ActionsArea);
