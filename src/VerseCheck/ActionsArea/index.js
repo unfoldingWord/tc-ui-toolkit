@@ -41,8 +41,9 @@ let ActionsArea = ({
   cancelSelection,
   clearSelection,
   translate,
-  nothingToSelect,
   classes,
+  nothingToSelect,
+  localNothingToSelect,
   toggleNothingToSelect,
 }) => {
 
@@ -131,7 +132,7 @@ let ActionsArea = ({
           value="end"
           control={
             <Checkbox
-              checked={nothingToSelect}
+              checked={nothingToSelect || localNothingToSelect}
               disabled={newSelections && newSelections.length > 0}
               onChange={event => toggleNothingToSelect(event.target.checked)}
               value="nothingToSelect"

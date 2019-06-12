@@ -38,6 +38,7 @@ class VerseCheck extends Component {
       clearSelection,
       handleSkip,
       toggleNothingToSelect,
+      localNothingToSelect
     } = this.props;
 
     let titleText;
@@ -101,6 +102,7 @@ class VerseCheck extends Component {
               tags={tags}
               actions={actions}
               toggleNothingToSelect={toggleNothingToSelect}
+              localNothingToSelect={localNothingToSelect}
               nothingToSelect={!!selectionsReducer.nothingToSelect}
               commentChanged={commentChanged}
               selections={selectionsReducer.selections}
@@ -152,6 +154,7 @@ VerseCheck.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   dialogModalVisibility: PropTypes.bool.isRequired,
+  localNothingToSelect: PropTypes.bool.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
   toggleNothingToSelect: PropTypes.func.isRequired,
 };
@@ -220,6 +223,7 @@ VerseCheck.defaultProps = {
   verseText: '',
   unfilteredVerseText: '',
   dialogModalVisibility: false,
+  localNothingToSelect: false,
   nothingToSelect: false
 };
 
