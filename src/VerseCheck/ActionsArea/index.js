@@ -153,13 +153,14 @@ let ActionsArea = ({
       <div>
         <button
           className='btn-second'
-          style={{alignSelf: 'flex-start'}}
+          style={{width: "140px", marginRigth: "5px", alignSelf: 'flex-start'}}
           onClick={cancelSelection.bind(this)}
         >
           {translate("cancel")}
         </button>
         <button
           className='btn-second'
+          style={{width: "140px", marginRigth: "5px"}}
           disabled={newSelections.length > 0 ? false : true}
           onClick={clearSelection.bind(this)}
         >
@@ -168,7 +169,8 @@ let ActionsArea = ({
         </button>
         <button
           className='btn-prime'
-          disabled={isEqual(newSelections, selections)}
+          style={{width: "140px", marginRigth: "5px"}}
+          disabled={nothingToSelect ? false : isEqual(newSelections, selections)}
           onClick={saveSelection.bind(this)}
         >
           <Glyphicon glyph='ok' style={{marginRight: '10px'}} />

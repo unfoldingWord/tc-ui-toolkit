@@ -64,6 +64,8 @@ class VerseCheck extends Component {
             translate={translate} />);
     }
 
+    console.log('selectionsReducer.nothingToSelect', selectionsReducer.nothingToSelect);
+
     return (
       <div className='verse-check'>
         <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
