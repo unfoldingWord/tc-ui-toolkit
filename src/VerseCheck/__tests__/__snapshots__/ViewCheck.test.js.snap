@@ -636,7 +636,6 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                   />
                 </svg>
                 <input
-                  checked={false}
                   className="MuiPrivateSwitchBase-input-20"
                   data-indeterminate={false}
                   disabled={false}
@@ -1515,7 +1514,6 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                   />
                 </svg>
                 <input
-                  checked={false}
                   className="MuiPrivateSwitchBase-input-20"
                   data-indeterminate={false}
                   disabled={false}
@@ -1817,7 +1815,6 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                   />
                 </svg>
                 <input
-                  checked={false}
                   className="MuiPrivateSwitchBase-input-20"
                   data-indeterminate={false}
                   disabled={false}
