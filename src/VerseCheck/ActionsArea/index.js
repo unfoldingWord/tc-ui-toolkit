@@ -42,7 +42,6 @@ let ActionsArea = ({
   clearSelection,
   translate,
   classes,
-  nothingToSelect,
   localNothingToSelect,
   toggleNothingToSelect,
 }) => {
@@ -132,7 +131,7 @@ let ActionsArea = ({
           value="end"
           control={
             <Checkbox
-              checked={nothingToSelect || localNothingToSelect}
+              checked={localNothingToSelect}
               disabled={newSelections && newSelections.length > 0}
               onChange={event => toggleNothingToSelect(event.target.checked)}
               value="nothingToSelect"
@@ -171,7 +170,7 @@ let ActionsArea = ({
         <button
           className='btn-prime'
           style={{width: "140px", marginRigth: "5px"}}
-          disabled={nothingToSelect ? false : isEqual(newSelections, selections)}
+          disabled={localNothingToSelect ? false : isEqual(newSelections, selections)}
           onClick={saveSelection.bind(this)}
         >
           <Glyphicon glyph='ok' style={{marginRight: '10px'}} />
