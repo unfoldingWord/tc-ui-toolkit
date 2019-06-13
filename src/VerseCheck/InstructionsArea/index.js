@@ -55,7 +55,7 @@ let InstructionsArea = ({
     );
   }
 
-  if (selections.length === 0 && nothingToSelect) { // if invalidated we had previous selection
+  if (nothingToSelect) { // if nothingToSelect
     return (
       <div className='instructions-area'>
         <span>{translate("no_selection_needed_description")}</span><br />
