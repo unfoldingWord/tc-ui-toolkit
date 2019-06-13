@@ -29,6 +29,15 @@ const styles = {
   checked: {},
 };
 
+
+const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelections, selections) => {
+  if (selections && selections.length > 0) {
+    return isEqual(newSelections, selections);
+  }
+
+  return localNothingToSelect !== nothingToSelect;
+};
+
 let ActionsArea = ({
   tags,
   mode,
@@ -43,6 +52,7 @@ let ActionsArea = ({
   translate,
   classes,
   localNothingToSelect,
+  nothingToSelect,
   toggleNothingToSelect,
 }) => {
 
@@ -170,7 +180,7 @@ let ActionsArea = ({
         <button
           className='btn-prime'
           style={{width: "140px", marginRigth: "5px"}}
-          disabled={localNothingToSelect ? false : isEqual(newSelections, selections)}
+          disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
           onClick={saveSelection.bind(this)}
         >
           <Glyphicon glyph='ok' style={{marginRight: '10px'}} />
