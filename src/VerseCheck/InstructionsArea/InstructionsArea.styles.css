@@ -3,3 +3,7 @@
   text-align: center;
   overflow: auto;
 }
+
+.no-selection-needed {
+  color: 'var(--accent-color)'
+}

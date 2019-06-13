@@ -13,7 +13,7 @@ import {
 } from './assets/scripturePaneProps';
 import {
   verseCheckActions,
-  verseCheckSelections
+  // verseCheckSelections
 } from './assets/verseCheckProps';
 
 
@@ -103,7 +103,9 @@ class App extends Component {
               }}
               toggleNothingToSelect={nothingToSelect => this.setState({ nothingToSelect })}
               // selections={verseCheckSelections}
+              saveSelection={() => this.setState({ mode: 'default' })}
               nothingToSelect={this.state.nothingToSelect}
+              selectionsReducer={{nothingToSelect: this.state.nothingToSelect, selections: []}}
               cancelSelection={() => this.setState({ mode: 'default' })}
               translate={k => k}
               verseText={'dummy text'}

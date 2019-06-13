@@ -92,6 +92,7 @@ class VerseCheck extends Component {
               newSelections={selections}
               selections={selectionsReducer.selections}
               translate={translate}
+              nothingToSelect={!!selectionsReducer.nothingToSelect}
               projectDetailsReducer={projectDetailsReducer}
               contextId={contextIdReducer.contextId}
               bibles={resourcesReducer.bibles}

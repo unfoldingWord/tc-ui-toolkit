@@ -23,7 +23,8 @@ let CheckArea = ({
   translate,
   invalidated,
   bibles,
-  alignedGLText
+  alignedGLText,
+  nothingToSelect
 }) => {
   let modeArea;
   switch (mode) {
@@ -67,6 +68,7 @@ let CheckArea = ({
             alignedGLText={alignedGLText}
             translate={translate}
             invalidated={invalidated}
+            nothingToSelect={nothingToSelect}
           />
         </div>
       );
@@ -118,7 +120,8 @@ CheckArea.propTypes = {
     currentProjectToolsSelectedGL: PropTypes.object
   }).isRequired,
   bibles: PropTypes.object,
-  alignedGLText: PropTypes.string.isRequired
+  alignedGLText: PropTypes.string.isRequired,
+  nothingToSelect: PropTypes.bool.isRequired,
 };
 
 export default CheckArea;
