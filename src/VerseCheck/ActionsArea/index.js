@@ -32,7 +32,7 @@ const styles = {
 
 const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelections, selections) => {
   console.log('selections', selections);
-  if (selections && selections.length > 0) {
+  if (newSelections.length > 0) {
     return isEqual(newSelections, selections);
   }
 
