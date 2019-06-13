@@ -79,6 +79,7 @@ class VerseCheck extends Component {
                 comment={commentsReducer.text}
                 bookmarkEnabled={remindersReducer.enabled}
                 translate={translate}
+                nothingToSelect={!!selectionsReducer.nothingToSelect}
                 invalidated={findIfVerseInvalidated()} />
             </div>
             <CheckArea
