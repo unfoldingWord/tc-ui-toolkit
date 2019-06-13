@@ -35,7 +35,7 @@ const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelec
     return isEqual(newSelections, selections);
   }
 
-  return localNothingToSelect !== nothingToSelect;
+  return localNothingToSelect === nothingToSelect;
 };
 
 let ActionsArea = ({
