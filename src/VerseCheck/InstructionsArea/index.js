@@ -47,15 +47,7 @@ let InstructionsArea = ({
     );
   }
 
-  if (selections.length === 0 && dontShowTranslation && !invalidated) { // if invalidated we had previous selection
-    return (
-      <div className='instructions-area'>
-        <span>{translate("no_selection")}</span><br />
-      </div>
-    );
-  }
-
-  if (nothingToSelect) { // if nothingToSelect
+  if (nothingToSelect) { // if nothingToSelect is true
     return (
       <div className='instructions-area'>
         <span>{translate("no_selection_needed_description")}</span><br />
@@ -64,6 +56,14 @@ let InstructionsArea = ({
             {translate("no_selection_needed")}
           </strong>
         </QuoatationMarks>
+      </div>
+    );
+  }
+
+  if (selections.length === 0 && dontShowTranslation && !invalidated) { // if invalidated we had previous selection
+    return (
+      <div className='instructions-area'>
+        <span>{translate("no_selection")}</span><br />
       </div>
     );
   }
