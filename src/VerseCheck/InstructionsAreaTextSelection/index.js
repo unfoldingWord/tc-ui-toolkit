@@ -30,6 +30,7 @@ const getSelectionSpans = (selections) => {
 };
 
 const InstructionsAreaTextSelection = ({ selections, verseText }) => {
+  if (!Array.isArray(selections)) selections = [];
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
       <QuoatationMarks>
