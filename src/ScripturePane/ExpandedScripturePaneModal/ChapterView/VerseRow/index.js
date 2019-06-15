@@ -85,7 +85,7 @@ class VerseRow extends Component {
             </Col>
           );
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     }

@@ -62,11 +62,9 @@ class VerseCheck extends Component {
           <SaveArea
             actions={actions}
             selections={selectionsReducer.selections}
+            nothingToSelect={!!selectionsReducer.nothingToSelect}
             translate={translate} />);
     }
-
-
-    console.log('selectionsReducer', selectionsReducer);
 
     return (
       <div className='verse-check'>
