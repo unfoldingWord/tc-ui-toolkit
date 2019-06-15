@@ -10,7 +10,8 @@ export function generateMenuData(
   index,
   data,
   progressKey,
-  onProcessItem = null
+  onProcessItem = null,
+  progressKey2 = null
 ) {
   const menu = [];
 
@@ -22,7 +23,7 @@ export function generateMenuData(
       });
       menu.push({
         title: index[i].name,
-        progress: calculateProgress(children, progressKey),
+        progress: calculateProgress(children, progressKey, progressKey2),
         id: index[i].id,
         children
       });
@@ -61,14 +62,15 @@ export function generateMenuItem(contextId, onProcessItem = null) {
 /**
  * Calculates the progress over an array of objects
  * @param {object[]} data - an array of objects
- * @param {*} progressKey - the key used to check the completion status of each object
+ * @param {string} progressKey - the key used to check the completion status of each object
+ * @param {string} progressKey2 - the secondary key used to check the completion status of each object
  * @returns {number} - returns a number between 0 and 100 inclusive
  */
-function calculateProgress(data, progressKey) {
+function calculateProgress(data, progressKey, progressKey2) {
   const total = data.length;
   let completed = 0;
   for (let i = 0, len = data.length; i < len; i ++) {
-    if (data[i][progressKey]) {
+    if (data[i][progressKey] || (progressKey2 && data[i][progressKey2])) {
       completed++;
     }
   }
