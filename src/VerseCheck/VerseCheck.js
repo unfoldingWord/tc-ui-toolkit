@@ -37,7 +37,8 @@ class VerseCheck extends Component {
       cancelSelection,
       clearSelection,
       handleSkip,
-      nothingToSelect
+      toggleNothingToSelect,
+      localNothingToSelect
     } = this.props;
 
     let titleText;
@@ -61,6 +62,7 @@ class VerseCheck extends Component {
           <SaveArea
             actions={actions}
             selections={selectionsReducer.selections}
+            nothingToSelect={!!selectionsReducer.nothingToSelect}
             translate={translate} />);
     }
 
@@ -76,6 +78,7 @@ class VerseCheck extends Component {
                 comment={commentsReducer.text}
                 bookmarkEnabled={remindersReducer.enabled}
                 translate={translate}
+                nothingToSelect={!!selectionsReducer.nothingToSelect}
                 invalidated={findIfVerseInvalidated()} />
             </div>
             <CheckArea
@@ -89,6 +92,7 @@ class VerseCheck extends Component {
               newSelections={selections}
               selections={selectionsReducer.selections}
               translate={translate}
+              nothingToSelect={!!selectionsReducer.nothingToSelect}
               projectDetailsReducer={projectDetailsReducer}
               contextId={contextIdReducer.contextId}
               bibles={resourcesReducer.bibles}
@@ -98,7 +102,9 @@ class VerseCheck extends Component {
               mode={mode}
               tags={tags}
               actions={actions}
-              nothingToSelect={nothingToSelect}
+              toggleNothingToSelect={toggleNothingToSelect}
+              localNothingToSelect={localNothingToSelect}
+              nothingToSelect={!!selectionsReducer.nothingToSelect}
               commentChanged={commentChanged}
               selections={selectionsReducer.selections}
               newSelections={selections}
@@ -149,7 +155,9 @@ VerseCheck.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   dialogModalVisibility: PropTypes.bool.isRequired,
+  localNothingToSelect: PropTypes.bool.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
+  toggleNothingToSelect: PropTypes.func.isRequired,
 };
 
 VerseCheck.defaultProps = {
@@ -216,6 +224,7 @@ VerseCheck.defaultProps = {
   verseText: '',
   unfilteredVerseText: '',
   dialogModalVisibility: false,
+  localNothingToSelect: false,
   nothingToSelect: false
 };
 

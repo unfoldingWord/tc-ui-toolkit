@@ -96,7 +96,6 @@ describe('VerseCheck component:', () => {
 
 function addMockActions(props) {
   props.actions = {
-    toggleNothingToSelect: () => jest.fn(),
     handleGoToNext: () => jest.fn(),
     handleGoToPrevious: () => jest.fn(),
     handleOpenDialog: () => jest.fn(),
@@ -128,6 +127,7 @@ function addMockActions(props) {
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
     saveSelection: () => jest.fn(),
+    toggleNothingToSelect: () => jest.fn(),
     goToNextOrPrevious: "next",
     findIfVerseEdited: jest.fn(() => {
       return ( currentEdited); }),

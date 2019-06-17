@@ -667,6 +667,8 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
           >
@@ -676,6 +678,12 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             className="btn-second"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-erase"
@@ -691,6 +699,12 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             className="btn-prime"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-ok"
@@ -1083,7 +1097,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1103,7 +1117,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1546,6 +1560,8 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
           >
@@ -1555,6 +1571,12 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             className="btn-second"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-erase"
@@ -1570,6 +1592,12 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             className="btn-prime"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-ok"
@@ -1848,6 +1876,8 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
           >
@@ -1857,6 +1887,12 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             className="btn-second"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-erase"
@@ -1872,6 +1908,12 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             className="btn-prime"
             disabled={true}
             onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
           >
             <span
               className="glyphicon glyphicon-ok"

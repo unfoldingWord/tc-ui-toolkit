@@ -29,6 +29,15 @@ const styles = {
   checked: {},
 };
 
+
+const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelections, selections) => {
+  if (newSelections.length > 0 || (newSelections.length === 0 && !isEqual(newSelections, selections))) {
+    return isEqual(newSelections, selections);
+  }
+
+  return localNothingToSelect === nothingToSelect;
+};
+
 let ActionsArea = ({
   tags,
   mode,
@@ -41,8 +50,10 @@ let ActionsArea = ({
   cancelSelection,
   clearSelection,
   translate,
-  nothingToSelect,
   classes,
+  localNothingToSelect,
+  nothingToSelect,
+  toggleNothingToSelect,
 }) => {
 
   const changeModeArea = (
@@ -55,7 +66,7 @@ let ActionsArea = ({
         onChange={actions.toggleReminder} />
       <div style={{display: "flex", marginLeft: 'auto'}}>
         <button
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           className='btn-second'
           onClick={actions.changeMode.bind(this, 'select')}
         >
@@ -63,7 +74,7 @@ let ActionsArea = ({
           {translate("select")}
         </button>
         <button
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           className='btn-second'
           onClick={actions.changeMode.bind(this, 'edit')}
         >
@@ -130,9 +141,9 @@ let ActionsArea = ({
           value="end"
           control={
             <Checkbox
-              checked={nothingToSelect}
+              checked={localNothingToSelect}
               disabled={newSelections && newSelections.length > 0}
-              onChange={actions.toggleNothingToSelect('nothingToSelect')}
+              onChange={event => toggleNothingToSelect(event.target.checked)}
               value="nothingToSelect"
               color="primary"
               classes={{
@@ -152,13 +163,14 @@ let ActionsArea = ({
       <div>
         <button
           className='btn-second'
-          style={{alignSelf: 'flex-start'}}
+          style={{width: "140px", marginRight: "5px", alignSelf: 'flex-start'}}
           onClick={cancelSelection.bind(this)}
         >
           {translate("cancel")}
         </button>
         <button
           className='btn-second'
+          style={{width: "140px", marginRight: "5px"}}
           disabled={newSelections.length > 0 ? false : true}
           onClick={clearSelection.bind(this)}
         >
@@ -167,7 +179,8 @@ let ActionsArea = ({
         </button>
         <button
           className='btn-prime'
-          disabled={isEqual(newSelections, selections)}
+          style={{width: "140px", marginRight: "5px"}}
+          disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
           onClick={saveSelection.bind(this)}
         >
           <Glyphicon glyph='ok' style={{marginRight: '10px'}} />
