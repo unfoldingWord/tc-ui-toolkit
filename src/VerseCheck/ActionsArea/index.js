@@ -66,7 +66,7 @@ let ActionsArea = ({
         onChange={actions.toggleReminder} />
       <div style={{display: "flex", marginLeft: 'auto'}}>
         <button
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           className='btn-second'
           onClick={actions.changeMode.bind(this, 'select')}
         >
@@ -74,7 +74,7 @@ let ActionsArea = ({
           {translate("select")}
         </button>
         <button
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           className='btn-second'
           onClick={actions.changeMode.bind(this, 'edit')}
         >
@@ -163,14 +163,14 @@ let ActionsArea = ({
       <div>
         <button
           className='btn-second'
-          style={{width: "140px", marginRigth: "5px", alignSelf: 'flex-start'}}
+          style={{width: "140px", marginRight: "5px", alignSelf: 'flex-start'}}
           onClick={cancelSelection.bind(this)}
         >
           {translate("cancel")}
         </button>
         <button
           className='btn-second'
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           disabled={newSelections.length > 0 ? false : true}
           onClick={clearSelection.bind(this)}
         >
@@ -179,7 +179,7 @@ let ActionsArea = ({
         </button>
         <button
           className='btn-prime'
-          style={{width: "140px", marginRigth: "5px"}}
+          style={{width: "140px", marginRight: "5px"}}
           disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
           onClick={saveSelection.bind(this)}
         >
