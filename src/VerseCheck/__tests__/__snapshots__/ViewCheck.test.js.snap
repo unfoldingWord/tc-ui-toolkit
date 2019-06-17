@@ -667,7 +667,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -680,7 +680,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -701,7 +701,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1097,7 +1097,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1117,7 +1117,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1560,7 +1560,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1573,7 +1573,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1594,7 +1594,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1876,7 +1876,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             style={
               Object {
                 "alignSelf": "flex-start",
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1889,7 +1889,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1910,7 +1910,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
