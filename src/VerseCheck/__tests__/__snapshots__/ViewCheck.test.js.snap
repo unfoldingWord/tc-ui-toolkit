@@ -590,24 +590,13 @@ exports[`VerseCheck component: Integrated View test 1`] = `
         className="selection-actions-area"
       >
         <div
-          data-class="selection-tooltip"
-          data-delay-hide="100"
-          data-effect="float"
-          data-place="top"
-          data-tip="nothing_to_select_description"
-          data-type="dark"
-          style={
-            Object {
-              "fontSize": "0.8em",
-              "verticalAlign": "super",
-            }
-          }
+          className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-5 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-27 MuiIconButton-root-21 MuiPrivateSwitchBase-root-17 MuiCheckbox-root-11 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-15"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -622,11 +611,11 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-26"
+                className="MuiIconButton-label-27"
               >
                 <svg
                   aria-hidden="true"
-                  className="MuiSvgIcon-root-30"
+                  className="MuiSvgIcon-root-31"
                   focusable="false"
                   role="presentation"
                   viewBox="0 0 24 24"
@@ -637,7 +626,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 </svg>
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-20"
+                  className="MuiPrivateSwitchBase-input-21"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
@@ -646,19 +635,49 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-91"
+                className="MuiTouchRipple-root-92"
               />
             </span>
             <span
-              className="MuiTypography-root-39 MuiTypography-body1-48 MuiFormControlLabel-label-10 ActionsArea-label-2"
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
               No selection needed
             </span>
           </label>
           <div
-            className="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-          />
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
         </div>
         <div>
           <button
@@ -1030,7 +1049,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         className="actions-area"
       >
         <label
-          className="MuiFormControlLabel-root-5"
+          className="MuiFormControlLabel-root-6"
           style={
             Object {
               "paddingLeft": 10,
@@ -1038,10 +1057,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-100"
+            className="MuiSwitch-root-101"
           >
             <span
-              className="MuiButtonBase-root-27 MuiIconButton-root-21 MuiPrivateSwitchBase-root-17 MuiSwitch-switchBase-103 MuiSwitch-colorPrimary-105 Bookmark-colorPrimary-99"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-104 MuiSwitch-colorPrimary-106 Bookmark-colorPrimary-100"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -1056,14 +1075,14 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-26"
+                className="MuiIconButton-label-27"
               >
                 <span
-                  className="MuiSwitch-icon-101"
+                  className="MuiSwitch-icon-102"
                 />
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-20"
+                  className="MuiPrivateSwitchBase-input-21"
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
@@ -1071,15 +1090,15 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-91"
+                className="MuiTouchRipple-root-92"
               />
             </span>
             <span
-              className="MuiSwitch-bar-108"
+              className="MuiSwitch-bar-109"
             />
           </span>
           <span
-            className="MuiTypography-root-39 MuiTypography-body1-48 MuiFormControlLabel-label-10 Bookmark-label-98"
+            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-99"
           >
             bookmark
           </span>
@@ -1483,24 +1502,13 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
         className="selection-actions-area"
       >
         <div
-          data-class="selection-tooltip"
-          data-delay-hide="100"
-          data-effect="float"
-          data-place="top"
-          data-tip="nothing_to_select_description"
-          data-type="dark"
-          style={
-            Object {
-              "fontSize": "0.8em",
-              "verticalAlign": "super",
-            }
-          }
+          className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-5 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-27 MuiIconButton-root-21 MuiPrivateSwitchBase-root-17 MuiCheckbox-root-11 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-15"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -1515,11 +1523,11 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-26"
+                className="MuiIconButton-label-27"
               >
                 <svg
                   aria-hidden="true"
-                  className="MuiSvgIcon-root-30"
+                  className="MuiSvgIcon-root-31"
                   focusable="false"
                   role="presentation"
                   viewBox="0 0 24 24"
@@ -1530,7 +1538,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                 </svg>
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-20"
+                  className="MuiPrivateSwitchBase-input-21"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
@@ -1539,19 +1547,49 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-91"
+                className="MuiTouchRipple-root-92"
               />
             </span>
             <span
-              className="MuiTypography-root-39 MuiTypography-body1-48 MuiFormControlLabel-label-10 ActionsArea-label-2"
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
               No selection needed
             </span>
           </label>
           <div
-            className="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-          />
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
         </div>
         <div>
           <button
@@ -1799,24 +1837,13 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
         className="selection-actions-area"
       >
         <div
-          data-class="selection-tooltip"
-          data-delay-hide="100"
-          data-effect="float"
-          data-place="top"
-          data-tip="nothing_to_select_description"
-          data-type="dark"
-          style={
-            Object {
-              "fontSize": "0.8em",
-              "verticalAlign": "super",
-            }
-          }
+          className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-5 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-27 MuiIconButton-root-21 MuiPrivateSwitchBase-root-17 MuiCheckbox-root-11 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-15"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -1831,11 +1858,11 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-26"
+                className="MuiIconButton-label-27"
               >
                 <svg
                   aria-hidden="true"
-                  className="MuiSvgIcon-root-30"
+                  className="MuiSvgIcon-root-31"
                   focusable="false"
                   role="presentation"
                   viewBox="0 0 24 24"
@@ -1846,7 +1873,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                 </svg>
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-20"
+                  className="MuiPrivateSwitchBase-input-21"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
@@ -1855,19 +1882,49 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-91"
+                className="MuiTouchRipple-root-92"
               />
             </span>
             <span
-              className="MuiTypography-root-39 MuiTypography-body1-48 MuiFormControlLabel-label-10 ActionsArea-label-2"
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
               No selection needed
             </span>
           </label>
           <div
-            className="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-          />
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
         </div>
         <div>
           <button
