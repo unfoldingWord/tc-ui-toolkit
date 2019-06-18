@@ -5,12 +5,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import {withStyles} from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
+
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".BaseDialog-draggable-handle">
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 /**
  * Generates the dialog actions
- *
- * This was copied from tC core.
- * here should be a better way to provide a consistent dialog experience across tools.
- *
  * @param {bool} actionsEnabled enables/disables the action buttons
  * @param {*} primaryLabel the title of the primary button
  * @param {*} secondaryLabel the title of the secondary button
@@ -104,11 +111,15 @@ class BaseDialog extends React.Component {
 
     return (
       <Dialog
-        fullWidth={true}
         open={open}
-        onClose={onClose}>
+        onClose={onClose}
+        fullWidth={true}
+        PaperComponent={PaperComponent}
+        aria-labelledby={`draggable-${title}-dialog`}
+      >
         <DialogTitle
           disableTypography={true}
+          className="BaseDialog-draggable-handle"
           style={{
             color: 'var(--reverse-color)',
             backgroundColor: 'var(--accent-color-dark)',
@@ -116,7 +127,8 @@ class BaseDialog extends React.Component {
             display: 'block',
             width: '100%',
             fontSize: 22,
-            fontWeight: 400
+            fontWeight: 400,
+            cursor: 'move'
           }}>
           {title}
         </DialogTitle>
