@@ -9,8 +9,23 @@ import { Glyphicon } from 'react-bootstrap';
 // components
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 import './ExpandedScripturePaneModal.styles.css';
+
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".expanded-scripture-draggable-handle">
+      <Paper {...props} />
+    </Draggable>
+  );
+}
+
+function PaperComponentOnly(props) {
+  return <Paper {...props} />;
+}
 
 const styles = {
   toolBar: {
@@ -21,6 +36,7 @@ const styles = {
     backgroundColor: 'var(--accent-color-dark)',
     padding: '15px',
     width: '100%',
+    cursor: 'move',
   },
   title: {
     marginLeft: 'auto',
@@ -49,6 +65,55 @@ const styles = {
 };
 
 class ExpandedScripturePaneModal extends Component {
+  constructor(props) {
+    super(props);
+    this.handleEditTargetVerse = this.handleEditTargetVerse.bind(this);
+    this.handleEditorCancel = this.handleEditorCancel.bind(this);
+    this.handleEditorSubmit = this.handleEditorSubmit.bind(this);
+    this.state = {
+      editVerse: null
+    };
+  }
+
+ /**
+   * Handles events to edit the target verse
+   * @param bibleId
+   * @param chapter
+   * @param verse
+   * @param verseText
+   */
+  handleEditTargetVerse(bibleId, chapter, verse, verseText) {
+    this.setState({
+      editVerse: {
+        bibleId,
+        chapter,
+        verse,
+        verseText
+      }
+    });
+  }
+
+  handleEditorSubmit(originalVerse, newVerse, reasons) {
+    const { editTargetVerse } = this.props;
+    const {editVerse} = this.state;
+    if(editVerse === null) return;
+    const {chapter, verse} = editVerse;
+    if(typeof editTargetVerse === 'function') {
+      editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
+    } else {
+      console.warn('Unable to edit verse. Callback is not a function.');
+    }
+    this.setState({
+      editVerse: null
+    });
+  }
+
+  handleEditorCancel() {
+    this.setState({
+      editVerse: null
+    });
+  }
+
   render() {
     const {
       show,
@@ -64,10 +129,18 @@ class ExpandedScripturePaneModal extends Component {
       getLexiconData,
       showPopover,
     } = this.props;
+    const { editVerse } = this.state;
 
     return (
-      <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
-        <Toolbar style={styles.toolBar}>
+      <Dialog
+        open={show}
+        onClose={onHide}
+        fullWidth
+        maxWidth='md'
+        PaperComponent={editVerse ? PaperComponentOnly : PaperComponent}// there can't be two draggable comps at the same time
+        aria-labelledby="draggable-expanded-scripture-pane"
+      >
+        <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
           <div style={styles.title}>
             {title}
           </div>
@@ -84,9 +157,13 @@ class ExpandedScripturePaneModal extends Component {
             bibles={bibles}
             contextId={contextId}
             translate={translate}
+            editVerse={editVerse}
             editTargetVerse={editTargetVerse}
             projectDetailsReducer={projectDetailsReducer}
             currentPaneSettings={currentPaneSettings}
+            handleEditTargetVerse={this.handleEditTargetVerse}
+            handleEditorSubmit={this.handleEditorSubmit}
+            handleEditorCancel={this.handleEditorCancel}
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData} />

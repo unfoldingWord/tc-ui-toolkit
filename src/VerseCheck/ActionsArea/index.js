@@ -4,6 +4,8 @@ import isEqual from 'deep-equal';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InfoIcon from '@material-ui/icons/Info';
+
 import ReactTooltip from 'react-tooltip';
 // components
 import Bookmark from '../../Bookmark';
@@ -27,6 +29,14 @@ const styles = {
     },
   },
   checked: {},
+  icon: {
+    color: 'var(--accent-color-dark)',
+    verticalAlign: 'middle',
+    margin: '5px',
+    width: 30,
+    height: 30,
+    cursor: 'pointer'
+  },
 };
 
 
@@ -128,15 +138,7 @@ let ActionsArea = ({
   );
   const confirmSelectionArea = (
     <div className='selection-actions-area'>
-      <div
-        data-tip={translate('nothing_to_select_description')}
-        data-place="top"
-        data-effect="float"
-        data-type="dark"
-        data-class="selection-tooltip"
-        data-delay-hide="100"
-        style={{ verticalAlign: 'super', fontSize: '0.8em' }}
-      >
+      <div className='flex-row'>
         <FormControlLabel
           value="end"
           control={
@@ -158,7 +160,18 @@ let ActionsArea = ({
             label: classes.label
           }}
         />
-        <ReactTooltip/>
+        <div
+          data-tip={translate('nothing_to_select_description')}
+          data-place="top"
+          data-effect="float"
+          data-type="dark"
+          data-class="selection-tooltip"
+          data-delay-hide="100"
+          style={{ verticalAlign: 'super', fontSize: '0.8em' }}
+        >
+          <InfoIcon classes={{ root: classes.icon }} />
+          <ReactTooltip/>
+        </div>
       </div>
       <div>
         <button

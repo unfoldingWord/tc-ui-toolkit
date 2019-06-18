@@ -164,12 +164,15 @@ class VerseEditor extends React.Component {
     );
 
     return (
-      <BaseDialog modal={true}
+      <BaseDialog
+        modal={true}
         open={open}
-        title={title}>
-        <VerseEditorStepper stepIndex={stepIndex}
+        title={title}
+      >
+        <VerseEditorStepper
+          stepIndex={stepIndex}
           className='stepper'
-          steps={localizedSteps} />
+          steps={localizedSteps}/>
         <div className='screen'>
           {screen}
         </div>

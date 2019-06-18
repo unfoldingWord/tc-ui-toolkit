@@ -11,16 +11,6 @@ import VerseRow from './VerseRow';
 import VerseEditorDialog from '../../../VerseEditor';
 
 class ChapterView extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEditTargetVerse = this.handleEditTargetVerse.bind(this);
-    this.handleEditorCancel = this.handleEditorCancel.bind(this);
-    this.handleEditorSubmit = this.handleEditorSubmit.bind(this);
-    this.state = {
-      editVerse: null
-    };
-  }
-
   componentDidMount() {
     let { chapter, verse } = this.props.contextId.reference;
     let verseReference = ChapterView.makeRefKey(chapter, verse);
@@ -39,45 +29,6 @@ class ChapterView extends Component {
     return `c${chapter.toString()}v${verse.toString()}`;
   }
 
-   /**
-   * Handles events to edit the target verse
-   * @param bibleId
-   * @param chapter
-   * @param verse
-   * @param verseText
-   */
-  handleEditTargetVerse(bibleId, chapter, verse, verseText) {
-    this.setState({
-      editVerse: {
-        bibleId,
-        chapter,
-        verse,
-        verseText
-      }
-    });
-  }
-
-  handleEditorSubmit(originalVerse, newVerse, reasons) {
-    const { editTargetVerse } = this.props;
-    const {editVerse} = this.state;
-    if(editVerse === null) return;
-    const {chapter, verse} = editVerse;
-    if(typeof editTargetVerse === 'function') {
-      editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
-    } else {
-      console.warn('Unable to edit verse. Callback is not a function.');
-    }
-    this.setState({
-      editVerse: null
-    });
-  }
-
-  handleEditorCancel() {
-    this.setState({
-      editVerse: null
-    });
-  }
-
   componentWillUnmount() {
     this.verseRefs = {};
   }
@@ -92,6 +43,9 @@ class ChapterView extends Component {
       selections,
       getLexiconData,
       showPopover,
+      handleEditTargetVerse,
+      handleEditorSubmit,
+      handleEditorCancel,
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
@@ -117,13 +71,13 @@ class ChapterView extends Component {
             getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
             currentPaneSettings={currentPaneSettings}
-            onEditTargetVerse={this.handleEditTargetVerse}
+            onEditTargetVerse={handleEditTargetVerse}
             ref={node => this.verseRefs[refKey] = node} />
         );
       }
     }
 
-    const { editVerse } = this.state;
+    const { editVerse } = this.props;
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
@@ -143,9 +97,9 @@ class ChapterView extends Component {
           {verseRows}
         </div>
         <VerseEditorDialog translate={translate}
-                           onSubmit={this.handleEditorSubmit}
+                           onSubmit={handleEditorSubmit}
                            open={openEditor}
-                           onCancel={this.handleEditorCancel}
+                           onCancel={handleEditorCancel}
                            verseText={verseText}
                            verseTitle={verseTitle}/>
       </div>
@@ -163,6 +117,10 @@ ChapterView.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  editVerse: PropTypes.object,
+  handleEditTargetVerse: PropTypes.func.isRequired,
+  handleEditorSubmit: PropTypes.func.isRequired,
+  handleEditorCancel: PropTypes.func.isRequired,
 };
 
 export default ChapterView;
