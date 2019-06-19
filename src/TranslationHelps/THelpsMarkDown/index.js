@@ -24,6 +24,8 @@ const THelpsMarkDown = ({ article }) => (
         '}',
         '.remarkableStyling blockquote {',
         'font-size: small;',
+        'padding: 0 20px;',
+        'margin: 0 0 10px;',
         '}',
         '.remarkableStyling blockquote strong {',
         'text-decoration: underline;',
