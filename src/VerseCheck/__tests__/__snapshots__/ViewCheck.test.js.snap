@@ -587,49 +587,155 @@ exports[`VerseCheck component: Integrated View test 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="selection-actions-area"
       >
-        <button
-          className="btn-second"
-          onClick={[Function]}
-          style={
-            Object {
-              "alignSelf": "flex-start",
-            }
-          }
+        <div
+          className="flex-row"
         >
-          cancel
-        </button>
-        <button
-          className="btn-second"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-erase"
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  checked={false}
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              No selection needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
             style={
               Object {
-                "marginRight": "10px",
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
               }
             }
-          />
-          clear_selection
-        </button>
-        <button
-          className="btn-prime"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-ok"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            className="btn-second"
+            onClick={[Function]}
             style={
               Object {
-                "marginRight": "10px",
+                "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
-          />
-          save
-        </button>
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
       </div>
     </div>
     <div />
@@ -943,7 +1049,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         className="actions-area"
       >
         <label
-          className="MuiFormControlLabel-root-19"
+          className="MuiFormControlLabel-root-6"
           style={
             Object {
               "paddingLeft": 10,
@@ -951,10 +1057,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-25"
+            className="MuiSwitch-root-101"
           >
             <span
-              className="MuiButtonBase-root-44 MuiIconButton-root-38 MuiPrivateSwitchBase-root-34 MuiSwitch-switchBase-28 MuiSwitch-colorPrimary-30 Bookmark-colorPrimary-18"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-104 MuiSwitch-colorPrimary-106 Bookmark-colorPrimary-100"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -969,14 +1075,14 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-43"
+                className="MuiIconButton-label-27"
               >
                 <span
-                  className="MuiSwitch-icon-26"
+                  className="MuiSwitch-icon-102"
                 />
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-37"
+                  className="MuiPrivateSwitchBase-input-21"
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
@@ -984,15 +1090,15 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 />
               </span>
               <span
-                className="MuiTouchRipple-root-83"
+                className="MuiTouchRipple-root-92"
               />
             </span>
             <span
-              className="MuiSwitch-bar-33"
+              className="MuiSwitch-bar-109"
             />
           </span>
           <span
-            className="MuiTypography-root-47 MuiTypography-body1-56 MuiFormControlLabel-label-24 Bookmark-label-17"
+            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-99"
           >
             bookmark
           </span>
@@ -1010,7 +1116,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1030,7 +1136,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             onClick={[Function]}
             style={
               Object {
-                "marginRigth": "5px",
+                "marginRight": "5px",
                 "width": "140px",
               }
             }
@@ -1393,49 +1499,155 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="selection-actions-area"
       >
-        <button
-          className="btn-second"
-          onClick={[Function]}
-          style={
-            Object {
-              "alignSelf": "flex-start",
-            }
-          }
+        <div
+          className="flex-row"
         >
-          cancel
-        </button>
-        <button
-          className="btn-second"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-erase"
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  checked={false}
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              No selection needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
             style={
               Object {
-                "marginRight": "10px",
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
               }
             }
-          />
-          clear_selection
-        </button>
-        <button
-          className="btn-prime"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-ok"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            className="btn-second"
+            onClick={[Function]}
             style={
               Object {
-                "marginRight": "10px",
+                "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
-          />
-          save
-        </button>
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
       </div>
     </div>
     <div />
@@ -1622,49 +1834,155 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
         </div>
       </div>
       <div
-        className="actions-area"
+        className="selection-actions-area"
       >
-        <button
-          className="btn-second"
-          onClick={[Function]}
-          style={
-            Object {
-              "alignSelf": "flex-start",
-            }
-          }
+        <div
+          className="flex-row"
         >
-          cancel
-        </button>
-        <button
-          className="btn-second"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-erase"
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  checked={false}
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              No selection needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
             style={
               Object {
-                "marginRight": "10px",
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
               }
             }
-          />
-          clear_selection
-        </button>
-        <button
-          className="btn-prime"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-ok"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            className="btn-second"
+            onClick={[Function]}
             style={
               Object {
-                "marginRight": "10px",
+                "alignSelf": "flex-start",
+                "marginRight": "5px",
+                "width": "140px",
               }
             }
-          />
-          save
-        </button>
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
       </div>
     </div>
     <div />

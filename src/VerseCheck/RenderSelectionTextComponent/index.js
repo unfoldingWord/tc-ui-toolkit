@@ -28,7 +28,7 @@ class RenderSelectionTextComponent extends Component {
   addSelection(selection) {
     let {selections, verseText, translate} = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
-    // console.log(selections); // this is a good place to preview selections before saved in state
+    // this is a good place to preview selections before saved in state
     if (selections.length <= 4) {
       this.props.actions.changeSelectionsInLocalState(selections);
     } else {

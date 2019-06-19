@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 const ELLIPSIS = '…';
 
-const QuoatationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
+export const QuoatationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
 
 QuoatationMarks.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.object.isRequired
 };
 
 const getSelectionSpans = (selections) => {

@@ -127,6 +127,7 @@ function addMockActions(props) {
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
     saveSelection: () => jest.fn(),
+    toggleNothingToSelect: () => jest.fn(),
     goToNextOrPrevious: "next",
     findIfVerseEdited: jest.fn(() => {
       return ( currentEdited); }),
@@ -137,7 +138,9 @@ function addMockActions(props) {
 
 function getBasePropertiesAndMockActions() {
   // clone properties so we can modify before test
-  let props = JSON.parse(JSON.stringify(base_props));
+  let props = base_props;
+  console.log(base_props);
+  console.log('base_props');
   props = addMockActions(props);
   return props;
 }

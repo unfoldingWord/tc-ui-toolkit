@@ -9,7 +9,8 @@ const IconIndicators = ({
   bookmarkEnabled,
   translate,
   invalidated,
-  comment
+  comment,
+  nothingToSelect
 }) => {
 
   function getInvalidatedIcon() {
@@ -38,9 +39,9 @@ const IconIndicators = ({
         style={{
           margin: '0px 20px',
           color: "var(--reverse-color)",
-          opacity: selections.length > 0 ? 1 : 0.2
+          opacity: selections.length > 0 ? 1 : nothingToSelect ? 1 : 0.2
         }}
-        title={selections.length > 0 ? translate("icons.selections_found") : translate("icons.no_selections_found")}
+        title={selections.length > 0 ? translate("icons.selections_found") : nothingToSelect ? translate("no_selection_needed") : translate("icons.no_selections_found")}
       />
       <Glyphicon
         glyph="pencil"
@@ -79,7 +80,8 @@ IconIndicators.propTypes = {
   verseEdited: PropTypes.bool.isRequired,
   selections: PropTypes.array,
   comment: PropTypes.string,
-  bookmarkEnabled: PropTypes.bool
+  bookmarkEnabled: PropTypes.bool,
+  nothingToSelect: PropTypes.bool,
 };
 
 export default IconIndicators;

@@ -7,15 +7,16 @@ import './SaveArea.styles.css';
 let SaveArea = ({
   actions,
   selections,
+  nothingToSelect,
   translate
 }) => {
 
   const handleNext = () => {
-    selections.length > 0 ? actions.handleGoToNext() : actions.handleOpenDialog("next");
+    selections.length > 0 || nothingToSelect ? actions.handleGoToNext() : actions.handleOpenDialog("next");
   };
 
   const handlePrevious = () => {
-    selections.length > 0 ? actions.handleGoToPrevious() : actions.handleOpenDialog("previous");
+    selections.length > 0 || nothingToSelect ? actions.handleGoToPrevious() : actions.handleOpenDialog("previous");
   };
 
   return (
@@ -44,6 +45,7 @@ SaveArea.propTypes = {
     handleOpenDialog: PropTypes.func
   }).isRequired,
   selections: PropTypes.array,
+  nothingToSelect: PropTypes.bool,
   goToNextOrPrevious: PropTypes.string,
   skipToPrevious: PropTypes.func,
   skipToNext: PropTypes.func,
