@@ -7,14 +7,14 @@ const DEFAULT_SEPARATOR = ' ';
  * @param {int} occurrenceToMatch
  * @return {Array}
  */
-function getQuoteAsArray(quote, occurrenceToMatch) {
+export const getQuoteAsArray = (quote, occurrenceToMatch) => {
   let quoteArray = quote;
   if (typeof quote ==='string') { // should only be string in case of single word quote, otherwise is an array
     quoteArray = quote.split(' ');
     quoteArray = quoteArray.map(word => ({word, occurrence: occurrenceToMatch}));
   }
   return quoteArray;
-}
+};
 
 /**
  * getAlignedText - returns a string of the text found in an array of verseObjects that matches the words to find
