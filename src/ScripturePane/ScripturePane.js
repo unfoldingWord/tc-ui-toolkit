@@ -101,7 +101,7 @@ class ScripturePane extends Component {
         let verseElements = [];
 
         // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-        const setFontSize = (manifest.language_id === 'hbo') ? 200 : 0;
+        const setFontSize = (manifest.language_id === 'hbo') ? 150 : 0;
 
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
           language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
