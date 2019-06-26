@@ -38,7 +38,9 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
       const index = i;
       const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
       if (fontSize) {
-        spanStyle.fontSize = Math.round(fontSize) + '%';
+        const fontSizeInt = Math.round(fontSize);
+        spanStyle.fontSize = fontSizeInt + '%';
+        spanStyle.lineHeight = fontSizeInt + '%';
       }
       verseTextSpans.push(
         <span key={index} style={spanStyle}>
@@ -107,7 +109,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         if (word.strong) { // if clickable
           const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
           if (fontSize) {
-            spanStyle.fontSize = Math.round(fontSize) + '%';
+            const fontSizeInt = Math.round(fontSize);
+            spanStyle.fontSize = fontSizeInt + '%';
+            spanStyle.lineHeight = fontSizeInt + '%';
           }
           verseSpan.push(
             <span
