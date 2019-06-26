@@ -2,20 +2,13 @@
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
-import {VerseObjectUtils} from 'word-aligner';
+import { VerseObjectUtils } from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
-import {createHighlightedSpan, createNonClickableSpan, createTextSpan, onWordClick} from './htmlElementsHelpers';
-import {removeMarker} from './usfmHelpers';
-import {
-  isIsolatedLeftQuote,
-  isNestedMilestone,
-  isWord,
-  punctuationWordSpacing,
-  textIsEmptyInVerseObject
-} from './stringHelpers';
-
-const LINE_HEIGHT_CORRECTION = 1.5; // adjustment of line height relative to font height
+import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
+import { removeMarker } from './usfmHelpers';
+import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
+          isIsolatedLeftQuote} from './stringHelpers';
 
 /**
  *
