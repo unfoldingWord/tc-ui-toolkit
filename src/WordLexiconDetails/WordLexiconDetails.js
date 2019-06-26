@@ -60,7 +60,7 @@ function generateDataSegment(label, text, isFormatted = false) {
  */
 function generateLine(pos) {
   return (pos > 0) ?
-    <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '3px', 'marginTop': '0px'}}/>
+    <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px', 'marginTop': '0px'}}/>
     : "";
 }
 
