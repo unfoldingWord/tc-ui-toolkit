@@ -2,13 +2,20 @@
 import React from 'react';
 import isEqual from 'deep-equal';
 import stringTokenizer from 'string-punctuation-tokenizer';
-import { VerseObjectUtils } from 'word-aligner';
+import {VerseObjectUtils} from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
-import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
-import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
-          isIsolatedLeftQuote} from './stringHelpers';
+import {createHighlightedSpan, createNonClickableSpan, createTextSpan, onWordClick} from './htmlElementsHelpers';
+import {removeMarker} from './usfmHelpers';
+import {
+  isIsolatedLeftQuote,
+  isNestedMilestone,
+  isWord,
+  punctuationWordSpacing,
+  textIsEmptyInVerseObject
+} from './stringHelpers';
+
+const LINE_HEIGHT_CORRECTION = 1.5; // adjustment of line height relative to font height
 
 /**
  *
@@ -38,9 +45,11 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
       const index = i;
       const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
       if (fontSize) {
-        const fontSizeInt = Math.round(fontSize);
-        spanStyle.fontSize = fontSizeInt + '%';
-        spanStyle.lineHeight = fontSizeInt + '%';
+        spanStyle.fontSize = Math.round(fontSize) + '%';
+        if (fontSize > 100) {
+          const lineHeightInt = Math.round((fontSize - 100) * LINE_HEIGHT_CORRECTION + 100); // larger fonts need more headroom
+          spanStyle.lineHeight = lineHeightInt + '%';
+        }
       }
       verseTextSpans.push(
         <span key={index} style={spanStyle}>
@@ -109,9 +118,11 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         if (word.strong) { // if clickable
           const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
           if (fontSize) {
-            const fontSizeInt = Math.round(fontSize);
-            spanStyle.fontSize = fontSizeInt + '%';
-            spanStyle.lineHeight = fontSizeInt + '%';
+            spanStyle.fontSize = Math.round(fontSize) + '%';
+            if (fontSize > 100) {
+              const lineHeightInt = Math.round((fontSize - 100) * LINE_HEIGHT_CORRECTION + 100); // larger fonts need more headroom
+              spanStyle.lineHeight = lineHeightInt + '%';
+            }
           }
           verseSpan.push(
             <span
