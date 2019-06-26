@@ -46,10 +46,6 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
       const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
       if (fontSize) {
         spanStyle.fontSize = Math.round(fontSize) + '%';
-        if (fontSize > 100) {
-          const lineHeightInt = Math.round((fontSize - 100) * LINE_HEIGHT_CORRECTION + 100); // larger fonts need more headroom
-          spanStyle.lineHeight = lineHeightInt + '%';
-        }
       }
       verseTextSpans.push(
         <span key={index} style={spanStyle}>
@@ -119,10 +115,6 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
           if (fontSize) {
             spanStyle.fontSize = Math.round(fontSize) + '%';
-            if (fontSize > 100) {
-              const lineHeightInt = Math.round((fontSize - 100) * LINE_HEIGHT_CORRECTION + 100); // larger fonts need more headroom
-              spanStyle.lineHeight = lineHeightInt + '%';
-            }
           }
           verseSpan.push(
             <span
