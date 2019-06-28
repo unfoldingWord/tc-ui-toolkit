@@ -37,7 +37,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,R:Ncfsa',
             strong: 'b:H7225'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -52,7 +53,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,Vqp3ms',
             strong: 'H1254a'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -67,7 +69,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,C:Td:Ncbsa',
             strong: 'c:d:H0776'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -82,7 +85,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,Ncmsc:Sp3ms',
             strong: 'H2233'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -97,7 +101,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,R:Ncmsc:Sp3ms',
             strong: 'l:H4327'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -112,7 +117,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,Np',
             strong: 'H0894'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -127,7 +133,8 @@ describe('WordLexiconDetails', () => {
             morph: 'Ar,R:Ncmsd:Td',
             strong: 'l:H4430'
           }}
-          translate={k => k}/>
+          translate={k => k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -142,7 +149,8 @@ describe('WordLexiconDetails', () => {
             morph: 'He,R:Sp3ms',
             strong: 'b'
           }}
-          translate={k=>k}/>
+          translate={k=>k}
+          isHebrew={true}/>
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -437,7 +445,9 @@ describe('WordLexiconDetails', () => {
       it('should succeed with "' + strong + '"', () => {
         //when
         const lexiconData = lexiconHelpers.lookupStrongsNumbers(strong, (lexiconId, entryId) => (getLexiconDataSimulate(lexiconId, entryId)));
-        let wordLexiconDetails = WordLexiconDetails.generateWordLexiconDetails(text, strong, morph, lemma, lexiconData, t => (t), generateWordPart);
+        const word = {text, strong, morph, lemma};
+        const isHebrew = strong.charAt(0).toUpperCase() === 'H';
+        let wordLexiconDetails = WordLexiconDetails.generateWordLexiconDetails(word, lexiconData, t => (t), generateWordPart, isHebrew);
 
         // then
         expect(wordLexiconDetails).toEqual(expectedResults);

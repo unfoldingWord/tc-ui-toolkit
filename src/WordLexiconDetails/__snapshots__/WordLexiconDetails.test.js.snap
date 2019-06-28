@@ -16,7 +16,15 @@ exports[`WordLexiconDetails rendering  renders Greek 1`] = `
       lemma
     </strong>
      
-    lemma
+    <span
+      style={
+        Object {
+          "fontSize": "1.2em",
+        }
+      }
+    >
+      lemma
+    </span>
   </span>
   <br />
   <span>
@@ -24,7 +32,15 @@ exports[`WordLexiconDetails rendering  renders Greek 1`] = `
       morphology
     </strong>
      
-    noun, substantive_adj, genitive, masculine, plural, F
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      noun, substantive_adj, genitive, masculine, plural, F
+    </span>
   </span>
   <br />
   <span>
@@ -32,7 +48,15 @@ exports[`WordLexiconDetails rendering  renders Greek 1`] = `
       strongs
     </strong>
      
-    G1230
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      G1230
+    </span>
   </span>
   <br />
   <span>
@@ -40,8 +64,15 @@ exports[`WordLexiconDetails rendering  renders Greek 1`] = `
       lexicon
     </strong>
      
-    
-     
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      
+    </span>
   </span>
   <br />
 </div>
@@ -69,7 +100,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -82,7 +113,15 @@ Array [
         lemma
       </strong>
        
-      בָּבֶל
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        בָּבֶל
+      </span>
     </span>
     <br />
     <span>
@@ -90,7 +129,15 @@ Array [
         morphology
       </strong>
        
-      noun, proper_name
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, proper_name
+      </span>
     </span>
     <br />
     <span>
@@ -98,7 +145,15 @@ Array [
         strongs
       </strong>
        
-      H0894
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H0894
+      </span>
     </span>
     <br />
     <span>
@@ -106,8 +161,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -140,7 +202,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -153,7 +215,15 @@ Array [
         morphology
       </strong>
        
-      morph_missing
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        morph_missing
+      </span>
     </span>
     <br />
   </div>,
@@ -182,7 +252,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -195,7 +265,15 @@ Array [
         lemma
       </strong>
        
-      מֶלֶךְ
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        מֶלֶךְ
+      </span>
     </span>
     <br />
     <span>
@@ -203,7 +281,15 @@ Array [
         morphology
       </strong>
        
-      noun, common, masculine, singular, determined
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, common, masculine, singular, determined
+      </span>
     </span>
     <br />
     <span>
@@ -211,7 +297,15 @@ Array [
         strongs
       </strong>
        
-      H4430
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H4430
+      </span>
     </span>
     <br />
     <span>
@@ -219,8 +313,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -253,7 +354,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -266,7 +367,15 @@ Array [
         morphology
       </strong>
        
-      preposition
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        preposition
+      </span>
     </span>
     <br />
   </div>,
@@ -299,7 +408,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -312,7 +421,15 @@ Array [
         morphology
       </strong>
        
-      particle, definite_article
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        particle, definite_article
+      </span>
     </span>
     <br />
   </div>,
@@ -335,7 +452,15 @@ exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
       lemma
     </strong>
      
-    בָּרָא
+    <span
+      style={
+        Object {
+          "fontSize": "1.7em",
+        }
+      }
+    >
+      בָּרָא
+    </span>
   </span>
   <br />
   <span>
@@ -343,7 +468,15 @@ exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
       morphology
     </strong>
      
-    verb, qal, perfect_qatal, third, masculine, singular
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      verb, qal, perfect_qatal, third, masculine, singular
+    </span>
   </span>
   <br />
   <span>
@@ -351,7 +484,15 @@ exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
       strongs
     </strong>
      
-    H1254a
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      H1254a
+    </span>
   </span>
   <br />
   <span>
@@ -359,8 +500,15 @@ exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
       lexicon
     </strong>
      
-    
-     
+    <span
+      style={
+        Object {
+          "fontSize": "1.0em",
+        }
+      }
+    >
+      
+    </span>
   </span>
   <br />
 </div>
@@ -388,7 +536,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -401,7 +549,15 @@ Array [
         lemma
       </strong>
        
-      אֶרֶץ
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        אֶרֶץ
+      </span>
     </span>
     <br />
     <span>
@@ -409,7 +565,15 @@ Array [
         morphology
       </strong>
        
-      noun, common, both_genders, singular, absolute
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, common, both_genders, singular, absolute
+      </span>
     </span>
     <br />
     <span>
@@ -417,7 +581,15 @@ Array [
         strongs
       </strong>
        
-      H0776
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H0776
+      </span>
     </span>
     <br />
     <span>
@@ -425,8 +597,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -459,7 +638,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -472,7 +651,15 @@ Array [
         morphology
       </strong>
        
-      conjunction
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        conjunction
+      </span>
     </span>
     <br />
   </div>,
@@ -505,7 +692,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -518,7 +705,15 @@ Array [
         morphology
       </strong>
        
-      particle, definite_article
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        particle, definite_article
+      </span>
     </span>
     <br />
   </div>,
@@ -547,7 +742,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -560,7 +755,15 @@ Array [
         lemma
       </strong>
        
-      מִין
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        מִין
+      </span>
     </span>
     <br />
     <span>
@@ -568,7 +771,15 @@ Array [
         morphology
       </strong>
        
-      noun, common, masculine, singular, construct
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, common, masculine, singular, construct
+      </span>
     </span>
     <br />
     <span>
@@ -576,7 +787,15 @@ Array [
         strongs
       </strong>
        
-      H4327
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H4327
+      </span>
     </span>
     <br />
     <span>
@@ -584,8 +803,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -618,7 +844,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -631,7 +857,15 @@ Array [
         morphology
       </strong>
        
-      preposition
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        preposition
+      </span>
     </span>
     <br />
   </div>,
@@ -664,7 +898,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -677,7 +911,15 @@ Array [
         morphology
       </strong>
        
-      suffix, pronominal, third, masculine, singular
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        suffix, pronominal, third, masculine, singular
+      </span>
     </span>
     <br />
   </div>,
@@ -706,7 +948,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -719,7 +961,15 @@ Array [
         lemma
       </strong>
        
-      אשִׁירֵת
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        אשִׁירֵת
+      </span>
     </span>
     <br />
     <span>
@@ -727,7 +977,15 @@ Array [
         morphology
       </strong>
        
-      noun, common, feminine, singular, absolute
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, common, feminine, singular, absolute
+      </span>
     </span>
     <br />
     <span>
@@ -735,7 +993,15 @@ Array [
         strongs
       </strong>
        
-      H7225
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H7225
+      </span>
     </span>
     <br />
     <span>
@@ -743,8 +1009,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -777,7 +1050,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -790,7 +1063,15 @@ Array [
         morphology
       </strong>
        
-      preposition
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        preposition
+      </span>
     </span>
     <br />
   </div>,
@@ -819,7 +1100,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -832,7 +1113,15 @@ Array [
         lemma
       </strong>
        
-      זֶרַע
+      <span
+        style={
+          Object {
+            "fontSize": "1.7em",
+          }
+        }
+      >
+        זֶרַע
+      </span>
     </span>
     <br />
     <span>
@@ -840,7 +1129,15 @@ Array [
         morphology
       </strong>
        
-      noun, common, masculine, singular, construct
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        noun, common, masculine, singular, construct
+      </span>
     </span>
     <br />
     <span>
@@ -848,7 +1145,15 @@ Array [
         strongs
       </strong>
        
-      H2233
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        H2233
+      </span>
     </span>
     <br />
     <span>
@@ -856,8 +1161,15 @@ Array [
         lexicon
       </strong>
        
-      
-       
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        
+      </span>
     </span>
     <br />
   </div>,
@@ -890,7 +1202,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -903,7 +1215,15 @@ Array [
         morphology
       </strong>
        
-      suffix, pronominal, third, masculine, singular
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        suffix, pronominal, third, masculine, singular
+      </span>
     </span>
     <br />
   </div>,
@@ -932,7 +1252,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -945,7 +1265,15 @@ Array [
         morphology
       </strong>
        
-      preposition
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        preposition
+      </span>
     </span>
     <br />
   </div>,
@@ -978,7 +1306,7 @@ Array [
       <strong
         style={
           Object {
-            "fontSize": "1.2em",
+            "fontSize": "1.7em",
           }
         }
       >
@@ -991,7 +1319,15 @@ Array [
         morphology
       </strong>
        
-      suffix, pronominal, third, masculine, singular
+      <span
+        style={
+          Object {
+            "fontSize": "1.0em",
+          }
+        }
+      >
+        suffix, pronominal, third, masculine, singular
+      </span>
     </span>
     <br />
   </div>,
