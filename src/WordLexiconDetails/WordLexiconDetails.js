@@ -47,7 +47,7 @@ function getFormatted(html) {
  * @return {*}
  */
 function generateDataSegment(label, text, isFormatted = false, isHebrew = false) {
-  const fontSize = isHebrew ? '1.7em' : '1.0em';
+  const fontSize = isHebrew ? '1.7em' : '1.2em';
   return (isFormatted ?
       <span><strong>{label}</strong> <span style={{fontSize}}>{(text && getFormatted(text)) || ""}</span></span>
       :
