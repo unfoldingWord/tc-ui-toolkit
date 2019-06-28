@@ -18,8 +18,9 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate, isH
   if (word && word.strong) {
     let lexiconData = lexiconHelpers.lookupStrongsNumbers(word.strong, getLexiconData);
     const positionCoord = e.target;
+    const fontSize = isHebrew ? '1.7em' : '1.2em';
     const PopoverTitle = (
-      <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
+      <strong style={{fontSize}}>{word.text}</strong>
     );
     const wordDetails = (
       <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate}
