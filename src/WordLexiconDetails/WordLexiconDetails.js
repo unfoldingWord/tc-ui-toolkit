@@ -43,11 +43,10 @@ function getFormatted(html) {
  * @param {string} label
  * @param {string} text
  * @param {boolean} isFormatted - if true then text contains html formatting
- * @param {boolean} isHebrew - if true then we adjust font size for Original language
+ * @param {string} fontSize - font size to use for text
  * @return {*}
  */
-function generateDataSegment(label, text, isFormatted = false, isHebrew = false) {
-  const fontSize = isHebrew ? '1.7em' : '1.2em';
+function generateDataSegment(label, text, isFormatted = false, fontSize = '1.0em') {
   return (isFormatted ?
       <span><strong>{label}</strong> <span style={{fontSize}}>{(text && getFormatted(text)) || ""}</span></span>
       :
@@ -70,11 +69,10 @@ function generateLine(pos) {
  * creates an html word
  * @param {boolean} multipart - if true then this is a multipart word
  * @param {string} word
- * @param {boolean} isHebrew - if true then we adjust font size for Original language
+ * @param {string} fontSize - font size to use for word
  * @return {*}
  */
-function generateWordEntry(multipart, word, isHebrew = false) {
-  const fontSize = isHebrew ? '1.7em' : '1.2em';
+function generateWordEntry(multipart, word, fontSize = '1.2em') {
   return multipart ?
     <div style={{margin: '0', padding: '0'}}>
       <strong style={{fontSize}}>{word}</strong>
@@ -103,11 +101,12 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
+  const origLangFontSize = isHebrew ? '1.7em' : '1.2em';
   if (strongsNum) {
     return <div key={key} style={{margin: '0px 10px 0px 10px', maxWidth: '400px'}}>
       {generateLine(pos)}
-      {generateWordEntry(multipart, word, isHebrew)}
-      {generateDataSegment(translate('lemma'), lemma, false, isHebrew)}<br/>
+      {generateWordEntry(multipart, word, origLangFontSize)}
+      {generateDataSegment(translate('lemma'), lemma, false, origLangFontSize)}<br/>
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
       {generateDataSegment(translate('strongs'), strongs)}<br/>
       {generateDataSegment(translate('lexicon'), lexicon, true)}<br/>
@@ -115,7 +114,7 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
   } else { // not main word
     return <div key={key} style={{margin: '0px 0px 0px 10px', maxWidth: '400px'}}>
       {generateLine(pos)}
-      {generateWordEntry(multipart, word, isHebrew)}
+      {generateWordEntry(multipart, word, origLangFontSize)}
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
     </div>;
   }
