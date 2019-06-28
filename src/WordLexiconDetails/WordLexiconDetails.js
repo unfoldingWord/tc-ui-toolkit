@@ -47,11 +47,11 @@ function getFormatted(html) {
  * @return {*}
  */
 function generateDataSegment(label, text, isFormatted = false, isHebrew = false) {
-  const fontSize = isHebrew ? '1.5em' : '1.0em';
+  const fontSize = isHebrew ? '1.7em' : '1.0em';
   return (isFormatted ?
-      <span style={{fontSize}}><strong>{label}</strong> {(text && getFormatted(text)) || ""} </span>
+      <span><strong>{label}</strong> <span style={{fontSize}}>{(text && getFormatted(text)) || ""}</span></span>
       :
-      <span style={{fontSize}}><strong>{label}</strong> {text}</span>
+      <span><strong>{label}</strong> <span style={{fontSize}}>{text}</span></span>
   );
 }
 
@@ -188,7 +188,7 @@ export function generateWordLexiconDetails(wordObject, lexiconData, translate, g
   const partCount = Math.max(morphStrs.length, strongsParts.length, wordParts.length); // since there may be inconsistancies, use largest count
   if (partCount < 2) {
     const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(wordObject.strong, lexiconData, 0);
-    wordLexiconDetails = generateWordPart(translate, wordObject.lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount);
+    wordLexiconDetails = generateWordPart(translate, wordObject.lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount, isHebrew);
   } else {
     const indices = movePrimaryWordToTop(partCount, wordParts);
     wordLexiconDetails = indices.map((pos, index) => {
