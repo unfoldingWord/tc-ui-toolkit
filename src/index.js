@@ -14,4 +14,6 @@ export { default as InvalidatedIcon } from './icons/Invalidated';
 export { default as CheckIcon } from './icons/Check';
 export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
+export { getAlignedText } from './VerseCheck/helpers/checkAreaHelpers';
 exports.lexiconHelpers = require('./ScripturePane/helpers/lexiconHelpers');
+

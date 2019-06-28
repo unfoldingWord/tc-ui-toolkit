@@ -4,7 +4,7 @@ exports[`WordLexiconDetails rendering  renders Greek 1`] = `
 <div
   style={
     Object {
-      "margin": "-10px 10px 0px",
+      "margin": "0px 10px 0px 10px",
       "maxWidth": "400px",
     }
   }
@@ -52,7 +52,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -114,7 +114,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -125,6 +125,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -164,7 +165,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -226,7 +227,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -237,6 +238,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -271,7 +273,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -282,6 +284,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -320,7 +323,7 @@ exports[`WordLexiconDetails rendering  renders Hebrew single part 1`] = `
 <div
   style={
     Object {
-      "margin": "-10px 10px 0px",
+      "margin": "0px 10px 0px 10px",
       "maxWidth": "400px",
     }
   }
@@ -368,7 +371,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -430,7 +433,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -441,6 +444,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -475,7 +479,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -486,6 +490,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -525,7 +530,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -587,7 +592,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -598,6 +603,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -632,7 +638,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -643,6 +649,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -682,7 +689,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -744,7 +751,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -755,6 +762,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -794,7 +802,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 10px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -856,7 +864,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -867,6 +875,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
@@ -906,7 +915,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -943,7 +952,7 @@ Array [
   <div
     style={
       Object {
-        "margin": "-10px 10px 0px",
+        "margin": "0px 0px 0px 10px",
         "maxWidth": "400px",
       }
     }
@@ -954,6 +963,7 @@ Array [
           "borderBottom": "1px solid gray",
           "height": "6px",
           "marginBottom": "5px",
+          "marginTop": "0px",
         }
       }
     />
