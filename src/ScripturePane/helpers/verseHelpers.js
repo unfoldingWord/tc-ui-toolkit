@@ -76,6 +76,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       </span>
     );
   } else {
+    const isHebrew = (bibleId === 'uhb');
+    const originalLang = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
     for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
@@ -88,8 +90,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         const text = (word.word || word.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
-        const isHebrew = (bibleId === 'uhb');
-        if ((bibleId === 'ugnt' || isHebrew) && contextId.quote && word.text) {
+        if (originalLang && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
@@ -109,13 +110,10 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           if (fontSize) {
             spanStyle.fontSize = Math.round(fontSize) + '%';
           }
-          if (isHebrew) {
-            word.isHebrew = true; // keep track of Hebrew since we need to enlarge
-          }
           verseSpan.push(
             <span
               key={index.toString()}
-              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate)}
+              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate, isHebrew)}
               style={{ cursor: 'pointer' }}
             >
               <span style={paddingSpanStyle}>
