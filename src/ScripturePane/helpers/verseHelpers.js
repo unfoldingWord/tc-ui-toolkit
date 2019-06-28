@@ -88,8 +88,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         const text = (word.word || word.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
-
-        if ((bibleId === 'ugnt' || bibleId === 'uhb') && contextId.quote && word.text) {
+        const isHebrew = (bibleId === 'uhb');
+        if ((bibleId === 'ugnt' || isHebrew) && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
@@ -108,6 +108,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
           if (fontSize) {
             spanStyle.fontSize = Math.round(fontSize) + '%';
+          }
+          if (isHebrew) {
+            word.isHebrew = true; // keep track of Hebrew since we need to enlarge
           }
           verseSpan.push(
             <span
