@@ -16,8 +16,6 @@ import {
   // verseCheckSelections
 } from './assets/verseCheckProps';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
