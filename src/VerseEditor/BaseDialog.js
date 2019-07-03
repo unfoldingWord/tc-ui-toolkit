@@ -11,7 +11,7 @@ import Draggable from 'react-draggable';
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
-    <Draggable handle=".BaseDialog-draggable-handle">
+    <Draggable bounds="body" handle=".BaseDialog-draggable-handle">
       <Paper {...props} />
     </Draggable>
   );
