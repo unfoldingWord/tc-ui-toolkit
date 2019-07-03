@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Glyphicon } from 'react-bootstrap';
+import {withStyles} from '@material-ui/core/styles';
 // components
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
@@ -18,7 +19,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable bounds="body" handle=".expanded-scripture-draggable-handle">
-      <Paper {...props} />
+      <Paper {...props}/>
     </Draggable>
   );
 }
@@ -57,6 +58,9 @@ const styles = {
   },
   progressSvg: {
     margin: '5px'
+  },
+  paperRoot: {
+    margin: '0px'
   }
 };
 
@@ -128,6 +132,7 @@ class ExpandedScripturePaneModal extends Component {
       selections,
       getLexiconData,
       showPopover,
+      classes,
     } = this.props;
     const { editVerse } = this.state;
 
@@ -138,6 +143,7 @@ class ExpandedScripturePaneModal extends Component {
         fullWidth
         maxWidth='md'
         PaperComponent={PaperComponent}
+        PaperProps={{ className: classes.paperRoot}}
         aria-labelledby="draggable-expanded-scripture-pane"
       >
         <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
@@ -192,6 +198,7 @@ ExpandedScripturePaneModal.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default ExpandedScripturePaneModal;
+export default withStyles(styles)(ExpandedScripturePaneModal);

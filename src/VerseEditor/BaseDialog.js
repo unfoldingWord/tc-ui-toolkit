@@ -60,6 +60,9 @@ const makeDialogActions = ({actionsEnabled, primaryLabel, secondaryLabel, onPrim
 const styles = {
   actionRoot: {
     padding: 0,
+  },
+  paperRoot: {
+    margin: '0px'
   }
 };
 
@@ -82,7 +85,6 @@ const styles = {
  * @property {func} [onSubmit] - callback when the primary button is triggered. Overridden by `actions`
  */
 class BaseDialog extends React.Component {
-
   componentDidCatch(error, info) {
     console.error(error);
     console.warn(info);
@@ -99,6 +101,7 @@ class BaseDialog extends React.Component {
       open,
       children,
       actions,
+      classes,
     } = this.props;
 
     let dialogActions = actions ? actions : makeDialogActions({
@@ -115,6 +118,7 @@ class BaseDialog extends React.Component {
         onClose={onClose}
         fullWidth={true}
         PaperComponent={PaperComponent}
+        PaperProps={{ className: classes.paperRoot}}
         aria-labelledby={`draggable-${title}-dialog`}
       >
         <DialogTitle
