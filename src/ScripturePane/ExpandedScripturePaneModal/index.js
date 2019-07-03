@@ -23,10 +23,6 @@ function PaperComponent(props) {
   );
 }
 
-function PaperComponentOnly(props) {
-  return <Paper {...props} />;
-}
-
 const styles = {
   toolBar: {
     display: 'flex',
@@ -137,7 +133,7 @@ class ExpandedScripturePaneModal extends Component {
         onClose={onHide}
         fullWidth
         maxWidth='md'
-        PaperComponent={editVerse ? PaperComponentOnly : PaperComponent}// there can't be two draggable comps at the same time
+        PaperComponent={PaperComponent}
         aria-labelledby="draggable-expanded-scripture-pane"
       >
         <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
