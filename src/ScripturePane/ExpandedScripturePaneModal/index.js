@@ -71,6 +71,10 @@ class ExpandedScripturePaneModal extends Component {
     };
   }
 
+  componentDidCatch(error, info) {
+    console.error(error, info);
+  }
+
  /**
    * Handles events to edit the target verse
    * @param bibleId
