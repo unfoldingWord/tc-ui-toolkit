@@ -168,6 +168,7 @@ class VerseEditor extends React.Component {
         modal={true}
         open={open}
         title={title}
+        onClose={this._handleCancel}
       >
         <VerseEditorStepper
           stepIndex={stepIndex}
