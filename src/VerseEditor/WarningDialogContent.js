@@ -10,7 +10,7 @@ const WarningDialogContent = ({translate}) => (
       style={{margin: '15px 18px'}}
     />
     <p style={{ margin: '0 0 0 10px' }}>
-      {translate('You have unsaved changes.')}
+      {translate('unsaved_changes')}
     </p>
   </div>
 );
