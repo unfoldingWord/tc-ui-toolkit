@@ -14,4 +14,5 @@ export { default as InvalidatedIcon } from './icons/Invalidated';
 export { default as CheckIcon } from './icons/Check';
 export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
+export { default as SpinningLogo } from './SpinningLogo';
 exports.lexiconHelpers = require('./ScripturePane/helpers/lexiconHelpers');

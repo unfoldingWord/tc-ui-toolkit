@@ -18,7 +18,7 @@ import './ExpandedScripturePaneModal.styles.css';
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
-    <Draggable bounds="body" handle=".expanded-scripture-draggable-handle">
+    <Draggable handle=".expanded-scripture-draggable-handle">
       <Paper {...props}/>
     </Draggable>
   );

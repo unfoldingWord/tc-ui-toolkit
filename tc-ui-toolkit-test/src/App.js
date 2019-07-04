@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
+import { ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme } from 'tc-ui-toolkit';
 import {
   sampleIndex,
   sampleData,

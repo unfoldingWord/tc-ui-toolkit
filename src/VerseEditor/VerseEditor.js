@@ -7,6 +7,8 @@ import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
 import VerseEditorStepper from './VerseEditorStepper';
+import OptionDialog from './OptionDialog';
+import WarningDialogContent from './WarningDialogContent';
 
 import './VerseEditor.styles.css';
 
@@ -30,13 +32,6 @@ export const isNextEnabled = (state) => {
 };
 
 /**
- * @callback VerseEditor~submitCallback
- * @param {string} originalVerse - the original verse text
- * @param {string} newVerse - the edited version of the verse text
- * @param {string[]} reasons - an array of reasons for editing the verse
- */
-
-/**
  * Renders a form for editing a single verse
  * @property {string} verseText - the verse text to edit
  * @property {func} translate - the locale function
@@ -44,7 +39,6 @@ export const isNextEnabled = (state) => {
  * @property {func} onCancel - callback when the edit is canceled
  */
 class VerseEditor extends React.Component {
-
   constructor(props) {
     super(props);
     this._handleBack = this._handleBack.bind(this);
@@ -58,7 +52,8 @@ class VerseEditor extends React.Component {
       stepIndex: 0,
       newVerse: '',
       verseChanged: false,
-      reasons: []
+      reasons: [],
+      isOptionDialogOpen: false,
     };
   }
 
@@ -67,7 +62,8 @@ class VerseEditor extends React.Component {
       stepIndex: 0,
       newVerse: '',
       verseChanged: false,
-      reasons: []
+      reasons: [],
+      isOptionDialogOpen: false,
     });
   }
 
@@ -125,9 +121,13 @@ class VerseEditor extends React.Component {
     return isNextEnabled(this.state);
   }
 
+  openOptionDialog = () => this.setState({ isOptionDialogOpen: true })
+
+  closeOptionDialog = () => this.setState({ isOptionDialogOpen: false })
+
   render() {
     const {translate, open, verseTitle, verseText} = this.props;
-    const {stepIndex, newVerse, reasons} = this.state;
+    const {stepIndex, newVerse, reasons, verseChanged} = this.state;
     let text = !this.state.verseChanged ? verseText : newVerse;
     let screen;
     switch (stepIndex) {
@@ -163,12 +163,14 @@ class VerseEditor extends React.Component {
       </span>
     );
 
+    const hasVerseChanged = verseChanged && Boolean(newVerse);
+
     return (
       <BaseDialog
         modal={true}
         open={open}
         title={title}
-        onClose={this._handleCancel}
+        onClose={hasVerseChanged ? this.openOptionDialog : this._handleCancel}
       >
         <VerseEditorStepper
           stepIndex={stepIndex}
@@ -194,6 +196,15 @@ class VerseEditor extends React.Component {
             {nextStepButtonTitle}
           </button>
         </div>
+        <OptionDialog
+          isOpen={this.state.isOptionDialogOpen}
+          content={<WarningDialogContent translate={translate}/>}
+          headerTitleText={translate("attention")}
+          primaryButtonText={translate("buttons.discard_changes")}
+          secondaryButtonText={translate('buttons.cancel_button')}
+          primaryOnclick={this._handleCancel}
+          handleClose={this.closeOptionDialog}
+        />
       </BaseDialog>
     );
   }
