@@ -108,7 +108,7 @@ class ScripturePane extends Component {
         let description = manifest.description;
         if (languageId === "originalLanguage") {
           if (description !== "original_language") {
-            description = translate("original_language");
+            description = "original_language";
           }
         }
 
