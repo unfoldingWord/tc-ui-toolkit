@@ -105,6 +105,10 @@ class ScripturePane extends Component {
         if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
           language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
         }
+        let description = manifest.description;
+        if (languageId === "originalLanguage") {
+          description = "original_language";
+        }
 
         if (typeof verseData === 'string') { // if the verse content is string.
           verseElements = verseString(verseData, selections, translate, setFontSize);
@@ -122,7 +126,7 @@ class ScripturePane extends Component {
             bibleId={bibleId}
             languageName={language_name}
             direction={manifest.direction}
-            description={manifest.description}
+            description={description}
             verseElements={verseElements}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
             removePane={this.removePane}
