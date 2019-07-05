@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Markdown from 'react-remarkable';
+import marked from 'marked';
 
-const THelpsMarkDown = ({ article }) => (
+const THelpsMarkDown = ({article}) => (
   <div className="helps-article">
     <style dangerouslySetInnerHTML={{
       __html: [
@@ -24,6 +24,8 @@ const THelpsMarkDown = ({ article }) => (
         '}',
         '.remarkableStyling blockquote {',
         'font-size: small;',
+        'padding: 0 20px;',
+        'margin: 0 0 10px;',
         '}',
         '.remarkableStyling blockquote strong {',
         'text-decoration: underline;',
@@ -33,7 +35,9 @@ const THelpsMarkDown = ({ article }) => (
     }}>
     </style>
     <div id="helpsbody" className="remarkableStyling helpsBody">
-      <Markdown options={{html: true}} source={article} />
+      <div dangerouslySetInnerHTML={{
+        __html: marked(article)
+      }} />
     </div>
   </div>
 );

@@ -43,13 +43,14 @@ function getFormatted(html) {
  * @param {string} label
  * @param {string} text
  * @param {boolean} isFormatted - if true then text contains html formatting
+ * @param {string} fontSize - font size to use for text
  * @return {*}
  */
-function generateDataSegment(label, text, isFormatted = false) {
+function generateDataSegment(label, text, isFormatted = false, fontSize = '1.0em') {
   return (isFormatted ?
-      <span><strong>{label}</strong> {(text && getFormatted(text)) || ""} </span>
+      <span><strong>{label}</strong> <span style={{fontSize}}>{(text && getFormatted(text)) || ""}</span></span>
       :
-      <span><strong>{label}</strong> {text}</span>
+      <span><strong>{label}</strong> <span style={{fontSize}}>{text}</span></span>
   );
 }
 
@@ -60,7 +61,7 @@ function generateDataSegment(label, text, isFormatted = false) {
  */
 function generateLine(pos) {
   return (pos > 0) ?
-    <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px'}}/>
+    <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px', 'marginTop': '0px'}}/>
     : "";
 }
 
@@ -68,12 +69,13 @@ function generateLine(pos) {
  * creates an html word
  * @param {boolean} multipart - if true then this is a multipart word
  * @param {string} word
+ * @param {string} fontSize - font size to use for word
  * @return {*}
  */
-function generateWordEntry(multipart, word) {
+function generateWordEntry(multipart, word, fontSize = '1.2em') {
   return multipart ?
     <div style={{margin: '0', padding: '0'}}>
-      <strong style={{fontSize: '1.2em'}}>{word}</strong>
+      <strong style={{fontSize}}>{word}</strong>
       <br/>
     </div>
     : "";
@@ -91,25 +93,28 @@ function generateWordEntry(multipart, word) {
  * @param {Number} itemNum - number of part in word
  * @param {Number} pos - order of part on screen (0 is top)
  * @param {Number} count - total number of parts to show
+ * @param {boolean} isHebrew - if true then we adjust font size for Original language
  * @return {*}
  */
-function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexicon, word, itemNum, pos, count) {
+function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexicon, word, itemNum, pos, count,
+                          isHebrew = false) {
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
+  const origLangFontSize = isHebrew ? '1.7em' : '1.2em';
   if (strongsNum) {
-    return <div key={key} style={{margin: '-10px 10px 0px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '0px 10px 0px 10px', maxWidth: '400px'}}>
       {generateLine(pos)}
-      {generateWordEntry(multipart, word)}
-      {generateDataSegment(translate('lemma'), lemma)}<br/>
+      {generateWordEntry(multipart, word, origLangFontSize)}
+      {generateDataSegment(translate('lemma'), lemma, false, origLangFontSize)}<br/>
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
       {generateDataSegment(translate('strongs'), strongs)}<br/>
       {generateDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
-    return <div key={key} style={{margin: '-10px 10px 0px', maxWidth: '400px'}}>
+    return <div key={key} style={{margin: '0px 0px 0px 10px', maxWidth: '400px'}}>
       {generateLine(pos)}
-      {generateWordEntry(multipart, word)}
+      {generateWordEntry(multipart, word, origLangFontSize)}
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
     </div>;
   }
@@ -167,33 +172,31 @@ function getStrongsAndLexicon(strong, lexiconData, pos) {
 
 /**
  *
- * @param {String} text - displayed test
- * @param {String} strong - single or multipart strongs number
- * @param {String} morph - single or multipart morphology
- * @param {String} lemma - single or multipart lemma
+ * @param {Object} wordObject - word to display in lexicon
  * @param {String} lexiconData - contains lexicon for strongs
  * @param {Function} translate
  * @param {Function} generateWordPart
+ * @param {boolean} isHebrew - if true then we adjust font size for Original language
  * @return {*[]}
  */
-export function generateWordLexiconDetails(text, strong, morph, lemma, lexiconData, translate, generateWordPart) {
+export function generateWordLexiconDetails(wordObject, lexiconData, translate, generateWordPart, isHebrew) {
   let wordLexiconDetails;
-  const wordParts = lexiconHelpers.getWordParts(text);
-  const morphStrs = getWordParts(morph, translate);
-  const strongsParts = lexiconHelpers.getStrongsParts(strong);
+  const wordParts = lexiconHelpers.getWordParts(wordObject.text);
+  const morphStrs = getWordParts(wordObject.morph, translate);
+  const strongsParts = lexiconHelpers.getStrongsParts(wordObject.strong);
   const partCount = Math.max(morphStrs.length, strongsParts.length, wordParts.length); // since there may be inconsistancies, use largest count
   if (partCount < 2) {
-    const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(strong, lexiconData, 0);
-    wordLexiconDetails = generateWordPart(translate, lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount);
+    const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(wordObject.strong, lexiconData, 0);
+    wordLexiconDetails = generateWordPart(translate, wordObject.lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount, isHebrew);
   } else {
     const indices = movePrimaryWordToTop(partCount, wordParts);
     wordLexiconDetails = indices.map((pos, index) => {
       const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || "";
       const word = ((wordParts.length > pos) && wordParts[pos]) || "";
-      const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(strong, lexiconData, pos);
-      const lemmaStr = (index === 0) ? lemma : "";
+      const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(wordObject.strong, lexiconData, pos);
+      const lemmaStr = (index === 0) ? wordObject.lemma : "";
       return (
-        generateWordPart(translate, lemmaStr, morphStr, strongNumber, strongs, lexicon, word, pos, index, partCount)
+        generateWordPart(translate, lemmaStr, morphStr, strongNumber, strongs, lexicon, word, pos, index, partCount, isHebrew)
       );
     });
   }
@@ -202,8 +205,8 @@ export function generateWordLexiconDetails(text, strong, morph, lemma, lexiconDa
 
 class WordLexiconDetails extends React.Component {
   render() {
-    const { wordObject: { lemma, morph, strong, text }, translate, lexiconData } = this.props;
-    let wordLexiconDetails = generateWordLexiconDetails(text, strong, morph, lemma, lexiconData, translate, generateWordPart);
+    const { wordObject, translate, lexiconData, isHebrew } = this.props;
+    let wordLexiconDetails = generateWordLexiconDetails(wordObject, lexiconData, translate, generateWordPart, isHebrew);
     return wordLexiconDetails;
   }
 }
@@ -215,7 +218,8 @@ WordLexiconDetails.propTypes = {
     morph: PropTypes.string.isRequired,
     strong: PropTypes.string.isRequired
   }).isRequired,
-  lexiconData: PropTypes.object.isRequired
+  lexiconData: PropTypes.object.isRequired,
+  isHebrew: PropTypes.bool.isRequired
 };
 
 export default WordLexiconDetails;
