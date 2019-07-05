@@ -107,9 +107,7 @@ class ScripturePane extends Component {
         }
         let description = manifest.description;
         if (languageId === "originalLanguage") {
-          if (description !== "original_language") {
-            description = "original_language";
-          }
+          description = "original_language";
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
