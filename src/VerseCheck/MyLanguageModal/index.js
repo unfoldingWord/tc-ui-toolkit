@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,8 +8,25 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import {Glyphicon} from 'react-bootstrap';
 import MyTargetVerse from '../MyTargetVerse';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 import './MyLanguageModal.styles.css';
+
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".my-language-modal-draggable-handle">
+      <Paper {...props}/>
+    </Draggable>
+  );
+}
+
+const styles = {
+  paperRoot: {
+    margin: '0px'
+  }
+};
 
 class MyLanguageModal extends Component {
   constructor(props) {
@@ -26,7 +44,7 @@ class MyLanguageModal extends Component {
   }
 
   render() {
-    let {show, onHide, targetLangBible, chapter, currentVerse, manifest, translate} = this.props;
+    let {show, onHide, targetLangBible, chapter, currentVerse, manifest, translate, classes} = this.props;
     const {target_language, project} = manifest;
     const title = target_language && target_language.book && target_language.book.name ?
       target_language.book.name :
@@ -62,20 +80,28 @@ class MyLanguageModal extends Component {
         }
       }
     }
+
     return (
       <Dialog
         onEntered={this.scrollToCurrentVerse}
         maxWidth={'md'}
         fullWidth={true}
         open={show}
-        onClose={onHide}>
-        <Toolbar disableGutters={true} style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)"}}>
+        onClose={onHide}
+        PaperComponent={PaperComponent}
+        PaperProps={{ className: classes.paperRoot}}
+      >
+        <Toolbar
+          className="my-language-modal-draggable-handle"
+          disableGutters={true}
+          style={{display: 'flex', justifyContent: 'flex-end', backgroundColor: "var(--accent-color-dark)", cursor: 'move'}}
+        >
           <DialogTitle disableTypography={true} className='verse-check-modal-title'>
             <h4 style={{color: 'var(--reverse-color)' }}>{title}</h4>
             <Glyphicon
               onClick={onHide}
               glyph={"remove"}
-              style={{position:'absolute', right:0, margin:30, color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px"}}
+              style={{position:'absolute', right: 0, margin: 24, color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px"}}
             />
           </DialogTitle>
         </Toolbar>
@@ -98,7 +124,8 @@ MyLanguageModal.propTypes = {
   currentVerse: PropTypes.number,
   manifest: PropTypes.object,
   dir: PropTypes.string.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default MyLanguageModal;
+export default withStyles(styles)(MyLanguageModal);

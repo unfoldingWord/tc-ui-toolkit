@@ -1057,10 +1057,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-101"
+            className="MuiSwitch-root-102"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-104 MuiSwitch-colorPrimary-106 Bookmark-colorPrimary-100"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-105 MuiSwitch-colorPrimary-107 Bookmark-colorPrimary-101"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -1078,7 +1078,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 className="MuiIconButton-label-27"
               >
                 <span
-                  className="MuiSwitch-icon-102"
+                  className="MuiSwitch-icon-103"
                 />
                 <input
                   checked={false}
@@ -1094,11 +1094,11 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               />
             </span>
             <span
-              className="MuiSwitch-bar-109"
+              className="MuiSwitch-bar-110"
             />
           </span>
           <span
-            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-99"
+            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-100"
           >
             bookmark
           </span>

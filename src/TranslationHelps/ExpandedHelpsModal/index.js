@@ -12,11 +12,28 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import {Glyphicon} from 'react-bootstrap';
 import marked from 'marked';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 import './ExpandedHelpsModal.styles.css';
 
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".thelps-tool-bar ">
+      <Paper {...props}/>
+    </Draggable>
+  );
+}
+
 const styles = {
-  paper: {minWidth: 800, minHeight: 500}
+  paper: {
+    minWidth: 800,
+    minHeight: 500
+  },
+  paperRoot: {
+    margin: '0px'
+  }
 };
 
 const ExpandedHelpsModal = ({
@@ -29,12 +46,15 @@ const ExpandedHelpsModal = ({
 }) => {
   return (
     <Dialog
-      classes={{
-        paper: classes.paper
-      }}
+      classes={{ paper: classes.paper }}
       open={show}
-      maxWidth='md'>
-      <Toolbar className="tool-bar">
+      onClose={onHide}
+      maxWidth='md'
+      PaperComponent={PaperComponent}
+      PaperProps={{ className: classes.paperRoot}}
+      aria-labelledby="thelps-dialog"
+    >
+      <Toolbar className="thelps-tool-bar">
         <div className="tool-bar-title">
           {title}
         </div>
