@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import cyan from '@material-ui/core/colors/cyan';
 
 const styles = {
   formControlLabelRoot: {
@@ -16,7 +15,7 @@ const styles = {
   },
   checkBox: {
     '&$checked': {
-      color: cyan[500],
+      color: 'var(--accent-color-dark)',
     },
   },
   checked:{}

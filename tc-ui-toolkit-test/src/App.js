@@ -26,10 +26,9 @@ class App extends Component {
       remindersReducer: {
         enabled: false
       },
-      verseCheck: {
-        mode: 'default',
-        nothingToSelect: false
-      }
+      tags: [],
+      mode: 'default',
+      nothingToSelect: false
     };
   }
 
@@ -94,8 +93,10 @@ class App extends Component {
               showHelps={this.state.showHelps} />
             <VerseCheck
               mode={this.state.mode}
+              tags={this.state.tags}
               actions={{
                 ...verseCheckActions,
+                handleTagsCheckbox: (tag) => this.setState({ tags: [...this.state.tags, tag] }),
                 changeMode: (mode) => this.setState({ mode }),
                 cancelComment: () => this.setState({ mode: 'default' }),
                 cancelEditVerse: () => this.setState({ mode: 'default' }),

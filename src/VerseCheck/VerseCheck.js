@@ -215,7 +215,7 @@ VerseCheck.defaultProps = {
   findIfVerseEdited: () => false,
   findIfVerseInvalidated: () => false,
   tags: [],
-  verseChanged: false,
+  verseChanged: true,
   selections: [],
   saveSelection: () => {},
   cancelSelection: () => {},

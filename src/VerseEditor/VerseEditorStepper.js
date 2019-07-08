@@ -6,6 +6,16 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 const styles = {
+  stepIcon: {
+    '&$active': {
+      color: 'var(--accent-color-dark)',
+    },
+    '&$completed': {
+      color: 'var(--accent-color-dark)',
+    }
+  },
+  active: {},
+  completed: {},
   label: {
     fontSize: 14
   }
@@ -26,6 +36,13 @@ class VerseEditorStepper extends React.Component {
           return (
             <Step key={index}>
               <StepLabel
+                StepIconProps={{
+                  classes: {
+                    root: classes.stepIcon,
+                    active: classes.active,
+                    completed: classes.completed
+                  }
+                }}
                 classes={{
                   label: classes.label
                 }}>

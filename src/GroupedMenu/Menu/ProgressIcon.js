@@ -9,7 +9,7 @@ const styles = () => ({
   },
   progress: {
     postiion: "absolute",
-    color: "#44C6FF"
+    color: "var(--completed-color)"
   },
   shadow: {
     position: "absolute",
