@@ -226,150 +226,310 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                   <div
                     style={
                       Object {
-                        "flex": "1",
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "margin": "0px 15px",
                       }
                     }
                   >
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         spelling
-                      </label>
-                    </div>
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         punctuation
-                      </label>
-                    </div>
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         word_choice
-                      </label>
-                    </div>
+                      </span>
+                    </label>
                   </div>
                   <div
                     style={
                       Object {
-                        "flex": "1",
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "margin": "0px 15px",
                       }
                     }
                   >
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         meaning
-                      </label>
-                    </div>
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         grammar
-                      </label>
-                    </div>
-                    <div
-                      className="checkbox disabled"
-                      style={
-                        Object {
-                          "color": "var(--text-color-light)",
-                          "marginLeft": "10px",
-                          "marginRight": "10px",
-                        }
-                      }
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
                     >
-                      <label
-                        title=""
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
                       >
-                        <input
-                          checked={false}
-                          disabled={true}
-                          onChange={[Function]}
-                          type="checkbox"
-                        />
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
                         other
-                      </label>
-                    </div>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -1057,10 +1217,10 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-102"
+            className="MuiSwitch-root-104"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-105 MuiSwitch-colorPrimary-107 Bookmark-colorPrimary-101"
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-107 Bookmark-colorSwitchBase-100 MuiSwitch-colorPrimary-109"
               onBlur={[Function]}
               onContextMenu={[Function]}
               onFocus={[Function]}
@@ -1078,7 +1238,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 className="MuiIconButton-label-27"
               >
                 <span
-                  className="MuiSwitch-icon-103"
+                  className="MuiSwitch-icon-105"
                 />
                 <input
                   checked={false}
@@ -1094,11 +1254,11 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               />
             </span>
             <span
-              className="MuiSwitch-bar-110"
+              className="MuiSwitch-bar-112 Bookmark-colorBar-101"
             />
           </span>
           <span
-            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-100"
+            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-103"
           >
             bookmark
           </span>

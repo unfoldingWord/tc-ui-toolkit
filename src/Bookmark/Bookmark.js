@@ -37,7 +37,7 @@ const Bookmark = ({
       control={
         <Switch
           value={value}
-          checked={true}
+          checked={checked}
           color={color}
           onChange={onChange}
           disabled={disabled}

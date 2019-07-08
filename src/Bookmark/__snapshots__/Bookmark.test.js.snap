@@ -2,7 +2,7 @@
 
 exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
 <label
-  className="MuiFormControlLabel-root-3"
+  className="MuiFormControlLabel-root-5"
   style={
     Object {
       "paddingLeft": 10,
@@ -10,10 +10,10 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
   }
 >
   <span
-    className="MuiSwitch-root-9"
+    className="MuiSwitch-root-11"
   >
     <span
-      className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2"
+      className="MuiButtonBase-root-30 MuiIconButton-root-24 MuiPrivateSwitchBase-root-20 MuiSwitch-switchBase-14 Bookmark-colorSwitchBase-1 MuiSwitch-colorPrimary-16"
       onBlur={[Function]}
       onContextMenu={[Function]}
       onFocus={[Function]}
@@ -28,14 +28,14 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
       tabIndex={null}
     >
       <span
-        className="MuiIconButton-label-27"
+        className="MuiIconButton-label-29"
       >
         <span
-          className="MuiSwitch-icon-10"
+          className="MuiSwitch-icon-12"
         />
         <input
           checked={false}
-          className="MuiPrivateSwitchBase-input-21"
+          className="MuiPrivateSwitchBase-input-23"
           disabled={false}
           onChange={[Function]}
           type="checkbox"
@@ -43,15 +43,15 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
         />
       </span>
       <span
-        className="MuiTouchRipple-root-67"
+        className="MuiTouchRipple-root-69"
       />
     </span>
     <span
-      className="MuiSwitch-bar-17"
+      className="MuiSwitch-bar-19 Bookmark-colorBar-2"
     />
   </span>
   <span
-    className="MuiTypography-root-31 MuiTypography-body1-40 MuiFormControlLabel-label-8 Bookmark-label-1"
+    className="MuiTypography-root-33 MuiTypography-body1-42 MuiFormControlLabel-label-10 Bookmark-label-4"
   >
     Bookmark
   </span>
@@ -60,7 +60,7 @@ exports[`Tests for Bookmark renders bookmark not selected correctly 1`] = `
 
 exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
 <label
-  className="MuiFormControlLabel-root-3"
+  className="MuiFormControlLabel-root-5"
   style={
     Object {
       "paddingLeft": 10,
@@ -68,10 +68,10 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
   }
 >
   <span
-    className="MuiSwitch-root-9"
+    className="MuiSwitch-root-11"
   >
     <span
-      className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-12 MuiSwitch-colorPrimary-14 Bookmark-colorPrimary-2 MuiPrivateSwitchBase-checked-19 MuiSwitch-checked-13"
+      className="MuiButtonBase-root-30 MuiIconButton-root-24 MuiPrivateSwitchBase-root-20 MuiSwitch-switchBase-14 Bookmark-colorSwitchBase-1 MuiSwitch-colorPrimary-16 MuiPrivateSwitchBase-checked-21 MuiSwitch-checked-15 Bookmark-colorChecked-3"
       onBlur={[Function]}
       onContextMenu={[Function]}
       onFocus={[Function]}
@@ -86,14 +86,14 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
       tabIndex={null}
     >
       <span
-        className="MuiIconButton-label-27"
+        className="MuiIconButton-label-29"
       >
         <span
-          className="MuiSwitch-icon-10 MuiSwitch-iconChecked-11"
+          className="MuiSwitch-icon-12 MuiSwitch-iconChecked-13"
         />
         <input
           checked={true}
-          className="MuiPrivateSwitchBase-input-21"
+          className="MuiPrivateSwitchBase-input-23"
           disabled={false}
           onChange={[Function]}
           type="checkbox"
@@ -101,15 +101,15 @@ exports[`Tests for Bookmark renders bookmark selected correctly 1`] = `
         />
       </span>
       <span
-        className="MuiTouchRipple-root-67"
+        className="MuiTouchRipple-root-69"
       />
     </span>
     <span
-      className="MuiSwitch-bar-17"
+      className="MuiSwitch-bar-19 Bookmark-colorBar-2"
     />
   </span>
   <span
-    className="MuiTypography-root-31 MuiTypography-body1-40 MuiFormControlLabel-label-8 Bookmark-label-1"
+    className="MuiTypography-root-33 MuiTypography-body1-42 MuiFormControlLabel-label-10 Bookmark-label-4"
   >
     Bookmark
   </span>
