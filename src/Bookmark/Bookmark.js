@@ -5,12 +5,21 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
+  colorSwitchBase: {
+    '&$colorChecked': {
+      color: 'var(--accent-color-dark)',
+      '& + $colorBar': {
+        backgroundColor: 'var(--accent-color-dark)',
+      },
+    },
+  },
+  colorBar: {},
+  colorChecked: {},
   label: {
     color: 'var(--accent-color-dark)',
     fontWeight: "normal",
     fontSize: 14,
   },
-  colorPrimary: 'var(--accent-color-dark)'
 };
 
 const Bookmark = ({
@@ -32,7 +41,11 @@ const Bookmark = ({
           color={color}
           onChange={onChange}
           disabled={disabled}
-          classes={{colorPrimary: classes.colorPrimary}}
+          classes={{
+            switchBase: classes.colorSwitchBase,
+            checked: classes.colorChecked,
+            bar: classes.colorBar,
+          }}
         />
       }
       classes={{label: classes.label}}
