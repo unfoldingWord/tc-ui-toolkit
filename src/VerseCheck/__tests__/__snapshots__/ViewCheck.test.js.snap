@@ -201,6 +201,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                   Object {
                     "direction": "ltr",
                     "flex": "auto",
+                    "minHeight": "110px",
                   }
                 }
                 type="text"
@@ -228,7 +229,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                       Object {
                         "display": "flex",
                         "flexDirection": "column",
-                        "margin": "0px 15px",
+                        "margin": "0px 0px 0px 15px",
                       }
                     }
                   >
@@ -382,7 +383,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                       Object {
                         "display": "flex",
                         "flexDirection": "column",
-                        "margin": "0px 15px",
+                        "margin": "0px 0px 0px 15px",
                       }
                     }
                   >
@@ -684,7 +685,13 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               </span>
             </div>
           </div>
-          <div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
             <div
               className="ltr-content"
             >
@@ -839,13 +846,20 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
           <button
             className="btn-second"
             onClick={[Function]}
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginLeft": "0px",
                 "marginRight": "5px",
                 "width": "140px",
               }
@@ -1571,7 +1585,13 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               </span>
             </div>
           </div>
-          <div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
             <div
               className="ltr-content"
             >
@@ -1751,13 +1771,20 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
           <button
             className="btn-second"
             onClick={[Function]}
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginLeft": "0px",
                 "marginRight": "5px",
                 "width": "140px",
               }
@@ -1931,7 +1958,13 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               </span>
             </div>
           </div>
-          <div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
             <div
               className="ltr-content"
             >
@@ -2086,13 +2119,20 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
           <button
             className="btn-second"
             onClick={[Function]}
             style={
               Object {
                 "alignSelf": "flex-start",
+                "marginLeft": "0px",
                 "marginRight": "5px",
                 "width": "140px",
               }
