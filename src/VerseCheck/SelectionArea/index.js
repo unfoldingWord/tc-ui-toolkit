@@ -31,7 +31,7 @@ class SelectionArea extends Component {
             </span>
           </div>
         </div>
-        <div>
+        <div style={{ overflow: 'auto' }}>
           <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
             <RenderSelectionTextComponent
               translate={translate}
