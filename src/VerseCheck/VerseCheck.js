@@ -228,8 +228,7 @@ VerseCheck.defaultProps = {
   unfilteredVerseText: '',
   dialogModalVisibility: false,
   localNothingToSelect: false,
-  nothingToSelect: false,
-  maximumSelections: 4
+  nothingToSelect: false
 };
 
 export default VerseCheck;
