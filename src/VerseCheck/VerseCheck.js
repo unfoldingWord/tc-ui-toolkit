@@ -38,7 +38,8 @@ class VerseCheck extends Component {
       clearSelection,
       handleSkip,
       toggleNothingToSelect,
-      localNothingToSelect
+      localNothingToSelect,
+      maximumSelections
     } = this.props;
 
     let titleText;
@@ -97,7 +98,8 @@ class VerseCheck extends Component {
               contextId={contextIdReducer.contextId}
               bibles={resourcesReducer.bibles}
               alignedGLText={alignedGLText}
-              invalidated={findIfVerseInvalidated()} />
+              invalidated={findIfVerseInvalidated()}
+              maximumSelections={maximumSelections} />
             <ActionsArea
               mode={mode}
               tags={tags}
@@ -158,6 +160,7 @@ VerseCheck.propTypes = {
   localNothingToSelect: PropTypes.bool.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
   toggleNothingToSelect: PropTypes.func.isRequired,
+  maximumSelections: PropTypes.number.isRequired
 };
 
 VerseCheck.defaultProps = {
