@@ -13,8 +13,8 @@ import { verseString, verseArray } from './helpers/verseHelpers';
 const NAMESPACE = 'ScripturePane';
 
 class ScripturePane extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showExpandedScripturePane: false,
       showAddPaneModal: false,
@@ -27,15 +27,29 @@ class ScripturePane extends Component {
     this.selectSourceLanguage = this.selectSourceLanguage.bind(this);
     this.addNewBibleResource = this.addNewBibleResource.bind(this);
     this.removePane = this.removePane.bind(this);
+    this.handleModalOpen = props.handleModalOpen;
+
   }
 
-  openExpandedScripturePane() {this.setState({ showExpandedScripturePane: true })}
+  openExpandedScripturePane() {
+    this.setState({ showExpandedScripturePane: true });
+    this.handleModalOpen(true);
+  }
 
-  closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
+  closeExpandedScripturePane() {
+    this.setState({ showExpandedScripturePane: false });
+    this.handleModalOpen(false);
+  }
 
-  showAddBibleModal() {this.setState({showAddPaneModal: true})}
+  showAddBibleModal() {
+    this.setState({showAddPaneModal: true});
+    this.handleModalOpen(true);
+  }
 
-  hideAddBibleModal() {this.setState({showAddPaneModal: false})}
+  hideAddBibleModal() {
+    this.setState({showAddPaneModal: false});
+    this.handleModalOpen(false);
+  }
 
   selectSourceLanguage(value) {
     const identifier = value.split('_');
@@ -248,6 +262,7 @@ ScripturePane.propTypes = {
   bibles: PropTypes.object.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func,
 };
 
 ScripturePane.defaultProps = {
@@ -272,6 +287,7 @@ ScripturePane.defaultProps = {
   bibles: {},
   getAvailableScripturePaneSelections: () => {},
   makeSureBiblesLoadedForTool: () => {},
+  handleModalOpen: () => {},
 };
 
 export default ScripturePane;
