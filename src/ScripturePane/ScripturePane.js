@@ -46,7 +46,7 @@ class ScripturePane extends Component {
 
   hideAddBibleModal() {
     this.setState({showAddPaneModal: false});
-    this.handleModalOpen(true);
+    this.handleModalOpen(false);
   }
 
   selectSourceLanguage(value) {
