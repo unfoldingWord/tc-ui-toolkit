@@ -13,8 +13,8 @@ import { verseString, verseArray } from './helpers/verseHelpers';
 const NAMESPACE = 'ScripturePane';
 
 class ScripturePane extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showExpandedScripturePane: false,
       showAddPaneModal: false,
@@ -27,6 +27,8 @@ class ScripturePane extends Component {
     this.selectSourceLanguage = this.selectSourceLanguage.bind(this);
     this.addNewBibleResource = this.addNewBibleResource.bind(this);
     this.removePane = this.removePane.bind(this);
+    this.handleModalOpen = props.handleModalOpen;
+
   }
 
   openExpandedScripturePane() {
@@ -165,10 +167,7 @@ class ScripturePane extends Component {
       selections,
       getLexiconData,
       showPopover,
-      handleModalOpen,
     } = this.props;
-
-    this.handleModalOpen = handleModalOpen;
 
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
