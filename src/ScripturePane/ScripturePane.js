@@ -29,13 +29,25 @@ class ScripturePane extends Component {
     this.removePane = this.removePane.bind(this);
   }
 
-  openExpandedScripturePane() {this.setState({ showExpandedScripturePane: true })}
+  openExpandedScripturePane() {
+    this.setState({ showExpandedScripturePane: true });
+    this.handleModalOpen(true);
+  }
 
-  closeExpandedScripturePane() {this.setState({ showExpandedScripturePane: false })}
+  closeExpandedScripturePane() {
+    this.setState({ showExpandedScripturePane: false });
+    this.handleModalOpen(false);
+  }
 
-  showAddBibleModal() {this.setState({showAddPaneModal: true})}
+  showAddBibleModal() {
+    this.setState({showAddPaneModal: true});
+    this.handleModalOpen(true);
+  }
 
-  hideAddBibleModal() {this.setState({showAddPaneModal: false})}
+  hideAddBibleModal() {
+    this.setState({showAddPaneModal: false});
+    this.handleModalOpen(true);
+  }
 
   selectSourceLanguage(value) {
     const identifier = value.split('_');
@@ -153,7 +165,10 @@ class ScripturePane extends Component {
       selections,
       getLexiconData,
       showPopover,
+      handleModalOpen,
     } = this.props;
+
+    this.handleModalOpen = handleModalOpen;
 
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
@@ -248,6 +263,7 @@ ScripturePane.propTypes = {
   bibles: PropTypes.object.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func,
 };
 
 ScripturePane.defaultProps = {
@@ -272,6 +288,7 @@ ScripturePane.defaultProps = {
   bibles: {},
   getAvailableScripturePaneSelections: () => {},
   makeSureBiblesLoadedForTool: () => {},
+  handleModalOpen: () => {},
 };
 
 export default ScripturePane;
