@@ -34,10 +34,11 @@ class RenderSelectionTextComponent extends Component {
     let {selections, verseText, translate} = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
     // this is a good place to preview selections before saved in state
-    if (selections.length <= this.getMaximumSelections()) {
+    const maximumSelections = this.getMaximumSelections();
+    if (selections.length <= maximumSelections) {
       this.props.actions.changeSelectionsInLocalState(selections);
     } else {
-      const message = translate('select_too_many');
+      const message = translate('select_too_many', {maximum: maximumSelections});
       this.props.actions.openAlertDialog(message);
     }
   }
