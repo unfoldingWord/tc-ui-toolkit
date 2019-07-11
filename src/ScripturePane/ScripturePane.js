@@ -27,28 +27,26 @@ class ScripturePane extends Component {
     this.selectSourceLanguage = this.selectSourceLanguage.bind(this);
     this.addNewBibleResource = this.addNewBibleResource.bind(this);
     this.removePane = this.removePane.bind(this);
-    this.handleModalOpen = props.handleModalOpen;
-
   }
 
   openExpandedScripturePane() {
     this.setState({ showExpandedScripturePane: true });
-    this.handleModalOpen(true);
+    this.props.handleModalOpen(true);
   }
 
   closeExpandedScripturePane() {
     this.setState({ showExpandedScripturePane: false });
-    this.handleModalOpen(false);
+    this.props.handleModalOpen(false);
   }
 
   showAddBibleModal() {
     this.setState({showAddPaneModal: true});
-    this.handleModalOpen(true);
+    this.props.handleModalOpen(true);
   }
 
   hideAddBibleModal() {
     this.setState({showAddPaneModal: false});
-    this.handleModalOpen(false);
+    this.props.handleModalOpen(false);
   }
 
   selectSourceLanguage(value) {
