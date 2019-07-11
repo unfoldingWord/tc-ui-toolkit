@@ -98,7 +98,8 @@ const EditVerseArea = ({
         {translate("edit_verse")}
       </div>
       <FormGroup style={{flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px'}} controlId='formControlsTextarea'>
-        <FormControl autoFocus
+        <FormControl
+          autoFocus
           componentClass='textarea'
           type='text'
           defaultValue={verseText}
