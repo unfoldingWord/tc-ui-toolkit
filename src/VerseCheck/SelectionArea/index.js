@@ -14,7 +14,7 @@ class SelectionArea extends Component {
   }
 
   render() {
-    const {manifest, reference, translate} = this.props;
+    const {manifest, reference, translate, maximumSelections} = this.props;
     const {target_language, project} = manifest;
     const bookName = target_language && target_language.book && target_language.book.name ?
       target_language.book.name : project.name;
@@ -39,6 +39,7 @@ class SelectionArea extends Component {
               mode={this.props.mode}
               verseText={this.props.verseText}
               selections={this.props.selections}
+              maximumSelections={maximumSelections}
             />
           </div>
         </div>
@@ -57,7 +58,8 @@ SelectionArea.propTypes = {
   mode: PropTypes.string.isRequired,
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  maximumSelections: PropTypes.number.isRequired
 };
 
 export default SelectionArea;
