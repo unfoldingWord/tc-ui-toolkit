@@ -25,20 +25,14 @@ class RenderSelectionTextComponent extends Component {
     this.addSelection(selection);
   }
 
-  getMaximumSelections() {
-    const maximumSelections = this.props.maximumSelections || 4; // default to 4
-    return maximumSelections;
-  }
-
   addSelection(selection) {
     let {selections, verseText, translate} = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
     // this is a good place to preview selections before saved in state
-    const maximumSelections = this.getMaximumSelections();
-    if (selections.length <= maximumSelections) {
+     if (selections.length <= this.props.maximumSelections) {
       this.props.actions.changeSelectionsInLocalState(selections);
     } else {
-      const message = translate('select_too_many', {maximum: maximumSelections});
+      const message = translate('select_too_many', {maximum: this.props.maximumSelections});
       this.props.actions.openAlertDialog(message);
     }
   }
