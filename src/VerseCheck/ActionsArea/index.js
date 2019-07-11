@@ -105,7 +105,8 @@ let ActionsArea = ({
 
   const confirmEditVerseArea = (
     <div className='actions-area'>
-      <button className='btn-second'
+      <button
+        className='btn-second'
         onClick={actions.cancelEditVerse.bind(this)}
       >
         {translate("cancel")}
@@ -173,10 +174,10 @@ let ActionsArea = ({
           <ReactTooltip/>
         </div>
       </div>
-      <div>
+      <div style={{ whiteSpace: 'nowrap' }}>
         <button
           className='btn-second'
-          style={{width: "140px", marginRight: "5px", alignSelf: 'flex-start'}}
+          style={{ marginLeft: '0px', width: "140px", marginRight: "5px", alignSelf: 'flex-start'}}
           onClick={cancelSelection.bind(this)}
         >
           {translate("cancel")}
