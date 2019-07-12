@@ -98,11 +98,16 @@ const EditVerseArea = ({
         {translate("edit_verse")}
       </div>
       <FormGroup style={{flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px'}} controlId='formControlsTextarea'>
-        <FormControl autoFocus
+        <FormControl
+          autoFocus
           componentClass='textarea'
           type='text'
           defaultValue={verseText}
-          style={{flex: 'auto', direction: dir}}
+          style={{
+            flex: 'auto',
+            direction: dir,
+            minHeight: '110px',
+          }}
           onBlur={actions.handleEditVerse.bind(this)}
           onInput={actions.checkVerse.bind(this)}
         />
@@ -110,10 +115,10 @@ const EditVerseArea = ({
         {checkBoxText}
         <br />
         <div style={{ display: 'flex' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 15px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px' }}>
             {checkboxesColumn1}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 15px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px' }}>
             {checkboxesColumn2}
           </div>
         </div>
