@@ -111,7 +111,8 @@ class App extends Component {
               verseText={'dummy text'}
               findIfVerseEdited={() => (true)}
               findIfVerseInvalidated={() => (true)}
-              alignedGLText={'Dummy'}/>
+              alignedGLText={'Dummy'}
+              maximumSelections={5} />
           </div>
           <TranslationHelps
             modalArticle={article}

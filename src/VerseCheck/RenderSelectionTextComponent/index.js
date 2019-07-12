@@ -29,10 +29,10 @@ class RenderSelectionTextComponent extends Component {
     let {selections, verseText, translate} = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
     // this is a good place to preview selections before saved in state
-    if (selections.length <= 4) {
+     if (selections.length <= this.props.maximumSelections) {
       this.props.actions.changeSelectionsInLocalState(selections);
     } else {
-      const message = translate('select_too_many');
+      const message = translate('select_too_many', {maximum: this.props.maximumSelections});
       this.props.actions.openAlertDialog(message);
     }
   }
@@ -104,7 +104,8 @@ RenderSelectionTextComponent.propTypes = {
   mode: PropTypes.string.isRequired,
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
+  maximumSelections: PropTypes.number.isRequired
 };
 
 export default RenderSelectionTextComponent;

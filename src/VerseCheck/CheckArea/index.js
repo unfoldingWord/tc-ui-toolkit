@@ -24,7 +24,8 @@ let CheckArea = ({
   invalidated,
   bibles,
   alignedGLText,
-  nothingToSelect
+  nothingToSelect,
+  maximumSelections
 }) => {
   let modeArea;
   switch (mode) {
@@ -84,7 +85,8 @@ let CheckArea = ({
           mode={mode}
           manifest={projectDetailsReducer.manifest}
           reference={contextId.reference}
-          actions={actions} /> :
+          actions={actions}
+          maximumSelections={maximumSelections} /> :
         <DefaultArea
           reference={contextId.reference}
           actions={actions}
@@ -122,6 +124,7 @@ CheckArea.propTypes = {
   bibles: PropTypes.object,
   alignedGLText: PropTypes.string.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
+  maximumSelections: PropTypes.number.isRequired,
 };
 
 export default CheckArea;
