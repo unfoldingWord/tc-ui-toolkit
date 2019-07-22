@@ -427,6 +427,328 @@ Array [
 ]
 `;
 
+exports[`verseHelpers.verseArray should succeed with heb-12-27.el-x-koine and tisch should not be clickable 1`] = `
+Array [
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+      
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      τὸ
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      δὲ
+    </span>
+  </span>,
+  <span>
+    ,
+“
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+      
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      ἔτι
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      ἅπαξ
+    </span>
+  </span>,
+  <span>
+    ”,
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      δηλοῖ
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      τῶν
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      σαλευομένων
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      μετάθεσιν
+    </span>
+  </span>,
+  <span>
+    ,
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      ὡς
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      πεποιημένων
+    </span>
+  </span>,
+  <span>
+    ,
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      ἵνα
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      μείνῃ
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      τὰ
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      μὴ
+    </span>
+  </span>,
+  <span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+       
+    </span>
+    <span
+      style={
+        Object {
+          "backgroundColor": "",
+        }
+      }
+    >
+      σαλευόμενα
+    </span>
+  </span>,
+  <span>
+    .
+
+  </span>,
+]
+`;
+
 exports[`verseHelpers.verseArray should succeed with luke-22-30.ult 1`] = `
 Array [
   <span>

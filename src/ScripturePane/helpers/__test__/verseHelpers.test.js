@@ -6,6 +6,9 @@ describe('verseHelpers.verseArray', () => {
   it('should succeed with heb-12-27.el-x-koine', () => {
     generateTest('heb-12-27.el-x-koine', 'ugnt');
   });
+  it('should succeed with heb-12-27.el-x-koine and tisch should not be clickable', () => {
+    generateTest('heb-12-27.el-x-koine', 'tisch');
+  });
   it('should succeed with mat-4-6', () => {
     generateTest('mat-4-6', 'ult');
   });
