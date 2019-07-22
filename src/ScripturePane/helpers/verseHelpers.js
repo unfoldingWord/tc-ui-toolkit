@@ -77,7 +77,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     );
   } else {
     const isHebrew = (bibleId === 'uhb');
-    const originalLang = isHebrew || bibleId === 'ugnt';
+    const origLangBible = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
     for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
@@ -90,7 +90,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         const text = (word.word || word.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
-        if (originalLang && contextId.quote && word.text) {
+        if (origLangBible && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
@@ -104,8 +104,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         const paddingSpanStyle = {
           backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
         };
-
-        if (word.strong) { // if clickable
+        // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb.  The reason for
+        //            this is than some bibles have different strongs format.  We are waiting on long term solution.
+        if (word.strong && origLangBible) { // if clickable
           const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
           if (fontSize) {
             spanStyle.fontSize = Math.round(fontSize) + '%';
