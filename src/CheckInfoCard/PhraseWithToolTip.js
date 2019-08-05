@@ -1,5 +1,6 @@
 import React from 'react';
 import {getOffset} from './helpers';
+import PhraseWithTALinks from './PhraseWithTALinks';
 
 function PhraseWithToolTip({phrase, getScriptureFromReference}) {
   let scriptureRef;
@@ -11,7 +12,7 @@ function PhraseWithToolTip({phrase, getScriptureFromReference}) {
     const [preReference, postReference] = phrase.split(wholeMatch);
     const tooltipLabel = getScriptureFromReference(lang, id, book, chapter, verse);
     return (<div>
-      {preReference}
+      <PhraseWithTALinks phrase={preReference} />
       <span onMouseEnter={() => {
         const {top, left} = getOffset(scriptureRef);
         tooltipRef.style.top = `${top}px`;
@@ -27,11 +28,10 @@ function PhraseWithToolTip({phrase, getScriptureFromReference}) {
           textDecoration: 'underline'
         }} ref={(ref) => scriptureRef = ref}>{referenceText}</span>
       </span>
-      {postReference}
-    </div>
-    );
+      <PhraseWithTALinks phrase={postReference} />
+    </div>);
   } else {
-    return phrase;
+     return (<PhraseWithTALinks phrase={phrase} />);
   }
 }
 
