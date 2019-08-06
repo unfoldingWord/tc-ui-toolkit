@@ -1,6 +1,6 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/no-find-dom-node */
-import React, { Component } from 'react';
+import React, {Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ import './ChapterView.styles.css';
 // components
 import VerseRow from './VerseRow';
 import VerseEditorDialog from '../../../VerseEditor';
+import {isEqual} from 'lodash';
 
 class ChapterView extends Component {
   componentDidMount() {
@@ -32,7 +33,18 @@ class ChapterView extends Component {
   componentWillUnmount() {
     this.verseRefs = {};
   }
-
+  shouldComponentUpdate(nextProps) {
+    if (!isEqual(nextProps.selections, this.props.selections)) {
+      return true;
+    }
+    if (!isEqual(nextProps.bibles, this.props.bibles)) {
+      return true;
+    } if (!isEqual(nextProps.editVerse, this.props.editVerse)) {
+      return true;
+    } 
+     else return false;
+  }
+  
   render () {
     const {
       contextId,

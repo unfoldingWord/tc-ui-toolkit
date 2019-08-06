@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,7 +16,7 @@ const styles = {
   }
 };
 
-class Verse extends Component {
+class Verse extends PureComponent {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);

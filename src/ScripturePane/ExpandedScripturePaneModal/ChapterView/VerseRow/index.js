@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Col, Row } from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 import './VerseRow.styles.css';
 // components
 import Verse from '../../../Verse';
 // helpers
-import { verseString, verseArray } from '../../../helpers/verseHelpers';
+import {verseString, verseArray} from '../../../helpers/verseHelpers';
+import {isEqual} from 'lodash';
 
 class VerseRow extends Component {
   constructor(props) {
@@ -13,14 +14,23 @@ class VerseRow extends Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (!isEqual(nextProps.selections, this.props.selections)) {
+      return true;
+    }
+    if (!isEqual(nextProps.bibles, this.props.bibles)) {
+      return true;
+    } else return false;
+  }
+
   handleEdit(bibleId, chapter, verse, verseText) {
-    const { onEditTargetVerse } = this.props;
-    if(bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
+    const {onEditTargetVerse} = this.props;
+    if (bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
       onEditTargetVerse(bibleId, chapter, verse, verseText);
     }
   }
 
-  render () {
+  render() {
     const {
       chapter,
       currentVerseNumber,
@@ -58,8 +68,8 @@ class VerseRow extends Component {
         const paneSetting = currentPaneSettings[i];
         const index = i;
         try {
-          const { languageId, bibleId } = paneSetting;
-          const { manifest: { direction } } = bibles[languageId][bibleId];
+          const {languageId, bibleId} = paneSetting;
+          const {manifest: {direction}} = bibles[languageId][bibleId];
           let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
 
