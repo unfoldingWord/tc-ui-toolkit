@@ -16,7 +16,7 @@ function PhraseWithTALinks({phrase}) {
         return prev.concat(current);
       }
       return prev.concat(
-        <a onClick={() => window.followLink(current)}>
+        <a onClick={() => onTALinkClick(current)}>
           {current}
         </a>
       );
@@ -25,6 +25,11 @@ function PhraseWithTALinks({phrase}) {
   return (<div>
     {textAndLinks}
   </div>);
+}
+
+function onTALinkClick(link) {
+  if (window.followLink)
+    window.followLink(link);
 }
 
 export default PhraseWithTALinks;
