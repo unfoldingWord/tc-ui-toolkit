@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 function PhraseWithTALinks({phrase}) {
   if (!phrase)
@@ -17,7 +16,7 @@ function PhraseWithTALinks({phrase}) {
         return prev.concat(current);
       }
       return prev.concat(
-        <a onClick={() => onTALinkClick(current)}>
+        <a onClick={() => window.followLink(current)}>
           {current}
         </a>
       );
@@ -26,11 +25,6 @@ function PhraseWithTALinks({phrase}) {
   return (<div>
     {textAndLinks}
   </div>);
-}
-
-function onTALinkClick(link) {
-  if (window.followLink)
-    window.followLink(link);
 }
 
 export default PhraseWithTALinks;
