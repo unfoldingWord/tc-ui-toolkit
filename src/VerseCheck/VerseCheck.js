@@ -182,9 +182,6 @@ VerseCheck.defaultProps = {
         direction: 'ltr'
       }
     },
-    currentProjectToolsSelectedGL: {
-      tw: 'en'
-    }
   },
   resourcesReducer: {
     bibles: {

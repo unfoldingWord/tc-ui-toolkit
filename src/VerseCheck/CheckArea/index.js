@@ -119,7 +119,6 @@ CheckArea.propTypes = {
   newSelections: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.shape({
     manifest: PropTypes.object,
-    currentProjectToolsSelectedGL: PropTypes.object
   }).isRequired,
   bibles: PropTypes.object,
   alignedGLText: PropTypes.string.isRequired,
