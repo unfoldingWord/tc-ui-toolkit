@@ -6,6 +6,7 @@ const LinkableThelpsResources = ['ta', 'tn', 'tw'];
 
 const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick}) => {
   // The split regular expression. NOTE: the outside parans are what keep the match in the splitPhrase array
+  // This matches a Markdown link in the form of (Title)[rc://lang/resource/type/ending]
   const splitRE = /(\[[^)]+]\s*\(rc:\/\/[\w-]+\/[\w-]+\/[\w-]+\/[^\]]+\))/;
   // splitPhrase will be an array of alternating [text, link, text, link, etc.], thus even index are text, odd are links
   const splitPhrase = phrase.split(splitRE);
@@ -16,22 +17,26 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
     // the first element starts the new list and is text.
     if (i === 0)
       return [current];
-    // even elements are text so leave as is.
+    // All even elements are text, so leave as is.
     if (!(i % 2))
       return prev.concat(current);
-    // Now we have an odd indexed element, which is a link. If its a Bible reference, we make it a tool tip.
+    // Now we have an odd indexed element, which is a link. If its a Bible reference, we make it a tooltip.
     // if it is a tHelps link, we make it clickable to open in the tHelps sidebar.
-    // Any other link we will have it be a tool tip as the rc link.
+    // Any other link we will have it be a tooltip as the rc link.
+    // Again, this is matching (Title)[rc://lang/resource/type/ending] but getting each part
     const linkRE = /\[([^)]+)]\s*\((rc:\/\/([\w-]+)\/([\w-]+)\/([\w-]+)\/([^)]+))\)/;
     let match = current.match(linkRE);
     if (!match)
+      // Shouldn't ever be here, but just in case
       return prev.concat(current);
     match.shift();
     const [title, wholeLink, lang, resource, type, ending] = match;
     if (type === 'book') {
+      // It's a Bible reference
       const bibleRefRE = /(\w+)\/(\d+)\/(\d+)/;
       const match = ending.match(bibleRefRE);
       if (match) {
+        // It properly parsed from <book>/<chapter>/<verse>
         match.shift();
         const [book, chapter, verse] = match;
         const tooltip = getScriptureFromReference(lang, resource, book, chapter, verse);
@@ -52,6 +57,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
       }
     }
     if (LinkableThelpsResources.indexOf(resource) >= 0) {
+      // It's a tHelps link, so we call the function to show the article in the tHelps modal
       const link = [lang, resource, ending].join('/');
       return prev.concat(
         <span className={'thelps-link-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}
@@ -60,7 +66,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
           </span>
       );
     }
-    // Leaves the link as tooltip with the text
+    // Leaves the link as tooltip to the title
     return prev.concat(<span
       className="scripture"
       data-for="phrase-tooltip"
