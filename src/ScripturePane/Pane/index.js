@@ -18,9 +18,14 @@ const Pane = ({
   chapter,
   verse,
   removePane,
-  verseElements,
+  verseData,
   clickToRemoveResourceLabel,
   translate,
+  setFontSize,
+  getLexiconData,
+  showPopover,
+  contextId,
+  selections
 }) => {
   const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
   const PANECHAR = 9;
@@ -58,12 +63,17 @@ const Pane = ({
       </div>
       <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
+          showPopover={showPopover}
+          getLexiconData={getLexiconData}
           translate={translate}
-          verseElements={verseElements}
+          verseData={verseData}
           bibleId={bibleId}
           direction={direction}
           chapter={chapter}
           verse={verse}
+          setFontSize={setFontSize}
+          selections={selections}
+          contextId={contextId}
         />
       </div>
     </div>
@@ -81,11 +91,15 @@ Pane.propTypes = {
   removePane: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
-  verseElements: PropTypes.oneOfType([
-    PropTypes.element,
+  verseData: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
+  setFontSize: PropTypes.func,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  selections: PropTypes.array.isRequired,
+  contextId: PropTypes.object.isRequired,
 };
 
 Pane.defaultProps = {

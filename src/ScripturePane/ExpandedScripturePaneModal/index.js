@@ -8,8 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import {Glyphicon} from 'react-bootstrap';
 import {withStyles} from '@material-ui/core/styles';
 // components
-import ChapterView from './ChapterView';
-import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
+import ChaptersView from './ChaptersView';
+import BibleHeadingsRow from './ChaptersView/BibleHeadingsRow';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import {isEqual} from 'lodash';
@@ -80,6 +80,9 @@ class ExpandedScripturePaneModal extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.show === false && this.props.show === false) {
+      return false;
+    }
     if (!isEqual(nextState.editVerse, this.state.editVerse)) {
       return true;
     }
@@ -176,7 +179,7 @@ class ExpandedScripturePaneModal extends Component {
             bibles={bibles}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer} />
-          <ChapterView
+          <ChaptersView
             bibles={bibles}
             contextId={contextId}
             translate={translate}

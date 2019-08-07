@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-
+import {verseString, verseArray} from '../helpers/verseHelpers';
 import './Verse.styles.css';
+import {isEqual} from 'lodash';
 
 const styles = {
   edit_wrapper: {
@@ -16,32 +17,58 @@ const styles = {
   }
 };
 
-class Verse extends PureComponent {
+class Verse extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (!isEqual(nextProps.verseData, this.props.verseData)) {
+      return true;
+    }
+    if (!isEqual(nextProps.bibleId, this.props.bibleId)) {
+      return true;
+    } 
+    if (!isEqual(nextProps.contextId, this.props.contextId)) {
+      return true;
+    } 
+    if (!isEqual(nextProps.selections, this.props.selections)) {
+      return true;
+    } else return false;
+  }
+
   handleEdit() {
-    const {bibleId, chapter, verse, verseText, onEdit} = this.props;
+    const {bibleId, chapter, verse, verseData, onEdit} = this.props;
     if (typeof onEdit === 'function') {
-      onEdit(bibleId, chapter, verse, verseText);
+      onEdit(bibleId, chapter, verse, verseData);
     }
   }
 
   render () {
     const {
-      verseElements,
+      selections,
+      contextId,
+      getLexiconData,
+      showPopover,
+      verseData,
       bibleId,
       direction,
       chapter,
       verse,
       onEdit,
-      translate
+      translate,
+      setFontSize
     } = this.props;
     const chapterVerseContent = `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
+    let verseElements;
+    if (typeof verseData === 'string') { // if the verse content is string.
+      verseElements = verseString(verseData, selections, translate, setFontSize);
+    } else if (verseData) { // else the verse content is an array of verse objects.
+      verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
+    }
     let verseSpan = verseElements;
 
     if (!verseElements) {
@@ -76,13 +103,7 @@ class Verse extends PureComponent {
 }
 
 Verse.propTypes = {
-  verseText: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-  verseElements: PropTypes.oneOfType([
-    PropTypes.element,
+  verseData: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
   ]),
@@ -95,6 +116,11 @@ Verse.propTypes = {
   ]),
   onEdit: PropTypes.func,
   translate: PropTypes.func.isRequired,
+  selections: PropTypes.array.isRequired,
+  contextId: PropTypes.object.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  setFontSize: PropTypes.func
 };
 
 export default Verse;
