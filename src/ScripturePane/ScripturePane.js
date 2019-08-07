@@ -7,8 +7,6 @@ import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
-// helpers
-import { verseString, verseArray } from './helpers/verseHelpers';
 // constant
 const NAMESPACE = 'ScripturePane';
 
