@@ -4904,6 +4904,10 @@
         "id": "tit",
         "name": "Titus"
       },
+      "toolsSelectedGLs": {
+        "translationWords": "en",
+        "wordAlignment": "en"
+      },
       "type": {
         "id": "text",
         "name": "Text"
@@ -4973,10 +4977,6 @@
     "currentProjectToolsProgress": {
       "wordAlignment": 0,
       "translationWords": 0
-    },
-    "currentProjectToolsSelectedGL": {
-      "translationWords": "en",
-      "wordAlignment": "en"
     },
     "projectType": null
   },
