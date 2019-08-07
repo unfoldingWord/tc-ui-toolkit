@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './CheckInfoCard.styles.css';
-import PhraseWithToolTip from './PhraseWithToolTip';
+import PhraseWithLinks from './PhraseWithLinks';
 
 
 const CheckInfoCard = ({
@@ -11,7 +11,8 @@ const CheckInfoCard = ({
   seeMoreLabel,
   onSeeMoreClick,
   showSeeMoreButton,
-  getScriptureFromReference
+  getScriptureFromReference,
+  onTHelpsLinkClick,
 }) => {
   return (
     <div className="checkInfo">
@@ -22,7 +23,7 @@ const CheckInfoCard = ({
       </div>
       <div className="rightSide">
         <div className="phrase">
-          <PhraseWithToolTip getScriptureFromReference={getScriptureFromReference} phrase={phrase} />
+          <PhraseWithLinks  phrase={phrase} getScriptureFromReference={getScriptureFromReference} onTHelpsLinkClick={onTHelpsLinkClick} />
         </div>
         <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive'}>
           {seeMoreLabel}
@@ -38,7 +39,8 @@ CheckInfoCard.propTypes = {
   seeMoreLabel: PropTypes.string,
   onSeeMoreClick: PropTypes.func,
   showSeeMoreButton: PropTypes.bool,
-  getScriptureFromReference: PropTypes.func
+  getScriptureFromReference: PropTypes.func,
+  onTHelpsLinkClick: PropTypes.func.required,
 };
 
 export default CheckInfoCard;
