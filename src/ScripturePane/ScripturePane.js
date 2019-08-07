@@ -7,8 +7,6 @@ import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
-// helpers
-import { verseString, verseArray } from './helpers/verseHelpers';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -109,7 +107,6 @@ class ScripturePane extends Component {
         let language_name = manifest.language_name;
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
-        let verseElements = [];
 
         // TODO: this is temporary hack, there is a later issue to make font size user adjustable
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
@@ -120,12 +117,6 @@ class ScripturePane extends Component {
         let description = manifest.description;
         if (languageId === "originalLanguage") {
           description = "original_language";
-        }
-
-        if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize);
-        } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
 
         panes.push(
@@ -139,9 +130,14 @@ class ScripturePane extends Component {
             languageName={language_name}
             direction={manifest.direction}
             description={description}
-            verseElements={verseElements}
+            verseData={verseData}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
             removePane={this.removePane}
+            setFontSize={setFontSize}
+            selections={selections}
+            getLexiconData={getLexiconData}
+            showPopover={showPopover}
+            contextId={contextId}
           />
         );
       } catch (err) {
