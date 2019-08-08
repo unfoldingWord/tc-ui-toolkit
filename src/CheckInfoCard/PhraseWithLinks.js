@@ -17,10 +17,10 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
     // the first element starts the new list and is text.
     const key = 'phrase-' + i;
     if (i === 0)
-      return [(<span key={key}>current</span>)];
+      return [(<span key={key}>{current}</span>)];
     // All even elements are text, so leave as is.
     if (!(i % 2))
-      return prev.concat(<span key={key}>current</span>);
+      return prev.concat(<span key={key}>{current}</span>);
     // Now we have an odd indexed element, which is a link. If its a Bible reference, we make it a tooltip.
     // if it is a tHelps link, we make it clickable to open in the tHelps sidebar.
     // Any other link we will have it be a tooltip as the rc link.
@@ -29,7 +29,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
     let match = current.match(linkRE);
     if (!match)
       // Shouldn't ever be here, but just in case
-      return prev.concat(<span key={key}>current</span>);
+      return prev.concat(<span key={key}>{current}</span>);
     match.shift();
     const [title, wholeLink, lang, resource, type, ending] = match;
     if (type === 'book') {

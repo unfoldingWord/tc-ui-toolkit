@@ -23,7 +23,7 @@ const CheckInfoCard = ({
       </div>
       <div className="rightSide">
         <div className="phrase">
-          <PhraseWithLinks  phrase={phrase} getScriptureFromReference={getScriptureFromReference} onTHelpsLinkClick={onTHelpsLinkClick} />
+          <PhraseWithLinks phrase={phrase} getScriptureFromReference={getScriptureFromReference} onTHelpsLinkClick={onTHelpsLinkClick} />
         </div>
         <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive'}>
           {seeMoreLabel}

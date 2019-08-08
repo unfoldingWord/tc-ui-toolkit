@@ -21,7 +21,7 @@ exports[`CheckInfoCard renders correctly 1`] = `
     >
       <div>
         <span>
-          current
+          The term "save" in 
         </span>
         <span
           className="scripture"
@@ -51,7 +51,7 @@ exports[`CheckInfoCard renders correctly 1`] = `
           </span>
         </span>
         <span>
-          current
+           refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger. (See 
         </span>
         <span
           className="thelps-link-title"
@@ -66,7 +66,7 @@ exports[`CheckInfoCard renders correctly 1`] = `
           Metaphor
         </span>
         <span>
-          current
+          )
         </span>
         <div
           className="__react_component_tooltip place-top type-dark "

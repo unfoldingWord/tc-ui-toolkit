@@ -108,7 +108,7 @@ class App extends Component {
             />
             <CheckInfoCard
               getScriptureFromReference={(lang, resource, book, chapter, verse) => 'This would be the scripture reference for ' + lang + ' - ' + resource + ' - ' + book + ' ' + chapter + ':' + verse}
-              phrase="For the grace of God has appeared for the salvation of all people. Paul speaks of the grace of God, [Titus 2:11](rc://en/ulb/book/tit/02/11), as if it were a person who goes to other people and trains them to live holy lives, [Titus 3:11](rc://en/ulb/book/tit/03/11). (See: [Word Completion](rc://en/tn/man/translate/word-completion) and [Some unknown link](rc://en/xxx/man/yyy/zzz) and [Personification](rc://en/ta/man/translate/figs-personification))"
+              phrase="For the grace of God has appeared for the salvation of all people. Paul speaks of the grace of God, [Titus 2:11](rc://en/ulb/book/tit/02/11), as if it were a person who goes to other people and trains them to live holy lives, [Titus 3:11](rc://en/ulb/book/tit/03/11). (See: [Word Completion](rc://en/ta/man/translate/word-completion) and [Some unknown link](rc://en/xxx/man/yyy/zzz) and [Personification](rc://en/ta/man/translate/figs-personification))"
               translate={k => k}
               seeMoreLabel="see more"
               toggleHelps={this.toggleHelps.bind(this)}
