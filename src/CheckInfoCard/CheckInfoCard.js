@@ -40,7 +40,7 @@ CheckInfoCard.propTypes = {
   onSeeMoreClick: PropTypes.func,
   showSeeMoreButton: PropTypes.bool,
   getScriptureFromReference: PropTypes.func,
-  onTHelpsLinkClick: PropTypes.func.required,
+  onTHelpsLinkClick: PropTypes.func,
 };
 
 export default CheckInfoCard;

@@ -19,7 +19,61 @@ exports[`CheckInfoCard renders correctly 1`] = `
     <div
       className="phrase"
     >
-      The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.
+      <div>
+        <span>
+          current
+        </span>
+        <span
+          className="scripture"
+          data-class="phrase-scripture-tooltip"
+          data-delay-hide="100"
+          data-effect="float"
+          data-for="phrase-tooltip"
+          data-place="bottom"
+          data-tip="reference text"
+          data-type="light"
+          style={
+            Object {
+              "minWidth": 0,
+            }
+          }
+        >
+          <span
+            className="phrase-scripture-title"
+            style={
+              Object {
+                "textDecoration": "underline",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            Titus 2:1
+          </span>
+        </span>
+        <span>
+          current
+        </span>
+        <span
+          className="thelps-link-title"
+          onClick={[Function]}
+          style={
+            Object {
+              "textDecoration": "underline",
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
+          Metaphor
+        </span>
+        <span>
+          current
+        </span>
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+          id="phrase-tooltip"
+        />
+      </div>
     </div>
     <div
       className="linkActive"

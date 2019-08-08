@@ -15,11 +15,12 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
   // Now go through those text elements and link elements and put them into a an array of components
   const textAndLinks = splitPhrase.reduce((prev, current, i) => {
     // the first element starts the new list and is text.
+    const key = 'phrase-' + i;
     if (i === 0)
-      return [current];
+      return [(<span key={key}>current</span>)];
     // All even elements are text, so leave as is.
     if (!(i % 2))
-      return prev.concat(current);
+      return prev.concat(<span key={key}>current</span>);
     // Now we have an odd indexed element, which is a link. If its a Bible reference, we make it a tooltip.
     // if it is a tHelps link, we make it clickable to open in the tHelps sidebar.
     // Any other link we will have it be a tooltip as the rc link.
@@ -28,7 +29,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
     let match = current.match(linkRE);
     if (!match)
       // Shouldn't ever be here, but just in case
-      return prev.concat(current);
+      return prev.concat(<span key={key}>current</span>);
     match.shift();
     const [title, wholeLink, lang, resource, type, ending] = match;
     if (type === 'book') {
@@ -41,6 +42,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
         const [book, chapter, verse] = match;
         const tooltip = getScriptureFromReference(lang, resource, book, chapter, verse);
         return prev.concat(<span
+          key={key}
           className="scripture"
           data-for="phrase-tooltip"
           data-tip={tooltip}
@@ -60,14 +62,19 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
       // It's a tHelps link, so we call the function to show the article in the tHelps modal
       const link = [lang, resource, ending].join('/');
       return prev.concat(
-        <span className={'thelps-link-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}
-              onClick={() => onTHelpsLinkClick(link)}>
-            {title}
-          </span>
+        <span
+          key={key}
+          className={'thelps-link-title'}
+          style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}
+          onClick={() => onTHelpsLinkClick(link)}
+        >
+          {title}
+        </span>
       );
     }
     // Leaves the link as tooltip to the title
     return prev.concat(<span
+      key={key}
       className="scripture"
       data-for="phrase-tooltip"
       data-tip={wholeLink}
