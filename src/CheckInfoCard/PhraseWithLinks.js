@@ -7,7 +7,7 @@ const LinkableThelpsResources = ['ta', 'tw'];
 const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick}) => {
   // The split regular expression. NOTE: the outside parans are what keep the match in the splitPhrase array
   // This matches a Markdown link in the form of (Title)[rc://lang/resource/type/ending]
-  const splitRE = /(\[[^)]+]\s*\(rc:\/\/[\w-]+\/[\w-]+\/[\w-]+\/[^)]+\))/;
+  const splitRE = /(\[[^)]+]\s*\(rc:\/\/[\w-]+\/[\w-]+\/[\w-]+\/[^\s)\]]+\))/;
   // splitPhrase will be an array of alternating [text, link, text, link, etc.], thus even index are text, odd are links
   const splitPhrase = phrase.split(splitRE);
   if (splitPhrase.length < 2)
