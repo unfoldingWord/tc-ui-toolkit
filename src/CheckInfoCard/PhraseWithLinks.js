@@ -52,7 +52,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
           style={{minWidth: 0}}
           data-class="phrase-scripture-tooltip"
           data-delay-hide="100">
-            <span className={'phrase-scripture-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}>
+            <span className={'phrase-scripture-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline', cursor: 'pointer'}}>
               {title}
             </span>
         </span>);
@@ -65,7 +65,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
         <span
           key={key}
           className={'thelps-link-title'}
-          style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}
+          style={{whiteSpace: 'nowrap', textDecoration: 'underline', cursor: 'pointer'}}
           onClick={() => onTHelpsLinkClick(link)}
         >
           {title}
@@ -84,7 +84,7 @@ const PhraseWithLinks = ({phrase, getScriptureFromReference, onTHelpsLinkClick})
       style={{minWidth: 0}}
       data-class="phrase-link-tooltip"
       data-delay-hide="100">
-            <span className={'phrase-link-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline'}}>
+            <span className={'phrase-link-title'} style={{whiteSpace: 'nowrap', textDecoration: 'underline', cursor: 'pointer'}}>
               {title}
             </span>
       </span>);
