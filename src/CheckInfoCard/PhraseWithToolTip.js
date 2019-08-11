@@ -4,7 +4,7 @@ import {getOffset} from './helpers';
 function PhraseWithToolTip({phrase, getScriptureFromReference}) {
   let scriptureRef;
   let tooltipRef;
-  const rcMatch = phrase.match(/\[(\w+.+:\d+)]\(rc:\/\/(\w+)\/(\w+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
+  const rcMatch = phrase.match(/\[([^\]]+)\]\s*\(rc:\/\/([\w-]+)\/([\w-]+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
   const showTooltip = rcMatch.length > 0;
   if (showTooltip) {
     const [wholeMatch, referenceText, lang, id, book, chapter, verse] = rcMatch;
