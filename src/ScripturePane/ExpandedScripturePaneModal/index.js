@@ -1,18 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import {withStyles} from '@material-ui/core/styles';
 // components
-import ChaptersView from './ChaptersView';
-import BibleHeadingsRow from './ChaptersView/BibleHeadingsRow';
+import ChapterView from './ChapterView';
+import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
-import {isEqual} from 'lodash';
 
 import './ExpandedScripturePaneModal.styles.css';
 
@@ -20,7 +19,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".expanded-scripture-draggable-handle">
-      <Paper {...props} />
+      <Paper {...props}/>
     </Draggable>
   );
 }
@@ -75,36 +74,18 @@ class ExpandedScripturePaneModal extends Component {
       editVerse: null
     };
   }
+
   componentDidCatch(error, info) {
     console.error(error, info);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.show === false && this.props.show === false) {
-      return false;
-    }
-    if (!isEqual(nextState.editVerse, this.state.editVerse)) {
-      return true;
-    }
-    if (!isEqual(nextProps.show, this.props.show)) {
-      return true;
-    }
-    if (!isEqual(nextProps.selections, this.props.selections)) {
-      return true;
-    }
-    if (!isEqual(nextProps.bibles, this.props.bibles)) {
-      return true;
-    }
-    else return false;
-  }
-
-  /**
-    * Handles events to edit the target verse
-    * @param bibleId
-    * @param chapter
-    * @param verse
-    * @param verseText
-    */
+ /**
+   * Handles events to edit the target verse
+   * @param bibleId
+   * @param chapter
+   * @param verse
+   * @param verseText
+   */
   handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     this.setState({
       editVerse: {
@@ -117,18 +98,17 @@ class ExpandedScripturePaneModal extends Component {
   }
 
   handleEditorSubmit(originalVerse, newVerse, reasons) {
-    const {editTargetVerse} = this.props;
+    const { editTargetVerse } = this.props;
     const {editVerse} = this.state;
-    if (editVerse === null) return;
+    if(editVerse === null) return;
     const {chapter, verse} = editVerse;
+    if(typeof editTargetVerse === 'function') {
+      editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
+    } else {
+      console.warn('Unable to edit verse. Callback is not a function.');
+    }
     this.setState({
       editVerse: null
-    }, () => {
-      if (typeof editTargetVerse === 'function') {
-        editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
-      } else {
-        console.warn('Unable to edit verse. Callback is not a function.');
-      }
     });
   }
 
@@ -154,7 +134,7 @@ class ExpandedScripturePaneModal extends Component {
       showPopover,
       classes,
     } = this.props;
-    const {editVerse} = this.state;
+    const { editVerse } = this.state;
 
     return (
       <Dialog
@@ -163,7 +143,7 @@ class ExpandedScripturePaneModal extends Component {
         fullWidth
         maxWidth='md'
         PaperComponent={PaperComponent}
-        PaperProps={{className: classes.paperRoot}}
+        PaperProps={{ className: classes.paperRoot}}
         aria-labelledby="draggable-expanded-scripture-pane"
       >
         <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
@@ -179,7 +159,7 @@ class ExpandedScripturePaneModal extends Component {
             bibles={bibles}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer} />
-          <ChaptersView
+          <ChapterView
             bibles={bibles}
             contextId={contextId}
             translate={translate}
