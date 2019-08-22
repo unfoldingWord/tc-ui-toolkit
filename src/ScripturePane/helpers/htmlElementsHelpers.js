@@ -26,9 +26,7 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate, isH
       <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate}
                           isHebrew={!!isHebrew}/>
     );
-    if (positionCoord) {
-      showPopover(PopoverTitle, wordDetails, positionCoord);
-    }
+    showPopover(PopoverTitle, wordDetails, positionCoord);
   }
 };
 

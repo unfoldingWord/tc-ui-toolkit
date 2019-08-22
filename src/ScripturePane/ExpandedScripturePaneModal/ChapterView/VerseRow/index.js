@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Col, Row} from 'react-bootstrap';
-import shortid from 'shortid';
+import { Col, Row } from 'react-bootstrap';
 import './VerseRow.styles.css';
 // components
 import Verse from '../../../Verse';
 // helpers
-import {isEqual} from 'lodash';
+import { verseString, verseArray } from '../../../helpers/verseHelpers';
 
 class VerseRow extends Component {
   constructor(props) {
@@ -14,23 +13,14 @@ class VerseRow extends Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (!isEqual(nextProps.selections, this.props.selections)) {
-      return true;
-    }
-    if (!isEqual(nextProps.bibles, this.props.bibles)) {
-      return true;
-    } else return false;
-  }
-
   handleEdit(bibleId, chapter, verse, verseText) {
-    const {onEditTargetVerse} = this.props;
-    if (bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
+    const { onEditTargetVerse } = this.props;
+    if(bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
       onEditTargetVerse(bibleId, chapter, verse, verseText);
     }
   }
 
-  render() {
+  render () {
     const {
       chapter,
       currentVerseNumber,
@@ -66,19 +56,27 @@ class VerseRow extends Component {
     if (currentPaneSettings.length > 0) {
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
+        const index = i;
         try {
-          const {languageId, bibleId} = paneSetting;
-          const {manifest: {direction}} = bibles[languageId][bibleId];
+          const { languageId, bibleId } = paneSetting;
+          const { manifest: { direction } } = bibles[languageId][bibleId];
+          let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
+
+          if (typeof verseData === 'string') { // if the verse content is string.
+            verseElements = verseString(verseData, selections, translate);
+          } else if (verseData) { // else the verse content is an array of verse objects.
+            verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+          }
+
+          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+
           verseCells.push(
-            <Col key={shortid.generate()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
+            <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
-                selections={selections}
-                contextId={contextId}
-                getLexiconData={getLexiconData}
-                showPopover={showPopover}
                 translate={translate}
-                verseData={verseData}
+                verseElements={verseElements}
+                verseText={verseText}
                 bibleId={bibleId}
                 direction={direction}
                 chapter={chapter}

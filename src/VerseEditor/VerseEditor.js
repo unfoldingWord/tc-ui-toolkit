@@ -38,7 +38,7 @@ export const isNextEnabled = (state) => {
  * @property {VerseEditor~submitCallback} onSubmit - callback when the edit is submitted
  * @property {func} onCancel - callback when the edit is canceled
  */
-class VerseEditor extends React.PureComponent {
+class VerseEditor extends React.Component {
   constructor(props) {
     super(props);
     this._handleBack = this._handleBack.bind(this);
