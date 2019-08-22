@@ -4,6 +4,7 @@
  * @param {object} data - the group data
  * @param {string} progressKey - the key by which the group progress will be measured
  * @param {function} [onProcessItem=null] - an optional callback to perform additional processing on a menu item. This is executed before the `progressKey` is evaluated.
+ * @param {string} progressKey2 - the secondary key by which the group progress will be measured
  * @returns {[]} the menu data
  */
 export function generateMenuData(
@@ -14,17 +15,22 @@ export function generateMenuData(
   progressKey2 = null
 ) {
   const menu = [];
-
+  const dataKeys = Object.keys(data);
   for (let i = 0, len = index.length; i < len; i++) {
-    if (Object.keys(data).includes(index[i].id)) {
+    const entry = index[i];
+    if (dataKeys.includes(entry.id)) {
       // generate menu group
-      const children = data[index[i].id].map(item => {
-        return generateMenuItem(item, onProcessItem);
-      });
+      const group = data[entry.id];
+      const gl = group.length;
+      const children = new Array(gl);
+      for (let j = 0; j < gl; j++) {
+        const item = processMenuItem(group[j]);
+        children[j] = onProcessItem ? onProcessItem(item) : item;
+      }
       menu.push({
-        title: index[i].name,
+        title: entry.name,
         progress: calculateProgress(children, progressKey, progressKey2),
-        id: index[i].id,
+        id: entry.id,
         children
       });
     }
