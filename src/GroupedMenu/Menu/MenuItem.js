@@ -198,17 +198,10 @@ class MenuItem extends React.Component {
    * Handles clicks on the item
    */
   handleClick = e => {
-    e.stopPropagation();
-    const item = e.currentTarget;
-    item.style.cursor = 'wait';
     const {onClick} = this.props;
-    setTimeout(() => { // pause to allow cursor to update
-      if (typeof onClick === 'function') {
-        onClick(e);
-      }
-    }, 50);
-    // clear cursor when processing is finished
-    setTimeout(() => { if (item && item.style) item.style.cursor = 'pointer'; }, 200);
+    if (typeof onClick === 'function') {
+      onClick(e);
+    }
   };
 
   /**
