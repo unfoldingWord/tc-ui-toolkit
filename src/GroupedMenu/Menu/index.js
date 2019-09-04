@@ -235,26 +235,19 @@ class Menu extends React.Component {
    * If auto selected is enabled this will also select the first child
    * @param {object} group - the group being opened
    */
-  handleOpen = group => (e) => {
-    e.stopPropagation();
-    const item = e.currentTarget;
-    item.style.cursor = 'wait';
+  handleOpen = group => () => {
     const {autoSelect} = this.props;
-    setTimeout(() => { // pause to allow cursor to update
-      if (this.state.opened === group.id) {
-        this.setState({opened: -1});
-      } else {
-        this.setState({opened: group.id});
+    if (this.state.opened === group.id) {
+      this.setState({opened: -1});
+    } else {
+      this.setState({opened: group.id});
 
-        // auto select newly opened groups if not controlled elsewhere
-        const firstChild = group.children[0];
-        if (autoSelect && firstChild && !this.isGroupSelected(group)) {
-          this.handleClick(firstChild)();
-        }
+      // auto select newly opened groups if not controlled elsewhere
+      const firstChild = group.children[0];
+      if (autoSelect && firstChild && !this.isGroupSelected(group)) {
+        this.handleClick(firstChild)();
       }
-    }, 50);
-    // clear cursor when processing is finished
-    setTimeout(() => { if (item && item.style) item.style.cursor = 'pointer'; }, 100);
+    }
   };
 
   /**
