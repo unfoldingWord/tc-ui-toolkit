@@ -263,15 +263,14 @@ class MenuItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // TRICKY: we should technically check for an update to statusIcons
     // however that is not a known use case and it's faster to ignore it.
-    const {title, key, selected, status} = this.props;
+    const {title, itemKey, selected, status} = this.props;
     const {overflow} = this.state;
-    return (
-      overflow !== nextState.overflow ||
+    const shouldUpdate = overflow !== nextState.overflow ||
       title !== nextProps.title ||
-      key !== nextProps.key ||
+      itemKey !== nextProps.itemKey ||
       selected !== nextProps.selected ||
-      !_.isEqual(status, nextProps.status)
-    );
+      !_.isEqual(status, nextProps.status);
+    return shouldUpdate;
   }
 
   componentDidUpdate() {
@@ -294,7 +293,7 @@ class MenuItem extends React.Component {
       title,
       statusIcons,
       status,
-      key,
+      itemKey,
       selected,
       tooltip
     } = this.props;
@@ -304,7 +303,7 @@ class MenuItem extends React.Component {
 
     return (
       <ListItem
-        key={key}
+        key={itemKey}
         disableGutters={false}
         selected={selected}
         onClick={this.handleClick}
@@ -364,7 +363,7 @@ MenuItem.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   tooltip: PropTypes.string,
-  key: PropTypes.any,
+  itemKey: PropTypes.any,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   statusIcons: PropTypes.arrayOf(PropTypes.object),

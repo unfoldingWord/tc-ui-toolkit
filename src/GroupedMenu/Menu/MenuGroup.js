@@ -58,10 +58,11 @@ class MenuGroup extends React.Component {
   }
 
   render() {
-    const {classes, selected, open, onClick, label, progress} = this.props;
+    const {classes, selected, open, onClick, label, progress, itemKey} = this.props;
 
     return (
       <ListItem
+        key={itemKey}
         disableGutters={false}
         selected={selected}
         classes={{
@@ -93,7 +94,8 @@ MenuGroup.propTypes = {
   onClick: PropTypes.func.isRequired,
   selected: PropTypes.bool,
   open: PropTypes.bool,
-  progress: PropTypes.number
+  progress: PropTypes.number,
+  itemKey: PropTypes.any,
 };
 
 MenuGroup.defaultProps = {

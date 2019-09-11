@@ -358,8 +358,10 @@ class Menu extends React.Component {
             className={classes.root}
             style={{height, width, minWidth: width}}
           >
-            {entries.map((group, index) => (
-              <RootRef key={index} rootRef={this.handleGroupRef(group)}>
+            {entries.map((group, index) => {
+              const key = group.id || index;
+              return (
+              <RootRef key={key} rootRef={this.handleGroupRef(group)}>
                 <React.Fragment>
                   <MenuGroup
                     selected={this.isGroupSelected(group)}
@@ -367,26 +369,32 @@ class Menu extends React.Component {
                     progress={group.progress}
                     open={this.isGroupOpen(group)}
                     label={group.title}
+                    itemKey={key}
                   />
                   {this.isGroupOpen(group) ? (
                     <List component="div" disablePadding>
-                      {group.children.map((item, index) => (
-                        <RootRef key={index} rootRef={this.handleItemRef(item)}>
-                          <MenuItem
-                            status={item}
-                            selected={this.isItemSelected(item)}
-                            statusIcons={normalizedStatusIcons}
-                            onClick={this.handleClick(item)}
-                            tooltip={item.tooltip ? item.tooltip : item.title}
-                            title={item.title}
-                          />
-                        </RootRef>
-                      ))}
+                      {group.children.map((item, index) => {
+                        const key = item.itemId || index;
+                        return (
+                            <RootRef key={key} rootRef={this.handleItemRef(item)}>
+                              <MenuItem
+                                status={item}
+                                selected={this.isItemSelected(item)}
+                                statusIcons={normalizedStatusIcons}
+                                onClick={this.handleClick(item)}
+                                tooltip={item.tooltip ? item.tooltip : item.title}
+                                title={item.title}
+                                itemKey={key}
+                              />
+                            </RootRef>
+                          );
+                        })
+                      })}
                     </List>
                   ) : null}
                 </React.Fragment>
               </RootRef>
-            ))}
+            );})}
             <EmptyItem key="empty" label={emptyNotice}
                        enabled={entries.length === 0}/>
           </List>
