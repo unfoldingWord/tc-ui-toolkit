@@ -7,7 +7,7 @@ module.exports = {
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
-  devtool: "source-map",
+  devtool: "cheap-module-eval-source-map",
   module: {
     rules: [
       {
