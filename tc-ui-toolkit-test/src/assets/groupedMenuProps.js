@@ -112,12 +112,12 @@ export const groupedMenufilters = [
 ];
 
 export const groupedMenuActions = {
-  getGroupProgress = () => 1,
-  isVerseFinished = () => false,
-  isVerseValid = () => true,
-  getSelections = () => 'A selection',
-  translate = key => key,
-  setFilter = () => {},
-  groupMenuChangeGroup = () => {},
-  groupMenuExpandSubMenu = () => {},
+  getGroupProgress: () => 1,
+  isVerseFinished: () => false,
+  isVerseValid: () => true,
+  getSelections: () => 'A selection',
+  translate: key => key,
+  setFilter: () => {},
+  groupMenuChangeGroup: () => {},
+  groupMenuExpandSubMenu: () => {},
 };

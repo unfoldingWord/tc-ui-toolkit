@@ -71,8 +71,6 @@ class App extends Component {
       scrollbarThumb: {borderRadius: '10px'}
     });
 
-
-
     const statusIcons = groupedMenufilters.filter(f => f.id !== "incomplete");
 
     const entries = generateMenuData(sampleIndex, sampleData, 'done');
@@ -85,22 +83,22 @@ class App extends Component {
             filters={groupedMenufilters}
             statusIcons={statusIcons}
             entries={entries}
-            actions={...groupedMenuActions}
-            projectDetailsReducer={...projectDetailsReducer}
-            contextIdReducer={...contextIdReducer}
-            groupsDataReducer={...groupsDataReducer}
-            groupsIndexReducer={...groupsIndexReducer}
-            groupMenuReducer={...groupMenuReducer}
-            toolsReducer={...toolsReducer}
+            actions={groupedMenuActions}
+            projectDetailsReducer={projectDetailsReducer}
+            contextIdReducer={contextIdReducer}
+            groupsDataReducer={groupsDataReducer}
+            groupsIndexReducer={groupsIndexReducer}
+            groupMenuReducer={groupMenuReducer}
+            toolsReducer={toolsReducer}
           />
           <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
             <ScripturePane
+              {...otherSPProps}
               translate={k => k}
               bibles={bibles}
               contextId={contextId}
               currentPaneSettings={currentPaneSettings}
               projectDetailsReducer={projectDetailsReducer}
-              {...otherSPProps}
             />
             <CheckInfoCard
               getScriptureFromReference={() => "Scripture Reference"}
