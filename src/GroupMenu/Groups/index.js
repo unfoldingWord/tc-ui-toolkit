@@ -23,40 +23,41 @@ const Groups = ({
   getSelections,
   isVerseFinished,
   isVerseValid,
-  currentToolName
+  currentToolName,
 }) => {
   let groupComponents = <NoResults translate={translate} />;
-  groupsIndex = groupsIndex.filter(groupIndex => {
-    return Object.keys(groupsData).includes(groupIndex.id) && helpers.groupIsVisible(helpers.getGroupData(groupsData, groupIndex.id), filters);
-  });
+
+  groupsIndex = groupsIndex.filter(groupIndex => Object.keys(groupsData).includes(groupIndex.id) && helpers.groupIsVisible(helpers.getGroupData(groupsData, groupIndex.id), filters));
+
   if (groupsIndex.length) {
     groupComponents = [];
 
     for (let i = 0, len = groupsIndex.length; i < len; i++) {
       const groupIndex = groupsIndex[i];
       let groupId = groupIndex.id;
-        let currentGroupData = helpers.getGroupData(groupsData, groupId);
-        let active = contextId ? contextId.groupId === groupId : false;
-        groupComponents.push(
-          <Group
-            currentToolName={currentToolName}
-            isVerseValid={isVerseValid}
-            isVerseFinished={isVerseFinished}
-            contextId={contextId}
-            getSelections={getSelections}
-            changeCurrentContextId={changeCurrentContextId}
-            manifest={manifest}
-            filters={filters}
-            groupData={currentGroupData}
-            isSubMenuExpanded={isSubMenuExpanded}
-            groupIndex={groupIndex}
-            active={active}
-            key={groupIndex.id}
-            progress={getGroupProgress(groupIndex, groupsData)}
-            groupMenuExpandSubMenu={groupMenuExpandSubMenu}
-            openGroup={() => groupMenuChangeGroup(currentGroupData[0].contextId)}
-          />
-        );
+      let currentGroupData = helpers.getGroupData(groupsData, groupId);
+      let active = contextId ? contextId.groupId === groupId : false;
+
+      groupComponents.push(
+        <Group
+          currentToolName={currentToolName}
+          isVerseValid={isVerseValid}
+          isVerseFinished={isVerseFinished}
+          contextId={contextId}
+          getSelections={getSelections}
+          changeCurrentContextId={changeCurrentContextId}
+          manifest={manifest}
+          filters={filters}
+          groupData={currentGroupData}
+          isSubMenuExpanded={isSubMenuExpanded}
+          groupIndex={groupIndex}
+          active={active}
+          key={groupIndex.id}
+          progress={getGroupProgress(groupIndex, groupsData)}
+          groupMenuExpandSubMenu={groupMenuExpandSubMenu}
+          openGroup={() => groupMenuChangeGroup(currentGroupData[0].contextId)}
+        />
+      );
     }
   }
   return (
@@ -81,7 +82,7 @@ Groups.propTypes = {
   getSelections: PropTypes.func.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   isVerseValid: PropTypes.func.isRequired,
-  currentToolName: PropTypes.string.isRequired
+  currentToolName: PropTypes.string.isRequired,
 };
 
 export default Groups;

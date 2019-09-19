@@ -1,5 +1,6 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/no-find-dom-node */
+/* eslint-disable no-return-assign */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -7,8 +8,8 @@ import PropTypes from 'prop-types';
 import './ChapterView.styles.css';
 
 // components
-import VerseRow from './VerseRow';
 import VerseEditorDialog from '../../../VerseEditor';
+import VerseRow from './VerseRow';
 
 class ChapterView extends Component {
   componentDidMount() {
@@ -16,7 +17,10 @@ class ChapterView extends Component {
     let verseReference = ChapterView.makeRefKey(chapter, verse);
     let currentVerse = this.verseRefs[verseReference];
     let element = ReactDOM.findDOMNode(currentVerse);
-    if (element) element.scrollIntoView();
+
+    if (element) {
+      element.scrollIntoView();
+    }
   }
 
   /**
@@ -33,7 +37,7 @@ class ChapterView extends Component {
     this.verseRefs = {};
   }
 
-  render () {
+  render() {
     const {
       contextId,
       currentPaneSettings,
@@ -81,9 +85,11 @@ class ChapterView extends Component {
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
-    if(openEditor) {
+
+    if (openEditor) {
       let bookName = projectDetailsReducer.manifest.target_language.book.name;
-      if(bookName === null) {
+
+      if (bookName === null) {
         console.warn('The localized book name could not be found. This is likely a bug in tC.');
         bookName = projectDetailsReducer.manifest.project.name;
       }
@@ -97,11 +103,11 @@ class ChapterView extends Component {
           {verseRows}
         </div>
         <VerseEditorDialog translate={translate}
-                           onSubmit={handleEditorSubmit}
-                           open={openEditor}
-                           onCancel={handleEditorCancel}
-                           verseText={verseText}
-                           verseTitle={verseTitle}/>
+          onSubmit={handleEditorSubmit}
+          open={openEditor}
+          onCancel={handleEditorCancel}
+          verseText={verseText}
+          verseTitle={verseTitle}/>
       </div>
     );
   }

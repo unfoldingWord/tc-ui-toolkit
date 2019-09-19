@@ -5,10 +5,14 @@ import stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
-import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
+import {
+  onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
+} from './htmlElementsHelpers';
 import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
-          isIsolatedLeftQuote} from './stringHelpers';
+import {
+  isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
+  isIsolatedLeftQuote,
+} from './stringHelpers';
 
 /**
  *
@@ -22,10 +26,13 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
-  newVerseText.replace(/\s/g, '').length === 0 ? newVerseText = '' : newVerseText;
+  newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
 
   // if empty string then newVerseText = place holder warning.
-  if (newVerseText.length === 0) newVerseText = translate('pane.missing_verse_warning');
+  if (newVerseText.length === 0) {
+    newVerseText = translate('pane.missing_verse_warning');
+  }
+
   let verseTextSpans = <span>{newVerseText}</span>;
 
   if (selections && selections.length > 0) {
@@ -37,6 +44,7 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
       const selection = _selectionArray[i];
       const index = i;
       const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
+
       if (fontSize) {
         spanStyle.fontSize = Math.round(fontSize) + '%';
       }
@@ -79,17 +87,20 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     const isHebrew = (bibleId === 'uhb');
     const origLangBible = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
+
     for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
       const index = i;
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
+
       if (isWord(word)) {
         const padding = wordSpacing;
         wordSpacing = ' '; // spacing between words
         const text = (word.word || word.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
+
         if (origLangBible && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
@@ -101,13 +112,13 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         }
         // Save word to be used as previousWord in next word.
         previousWord = word;
-        const paddingSpanStyle = {
-          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
-        };
+        const paddingSpanStyle = { backgroundColor: isBetweenHighlightedWord ? 'var(--highlight-color)' : 'transparent' };
+
         // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb.  The reason for
         //            this is than some bibles have different strongs format.  We are waiting on long term solution.
         if (word.strong && origLangBible) { // if clickable
-          const spanStyle = { backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" };
+          const spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
+
           if (fontSize) {
             spanStyle.fontSize = Math.round(fontSize) + '%';
           }
@@ -139,10 +150,12 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
         const text = word.text;
+
         if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
+
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {

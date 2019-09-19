@@ -7,25 +7,25 @@ const GroupsMenuFilterOption = ({
   icon,
   checked,
   disabled,
-  onCheck
+  onCheck,
 }) => (
-    <label className={"option" + (disabled ? " disabled" : "")}>
-      <span className="option-checkbox">
-        <input type="checkbox" name={name} checked={checked} disabled={disabled} onChange={
-          ({target: value}) => onCheck(name, value.checked)} />
-      </span>
-      <span className="option-icon">
-        {icon}
-      </span>
-      <span className="option-text">
-        {text}
-      </span>
-    </label>
-  );
+  <label className={'option' + (disabled ? ' disabled' : '')}>
+    <span className="option-checkbox">
+      <input type="checkbox" name={name} checked={checked} disabled={disabled} onChange={
+        ({ target: value }) => onCheck(name, value.checked)} />
+    </span>
+    <span className="option-icon">
+      {icon}
+    </span>
+    <span className="option-text">
+      {text}
+    </span>
+  </label>
+);
 
 GroupsMenuFilterOption.defaultProps = {
   checked: false,
-  disabled: false
+  disabled: false,
 };
 
 GroupsMenuFilterOption.propTypes = {
@@ -35,7 +35,7 @@ GroupsMenuFilterOption.propTypes = {
   setFilter: PropTypes.func.isRequired,
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
-  onCheck: PropTypes.func.isRequired
+  onCheck: PropTypes.func.isRequired,
 };
 
 export default GroupsMenuFilterOption;

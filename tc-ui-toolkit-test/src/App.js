@@ -3,18 +3,28 @@ import { ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData
 import {
   sampleIndex,
   sampleData,
-  groupedMenufilters
+  groupedMenufilters,
+  groupedMenuActions
 } from './assets/groupedMenuProps';
 import {
   bibles,
   contextId,
   currentPaneSettings,
-  projectDetailsReducer
+  otherSPProps,
 } from './assets/scripturePaneProps';
 import {
   verseCheckActions,
   // verseCheckSelections
 } from './assets/verseCheckProps';
+import translationHelpsProps from './assets/translationHelpsProps'
+// reducers props
+import projectDetailsReducer from './assets/projectDetailsReducer'
+import contextIdReducer from './assets/contextIdReducer'
+import groupsDataReducer from './assets/groupsDataReducer'
+import groupsIndexReducer from './assets/groupsIndexReducer'
+import groupMenuReducer from './assets/groupMenuReducer'
+import toolsReducer from './assets/toolsReducer'
+// files
 import { article } from './assets/thelps';
 
 class App extends Component {
@@ -75,6 +85,13 @@ class App extends Component {
             filters={groupedMenufilters}
             statusIcons={statusIcons}
             entries={entries}
+            actions={...groupedMenuActions}
+            projectDetailsReducer={...projectDetailsReducer}
+            contextIdReducer={...contextIdReducer}
+            groupsDataReducer={...groupsDataReducer}
+            groupsIndexReducer={...groupsIndexReducer}
+            groupMenuReducer={...groupMenuReducer}
+            toolsReducer={...toolsReducer}
           />
           <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
             <ScripturePane
@@ -83,6 +100,7 @@ class App extends Component {
               contextId={contextId}
               currentPaneSettings={currentPaneSettings}
               projectDetailsReducer={projectDetailsReducer}
+              {...otherSPProps}
             />
             <CheckInfoCard
               getScriptureFromReference={() => "Scripture Reference"}
@@ -121,7 +139,9 @@ class App extends Component {
             isShowHelpsExpanded={this.state.showHelpsModal}
             openExpandedHelpsModal={this.toggleHelpsModal.bind(this)}
             sidebarToggle={this.toggleHelps.bind(this)}
-            isShowHelpsSidebar={this.state.showHelps} />
+            isShowHelpsSidebar={this.state.showHelps}
+            {...translationHelpsProps}
+          />
         </div>
       </TcuiThemeProvider>
     );

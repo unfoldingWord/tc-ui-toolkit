@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 
-const THelpsMarkDown = ({article}) => (
+const THelpsMarkDown = ({ article }) => (
   <div className="helps-article">
     <style dangerouslySetInnerHTML={{
       __html: [
@@ -30,20 +30,16 @@ const THelpsMarkDown = ({article}) => (
         '.remarkableStyling blockquote strong {',
         'text-decoration: underline;',
         'font-weight: normal;',
-        '}'
-      ].join('\n')
+        '}',
+      ].join('\n'),
     }}>
     </style>
     <div id="helpsbody" className="remarkableStyling helpsBody">
-      <div dangerouslySetInnerHTML={{
-        __html: marked(article)
-      }} />
+      <div dangerouslySetInnerHTML={{ __html: marked(article) }} />
     </div>
   </div>
 );
 
-THelpsMarkDown.propTypes = {
-  article: PropTypes.string.isRequired,
-};
+THelpsMarkDown.propTypes = { article: PropTypes.string.isRequired };
 
 export default THelpsMarkDown;

@@ -1,13 +1,14 @@
 var path = require('path');
+
 module.exports = {
   mode: 'none',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -16,25 +17,19 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            babelrc: true
-          }
-        }
+          options: { babelrc: true },
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(jpg|png|svg|ttf)$/,
         loader: 'file-loader',
-        options: {
-          name: '[path][name].[hash].[ext]',
-        },
-      }
-    ]
+        options: { name: '[path][name].[hash].[ext]' },
+      },
+    ],
   },
-  externals: {
-    'react': 'commonjs react'
-  }
+  externals: { 'react': 'commonjs react' },
 };

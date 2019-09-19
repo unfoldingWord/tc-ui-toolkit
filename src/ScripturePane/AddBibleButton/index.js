@@ -21,17 +21,16 @@ const AddBibleSVG = ({ title }) => (
   </svg>
 );
 
-AddBibleSVG.propTypes = {
-  title: PropTypes.string.isRequired,
-};
+AddBibleSVG.propTypes = { title: PropTypes.string.isRequired };
 
 class AddBible extends React.Component {
-
   render() {
     let { showAddBibleModal, clickAddResource } = this.props;
-    return(
+    return (
       <div className="add-bible-button-container">
-        <div style={{ height: "60px", width: "60px", cursor: 'pointer' }} title={clickAddResource} onClick={showAddBibleModal}>
+        <div style={{
+          height: '60px', width: '60px', cursor: 'pointer',
+        }} title={clickAddResource} onClick={showAddBibleModal}>
           <AddBibleSVG title={clickAddResource} />
         </div>
       </div>
@@ -41,7 +40,7 @@ class AddBible extends React.Component {
 
 AddBible.propTypes = {
   clickAddResource: PropTypes.string.isRequired,
-  showAddBibleModal: PropTypes.func.isRequired
+  showAddBibleModal: PropTypes.func.isRequired,
 };
 
 export default AddBible;

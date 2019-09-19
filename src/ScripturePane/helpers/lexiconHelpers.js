@@ -1,4 +1,4 @@
-import {MorphUtils} from "word-aligner";
+import { MorphUtils } from 'word-aligner';
 
 const ZERO_WIDTH_SPACE = '\u200B';
 const ZERO_WIDTH_JOINER = '\u2060';
@@ -11,6 +11,7 @@ const ZERO_WIDTH_JOINER = '\u2060';
 export const getWordParts = (word) => {
   if (word) {
     let wordParts = [word];
+
     if (word.includes(ZERO_WIDTH_JOINER)) {
       wordParts = word.split(ZERO_WIDTH_JOINER);
     } else if (word.includes(ZERO_WIDTH_SPACE)) {
@@ -33,6 +34,7 @@ export const getMorphKeys = (morph) => {
   let pos = 0;
   let part;
   const divider = '*:';
+
   if ((pos = morphKeys.indexOf(divider)) >= 0) {
     while (pos >= 0) {
       part = morphKeys.slice(lastPos, pos);
@@ -41,6 +43,7 @@ export const getMorphKeys = (morph) => {
       pos = morphKeys.indexOf(divider, lastPos);
     }
     part = morphKeys.slice(lastPos);
+
     if (part.length) {
       morphKeysForParts.push(part);
     }
@@ -70,8 +73,10 @@ export const getStrongsParts = (strong) => {
  */
 export const containsValidStrongsNumber = (strong) => {
   const parts = getStrongsParts(strong);
+
   for (let i = 0, len = parts.length; i < len; i++) {
     const entryId = lexiconEntryIdFromStrongs(parts[i]);
+
     if (entryId) {
       return true;
     }
@@ -96,9 +101,11 @@ export const lexiconIdFromStrongs = (strong) => {
 export const lexiconEntryIdFromStrongs = (strong) => {
   if (strong) {
     let strongsCode = strong.replace(/\w/, '');
+
     if (!strong.startsWith('H')) { // Greek has an extra 0 at end
       strongsCode = strongsCode.slice(0, -1);
     }
+
     const entryId = (strongsCode && parseInt(strongsCode)) || 0;
     return entryId;
   }
@@ -114,12 +121,15 @@ export const lexiconEntryIdFromStrongs = (strong) => {
 export const lookupStrongsNumbers = (strong, getLexiconData) => {
   let lexiconData = {};
   const parts = getStrongsParts(strong);
+
   for (let i = 0, len = parts.length; i < len; i++) {
     const part = parts[i];
     const entryId = lexiconEntryIdFromStrongs(part);
+
     if (entryId) {
       const lexiconId = lexiconIdFromStrongs(part);
       const lexiconData_ = getLexiconData(lexiconId, entryId);
+
       if (lexiconData_) {
         if (lexiconData && lexiconData_[lexiconId] && lexiconData_[lexiconId][entryId]) { // if already exists combine data
           if (!lexiconData[lexiconId]) {

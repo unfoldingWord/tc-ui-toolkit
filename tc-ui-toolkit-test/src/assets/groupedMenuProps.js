@@ -110,3 +110,14 @@ export const groupedMenufilters = [
     icon: <ModeCommentIcon/>
   }
 ];
+
+export const groupedMenuActions = {
+  getGroupProgress = () => 1,
+  isVerseFinished = () => false,
+  isVerseValid = () => true,
+  getSelections = () => 'A selection',
+  translate = key => key,
+  setFilter = () => {},
+  groupMenuChangeGroup = () => {},
+  groupMenuExpandSubMenu = () => {},
+};

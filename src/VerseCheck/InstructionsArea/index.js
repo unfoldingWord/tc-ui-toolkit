@@ -36,13 +36,12 @@ let InstructionsArea = ({
   mode,
   translate,
   invalidated,
-  nothingToSelect
+  nothingToSelect,
 }) => {
-
   if (!verseText) {
     return (
       <div className='instructions-area'>
-        <span>{translate("empty_verse")}</span><br />
+        <span>{translate('empty_verse')}</span><br />
       </div>
     );
   }
@@ -50,10 +49,10 @@ let InstructionsArea = ({
   if (nothingToSelect) { // if nothingToSelect is true
     return (
       <div className='instructions-area'>
-        <span>{translate("no_selection_needed_description")}</span><br />
+        <span>{translate('no_selection_needed_description')}</span><br />
         <QuoatationMarks>
           <strong className="no-selection-needed">
-            {translate("no_selection_needed")}
+            {translate('no_selection_needed')}
           </strong>
         </QuoatationMarks>
       </div>
@@ -63,7 +62,7 @@ let InstructionsArea = ({
   if (selections.length === 0 && dontShowTranslation && !invalidated) { // if invalidated we had previous selection
     return (
       <div className='instructions-area'>
-        <span>{translate("no_selection")}</span><br />
+        <span>{translate('no_selection')}</span><br />
       </div>
     );
   }
@@ -72,7 +71,7 @@ let InstructionsArea = ({
     return (
       <div className='instructions-area'>
         {getSelectionString(invalidated, translate)}
-        <span>{translate("please_select")}</span><br />
+        <span>{translate('please_select')}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
             {`"${alignedGLText}"`}
@@ -89,7 +88,7 @@ let InstructionsArea = ({
           {`"${alignedGLText}"`}
         </strong>
       </span><br />
-      <span>{translate("translated_as")}</span><br />
+      <span>{translate('translated_as')}</span><br />
       <span>
         <InstructionsAreaTextSelection
           selections={selections}
@@ -107,7 +106,7 @@ InstructionsArea.propTypes = {
   verseText: PropTypes.string.isRequired,
   mode: PropTypes.string,
   invalidated: PropTypes.bool,
-  nothingToSelect: PropTypes.bool
+  nothingToSelect: PropTypes.bool,
 };
 
 export default InstructionsArea;

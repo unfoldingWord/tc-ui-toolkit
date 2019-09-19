@@ -9,9 +9,10 @@ const DEFAULT_SEPARATOR = ' ';
  */
 export const getQuoteAsArray = (quote, occurrenceToMatch) => {
   let quoteArray = quote;
+
   if (typeof quote ==='string') { // should only be string in case of single word quote, otherwise is an array
     quoteArray = quote.split(' ');
-    quoteArray = quoteArray.map(word => ({word, occurrence: occurrenceToMatch}));
+    quoteArray = quoteArray.map(word => ({ word, occurrence: occurrenceToMatch }));
   }
   return quoteArray;
 };
@@ -26,34 +27,42 @@ export const getQuoteAsArray = (quote, occurrenceToMatch) => {
  */
 export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=false) => {
   let text = '';
-  if(! verseObjects || ! quote || ! occurrenceToMatch) {
+
+  if (! verseObjects || ! quote || ! occurrenceToMatch) {
     return text;
   }
+
   const wordsToMatch = getQuoteAsArray(quote, occurrenceToMatch);
   let separator = DEFAULT_SEPARATOR;
   let needsEllipsis = false;
+
   for (let i = 0, l = verseObjects.length; i < l; i++) {
     const verseObject = verseObjects[i];
     let lastMatch = false;
+
     if ((verseObject.type === 'milestone' || verseObject.type === 'word')) {
       // It is a milestone or a word...we want to handle all of them.
       if (isMatch || wordsToMatch.find(item => (verseObject.content === item.word) && (verseObject.occurrence === item.occurrence))) {
         lastMatch = true;
+
         // We have a match (or previoiusly had a match in the parent) so we want to include all text that we find,
         if (needsEllipsis) {
           // Need to add an ellipsis to the separator since a previous match but not one right next to this one
           separator += ELLIPSIS+DEFAULT_SEPARATOR;
           needsEllipsis = false;
         }
+
         if (text) {
           // There has previously been text, so append the separator, either a space or punctuation
           text += separator;
         }
         separator = DEFAULT_SEPARATOR; // reset the separator for the next word
+
         if (verseObject.text) {
           // Handle type word, appending the text from this node
           text += verseObject.text;
         }
+
         if (verseObject.children) {
           // Handle children of type milestone, appending all the text of the children, isMatch is true
           text += getAlignedText(verseObject.children, wordsToMatch, occurrenceToMatch, true);
@@ -63,8 +72,10 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
         // If there isn't a match here, i.e. childText is empty, and we have text, we still need
         // an ellipsis if a later match is found since there was some text here
         let childText = getAlignedText(verseObject.children, wordsToMatch, occurrenceToMatch, isMatch);
+
         if (childText) {
           lastMatch = true;
+
           if (needsEllipsis) {
             separator += ELLIPSIS+DEFAULT_SEPARATOR;
             needsEllipsis = false;
@@ -76,7 +87,8 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
         }
       }
     }
-    if ( lastMatch && verseObjects[i + 1] && verseObjects[i + 1].type === "text" && text) {
+
+    if ( lastMatch && verseObjects[i + 1] && verseObjects[i + 1].type === 'text' && text) {
       // Found some text that is a word separator/punctuation, e.g. the apostrophe between "God" and "s" for "God's"
       // We want to preserve this so we can show "God's" instead of "God ... s"
       if (separator === DEFAULT_SEPARATOR) {

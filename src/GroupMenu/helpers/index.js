@@ -1,29 +1,27 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import InvalidatedIcon from '../GroupsMenuFilter/InvalidatedIcon';
 export const MENU_BAR_HEIGHT = 30;
 export const MENU_ITEM_HEIGHT = 38;
 
 export function getGroupData(groupsData, groupId) {
   let groupData;
+
   if (groupsData !== undefined) {
     groupData = groupsData[groupId];
   }
   return groupData;
 }
 
-export const getFilterCount = (filters) => {
-  return Object.keys(filters).filter(k => filters[k]).length;
-};
+export const getFilterCount = (filters) => Object.keys(filters).filter(k => filters[k]).length;
 
 /**
  * @description - Determines if the item should be navigatable
  * @param {object} groupItemData
  * @returns {boolean}
  */
-export const groupItemIsVisible = (groupItemData, filters) => {
-  return (!getFilterCount(filters) ||
+export const groupItemIsVisible = (groupItemData, filters) => (!getFilterCount(filters) ||
     ((filters.invalidated && groupItemData.invalidated)
       || (filters.reminders && groupItemData.reminders)
       || (filters.selections && groupItemData.selections)
@@ -31,7 +29,6 @@ export const groupItemIsVisible = (groupItemData, filters) => {
       || (filters.verseEdits && groupItemData.verseEdits)
       || (filters.comments && groupItemData.comments)
     ));
-};
 
 /**
  * @description - Determines if the group is navigatable based on filters
@@ -45,6 +42,7 @@ export const groupIsVisible = (groupData, filters) => {
 
   for (let i = 0, len = groupData.length; i < len; i++) {
     const groupItemData = groupData[i];
+
     if (groupItemIsVisible(groupItemData, filters)) {
       return true;
     }
@@ -57,9 +55,9 @@ export const groupIsVisible = (groupData, filters) => {
  * scrolls into view, but will be toward top
  * @param {object} current
  */
-export function scrollIntoView({current}) {
+export function scrollIntoView({ current }) {
   if (current && current.scrollIntoView) {
-    current.scrollIntoView({block: 'start', behavior: 'smooth'});
+    current.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 }
 
@@ -67,7 +65,7 @@ export function scrollIntoView({current}) {
  * scrolls into view, but will be toward bottom
  * @param {object} item
  */
-export function scrollIntoViewEnd({current}) {
+export function scrollIntoViewEnd({ current }) {
   if (current && current.scrollIntoView) {
     current.scrollIntoView(false); // must use boolean value here because we are using an older chromium that does not yet support scrollIntoViewOptions
   }
@@ -80,7 +78,7 @@ export function scrollIntoViewEnd({current}) {
 * @param {object} currentGroupMenu - The current group menu header that is extended/actived (i.e. Metaphors)
 * @param {object} currentGroupItem - The current group check item that is active (i.e. Luke 1:1)
 */
-export function inView({current: currentGroupMenu}, {current: currentGroupItem}) {
+export function inView({ current: currentGroupMenu }, { current: currentGroupItem }) {
   if (currentGroupMenu && currentGroupItem) {
     const rectGroup = currentGroupMenu.getBoundingClientRect();
     const rectItem = currentGroupItem.getBoundingClientRect();
@@ -95,7 +93,7 @@ export function inView({current: currentGroupMenu}, {current: currentGroupItem})
  * @return {boolean}
  */
 export function isInViewport(ref) {
-  if(ref && ref.current) {
+  if (ref && ref.current) {
     const offset = MENU_BAR_HEIGHT + MENU_ITEM_HEIGHT;
     const top = ref.current.getBoundingClientRect().top;
     return (top >= 0) && (top + offset <= window.innerHeight);
@@ -115,11 +113,25 @@ export function getStatusBadges(groupItemData, verseFinished, verseIsValid) {
 
   if (groupItemData && groupItemData.contextId && groupItemData.contextId.reference) {
     // The below ifs are in order of precedence of the status badges we show
-    if (groupItemData.invalidated || !verseIsValid) glyphs.push('invalidated');
-    if (groupItemData.reminders) glyphs.push('bookmark');
-    if (groupItemData.selections || verseFinished) glyphs.push('ok');
-    if (groupItemData.verseEdits) glyphs.push('pencil');
-    if (groupItemData.comments) glyphs.push('comment');
+    if (groupItemData.invalidated || !verseIsValid) {
+      glyphs.push('invalidated');
+    }
+
+    if (groupItemData.reminders) {
+      glyphs.push('bookmark');
+    }
+
+    if (groupItemData.selections || verseFinished) {
+      glyphs.push('ok');
+    }
+
+    if (groupItemData.verseEdits) {
+      glyphs.push('pencil');
+    }
+
+    if (groupItemData.comments) {
+      glyphs.push('comment');
+    }
   }
 
   return makeStatusBadgeComponents(glyphs);
@@ -133,6 +145,7 @@ export function getStatusBadges(groupItemData, verseFinished, verseIsValid) {
 export function makeStatusBadgeComponents(glyphs) {
   const statusGlyphs = getGlyphIcons(glyphs);
   const mainGlyph = statusGlyphs[0];
+
   if (statusGlyphs.length > 1) {
     const tooltip = ReactDOMServer.renderToString(statusGlyphs);
     return (
@@ -172,9 +185,11 @@ export function makeStatusBadgeComponents(glyphs) {
  */
 export function getGlyphIcons(glyphs) {
   const glyphicons = [];
+
   if (glyphs && glyphs.length) {
     for (let i = 0, len = glyphs.length; i < len; i++) {
       const glyph = glyphs[i];
+
       if (glyph === 'invalidated') {
         glyphicons.push(<div key={glyph} className={'glyphicon glyphicon-invalidated'}><InvalidatedIcon height={16} width={16} /></div>);
       } else {

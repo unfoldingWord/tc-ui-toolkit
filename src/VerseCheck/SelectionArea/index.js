@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../VerseCheck.styles.css';
 // components
@@ -9,20 +9,24 @@ class SelectionArea extends Component {
     super();
     this.state = {
       inBox: false,
-      modalVisibility: false
+      modalVisibility: false,
     };
   }
 
   render() {
-    const {manifest, reference, translate, maximumSelections} = this.props;
-    const {target_language, project} = manifest;
+    const {
+      manifest, reference, translate, maximumSelections,
+    } = this.props;
+    const { target_language, project } = manifest;
     const bookName = target_language && target_language.book && target_language.book.name ?
       target_language.book.name : project.name;
     const languageName = manifest.target_language ? manifest.target_language.name : null;
     return (
-      <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+      <div style={{
+        flex: 1, display: 'flex', flexDirection: 'column',
+      }}>
         <div className='verse-title'>
-          <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
+          <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
             <span className='verse-title-title'>
               {languageName}
             </span>
@@ -59,7 +63,7 @@ SelectionArea.propTypes = {
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,
-  maximumSelections: PropTypes.number.isRequired
+  maximumSelections: PropTypes.number.isRequired,
 };
 
 export default SelectionArea;

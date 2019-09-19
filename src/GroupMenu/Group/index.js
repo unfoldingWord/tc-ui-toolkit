@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 // components
 import GroupItems from '../GroupItems';
 // helpers
-import {scrollIntoView, inView, isInViewport} from '../helpers';
+import {
+  scrollIntoView, inView, isInViewport,
+} from '../helpers';
 
 class Group extends React.Component {
   constructor(props) {
@@ -28,7 +30,6 @@ class Group extends React.Component {
         scrollIntoView(this.activeGroupItemRef);
       }
     }, 200);
-
   }
 
   componentDidMount() {
@@ -38,10 +39,11 @@ class Group extends React.Component {
   }
 
   componentDidUpdate() {
-    const {active} = this.props;
-    if(active) {
+    const { active } = this.props;
+
+    if (active) {
       // scroll to menu if out of view
-      if(!isInViewport(this.activeGroupItemRef)) {
+      if (!isInViewport(this.activeGroupItemRef)) {
         this.scrollToCurrentCheck(this.activeGroupItemRef);
       }
     }
@@ -51,7 +53,7 @@ class Group extends React.Component {
     const {
       active,
       openGroup,
-      groupMenuExpandSubMenu
+      groupMenuExpandSubMenu,
     } = this.props;
 
     if (active) {
@@ -77,51 +79,57 @@ class Group extends React.Component {
       getSelections,
       isVerseFinished,
       isVerseValid,
-      currentToolName
+      currentToolName,
     } = this.props;
     let groupMenuItemHeadingClassName = active ? 'menu-item-heading-current' : 'menu-item-heading-normal';
 
     let expandedGlyph = (
-      <Glyphicon glyph="chevron-down" style={{float: 'right', marginTop: '3px'}} onClick={() => groupMenuExpandSubMenu(false)} />
+      <Glyphicon glyph="chevron-down" style={{ float: 'right', marginTop: '3px' }} onClick={() => groupMenuExpandSubMenu(false)} />
     );
     let collapsedGlyph = (
-      <Glyphicon glyph="chevron-right" style={{float: 'right', marginTop: '3px'}} onClick={this.onExpandClick} />
+      <Glyphicon glyph="chevron-right" style={{ float: 'right', marginTop: '3px' }} onClick={this.onExpandClick} />
     );
     return (
-        <div className="group">
-          <div ref={this.groupRef}
-               className={groupMenuItemHeadingClassName}>
-            {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
-             <div style={{display: 'flex'}}
-                 onClick={() => openGroup(true)}>
-              <div style={{position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left'}}>
-                <div style={{height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%'}} />
-                <CircularProgress
-                  variant="static"
-                  value={progress * 100}
-                  thickness={10}
-                  size={15}
-                  color={'primary'}
-                  style={{alignSelf: 'center', position: 'absolute', width: 20, height: 20, color:'#40BDF2'}}
-                />
-              </div>
-              {groupIndex.name}
+      <div className="group">
+        <div ref={this.groupRef}
+          className={groupMenuItemHeadingClassName}>
+          {active && isSubMenuExpanded ? expandedGlyph : collapsedGlyph}
+          <div style={{ display: 'flex' }}
+            onClick={() => openGroup(true)}>
+            <div style={{
+              position: 'relative', justifyContent: 'center', height: 20, width: 20, display: 'flex', marginRight: '10px', float: 'left',
+            }}>
+              <div style={{
+                height: 20, width: 20, border: 'white solid 3px', borderRadius: '50%',
+              }} />
+              <CircularProgress
+                variant="static"
+                value={progress * 100}
+                thickness={10}
+                size={15}
+                color={'primary'}
+                style={{
+                  alignSelf: 'center', position: 'absolute', width: 20, height: 20, color:'#40BDF2',
+                }}
+              />
             </div>
+            {groupIndex.name}
           </div>
-          {active && isSubMenuExpanded ?
-            (<GroupItems
-              currentToolName={currentToolName}
-              isVerseFinished={isVerseFinished}
-              isVerseValid={isVerseValid}
-              getSelections={getSelections}
-              changeCurrentContextId={changeCurrentContextId}
-              contextId={contextId}
-              groupData={groupData}
-              activeGroupItemRef={this.activeGroupItemRef}
-              filters={filters}
-              manifest={manifest} />)
-            : null}
         </div>
+        {active && isSubMenuExpanded ?
+          (<GroupItems
+            currentToolName={currentToolName}
+            isVerseFinished={isVerseFinished}
+            isVerseValid={isVerseValid}
+            getSelections={getSelections}
+            changeCurrentContextId={changeCurrentContextId}
+            contextId={contextId}
+            groupData={groupData}
+            activeGroupItemRef={this.activeGroupItemRef}
+            filters={filters}
+            manifest={manifest} />)
+          : null}
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@ import GroupsMenuFilterBubble from '../GroupsMenuFilterBubble';
 const CollapsedFilter = ({
   translate,
   filters,
-  setFilter
+  setFilter,
 }) => {
   const bubbles = [];
 
@@ -68,7 +68,7 @@ const CollapsedFilter = ({
 CollapsedFilter.propTypes = {
   filters: PropTypes.object.isRequired,
   setFilter: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 };
 
 export default CollapsedFilter;

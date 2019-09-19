@@ -1,20 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = () => ({
-  root: {
-    position: "relative"
-  },
+  root: { position: 'relative' },
   progress: {
-    postiion: "absolute",
-    color: "var(--completed-color)"
+    postiion: 'absolute',
+    color: 'var(--completed-color)',
   },
   shadow: {
-    position: "absolute",
-    color: "#EEEEEE"
-  }
+    position: 'absolute',
+    color: '#EEEEEE',
+  },
 });
 
 /**
@@ -42,7 +40,7 @@ const ProgressIcon = ({ classes, progress }) => (
 
 ProgressIcon.propTypes = {
   classes: PropTypes.object.isRequired,
-  progress: PropTypes.number.isRequired
+  progress: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ProgressIcon);

@@ -6,12 +6,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Glyphicon } from 'react-bootstrap';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 // components
-import ChapterView from './ChapterView';
-import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
+import ChapterView from './ChapterView';
+import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
 import './ExpandedScripturePaneModal.styles.css';
 
@@ -38,30 +38,22 @@ const styles = {
   title: {
     marginLeft: 'auto',
     fontSize: '22px',
-    fontWeight: '400'
+    fontWeight: '400',
   },
-  closeButton: {
-    marginLeft: 'auto'
-  },
+  closeButton: { marginLeft: 'auto' },
   dialogContent: {
     padding: '0px',
-    margin: '0px'
+    margin: '0px',
   },
   dialogActions: {
     height: '70px',
     padding: '10px',
     margin: '0px',
-    borderTop: '1px solid var(--border-color)'
+    borderTop: '1px solid var(--border-color)',
   },
-  progressRoot: {
-    color: 'var(--accent-color-dark)',
-  },
-  progressSvg: {
-    margin: '5px'
-  },
-  paperRoot: {
-    margin: '0px'
-  }
+  progressRoot: { color: 'var(--accent-color-dark)' },
+  progressSvg: { margin: '5px' },
+  paperRoot: { margin: '0px' },
 };
 
 class ExpandedScripturePaneModal extends Component {
@@ -70,16 +62,14 @@ class ExpandedScripturePaneModal extends Component {
     this.handleEditTargetVerse = this.handleEditTargetVerse.bind(this);
     this.handleEditorCancel = this.handleEditorCancel.bind(this);
     this.handleEditorSubmit = this.handleEditorSubmit.bind(this);
-    this.state = {
-      editVerse: null
-    };
+    this.state = { editVerse: null };
   }
 
   componentDidCatch(error, info) {
     console.error(error, info);
   }
 
- /**
+  /**
    * Handles events to edit the target verse
    * @param bibleId
    * @param chapter
@@ -92,30 +82,31 @@ class ExpandedScripturePaneModal extends Component {
         bibleId,
         chapter,
         verse,
-        verseText
-      }
+        verseText,
+      },
     });
   }
 
   handleEditorSubmit(originalVerse, newVerse, reasons) {
     const { editTargetVerse } = this.props;
-    const {editVerse} = this.state;
-    if(editVerse === null) return;
-    const {chapter, verse} = editVerse;
-    if(typeof editTargetVerse === 'function') {
+    const { editVerse } = this.state;
+
+    if (editVerse === null) {
+      return;
+    }
+
+    const { chapter, verse } = editVerse;
+
+    if (typeof editTargetVerse === 'function') {
       editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
     } else {
       console.warn('Unable to edit verse. Callback is not a function.');
     }
-    this.setState({
-      editVerse: null
-    });
+    this.setState({ editVerse: null });
   }
 
   handleEditorCancel() {
-    this.setState({
-      editVerse: null
-    });
+    this.setState({ editVerse: null });
   }
 
   render() {
@@ -143,7 +134,7 @@ class ExpandedScripturePaneModal extends Component {
         fullWidth
         maxWidth='md'
         PaperComponent={PaperComponent}
-        PaperProps={{ className: classes.paperRoot}}
+        PaperProps={{ className: classes.paperRoot }}
         aria-labelledby="draggable-expanded-scripture-pane"
       >
         <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">

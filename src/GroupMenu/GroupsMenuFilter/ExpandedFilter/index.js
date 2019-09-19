@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Glyphicon } from 'react-bootstrap';
 import GroupsMenuFilterOption from '../GroupsMenuFilterOption';
 import InvalidatedIcon from '../InvalidatedIcon';
-import {Glyphicon} from 'react-bootstrap';
 
 const ExpandedFilter = ({
   filters,
   setFilter,
-  translate
+  translate,
 }) => {
   const options = [];
 
@@ -77,7 +77,7 @@ const ExpandedFilter = ({
 ExpandedFilter.propTypes = {
   filters: PropTypes.object.isRequired,
   setFilter: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 };
 
 export default ExpandedFilter;

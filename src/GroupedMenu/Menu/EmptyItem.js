@@ -1,17 +1,15 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
-  root: {
-    borderBottom: 'solid #ffffff4d 1px'
-  },
+  root: { borderBottom: 'solid #ffffff4d 1px' },
   primary: {
     color: '#FFFFFF',
-    fontSize: 'inherit'
-  }
+    fontSize: 'inherit',
+  },
 });
 
 /**
@@ -22,14 +20,14 @@ const styles = () => ({
  * @returns {*}
  * @constructor
  */
-const EmptyItem = ({label, enabled, classes}) => {
+const EmptyItem = ({
+  label, enabled, classes,
+}) => {
   if (enabled && label) {
     return (
       <ListItem className={classes.root}>
         <ListItemText
-          classes={{
-            primary: classes.primary
-          }}
+          classes={{ primary: classes.primary }}
           primary={label}
         />
       </ListItem>
@@ -42,7 +40,7 @@ const EmptyItem = ({label, enabled, classes}) => {
 EmptyItem.propTypes = {
   classes: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
-  label: PropTypes.string
+  label: PropTypes.string,
 };
 
 export default withStyles(styles)(EmptyItem);

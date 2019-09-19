@@ -1,7 +1,7 @@
 /**
  * component displays the Verse so selection, edit and comments can be made.
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
@@ -39,37 +39,40 @@ class VerseCheck extends Component {
       handleSkip,
       toggleNothingToSelect,
       localNothingToSelect,
-      maximumSelections
+      maximumSelections,
     } = this.props;
 
     let titleText;
     let saveArea;
+
     switch (mode) {
-      case 'edit':
-        titleText = translate('edit_verse');
-        saveArea = <div />;
-        break;
-      case 'comment':
-        titleText = translate('comment');
-        saveArea = <div />;
-        break;
-      case 'select':
-        titleText = translate('select');
-        saveArea = <div />;
-        break;
-      default:
-        titleText = translate('step2_check');
-        saveArea = (
-          <SaveArea
-            actions={actions}
-            selections={selectionsReducer.selections}
-            nothingToSelect={!!selectionsReducer.nothingToSelect}
-            translate={translate} />);
+    case 'edit':
+      titleText = translate('edit_verse');
+      saveArea = <div />;
+      break;
+    case 'comment':
+      titleText = translate('comment');
+      saveArea = <div />;
+      break;
+    case 'select':
+      titleText = translate('select');
+      saveArea = <div />;
+      break;
+    default:
+      titleText = translate('step2_check');
+      saveArea = (
+        <SaveArea
+          actions={actions}
+          selections={selectionsReducer.selections}
+          nothingToSelect={!!selectionsReducer.nothingToSelect}
+          translate={translate} />);
     }
 
     return (
       <div className='verse-check'>
-        <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
+        <div style={{
+          display: 'flex', flexDirection: 'column', height: '100%', width:'100%',
+        }}>
           <div className='verse-check-card'>
             <div className='title-bar'>
               <span>{titleText}</span>
@@ -147,9 +150,7 @@ VerseCheck.propTypes = {
   toolsReducer: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
-  contextIdReducer: PropTypes.shape({
-    contextId: PropTypes.object
-  }).isRequired,
+  contextIdReducer: PropTypes.shape({ contextId: PropTypes.object }).isRequired,
   selectionsReducer: PropTypes.object.isRequired,
   commentsReducer: PropTypes.object.isRequired,
   resourcesReducer: PropTypes.object.isRequired,
@@ -160,7 +161,7 @@ VerseCheck.propTypes = {
   localNothingToSelect: PropTypes.bool.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
   toggleNothingToSelect: PropTypes.func.isRequired,
-  maximumSelections: PropTypes.number.isRequired
+  maximumSelections: PropTypes.number.isRequired,
 };
 
 VerseCheck.defaultProps = {
@@ -169,45 +170,23 @@ VerseCheck.defaultProps = {
       reference: {
         chapter: 1,
         verse: 1,
-        bookId: 'tit'
-      }
-    }
+        bookId: 'tit',
+      },
+    },
   },
   projectDetailsReducer: {
     manifest: {
-      project: {
-        id: 'tit'
-      },
-      target_language: {
-        direction: 'ltr'
-      }
+      project: { id: 'tit' },
+      target_language: { direction: 'ltr' },
     },
   },
-  resourcesReducer: {
-    bibles: {
-      targetLanguage: {
-        targetBible: {
-          1: {1: ''}
-        }
-      }
-    }
-  },
-  selectionsReducer: {
-    selections: []
-  },
-  toolsReducer: {
-    currentToolName: 'tw'
-  },
+  resourcesReducer: { bibles: { targetLanguage: { targetBible: { 1: { 1: '' } } } } },
+  selectionsReducer: { selections: [] },
+  toolsReducer: { currentToolName: 'tw' },
   translate: key => key,
-  groupsDataReducer: {
-    groupsData: {}
-  },
-  commentsReducer: {
-    text: ''
-  },
-  remindersReducer: {
-    enabled: false
-  },
+  groupsDataReducer: { groupsData: {} },
+  commentsReducer: { text: '' },
+  remindersReducer: { enabled: false },
   loginReducer: {},
   alignedGLText: '',
   mode: 'default',
@@ -225,7 +204,7 @@ VerseCheck.defaultProps = {
   unfilteredVerseText: '',
   dialogModalVisibility: false,
   localNothingToSelect: false,
-  nothingToSelect: false
+  nothingToSelect: false,
 };
 
 export default VerseCheck;

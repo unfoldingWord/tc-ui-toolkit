@@ -7,14 +7,14 @@ const MyTargetVerse = ({
   verse,
   verseText,
   styles,
-  dir
+  dir,
 }) => {
   let chapterVerse;
 
-  if(dir == "rtl"){
-    chapterVerse = verse + ":" + chapter + " ";
-  }else{
-    chapterVerse = chapter + ":" + verse + " ";
+  if (dir == 'rtl'){
+    chapterVerse = verse + ':' + chapter + ' ';
+  } else {
+    chapterVerse = chapter + ':' + verse + ' ';
   }
 
   return (
@@ -32,7 +32,7 @@ MyTargetVerse.propTypes = {
   verse: PropTypes.number.isRequired,
   verseText: PropTypes.string.isRequired,
   styles: PropTypes.object.isRequired,
-  dir: PropTypes.string.isRequired
+  dir: PropTypes.string.isRequired,
 };
 
 export default MyTargetVerse;

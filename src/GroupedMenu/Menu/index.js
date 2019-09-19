@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles , createMuiTheme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import RootRef from '@material-ui/core/RootRef';
-import {createMuiTheme} from '@material-ui/core/styles';
+
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import memoize from 'memoize-one';
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';
-import memoize from 'memoize-one';
 import EmptyItem from './EmptyItem';
 
 const theme = createMuiTheme({
@@ -16,79 +16,55 @@ const theme = createMuiTheme({
     fontFamily: [
       '"Noto Sans"',
       'Roboto',
-      'Arial'
+      'Arial',
     ].join(','),
-    fontSize: 12
+    fontSize: 12,
   },
-  props: {
-    MuiButtonBase: {
-      disableRipple: true
-    }
-  },
+  props: { MuiButtonBase: { disableRipple: true } },
   overrides: {
     MuiListItem: {
       root: {
         paddingTop: 6,
         paddingBottom: 6,
-        minHeight: 40
+        minHeight: 40,
       },
       gutters: {
         paddingLeft: 10,
-        paddingRight: 5
-      }
-    },
-    MuiSvgIcon: {
-      root: {
-        fontSize: 22
-      }
-    },
-    MuiListItemText: {
-      root: {
-        paddingLeft: 5
+        paddingRight: 5,
       },
-      inset: {
-        paddingLeft: '32px!important'
-      }
     },
-    MuiListItemIcon: {
-      root: {
-        marginRight: 5
-      }
+    MuiSvgIcon: { root: { fontSize: 22 } },
+    MuiListItemText: {
+      root: { paddingLeft: 5 },
+      inset: { paddingLeft: '32px!important' },
     },
+    MuiListItemIcon: { root: { marginRight: 5 } },
     MuiChip: {
       root: {
         margin: 2,
-        height: 26
+        height: 26,
       },
       label: {
         paddingLeft: 8,
-        paddingRight: 8
+        paddingRight: 8,
       },
-      deleteIcon: {
-        marginRight: 2
-      }
+      deleteIcon: { marginRight: 2 },
     },
-    MuiListSubheader: {
-      root: {
-        lineHeight: 'inherit'
-      }
-    }
-  }
+    MuiListSubheader: { root: { lineHeight: 'inherit' } },
+  },
 });
 
 const styles = () => ({
   root: {
     overflowY: 'scroll',
     color: '#FFFFFF',
-    backgroundColor: '#333333'
+    backgroundColor: '#333333',
   },
-  header: {
-    borderBottom: 'solid #ffffff4d 1px'
-  },
+  header: { borderBottom: 'solid #ffffff4d 1px' },
   text: {
     color: '#FFFFFF',
-    fontSize: 'inherit'
-  }
+    fontSize: 'inherit',
+  },
 });
 
 /**
@@ -113,20 +89,21 @@ class Menu extends React.Component {
     let autoOpen = null;
 
     // TRICKY: start with the controlled group open
-    const {active, autoSelect} = props;
+    const { active, autoSelect } = props;
+
     if (active && autoSelect) {
       autoOpen = active.groupId;
     }
 
     this.state = {
       opened: autoOpen,
-      active: null
+      active: null,
     };
   }
 
   componentDidMount() {
-    const {opened} = this.state;
-    const {autoScroll} = this.props;
+    const { opened } = this.state;
+    const { autoScroll } = this.props;
 
     // scroll to the selection
     if (autoScroll && opened) {
@@ -144,8 +121,8 @@ class Menu extends React.Component {
    */
   // eslint-disable-next-line no-unused-vars
   componentDidUpdate(prevProps, prevState, nextContent) {
-    const {opened} = this.state;
-    const {autoScroll} = this.props;
+    const { opened } = this.state;
+    const { autoScroll } = this.props;
     const prevActive = prevProps.active ? prevProps.active : prevState.active;
     const active = this.getActive();
 
@@ -156,9 +133,7 @@ class Menu extends React.Component {
       active.groupId !== opened
     ) {
       // open the active group if it was changed externally
-      this.setState({
-        opened: active.groupId
-      });
+      this.setState({ opened: active.groupId });
     } else if (autoScroll && this.state.opened) {
       // scroll to the current selection
       this.scrollToSelectedItem();
@@ -194,7 +169,7 @@ class Menu extends React.Component {
     ) {
       ref.scrollIntoView({
         block: 'center',
-        behavior: instant ? 'instant' : 'smooth'
+        behavior: instant ? 'instant' : 'smooth',
       });
     }
   };
@@ -223,8 +198,9 @@ class Menu extends React.Component {
    */
   normalizeStatusIcons = memoize(statusIcons => {
     const normalized = [];
+
     for (let i = 0, len = statusIcons.length; i < len; i++) {
-      const icon = Object.assign({}, {value: true}, statusIcons[i]);
+      const icon = Object.assign({}, { value: true }, statusIcons[i]);
       normalized.push(icon);
     }
     return normalized;
@@ -236,14 +212,16 @@ class Menu extends React.Component {
    * @param {object} group - the group being opened
    */
   handleOpen = group => () => {
-    const {autoSelect} = this.props;
+    const { autoSelect } = this.props;
+
     if (this.state.opened === group.id) {
-      this.setState({opened: -1});
+      this.setState({ opened: -1 });
     } else {
-      this.setState({opened: group.id});
+      this.setState({ opened: group.id });
 
       // auto select newly opened groups if not controlled elsewhere
       const firstChild = group.children[0];
+
       if (autoSelect && firstChild && !this.isGroupSelected(group)) {
         this.handleClick(firstChild)();
       }
@@ -257,14 +235,15 @@ class Menu extends React.Component {
    * @param {object} item - the clicked menu item object
    */
   handleClick = item => () => {
-    const {onItemClick, active} = this.props;
+    const { onItemClick, active } = this.props;
+
     if (typeof onItemClick === 'function') {
       onItemClick(item);
     }
 
     // skip internal state if managed externally.
     if (!active) {
-      this.setState({active: item});
+      this.setState({ active: item });
     }
   };
 
@@ -273,9 +252,7 @@ class Menu extends React.Component {
    * @param {object} group - the menu group
    * @returns {boolean}
    */
-  isGroupOpen = group => {
-    return this.state.opened === group.id;
-  };
+  isGroupOpen = group => this.state.opened === group.id;
 
   /**
    * Checks if a group is selected
@@ -296,7 +273,7 @@ class Menu extends React.Component {
     const activeItem = this.getActive();
     const {
       groupId,
-      itemId
+      itemId,
     } = item;
     return (
       activeItem &&
@@ -310,9 +287,7 @@ class Menu extends React.Component {
    * If the active item is controlled externally it will take precedence.
    * @returns {object|null}
    */
-  getActive = () => {
-    return this.props.active ? this.props.active : this.state.active;
-  };
+  getActive = () => this.props.active ? this.props.active : this.state.active;
 
   /**
    * Collects the react ref to the group.
@@ -344,7 +319,7 @@ class Menu extends React.Component {
       width,
       entries,
       statusIcons,
-      emptyNotice
+      emptyNotice,
     } = this.props;
 
     const normalizedStatusIcons = this.normalizeStatusIcons(statusIcons);
@@ -356,7 +331,9 @@ class Menu extends React.Component {
             component="nav"
             subheader={header}
             className={classes.root}
-            style={{height, width, minWidth: width}}
+            style={{
+              height, width, minWidth: width,
+            }}
           >
             {entries.map((group, index) => (
               <RootRef key={index} rootRef={this.handleGroupRef(group)}>
@@ -388,7 +365,7 @@ class Menu extends React.Component {
               </RootRef>
             ))}
             <EmptyItem key="empty" label={emptyNotice}
-                       enabled={entries.length === 0}/>
+              enabled={entries.length === 0}/>
           </List>
         </RootRef>
       </MuiThemeProvider>
@@ -407,7 +384,7 @@ Menu.propTypes = {
   statusIcons: PropTypes.array,
   emptyNotice: PropTypes.string,
   autoSelect: PropTypes.bool,
-  autoScroll: PropTypes.bool
+  autoScroll: PropTypes.bool,
 };
 
 Menu.defaultProps = {
@@ -418,7 +395,7 @@ Menu.defaultProps = {
   emptyNotice: '',
   autoSelect: true,
   autoScroll: true,
-  statusIcons: []
+  statusIcons: [],
 };
 
 Menu.muiName = 'List';
