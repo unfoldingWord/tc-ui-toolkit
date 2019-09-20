@@ -14,43 +14,43 @@ describe('verseHelpers.verseArray', () => {
   });
   it('should succeed with luke-22-30.ult', () => {
     const contextId = {
-      "reference": {
-        "bookId": "luk",
-          "chapter": 22,
-          "verse": 30
+      'reference': {
+        'bookId': 'luk',
+        'chapter': 22,
+        'verse': 30,
       },
-      "tool": "translationWords",
-        "groupId": "12tribesofisrael",
-        "quote": [
+      'tool': 'translationWords',
+      'groupId': '12tribesofisrael',
+      'quote': [
         {
-          "word": "δώδεκα",
-          "occurrence": 1
+          'word': 'δώδεκα',
+          'occurrence': 1,
         },
         {
-          "word": "φυλὰς",
-          "occurrence": 1
+          'word': 'φυλὰς',
+          'occurrence': 1,
         },
         {
-          "word": "κρίνοντες",
-          "occurrence": 1
+          'word': 'κρίνοντες',
+          'occurrence': 1,
         },
         {
-          "word": "τοῦ",
-          "occurrence": 1
+          'word': 'τοῦ',
+          'occurrence': 1,
         },
         {
-          "word": "Ἰσραήλ",
-          "occurrence": 1
-        }
+          'word': 'Ἰσραήλ',
+          'occurrence': 1,
+        },
       ],
-        "strong": [
-        "G14270",
-        "G54430",
-        "G29190",
-        "G35880",
-        "G24740"
+      'strong': [
+        'G14270',
+        'G54430',
+        'G29190',
+        'G35880',
+        'G24740',
       ],
-        "occurrence": 1
+      'occurrence': 1,
     };
     generateTest('luke-22-30.ult', 'ult', contextId);
   });
@@ -66,7 +66,7 @@ describe('verseHelpers.verseArray', () => {
  * @return {string} sdv
  */
 export const readUSFM = filePath => {
-  const fullPath = path.join("./src/ScripturePane/helpers/__test__/fixtures", filePath);
+  const fullPath = path.join('./src/ScripturePane/helpers/__test__/fixtures', filePath);
   console.log(path.resolve(fullPath));
   return fs.readFileSync(fullPath, 'UTF-8').toString();
 };
@@ -84,7 +84,7 @@ export const readJSON = filePath => JSON.parse(readUSFM(filePath));
  * @param {string} bibleId
  * @param {Object} contextId
  */
-const generateTest = (name, bibleId, contextId="") => {
+const generateTest = (name, bibleId, contextId='') => {
   const input = readJSON(`${name}.json`);
   contextId = contextId || name;
   expect(input).toBeTruthy();

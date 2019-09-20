@@ -5,6 +5,6 @@ import usfmjs from 'usfm-js';
  * @param {String} verseText - The string to remove markers from
  * @return {String}
  */
-export const removeMarker = (verseText) => {
-  return usfmjs.removeMarker(verseText); // remove USFM markers
-};
+export const removeMarker = (verseText) =>
+  usfmjs.removeMarker(verseText);
+

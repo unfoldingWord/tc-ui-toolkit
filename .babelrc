@@ -1,37 +1,15 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "node": "8.2.1"
-        }
-      }
-    ],
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "transform-async-to-generator",
-    "transform-decorators-legacy",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-async-to-generator",
+    "@babel/plugin-transform-regenerator",
+    "@babel/plugin-transform-runtime",
     "jest-hoist"
   ],
-  "env": {
-    "test": {
-      "presets": [
-        [
-          "env",
-          {
-            "useBuiltIns": "entry",
-            "modules": "commonjs",
-            "targets": {
-              "node": "8.2.1"
-            }
-          }
-        ]
-      ]
-    }
-  },
   "sourceMaps": "inline"
 }

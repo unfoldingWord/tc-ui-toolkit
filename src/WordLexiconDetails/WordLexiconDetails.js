@@ -12,8 +12,10 @@ import * as lexiconHelpers from '../ScripturePane/helpers/lexiconHelpers';
 function getWordParts(morph, translate) {
   const morphKeysForParts = lexiconHelpers.getMorphKeys(morph);
   const morphStrs = [];
+
   morphKeysForParts.forEach(morphKeys => {
     const translatedMorphs = [];
+
     morphKeys.forEach(key => {
       if (key.startsWith('*')) {
         translatedMorphs.push(key.substr(1));
@@ -32,9 +34,7 @@ function getWordParts(morph, translate) {
  * @return {*}
  */
 function getFormatted(html) {
-  const props = {
-    dangerouslySetInnerHTML: { __html: html },
-  };
+  const props = { dangerouslySetInnerHTML: { __html: html } };
   return <span {...props}></span>;
 }
 
@@ -48,9 +48,9 @@ function getFormatted(html) {
  */
 function generateDataSegment(label, text, isFormatted = false, fontSize = '1.0em') {
   return (isFormatted ?
-      <span><strong>{label}</strong> <span style={{fontSize}}>{(text && getFormatted(text)) || ""}</span></span>
-      :
-      <span><strong>{label}</strong> <span style={{fontSize}}>{text}</span></span>
+    <span><strong>{label}</strong> <span style={{ fontSize }}>{(text && getFormatted(text)) || ''}</span></span>
+    :
+    <span><strong>{label}</strong> <span style={{ fontSize }}>{text}</span></span>
   );
 }
 
@@ -61,8 +61,10 @@ function generateDataSegment(label, text, isFormatted = false, fontSize = '1.0em
  */
 function generateLine(pos) {
   return (pos > 0) ?
-    <hr style={{height: '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px', 'marginTop': '0px'}}/>
-    : "";
+    <hr style={{
+      'height': '6px', 'borderBottom': '1px solid gray', 'marginBottom': '5px', 'marginTop': '0px',
+    }}/>
+    : '';
 }
 
 /**
@@ -74,11 +76,11 @@ function generateLine(pos) {
  */
 function generateWordEntry(multipart, word, fontSize = '1.2em') {
   return multipart ?
-    <div style={{margin: '0', padding: '0'}}>
-      <strong style={{fontSize}}>{word}</strong>
+    <div style={{ margin: '0', padding: '0' }}>
+      <strong style={{ fontSize }}>{word}</strong>
       <br/>
     </div>
-    : "";
+    : '';
 }
 
 /**
@@ -97,13 +99,14 @@ function generateWordEntry(multipart, word, fontSize = '1.2em') {
  * @return {*}
  */
 function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexicon, word, itemNum, pos, count,
-                          isHebrew = false) {
+  isHebrew = false) {
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
   const origLangFontSize = isHebrew ? '1.7em' : '1.2em';
+
   if (strongsNum) {
-    return <div key={key} style={{margin: '0px 10px 0px 10px', maxWidth: '400px'}}>
+    return <div key={key} style={{ margin: '0px 10px 0px 10px', maxWidth: '400px' }}>
       {generateLine(pos)}
       {generateWordEntry(multipart, word, origLangFontSize)}
       {generateDataSegment(translate('lemma'), lemma, false, origLangFontSize)}<br/>
@@ -112,7 +115,7 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
       {generateDataSegment(translate('lexicon'), lexicon, true)}<br/>
     </div>;
   } else { // not main word
-    return <div key={key} style={{margin: '0px 0px 0px 10px', maxWidth: '400px'}}>
+    return <div key={key} style={{ margin: '0px 0px 0px 10px', maxWidth: '400px' }}>
       {generateLine(pos)}
       {generateWordEntry(multipart, word, origLangFontSize)}
       {generateDataSegment(translate('morphology'), morphStr)}<br/>
@@ -129,15 +132,18 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
 function movePrimaryWordToTop(partCount, wordParts) {
   let majorHighest = 0;
   let majorPos = 0;
-  let indices = Array.from({length: partCount}).map((u, i) => i);
+  let indices = Array.from({ length: partCount }).map((u, i) => i);
+
   indices.forEach(i => {
     // sort by part length, longest first
-    const partLen = ((wordParts && (wordParts.length > i) && wordParts[i]) || "").length;
+    const partLen = ((wordParts && (wordParts.length > i) && wordParts[i]) || '').length;
+
     if (partLen > majorHighest) {
       majorHighest = partLen;
       majorPos = i;
     }
   });
+
   if (majorPos > 0) { // move
     indices.splice(majorPos, 1);
     indices.unshift(majorPos);
@@ -154,20 +160,25 @@ function movePrimaryWordToTop(partCount, wordParts) {
  * @return {strongNumber, lexicon}
  */
 function getStrongsAndLexicon(strong, lexiconData, pos) {
-  let lexicon = "";
+  let lexicon = '';
   let strongNumber = 0;
   const strongsParts = lexiconHelpers.getStrongsParts(strong);
+
   if (strongsParts.length > pos) {
     strong = strongsParts[pos];
   } else {
-    strong = "";
+    strong = '';
   }
+
   const lexiconId = lexiconHelpers.lexiconIdFromStrongs(strong);
   strongNumber = lexiconHelpers.lexiconEntryIdFromStrongs(strong);
+
   if (lexiconData && lexiconData[lexiconId] && lexiconData[lexiconId][strongNumber]) {
     lexicon = lexiconData[lexiconId][strongNumber].long;
   }
-  return {strongNumber, lexicon, strong};
+  return {
+    strongNumber, lexicon, strong,
+  };
 }
 
 /**
@@ -185,16 +196,22 @@ export function generateWordLexiconDetails(wordObject, lexiconData, translate, g
   const morphStrs = getWordParts(wordObject.morph, translate);
   const strongsParts = lexiconHelpers.getStrongsParts(wordObject.strong);
   const partCount = Math.max(morphStrs.length, strongsParts.length, wordParts.length); // since there may be inconsistancies, use largest count
+
   if (partCount < 2) {
-    const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(wordObject.strong, lexiconData, 0);
+    const {
+      strongNumber, lexicon, strong: strongs,
+    } = getStrongsAndLexicon(wordObject.strong, lexiconData, 0);
     wordLexiconDetails = generateWordPart(translate, wordObject.lemma, morphStrs[0], strongNumber, strongs, lexicon, wordParts[0], 0, 0, partCount, isHebrew);
   } else {
     const indices = movePrimaryWordToTop(partCount, wordParts);
+
     wordLexiconDetails = indices.map((pos, index) => {
-      const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || "";
-      const word = ((wordParts.length > pos) && wordParts[pos]) || "";
-      const {strongNumber, lexicon, strong: strongs} = getStrongsAndLexicon(wordObject.strong, lexiconData, pos);
-      const lemmaStr = (index === 0) ? wordObject.lemma : "";
+      const morphStr = ((morphStrs.length > pos) && morphStrs[pos]) || '';
+      const word = ((wordParts.length > pos) && wordParts[pos]) || '';
+      const {
+        strongNumber, lexicon, strong: strongs,
+      } = getStrongsAndLexicon(wordObject.strong, lexiconData, pos);
+      const lemmaStr = (index === 0) ? wordObject.lemma : '';
       return (
         generateWordPart(translate, lemmaStr, morphStr, strongNumber, strongs, lexicon, word, pos, index, partCount, isHebrew)
       );
@@ -205,7 +222,9 @@ export function generateWordLexiconDetails(wordObject, lexiconData, translate, g
 
 class WordLexiconDetails extends React.Component {
   render() {
-    const { wordObject, translate, lexiconData, isHebrew } = this.props;
+    const {
+      wordObject, translate, lexiconData, isHebrew,
+    } = this.props;
     let wordLexiconDetails = generateWordLexiconDetails(wordObject, lexiconData, translate, generateWordPart, isHebrew);
     return wordLexiconDetails;
   }
@@ -216,10 +235,10 @@ WordLexiconDetails.propTypes = {
   wordObject: PropTypes.shape({
     lemma: PropTypes.string.isRequired,
     morph: PropTypes.string.isRequired,
-    strong: PropTypes.string.isRequired
+    strong: PropTypes.string.isRequired,
   }).isRequired,
   lexiconData: PropTypes.object.isRequired,
-  isHebrew: PropTypes.bool.isRequired
+  isHebrew: PropTypes.bool.isRequired,
 };
 
 export default WordLexiconDetails;

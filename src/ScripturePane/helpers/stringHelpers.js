@@ -1,11 +1,12 @@
 
-export const isWord = word => {
-  return (typeof word !== 'string') && (word.word || (word.type === 'word'));
-};
+export const isWord = word => (typeof word !== 'string') && (word.word || (word.type === 'word'));
 
 export const isNestedMilestone = word => {
   let deepNestedChild = false;
-  if (word[0] && word[0][0]) deepNestedChild = isDeepNestedChild(word);
+
+  if (word[0] && word[0][0]) {
+    deepNestedChild = isDeepNestedChild(word);
+  }
   return Array.isArray(word) && word.length > 0 && word[0].type === 'word' || deepNestedChild;
 };
 
@@ -34,9 +35,9 @@ export const isDeepNestedChild = words => {
  */
 export function punctuationWordSpacing(verseObject) {
   const lastChar = verseObject.text.substr(verseObject.text.length - 1);
-  return (['"', "'", '-',
+  return (['"', '\'', '-',
     '“', // LEFT DOUBLE QUOTATION MARK
-    '‘' // LEFT SINGLE QUOTATION MARK
+    '‘', // LEFT SINGLE QUOTATION MARK
   ].includes(lastChar)) ? '' : ' '; // check if punctuation and return spacing
 }
 
@@ -52,9 +53,9 @@ export function isIsolatedLeftQuote(text) {
 
 export function textIsEmptyInVerseObject(verseText) {
   const emptyVerse = !verseText.verseObjects.some((word) => {
-    const condition1 = (word.type === "word" || word.type === "text") && word.text.length > 0;
+    const condition1 = (word.type === 'word' || word.type === 'text') && word.text.length > 0;
     const condition2 = (word.text !== '↵↵' && word.text !== '↵' && word.text !== '↵↵↵') && (word.text !== '\n\n' && word.text !== '\n' && word.text !== '\n\n\n'); // exclude empty verses that inlcude the return character.
-    const condition3 = word.type === "milestone" || condition1;
+    const condition3 = word.type === 'milestone' || condition1;
 
     return condition3 && condition2;
   });

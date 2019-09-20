@@ -12,19 +12,18 @@ import PropTypes from 'prop-types';
  * @property {EditScreen~onChange} onChange - callback when the text has changed
  */
 class EditScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this._handleChange = this._handleChange.bind(this);
   }
 
   _handleChange(event) {
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     onChange(event.target.value);
   }
 
   render() {
-    const {verseText} = this.props;
+    const { verseText } = this.props;
     return (
       <textarea
         id="verse-editor-field"
@@ -39,7 +38,7 @@ class EditScreen extends React.Component {
 
 EditScreen.propTypes = {
   verseText: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default EditScreen;

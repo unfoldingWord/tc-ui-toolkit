@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
-import {Glyphicon, FormGroup, FormControl} from 'react-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Glyphicon, FormGroup, FormControl,
+} from 'react-bootstrap';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import './EditVerseArea.styles.css';
 
 const styles = {
-  formControlLabelRoot: {
-    height: 30
-  },
+  formControlLabelRoot: { height: 30 },
   formControlLabel: {
     justifyContent: 'flex-start',
     fontSize: 16,
-    color: 'var(--text-color-dark)'
+    color: 'var(--text-color-dark)',
   },
-  checkBox: {
-    '&$checked': {
-      color: 'var(--accent-color-dark)',
-    },
-  },
-  checked:{}
+  checkBox: { '&$checked': { color: 'var(--accent-color-dark)' } },
+  checked:{},
 };
 
 const EditVerseArea = ({
@@ -31,18 +27,18 @@ const EditVerseArea = ({
   verseText,
   dir,
   translate,
-  classes
+  classes,
 }) => {
   const tagList1 = [
-    ["spelling", translate("spelling")],
-    ["punctuation", translate("punctuation")],
-    ["wordChoice", translate("word_choice")],
+    ['spelling', translate('spelling')],
+    ['punctuation', translate('punctuation')],
+    ['wordChoice', translate('word_choice')],
   ];
 
   const tagList2 = [
-    ["meaning", translate("meaning")],
-    ["grammar", translate("grammar")],
-    ["other", translate("other")]
+    ['meaning', translate('meaning')],
+    ['grammar', translate('grammar')],
+    ['other', translate('other')],
   ];
 
   const checkboxesColumn1 = tagList1.map(tag =>
@@ -57,7 +53,7 @@ const EditVerseArea = ({
         <Checkbox
           classes={{
             root: classes.checkBox,
-            checked:classes.checked
+            checked:classes.checked,
           }}
           checked={tags.includes(tag[0])}
           onChange={actions.handleTagsCheckbox.bind(this, tag[0])}
@@ -79,7 +75,7 @@ const EditVerseArea = ({
         <Checkbox
           classes={{
             root: classes.checkBox,
-            checked:classes.checked
+            checked:classes.checked,
           }}
           checked={tags.includes(tag[0])}
           onChange={actions.handleTagsCheckbox.bind(this, tag[0])}
@@ -89,15 +85,17 @@ const EditVerseArea = ({
     />
   );
 
-  let checkBoxText = verseChanged ? translate("next_change_reason") : translate("first_make_change");
+  let checkBoxText = verseChanged ? translate('next_change_reason') : translate('first_make_change');
 
   return (
     <div className='edit-area'>
-      <div style={{fontWeight: 'bold'}}>
-        <Glyphicon glyph='pencil' style={{marginRight: '5px'}} />
-        {translate("edit_verse")}
+      <div style={{ fontWeight: 'bold' }}>
+        <Glyphicon glyph='pencil' style={{ marginRight: '5px' }} />
+        {translate('edit_verse')}
       </div>
-      <FormGroup style={{flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px'}} controlId='formControlsTextarea'>
+      <FormGroup style={{
+        flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
+      }} controlId='formControlsTextarea'>
         <FormControl
           autoFocus
           componentClass='textarea'
@@ -111,18 +109,24 @@ const EditVerseArea = ({
           onBlur={actions.handleEditVerse.bind(this)}
           onInput={actions.checkVerse.bind(this)}
         />
-      <div style={{flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em'}}>
-        {checkBoxText}
-        <br />
-        <div style={{ display: 'flex' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px' }}>
-            {checkboxesColumn1}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px' }}>
-            {checkboxesColumn2}
+        <div style={{
+          flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
+        }}>
+          {checkBoxText}
+          <br />
+          <div style={{ display: 'flex' }}>
+            <div style={{
+              display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px',
+            }}>
+              {checkboxesColumn1}
+            </div>
+            <div style={{
+              display: 'flex', flexDirection: 'column', margin: '0px 0px 0px 15px',
+            }}>
+              {checkboxesColumn2}
+            </div>
           </div>
         </div>
-      </div>
       </FormGroup>
     </div>
   );
@@ -133,7 +137,7 @@ EditVerseArea.propTypes = {
   actions: PropTypes.shape({
     handleTagsCheckbox: PropTypes.func,
     handleEditVerse: PropTypes.func,
-    checkVerse: PropTypes.func
+    checkVerse: PropTypes.func,
   }).isRequired,
   tags: PropTypes.array.isRequired,
   verseChanged: PropTypes.bool.isRequired,

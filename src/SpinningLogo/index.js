@@ -9,7 +9,7 @@ const SpinningLogo = ({
 }) => {
   const styles = {
     margin: '25px 20px 0px 55px',
-    ...style
+    ...style,
   };
 
   return (
@@ -29,8 +29,8 @@ SpinningLogo.propTypes = {
 };
 
 SpinningLogo.defaultProps = {
-  height: "300px",
-  style: {}
+  height: '300px',
+  style: {},
 };
 
 export default SpinningLogo;

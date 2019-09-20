@@ -10,13 +10,13 @@ class GroupItem extends React.Component {
       statusBadge,
       selectionText,
       bookName,
-      activeGroupItemRef
+      activeGroupItemRef,
     } = this.props;
-    const {reference} = contextId;
+    const { reference } = contextId;
     const bookTitle = selectionText ? reference.bookId : bookName;
     return (
       <div ref={activeGroupItemRef} onClick={() => changeCurrentContextId(contextId)}
-        className={"group-item" + (active ? " active active-submenu-item" : " submenu-item")}>
+        className={'group-item' + (active ? ' active active-submenu-item' : ' submenu-item')}>
         {statusBadge}
         <span
           className="selection"
@@ -25,7 +25,7 @@ class GroupItem extends React.Component {
           data-place="bottom"
           data-effect="float"
           data-type="light"
-          style={{minWidth: 0}}
+          style={{ minWidth: 0 }}
           data-class="selection-tooltip"
           data-delay-hide="100">
           {reference.chapterVerseMenu ?
@@ -34,7 +34,7 @@ class GroupItem extends React.Component {
             </span>
             :
             <span className={'group-item-text'}>
-              {" " + bookTitle + " " + reference.chapter + ":" + reference.verse + " " + selectionText}
+              {' ' + bookTitle + ' ' + reference.chapter + ':' + reference.verse + ' ' + selectionText}
             </span>
           }
         </span>

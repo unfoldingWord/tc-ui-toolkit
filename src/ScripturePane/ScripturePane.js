@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import './ScripturePane.styles.css';
 // components
 import Pane from './Pane';
@@ -40,12 +40,12 @@ class ScripturePane extends Component {
   }
 
   showAddBibleModal() {
-    this.setState({showAddPaneModal: true});
+    this.setState({ showAddPaneModal: true });
     this.props.handleModalOpen(true);
   }
 
   hideAddBibleModal() {
-    this.setState({showAddPaneModal: false});
+    this.setState({ showAddPaneModal: false });
     this.props.handleModalOpen(false);
   }
 
@@ -53,13 +53,16 @@ class ScripturePane extends Component {
     const identifier = value.split('_');
     const selectedBibleId = {
       languageId: identifier[0],
-      bibleId: identifier[1]
+      bibleId: identifier[1],
     };
-    this.setState({selectedPane: value ? selectedBibleId : false});
+    this.setState({ selectedPane: value ? selectedBibleId : false });
   }
 
   addNewBibleResource() {
-    let {currentPaneSettings, setToolSettings, makeSureBiblesLoadedForTool} = this.props;
+    let {
+      currentPaneSettings, setToolSettings, makeSureBiblesLoadedForTool,
+    } = this.props;
+
     try {
       if (currentPaneSettings) {
         if (this.state.selectedPane) {
@@ -75,7 +78,8 @@ class ScripturePane extends Component {
   }
 
   removePane(key) {
-    let {currentPaneSettings, setToolSettings} = this.props;
+    let { currentPaneSettings, setToolSettings } = this.props;
+
     try {
       if (currentPaneSettings) {
         currentPaneSettings.splice(key, 1);
@@ -94,7 +98,7 @@ class ScripturePane extends Component {
       bibles,
       selections,
       getLexiconData,
-      showPopover
+      showPopover,
     } = this.props;
 
     const panes = [];
@@ -114,12 +118,14 @@ class ScripturePane extends Component {
         // TODO: this is temporary hack, there is a later issue to make font size user adjustable
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
 
-        if ((languageId === "targetLanguage") && (bibleId === "targetBible")) { // if target bible/language, pull up actual name
-          language_name = manifest.language_name + " (" + manifest.language_id.toUpperCase() + ")";
+        if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
+          language_name = manifest.language_name + ' (' + manifest.language_id.toUpperCase() + ')';
         }
+
         let description = manifest.description;
-        if (languageId === "originalLanguage") {
-          description = "original_language";
+
+        if (languageId === 'originalLanguage') {
+          description = 'original_language';
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
@@ -168,9 +174,7 @@ class ScripturePane extends Component {
     } = this.props;
 
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
-    currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
-      return bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false;
-    });
+    currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
 
     return (
       <div className="scripture-pane-container">
@@ -179,8 +183,8 @@ class ScripturePane extends Component {
             <span>{translate('pane.title')}</span>
             <Glyphicon
               onClick={this.openExpandedScripturePane}
-              glyph={"fullscreen"}
-              style={{cursor: "pointer"}}
+              glyph={'fullscreen'}
+              style={{ cursor: 'pointer' }}
               title={translate('pane.expand_hover')}
             />
           </div>
@@ -211,8 +215,8 @@ class ScripturePane extends Component {
               getLexiconData={getLexiconData}
               showPopover={showPopover}
               onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
-          />
-          :
+            />
+            :
             <div/>
         }
         {
@@ -230,7 +234,7 @@ class ScripturePane extends Component {
               currentPaneSettings={currentPaneSettings}
               getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
             />
-          :
+            :
             <div/>
         }
       </div>
@@ -261,31 +265,6 @@ ScripturePane.propTypes = {
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func,
-};
-
-ScripturePane.defaultProps = {
-  titleLabel: '',
-  closeButtonLabel: '',
-  addResourceLabel: '',
-  clickToRemoveResourceLabel: '',
-  expandedScripturePaneTitle: '',
-  expandButtonHoverText: '',
-  clickAddResource: '',
-  currentPaneSettings: [],
-  selectLanguageLabel: '',
-  selectLabel: '',
-  setToolSettings: () => {},
-  contextId: {},
-  selections: [],
-  getLexiconData: () => {},
-  showPopover: () => {},
-  projectDetailsReducer: {},
-  editTargetVerse: () => {},
-  translate: k => k,
-  bibles: {},
-  getAvailableScripturePaneSelections: () => {},
-  makeSureBiblesLoadedForTool: () => {},
-  handleModalOpen: () => {},
 };
 
 export default ScripturePane;

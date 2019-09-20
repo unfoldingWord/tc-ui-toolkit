@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,8 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuFilterIcon from './MenuFilterIcon';
 import Chip from '@material-ui/core/Chip';
+import MenuFilterIcon from './MenuFilterIcon';
 
 const styles = () => ({
   root: {
@@ -19,44 +19,38 @@ const styles = () => ({
     zIndex: 10,
     color: '#FFFFFF',
     paddingTop: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   filterItemRoot: {
     paddingTop: 4,
     paddingBottom: 4,
-    minHeight: 'auto'
+    minHeight: 'auto',
   },
-  divider: {
-    borderBottom: 'solid 1px #FFFFFF9e'
-  },
+  divider: { borderBottom: 'solid 1px #FFFFFF9e' },
   text: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   filterText: {
     color: '#FFFFFF',
     fontWeight: 700,
-    fontSize: 14
+    fontSize: 14,
   },
-  checkbox: {
-    color: '#FFFFFF'
-  },
+  checkbox: { color: '#FFFFFF' },
   chip: {
     color: '#19579E',
-    margin: 5
+    margin: 5,
   },
   chipLabel: {
     fontSize: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   chipDeleteIcon: {
-    color: '#19579E99',
-    '&:hover': {
-      color: '#19579E'
-    }
+    'color': '#19579E99',
+    '&:hover': { color: '#19579E' },
   },
-  hover: {}
+  hover: {},
 });
 
 /**
@@ -68,15 +62,13 @@ const styles = () => ({
  *
  */
 class MenuFilter extends React.Component {
-  state = {
-    open: false
-  };
+  state = { open: false };
 
   /**
    * Handles opening the filter menu
    */
   handleOpen = () => {
-    this.setState(state => ({open: !state.open}));
+    this.setState(state => ({ open: !state.open }));
   };
 
   /**
@@ -84,7 +76,7 @@ class MenuFilter extends React.Component {
    * @param {object} filter - the filter being toggled
    */
   handleToggle = filter => () => {
-    const {onToggle} = this.props;
+    const { onToggle } = this.props;
     onToggle(filter);
   };
 
@@ -94,7 +86,8 @@ class MenuFilter extends React.Component {
    * @return {boolean} true if the filter is selected
    */
   isChecked = filter => {
-    const {selected} = this.props;
+    const { selected } = this.props;
+
     for (let i = 0, len = selected.length; i < len; i++) {
       if (selected[i].id === filter.id) {
         return true;
@@ -108,7 +101,7 @@ class MenuFilter extends React.Component {
    * @param {object} filter - the filter
    */
   isEnabled = filter => {
-    const {selected} = this.props;
+    const { selected } = this.props;
 
     for (const f of selected) {
       if (f.disables.indexOf(filter.id) >= 0) {
@@ -120,10 +113,12 @@ class MenuFilter extends React.Component {
 
   getOrder = filter => {
     if (!(filter.order > 0)) { // if order not defined or invalid, set it
-      const {filters} = this.props;
+      const { filters } = this.props;
       filter.order = -1;
+
       for (let i = 0, l = filters.length; i < l; i++) {
         const f = filters[i];
+
         if (f.id === filter.id) {
           filter.order = i + 1; // cache order of filter
           break;
@@ -139,21 +134,19 @@ class MenuFilter extends React.Component {
    * @param {Object} classes - to apply to filter
    * @return {*}
    */
-  getChip = (filter, classes) => {
-    return (
-      <td key={"chip_td_" + filter.id}>
-        <Chip
-          key={filter.id}
-          label={filter.label}
-          classes={{
-            deleteIcon: classes.chipDeleteIcon,
-            label: classes.chipLabel
-          }}
-          onDelete={this.handleToggle(filter)}
-          className={classes.chip}
-        />
-      </td>);
-  };
+  getChip = (filter, classes) => (
+    <td key={'chip_td_' + filter.id}>
+      <Chip
+        key={filter.id}
+        label={filter.label}
+        classes={{
+          deleteIcon: classes.chipDeleteIcon,
+          label: classes.chipLabel,
+        }}
+        onDelete={this.handleToggle(filter)}
+        className={classes.chip}
+      />
+    </td>);
 
   /**
    * get a single table row
@@ -165,12 +158,13 @@ class MenuFilter extends React.Component {
    */
   getRow = (selected, start, count, classes) => {
     const chips = [];
+
     for (let i = start, l = selected.length; (i < l) && (i < start + count); i++) {
       chips.push(this.getChip(selected[i], classes));
     }
-    return ( <tr key={"chip_tr_" + start}>
-        {chips}
-      </tr> );
+    return ( <tr key={'chip_tr_' + start}>
+      {chips}
+    </tr> );
   };
 
   /**
@@ -184,18 +178,21 @@ class MenuFilter extends React.Component {
       const sortedSelected = selected.sort((a, b) => (this.getOrder(a) - this.getOrder(b)));
       const rows = [];
       const columns = 2;
+
       for (let i = 0, l = sortedSelected.length; i < l; i+=columns) {
         rows.push(this.getRow(selected, i, columns, classes));
       }
       return (<table>
-          <tbody>{rows}</tbody>
-        </table>);
+        <tbody>{rows}</tbody>
+      </table>);
     }
   };
 
   render() {
-    const {selected, classes, filters, title} = this.props;
-    const {open} = this.state;
+    const {
+      selected, classes, filters, title,
+    } = this.props;
+    const { open } = this.state;
 
     const filterCount = open ? 0 : selected.length;
 
@@ -203,9 +200,7 @@ class MenuFilter extends React.Component {
       <ListSubheader disableGutters className={classes.root}>
         <ListItem button className={classes.header} onClick={this.handleOpen}>
           <ListItemText
-            classes={{
-              primary: classes.text
-            }}
+            classes={{ primary: classes.text }}
             primary={title}
           />
           <MenuFilterIcon enabledFilterCount={filterCount} open={open}/>
@@ -215,21 +210,19 @@ class MenuFilter extends React.Component {
           timeout="auto"
           unmountOnExit
         >
-          <Divider variant="middle" classes={{middle: classes.divider}}/>
+          <Divider variant="middle" classes={{ middle: classes.divider }}/>
           <div>
             {this.getChips(selected, classes)}
           </div>
         </Collapse>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <Divider variant="middle" classes={{middle: classes.divider}}/>
+          <Divider variant="middle" classes={{ middle: classes.divider }}/>
           <List component="div" disablePadding>
             {filters.map((item, index) => (
               <ListItem
                 key={index}
                 button
-                classes={{
-                  root: classes.filterItemRoot
-                }}
+                classes={{ root: classes.filterItemRoot }}
                 disabled={!this.isEnabled(item)}
                 onClick={this.handleToggle(item)}
               >
@@ -241,14 +234,10 @@ class MenuFilter extends React.Component {
                   )}
                 </ListItemIcon>
                 {item.icon
-                  ? React.cloneElement(item.icon, {
-                    style: {color: '#ffffff'}
-                  })
+                  ? React.cloneElement(item.icon, { style: { color: '#ffffff' } })
                   : null}
                 <ListItemText
-                  classes={{
-                    primary: classes.filterText
-                  }}
+                  classes={{ primary: classes.filterText }}
                   primary={item.label}
                 />
               </ListItem>
@@ -265,10 +254,8 @@ MenuFilter.propTypes = {
   filters: PropTypes.array.isRequired,
   onToggle: PropTypes.func.isRequired,
   title: PropTypes.string,
-  selected: PropTypes.arrayOf(PropTypes.object)
+  selected: PropTypes.arrayOf(PropTypes.object),
 };
-MenuFilter.defaultProps = {
-  selected: []
-};
+MenuFilter.defaultProps = { selected: [] };
 
 export default withStyles(styles)(MenuFilter);

@@ -8,15 +8,22 @@
  * modified to fit our use cases, return zero for '' substring, and no use case for overlapping.
  */
 export const occurrencesInString = (string, subString) => {
- if (subString.length <= 0) return 0;
- var occurrences = 0, position = 0, step = subString.length;
- while (position < string.length) {
-   position = string.indexOf(subString, position);
-   if (position === -1) break;
-   ++occurrences;
-   position += step;
- }
- return occurrences;
+  if (subString.length <= 0) {
+    return 0;
+  }
+
+  var occurrences = 0, position = 0, step = subString.length;
+
+  while (position < string.length) {
+    position = string.indexOf(subString, position);
+
+    if (position === -1) {
+      break;
+    }
+    ++occurrences;
+    position += step;
+  }
+  return occurrences;
 };
 /**
  * @description - Function that normalizes a string including whitespace
@@ -44,10 +51,11 @@ export const generateSelection = (selectedText, prescedingText, entireText) => {
   let occurrence = prescedingOccurrences + 1;
   // get the total occurrences from the verse
   let occurrences = occurrencesInString(entireText, selectedText);
+
   selection = {
     text: selectedText,
     occurrence: occurrence,
-    occurrences: occurrences
+    occurrences: occurrences,
   };
   return selection;
 };

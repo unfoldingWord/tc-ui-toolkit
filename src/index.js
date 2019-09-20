@@ -1,4 +1,4 @@
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 export const TcuiThemeProvider = MuiThemeProvider;
 export const createTcuiTheme = createMuiTheme;
 
@@ -8,7 +8,9 @@ export { default as ScripturePane } from './ScripturePane';
 export { default as VerseEditor } from './VerseEditor';
 export { default as VerseCheck } from './VerseCheck';
 export { default as GroupMenu } from './GroupMenu';
-export { default as GroupedMenu, generateMenuItem, generateMenuData } from './GroupedMenu';
+export {
+  default as GroupedMenu, generateMenuItem, generateMenuData,
+} from './GroupedMenu';
 export { default as FunnelIcon } from './icons/Funnel';
 export { default as InvalidatedIcon } from './icons/Invalidated';
 export { default as CheckIcon } from './icons/Check';

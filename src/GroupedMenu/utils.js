@@ -16,13 +16,16 @@ export function generateMenuData(
 ) {
   const menu = [];
   const dataKeys = Object.keys(data);
+
   for (let i = 0, len = index.length; i < len; i++) {
     const entry = index[i];
+
     if (dataKeys.includes(entry.id)) {
       // generate menu group
       const group = data[entry.id];
       const gl = group.length;
       const children = new Array(gl);
+
       for (let j = 0; j < gl; j++) {
         const item = processMenuItem(group[j]);
         children[j] = onProcessItem ? onProcessItem(item) : item;
@@ -31,7 +34,7 @@ export function generateMenuData(
         title: entry.name,
         progress: calculateProgress(children, progressKey, progressKey2),
         id: entry.id,
-        children
+        children,
       });
     }
   }
@@ -51,14 +54,15 @@ export function generateMenuData(
 export function generateMenuItem(contextId, onProcessItem = null) {
   // TRICKY: determine if this is a contextId or group data entry.
   let item;
-  if(contextId.hasOwnProperty("contextId")) {
+
+  if (contextId.hasOwnProperty('contextId')) {
     item = contextId;
   } else {
-    item = {contextId};
+    item = { contextId };
   }
 
   // perform pre-processing
-  if(typeof onProcessItem === "function") {
+  if (typeof onProcessItem === 'function') {
     return onProcessItem(processMenuItem(item));
   } else {
     return processMenuItem(item);
@@ -75,6 +79,7 @@ export function generateMenuItem(contextId, onProcessItem = null) {
 function calculateProgress(data, progressKey, progressKey2) {
   const total = data.length;
   let completed = 0;
+
   for (let i = 0, len = data.length; i < len; i ++) {
     if (data[i][progressKey] || (progressKey2 && data[i][progressKey2])) {
       completed++;
@@ -94,8 +99,10 @@ function processMenuItem(data) {
   const {
     contextId: {
       groupId,
-      reference: { bookId, chapter, verse }
-    }
+      reference: {
+        bookId, chapter, verse,
+      },
+    },
   } = data;
   const passageTitle = `${bookId} ${chapter}:${verse}`;
 
@@ -103,6 +110,6 @@ function processMenuItem(data) {
     ...data,
     groupId,
     itemId: passageTitle,
-    title: passageTitle
+    title: passageTitle,
   };
 }

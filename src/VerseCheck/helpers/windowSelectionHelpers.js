@@ -42,6 +42,7 @@ export const getPrescedingTextFromWindowSelection = (windowSelection) => {
   let prescedingText; // response
   // concatenate spans etc... to get the prescedingText from the windowSelection
   const selectedText = getSelectedTextFromWindowSelection(windowSelection);
+
   // do nothing since an empty space was selected
   if (selectedText !== '') {
     // get the text after the presceding selection and current span selection is in.
@@ -53,12 +54,22 @@ export const getPrescedingTextFromWindowSelection = (windowSelection) => {
     // get the parent span that contains the textContainer.
 
     let element;
+
     // if the textContainer is #text, then use the parentElement - usually non-overlapping selection
-    if ('#text' === textContainer.nodeName) element = textContainer.parentElement;
+    if ('#text' === textContainer.nodeName) {
+      element = textContainer.parentElement;
+    }
+
     // if the textContainer is a span, then use it as the element
-    if ('SPAN' === textContainer.nodeName) element = textContainer;
+    if ('SPAN' === textContainer.nodeName) {
+      element = textContainer;
+    }
+
     // if the textContainer is a div, its an overlapping selection, don't use commonAncestorContainer
-    if ('DIV' === textContainer.nodeName) element = selectionRange.startContainer.parentElement;
+    if ('DIV' === textContainer.nodeName) {
+      element = selectionRange.startContainer.parentElement;
+    }
+
     // check for element, as textContainer can but rarely be something other than #text, span or div
     if (element) {
       prescedingText = getPrescedingTextFromElementAndSiblings(element, selectionRangeStart, windowSelection);
@@ -100,6 +111,7 @@ export const getPrescedingTextFromElementSiblings = (element, windowSelection) =
   let prescedingText = ''; // response
   // get the previous sibling to start the loop
   let previousSibling = element.previousElementSibling;
+
   // loop through previous spans to get their text
   while (previousSibling) {
     // just in case the previousSibling just happens to be a part of the selection

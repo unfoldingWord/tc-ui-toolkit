@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,31 +14,27 @@ import ProgressIcon from './ProgressIcon';
 // const styledBy = (property, mapping) => props => mapping[props[property]];
 
 const styles = {
-  textRoot: {
-    paddingRight: 0
-  },
+  textRoot: { paddingRight: 0 },
   text: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: 'normal'
+    fontWeight: 'normal',
   },
   selectedText: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: 700
+    fontWeight: 700,
   },
   root: {
     // paddingRight: 0,
-    borderBottom: 'solid #ffffff4d 1px',
-    cursor: 'pointer',
+    'borderBottom': 'solid #ffffff4d 1px',
+    'cursor': 'pointer',
     '&$selected': {
-      backgroundColor: '#2196F3',
-      '&:hover': {
-        backgroundColor: '#2196F3'
-      }
-    }
+      'backgroundColor': '#2196F3',
+      '&:hover': { backgroundColor: '#2196F3' },
+    },
   },
-  selected: {}
+  selected: {},
 };
 
 /**
@@ -50,15 +46,18 @@ const styles = {
  * @param {number} [progress=0] - a value between 0 and 100 inclusive
  */
 class MenuGroup extends React.Component {
-
   shouldComponentUpdate(nextProps) {
-    const {selected, open, label, progress} = this.props;
+    const {
+      selected, open, label, progress,
+    } = this.props;
     return selected !== nextProps.selected || open !== nextProps.open ||
       label !== nextProps.label || progress !== nextProps.progress;
   }
 
   render() {
-    const {classes, selected, open, onClick, label, progress} = this.props;
+    const {
+      classes, selected, open, onClick, label, progress,
+    } = this.props;
 
     return (
       <ListItem
@@ -66,7 +65,7 @@ class MenuGroup extends React.Component {
         selected={selected}
         classes={{
           root: classes.root,
-          selected: classes.selected
+          selected: classes.selected,
         }}
         onClick={onClick}
       >
@@ -77,7 +76,7 @@ class MenuGroup extends React.Component {
           inset={false}
           classes={{
             root: classes.textRoot,
-            primary: selected ? classes.selectedText : classes.text
+            primary: selected ? classes.selectedText : classes.text,
           }}
           primary={label}
         />
@@ -93,13 +92,13 @@ MenuGroup.propTypes = {
   onClick: PropTypes.func.isRequired,
   selected: PropTypes.bool,
   open: PropTypes.bool,
-  progress: PropTypes.number
+  progress: PropTypes.number,
 };
 
 MenuGroup.defaultProps = {
   selected: false,
   open: false,
-  progress: 0
+  progress: 0,
 };
 
 export default withStyles(styles)(MenuGroup);

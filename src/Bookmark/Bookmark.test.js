@@ -1,7 +1,7 @@
 import React from 'react';
-import Bookmark from './Bookmark';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import Bookmark from './Bookmark';
 
 describe('Tests for Bookmark', () => {
   it('renders bookmark not selected correctly', () => {
@@ -10,10 +10,10 @@ describe('Tests for Bookmark', () => {
       value: 'bookmark',
       label: 'Bookmark',
       onChange,
-      checked: false
+      checked: false,
     };
     const tree = renderer.create(
-        <Bookmark {...props} />
+      <Bookmark {...props} />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -24,10 +24,10 @@ describe('Tests for Bookmark', () => {
       value: 'bookmark',
       label: 'Bookmark',
       onChange,
-      checked: true
+      checked: true,
     };
     const tree = renderer.create(
-        <Bookmark {...props} />
+      <Bookmark {...props} />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -38,12 +38,12 @@ describe('Tests for Bookmark', () => {
       value: 'bookmark',
       label: 'Bookmark',
       onChange: onChange,
-      checked: true
+      checked: true,
     };
     const wrapper = mount(
       <Bookmark {...props} />
     );
-    wrapper.find('input[value="bookmark"]').simulate('change', {target: {checked: !props.checked}});
+    wrapper.find('input[value="bookmark"]').simulate('change', { target: { checked: !props.checked } });
     expect(onChange).toHaveBeenCalled();
   });
 });

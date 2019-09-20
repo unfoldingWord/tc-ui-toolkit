@@ -4,11 +4,12 @@ import ReasonCheckbox from './ReasonCheckbox';
 
 export const updateReasons = (reason, checked, selectedReasons) => {
   let newReasons = [
-    ...selectedReasons
+    ...selectedReasons,
   ];
-  if(checked && !newReasons.includes(reason)) {
+
+  if (checked && !newReasons.includes(reason)) {
     newReasons.push(reason);
-  } else if(!checked && newReasons.includes(reason)) {
+  } else if (!checked && newReasons.includes(reason)) {
     const index = newReasons.indexOf(reason);
     newReasons.splice(index, 1);
   }
@@ -40,44 +41,44 @@ class ReasonScreen extends React.Component {
    * @private
    */
   _handleCheck(reason, checked) {
-    const {selectedReasons, onChange} = this.props;
+    const { selectedReasons, onChange } = this.props;
     const newReasons = updateReasons(reason, checked, selectedReasons);
     onChange(newReasons);
   }
 
   render() {
-    const {translate, selectedReasons} = this.props;
+    const { translate, selectedReasons } = this.props;
 
     return (
       <div className='reasons-screen'>
-          <div className='reasons-screen-column'>
-            <ReasonCheckbox reason="spelling"
-                            label={translate('spelling')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-            <ReasonCheckbox reason="punctuation"
-                            label={translate('punctuation')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-            <ReasonCheckbox reason="word_choice"
-                            label={translate('word_choice')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-          </div>
-          <div className='reasons-screen-column'>
-            <ReasonCheckbox reason="meaning"
-                            label={translate('meaning')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-            <ReasonCheckbox reason="grammar"
-                            label={translate('grammar')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-            <ReasonCheckbox reason="other"
-                            label={translate('other')}
-                            onCheck={this._handleCheck}
-                            selectedReasons={selectedReasons}/>
-          </div>
+        <div className='reasons-screen-column'>
+          <ReasonCheckbox reason="spelling"
+            label={translate('spelling')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+          <ReasonCheckbox reason="punctuation"
+            label={translate('punctuation')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+          <ReasonCheckbox reason="word_choice"
+            label={translate('word_choice')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+        </div>
+        <div className='reasons-screen-column'>
+          <ReasonCheckbox reason="meaning"
+            label={translate('meaning')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+          <ReasonCheckbox reason="grammar"
+            label={translate('grammar')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+          <ReasonCheckbox reason="other"
+            label={translate('other')}
+            onCheck={this._handleCheck}
+            selectedReasons={selectedReasons}/>
+        </div>
       </div>
     );
   }
@@ -86,7 +87,7 @@ class ReasonScreen extends React.Component {
 ReasonScreen.propTypes = {
   onChange: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
-  selectedReasons: PropTypes.arrayOf(PropTypes.string).isRequired
+  selectedReasons: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ReasonScreen;

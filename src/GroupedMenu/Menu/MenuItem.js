@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import RootRef from '@material-ui/core/RootRef';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -16,47 +16,47 @@ import _ from 'lodash';
 function arrowGenerator(color) {
   return {
     '&[x-placement*="bottom"] $arrow': {
-      top: 0,
-      left: 0,
-      marginTop: '-0.9em',
-      width: '3em',
-      height: '1em',
+      'top': 0,
+      'left': 0,
+      'marginTop': '-0.9em',
+      'width': '3em',
+      'height': '1em',
       '&::before': {
         borderWidth: '0 1em 1em 1em',
-        borderColor: `transparent transparent ${color} transparent`
-      }
+        borderColor: `transparent transparent ${color} transparent`,
+      },
     },
     '&[x-placement*="top"] $arrow': {
-      bottom: 0,
-      left: 0,
-      marginBottom: '-0.9em',
-      width: '3em',
-      height: '1em',
+      'bottom': 0,
+      'left': 0,
+      'marginBottom': '-0.9em',
+      'width': '3em',
+      'height': '1em',
       '&::before': {
         borderWidth: '1em 1em 0 1em',
-        borderColor: `${color} transparent transparent transparent`
-      }
+        borderColor: `${color} transparent transparent transparent`,
+      },
     },
     '&[x-placement*="right"] $arrow': {
-      left: 0,
-      marginLeft: '-0.9em',
-      height: '3em',
-      width: '1em',
+      'left': 0,
+      'marginLeft': '-0.9em',
+      'height': '3em',
+      'width': '1em',
       '&::before': {
         borderWidth: '1em 1em 1em 0',
-        borderColor: `transparent ${color} transparent transparent`
-      }
+        borderColor: `transparent ${color} transparent transparent`,
+      },
     },
     '&[x-placement*="left"] $arrow': {
-      right: 0,
-      marginRight: '-0.9em',
-      height: '3em',
-      width: '1em',
+      'right': 0,
+      'marginRight': '-0.9em',
+      'height': '3em',
+      'width': '1em',
       '&::before': {
         borderWidth: '1em 0 1em 1em',
-        borderColor: `transparent transparent transparent ${color}`
-      }
-    }
+        borderColor: `transparent transparent transparent ${color}`,
+      },
+    },
   };
 }
 
@@ -67,25 +67,21 @@ function arrowGenerator(color) {
 
 const styles = {
   root: {
-    borderBottom: 'solid #333333 1px',
-    backgroundColor: '#747474',
+    'borderBottom': 'solid #333333 1px',
+    'backgroundColor': '#747474',
     '&$selected': {
-      backgroundColor: '#2196F3',
-      '&:hover': {
-        backgroundColor: '#2196F3'
-      }
-    }
+      'backgroundColor': '#2196F3',
+      '&:hover': { backgroundColor: '#2196F3' },
+    },
   },
   selected: {},
-  textRoot: {
-    paddingRight: 0
-  },
+  textRoot: { paddingRight: 0 },
   text: {
     color: '#FFFFFF',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    fontSize: 12
+    fontSize: 12,
   },
   badge: {
     backgroundColor: '#ffffff',
@@ -97,7 +93,7 @@ const styles = {
     width: 18,
     height: 18,
     marginTop: 2,
-    marginRight: 2
+    marginRight: 2,
   },
   selectedBadge: {
     backgroundColor: '#ffffff',
@@ -109,51 +105,41 @@ const styles = {
     width: 18,
     height: 18,
     marginTop: 2,
-    marginRight: 2
+    marginRight: 2,
   },
   lightTooltip: {
     backgroundColor: '#fff',
     color: '#000',
     boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
     fontSize: 14,
-    padding: 15
+    padding: 15,
   },
   lightTooltipSmall: {
     backgroundColor: '#fff',
     color: '#333333',
-    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)'
+    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
   },
   arrowPopper: arrowGenerator('#fff'),
   arrow: {
-    position: 'absolute',
-    fontSize: 7,
-    width: '3em',
-    height: '3em',
+    'position': 'absolute',
+    'fontSize': 7,
+    'width': '3em',
+    'height': '3em',
     '&::before': {
       content: '""',
       margin: 'auto',
       display: 'block',
       width: 0,
       height: 0,
-      borderStyle: 'solid'
-    }
+      borderStyle: 'solid',
+    },
   },
   bootstrapPopper: arrowGenerator('#000'),
-  bootstrapTooltip: {
-    backgroundColor: '#000'
-  },
-  bootstrapPlacementLeft: {
-    margin: '0 8px'
-  },
-  bootstrapPlacementRight: {
-    margin: '0 8px'
-  },
-  bootstrapPlacementTop: {
-    margin: '8px 40px'
-  },
-  bootstrapPlacementBottom: {
-    margin: '8px 40px'
-  }
+  bootstrapTooltip: { backgroundColor: '#000' },
+  bootstrapPlacementLeft: { margin: '0 8px' },
+  bootstrapPlacementRight: { margin: '0 8px' },
+  bootstrapPlacementTop: { margin: '8px 40px' },
+  bootstrapPlacementBottom: { margin: '8px 40px' },
 };
 
 /**
@@ -167,7 +153,7 @@ const styles = {
 class MenuItem extends React.Component {
   state = {
     arrowRef: null,
-    overflow: false
+    overflow: false,
   };
   textRef = React.createRef();
   listItemTextRef = React.createRef();
@@ -177,9 +163,7 @@ class MenuItem extends React.Component {
    * @param {object} node - a react ref
    */
   handleArrowRef = node => {
-    this.setState({
-      arrowRef: node
-    });
+    this.setState({ arrowRef: node });
   };
 
   /**
@@ -189,8 +173,9 @@ class MenuItem extends React.Component {
     const overflow =
       this.listItemTextRef.current.offsetWidth <
       this.textRef.current.offsetWidth;
+
     if (overflow !== this.state.overflow) {
-      this.setState({overflow});
+      this.setState({ overflow });
     }
   };
 
@@ -198,7 +183,8 @@ class MenuItem extends React.Component {
    * Handles clicks on the item
    */
   handleClick = e => {
-    const {onClick} = this.props;
+    const { onClick } = this.props;
+
     if (typeof onClick === 'function') {
       onClick(e);
     }
@@ -210,9 +196,14 @@ class MenuItem extends React.Component {
    * @param {object[]} statusIcons - an array of available status icons
    */
   generateStatusIcon = memoize((status, statusIcons, selected) => {
-    const {classes} = this.props;
-    if (!statusIcons || !status) return null;
+    const { classes } = this.props;
+
+    if (!statusIcons || !status) {
+      return null;
+    }
+
     const icons = [];
+
     for (let i = 0, len = statusIcons.length; i < len; i++) {
       const icon = statusIcons[i];
       const s = status[icon.key];
@@ -230,15 +221,13 @@ class MenuItem extends React.Component {
         <ListItemIcon>
           <Tooltip
             placement="right"
-            classes={{
-              tooltip: this.props.classes.lightTooltipSmall
-            }}
+            classes={{ tooltip: this.props.classes.lightTooltipSmall }}
             title={
               <React.Fragment>
                 {icons.map((i, key) =>
                   React.cloneElement(i, {
                     key,
-                    style: {color: '#333333'}
+                    style: { color: '#333333' },
                   })
                 )}
               </React.Fragment>
@@ -246,9 +235,7 @@ class MenuItem extends React.Component {
           >
             <Badge
               badgeContent={icons.length}
-              classes={{
-                badge: selected ? classes.selectedBadge : classes.badge
-              }}
+              classes={{ badge: selected ? classes.selectedBadge : classes.badge }}
             >
               {icons[0]}
             </Badge>
@@ -263,8 +250,10 @@ class MenuItem extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // TRICKY: we should technically check for an update to statusIcons
     // however that is not a known use case and it's faster to ignore it.
-    const {title, key, selected, status} = this.props;
-    const {overflow} = this.state;
+    const {
+      title, key, selected, status,
+    } = this.props;
+    const { overflow } = this.state;
     return (
       overflow !== nextState.overflow ||
       title !== nextProps.title ||
@@ -284,7 +273,7 @@ class MenuItem extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.title !== this.props.title) {
-      this.setState({overflow: false});
+      this.setState({ overflow: false });
     }
   }
 
@@ -296,9 +285,9 @@ class MenuItem extends React.Component {
       status,
       key,
       selected,
-      tooltip
+      tooltip,
     } = this.props;
-    const {overflow} = this.state;
+    const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
 
@@ -310,7 +299,7 @@ class MenuItem extends React.Component {
         onClick={this.handleClick}
         classes={{
           root: classes.root,
-          selected: classes.selected
+          selected: classes.selected,
         }}
       >
         {icon}
@@ -332,24 +321,24 @@ class MenuItem extends React.Component {
               tooltipPlacementLeft: classes.bootstrapPlacementLeft,
               tooltipPlacementRight: classes.bootstrapPlacementRight,
               tooltipPlacementTop: classes.bootstrapPlacementTop,
-              tooltipPlacementBottom: classes.bootstrapPlacementBottom
+              tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
             PopperProps={{
               popperOptions: {
                 modifiers: {
                   arrow: {
                     enabled: Boolean(this.state.arrowRef),
-                    element: this.state.arrowRef
-                  }
-                }
-              }
+                    element: this.state.arrowRef,
+                  },
+                },
+              },
             }}
           >
             <ListItemText
               inset={!icon}
               classes={{
                 root: classes.textRoot,
-                primary: classes.text
+                primary: classes.text,
               }}
               primary={<span ref={this.textRef}>{title}</span>}
             />
@@ -368,7 +357,7 @@ MenuItem.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   statusIcons: PropTypes.arrayOf(PropTypes.object),
-  status: PropTypes.object
+  status: PropTypes.object,
 };
 
 export default withStyles(styles)(MenuItem);

@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 
 const OptionDialog = ({
   isOpen,
@@ -13,7 +13,7 @@ const OptionDialog = ({
   handleClose,
   headerTitleText,
   primaryButtonText,
-  secondaryButtonText
+  secondaryButtonText,
 }) => {
   const actions = [
     <button
@@ -29,16 +29,20 @@ const OptionDialog = ({
       onClick={primaryOnclick}
     >
       {primaryButtonText}
-    </button>
+    </button>,
   ];
 
   const headerContent = (
-    <div style={{display: 'flex', justifyContent: 'space-between', width:'100%', marginLeft:20, marginRight:20}}>
-      <span style={{color: "var(--reverse-color)"}}>{headerTitleText}</span>
+    <div style={{
+      display: 'flex', justifyContent: 'space-between', width:'100%', marginLeft:20, marginRight:20,
+    }}>
+      <span style={{ color: 'var(--reverse-color)' }}>{headerTitleText}</span>
       <Glyphicon
         onClick={handleClose}
-        glyph={"remove"}
-        style={{color: "var(--reverse-color)", cursor: "pointer", fontSize: "18px", float: "right"}}
+        glyph={'remove'}
+        style={{
+          color: 'var(--reverse-color)', cursor: 'pointer', fontSize: '18px', float: 'right',
+        }}
       />
     </div>
   );
@@ -49,7 +53,7 @@ const OptionDialog = ({
         open={isOpen}
         fullWidth
         onClose={handleClose}>
-        <Toolbar disableGutters={true} style={{backgroundColor: "var(--accent-color-dark)"}}>
+        <Toolbar disableGutters={true} style={{ backgroundColor: 'var(--accent-color-dark)' }}>
           {headerContent}
         </Toolbar>
         <br />

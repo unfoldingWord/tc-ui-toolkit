@@ -6,11 +6,12 @@ const Logo = ({
   width,
   style,
   className,
-}) => {
-  return (
-    <div className={className || ''} style={{ ...style, height, width }}>
-      <svg x="0px" y="0px" width="100%" height="100%" viewBox="0 0 475 530" enableBackground="new 0 0 475 530" xmlSpace="preserve">
-        <image id="image0" width="100%" height="100%" x="0" y="0" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdsAAAISCAMAAACzq5XnAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+}) => (
+  <div className={className || ''} style={{
+    ...style, height, width,
+  }}>
+    <svg x="0px" y="0px" width="100%" height="100%" viewBox="0 0 475 530" enableBackground="new 0 0 475 530" xmlSpace="preserve">
+      <image id="image0" width="100%" height="100%" x="0" y="0" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdsAAAISCAMAAACzq5XnAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
           AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA9lBMVEX///8zMzMzMzMzMzMz
           MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM2T1k3WGY5aoA8fZk/mMBCtOZE
           xv9Bq9k1RU06dI1Aos00PEA+j7NDvfM4YXM9hqZXV1djY2OUlJSsrKzExMS4uLhwcHDp6en09PSI
@@ -170,10 +171,9 @@ const Logo = ({
           k+gimaQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMTEtMDlUMjE6NDg6NDcrMDA6MDBy39IlAAAA
           JXRFWHRkYXRlOm1vZGlmeQAyMDE4LTExLTA5VDIxOjQ4OjQ3KzAwOjAwA4JqmQAAAABJRU5ErkJg
           gg==" />
-      </svg>
-    </div>
-  );
-};
+    </svg>
+  </div>
+);
 
 Logo.propTypes = {
   className: PropTypes.string,

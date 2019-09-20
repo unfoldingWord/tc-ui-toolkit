@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Menu from "../Menu";
-import MenuFilter from "./MenuFilter";
-import MenuHeader from "./MenuHeader";
-import memoize from "memoize-one";
-import _ from "lodash";
+import React from 'react';
+import PropTypes from 'prop-types';
+import memoize from 'memoize-one';
+import _ from 'lodash';
+import Menu from '../Menu';
+import MenuFilter from './MenuFilter';
+import MenuHeader from './MenuHeader';
 
 /**
  * Renders filtered menu.
@@ -16,7 +16,7 @@ import _ from "lodash";
 class FilteredMenu extends React.Component {
   state = {
     filtersOpen: false,
-    selectedFilters: []
+    selectedFilters: [],
   };
 
   /**
@@ -41,9 +41,7 @@ class FilteredMenu extends React.Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    this.setState({
-      selectedFilters: newChecked
-    });
+    this.setState({ selectedFilters: newChecked });
   };
 
   /**
@@ -54,10 +52,13 @@ class FilteredMenu extends React.Component {
    */
   normalizeFilters = memoize(filters => {
     const normalized = [];
+
     for (let i = 0, len = filters.length; i < len; i++) {
       const filter = Object.assign(
         {},
-        { value: true, disables: [], id: filters[i].key },
+        {
+          value: true, disables: [], id: filters[i].key,
+        },
         filters[i]
       );
       normalized.push(filter);
@@ -75,6 +76,7 @@ class FilteredMenu extends React.Component {
    */
   filter = memoize((entries, filters) => {
     const groups = _.cloneDeep(entries);
+
     // filter children
     groups.map(group => {
       group.children = group.children.filter(entry => {
@@ -102,7 +104,7 @@ class FilteredMenu extends React.Component {
       onItemClick,
       width,
       statusIcons,
-      emptyNotice
+      emptyNotice,
     } = this.props;
     const { selectedFilters, filtersOpen } = this.state;
     const normalizedFilters = this.normalizeFilters(filters);
@@ -150,11 +152,9 @@ FilteredMenu.propTypes = {
   onItemClick: PropTypes.func,
   width: PropTypes.number,
   emptyNotice: PropTypes.string,
-  statusIcons: PropTypes.arrayOf(PropTypes.object)
+  statusIcons: PropTypes.arrayOf(PropTypes.object),
 };
 
-FilteredMenu.defaultProps = {
-  emptyNotice: "No results found"
-};
+FilteredMenu.defaultProps = { emptyNotice: 'No results found' };
 
 export default FilteredMenu;

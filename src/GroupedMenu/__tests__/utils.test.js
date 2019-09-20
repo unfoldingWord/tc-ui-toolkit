@@ -1,4 +1,4 @@
-import {generateMenuData} from '../utils';
+import { generateMenuData } from '../utils';
 
 describe('generate menu data', () => {
   it('has empty input data', () => {
@@ -15,10 +15,10 @@ describe('generate menu data', () => {
     const groupIndex = [
       {
         id: 'abraham',
-        name: 'Abraham'
+        name: 'Abraham',
       }, {
         id: 'adoption',
-        name: 'adoption, adopt, adopted'
+        name: 'adoption, adopt, adopted',
       }];
     const groupData = {
       adoption: [
@@ -27,18 +27,18 @@ describe('generate menu data', () => {
             reference: {
               bookId: 'gal',
               chapter: 4,
-              verse: 5
+              verse: 5,
             },
             groupId: 'adoption',
-            occurrence: 1
-          }
-        }]
+            occurrence: 1,
+          },
+        }],
     };
     const progressKey = 'completed';
     const onProcessItem = item => ({
       ...item,
       customField: 'hello world',
-      title: item.contextId.reference.bookId
+      title: item.contextId.reference.bookId,
     });
     const expected = [
       {
@@ -47,16 +47,18 @@ describe('generate menu data', () => {
             contextId: {
               groupId: 'adoption',
               occurrence: 1,
-              reference: {'bookId': 'gal', 'chapter': 4, 'verse': 5}
+              reference: {
+                'bookId': 'gal', 'chapter': 4, 'verse': 5,
+              },
             },
             customField: 'hello world',
             groupId: 'adoption',
-            itemId: "gal 4:5",
-            title: 'gal'
+            itemId: 'gal 4:5',
+            title: 'gal',
           }],
         id: 'adoption',
         progress: 0,
-        title: 'adoption, adopt, adopted'
+        title: 'adoption, adopt, adopted',
       }];
     const menuData = generateMenuData(groupIndex, groupData, progressKey,
       onProcessItem);
@@ -67,10 +69,10 @@ describe('generate menu data', () => {
     const groupIndex = [
       {
         id: 'abraham',
-        name: 'Abraham'
+        name: 'Abraham',
       }, {
         id: 'adoption',
-        name: 'adoption, adopt, adopted'
+        name: 'adoption, adopt, adopted',
       }];
     const groupData = {
       abraham: [
@@ -79,22 +81,22 @@ describe('generate menu data', () => {
             reference: {
               bookId: 'gal',
               chapter: 3,
-              verse: 6
+              verse: 6,
             },
             groupId: 'abraham',
-            occurrence: 1
+            occurrence: 1,
           },
-          completed: true
+          completed: true,
         }, {
           contextId: {
             reference: {
               bookId: 'gal',
               chapter: 3,
-              verse: 7
+              verse: 7,
             },
             groupId: 'abraham',
-            occurrence: 1
-          }
+            occurrence: 1,
+          },
         }],
       adoption: [
         {
@@ -102,12 +104,12 @@ describe('generate menu data', () => {
             reference: {
               bookId: 'gal',
               chapter: 4,
-              verse: 5
+              verse: 5,
             },
             groupId: 'adoption',
-            occurrence: 1
-          }
-        }]
+            occurrence: 1,
+          },
+        }],
     };
     const progressKey = 'completed';
     const onProcessItem = null;
@@ -118,26 +120,30 @@ describe('generate menu data', () => {
             contextId: {
               groupId: 'abraham',
               occurrence: 1,
-              reference: {'bookId': 'gal', 'chapter': 3, 'verse': 6}
+              reference: {
+                'bookId': 'gal', 'chapter': 3, 'verse': 6,
+              },
             },
             completed: true,
-            groupId: "abraham",
-            itemId: "gal 3:6",
-            title: 'gal 3:6'
+            groupId: 'abraham',
+            itemId: 'gal 3:6',
+            title: 'gal 3:6',
           },
           {
             contextId: {
               groupId: 'abraham',
               occurrence: 1,
-              reference: {'bookId': 'gal', 'chapter': 3, 'verse': 7}
+              reference: {
+                'bookId': 'gal', 'chapter': 3, 'verse': 7,
+              },
             },
-            groupId: "abraham",
-            itemId: "gal 3:7",
-            title: 'gal 3:7'
+            groupId: 'abraham',
+            itemId: 'gal 3:7',
+            title: 'gal 3:7',
           }],
         id: 'abraham',
         progress: 50,
-        title: 'Abraham'
+        title: 'Abraham',
       },
       {
         children: [
@@ -145,15 +151,17 @@ describe('generate menu data', () => {
             contextId: {
               groupId: 'adoption',
               occurrence: 1,
-              reference: {'bookId': 'gal', 'chapter': 4, 'verse': 5}
+              reference: {
+                'bookId': 'gal', 'chapter': 4, 'verse': 5,
+              },
             },
-            groupId: "adoption",
-            itemId: "gal 4:5",
-            title: 'gal 4:5'
+            groupId: 'adoption',
+            itemId: 'gal 4:5',
+            title: 'gal 4:5',
           }],
         id: 'adoption',
         progress: 0,
-        title: 'adoption, adopt, adopted'
+        title: 'adoption, adopt, adopted',
       }];
     const menuData = generateMenuData(groupIndex, groupData, progressKey,
       onProcessItem);
