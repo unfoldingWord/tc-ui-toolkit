@@ -42,12 +42,17 @@ class MyLanguageModal extends Component {
 
   render() {
     let {
-      show, onHide, targetLangBible, chapter, currentVerse, manifest, translate, classes,
+      show,
+      onHide,
+      targetLangBible,
+      chapter,
+      currentVerse,
+      translate,
+      classes,
+      bookName,
+      languageDirection,
     } = this.props;
-    const { target_language, project } = manifest;
-    const title = target_language && target_language.book && target_language.book.name ?
-      target_language.book.name :
-      project.name;
+    const title = bookName;
     let MyTargetLanguage = [];
 
     if (show) {
@@ -82,7 +87,7 @@ class MyLanguageModal extends Component {
                 verse={parseInt(key, 10)}
                 verseText={verseText}
                 styles={versePaneStyle}
-                dir={this.props.dir}
+                dir={languageDirection}
               />
             </div>
           );
@@ -137,10 +142,10 @@ MyLanguageModal.propTypes = {
   targetLangBible: PropTypes.object,
   chapter: PropTypes.number,
   currentVerse: PropTypes.number,
-  manifest: PropTypes.object,
-  dir: PropTypes.string.isRequired,
+  languageDirection: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  bookName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(MyLanguageModal);

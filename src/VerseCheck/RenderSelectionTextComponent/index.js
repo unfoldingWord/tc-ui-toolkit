@@ -26,23 +26,31 @@ class RenderSelectionTextComponent extends Component {
 
   addSelection(selection) {
     let {
-      selections, verseText, translate,
+      selections,
+      verseText,
+      translate,
+      openAlertDialog,
+      changeSelectionsInLocalState,
     } = this.props;
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
 
     // this is a good place to preview selections before saved in state
     if (selections.length <= this.props.maximumSelections) {
-      this.props.actions.changeSelectionsInLocalState(selections);
+      changeSelectionsInLocalState(selections);
     } else {
       const message = translate('select_too_many', { maximum: this.props.maximumSelections });
-      this.props.actions.openAlertDialog(message);
+      openAlertDialog(message);
     }
   }
 
   removeSelection(selection) {
-    let { selections, verseText } = this.props;
-    selections = selectionHelpers.removeSelectionFromSelections(selection, selections, verseText);
-    this.props.actions.changeSelectionsInLocalState(selections);
+    const {
+      selections,
+      verseText,
+      changeSelectionsInLocalState,
+    } = this.props;
+    const newSelections = selectionHelpers.removeSelectionFromSelections(selection, selections, verseText);
+    changeSelectionsInLocalState(newSelections);
   }
 
   inDisplayBox(insideDisplayBox) {
@@ -107,15 +115,13 @@ class RenderSelectionTextComponent extends Component {
 }
 
 RenderSelectionTextComponent.propTypes = {
-  actions: PropTypes.shape({
-    changeSelectionsInLocalState: PropTypes.func,
-    openAlertDialog: PropTypes.func,
-  }).isRequired,
   mode: PropTypes.string.isRequired,
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,
   maximumSelections: PropTypes.number.isRequired,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
+  openAlertDialog: PropTypes.func.isRequired,
 };
 
 export default RenderSelectionTextComponent;

@@ -8,9 +8,8 @@ import EditVerseArea from '../EditVerseArea';
 import CommentArea from '../CommentArea';
 import './CheckArea.styles.css';
 
-let CheckArea = ({
+const CheckArea = ({
   contextId,
-  actions,
   mode,
   tags,
   verseText,
@@ -19,15 +18,25 @@ let CheckArea = ({
   comment,
   newSelections,
   selections,
-  projectDetailsReducer,
   translate,
   invalidated,
   bibles,
   alignedGLText,
   nothingToSelect,
   maximumSelections,
+  handleTagsCheckbox,
+  handleEditVerse,
+  handleCheckVerse,
+  handleComment,
+  handleCheckComment,
+  openAlertDialog,
+  changeSelectionsInLocalState,
+  validateSelections,
+  bookDetails,
+  targetLanguageDetails,
 }) => {
   let modeArea;
+  const { direction: languageDirection = 'ltr' } = targetLanguageDetails || {};
 
   switch (mode) {
   case 'edit':
@@ -36,15 +45,23 @@ let CheckArea = ({
         tags={tags}
         verseText={unfilteredVerseText}
         verseChanged={verseChanged}
-        actions={actions}
-        dir={projectDetailsReducer.manifest.target_language.direction}
+        handleTagsCheckbox={handleTagsCheckbox}
+        handleEditVerse={handleEditVerse}
+        handleCheckVerse={handleCheckVerse}
+        languageDirection={languageDirection}
         translate={translate}
-
       />
     );
     break;
   case 'comment':
-    modeArea = <CommentArea comment={comment} actions={actions} translate={translate} />;
+    modeArea = (
+      <CommentArea
+        comment={comment}
+        translate={translate}
+        handleComment={handleComment}
+        handleCheckComment={handleCheckComment}
+      />
+    );
     break;
   case 'select':
     modeArea = (
@@ -88,18 +105,23 @@ let CheckArea = ({
           verseText={verseText}
           selections={newSelections}
           mode={mode}
-          manifest={projectDetailsReducer.manifest}
           reference={contextId.reference}
-          actions={actions}
-          maximumSelections={maximumSelections} /> :
+          maximumSelections={maximumSelections}
+          openAlertDialog={openAlertDialog}
+          changeSelectionsInLocalState={changeSelectionsInLocalState}
+          bookDetails={bookDetails}
+          targetLanguageDetails={targetLanguageDetails}
+        />
+        :
         <DefaultArea
           reference={contextId.reference}
-          actions={actions}
           translate={translate}
-          manifest={projectDetailsReducer.manifest}
           verseText={verseText}
           selections={selections}
           bibles={bibles}
+          validateSelections={validateSelections}
+          bookDetails={bookDetails}
+          targetLanguageDetails={targetLanguageDetails}
         />
       }
       <div style={{
@@ -113,7 +135,6 @@ let CheckArea = ({
 
 CheckArea.propTypes = {
   translate: PropTypes.func.isRequired,
-  actions: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
   invalidated: PropTypes.bool.isRequired,
@@ -124,11 +145,20 @@ CheckArea.propTypes = {
   contextId: PropTypes.object,
   selections: PropTypes.array.isRequired,
   newSelections: PropTypes.array.isRequired,
-  projectDetailsReducer: PropTypes.shape({ manifest: PropTypes.object }).isRequired,
   bibles: PropTypes.object,
   alignedGLText: PropTypes.string.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
   maximumSelections: PropTypes.number.isRequired,
+  bookDetails: PropTypes.object.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
+  handleTagsCheckbox: PropTypes.func.isRequired,
+  handleEditVerse: PropTypes.func.isRequired,
+  handleCheckVerse: PropTypes.func.isRequired,
+  handleComment: PropTypes.func.isRequired,
+  handleCheckComment: PropTypes.func.isRequired,
+  openAlertDialog: PropTypes.func.isRequired,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
+  validateSelections: PropTypes.func.isRequired,
 };
 
 export default CheckArea;
