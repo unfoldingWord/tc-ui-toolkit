@@ -12,6 +12,12 @@ const SaveArea = ({
   handleGoToPrevious,
   handleOpenDialog,
 }) => {
+  console.log(
+    handleGoToNext,
+    handleGoToPrevious,
+    handleOpenDialog
+  );
+
   const handleNext = () => {
     selections.length > 0 || nothingToSelect ? handleGoToNext() : handleOpenDialog('next');
   };
