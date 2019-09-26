@@ -219,6 +219,7 @@ VerseCheck.defaultProps = {
   translate: key => key,
   verseText: '',
   unfilteredVerseText: '',
+  commentText: '',
 };
 
 export default VerseCheck;
