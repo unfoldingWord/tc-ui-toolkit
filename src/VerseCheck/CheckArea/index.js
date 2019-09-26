@@ -26,7 +26,7 @@ const CheckArea = ({
   maximumSelections,
   handleTagsCheckbox,
   handleEditVerse,
-  handleCheckVerse,
+  hasVerseChanged,
   handleComment,
   hasCommentChanged,
   openAlertDialog,
@@ -47,7 +47,7 @@ const CheckArea = ({
         verseChanged={verseChanged}
         handleTagsCheckbox={handleTagsCheckbox}
         handleEditVerse={handleEditVerse}
-        handleCheckVerse={handleCheckVerse}
+        hasVerseChanged={hasVerseChanged}
         languageDirection={languageDirection}
         translate={translate}
       />
@@ -153,7 +153,7 @@ CheckArea.propTypes = {
   targetLanguageDetails: PropTypes.object.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  handleCheckVerse: PropTypes.func.isRequired,
+  hasVerseChanged: PropTypes.func.isRequired,
   handleComment: PropTypes.func.isRequired,
   hasCommentChanged: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,

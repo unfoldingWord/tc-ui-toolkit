@@ -29,7 +29,7 @@ const EditVerseArea = ({
   classes,
   handleTagsCheckbox,
   handleEditVerse,
-  handleCheckVerse,
+  hasVerseChanged,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -109,7 +109,7 @@ const EditVerseArea = ({
             direction: languageDirection,
           }}
           onBlur={handleEditVerse}
-          onInput={handleCheckVerse}
+          onInput={hasVerseChanged}
         />
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
@@ -143,7 +143,7 @@ EditVerseArea.propTypes = {
   classes: PropTypes.object.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  handleCheckVerse: PropTypes.func.isRequired,
+  hasVerseChanged: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);

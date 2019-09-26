@@ -22,7 +22,7 @@ export const verseCheckActions = {
   openAlertDialog: () => {},
   selectModalTab: () => {},
   handleSkip: () => {},
-  handleCheckVerse: () => {},
+  hasVerseChanged: () => {},
   hasCommentChanged: () => {},
 };
 
