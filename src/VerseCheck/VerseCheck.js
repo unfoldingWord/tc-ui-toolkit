@@ -55,7 +55,7 @@ class VerseCheck extends Component {
       handleTagsCheckbox,
       handleEditVerse,
       handleCheckVerse,
-      handleCheckComment,
+      hasCommentChanged,
       validateSelections,
     } = this.props;
 
@@ -127,7 +127,7 @@ class VerseCheck extends Component {
               openAlertDialog={openAlertDialog}
               handleEditVerse={handleEditVerse}
               handleCheckVerse={handleCheckVerse}
-              handleCheckComment={handleCheckComment}
+              hasCommentChanged={hasCommentChanged}
               handleTagsCheckbox={handleTagsCheckbox}
               validateSelections={validateSelections}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
@@ -209,7 +209,7 @@ VerseCheck.propTypes = {
   handleSkip: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
   handleCheckVerse: PropTypes.func.isRequired,
-  handleCheckComment: PropTypes.func.isRequired,
+  hasCommentChanged: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,

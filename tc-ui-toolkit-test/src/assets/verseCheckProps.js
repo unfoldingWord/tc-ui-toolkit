@@ -23,7 +23,7 @@ export const verseCheckActions = {
   selectModalTab: () => {},
   handleSkip: () => {},
   handleCheckVerse: () => {},
-  handleCheckComment: () => {},
+  hasCommentChanged: () => {},
 };
 
 export const verseCheckSelections = [

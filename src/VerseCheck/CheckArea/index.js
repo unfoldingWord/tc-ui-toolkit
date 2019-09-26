@@ -28,7 +28,7 @@ const CheckArea = ({
   handleEditVerse,
   handleCheckVerse,
   handleComment,
-  handleCheckComment,
+  hasCommentChanged,
   openAlertDialog,
   changeSelectionsInLocalState,
   validateSelections,
@@ -59,7 +59,7 @@ const CheckArea = ({
         comment={comment}
         translate={translate}
         handleComment={handleComment}
-        handleCheckComment={handleCheckComment}
+        hasCommentChanged={hasCommentChanged}
       />
     );
     break;
@@ -155,7 +155,7 @@ CheckArea.propTypes = {
   handleEditVerse: PropTypes.func.isRequired,
   handleCheckVerse: PropTypes.func.isRequired,
   handleComment: PropTypes.func.isRequired,
-  handleCheckComment: PropTypes.func.isRequired,
+  hasCommentChanged: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,

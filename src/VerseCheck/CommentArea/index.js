@@ -9,7 +9,7 @@ const CommentArea = ({
   comment,
   translate,
   handleComment,
-  handleCheckComment,
+  hasCommentChanged,
 }) => (
   <div className='comment-area'>
     <div style={{ fontWeight: 'bold' }}>
@@ -23,7 +23,7 @@ const CommentArea = ({
         defaultValue={comment}
         style={{ flex: 'auto' }}
         onBlur={handleComment}
-        onInput={handleCheckComment}
+        onInput={hasCommentChanged}
       />
     </FormGroup>
   </div>
@@ -33,7 +33,7 @@ CommentArea.propTypes = {
   translate: PropTypes.func.isRequired,
   comment: PropTypes.string.isRequired,
   handleComment: PropTypes.func.isRequired,
-  handleCheckComment: PropTypes.func.isRequired,
+  hasCommentChanged: PropTypes.func.isRequired,
 };
 
 export default CommentArea;
