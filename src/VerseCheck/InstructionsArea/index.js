@@ -28,7 +28,7 @@ function getSelectionString(invalidated, translate) {
   }
 }
 
-let InstructionsArea = ({
+const InstructionsArea = ({
   alignedGLText,
   selections,
   dontShowTranslation,

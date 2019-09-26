@@ -20,7 +20,7 @@ const CheckArea = ({
   selections,
   translate,
   invalidated,
-  bibles,
+  targetBible,
   alignedGLText,
   nothingToSelect,
   maximumSelections,
@@ -118,7 +118,7 @@ const CheckArea = ({
           translate={translate}
           verseText={verseText}
           selections={selections}
-          bibles={bibles}
+          targetBible={targetBible}
           validateSelections={validateSelections}
           bookDetails={bookDetails}
           targetLanguageDetails={targetLanguageDetails}
@@ -142,10 +142,10 @@ CheckArea.propTypes = {
   unfilteredVerseText: PropTypes.string.isRequired,
   verseChanged: PropTypes.bool.isRequired,
   comment: PropTypes.string.isRequired,
-  contextId: PropTypes.object,
+  contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   newSelections: PropTypes.array.isRequired,
-  bibles: PropTypes.object,
+  targetBible: PropTypes.object.isRequired,
   alignedGLText: PropTypes.string.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
   maximumSelections: PropTypes.number.isRequired,

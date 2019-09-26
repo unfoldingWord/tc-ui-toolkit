@@ -63,7 +63,7 @@ class DefaultArea extends React.Component {
       reference,
       verseText,
       selections,
-      bibles,
+      targetBible,
       bookDetails,
       targetLanguageDetails,
     } = this.props;
@@ -92,7 +92,7 @@ class DefaultArea extends React.Component {
             translate={translate}
             targetLanguageDetails={targetLanguageDetails}
             show={this.state.modalVisibility}
-            targetLangBible={bibles.targetLanguage.targetBible}
+            targetBible={targetBible}
             chapter={reference.chapter}
             currentVerse={reference.verse}
             languageDirection={languageDirection || 'ltr'}
@@ -111,7 +111,7 @@ class DefaultArea extends React.Component {
 DefaultArea.propTypes = {
   translate: PropTypes.func.isRequired,
   reference: PropTypes.object.isRequired,
-  bibles: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
   validateSelections: PropTypes.func.isRequired,

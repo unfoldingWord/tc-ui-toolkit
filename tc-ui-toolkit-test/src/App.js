@@ -147,7 +147,7 @@ class App extends Component {
               commentChanged={false}
               localNothingToSelect={false}
               verseChanged={false}
-              bibles={bibles}
+              targetBible={bibles.targetLanguage.targetBible}
               bookDetails={this.state.projectDetailsReducer.manifest.project}
               targetLanguageDetails={this.state.projectDetailsReducer.manifest.target_language}
             />

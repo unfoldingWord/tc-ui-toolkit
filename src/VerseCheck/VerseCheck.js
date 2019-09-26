@@ -36,7 +36,7 @@ class VerseCheck extends Component {
       bookmarkEnabled,
       isVerseInvalidated,
       contextId,
-      bibles,
+      targetBible,
       handleCloseDialog,
       handleGoToNext,
       handleGoToPrevious,
@@ -119,7 +119,7 @@ class VerseCheck extends Component {
               targetLanguageDetails={targetLanguageDetails}
               bookDetails={bookDetails}
               contextId={contextId}
-              bibles={bibles}// TODO:
+              targetBible={targetBible}// TODO:
               alignedGLText={alignedGLText}
               invalidated={isVerseInvalidated}
               maximumSelections={maximumSelections}
@@ -179,7 +179,7 @@ VerseCheck.propTypes = {
   bookmarkEnabled: PropTypes.bool.isRequired,
   isVerseInvalidated: PropTypes.bool.isRequired,
   contextId: PropTypes.object.isRequired,
-  bibles: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
   bookDetails: PropTypes.object.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
   alignedGLText: PropTypes.string.isRequired,
@@ -215,6 +215,10 @@ VerseCheck.propTypes = {
   changeSelectionsInLocalState: PropTypes.func.isRequired,
 };
 
-VerseCheck.defaultProps = { translate: key => key };
+VerseCheck.defaultProps = {
+  translate: key => key,
+  verseText: '',
+  unfilteredVerseText: '',
+};
 
 export default VerseCheck;

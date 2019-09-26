@@ -44,7 +44,7 @@ class MyLanguageModal extends Component {
     let {
       show,
       onHide,
-      targetLangBible,
+      targetBible,
       chapter,
       currentVerse,
       translate,
@@ -56,9 +56,9 @@ class MyLanguageModal extends Component {
     let MyTargetLanguage = [];
 
     if (show) {
-      for (let key in targetLangBible[chapter]) {
-        if (targetLangBible[chapter].hasOwnProperty(key)) {
-          let verseText = targetLangBible[chapter][key];
+      for (let key in targetBible[chapter]) {
+        if (targetBible[chapter].hasOwnProperty(key)) {
+          let verseText = targetBible[chapter][key];
           let versePaneStyle = {};
 
           if (key == currentVerse) {
@@ -139,9 +139,9 @@ class MyLanguageModal extends Component {
 MyLanguageModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
-  targetLangBible: PropTypes.object,
-  chapter: PropTypes.number,
-  currentVerse: PropTypes.number,
+  targetBible: PropTypes.object.isRequired,
+  chapter: PropTypes.number.isRequired,
+  currentVerse: PropTypes.number.isRequired,
   languageDirection: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
