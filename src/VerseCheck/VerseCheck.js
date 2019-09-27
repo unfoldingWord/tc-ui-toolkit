@@ -31,7 +31,7 @@ class VerseCheck extends Component {
       selections,
       newSelections,
       nothingToSelect,
-      verseEdited,
+      isVerseEdited,
       commentText,
       bookmarkEnabled,
       isVerseInvalidated,
@@ -96,7 +96,7 @@ class VerseCheck extends Component {
             <div className='title-bar'>
               <span>{titleText}</span>
               <IconIndicators
-                verseEdited={verseEdited}
+                isVerseEdited={isVerseEdited}
                 selections={selections}
                 comment={commentText}
                 bookmarkEnabled={bookmarkEnabled}
@@ -174,7 +174,7 @@ VerseCheck.propTypes = {
   selections: PropTypes.array.isRequired,
   newSelections: PropTypes.array.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
-  verseEdited: PropTypes.bool.isRequired,
+  isVerseEdited: PropTypes.bool.isRequired,
   commentText: PropTypes.string.isRequired,
   bookmarkEnabled: PropTypes.bool.isRequired,
   isVerseInvalidated: PropTypes.bool.isRequired,
