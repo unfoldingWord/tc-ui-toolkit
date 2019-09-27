@@ -22,14 +22,14 @@ const styles = {
 
 const EditVerseArea = ({
   tags,
-  verseChanged,
+  isVerseChanged,
   verseText,
   languageDirection,
   translate,
   classes,
   handleTagsCheckbox,
   handleEditVerse,
-  hasVerseChanged,
+  checkIfVerseChanged,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -46,7 +46,7 @@ const EditVerseArea = ({
   const checkboxesColumn1 = tagList1.map(tag =>
     <FormControlLabel
       key={tag[0]}
-      disabled={!verseChanged}
+      disabled={!isVerseChanged}
       classes={{
         root: classes.formControlLabelRoot,
         label: classes.formControlLabel,
@@ -68,7 +68,7 @@ const EditVerseArea = ({
   const checkboxesColumn2 = tagList2.map(tag =>
     <FormControlLabel
       key={tag[0]}
-      disabled={!verseChanged}
+      disabled={!isVerseChanged}
       classes={{
         root: classes.formControlLabelRoot,
         label: classes.formControlLabel,
@@ -87,7 +87,7 @@ const EditVerseArea = ({
     />
   );
 
-  const checkBoxText = verseChanged ? translate('next_change_reason') : translate('first_make_change');
+  const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
 
   return (
     <div className='edit-area'>
@@ -109,7 +109,7 @@ const EditVerseArea = ({
             direction: languageDirection,
           }}
           onBlur={handleEditVerse}
-          onInput={hasVerseChanged}
+          onInput={checkIfVerseChanged}
         />
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
@@ -137,13 +137,13 @@ const EditVerseArea = ({
 EditVerseArea.propTypes = {
   translate: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
-  verseChanged: PropTypes.bool.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
   languageDirection: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  hasVerseChanged: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);

@@ -112,7 +112,7 @@ const ConfirmEditVerseArea = ({
 
 const ConfirmCommentArea = ({
   translate,
-  commentChanged,
+  isCommentChanged,
   cancelComment,
   saveComment,
 }) => (
@@ -123,7 +123,7 @@ const ConfirmCommentArea = ({
       {translate('cancel')}
     </button>
     <button className='btn-prime'
-      disabled={!commentChanged}
+      disabled={!isCommentChanged}
       onClick={saveComment}
     >
       <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
@@ -216,7 +216,7 @@ const ConfirmSelectionArea = ({
 const ActionsArea = ({
   tags,
   mode,
-  commentChanged,
+  isCommentChanged,
   selections,
   newSelections,
   bookmarkEnabled,
@@ -249,7 +249,7 @@ const ActionsArea = ({
     return (
       <ConfirmCommentArea
         translate={translate}
-        commentChanged={commentChanged}
+        isCommentChanged={isCommentChanged}
         cancelComment={cancelComment}
         saveComment={saveComment}
       />
@@ -293,7 +293,7 @@ const ActionsArea = ({
 ActionsArea.propTypes = {
   tags: PropTypes.array.isRequired,
   mode: PropTypes.string.isRequired,
-  commentChanged: PropTypes.bool.isRequired,
+  isCommentChanged: PropTypes.bool.isRequired,
   selections: PropTypes.array.isRequired,
   newSelections: PropTypes.array.isRequired,
   bookmarkEnabled: PropTypes.bool.isRequired,

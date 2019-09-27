@@ -4836,10 +4836,10 @@
   "actions": {},
   "mode": "select",
   "comment": "",
-  "commentChanged": false,
+  "isCommentChanged": false,
   "verseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara. ",
   "unfilteredVerseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara.\n\\s5\n",
-  "verseChanged": false,
+  "isVerseChanged": false,
   "dialogModalVisibility": false,
   "goToNextOrPrevious": null
 }

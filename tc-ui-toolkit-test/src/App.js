@@ -144,9 +144,9 @@ class App extends Component {
               unfilteredVerseText={''}
               bookmarkEnabled={false}
               isVerseInvalidated={false}
-              commentChanged={false}
+              isCommentChanged={false}
               localNothingToSelect={false}
-              verseChanged={false}
+              isVerseChanged={false}
               targetBible={bibles.targetLanguage.targetBible}
               bookDetails={this.state.projectDetailsReducer.manifest.project}
               targetLanguageDetails={this.state.projectDetailsReducer.manifest.target_language}

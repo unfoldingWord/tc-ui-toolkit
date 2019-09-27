@@ -18,9 +18,9 @@ class VerseCheck extends Component {
       unfilteredVerseText,
       mode,
       dialogModalVisibility,
-      commentChanged,
+      isCommentChanged,
       tags,
-      verseChanged,
+      isVerseChanged,
       saveSelection,
       cancelSelection,
       clearSelection,
@@ -54,8 +54,8 @@ class VerseCheck extends Component {
       targetLanguageDetails,
       handleTagsCheckbox,
       handleEditVerse,
-      hasVerseChanged,
-      hasCommentChanged,
+      checkIfVerseChanged,
+      checkIfCommentChanged,
       validateSelections,
     } = this.props;
 
@@ -110,7 +110,7 @@ class VerseCheck extends Component {
               tags={tags}
               verseText={verseText}
               unfilteredVerseText={unfilteredVerseText}
-              verseChanged={verseChanged}
+              isVerseChanged={isVerseChanged}
               comment={commentText}
               newSelections={newSelections}
               selections={selections}
@@ -126,8 +126,8 @@ class VerseCheck extends Component {
               handleComment={handleComment}
               openAlertDialog={openAlertDialog}
               handleEditVerse={handleEditVerse}
-              hasVerseChanged={hasVerseChanged}
-              hasCommentChanged={hasCommentChanged}
+              checkIfVerseChanged={checkIfVerseChanged}
+              checkIfCommentChanged={checkIfCommentChanged}
               handleTagsCheckbox={handleTagsCheckbox}
               validateSelections={validateSelections}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
@@ -138,7 +138,7 @@ class VerseCheck extends Component {
               toggleNothingToSelect={toggleNothingToSelect}
               localNothingToSelect={localNothingToSelect}
               nothingToSelect={nothingToSelect}
-              commentChanged={commentChanged}
+              isCommentChanged={isCommentChanged}
               selections={selections}
               newSelections={newSelections}
               translate={translate}
@@ -183,8 +183,8 @@ VerseCheck.propTypes = {
   bookDetails: PropTypes.object.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
   alignedGLText: PropTypes.string.isRequired,
-  commentChanged: PropTypes.bool.isRequired,
-  verseChanged: PropTypes.bool.isRequired,
+  isCommentChanged: PropTypes.bool.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
   unfilteredVerseText: PropTypes.string.isRequired,
   dialogModalVisibility: PropTypes.bool.isRequired,
@@ -208,8 +208,8 @@ VerseCheck.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  hasVerseChanged: PropTypes.func.isRequired,
-  hasCommentChanged: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
+  checkIfCommentChanged: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,

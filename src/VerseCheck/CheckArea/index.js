@@ -14,7 +14,7 @@ const CheckArea = ({
   tags,
   verseText,
   unfilteredVerseText,
-  verseChanged,
+  isVerseChanged,
   comment,
   newSelections,
   selections,
@@ -26,9 +26,9 @@ const CheckArea = ({
   maximumSelections,
   handleTagsCheckbox,
   handleEditVerse,
-  hasVerseChanged,
+  checkIfVerseChanged,
   handleComment,
-  hasCommentChanged,
+  checkIfCommentChanged,
   openAlertDialog,
   changeSelectionsInLocalState,
   validateSelections,
@@ -44,10 +44,10 @@ const CheckArea = ({
       <EditVerseArea
         tags={tags}
         verseText={unfilteredVerseText}
-        verseChanged={verseChanged}
+        isVerseChanged={isVerseChanged}
         handleTagsCheckbox={handleTagsCheckbox}
         handleEditVerse={handleEditVerse}
-        hasVerseChanged={hasVerseChanged}
+        checkIfVerseChanged={checkIfVerseChanged}
         languageDirection={languageDirection}
         translate={translate}
       />
@@ -59,7 +59,7 @@ const CheckArea = ({
         comment={comment}
         translate={translate}
         handleComment={handleComment}
-        hasCommentChanged={hasCommentChanged}
+        checkIfCommentChanged={checkIfCommentChanged}
       />
     );
     break;
@@ -140,7 +140,7 @@ CheckArea.propTypes = {
   invalidated: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
   unfilteredVerseText: PropTypes.string.isRequired,
-  verseChanged: PropTypes.bool.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
   comment: PropTypes.string.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
@@ -153,9 +153,9 @@ CheckArea.propTypes = {
   targetLanguageDetails: PropTypes.object.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  hasVerseChanged: PropTypes.func.isRequired,
   handleComment: PropTypes.func.isRequired,
-  hasCommentChanged: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
+  checkIfCommentChanged: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
