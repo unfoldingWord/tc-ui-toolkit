@@ -21,13 +21,15 @@ const styles = {
 };
 
 const EditVerseArea = ({
-  actions,
   tags,
-  verseChanged,
+  isVerseChanged,
   verseText,
-  dir,
+  languageDirection,
   translate,
   classes,
+  handleTagsCheckbox,
+  handleEditVerse,
+  checkIfVerseChanged,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -44,7 +46,7 @@ const EditVerseArea = ({
   const checkboxesColumn1 = tagList1.map(tag =>
     <FormControlLabel
       key={tag[0]}
-      disabled={!verseChanged}
+      disabled={!isVerseChanged}
       classes={{
         root: classes.formControlLabelRoot,
         label: classes.formControlLabel,
@@ -56,7 +58,7 @@ const EditVerseArea = ({
             checked:classes.checked,
           }}
           checked={tags.includes(tag[0])}
-          onChange={actions.handleTagsCheckbox.bind(this, tag[0])}
+          onChange={() => handleTagsCheckbox(tag[0])}
         />
       }
       label={tag[1]}
@@ -66,7 +68,7 @@ const EditVerseArea = ({
   const checkboxesColumn2 = tagList2.map(tag =>
     <FormControlLabel
       key={tag[0]}
-      disabled={!verseChanged}
+      disabled={!isVerseChanged}
       classes={{
         root: classes.formControlLabelRoot,
         label: classes.formControlLabel,
@@ -78,14 +80,14 @@ const EditVerseArea = ({
             checked:classes.checked,
           }}
           checked={tags.includes(tag[0])}
-          onChange={actions.handleTagsCheckbox.bind(this, tag[0])}
+          onChange={() => handleTagsCheckbox(tag[0])}
         />
       }
       label={tag[1]}
     />
   );
 
-  let checkBoxText = verseChanged ? translate('next_change_reason') : translate('first_make_change');
+  const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
 
   return (
     <div className='edit-area'>
@@ -103,11 +105,11 @@ const EditVerseArea = ({
           defaultValue={verseText}
           style={{
             flex: 'auto',
-            direction: dir,
             minHeight: '110px',
+            direction: languageDirection,
           }}
-          onBlur={actions.handleEditVerse.bind(this)}
-          onInput={actions.checkVerse.bind(this)}
+          onBlur={handleEditVerse}
+          onInput={checkIfVerseChanged}
         />
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
@@ -134,16 +136,14 @@ const EditVerseArea = ({
 
 EditVerseArea.propTypes = {
   translate: PropTypes.func.isRequired,
-  actions: PropTypes.shape({
-    handleTagsCheckbox: PropTypes.func,
-    handleEditVerse: PropTypes.func,
-    checkVerse: PropTypes.func,
-  }).isRequired,
   tags: PropTypes.array.isRequired,
-  verseChanged: PropTypes.bool.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
-  dir: PropTypes.string.isRequired,
+  languageDirection: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  handleTagsCheckbox: PropTypes.func.isRequired,
+  handleEditVerse: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);

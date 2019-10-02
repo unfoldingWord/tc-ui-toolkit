@@ -6,9 +6,10 @@ import {
 import './CommentArea.styles.css';
 
 const CommentArea = ({
-  actions,
   comment,
   translate,
+  handleComment,
+  checkIfCommentChanged,
 }) => (
   <div className='comment-area'>
     <div style={{ fontWeight: 'bold' }}>
@@ -21,8 +22,8 @@ const CommentArea = ({
         type='text'
         defaultValue={comment}
         style={{ flex: 'auto' }}
-        onBlur={actions.handleComment.bind(this)}
-        onInput={actions.checkComment.bind(this)}
+        onBlur={handleComment}
+        onInput={checkIfCommentChanged}
       />
     </FormGroup>
   </div>
@@ -30,11 +31,9 @@ const CommentArea = ({
 
 CommentArea.propTypes = {
   translate: PropTypes.func.isRequired,
-  actions: PropTypes.shape({
-    handleComment: PropTypes.func,
-    checkComment: PropTypes.func,
-  }).isRequired,
   comment: PropTypes.string.isRequired,
+  handleComment: PropTypes.func.isRequired,
+  checkIfCommentChanged: PropTypes.func.isRequired,
 };
 
 export default CommentArea;

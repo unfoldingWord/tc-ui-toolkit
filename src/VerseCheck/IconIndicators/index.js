@@ -4,7 +4,7 @@ import { Glyphicon } from 'react-bootstrap';
 import InvalidatedIcon from './svgIcons/InvalidatedIcon';
 
 const IconIndicators = ({
-  verseEdited,
+  isVerseEdited,
   selections,
   bookmarkEnabled,
   translate,
@@ -55,9 +55,9 @@ const IconIndicators = ({
         style={{
           margin: '0px 20px',
           color: 'var(--reverse-color)',
-          opacity: verseEdited ? 1 : 0.2,
+          opacity: isVerseEdited ? 1 : 0.2,
         }}
-        title={verseEdited ? translate('icons.verse_edits_found') : translate('icons.no_verse_edits_found')}
+        title={isVerseEdited ? translate('icons.verse_edits_found') : translate('icons.no_verse_edits_found')}
       />
       <Glyphicon
         glyph="comment"
@@ -84,7 +84,7 @@ const IconIndicators = ({
 IconIndicators.propTypes = {
   translate: PropTypes.func.isRequired,
   invalidated: PropTypes.bool.isRequired,
-  verseEdited: PropTypes.bool.isRequired,
+  isVerseEdited: PropTypes.bool.isRequired,
   selections: PropTypes.array,
   comment: PropTypes.string,
   bookmarkEnabled: PropTypes.bool,

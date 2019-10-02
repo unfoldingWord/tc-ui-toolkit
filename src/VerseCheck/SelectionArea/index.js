@@ -1,69 +1,66 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import '../VerseCheck.styles.css';
 // components
 import RenderSelectionTextComponent from '../RenderSelectionTextComponent';
 
-class SelectionArea extends Component {
-  constructor() {
-    super();
-    this.state = {
-      inBox: false,
-      modalVisibility: false,
-    };
-  }
+const SelectionArea = ({
+  translate,
+  mode,
+  reference,
+  verseText,
+  selections,
+  maximumSelections,
+  openAlertDialog,
+  changeSelectionsInLocalState,
+  bookDetails,
+  targetLanguageDetails,
+}) => {
+  const { book, direction: languageDirection } = targetLanguageDetails;
+  const bookName = book && book.name ? book.name : bookDetails.name;
+  const languageName = targetLanguageDetails.name || null;
 
-  render() {
-    const {
-      manifest, reference, translate, maximumSelections,
-    } = this.props;
-    const { target_language, project } = manifest;
-    const bookName = target_language && target_language.book && target_language.book.name ?
-      target_language.book.name : project.name;
-    const languageName = manifest.target_language ? manifest.target_language.name : null;
-    return (
-      <div style={{
-        flex: 1, display: 'flex', flexDirection: 'column',
-      }}>
-        <div className='verse-title'>
-          <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className='verse-title-title'>
-              {languageName}
-            </span>
-            <span className='verse-title-subtitle'>
-              {bookName} {reference.chapter + ':' + reference.verse}
-            </span>
-          </div>
-        </div>
-        <div style={{ overflow: 'auto' }}>
-          <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
-            <RenderSelectionTextComponent
-              translate={translate}
-              actions={this.props.actions}
-              mode={this.props.mode}
-              verseText={this.props.verseText}
-              selections={this.props.selections}
-              maximumSelections={maximumSelections}
-            />
-          </div>
+  return (
+    <div className='selection-area-root'>
+      <div className='verse-title'>
+        <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
+          <span className='verse-title-title'>
+            {languageName}
+          </span>
+          <span className='verse-title-subtitle'>
+            {bookName} {reference.chapter + ':' + reference.verse}
+          </span>
         </div>
       </div>
-    );
-  }
-}
+      <div style={{ overflow: 'auto' }}>
+        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+          <RenderSelectionTextComponent
+            translate={translate}
+            mode={mode}
+            verseText={verseText}
+            selections={selections}
+            maximumSelections={maximumSelections}
+            openAlertDialog={openAlertDialog}
+            changeSelectionsInLocalState={changeSelectionsInLocalState}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 SelectionArea.propTypes = {
-  actions: PropTypes.shape({
-    changeSelectionsInLocalState: PropTypes.func,
-    openAlertDialog: PropTypes.func,
-  }).isRequired,
-  manifest: PropTypes.object,
-  reference: PropTypes.object,
+  reference: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,
   maximumSelections: PropTypes.number.isRequired,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
+  openAlertDialog: PropTypes.func.isRequired,
+  bookDetails: PropTypes.object.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
 };
 
 export default SelectionArea;

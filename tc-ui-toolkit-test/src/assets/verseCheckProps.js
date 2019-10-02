@@ -21,6 +21,9 @@ export const verseCheckActions = {
   toggleReminder: () => {},
   openAlertDialog: () => {},
   selectModalTab: () => {},
+  handleSkip: () => {},
+  checkIfVerseChanged: () => {},
+  checkIfCommentChanged: () => {},
 };
 
 export const verseCheckSelections = [

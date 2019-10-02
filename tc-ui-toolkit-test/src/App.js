@@ -24,6 +24,11 @@ import groupsDataReducer from './assets/groupsDataReducer'
 import groupsIndexReducer from './assets/groupsIndexReducer'
 import groupMenuReducer from './assets/groupMenuReducer'
 import toolsReducer from './assets/toolsReducer'
+import selectionsReducer from './assets/selectionsReducer'
+// import resourcesReducer from './assets/resourcesReducer'
+// import commentsReducer from './assets/commentsReducer'
+// import remindersReducer from './assets/remindersReducer'
+// import loginReducer from './assets/loginReducer'
 // files
 import { article } from './assets/thelps';
 
@@ -38,7 +43,9 @@ class App extends Component {
       },
       tags: [],
       mode: 'default',
-      nothingToSelect: false
+      nothingToSelect: false,
+      selectionsReducer,
+      projectDetailsReducer,
     };
   }
 
@@ -108,27 +115,42 @@ class App extends Component {
               toggleHelps={this.toggleHelps.bind(this)}
               showHelps={this.state.showHelps} />
             <VerseCheck
+              {...verseCheckActions}
               mode={this.state.mode}
               tags={this.state.tags}
-              actions={{
-                ...verseCheckActions,
-                handleTagsCheckbox: (tag) => this.setState({ tags: [...this.state.tags, tag] }),
-                changeMode: (mode) => this.setState({ mode }),
-                cancelComment: () => this.setState({ mode: 'default' }),
-                cancelEditVerse: () => this.setState({ mode: 'default' }),
-              }}
+              contextId={contextId}
+              handleTagsCheckbox={(tag) => this.setState({ tags: [...this.state.tags, tag] })}
+              changeMode={(mode) => this.setState({ mode })}
+              cancelComment={() => this.setState({ mode: 'default' })}
+              cancelEditVerse={() => this.setState({ mode: 'default' })}
               toggleNothingToSelect={nothingToSelect => this.setState({ nothingToSelect })}
-              // selections={verseCheckSelections}
+              selections={this.state.selectionsReducer.selections}
               saveSelection={() => this.setState({ mode: 'default' })}
               nothingToSelect={this.state.nothingToSelect}
-              selectionsReducer={{nothingToSelect: this.state.nothingToSelect, selections: []}}
               cancelSelection={() => this.setState({ mode: 'default' })}
+              clearSelection={() => {
+                this.setState({ selectionsReducer: { selections: [] }})
+              }}
               translate={k => k}
+              newSelections={[]}
               verseText={'dummy text'}
               findIfVerseEdited={() => (true)}
               findIfVerseInvalidated={() => (true)}
               alignedGLText={'Dummy'}
-              maximumSelections={5} />
+              maximumSelections={5}
+              verseEdited={false}
+              commentText={''}
+              dialogModalVisibility={false}
+              unfilteredVerseText={''}
+              bookmarkEnabled={false}
+              isVerseInvalidated={false}
+              isCommentChanged={false}
+              localNothingToSelect={false}
+              isVerseChanged={false}
+              targetBible={bibles.targetLanguage.targetBible}
+              bookDetails={this.state.projectDetailsReducer.manifest.project}
+              targetLanguageDetails={this.state.projectDetailsReducer.manifest.target_language}
+            />
           </div>
           <TranslationHelps
             modalArticle={article}

@@ -80,6 +80,10 @@ TranslationHelps.propTypes = {
   translate: PropTypes.func.isRequired,
 };
 
-TranslationHelps.defaultProps = { modalTitle: 'translationHelps' };
+TranslationHelps.defaultProps = {
+  modalTitle: 'translationHelps',
+  article: '',
+  modalArticle: '',
+};
 
 export default TranslationHelps;
