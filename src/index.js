@@ -3,7 +3,6 @@ import * as lexiconHelpers from './ScripturePane/helpers/lexiconHelpers';
 // constants
 export const TcuiThemeProvider = MuiThemeProvider;
 export const createTcuiTheme = createMuiTheme;
-
 export { default as CheckInfoCard } from './CheckInfoCard';
 export { default as TranslationHelps } from './TranslationHelps';
 export { default as ScripturePane } from './ScripturePane';
