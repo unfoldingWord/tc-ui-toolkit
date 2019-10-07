@@ -1,4 +1,6 @@
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import * as lexiconHelpers from './ScripturePane/helpers/lexiconHelpers';
+// constants
 export const TcuiThemeProvider = MuiThemeProvider;
 export const createTcuiTheme = createMuiTheme;
 
@@ -18,5 +20,4 @@ export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
 export { default as SpinningLogo } from './SpinningLogo';
 export { getAlignedText } from './VerseCheck/helpers/checkAreaHelpers';
-exports.lexiconHelpers = require('./ScripturePane/helpers/lexiconHelpers');
-
+export { lexiconHelpers };
