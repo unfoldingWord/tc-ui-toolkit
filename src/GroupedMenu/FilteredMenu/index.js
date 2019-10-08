@@ -23,7 +23,7 @@ class FilteredMenu extends React.Component {
    * Handles opening the filter menu
    */
   handleOpenFilters = () => {
-    this.setState(state => ({ filtersOpen: !state.filtersOpen }));
+    this.setState(state => ({filtersOpen: !state.filtersOpen}));
   };
 
   /**
@@ -31,7 +31,7 @@ class FilteredMenu extends React.Component {
    * @param {object} filter - the filter being toggled
    */
   handleToggleFilter = filter => {
-    const { selectedFilters } = this.state;
+    const {selectedFilters} = this.state;
     const currentIndex = selectedFilters.findIndex(selected => (selected.id === filter.id));
     const newChecked = [...selectedFilters];
 
@@ -41,7 +41,7 @@ class FilteredMenu extends React.Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    this.setState({ selectedFilters: newChecked });
+    this.setState({selectedFilters: newChecked});
   };
 
   /**
@@ -106,7 +106,7 @@ class FilteredMenu extends React.Component {
       statusIcons,
       emptyNotice,
     } = this.props;
-    const { selectedFilters, filtersOpen } = this.state;
+    const {selectedFilters, filtersOpen} = this.state;
     const normalizedFilters = this.normalizeFilters(filters);
     const filteredEntries = this.filter(entries, selectedFilters);
 
@@ -127,8 +127,8 @@ class FilteredMenu extends React.Component {
                 selected={selectedFilters}
               />
             ) : (
-              <MenuHeader title={title} />
-            )
+                <MenuHeader title={title} />
+              )
           }
           width={width}
           emptyNotice={emptyNotice}
@@ -155,6 +155,6 @@ FilteredMenu.propTypes = {
   statusIcons: PropTypes.arrayOf(PropTypes.object),
 };
 
-FilteredMenu.defaultProps = { emptyNotice: 'No results found' };
+FilteredMenu.defaultProps = {emptyNotice: 'No results found'};
 
-export default FilteredMenu;
+export default React.memo(FilteredMenu);
