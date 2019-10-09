@@ -157,4 +157,4 @@ FilteredMenu.propTypes = {
 
 FilteredMenu.defaultProps = { emptyNotice: 'No results found' };
 
-export default FilteredMenu;
+export default React.memo(FilteredMenu);
