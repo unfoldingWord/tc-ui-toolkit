@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme } from 'tc-ui-toolkit';
+import {ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme} from 'tc-ui-toolkit';
 import {
   sampleIndex,
   sampleData,
@@ -30,7 +30,7 @@ import selectionsReducer from './assets/selectionsReducer'
 // import remindersReducer from './assets/remindersReducer'
 // import loginReducer from './assets/loginReducer'
 // files
-import { article } from './assets/thelps';
+import {article} from './assets/thelps';
 
 class App extends Component {
   constructor(props) {
@@ -68,6 +68,21 @@ class App extends Component {
         enabled: event.target.checked
       }
     });
+  }
+
+  updateTags(tag) {
+    const tagIndex = this.state.tags.indexOf(tag);
+    if (tagIndex > -1) {
+      const copy = this.state.tags.slice(0);
+      copy.splice(tagIndex, 1);
+      this.setState({
+        tags: copy
+      })
+    } else {
+      this.setState({
+        tags: [...this.state.tags, tag]
+      })
+    }
   }
 
   render() {
@@ -119,17 +134,17 @@ class App extends Component {
               mode={this.state.mode}
               tags={this.state.tags}
               contextId={contextId}
-              handleTagsCheckbox={(tag) => this.setState({ tags: [...this.state.tags, tag] })}
-              changeMode={(mode) => this.setState({ mode })}
-              cancelComment={() => this.setState({ mode: 'default' })}
-              cancelEditVerse={() => this.setState({ mode: 'default' })}
-              toggleNothingToSelect={nothingToSelect => this.setState({ nothingToSelect })}
+              handleTagsCheckbox={this.updateTags.bind(this)}
+              changeMode={(mode) => this.setState({mode})}
+              cancelComment={() => this.setState({mode: 'default'})}
+              cancelEditVerse={() => this.setState({mode: 'default'})}
+              toggleNothingToSelect={nothingToSelect => this.setState({nothingToSelect})}
               selections={this.state.selectionsReducer.selections}
-              saveSelection={() => this.setState({ mode: 'default' })}
+              saveSelection={() => this.setState({mode: 'default'})}
               nothingToSelect={this.state.nothingToSelect}
-              cancelSelection={() => this.setState({ mode: 'default' })}
+              cancelSelection={() => this.setState({mode: 'default'})}
               clearSelection={() => {
-                this.setState({ selectionsReducer: { selections: [] }})
+                this.setState({selectionsReducer: {selections: []}})
               }}
               translate={k => k}
               newSelections={[]}
@@ -146,7 +161,7 @@ class App extends Component {
               isVerseInvalidated={false}
               isCommentChanged={false}
               localNothingToSelect={false}
-              isVerseChanged={false}
+              isVerseChanged={true}
               targetBible={bibles.targetLanguage.targetBible}
               bookDetails={this.state.projectDetailsReducer.manifest.project}
               targetLanguageDetails={this.state.projectDetailsReducer.manifest.target_language}
