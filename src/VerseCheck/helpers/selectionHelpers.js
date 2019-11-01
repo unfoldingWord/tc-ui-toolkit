@@ -167,15 +167,19 @@ export const rangesToSelections = (string, ranges) => {
 export const optimizeSelections = (string, selections) => {
   let optimizedSelections; // return
 
-  // filter out the random clicks from the UI
+  // filter out empty selections and trim whitespace
   selections = selections.filter( selection => {
-    const blankSelection = {
-      text: '', occurrence: 1, occurrences: 0,
-    };
-    return !isEqual(selection, blankSelection);
+    const selectedText = selection.text;
+    const trimmedText = selectedText.trim();
+    const whiteSpaceSelected = !trimmedText.length;
+
+    if (!whiteSpaceSelected && (trimmedText !== selectedText)) { // if whitespace removed, update selection text
+      selection.text = trimmedText;
+    }
+    return !whiteSpaceSelected;
   });
 
-  var ranges = selectionsToRanges(string, selections); // get char ranges of each selection
+  let ranges = selectionsToRanges(string, selections); // get char ranges of each selection
   ranges = optimizeRanges(ranges); // optimize the ranges
   optimizedSelections = rangesToSelections(string, ranges); // convert optimized ranges into selections
   return optimizedSelections;
@@ -196,7 +200,7 @@ export const removeSelectionFromSelections = (selection, selections, string) => 
   return selections;
 };
 /**
- * @description - Removes a selection if found in the array of selections
+ * @description - Adds a selection if found in the array of selections
  * @param {Object} selection - the selection to remove
  * @param {Array}  selections - array of selection objects [Obj,...]
  * @param {string} string - the text selections are found in
