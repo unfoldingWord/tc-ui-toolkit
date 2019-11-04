@@ -1,4 +1,5 @@
 /* eslint-env jest */
+/* eslint-disable object-curly-newline */
 import _ from 'lodash';
 import { optimizeSelections } from '../selectionHelpers';
 
@@ -20,6 +21,24 @@ describe('selectionHelpers.optimizeSelections', () => {
   });
 
   it('should trim leading spaces', () => {
+    // given
+    const selections_ = [
+      { text: ' is a', occurrence: 1, occurrences: 1 },
+      { text: '  random quote', occurrence: 1, occurrences: 1 },
+    ];
+    const expectedSelections = [
+      { text: 'is a', occurrence: 1, occurrences: 1 },
+      { text: 'random quote', occurrence: 2, occurrences: 2 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should not hang on leading spaces with invalid occurrence', () => {
     // given
     const selections_ = [
       { text: ' is a', occurrence: 1, occurrences: 1 },
@@ -91,5 +110,56 @@ describe('selectionHelpers.optimizeSelections', () => {
 
     // then
     expect(selections).toEqual(expectedSelections);
-  });});
+  });
 
+  it('should have correct occurrence when removing spaces from " a "', () => {
+    // given
+    const string = 'And everyone who speaks a word against the Son of Man, it will be forgiven him, ';
+    const selections_ = [
+      { text: ' a ', occurrence: 1, occurrences: 1 },
+    ];
+    const expectedSelections = [
+      { text: 'a', occurrence: 2, occurrences: 5 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should have correct occurrence when removing spaces from " a"', () => {
+    // given
+    const string = 'And everyone who speaks a word against the Son of Man, it will be forgiven him, ';
+    const selections_ = [
+      { text: ' a', occurrence: 1, occurrences: 1 },
+    ];
+    const expectedSelections = [
+      { text: 'a', occurrence: 2, occurrences: 5 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should have correct occurrence when removing spaces from "a "', () => {
+    // given
+    const string = 'And everyone who speaka a word against the Son of Man, it will be forgiven him, ';
+    const selections_ = [
+      { text: 'a ', occurrence: 2, occurrences: 2 },
+    ];
+    const expectedSelections = [
+      { text: 'a', occurrence: 3, occurrences: 6 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+});

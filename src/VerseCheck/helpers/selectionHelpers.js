@@ -157,6 +157,53 @@ export const rangesToSelections = (string, ranges) => {
   });
   return selections;
 };
+
+/**
+ * after text has been trimmed, need to update occurrence and occurrences since they may have changed
+ * @param {String} string - verse string
+ * @param {Object} selection - current selection to update
+ * @param {String} trimmedText - new selection.text after trimming
+ */
+function updateTrimmedTextOccurence(string, selection, trimmedText) {
+  let originalRanges = selectionsToRanges(string, [selection]);
+
+  if (originalRanges) {
+    const offset = selection.text.indexOf(trimmedText); // get offset of non-trimmed
+    const originalRange = originalRanges[0];
+    const newStartPosition = originalRange[0] + offset;
+    let occurrence = selection.occurrence;
+    const maxOccurrences = stringHelpers.occurrencesInString(string, trimmedText) + 1; // when to stop searching
+    let ranges = [];
+    let reachedEnd = false;
+
+    do { // repeatedly try new occurrence values until it matches the trimmed text position or we go out of bounds
+      const newSelection = [{
+        ...selection,
+        occurrence,
+        text: trimmedText,
+      }];
+      ranges = selectionsToRanges(string, newSelection);
+
+      if (ranges) {
+        const range = ranges[0];
+
+        if (range[0] === newStartPosition) { // if selection for this occurrence is at correct position, we use it
+          const optimizedSelections = rangesToSelections(string, ranges); // clean up occurrences
+
+          if (optimizedSelections) { // if found, we use updated values for occurrence(s)
+            selection.occurrence = optimizedSelections[0].occurrence;
+            selection.occurrences = optimizedSelections[0].occurrences;
+          }
+          ranges = null; // done searching
+        } else {
+          occurrence++;
+          reachedEnd = (occurrence >= maxOccurrences); // likely failed because original selection had invalid occurrence
+        }
+      }
+    } while (!reachedEnd && ranges);
+  }
+}
+
 /**
  * @description - This abstracts complex handling of selections such as order, deduping, concatenating, overlapping ranges
  * @param {string} string - the text selections are found in
@@ -173,6 +220,7 @@ export const optimizeSelections = (string, selections) => {
     const whiteSpaceSelected = !trimmedText.length;
 
     if (!whiteSpaceSelected && (trimmedText !== selectedText)) { // if whitespace removed, update selection text
+      updateTrimmedTextOccurence(string, selection, trimmedText);
       selection.text = trimmedText;
     }
     return !whiteSpaceSelected;
