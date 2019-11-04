@@ -1,4 +1,3 @@
-import isEqual from 'deep-equal';
 import _ from 'lodash';
 // helpers
 import * as stringHelpers from './stringHelpers';
