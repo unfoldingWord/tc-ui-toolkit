@@ -1,3 +1,4 @@
+import xRegExp from 'xregexp';
 import _ from 'lodash';
 // helpers
 import * as stringHelpers from './stringHelpers';
@@ -204,6 +205,31 @@ function updateTrimmedTextOccurence(string, selection, trimmedText) {
   }
 }
 
+export function unicodeTrim(text) {
+  let match;
+
+  do {
+    // remove leading or trailing unicode whitespace characters as well as:
+    //    const ZERO_WIDTH_SPACE = '\u200B';
+    //    const ZERO_WIDTH_JOINER = '\u2060';
+    const regex = xRegExp(/^[\s\u200B\u2060]+|[\s\u200B\u2060]+$/gu);
+    match = regex.exec(text);
+
+    if (match) {
+      const atStart = match.index === 0;
+
+      if (atStart) {
+        const whiteSpaceLen = match[0].length;
+        text = text.substr(whiteSpaceLen);
+      } else {
+        text = text.substr(0, match.index);
+      }
+    }
+  } while (match);
+
+  return text;
+}
+
 /**
  * @description - This abstracts complex handling of selections such as order, deduping, concatenating, overlapping ranges
  * @param {string} string - the text selections are found in
@@ -216,7 +242,7 @@ export const optimizeSelections = (string, selections) => {
   // filter out empty selections and trim whitespace
   selections = selections.filter( selection => {
     const selectedText = selection.text;
-    const trimmedText = selectedText.trim();
+    const trimmedText = unicodeTrim(selectedText);
     const whiteSpaceSelected = !trimmedText.length;
 
     if (!whiteSpaceSelected && (trimmedText !== selectedText)) { // if whitespace removed, update selection text
