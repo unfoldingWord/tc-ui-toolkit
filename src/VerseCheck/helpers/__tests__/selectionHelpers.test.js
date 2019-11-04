@@ -203,6 +203,77 @@ describe('selectionHelpers.optimizeSelections', () => {
     // then
     expect(selections).toEqual(expectedSelections);
   });
+
+  it('should join contiguous selected words', () => {
+    // given
+    const selections_ = [
+      { text: 'is a', occurrence: 1, occurrences: 1 },
+      { text: 'random', occurrence: 1, occurrences: 2 },
+    ];
+    const expectedSelections = [
+      { text: 'is a random', occurrence: 1, occurrences: 1 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should join and trim contiguous selected words', () => {
+    // given
+    const selections_ = [
+      { text: 'is a ', occurrence: 1, occurrences: 1 },
+      { text: 'random ', occurrence: 1, occurrences: 2 },
+    ];
+    const expectedSelections = [
+      { text: 'is a random', occurrence: 1, occurrences: 1 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should join and trim contiguous selections', () => {
+    // given
+    const selections_ = [
+      { text: 'is a r', occurrence: 1, occurrences: 1 },
+      { text: 'andom ', occurrence: 1, occurrences: 2 },
+    ];
+    const expectedSelections = [
+      { text: 'is a random', occurrence: 1, occurrences: 1 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
+  it('should trim and join contiguous selected words separated by unicode spaces', () => {
+    // given
+    const SPACES = ZERO_WIDTH_JOINER + ZERO_WIDTH_SPACE + ZERO_WIDTH_NO_BREAK_SPACE + ' ';
+    const string = 'And everyone who speaks' + SPACES + 'a' + SPACES + 'word against the Son of Man, it will be forgiven him, ';
+    const selections_ = [
+      { text: ' everyone who speaks', occurrence: 1, occurrences: 1 },
+      { text: SPACES + 'a' + SPACES, occurrence: 1, occurrences: 1 },
+      { text: 'word ', occurrence: 1, occurrences: 1 },
+    ];
+    const expectedSelections = [
+      { text: 'everyone who speaks' + SPACES + 'a' + SPACES + 'word', occurrence: 1, occurrences: 1 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
 });
 
 describe('selectionHelpers.unicodeTrim', () => {

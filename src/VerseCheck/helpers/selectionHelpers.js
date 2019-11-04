@@ -205,6 +205,11 @@ function updateTrimmedTextOccurence(string, selection, trimmedText) {
   }
 }
 
+/**
+ * trim various unicode spaces from leading and trailing edges
+ * @param {string} text - string to trim
+ * @return {string} trimmed text
+ */
 export function unicodeTrim(text) {
   let match;
 
@@ -231,6 +236,44 @@ export function unicodeTrim(text) {
 }
 
 /**
+ * join contiguous ranges (of selections) and return new ranges array
+ * @param {string} text - verse text
+ * @param {Array} ranges
+ * @return {Array}
+ */
+export function joinContiguousRanges(text, ranges) {
+  let outputRanges = ranges;
+
+  if (ranges) {
+    outputRanges = [];
+
+    for (let i = 0, l = ranges.length; i < l; i++) {
+      let range = ranges[i];
+
+      if (i >= 1) { // skip over first range
+        const lastPos = outputRanges.length - 1;
+        const lastRange = outputRanges[lastPos];
+        const gapStart = lastRange[1] + 1;
+        const charactersBetween = range[0] - gapStart;
+        let inBetween = text.substr(gapStart, charactersBetween);
+        inBetween = unicodeTrim(inBetween);
+
+        if (!inBetween.length) { // if only white space
+          lastRange[1] = range[1]; // join this range with previous range
+          range = null;
+        }
+      }
+
+      if (range) {
+        outputRanges.push(range);
+      }
+    }
+  }
+
+  return outputRanges;
+}
+
+/**
  * @description - This abstracts complex handling of selections such as order, deduping, concatenating, overlapping ranges
  * @param {string} string - the text selections are found in
  * @param {array}  selections - array of selection objects [Obj,...]
@@ -254,9 +297,11 @@ export const optimizeSelections = (string, selections) => {
 
   let ranges = selectionsToRanges(string, selections); // get char ranges of each selection
   ranges = optimizeRanges(ranges); // optimize the ranges
+  ranges = joinContiguousRanges(string, ranges);
   optimizedSelections = rangesToSelections(string, ranges); // convert optimized ranges into selections
   return optimizedSelections;
 };
+
 /**
  * @description - Removes a selection if found in the array of selections
  * @param {Object} selection - the selection to remove
