@@ -1,4 +1,4 @@
-import xRegExp from 'xregexp';
+import isEqual from 'deep-equal';
 import _ from 'lodash';
 // helpers
 import * as stringHelpers from './stringHelpers';
@@ -158,121 +158,6 @@ export const rangesToSelections = (string, ranges) => {
   });
   return selections;
 };
-
-/**
- * after text has been trimmed, need to update occurrence and occurrences since they may have changed
- * @param {String} string - verse string
- * @param {Object} selection - current selection to update
- * @param {String} trimmedText - new selection.text after trimming
- */
-function updateTrimmedTextOccurence(string, selection, trimmedText) {
-  let originalRanges = selectionsToRanges(string, [selection]);
-
-  if (originalRanges) {
-    const offset = selection.text.indexOf(trimmedText); // get offset of trimmed from non-trimmed
-    const originalRange = originalRanges[0];
-    const newStartPosition = originalRange[0] + offset;
-    let occurrence = selection.occurrence;
-    const maxOccurrences = stringHelpers.occurrencesInString(string, trimmedText) + 1; // when to stop searching
-    let ranges = [];
-    let reachedEnd = false;
-
-    do { // repeatedly try new occurrence values until it matches the trimmed text position or we go out of bounds
-      const newSelection = [{
-        ...selection,
-        occurrence,
-        text: trimmedText,
-      }];
-      ranges = selectionsToRanges(string, newSelection);
-
-      if (ranges) {
-        const range = ranges[0];
-
-        if (range[0] === newStartPosition) { // if selection for this occurrence is at correct position, we use it
-          const optimizedSelections = rangesToSelections(string, ranges); // clean up occurrences
-
-          if (optimizedSelections) { // if found, we use updated values for occurrence(s)
-            selection.occurrence = optimizedSelections[0].occurrence;
-            selection.occurrences = optimizedSelections[0].occurrences;
-          }
-          ranges = null; // done searching
-        } else {
-          occurrence++;
-          reachedEnd = (occurrence >= maxOccurrences); // likely failed because original selection had invalid occurrence
-        }
-      }
-    } while (!reachedEnd && ranges);
-  }
-}
-
-/**
- * trim various unicode spaces from leading and trailing edges
- * @param {string} text - string to trim
- * @return {string} trimmed text
- */
-export function unicodeTrim(text) {
-  let match;
-
-  do {
-    // remove leading or trailing unicode whitespace characters as well as:
-    //    const ZERO_WIDTH_SPACE = '\u200B';
-    //    const ZERO_WIDTH_JOINER = '\u2060';
-    const regex = xRegExp(/^[\s\u200B\u2060]+|[\s\u200B\u2060]+$/gu);
-    match = regex.exec(text);
-
-    if (match) {
-      const atStart = match.index === 0;
-
-      if (atStart) {
-        const whiteSpaceLen = match[0].length;
-        text = text.substr(whiteSpaceLen);
-      } else {
-        text = text.substr(0, match.index);
-      }
-    }
-  } while (match);
-
-  return text;
-}
-
-/**
- * join contiguous ranges (of selections) and return new ranges array
- * @param {string} text - verse text
- * @param {Array} ranges
- * @return {Array}
- */
-export function joinContiguousRanges(text, ranges) {
-  let outputRanges = ranges;
-
-  if (ranges) {
-    outputRanges = [];
-
-    for (let i = 0, l = ranges.length; i < l; i++) {
-      let range = ranges[i];
-
-      if (i >= 1) { // skip over first range
-        const lastPos = outputRanges.length - 1;
-        const lastRange = outputRanges[lastPos];
-        const gapStart = lastRange[1] + 1;
-        const charactersBetween = range[0] - gapStart;
-        let inBetween = text.substr(gapStart, charactersBetween);
-        inBetween = unicodeTrim(inBetween);
-
-        if (!inBetween.length) { // if only white space
-          lastRange[1] = range[1]; // join this range with previous range
-          range = null;
-        }
-      }
-
-      if (range) {
-        outputRanges.push(range);
-      }
-    }
-  }
-
-  return outputRanges;
-}
-
 /**
  * @description - This abstracts complex handling of selections such as order, deduping, concatenating, overlapping ranges
  * @param {string} string - the text selections are found in
@@ -282,26 +167,19 @@ export function joinContiguousRanges(text, ranges) {
 export const optimizeSelections = (string, selections) => {
   let optimizedSelections; // return
 
-  // filter out empty selections and trim whitespace
+  // filter out the random clicks from the UI
   selections = selections.filter( selection => {
-    const selectedText = selection.text;
-    const trimmedText = unicodeTrim(selectedText);
-    const whiteSpaceSelected = !trimmedText.length;
-
-    if (!whiteSpaceSelected && (trimmedText !== selectedText)) { // if whitespace removed, update selection text
-      updateTrimmedTextOccurence(string, selection, trimmedText);
-      selection.text = trimmedText;
-    }
-    return !whiteSpaceSelected;
+    const blankSelection = {
+      text: '', occurrence: 1, occurrences: 0,
+    };
+    return !isEqual(selection, blankSelection);
   });
 
-  let ranges = selectionsToRanges(string, selections); // get char ranges of each selection
+  var ranges = selectionsToRanges(string, selections); // get char ranges of each selection
   ranges = optimizeRanges(ranges); // optimize the ranges
-  ranges = joinContiguousRanges(string, ranges);
   optimizedSelections = rangesToSelections(string, ranges); // convert optimized ranges into selections
   return optimizedSelections;
 };
-
 /**
  * @description - Removes a selection if found in the array of selections
  * @param {Object} selection - the selection to remove
@@ -318,7 +196,7 @@ export const removeSelectionFromSelections = (selection, selections, string) => 
   return selections;
 };
 /**
- * @description - Adds a selection if found in the array of selections
+ * @description - Removes a selection if found in the array of selections
  * @param {Object} selection - the selection to remove
  * @param {Array}  selections - array of selection objects [Obj,...]
  * @param {string} string - the text selections are found in

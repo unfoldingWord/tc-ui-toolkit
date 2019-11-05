@@ -151,11 +151,10 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
         let text = word.text;
         text = text.replace(/^\s/, '\u00A0'); // replace leading space with no-break space
-        console.log("leading = " + text.charCodeAt(0));
         text = text.replace(/\s$/, '\u00A0'); // replace trailing space with no-break space
-        console.log("trailing = " + text.charCodeAt(text.length - 1));
+        const isUsfmTagNotSpan = word.tag && !word.endTag; // see if USFM tag does not have a matching end tag.
 
-        if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
+        if (isUsfmTagNotSpan || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
