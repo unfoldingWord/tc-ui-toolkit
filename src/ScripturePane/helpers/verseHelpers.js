@@ -150,7 +150,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
         let text = word.text;
-        text = text.replace(/^\s|\s$/g, '\u00A0'); // replace with no-break space
+        text = text.replace(/^\s/, '\u00A0'); // replace leading space with no-break space
+        text = text.replace(/\s$/, '\u00A0'); // replace trailing space with no-break space
 
         if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
