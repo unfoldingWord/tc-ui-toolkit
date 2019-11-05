@@ -54,6 +54,9 @@ describe('verseHelpers.verseArray', () => {
     };
     generateTest('luke-22-30.ult', 'ult', contextId);
   });
+  it('should succeed with jhn-6-21-en-t4t', () => {
+    generateTest('jhn-6-21-en-t4t', 't4t');
+  });
 });
 
 //

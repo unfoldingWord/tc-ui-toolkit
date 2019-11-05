@@ -149,7 +149,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
-        const text = word.text;
+        let text = word.text;
+        text = text.replace(/\s/g, '&nbsp;');
 
         if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);

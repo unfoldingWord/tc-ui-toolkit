@@ -749,6 +749,45 @@ Array [
 ]
 `;
 
+exports[`verseHelpers.verseArray should succeed with jhn-6-21-en-t4t 1`] = `
+Array [
+  <span>
+    We were glad to take him into the boat. As soon as 
+  </span>,
+  <span
+    style={
+      Object {
+        "backgroundColor": "transparent",
+      }
+    }
+  >
+     
+  </span>,
+  <span>
+    we
+  </span>,
+  <span>
+    did that, the boat reached the shore where 
+  </span>,
+  <span
+    style={
+      Object {
+        "backgroundColor": "transparent",
+      }
+    }
+  >
+     
+  </span>,
+  <span>
+    we
+  </span>,
+  <span>
+    were going!
+
+  </span>,
+]
+`;
+
 exports[`verseHelpers.verseArray should succeed with luke-22-30.ult 1`] = `
 Array [
   <span>
