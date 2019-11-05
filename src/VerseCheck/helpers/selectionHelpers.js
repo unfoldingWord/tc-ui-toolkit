@@ -169,7 +169,7 @@ function updateTrimmedTextOccurence(string, selection, trimmedText) {
   let originalRanges = selectionsToRanges(string, [selection]);
 
   if (originalRanges) {
-    const offset = selection.text.indexOf(trimmedText); // get offset of non-trimmed
+    const offset = selection.text.indexOf(trimmedText); // get offset of trimmed from non-trimmed
     const originalRange = originalRanges[0];
     const newStartPosition = originalRange[0] + offset;
     let occurrence = selection.occurrence;
