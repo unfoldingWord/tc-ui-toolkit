@@ -10,7 +10,7 @@ export const removeMarker = (verseText) => {
   const trimmed = verseText.trimLeft();
   const offset = verseText.indexOf(trimmed);
 
-  if (offset > 0) { // see if we need to preserve leading white space
+  if (offset > 0) { // see if we need to restore leading white space
     text = verseText.substr(0, offset) + text; // restore original leading white space
   }
   return text;
