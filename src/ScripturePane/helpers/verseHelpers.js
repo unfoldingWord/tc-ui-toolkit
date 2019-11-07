@@ -149,9 +149,12 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
-        const text = word.text;
+        let text = word.text;
+        text = text.replace(/^\s/, '\u00A0'); // replace leading space with no-break space
+        text = text.replace(/\s$/, '\u00A0'); // replace trailing space with no-break space
+        const isUsfmTagNotSpan = word.tag && !word.endTag; // see if USFM tag does not have a matching end tag.
 
-        if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
+        if (isUsfmTagNotSpan || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words

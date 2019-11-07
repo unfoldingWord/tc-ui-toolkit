@@ -317,6 +317,7 @@ export const removeSelectionFromSelections = (selection, selections, string) => 
   selections = optimizeSelections(string, selections);
   return selections;
 };
+
 /**
  * @description - Adds a selection if found in the array of selections
  * @param {Object} selection - the selection to remove

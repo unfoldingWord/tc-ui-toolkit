@@ -421,8 +421,7 @@ Array [
     </span>
   </span>,
   <span>
-    .
-
+    . 
   </span>,
 ]
 `;
@@ -743,8 +742,27 @@ Array [
     </span>
   </span>,
   <span>
-    .
+    . 
+  </span>,
+]
+`;
 
+exports[`verseHelpers.verseArray should succeed with jhn-6-21-en-t4t 1`] = `
+Array [
+  <span>
+    We were glad to take him into the boat. As soon as 
+  </span>,
+  <span>
+    we
+  </span>,
+  <span>
+     did that, the boat reached the shore where 
+  </span>,
+  <span>
+    we
+  </span>,
+  <span>
+     were going! 
   </span>,
 ]
 `;
@@ -1254,7 +1272,6 @@ Array [
     }
   >
     
-
   </span>,
 ]
 `;
@@ -1858,8 +1875,7 @@ Array [
      
   </span>,
   <span>
-    and,
-
+    and, 
   </span>,
   <span
     style={
@@ -2261,7 +2277,6 @@ Array [
   </span>,
   <span>
     
-
   </span>,
 ]
 `;
