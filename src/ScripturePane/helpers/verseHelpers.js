@@ -8,7 +8,9 @@ import * as highlightHelpers from './highlightHelpers';
 import {
   onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
 } from './htmlElementsHelpers';
-import { removeMarker } from './usfmHelpers';
+import {
+  removeMarker, hasLeadingSpace, hasTrailingSpace,
+} from './usfmHelpers';
 import {
   isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
   isIsolatedLeftQuote,
@@ -150,8 +152,18 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
         let text = word.text;
-        text = text.replace(/^\s/, '\u00A0'); // replace leading space with no-break space
-        text = text.replace(/\s$/, '\u00A0'); // replace trailing space with no-break space
+
+        if (hasLeadingSpace(text)) { // leading spaces are not significant in html, so we need to replace with a hard space
+          text = text.substr(1);
+          highlightHelpers.addSpace(verseSpan);
+        }
+
+        const trailingSpace = hasTrailingSpace(text);
+
+        if (trailingSpace && text) { // trailing spaces are not significant in html, so we need to replace with a hard space
+          text = text.substr(0, text.length - 1);
+        }
+
         const isUsfmTagNotSpan = word.tag && !word.endTag; // see if USFM tag does not have a matching end tag.
 
         if (isUsfmTagNotSpan || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
@@ -163,6 +175,10 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createHighlightedSpan(index, text));
         } else {
           verseSpan.push(createTextSpan(index, text));
+        }
+
+        if (trailingSpace) { // add the trailing space after the text span
+          highlightHelpers.addSpace(verseSpan);
         }
       }
     }
