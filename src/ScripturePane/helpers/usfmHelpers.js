@@ -1,5 +1,9 @@
 import usfmjs from 'usfm-js';
 
+// consts
+const leadingSpacesRegex = new RegExp(/^\s/);
+const trailingSpacesRegex = new RegExp(/\s$/);
+
 /**
  * Method to filter usfm markers from a string
  * @param {String} verseText - The string to remove markers from
@@ -16,4 +20,22 @@ export const removeMarker = (verseText) => {
   return text;
 };
 
+/**
+ * returns true if text has leading white space
+ * @param {String} text
+ * @return {boolean}
+ */
+export const hasLeadingSpace = (text) => {
+  const hasSpace = leadingSpacesRegex.test(text);
+  return hasSpace;
+};
 
+/**
+ * returns true if text has trailing white space
+ * @param {String} text
+ * @return {boolean}
+ */
+export const hasTrailingSpace = (text) => {
+  const hasSpace = trailingSpacesRegex.test(text);
+  return hasSpace;
+};
