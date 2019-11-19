@@ -125,12 +125,12 @@ const AddPaneModal = ({
       </DialogContent>
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-second" onClick={onHide}>
-          Close
+          {translate('close')}
         </button>
         {
           selectedPane &&
           <button className="btn-prime" onClick={addNewBibleResource}>
-            Load
+            {translate('load')}
           </button>
         }
       </DialogActions>
