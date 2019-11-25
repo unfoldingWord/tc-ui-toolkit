@@ -783,7 +783,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              No selection needed
+              nothing_to_select
             </span>
           </label>
           <div
@@ -1455,7 +1455,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              No selection needed
+              nothing_to_select
             </span>
           </label>
           <div
@@ -1789,7 +1789,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              No selection needed
+              nothing_to_select
             </span>
           </label>
           <div
