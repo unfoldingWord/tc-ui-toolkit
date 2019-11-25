@@ -791,7 +791,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="no_selection_needed_description"
+            data-tip="nothing_to_select_description"
             data-type="dark"
             style={
               Object {
@@ -1463,7 +1463,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="no_selection_needed_description"
+            data-tip="nothing_to_select_description"
             data-type="dark"
             style={
               Object {
@@ -1797,7 +1797,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="no_selection_needed_description"
+            data-tip="nothing_to_select_description"
             data-type="dark"
             style={
               Object {

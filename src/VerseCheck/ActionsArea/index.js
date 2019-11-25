@@ -168,7 +168,7 @@ const ConfirmSelectionArea = ({
         }}
       />
       <div
-        data-tip={translate('no_selection_needed_description')}
+        data-tip={translate('nothing_to_select_description')}
         data-place="top"
         data-effect="float"
         data-type="dark"
