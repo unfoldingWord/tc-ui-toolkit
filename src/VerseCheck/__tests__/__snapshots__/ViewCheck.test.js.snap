@@ -783,7 +783,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              nothing_to_select
+              no_selection_needed
             </span>
           </label>
           <div
@@ -791,7 +791,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="nothing_to_select_description"
+            data-tip="no_selection_needed_description"
             data-type="dark"
             style={
               Object {
@@ -1455,7 +1455,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              nothing_to_select
+              no_selection_needed
             </span>
           </label>
           <div
@@ -1463,7 +1463,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="nothing_to_select_description"
+            data-tip="no_selection_needed_description"
             data-type="dark"
             style={
               Object {
@@ -1789,7 +1789,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             <span
               className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
             >
-              nothing_to_select
+              no_selection_needed
             </span>
           </label>
           <div
@@ -1797,7 +1797,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             data-delay-hide="100"
             data-effect="float"
             data-place="top"
-            data-tip="nothing_to_select_description"
+            data-tip="no_selection_needed_description"
             data-type="dark"
             style={
               Object {
