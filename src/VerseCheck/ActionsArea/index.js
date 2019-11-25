@@ -161,7 +161,7 @@ const ConfirmSelectionArea = ({
             }}
           />
         }
-        label="No selection needed"
+        label={translate('nothing_to_select')}
         classes={{
           root: classes.formControl,
           label: classes.label,
