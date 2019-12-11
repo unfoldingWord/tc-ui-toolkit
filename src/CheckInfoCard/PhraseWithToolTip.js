@@ -12,8 +12,8 @@ function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
     const [wholeMatch, referenceText, lang, id, book, chapter, verse] = rcMatch;
     const [preReference, postReference] = phrase.split(wholeMatch);
     const tooltipLabel = getScriptureFromReference(lang, id, book, chapter, verse);
-    return (<div>
-      {preReference}
+    return (<div >
+      <span dangerouslySetInnerHTML={{ __html: preReference }} />
       <span onMouseEnter={() => {
         const { top, left } = getOffset(scriptureRef);
         tooltipRef.style.top = `${top}px`;
