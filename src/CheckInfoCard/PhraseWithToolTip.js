@@ -31,7 +31,9 @@ function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
     </div>
     );
   } else {
-    return phrase;
+    return (
+      <div dangerouslySetInnerHTML={{ __html: phrase }} />
+    );
   }
 }
 

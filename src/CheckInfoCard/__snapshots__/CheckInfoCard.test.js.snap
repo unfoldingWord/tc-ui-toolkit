@@ -19,7 +19,13 @@ exports[`CheckInfoCard renders correctly 1`] = `
     <div
       className="phrase"
     >
-      The term "save" refers to keeping someone from experiencing something bad or harmful. To "be safe" means to be protected from harm or danger.
+      <div
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "The term \\"save\\" refers to keeping someone from experiencing something bad or harmful. To \\"be safe\\" means to be protected from harm or danger.",
+          }
+        }
+      />
     </div>
     <div
       className="linkActive"
