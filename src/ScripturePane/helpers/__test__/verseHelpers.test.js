@@ -59,6 +59,218 @@ describe('verseHelpers.verseArray', () => {
   });
 });
 
+describe('verseHelpers.getVerseNumbers', () => {
+  describe('ugnt', () => {
+    it('should succeed with target verse counts greater than original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+        originalLanguage: {
+          ugnt: {
+            '1': {
+              '1': '1',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse counts less than original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+            },
+          },
+        },
+        originalLanguage: {
+          ugnt: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse counts same as original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+        originalLanguage: {
+          ugnt: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse missing', () => {
+      const bibles = {
+        originalLanguage: {
+          ugnt: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+  });
+
+  describe('uhb', () => {
+    it('should succeed with target verse counts greater than original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+        originalLanguage: {
+          uhb: {
+            '1': {
+              '1': '1',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse counts less than original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+            },
+          },
+        },
+        originalLanguage: {
+          uhb: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse counts same as original', () => {
+      const bibles = {
+        targetLanguage: {
+          targetBible: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+        originalLanguage: {
+          uhb: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+
+    it('should succeed with target verse missing', () => {
+      const bibles = {
+        originalLanguage: {
+          uhb: {
+            '1': {
+              '1': '1',
+              '2': '2',
+            },
+          },
+        },
+      };
+      const chapter = 1;
+      const expectedVerses = ['1', '2'];
+
+      const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+      expect(verseNumbers).toEqual(expectedVerses);
+    });
+  });
+
+  it('should succeed with missing original', () => {
+    const bibles = {
+      targetLanguage: {
+        targetBible: {
+          '1': {
+            '1': '1',
+            '2': '2',
+          },
+        },
+      },
+    };
+    const chapter = 1;
+    const expectedVerses = ['1', '2'];
+
+    const verseNumbers = verseHelpers.getVerseNumbers(bibles, chapter);
+    expect(verseNumbers).toEqual(expectedVerses);
+  });
+});
+
 //
 // helpers
 //

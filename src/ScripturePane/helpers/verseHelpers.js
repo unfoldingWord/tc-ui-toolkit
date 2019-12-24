@@ -186,3 +186,50 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
 
   return verseSpan;
 }
+
+/**
+ * get a superset of verses in target language and
+ * @param bibles
+ * @param chapter
+ * @return {string[]}
+ */
+export function getVerseNumbers(bibles, chapter) {
+  let verses = [];
+
+  if (bibles['targetLanguage'] && bibles['targetLanguage']['targetBible']) {
+    verses = Object.keys(bibles['targetLanguage']['targetBible'][chapter]) || [];
+  }
+
+  const originalLang = bibles['originalLanguage'];
+
+  if (originalLang) {
+    let origLangBook = null;
+
+    if (originalLang['ugnt']) {
+      origLangBook = 'ugnt';
+    } else if (originalLang['uhb']) {
+      origLangBook = 'uhb';
+    }
+
+    let changed = false;
+
+    if (origLangBook && originalLang[origLangBook][chapter]) {
+      const origLangVerses = Object.keys(originalLang[origLangBook][chapter]);
+
+      for (let i = 0, l = origLangVerses.length; i < l; i++) {
+        const verse = origLangVerses[i];
+
+        if (!verses.includes(verse)) { // add orig lang verses not in target
+          verses.push(verse);
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        return verses.sort();
+      }
+    }
+  }
+
+  return verses;
+}

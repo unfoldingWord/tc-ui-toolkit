@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { getVerseNumbers } from '../../helpers/verseHelpers';
 
 import './ChapterView.styles.css';
 
@@ -53,7 +54,7 @@ class ChapterView extends Component {
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
-    const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
+    const verseNumbers = getVerseNumbers(bibles, chapter);
     this.verseRefs = {};
     let verseRows = [];
 
