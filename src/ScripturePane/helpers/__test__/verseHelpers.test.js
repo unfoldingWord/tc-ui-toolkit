@@ -1,3 +1,5 @@
+/* eslint-env jest */
+/* eslint-disable object-curly-newline */
 import fs from 'fs';
 import path from 'path';
 import * as verseHelpers from '../verseHelpers';
