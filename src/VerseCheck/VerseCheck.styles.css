@@ -6,6 +6,14 @@
   display: flex;
   margin: 10px;
 }
+
+.verse-check-flex {
+  display:flex;
+  flex-direction:column;
+  height: 100%;
+  width:100%;
+}
+
 .verse-check .ltr-content {
   direction: ltr;
   flex: auto;
@@ -49,4 +57,10 @@
   display: flex;
   justify-content: space-between;
   margin: 5px 10px 5px 15px;
+}
+
+.selection-area-root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

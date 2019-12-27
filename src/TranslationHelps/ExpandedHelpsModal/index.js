@@ -10,13 +10,28 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import {Glyphicon} from 'react-bootstrap';
-import Markdown from 'react-remarkable';
+import { Glyphicon } from 'react-bootstrap';
+import marked from 'marked';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 import './ExpandedHelpsModal.styles.css';
 
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".thelps-tool-bar ">
+      <Paper {...props}/>
+    </Draggable>
+  );
+}
+
 const styles = {
-  paper: {minWidth: 800, minHeight: 500}
+  paper: {
+    minWidth: 800,
+    minHeight: 500,
+  },
+  paperRoot: { margin: '0px' },
 };
 
 const ExpandedHelpsModal = ({
@@ -25,34 +40,35 @@ const ExpandedHelpsModal = ({
   title,
   article,
   classes,
-  translate
-}) => {
-  return (
-    <Dialog
-      classes={{
-        paper: classes.paper
-      }}
-      open={show}
-      maxWidth='md'>
-      <Toolbar className="tool-bar">
-        <div className="tool-bar-title">
-          {title}
-        </div>
-        <IconButton style={{position: 'absolute', right: 10}} color="inherit" onClick={onHide} aria-label="Close" className="close-button">
-          <Glyphicon glyph="remove" />
-        </IconButton>
-      </Toolbar>
-      <DialogContent className="dialog-content">
-        <Markdown options={{html: true}} source={article} />
-      </DialogContent>
-      <DialogActions disableActionSpacing className="dialog-actions">
-        <button className="btn-prime" onClick={onHide}>
-          {translate('close')}
-        </button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+  translate,
+}) => (
+  <Dialog
+    classes={{ paper: classes.paper }}
+    open={show}
+    onClose={onHide}
+    maxWidth='md'
+    PaperComponent={PaperComponent}
+    PaperProps={{ className: classes.paperRoot }}
+    aria-labelledby="thelps-dialog"
+  >
+    <Toolbar className="thelps-tool-bar">
+      <div className="tool-bar-title">
+        {title}
+      </div>
+      <IconButton style={{ position: 'absolute', right: 10 }} color="inherit" onClick={onHide} aria-label="Close" className="close-button">
+        <Glyphicon glyph="remove" />
+      </IconButton>
+    </Toolbar>
+    <DialogContent className="dialog-content">
+      <div dangerouslySetInnerHTML={{ __html: marked(article) }} />
+    </DialogContent>
+    <DialogActions disableActionSpacing className="dialog-actions">
+      <button className="btn-prime" onClick={onHide}>
+        {translate('close')}
+      </button>
+    </DialogActions>
+  </Dialog>
+);
 
 
 ExpandedHelpsModal.propTypes = {

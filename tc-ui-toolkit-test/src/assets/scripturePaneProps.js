@@ -33,21 +33,6 @@ export const currentPaneSettings = [
   }
 ];
 
-export const projectDetailsReducer = {
-  manifest: {
-    project: {
-      name: 'titus'
-    },
-    target_language: {
-      book: {
-        name: 'titus',
-        id: 'tit'
-      },
-      direction: 'ltr'
-    }
-  }
-};
-
 export const bibles = {
   en: {
     ult: {
@@ -14868,3 +14853,26 @@ export const bibles = {
     }
   }
 };
+
+export const otherSPProps = {
+  titleLabel: '',
+  closeButtonLabel: '',
+  addResourceLabel: '',
+  clickToRemoveResourceLabel: '',
+  expandedScripturePaneTitle: '',
+  expandButtonHoverText: '',
+  clickAddResource: '',
+  currentPaneSettings: [],
+  selectLanguageLabel: '',
+  selectLabel: '',
+  setToolSettings: () => {},
+  selections: [],
+  getLexiconData: () => {},
+  showPopover: () => {},
+  projectDetailsReducer: {},
+  editTargetVerse: () => {},
+  translate: k => k,
+  getAvailableScripturePaneSelections: () => {},
+  makeSureBiblesLoadedForTool: () => {},
+  handleModalOpen: () => {},
+}

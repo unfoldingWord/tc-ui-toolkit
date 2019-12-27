@@ -1,31 +1,33 @@
 import React from 'react';
-import Bookmark from './Bookmark';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import Bookmark from './Bookmark';
 
 describe('Tests for Bookmark', () => {
   it('renders bookmark not selected correctly', () => {
+    const onChange = jest.fn();
     const props = {
       value: 'bookmark',
       label: 'Bookmark',
-      onChange: jest.fn(),
-      checked: false
+      onChange,
+      checked: false,
     };
     const tree = renderer.create(
-        <Bookmark {...props} />
+      <Bookmark {...props} />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders bookmark selected correctly', () => {
+    const onChange = jest.fn();
     const props = {
       value: 'bookmark',
       label: 'Bookmark',
-      onChange: jest.fn(),
-      checked: true
+      onChange,
+      checked: true,
     };
     const tree = renderer.create(
-        <Bookmark {...props} />
+      <Bookmark {...props} />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -36,12 +38,12 @@ describe('Tests for Bookmark', () => {
       value: 'bookmark',
       label: 'Bookmark',
       onChange: onChange,
-      checked: true
+      checked: true,
     };
     const wrapper = mount(
       <Bookmark {...props} />
     );
-    wrapper.find('input[value="bookmark"]').simulate('change', {target: {checked: !props.checked}});
+    wrapper.find('input[value="bookmark"]').simulate('change', { target: { checked: !props.checked } });
     expect(onChange).toHaveBeenCalled();
   });
 });

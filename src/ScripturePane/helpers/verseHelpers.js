@@ -5,19 +5,36 @@ import stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
-import { onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan } from './htmlElementsHelpers';
-import { removeMarker } from './usfmHelpers';
-import { isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
-          isIsolatedLeftQuote} from './stringHelpers';
+import {
+  onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
+} from './htmlElementsHelpers';
+import {
+  removeMarker, hasLeadingSpace, hasTrailingSpace,
+} from './usfmHelpers';
+import {
+  isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
+  isIsolatedLeftQuote,
+} from './stringHelpers';
 
-export const verseString = (verseText, selections, translate) => {
+/**
+ *
+ * @param {String} verseText
+ * @param {Array} selections - text selections to highlight
+ * @param {Function} translate
+ * @param {Number} fontSize
+ * @return {*}
+ */
+export const verseString = (verseText, selections, translate, fontSize = 0) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
-  newVerseText.replace(/\s/g, '').length === 0 ? newVerseText = '' : newVerseText;
+  newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
 
   // if empty string then newVerseText = place holder warning.
-  if (newVerseText.length === 0) newVerseText = translate('pane.missing_verse_warning');
+  if (newVerseText.length === 0) {
+    newVerseText = translate('pane.missing_verse_warning');
+  }
+
   let verseTextSpans = <span>{newVerseText}</span>;
 
   if (selections && selections.length > 0) {
@@ -28,9 +45,13 @@ export const verseString = (verseText, selections, translate) => {
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
       const index = i;
+      const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
 
+      if (fontSize) {
+        spanStyle.fontSize = Math.round(fontSize) + '%';
+      }
       verseTextSpans.push(
-        <span key={index} style={{ backgroundColor: selection.selected ? 'var(--highlight-color)' : '' }}>
+        <span key={index} style={spanStyle}>
           {selection.text}
         </span>
       );
@@ -40,7 +61,18 @@ export const verseString = (verseText, selections, translate) => {
   return verseTextSpans;
 };
 
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate) {
+/**
+ * create verse elements from an array of verse objects
+ * @param {Array|Object} verseText - verse data
+ * @param {String} bibleId
+ * @param {Object} contextId
+ * @param {Function} getLexiconData
+ * @param {Boolean} showPopover
+ * @param {Function} translate
+ * @param {Number} fontSize - if zero, will default to 100%
+ * @return {Array} - verse elements to display
+ */
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontSize = 0) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -54,12 +86,16 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       </span>
     );
   } else {
+    const isHebrew = (bibleId === 'uhb');
+    const origLangBible = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
+
     for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
       const index = i;
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
+
       if (isWord(word)) {
         const padding = wordSpacing;
         wordSpacing = ' '; // spacing between words
@@ -67,7 +103,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
 
-        if ((bibleId === 'ugnt' || bibleId === 'uhb') && contextId.quote && word.text) {
+        if (origLangBible && contextId.quote && word.text) {
           isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
             highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
@@ -78,21 +114,26 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         }
         // Save word to be used as previousWord in next word.
         previousWord = word;
-        const paddingSpanStyle = {
-          backgroundColor: isBetweenHighlightedWord ? "var(--highlight-color)" : "transparent"
-        };
+        const paddingSpanStyle = { backgroundColor: isBetweenHighlightedWord ? 'var(--highlight-color)' : 'transparent' };
 
-        if (word.strong) { // if clickable
+        // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb.  The reason for
+        //            this is than some bibles have different strongs format.  We are waiting on long term solution.
+        if (word.strong && origLangBible) { // if clickable
+          const spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
+
+          if (fontSize) {
+            spanStyle.fontSize = Math.round(fontSize) + '%';
+          }
           verseSpan.push(
             <span
               key={index.toString()}
-              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate)}
+              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate, isHebrew)}
               style={{ cursor: 'pointer' }}
             >
               <span style={paddingSpanStyle}>
                 {padding}
               </span>
-              <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
+              <span style={spanStyle}>
                 {removeMarker(text)}
               </span>
             </span>
@@ -110,15 +151,34 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
       } else if (word.text) { // if not word, show punctuation, etc. but not clickable
-        const text = word.text;
-        if (word.tag || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
+        let text = word.text;
+
+        if (hasLeadingSpace(text)) { // leading spaces are not significant in html, so we need to replace with a hard space
+          text = text.substr(1);
+          highlightHelpers.addSpace(verseSpan);
+        }
+
+        const trailingSpace = hasTrailingSpace(text);
+
+        if (trailingSpace && text) { // trailing spaces are not significant in html, so we need to replace with a hard space
+          text = text.substr(0, text.length - 1);
+        }
+
+        const isUsfmTagNotSpan = word.tag && !word.endTag; // see if USFM tag does not have a matching end tag.
+
+        if (isUsfmTagNotSpan || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
         wordSpacing = punctuationWordSpacing(word); // spacing before words
-        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId)) {
+
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text));
         } else {
           verseSpan.push(createTextSpan(index, text));
+        }
+
+        if (trailingSpace) { // add the trailing space after the text span
+          highlightHelpers.addSpace(verseSpan);
         }
       }
     }

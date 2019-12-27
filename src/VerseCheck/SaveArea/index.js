@@ -1,36 +1,38 @@
-/* eslint-disable non-constant-condition */
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 import './SaveArea.styles.css';
 
-let SaveArea = ({
-  actions,
+const SaveArea = ({
+  translate,
   selections,
-  translate
+  nothingToSelect,
+  handleGoToNext,
+  handleGoToPrevious,
+  handleOpenDialog,
 }) => {
-
   const handleNext = () => {
-    selections.length > 0 ? actions.handleGoToNext() : actions.handleOpenDialog("next");
+    selections.length > 0 || nothingToSelect ? handleGoToNext() : handleOpenDialog('next');
   };
 
   const handlePrevious = () => {
-    selections.length > 0 ? actions.handleGoToPrevious() : actions.handleOpenDialog("previous");
+    selections.length > 0 || nothingToSelect ? handleGoToPrevious() : handleOpenDialog('previous');
   };
 
   return (
     <div className='save-area'>
       <button className='btn-second'
-              onClick={handlePrevious}
+        onClick={handlePrevious}
       >
-        <Glyphicon glyph='share-alt' style={{marginRight: '10px', transform: 'scaleX(-1)'}} />
-        {translate("save_previous")}
+        <Glyphicon glyph='share-alt' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
+        {translate('save_previous')}
       </button>
       <button className='btn-prime'
-              onClick={handleNext}
+        onClick={handleNext}
       >
-        {translate("save_continue")}
-        <Glyphicon glyph='share-alt' style={{marginLeft: '10px'}} />
+        {translate('save_continue')}
+        <Glyphicon glyph='share-alt' style={{ marginLeft: '10px' }} />
       </button>
     </div>
   );
@@ -38,16 +40,11 @@ let SaveArea = ({
 
 SaveArea.propTypes = {
   translate: PropTypes.func.isRequired,
-  actions: PropTypes.shape({
-    handleGoToNext: PropTypes.func,
-    handleGoToPrevious: PropTypes.func,
-    handleOpenDialog: PropTypes.func
-  }).isRequired,
-  selections: PropTypes.array,
-  goToNextOrPrevious: PropTypes.string,
-  skipToPrevious: PropTypes.func,
-  skipToNext: PropTypes.func,
-  handleClose: PropTypes.func
+  selections: PropTypes.array.isRequired,
+  nothingToSelect: PropTypes.bool.isRequired,
+  handleGoToNext: PropTypes.func.isRequired,
+  handleGoToPrevious: PropTypes.func.isRequired,
+  handleOpenDialog: PropTypes.func.isRequired,
 };
 
 export default SaveArea;

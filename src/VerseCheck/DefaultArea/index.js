@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // helpers
-import {selectionArray, normalizeString} from '../helpers/selectionHelpers';
-import {occurrencesInString} from '../helpers/stringHelpers';
+import { Glyphicon } from 'react-bootstrap';
+import { selectionArray, normalizeString } from '../helpers/selectionHelpers';
+import { occurrencesInString } from '../helpers/stringHelpers';
 // components
-import {Glyphicon} from 'react-bootstrap';
 import MyLanguageModal from '../MyLanguageModal';
 // styling
 import '../VerseCheck.styles.css';
@@ -14,14 +14,16 @@ class DefaultArea extends React.Component {
     super();
     this.state = {
       inBox: false,
-      modalVisibility: false
+      modalVisibility: false,
     };
   }
 
   displayText(verseText, selections) {
+    const { validateSelections } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
     let verseTextSpans = <span>{verseText}</span>;
+
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
 
@@ -30,7 +32,7 @@ class DefaultArea extends React.Component {
 
         if (occurrencesInString(verseText, selection.text) !== selection.occurrences) {
           // validate selections and remove ones that do not apply
-          this.props.actions.validateSelections(verseText);
+          validateSelections(verseText);
         }
       }
 
@@ -39,7 +41,8 @@ class DefaultArea extends React.Component {
       for (let i = 0, len = _selectionArray.length; i < len; i++) {
         const selection = _selectionArray[i];
         const index = i;
-        let style = selection.selected ? {backgroundColor: 'var(--highlight-color)'} : {};
+        let style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
+
         verseTextSpans.push(
           <span key={index} style={style}>
             {selection.text}
@@ -48,7 +51,7 @@ class DefaultArea extends React.Component {
       }
     }
     return (
-      <div style={{userSelect: 'none', color: 'var(--text-color-light)'}}>
+      <div style={{ userSelect: 'none', color: 'var(--text-color-light)' }}>
         {verseTextSpans}
       </div>
     );
@@ -56,23 +59,25 @@ class DefaultArea extends React.Component {
 
   render() {
     const {
-      manifest,
       translate,
       reference,
       verseText,
       selections,
-      bibles
+      targetBible,
+      bookDetails,
+      targetLanguageDetails,
     } = this.props;
-    const {target_language, project} = manifest;
-    const bookName = target_language && target_language.book && target_language.book.name ?
-      target_language.book.name : project.name;
-    const languageName = manifest.target_language ? manifest.target_language.name : null;
-    const dir = manifest.target_language ? manifest.target_language.direction : null;
+    const { book, direction } = targetLanguageDetails;
+    const bookName = book && book.name ? book.name : bookDetails.name;
+    const languageName = targetLanguageDetails.name || null;
+    const languageDirection = direction || null;
 
     return (
-      <div style={{WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column'}}>
+      <div style={{
+        WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column',
+      }}>
         <div className='verse-title'>
-          <div className='pane' style={{display: 'flex', flexDirection: 'column'}}>
+          <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
             <span className='verse-title-title'>
               {languageName}
             </span>
@@ -80,21 +85,22 @@ class DefaultArea extends React.Component {
               {bookName} {reference.chapter + ':' + reference.verse}
             </span>
           </div>
-          <div onClick={() => {this.setState({modalVisibility: true})}}>
-            <Glyphicon glyph="fullscreen" title={translate("click_show_expanded")} style={{cursor: "pointer"}} />
+          <div onClick={() => this.setState({ modalVisibility: true })}>
+            <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }} />
           </div>
           <MyLanguageModal
             translate={translate}
-            manifest={manifest}
+            targetLanguageDetails={targetLanguageDetails}
             show={this.state.modalVisibility}
-            targetLangBible={bibles.targetLanguage.targetBible}
+            targetBible={targetBible}
             chapter={reference.chapter}
             currentVerse={reference.verse}
-            dir={dir ? dir : "ltr"}
-            onHide={() => this.setState({modalVisibility: false})}
+            languageDirection={languageDirection || 'ltr'}
+            bookName={bookName}
+            onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={manifest.target_language.direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           {this.displayText(verseText, selections)}
         </div>
       </div>
@@ -104,14 +110,13 @@ class DefaultArea extends React.Component {
 
 DefaultArea.propTypes = {
   translate: PropTypes.func.isRequired,
-  actions: PropTypes.shape({
-    validateSelections: PropTypes.func,
-  }).isRequired,
-  reference: PropTypes.object,
-  bibles: PropTypes.object.isRequired,
-  manifest: PropTypes.object,
-  selections: PropTypes.array,
+  reference: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
+  validateSelections: PropTypes.func.isRequired,
+  bookDetails: PropTypes.object.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
 };
 
 export default DefaultArea;

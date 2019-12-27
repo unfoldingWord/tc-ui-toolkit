@@ -12,7 +12,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Glyphicon} from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 // components
 import ExpandedHelpsModal from './ExpandedHelpsModal';
 import THelpsMarkDown from './THelpsMarkDown';
@@ -21,30 +21,29 @@ import './TranslationHelps.styles.css';
 
 const TranslationHelps = ({
   modalArticle,
-  article,                       // Article to display in sidebar and expanded modal
-  expandedHelpsButtonHoverText,  // Text to display when hovering over sash and expansion button
-  openExpandedHelpsModal,        // Function to open the expanded Translation Helps Modal
-  isShowHelpsSidebar,            // is the Translation helps sidebar displayed
-  sidebarToggle,                 // toggle the translation helps sidebar
-  isShowHelpsExpanded,           // is the expanded Translation Helps modal displayed?
-  modalTitle,                    // Title for the expanded helps modal
-  translate
+  article, // Article to display in sidebar and expanded modal
+  expandedHelpsButtonHoverText, // Text to display when hovering over sash and expansion button
+  openExpandedHelpsModal, // Function to open the expanded Translation Helps Modal
+  isShowHelpsSidebar, // is the Translation helps sidebar displayed
+  sidebarToggle, // toggle the translation helps sidebar
+  isShowHelpsExpanded, // is the expanded Translation Helps modal displayed?
+  modalTitle, // Title for the expanded helps modal
+  translate,
 }) => {
-
   if (isShowHelpsSidebar) {
     return (
       <div className="helps-sash-container">
         <div className="helps-sash-closed" onClick={sidebarToggle}>
           <Glyphicon
             glyph="chevron-right"
-            style={{cursor: "pointer"}} />
+            style={{ cursor: 'pointer' }} />
         </div>
         <div className="helps">
           <div className="helps-title-bar">
             <Glyphicon
               onClick={openExpandedHelpsModal}
-              glyph={"fullscreen"}
-              style={{cursor: "pointer"}}
+              glyph={'fullscreen'}
+              style={{ cursor: 'pointer' }}
               title={expandedHelpsButtonHoverText} />
           </div>
           <THelpsMarkDown article={article} />
@@ -62,13 +61,12 @@ const TranslationHelps = ({
       <div className="helps-sash-closed" onClick={sidebarToggle}>
         <Glyphicon
           glyph="chevron-left"
-          style={{cursor: "pointer"}}
+          style={{ cursor: 'pointer' }}
           onClick={sidebarToggle}
         />
       </div>
     );
   }
-
 };
 
 TranslationHelps.propTypes = {
@@ -79,15 +77,13 @@ TranslationHelps.propTypes = {
   isShowHelpsSidebar: PropTypes.bool.isRequired,
   sidebarToggle: PropTypes.func.isRequired,
   isShowHelpsExpanded: PropTypes.bool.isRequired,
-  translate: PropTypes.func.isRequired
+  translate: PropTypes.func.isRequired,
 };
 
 TranslationHelps.defaultProps = {
-  article:"### tHelps Article",
-  modalArticle: "### tHelps Modal Article",
-  expandedHelpsButtonHoverText: "Click to show expanded help pane",
-  modalTitle: "translationHelps",
-  translate: k => k
+  modalTitle: 'translationHelps',
+  article: '',
+  modalArticle: '',
 };
 
 export default TranslationHelps;

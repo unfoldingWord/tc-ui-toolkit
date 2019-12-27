@@ -6,17 +6,17 @@ import './BibleHeadingsRow.styles.css';
 
 const rowStyle = {
   display: 'flex',
-  height: "80px",
+  height: '80px',
   margin: '0',
-  backgroundColor: 'var(--reverse-color)'
+  backgroundColor: 'var(--reverse-color)',
 };
 
 class BibleHeadingsRow extends Component {
-  render () {
+  render() {
     const {
       currentPaneSettings,
       projectDetailsReducer,
-      bibles
+      bibles,
     } = this.props;
     const bibleHeadings = [];
 
@@ -30,14 +30,18 @@ class BibleHeadingsRow extends Component {
         direction,
       } = bibles[languageId][bibleId]['manifest'];
 
-      const resourceText = bibleId !== "targetBible" ? " (" + bibleId.toUpperCase() + ")" : "" ;
+      const resourceText = bibleId !== 'targetBible' ? ' (' + bibleId.toUpperCase() + ')' : '' ;
       const headingText = language_name + resourceText;
       let dir = direction;
-      if (!dir) dir = projectDetailsReducer.manifest.target_language.direction;
+
+      if (!dir) {
+        dir = projectDetailsReducer.manifest.target_language.direction;
+      }
+
       const colStyle = {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
         color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
-        borderBottom: '3px solid var(--border-color)', direction: dir
+        borderBottom: '3px solid var(--border-color)', direction: dir,
       };
 
       bibleHeadings.push(

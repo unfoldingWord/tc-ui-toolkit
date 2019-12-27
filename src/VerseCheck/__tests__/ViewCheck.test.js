@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import VerseCheck from '../VerseCheck';
 import renderer from 'react-test-renderer';
+import VerseCheck from '../VerseCheck';
 
 const mock_translate = (text) => (text);
 const base_props = require('./fixtures/project/loadedProjectShortened');
@@ -20,7 +20,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-        <VerseCheck {...props} />
+      <VerseCheck {...props} />
     );
 
     // then
@@ -35,7 +35,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-        <VerseCheck {...props} />
+      <VerseCheck {...props} />
     );
 
     // then
@@ -78,7 +78,7 @@ describe('VerseCheck component:', () => {
     const props = getBasePropertiesAndMockActions();
     currentInvalidated = false;
     currentEdited = false;
-    props.mode = "edit";
+    props.mode = 'edit';
 
     // when
     const component = renderer.create(
@@ -119,7 +119,7 @@ function addMockActions(props) {
     selectModalTab: () => jest.fn(),
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
-    saveSelection: () => jest.fn()
+    saveSelection: () => jest.fn(),
   };
   return {
     ...props,
@@ -127,17 +127,18 @@ function addMockActions(props) {
     cancelSelection: () => jest.fn(),
     clearSelection: () => jest.fn(),
     saveSelection: () => jest.fn(),
-    goToNextOrPrevious: "next",
-    findIfVerseEdited: jest.fn(() => {
-      return ( currentEdited); }),
-    findIfVerseInvalidated: jest.fn(() => {
-      return (currentInvalidated); })
+    toggleNothingToSelect: () => jest.fn(),
+    goToNextOrPrevious: 'next',
+    findIfVerseEdited: jest.fn(() => ( currentEdited)),
+    findIfVerseInvalidated: jest.fn(() => (currentInvalidated)),
   };
 }
 
 function getBasePropertiesAndMockActions() {
   // clone properties so we can modify before test
-  let props = JSON.parse(JSON.stringify(base_props));
+  let props = base_props;
+  console.log(base_props);
+  console.log('base_props');
   props = addMockActions(props);
   return props;
 }

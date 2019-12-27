@@ -15,13 +15,13 @@ class GroupMenu extends React.Component {
     super(props);
     this.state = {
       expandFilter: false,
-      isSubMenuExpanded: false
+      isSubMenuExpanded: false,
     };
     this.handleFilterShowHideToggle = this.handleFilterShowHideToggle.bind(this);
   }
 
   handleFilterShowHideToggle() {
-    this.setState({expandFilter: !this.state.expandFilter});
+    this.setState({ expandFilter: !this.state.expandFilter });
   }
 
   componentDidUpdate() {
@@ -31,17 +31,17 @@ class GroupMenu extends React.Component {
   render() {
     const {
       translate,
-      toolsReducer: {currentToolName},
-      groupMenuReducer: {filters, isSubMenuExpanded},
-      groupsIndexReducer: {groupsIndex},
-      groupsDataReducer: {groupsData},
-      contextIdReducer: {contextId},
-      projectDetailsReducer: {projectSaveLocation, manifest},
+      toolsReducer: { currentToolName },
+      groupMenuReducer: { filters, isSubMenuExpanded },
+      groupsIndexReducer: { groupsIndex },
+      groupsDataReducer: { groupsData },
+      contextIdReducer: { contextId },
+      projectDetailsReducer: { projectSaveLocation, manifest },
       actions,
       getSelections,
       isVerseFinished,
       isVerseValid,
-      getGroupProgress
+      getGroupProgress,
     } = this.props;
     const filterCount = helpers.getFilterCount(filters);
     // const showFilterMenu = currentToolName === "translationWords" && (this.state.expandFilter || filterCount);
@@ -94,135 +94,26 @@ GroupMenu.propTypes = {
   isVerseValid: PropTypes.func.isRequired,
   isVerseFinished: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
-  toolsReducer: PropTypes.shape({
-    currentToolName: PropTypes.string.isRequired
-  }),
+  toolsReducer: PropTypes.shape({ currentToolName: PropTypes.string.isRequired }),
   groupMenuReducer: PropTypes.shape({
     filters: PropTypes.object.isRequired,
-    isSubMenuExpanded: PropTypes.bool.isRequired
+    isSubMenuExpanded: PropTypes.bool.isRequired,
   }),
-  groupsIndexReducer: PropTypes.shape({
-    groupsIndex: PropTypes.array.isRequired
-  }),
-  groupsDataReducer: PropTypes.shape({
-    groupsData: PropTypes.object.isRequired
-  }),
-  contextIdReducer: PropTypes.shape({
-    contextId: PropTypes.object.isRequired
-  }),
+  groupsIndexReducer: PropTypes.shape({ groupsIndex: PropTypes.array.isRequired }),
+  groupsDataReducer: PropTypes.shape({ groupsData: PropTypes.object.isRequired }),
+  contextIdReducer: PropTypes.shape({ contextId: PropTypes.object.isRequired }),
   projectDetailsReducer: PropTypes.shape({
-    projectSaveLocation: PropTypes.string.isRequired
+    projectSaveLocation: PropTypes.string.isRequired,
+    manifest: PropTypes.object.isRequired,
   }),
   actions: PropTypes.shape({
     setFilter: PropTypes.func.isRequired,
     groupMenuChangeGroup: PropTypes.func.isRequired,
-    groupMenuExpandSubMenu: PropTypes.func.isRequired
+    groupMenuExpandSubMenu: PropTypes.func.isRequired,
+    changeCurrentContextId: PropTypes.func.isRequired,
   }),
   getGroupProgress: PropTypes.func.isRequired,
   getSelections: PropTypes.func.isRequired,
 };
-var i = 1;
-
-GroupMenu.defaultProps = {
-  getGroupProgress: () => 1,
-  isVerseFinished: () => false,
-  isVerseValid: () => true,
-  getSelections: () => 'A selection',
-  translate: key => key,
-  toolsReducer: {currentToolName: 'translationWords'},
-  groupMenuReducer: {filters: {}, isSubMenuExpanded: true},
-  groupsIndexReducer: {
-    groupsIndex: [{
-      id: 'apostle',
-      name: "apostle, apostles, apostleship"
-    }]
-  },
-  groupsDataReducer: {
-    groupsData: {
-      apostle: [{
-          "priority": 1,
-          "comments": false,
-          "reminders": false,
-          "selections": false,
-          "verseEdits": false,
-          "contextId": {
-            "reference": {
-              "bookId": "tit",
-              "chapter": 1,
-              "verse": 1
-            },
-            "tool": "translationWords",
-            "groupId": "apostle",
-            "quote": "ἀπόστολος",
-            "strong": [
-              "G06520"
-            ],
-            "occurrence": 1
-          }
-        },
-        ...Array(50).fill(0).map(()=>({
-          "priority": 1,
-          "comments": false,
-          "reminders": false,
-          "selections": false,
-          "verseEdits": false,
-          "contextId": {
-            "reference": {
-              "bookId": "tit",
-              "chapter": 2,
-              "verse": i++
-            },
-            "tool": "translationWords",
-            "groupId": "apostle",
-            "quote": "ἀπόστολος",
-            "strong": [
-              "G06520"
-            ],
-            "occurrence": 1
-          }
-        }))]
-
-    }
-  },
-  contextIdReducer: {
-    contextId: {
-      "reference": {
-        "bookId": "tit",
-        "chapter": 2,
-        "verse": 14
-      },
-      "tool": "translationWords",
-      "groupId": "apostle",
-      "quote": "ἀπόστολος",
-      "strong": [
-        "G06520"
-      ],
-      "occurrence": 1
-    }
-  },
-  projectDetailsReducer: {
-    projectSaveLocation: '',
-    manifest: {
-      "target_language": {
-        "id": "bhadrawahi",
-        "name": "Bible",
-        "direction": "ltr",
-        "book": {
-          "name": "Titus"
-        }
-      },
-      "project": {
-        "id": "tit",
-        "name": "Titus"
-      }
-    }
-  },
-  actions: {
-    setFilter: () => {},
-    groupMenuChangeGroup: () => {},
-    groupMenuExpandSubMenu: () => {}
-  }
-};
-
 
 export default GroupMenu;

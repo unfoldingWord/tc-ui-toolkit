@@ -9,9 +9,9 @@ const GroupsMenuFilter = ({
   translate,
   expandFilter,
   setFilter,
-  filterCount
+  filterCount,
 }) => {
-  if (currentToolName === "translationWords" && (expandFilter || filterCount)) {
+  if (currentToolName === 'translationWords' && (expandFilter || filterCount)) {
     if (expandFilter) {
       return (
         <ExpandedFilter
@@ -26,18 +26,18 @@ const GroupsMenuFilter = ({
           translate={translate}
         />);
     }
-  } else return null;
+  } else {
+    return null;
+  }
 };
 
-GroupsMenuFilter.defaultProps = {
-  expandFilter: false
-};
+GroupsMenuFilter.defaultProps = { expandFilter: false };
 
 GroupsMenuFilter.propTypes = {
   translate: PropTypes.func.isRequired,
   filters: PropTypes.object.isRequired,
   setFilter: PropTypes.func,
-  expandFilter: PropTypes.bool
+  expandFilter: PropTypes.bool,
 };
 
 export default GroupsMenuFilter;

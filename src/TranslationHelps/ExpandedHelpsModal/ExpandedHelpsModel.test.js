@@ -1,18 +1,13 @@
 import React from 'react';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { mount } from 'enzyme';
 import ExpandedHelpsModal from './index';
 
 describe('Test ExpandedHelpsModal component', () => {
   test('Test initial display', () => {
-
     const theme = createMuiTheme({
-      typography: {
-        useNextVariants: true,
-      },
-      scrollbarThumb: {
-        borderRadius: '10px'
-      }
+      typography: { useNextVariants: true },
+      scrollbarThumb: { borderRadius: '10px' },
     });
 
     const expectedTitle = 'Title';

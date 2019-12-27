@@ -6,14 +6,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import './Verse.styles.css';
 
 const styles = {
-  edit_wrapper: {
-    textAlign: 'right'
-  },
+  edit_wrapper: { textAlign: 'right' },
   edit_button: {
     padding: 0,
     width: 28,
-    height: 28
-  }
+    height: 28,
+  },
 };
 
 class Verse extends Component {
@@ -23,13 +21,16 @@ class Verse extends Component {
   }
 
   handleEdit() {
-    const {bibleId, chapter, verse, verseText, onEdit} = this.props;
+    const {
+      bibleId, chapter, verse, verseText, onEdit,
+    } = this.props;
+
     if (typeof onEdit === 'function') {
       onEdit(bibleId, chapter, verse, verseText);
     }
   }
 
-  render () {
+  render() {
     const {
       verseElements,
       bibleId,
@@ -37,7 +38,7 @@ class Verse extends Component {
       chapter,
       verse,
       onEdit,
-      translate
+      translate,
     } = this.props;
     const chapterVerseContent = `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
@@ -53,7 +54,8 @@ class Verse extends Component {
     }
 
     let edit = null;
-    if(isEditable && onEdit) {
+
+    if (isEditable && onEdit) {
       edit = (
         <div style={styles.edit_wrapper}>
           <IconButton style={styles.edit_button} onClick={this.handleEdit}>

@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 const styles = {
-  label: {
-    fontSize: 14
-  }
+  stepIcon: {
+    '&$active': { color: 'var(--accent-color-dark)' },
+    '&$completed': { color: 'var(--accent-color-dark)' },
+  },
+  active: {},
+  completed: {},
+  label: { fontSize: 14 },
 };
 
 /**
@@ -19,21 +23,26 @@ const styles = {
  */
 class VerseEditorStepper extends React.Component {
   render() {
-    const {stepIndex, steps, style, classes} = this.props;
+    const {
+      stepIndex, steps, style, classes,
+    } = this.props;
     return (
       <Stepper activeStep={stepIndex} style={style}>
-        {steps.map((step, index) => {
-          return (
-            <Step key={index}>
-              <StepLabel
-                classes={{
-                  label: classes.label
-                }}>
-                {step}
-              </StepLabel>
-            </Step>
-          );
-        })}
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepLabel
+              StepIconProps={{
+                classes: {
+                  root: classes.stepIcon,
+                  active: classes.active,
+                  completed: classes.completed,
+                },
+              }}
+              classes={{ label: classes.label }}>
+              {step}
+            </StepLabel>
+          </Step>
+        ))}
       </Stepper>
     );
   }

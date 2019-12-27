@@ -22,42 +22,38 @@ const styles = {
   title: {
     marginLeft: 'auto',
     fontSize: '22px',
-    fontWeight: '400'
+    fontWeight: '400',
   },
-  closeButton: {
-    marginLeft: 'auto'
-  },
+  closeButton: { marginLeft: 'auto' },
   dialogContent: {
     color: 'rgba(0, 0, 0, 0.6)',
     textAlign: 'center',
     padding: '0px 24px 24px',
-    margin: '0px'
+    margin: '0px',
   },
   dialogActions: {
     height: '70px',
     padding: '10px',
     margin: '0px',
-    borderTop: '1px solid var(--border-color)'
+    borderTop: '1px solid var(--border-color)',
   },
 
   icon: {
     color: '#ffffff',
     width: 25,
-    height: 25
+    height: 25,
   },
   iconButton: {
     padding: 0,
     width: 25,
     height: 25,
-    marginTop: 5
+    marginTop: 5,
   },
-  body: {
-    textAlign: 'center'
-  },
+  body: { textAlign: 'center' },
   select: {
     margin: '0 auto',
-    width: '300px'
-  }
+    width: '300px',
+  },
 };
 
 const AddPaneModal = ({
@@ -71,19 +67,27 @@ const AddPaneModal = ({
   addNewBibleResource,
   currentPaneSettings,
   translate,
-  getAvailableScripturePaneSelections
+  getAvailableScripturePaneSelections,
 }) => {
   const panes = [];
   const availableResources = [];
   getAvailableScripturePaneSelections(availableResources);
+
   for (let i = 0, len = availableResources.length; i < len; i++) {
     const resource = availableResources[i];
-    const { resource_title, language_name } = resource.manifest;
-    const resourceText = resource.bibleId !== "targetBible" ? " (" + resource_title + ")" : ` (${translate('pane.current_project')})`;
-    const displayText = `${language_name} (${resource.languageId}) ${resourceText}`;
-    const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => {
-      return paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId;
-    }) >= 0;
+    const {
+      resource_title, language_name, language_id,
+    } = resource.manifest;
+    let displayText = '';
+
+    if (resource.bibleId !== 'targetBible') {
+      const languageId = (resource.languageId !== 'originalLanguage') ? resource.languageId : translate('pane.original_language');
+      displayText = `${language_name} (${languageId})  (${resource_title})`;
+    } else {
+      displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
+    }
+
+    const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
 
     panes.push(
       <option
@@ -107,26 +111,26 @@ const AddPaneModal = ({
         </IconButton>
       </Toolbar>
       <DialogContent style={styles.dialogContent}>
-        <h4 style={{ marginBottom: "30px" }}>
+        <h4 style={{ marginBottom: '30px' }}>
           {selectLanguageLabel}
         </h4>
-          <FormControl
-            componentClass="select"
-            style={styles.select}
-            onChange={e => selectSourceLanguage(e.target.value)}
-          >
-            <option value="">{selectLabel}</option>
-            {panes}
-          </FormControl>
+        <FormControl
+          componentClass="select"
+          style={styles.select}
+          onChange={e => selectSourceLanguage(e.target.value)}
+        >
+          <option value="">{selectLabel}</option>
+          {panes}
+        </FormControl>
       </DialogContent>
       <DialogActions disableActionSpacing style={styles.dialogActions}>
         <button className="btn-second" onClick={onHide}>
-          Close
+          {translate('close')}
         </button>
         {
           selectedPane &&
           <button className="btn-prime" onClick={addNewBibleResource}>
-            Load
+            {translate('load')}
           </button>
         }
       </DialogActions>
@@ -145,8 +149,8 @@ AddPaneModal.propTypes = {
     PropTypes.bool,
     PropTypes.shape({
       bibleId: PropTypes.string,
-      languageId: PropTypes.string
-    })
+      languageId: PropTypes.string,
+    }),
   ]),
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,

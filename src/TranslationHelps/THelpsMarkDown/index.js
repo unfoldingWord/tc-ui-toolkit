@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Markdown from 'react-remarkable';
+import marked from 'marked';
 
 const THelpsMarkDown = ({ article }) => (
   <div className="helps-article">
@@ -24,22 +24,22 @@ const THelpsMarkDown = ({ article }) => (
         '}',
         '.remarkableStyling blockquote {',
         'font-size: small;',
+        'padding: 0 20px;',
+        'margin: 0 0 10px;',
         '}',
         '.remarkableStyling blockquote strong {',
         'text-decoration: underline;',
         'font-weight: normal;',
-        '}'
-      ].join('\n')
+        '}',
+      ].join('\n'),
     }}>
     </style>
     <div id="helpsbody" className="remarkableStyling helpsBody">
-      <Markdown options={{html: true}} source={article} />
+      <div dangerouslySetInnerHTML={{ __html: marked(article) }} />
     </div>
   </div>
 );
 
-THelpsMarkDown.propTypes = {
-  article: PropTypes.string.isRequired,
-};
+THelpsMarkDown.propTypes = { article: PropTypes.string.isRequired };
 
 export default THelpsMarkDown;

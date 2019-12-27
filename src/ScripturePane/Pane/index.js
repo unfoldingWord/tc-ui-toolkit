@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
-import {getTranslation} from '../helpers/utils';
+import { getTranslation } from '../helpers/utils';
 
 import './Pane.styles.css';
 
@@ -22,7 +22,7 @@ const Pane = ({
   clickToRemoveResourceLabel,
   translate,
 }) => {
-  const headingText = bibleId !== "targetBible" ? languageName + " (" + bibleId.toUpperCase() + ")" : (languageName || '');
+  const headingText = bibleId !== 'targetBible' ? languageName + ' (' + bibleId.toUpperCase() + ')' : (languageName || '');
   const PANECHAR = 9;
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
   return (
@@ -37,21 +37,21 @@ const Pane = ({
           <ContainerDimensions>
             {
               ({ width }) =>
-              <span
-                className={localizedDescription.length > width/PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
-                aria-label={localizedDescription}>
-                {
-                  localizedDescription.length > width/PANECHAR ?
-                    localizedDescription.slice(0, Math.round(width/PANECHAR)) + "..." :
-                    localizedDescription
-                }
-              </span>
+                <span
+                  className={localizedDescription.length > width/PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
+                  aria-label={localizedDescription}>
+                  {
+                    localizedDescription.length > width/PANECHAR ?
+                      localizedDescription.slice(0, Math.round(width/PANECHAR)) + '...' :
+                      localizedDescription
+                  }
+                </span>
             }
           </ContainerDimensions>
         </div>
         <Glyphicon
           className="remove-glyph-icon"
-          glyph={"remove"}
+          glyph={'remove'}
           title={clickToRemoveResourceLabel}
           onClick={() => removePane(index)}
         />
@@ -88,8 +88,6 @@ Pane.propTypes = {
   ]).isRequired,
 };
 
-Pane.defaultProps = {
-  verseElements: []
-};
+Pane.defaultProps = { verseElements: [] };
 
 export default Pane;

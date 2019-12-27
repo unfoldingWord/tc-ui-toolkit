@@ -5,45 +5,50 @@ import WordLexiconDetails from '../../WordLexiconDetails';
 import * as lexiconHelpers from './lexiconHelpers';
 import { removeMarker } from './usfmHelpers';
 
-export const onWordClick = (e, word, getLexiconData, showPopover, translate) => {
+/**
+ * on word click show lexicon
+ * @param {Object} e - clicked element
+ * @param {Object} word
+ * @param {Function} getLexiconData
+ * @param {Function} showPopover
+ * @param {Function} translate
+ * @param {boolean} isHebrew - if true then we adjust font size
+ */
+export const onWordClick = (e, word, getLexiconData, showPopover, translate, isHebrew) => {
   if (word && word.strong) {
     let lexiconData = lexiconHelpers.lookupStrongsNumbers(word.strong, getLexiconData);
     const positionCoord = e.target;
+    const fontSize = isHebrew ? '1.7em' : '1.2em';
     const PopoverTitle = (
-      <strong style={{fontSize: '1.2em'}}>{word.text}</strong>
+      <strong style={{ fontSize }}>{word.text}</strong>
     );
     const wordDetails = (
-      <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate} />
+      <WordLexiconDetails lexiconData={lexiconData} wordObject={word} translate={translate}
+        isHebrew={!!isHebrew}/>
     );
     showPopover(PopoverTitle, wordDetails, positionCoord);
   }
 };
 
-export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighlightedWord, text) => {
-  return (
-    <span key={index.toString()}>
-      <span style={paddingSpanStyle}>
-        {padding}
-      </span>
-      <span style={{ backgroundColor: isHighlightedWord ? "var(--highlight-color)" : "" }}>
-        {removeMarker(text)}
-      </span>
+export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighlightedWord, text) => (
+  <span key={index.toString()}>
+    <span style={paddingSpanStyle}>
+      {padding}
     </span>
-  );
-};
-
-export const createTextSpan = (index, text) => {
-  return (
-    <span key={index}>
+    <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
       {removeMarker(text)}
     </span>
-  );
-};
+  </span>
+);
 
-export const createHighlightedSpan = (index, text) => {
-  return (
-    <span key={index} style={{ backgroundColor: 'var(--highlight-color)' }}>
-      {removeMarker(text)}
-    </span>
-  );
-};
+export const createTextSpan = (index, text) => (
+  <span key={index}>
+    {removeMarker(text)}
+  </span>
+);
+
+export const createHighlightedSpan = (index, text) => (
+  <span key={index} style={{ backgroundColor: 'var(--highlight-color)' }}>
+    {removeMarker(text)}
+  </span>
+);

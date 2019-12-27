@@ -15,12 +15,13 @@ class VerseRow extends Component {
 
   handleEdit(bibleId, chapter, verse, verseText) {
     const { onEditTargetVerse } = this.props;
-    if(bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
+
+    if (bibleId === 'targetBible' && typeof onEditTargetVerse === 'function') {
       onEditTargetVerse(bibleId, chapter, verse, verseText);
     }
   }
 
-  render () {
+  render() {
     const {
       chapter,
       currentVerseNumber,
@@ -39,14 +40,14 @@ class VerseRow extends Component {
       alignItems: 'stretch',
       padding: '10px',
       paddingTop: '20px',
-      borderRight: '1px solid var(--border-color)'
+      borderRight: '1px solid var(--border-color)',
     };
 
     let rowStyle = {
       display: 'flex',
       margin: '0',
       color: 'var(--text-color-dark)',
-      width: '100%'
+      width: '100%',
     };
 
     if (currentVerseNumber % 2 === 0) {
@@ -57,6 +58,7 @@ class VerseRow extends Component {
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
         const index = i;
+
         try {
           const { languageId, bibleId } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
@@ -85,7 +87,7 @@ class VerseRow extends Component {
             </Col>
           );
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     }

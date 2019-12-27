@@ -4,13 +4,21 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
+
+function PaperComponent(props) {
+  // component will only be draggable by element with the className in the handle prop
+  return (
+    <Draggable handle=".BaseDialog-draggable-handle">
+      <Paper {...props} />
+    </Draggable>
+  );
+}
+
 /**
  * Generates the dialog actions
- *
- * This was copied from tC core.
- * here should be a better way to provide a consistent dialog experience across tools.
- *
  * @param {bool} actionsEnabled enables/disables the action buttons
  * @param {*} primaryLabel the title of the primary button
  * @param {*} secondaryLabel the title of the secondary button
@@ -18,7 +26,9 @@ import {withStyles} from '@material-ui/core/styles';
  * @param {func} onSecondaryClick the click callback of the secondary button
  * @return {*}
  */
-const makeDialogActions = ({actionsEnabled, primaryLabel, secondaryLabel, onPrimaryClick, onSecondaryClick}) => {
+const makeDialogActions = ({
+  actionsEnabled, primaryLabel, secondaryLabel, onPrimaryClick, onSecondaryClick,
+}) => {
   const hasPrimaryLabel = Boolean(primaryLabel);
   const hasSecondaryLabel = Boolean(secondaryLabel);
   const hasPrimaryCallback = Boolean(onPrimaryClick);
@@ -51,9 +61,8 @@ const makeDialogActions = ({actionsEnabled, primaryLabel, secondaryLabel, onPrim
 };
 
 const styles = {
-  actionRoot: {
-    padding: 0,
-  }
+  actionRoot: { padding: 0 },
+  paperRoot: { margin: '0px' },
 };
 
 
@@ -75,7 +84,6 @@ const styles = {
  * @property {func} [onSubmit] - callback when the primary button is triggered. Overridden by `actions`
  */
 class BaseDialog extends React.Component {
-
   componentDidCatch(error, info) {
     console.error(error);
     console.warn(info);
@@ -92,6 +100,7 @@ class BaseDialog extends React.Component {
       open,
       children,
       actions,
+      classes,
     } = this.props;
 
     let dialogActions = actions ? actions : makeDialogActions({
@@ -99,16 +108,21 @@ class BaseDialog extends React.Component {
       primaryLabel,
       secondaryLabel,
       onPrimaryClick: onSubmit,
-      onSecondaryClick: onClose
+      onSecondaryClick: onClose,
     });
 
     return (
       <Dialog
-        fullWidth={true}
         open={open}
-        onClose={onClose}>
+        onClose={onClose}
+        fullWidth={true}
+        PaperComponent={PaperComponent}
+        PaperProps={{ className: classes.paperRoot }}
+        aria-labelledby={`draggable-${title}-dialog`}
+      >
         <DialogTitle
           disableTypography={true}
+          className="BaseDialog-draggable-handle"
           style={{
             color: 'var(--reverse-color)',
             backgroundColor: 'var(--accent-color-dark)',
@@ -116,7 +130,8 @@ class BaseDialog extends React.Component {
             display: 'block',
             width: '100%',
             fontSize: 22,
-            fontWeight: 400
+            fontWeight: 400,
+            cursor: 'move',
           }}>
           {title}
         </DialogTitle>
@@ -142,12 +157,12 @@ BaseDialog.propTypes = {
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   children: PropTypes.any,
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
 BaseDialog.defaultProps = {
   actionsEnabled: true,
-  modal: false
+  modal: false,
 };
 
 export default withStyles(styles)(BaseDialog);

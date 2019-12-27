@@ -1,7 +1,5 @@
-/**
- * component displays the Verse so selection, edit and comments can be made.
- */
-import React, {Component} from 'react';
+/* eslint-disable indent */
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ActionsArea from './ActionsArea';
 import CheckArea from './CheckArea';
@@ -15,32 +13,55 @@ class VerseCheck extends Component {
   render() {
     const {
       translate,
-      commentsReducer,
-      remindersReducer,
-      projectDetailsReducer,
-      contextIdReducer,
-      resourcesReducer,
-      selectionsReducer,
       alignedGLText,
       verseText,
       unfilteredVerseText,
       mode,
-      actions,
       dialogModalVisibility,
-      commentChanged,
-      findIfVerseEdited,
-      findIfVerseInvalidated,
+      isCommentChanged,
       tags,
-      verseChanged,
-      selections,
+      isVerseChanged,
       saveSelection,
       cancelSelection,
       clearSelection,
-      handleSkip
+      handleSkip,
+      toggleNothingToSelect,
+      localNothingToSelect,
+      maximumSelections,
+      selections,
+      newSelections,
+      nothingToSelect,
+      isVerseEdited,
+      commentText,
+      bookmarkEnabled,
+      isVerseInvalidated,
+      contextId,
+      targetBible,
+      handleCloseDialog,
+      handleGoToNext,
+      handleGoToPrevious,
+      handleOpenDialog,
+      openAlertDialog,
+      changeSelectionsInLocalState,
+      toggleReminder,
+      changeMode,
+      cancelEditVerse,
+      saveEditVerse,
+      handleComment,
+      cancelComment,
+      saveComment,
+      bookDetails,
+      targetLanguageDetails,
+      handleTagsCheckbox,
+      handleEditVerse,
+      checkIfVerseChanged,
+      checkIfCommentChanged,
+      validateSelections,
     } = this.props;
 
     let titleText;
     let saveArea;
+
     switch (mode) {
       case 'edit':
         titleText = translate('edit_verse');
@@ -58,184 +79,147 @@ class VerseCheck extends Component {
         titleText = translate('step2_check');
         saveArea = (
           <SaveArea
-            actions={actions}
-            selections={selectionsReducer.selections}
-            translate={translate} />);
+            translate={translate}
+            selections={selections}
+            nothingToSelect={nothingToSelect}
+            handleGoToNext={handleGoToNext}
+            handleGoToPrevious={handleGoToPrevious}
+            handleOpenDialog={handleOpenDialog}
+          />
+        );
     }
 
     return (
       <div className='verse-check'>
-        <div style={{display: 'flex', flexDirection: 'column', height: '100%', width:'100%'}}>
+        <div className='verse-check-flex'>
           <div className='verse-check-card'>
             <div className='title-bar'>
               <span>{titleText}</span>
               <IconIndicators
-                verseEdited={findIfVerseEdited()}
-                selections={selectionsReducer.selections}
-                comment={commentsReducer.text}
-                bookmarkEnabled={remindersReducer.enabled}
+                isVerseEdited={isVerseEdited}
+                selections={selections}
+                comment={commentText}
+                bookmarkEnabled={bookmarkEnabled}
                 translate={translate}
-                invalidated={findIfVerseInvalidated()} />
+                nothingToSelect={nothingToSelect}
+                invalidated={isVerseInvalidated}
+              />
             </div>
             <CheckArea
-              actions={actions}
               mode={mode}
               tags={tags}
               verseText={verseText}
               unfilteredVerseText={unfilteredVerseText}
-              verseChanged={verseChanged}
-              comment={commentsReducer.text}
-              newSelections={selections}
-              selections={selectionsReducer.selections}
+              isVerseChanged={isVerseChanged}
+              comment={commentText}
+              newSelections={newSelections}
+              selections={selections}
               translate={translate}
-              projectDetailsReducer={projectDetailsReducer}
-              contextId={contextIdReducer.contextId}
-              bibles={resourcesReducer.bibles}
+              nothingToSelect={nothingToSelect}
+              targetLanguageDetails={targetLanguageDetails}
+              bookDetails={bookDetails}
+              contextId={contextId}
+              targetBible={targetBible}// TODO:
               alignedGLText={alignedGLText}
-              invalidated={findIfVerseInvalidated()} />
+              invalidated={isVerseInvalidated}
+              maximumSelections={maximumSelections}
+              handleComment={handleComment}
+              openAlertDialog={openAlertDialog}
+              handleEditVerse={handleEditVerse}
+              checkIfVerseChanged={checkIfVerseChanged}
+              checkIfCommentChanged={checkIfCommentChanged}
+              handleTagsCheckbox={handleTagsCheckbox}
+              validateSelections={validateSelections}
+              changeSelectionsInLocalState={changeSelectionsInLocalState}
+            />
             <ActionsArea
               mode={mode}
               tags={tags}
-              actions={actions}
-              commentChanged={commentChanged}
-              selections={selectionsReducer.selections}
-              newSelections={selections}
-              remindersReducer={remindersReducer}
+              toggleNothingToSelect={toggleNothingToSelect}
+              localNothingToSelect={localNothingToSelect}
+              nothingToSelect={nothingToSelect}
+              isCommentChanged={isCommentChanged}
+              selections={selections}
+              newSelections={newSelections}
+              translate={translate}
+              bookmarkEnabled={bookmarkEnabled}
               saveSelection={saveSelection}
               cancelSelection={cancelSelection}
               clearSelection={clearSelection}
-              translate={translate} />
+              toggleReminder={toggleReminder}
+              changeMode={changeMode}
+              cancelEditVerse={cancelEditVerse}
+              saveEditVerse={saveEditVerse}
+              cancelComment={cancelComment}
+              saveComment={saveComment}
+            />
           </div>
           {saveArea}
         </div>
         <DialogComponent
           handleSkip={handleSkip}
           dialogModalVisibility={dialogModalVisibility}
-          handleClose={actions.handleCloseDialog}
+          handleClose={handleCloseDialog}
           translate={translate} />
       </div>
     );
   }
 }
 
+
 VerseCheck.propTypes = {
-  alignedGLText: PropTypes.string.isRequired,
-  commentChanged: PropTypes.bool.isRequired,
-  findIfVerseEdited: PropTypes.func.isRequired,
-  findIfVerseInvalidated: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
-  verseChanged: PropTypes.bool.isRequired,
   selections: PropTypes.array.isRequired,
+  newSelections: PropTypes.array.isRequired,
+  nothingToSelect: PropTypes.bool.isRequired,
+  isVerseEdited: PropTypes.bool.isRequired,
+  commentText: PropTypes.string.isRequired,
+  bookmarkEnabled: PropTypes.bool.isRequired,
+  isVerseInvalidated: PropTypes.bool.isRequired,
+  contextId: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
+  bookDetails: PropTypes.object.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
+  alignedGLText: PropTypes.string.isRequired,
+  isCommentChanged: PropTypes.bool.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
+  verseText: PropTypes.string.isRequired,
+  unfilteredVerseText: PropTypes.string.isRequired,
+  dialogModalVisibility: PropTypes.bool.isRequired,
+  localNothingToSelect: PropTypes.bool.isRequired,
+  maximumSelections: PropTypes.number.isRequired,
+  handleCloseDialog: PropTypes.func.isRequired,
+  handleGoToNext: PropTypes.func.isRequired,
+  handleGoToPrevious: PropTypes.func.isRequired,
+  handleOpenDialog: PropTypes.func.isRequired,
+  openAlertDialog: PropTypes.func.isRequired,
+  toggleReminder: PropTypes.func.isRequired,
+  changeMode: PropTypes.func.isRequired,
+  cancelEditVerse: PropTypes.func.isRequired,
+  saveEditVerse: PropTypes.func.isRequired,
+  handleComment: PropTypes.func.isRequired,
+  cancelComment: PropTypes.func.isRequired,
+  saveComment: PropTypes.func.isRequired,
+  toggleNothingToSelect: PropTypes.func.isRequired,
   saveSelection: PropTypes.func.isRequired,
   cancelSelection: PropTypes.func.isRequired,
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
-  verseText: PropTypes.string,
-  unfilteredVerseText: PropTypes.string,
-  remindersReducer: PropTypes.object.isRequired,
-  groupsDataReducer: PropTypes.object.isRequired,
-  toolsReducer: PropTypes.object.isRequired,
-  translate: PropTypes.func.isRequired,
-  actions: PropTypes.object.isRequired,
-  contextIdReducer: PropTypes.shape({
-    contextId: PropTypes.object
-  }).isRequired,
-  selectionsReducer: PropTypes.object.isRequired,
-  commentsReducer: PropTypes.object.isRequired,
-  resourcesReducer: PropTypes.object.isRequired,
-  loginReducer: PropTypes.object.isRequired,
-  projectDetailsReducer: PropTypes.object.isRequired,
-  mode: PropTypes.string.isRequired,
-  dialogModalVisibility: PropTypes.bool.isRequired,
+  handleEditVerse: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
+  checkIfCommentChanged: PropTypes.func.isRequired,
+  validateSelections: PropTypes.func.isRequired,
+  handleTagsCheckbox: PropTypes.func.isRequired,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
 };
 
 VerseCheck.defaultProps = {
-  contextIdReducer: {
-    contextId: {
-      reference: {
-        chapter: 1,
-        verse: 1,
-        bookId: 'tit'
-      }
-    }
-  },
-  projectDetailsReducer: {
-    manifest: {
-      project: {
-        id: 'tit'
-      },
-      target_language: {
-        direction: 'ltr'
-      }
-    },
-    currentProjectToolsSelectedGL: {
-      tw: 'en'
-    }
-  },
-  resourcesReducer: {
-    bibles: {
-      targetLanguage: {
-        targetBible: {
-          1: {1: ''}
-        }
-      }
-    }
-  },
-  selectionsReducer: {
-    selections: []
-  },
-  toolsReducer: {
-    currentToolName: 'tw'
-  },
   translate: key => key,
-  groupsDataReducer: {
-    groupsData: {}
-  },
-  commentsReducer: {
-    text: ''
-  },
-  remindersReducer: {
-    enabled: false
-  },
-  actions: {
-    handleGoToNext: () => {},
-    handleGoToPrevious: () => {},
-    handleOpenDialog: () => {},
-    handleCloseDialog: () => {},
-    skipToNext: () => {},
-    skipToPrevious: () => {},
-    changeSelectionsInLocalState: () => {},
-    changeMode: () => {},
-    handleComment: () => {},
-    checkComment: () => {},
-    cancelComment: () => {},
-    saveComment: () => {},
-    handleTagsCheckbox: () => {},
-    handleEditVerse: () => {},
-    checkVerse: () => {},
-    cancelEditVerse: () => {},
-    saveEditVerse: () => {},
-    validateSelections: () => {},
-    toggleReminder: () => {},
-    openAlertDialog: () => {},
-    selectModalTab: () => {},
-  },
-  loginReducer: {},
-  alignedGLText: '',
-  mode: 'default',
-  commentChanged: false,
-  findIfVerseEdited: () => false,
-  findIfVerseInvalidated: () => false,
-  tags: [],
-  verseChanged: false,
-  selections: [],
-  saveSelection: () => {},
-  cancelSelection: () => {},
-  clearSelection: () => {},
-  handleSkip: () => {},
   verseText: '',
   unfilteredVerseText: '',
-  dialogModalVisibility: false
+  commentText: '',
 };
 
 export default VerseCheck;

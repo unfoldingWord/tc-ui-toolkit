@@ -5,12 +5,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
+  colorSwitchBase: {
+    '&$colorChecked': {
+      'color': 'var(--accent-color-dark)',
+      '& + $colorBar': { backgroundColor: 'var(--accent-color-dark)' },
+    },
+  },
+  colorBar: {},
+  colorChecked: {},
   label: {
     color: 'var(--accent-color-dark)',
-    fontWeight: "normal",
+    fontWeight: 'normal',
     fontSize: 14,
   },
-  colorPrimary: 'var(--accent-color-dark)'
 };
 
 const Bookmark = ({
@@ -20,26 +27,28 @@ const Bookmark = ({
   color,
   onChange,
   disabled,
-  classes
-}) => {
-  return (
-    <FormControlLabel
-      style={{paddingLeft:10}}
-      control={
-        <Switch
-          value={value}
-          checked={checked}
-          color={color}
-          onChange={onChange}
-          disabled={disabled}
-          classes={{colorPrimary: classes.colorPrimary}}
-        />
-      }
-      classes={{label: classes.label}}
-      label={label}
-    />
-  );
-};
+  classes,
+}) => (
+  <FormControlLabel
+    style={{ paddingLeft:10 }}
+    control={
+      <Switch
+        value={value}
+        checked={checked}
+        color={color}
+        onChange={onChange}
+        disabled={disabled}
+        classes={{
+          switchBase: classes.colorSwitchBase,
+          checked: classes.colorChecked,
+          bar: classes.colorBar,
+        }}
+      />
+    }
+    classes={{ label: classes.label }}
+    label={label}
+  />
+);
 
 Bookmark.defaultProps = {
   checked: false,
@@ -54,7 +63,7 @@ Bookmark.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
   color: PropTypes.string,
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(Bookmark);

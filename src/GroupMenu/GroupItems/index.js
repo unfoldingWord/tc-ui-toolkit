@@ -1,7 +1,7 @@
 import React from 'react';
+import isEqual from 'deep-equal';
 import * as helpers from '../helpers';
 import GroupItem from '../GroupItem';
-import isEqual from 'deep-equal';
 
 const GroupItems = ({
   changeCurrentContextId,
@@ -13,13 +13,14 @@ const GroupItems = ({
   isVerseFinished,
   isVerseValid,
   currentToolName,
-  getSelections
+  getSelections,
 }) => {
   const items = [];
   let index = 0;
 
   for (let i = 0, len = groupData.length; i < len; i++) {
     const groupItemData = groupData[i];
+
     if (!helpers.groupItemIsVisible(groupItemData, filters)) {
       continue;
     }
@@ -27,10 +28,8 @@ const GroupItems = ({
     let active = isEqual(groupItemData.contextId, contextId);
     let useTargetLanguageBookName = manifest.target_language && manifest.target_language.book && manifest.target_language.book.name;
     let bookName = useTargetLanguageBookName ? manifest.target_language.book.name : manifest.project.name;
-    const {
-      reference: {
-        chapter, verse
-      }} = groupItemData.contextId;
+    const { reference: { chapter, verse } } = groupItemData.contextId;
+
     items.push(
       <GroupItem
         contextId={groupItemData.contextId}

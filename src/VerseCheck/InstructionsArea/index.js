@@ -1,23 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './InstructionsArea.styles.css';
-import InstructionsAreaTextSelection from '../InstructionsAreaTextSelection';
 import ReactTooltip from 'react-tooltip';
+// components
+import InstructionsAreaTextSelection, { QuoatationMarks } from '../InstructionsAreaTextSelection';
+// css
+import './InstructionsArea.styles.css';
 
-let InstructionsArea = ({
+function getSelectionString(invalidated, translate) {
+  if (invalidated) {
+    return (
+      <div>
+        <span>{translate('selection_invalidated')}
+          <strong
+            data-tip={translate('invalidated_tooltip')}
+            data-place="top"
+            data-effect="float"
+            data-type="dark"
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            style={{ verticalAlign: 'super', fontSize: '0.8em' }}>
+            1
+          </strong>
+        </span>
+        <ReactTooltip />
+      </div>
+    );
+  }
+}
+
+const InstructionsArea = ({
   alignedGLText,
   selections,
   dontShowTranslation,
   verseText,
   mode,
   translate,
-  invalidated
+  invalidated,
+  nothingToSelect,
 }) => {
-
   if (!verseText) {
     return (
       <div className='instructions-area'>
-        <span>{translate("empty_verse")}</span><br />
+        <span>{translate('empty_verse')}</span><br />
+      </div>
+    );
+  }
+
+  if (nothingToSelect) { // if nothingToSelect is true
+    return (
+      <div className='instructions-area'>
+        <span>{translate('no_selection_needed_description')}</span><br />
+        <QuoatationMarks>
+          <strong className="no-selection-needed">
+            {translate('no_selection_needed')}
+          </strong>
+        </QuoatationMarks>
       </div>
     );
   }
@@ -25,38 +62,16 @@ let InstructionsArea = ({
   if (selections.length === 0 && dontShowTranslation && !invalidated) { // if invalidated we had previous selection
     return (
       <div className='instructions-area'>
-        <span>{translate("no_selection")}</span><br />
+        <span>{translate('no_selection')}</span><br />
       </div>
     );
-  }
-
-  function getSelectionString() {
-    if (invalidated) {
-      return (
-        <div>
-          <span>{translate('selection_invalidated')}
-            <strong
-              data-tip={translate('invalidated_tooltip')}
-              data-place="top"
-              data-effect="float"
-              data-type="dark"
-              data-class="selection-tooltip"
-              data-delay-hide="100"
-              style={{ verticalAlign: 'super', fontSize: '0.8em' }}>
-              1
-            </strong>
-          </span>
-          <ReactTooltip />
-        </div>
-      );
-    }
   }
 
   if (mode === 'select' || invalidated) { // if invalidated we had previous selection
     return (
       <div className='instructions-area'>
-        {getSelectionString()}
-        <span>{translate("please_select")}</span><br />
+        {getSelectionString(invalidated, translate)}
+        <span>{translate('please_select')}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
             {`"${alignedGLText}"`}
@@ -73,7 +88,7 @@ let InstructionsArea = ({
           {`"${alignedGLText}"`}
         </strong>
       </span><br />
-      <span>{translate("translated_as")}</span><br />
+      <span>{translate('translated_as')}</span><br />
       <span>
         <InstructionsAreaTextSelection
           selections={selections}
@@ -90,7 +105,8 @@ InstructionsArea.propTypes = {
   dontShowTranslation: PropTypes.bool,
   verseText: PropTypes.string.isRequired,
   mode: PropTypes.string,
-  invalidated: PropTypes.bool
+  invalidated: PropTypes.bool,
+  nothingToSelect: PropTypes.bool,
 };
 
 export default InstructionsArea;

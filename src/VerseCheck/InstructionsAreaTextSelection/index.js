@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 const ELLIPSIS = '…';
 
-const QuoatationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
+export const QuoatationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
 
-QuoatationMarks.propTypes = {
-  children: PropTypes.array.isRequired
-};
+QuoatationMarks.propTypes = { children: PropTypes.object.isRequired };
 
 const getSelectionSpans = (selections) => {
   const results = [];
@@ -21,7 +19,7 @@ const getSelectionSpans = (selections) => {
         <strong style={{ color: 'var(--accent-color)' }}>
           {`${selection.text.trim()}`}
         </strong>
-        {selections[index + 1] ? <span>{" "}</span> : null}
+        {selections[index + 1] ? <span>{' '}</span> : null}
       </span>
     );
   }
@@ -49,7 +47,7 @@ const InstructionsAreaTextSelection = ({ selections, verseText }) => {
 
 InstructionsAreaTextSelection.propTypes = {
   selections: PropTypes.array.isRequired,
-  verseText: PropTypes.string.isRequired
+  verseText: PropTypes.string.isRequired,
 };
 
 export default InstructionsAreaTextSelection;

@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import cyan from '@material-ui/core/colors/cyan';
 
 const styles = {
-  formControlLabelRoot: {
-    height: 30
-  },
+  formControlLabelRoot: { height: 30 },
   formControlLabel: {
     justifyContent: 'flex-start',
     fontWeight: 700,
-    fontSize: 16
+    fontSize: 16,
   },
-  checkBox: {
-    '&$checked': {
-      color: cyan[500],
-    },
-  },
-  checked:{}
+  checkBox: { '&$checked': { color: 'var(--accent-color-dark)' } },
+  checked:{},
 };
 
 /**
@@ -37,20 +30,21 @@ const styles = {
  */
 
 class ReasonCheckbox extends React.Component {
-
   constructor(props) {
     super(props);
     this._handleCheck = this._handleCheck.bind(this);
   }
 
   _handleCheck(e, checked) {
-    const {reason, onCheck} = this.props;
+    const { reason, onCheck } = this.props;
     onCheck(reason, checked);
   }
 
 
   render() {
-    const {reason, label, selectedReasons, classes} = this.props;
+    const {
+      reason, label, selectedReasons, classes,
+    } = this.props;
     return (
       <FormControlLabel
         classes={{
@@ -61,7 +55,7 @@ class ReasonCheckbox extends React.Component {
           <Checkbox
             classes={{
               root: classes.checkBox,
-              checked:classes.checked
+              checked:classes.checked,
             }}
             checked={selectedReasons.includes(reason)}
             onChange={this._handleCheck}
@@ -81,8 +75,6 @@ ReasonCheckbox.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-ReasonCheckbox.defaultProps = {
-  selectedReasons: []
-};
+ReasonCheckbox.defaultProps = { selectedReasons: [] };
 
 export default withStyles(styles)(ReasonCheckbox);

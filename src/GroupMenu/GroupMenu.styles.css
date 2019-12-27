@@ -51,6 +51,7 @@
 }
 .selection-tooltip:after {
   border-bottom-color: var(--background-color-light)!important;
+  border-top-color: var(--background-color-light)!important;
 }
 
 .group-menu-status-tooltip {
