@@ -9,26 +9,6 @@ import BaseDialog from './BaseDialog';
 import './VerseEditor.styles.css';
 
 /**
- * Checks if the next butt should be enabled
- * @param state
- * @return {*}
- */
-export const isNextEnabled = (state) => {
-  const {
-    stepIndex, verseChanged, newVerse, reasons,
-  } = state;
-
-  switch (stepIndex) {
-  case 0:
-    return verseChanged && Boolean(newVerse);
-  case 1:
-    return reasons.length > 0;
-  default:
-    return false;
-  }
-};
-
-/**
  * Renders a form for editing a single verse
  * @property {string} verseText - the verse text to edit
  * @property {func} translate - the locale function
@@ -39,6 +19,7 @@ class VerseEditor extends React.Component {
   constructor(props) {
     super(props);
     this._handleCancel = this._handleCancel.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
     this._handleVerseChange = this._handleVerseChange.bind(this);
     this._handleReasonChange = this._handleReasonChange.bind(this);
     this._resetState = this._resetState.bind(this);
@@ -59,10 +40,26 @@ class VerseEditor extends React.Component {
     });
   }
 
+  isVerseChanged() {
+    const { reasons, verseChanged } = this.state;
+    return verseChanged && reasons && reasons.length;
+  }
+
   _handleCancel() {
     const { onCancel } = this.props;
     onCancel();
     this._resetState();
+  }
+
+  _handleSubmit() {
+    const { verseText, onSubmit } = this.props;
+
+    if (this.isVerseChanged() && onSubmit) {
+      const { newVerse, reasons } = this.state;
+      onSubmit(verseText, newVerse, reasons);
+      this._resetState();
+      this._handleCancel();
+    }
   }
 
   _handleVerseChange(newVerse) {
@@ -78,14 +75,6 @@ class VerseEditor extends React.Component {
     this.setState({ reasons: newReasons });
   }
 
-  /**
-   * Checks if the next button is enabled
-   * @return {*}
-   */
-  _isNextEnabled() {
-    return isNextEnabled(this.state);
-  }
-
   render() {
     const {
       translate, open, verseTitle, verseText, targetLanguage,
@@ -94,7 +83,7 @@ class VerseEditor extends React.Component {
       newVerse, reasons, verseChanged,
     } = this.state;
     let text = !verseChanged ? verseText : newVerse;
-    const isVerseChangedAndHaveReason = verseChanged && reasons && reasons.length;
+    const isVerseChangedAndHaveReason = this.isVerseChanged();
 
     const title = (
       <span>
@@ -154,7 +143,7 @@ class VerseEditor extends React.Component {
           </button>
           <button className="btn-prime"
             disabled={!isVerseChangedAndHaveReason}
-            onClick={this._handleNext}>
+            onClick={this._handleSubmit}>
             {translate('buttons.save_button')}
           </button>
         </div>
