@@ -92,7 +92,7 @@ class VerseEditor extends React.Component {
       </span>
     );
 
-    const rows = 10 + (targetLanguage ? 1 : 0); // make taller if no language label
+    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
 
     return (
       <BaseDialog
@@ -107,8 +107,8 @@ class VerseEditor extends React.Component {
         }}>
           <div>
             { targetLanguage ? (
-              <div>
-                {translate('select_reasons')}
+              <div style={{ paddingLeft: '6px', fontSize: '1.1em' }}>
+                {targetLanguage}
               </div>
             ) : ''}
             <EditScreen
@@ -116,7 +116,9 @@ class VerseEditor extends React.Component {
               rows={rows}
               align={'left'}
               onChange={this._handleVerseChange}
-              style={{ fontSize: '16px', width: '320px' }}
+              style={{
+                fontSize: '16px', width: '320px', padding: '6px',
+              }}
             />
           </div>
           <div style={{
