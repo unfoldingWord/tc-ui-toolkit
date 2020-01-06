@@ -135,9 +135,10 @@ class BaseDialog extends React.Component {
           {title}
         </DialogTitle>
         {children}
-        <DialogActions disableActionSpacing={true}>
-          {dialogActions}
-        </DialogActions>
+        { actionsEnabled ?
+          <DialogActions disableActionSpacing={true}>
+            {dialogActions}
+          </DialogActions> : ''}
       </Dialog>
     );
   }

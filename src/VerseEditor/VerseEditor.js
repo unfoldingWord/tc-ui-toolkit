@@ -111,8 +111,11 @@ class VerseEditor extends React.Component {
         open={open}
         title={title}
         onClose={this._handleCancel}
+        actionsEnabled={false}
       >
-        <div className='screen' style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className='screen' style={{
+          display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
+        }}>
           <div>
             { targetLanguage ? (
               <div>
@@ -124,14 +127,14 @@ class VerseEditor extends React.Component {
               rows={rows}
               align={'left'}
               onChange={this._handleVerseChange}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '16px', width: '320px' }}
             />
           </div>
           <div style={{
             margin: '0 0 0 10px',
             fontWeight: 'bold',
             fontSize: '1.1em',
-            width: '280px',
+            width: '220px',
           }}>
             <div>
               {translate('select_reasons')}
