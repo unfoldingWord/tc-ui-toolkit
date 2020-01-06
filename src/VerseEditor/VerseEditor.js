@@ -23,7 +23,7 @@ const styles = {
     margin: '0 0 0 10px',
     fontWeight: 'bold',
     fontSize: '16px',
-    width: '220px',
+    width: '240px',
   },
 
 };
