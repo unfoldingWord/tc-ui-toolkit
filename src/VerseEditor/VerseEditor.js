@@ -1,12 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
+import { Glyphicon } from 'react-bootstrap';
 // components
 import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
 
 import './VerseEditor.styles.css';
+
+const styles = {
+  screen: {
+    display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
+  },
+  editor: {
+    fontWeight: 'bold', fontSize: '16px', width: '320px', padding: '6px',
+  },
+  editHeading: {
+    paddingLeft: '6px', fontWeight: 'bold', fontSize: '16px',
+  },
+  reasonHeading: {
+    margin: '0 0 0 10px',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    width: '220px',
+  },
+
+};
 
 /**
  * Renders a form for editing a single verse
@@ -118,14 +138,10 @@ class VerseEditor extends React.Component {
         onClose={this._handleCancel}
         actionsEnabled={false}
       >
-        <div className='screen' style={{
-          display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
-        }}>
+        <div className='screen' style={styles.screen}>
           <div>
             { targetLanguage ? (
-              <div style={{
-                paddingLeft: '6px', fontWeight: 'bold', fontSize: '1.1em',
-              }}>
+              <div style={styles.editHeading}>
                 {targetLanguage}
               </div>
             ) : ''}
@@ -134,17 +150,10 @@ class VerseEditor extends React.Component {
               rows={rows}
               align={'left'}
               onChange={this._handleVerseChange}
-              style={{
-                fontWeight: 'bold', fontSize: '16px', width: '320px', padding: '6px',
-              }}
+              style={styles.editor}
             />
           </div>
-          <div style={{
-            margin: '0 0 0 10px',
-            fontWeight: 'bold',
-            fontSize: '1.1em',
-            width: '220px',
-          }}>
+          <div style={styles.reasonHeading}>
             <div>
               {translate('select_reasons')}
             </div>
@@ -164,11 +173,13 @@ class VerseEditor extends React.Component {
           <button className="btn-second"
             disabled={!isVerseChanged}
             onClick={this._handleReset}>
+            <Glyphicon glyph='repeat' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
             {translate('buttons.reset_button')}
           </button>
           <button className="btn-prime"
             disabled={!isVerseChangedAndHaveReason}
             onClick={this._handleSubmit}>
+            <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
             {translate('buttons.save_button')}
           </button>
         </div>
