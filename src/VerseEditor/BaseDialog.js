@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
@@ -135,9 +134,7 @@ class BaseDialog extends React.Component {
           }}>
           {title}
         </DialogTitle>
-        <DialogContent className='stepper-body'>
-          {children}
-        </DialogContent>
+        {children}
         <DialogActions disableActionSpacing={true}>
           {dialogActions}
         </DialogActions>

@@ -88,7 +88,7 @@ class VerseEditor extends React.Component {
 
   render() {
     const {
-      translate, open, verseTitle, verseText,
+      translate, open, verseTitle, verseText, targetLanguage,
     } = this.props;
     const {
       newVerse, reasons, verseChanged,
@@ -103,6 +103,8 @@ class VerseEditor extends React.Component {
       </span>
     );
 
+    const rows = 10 + (targetLanguage ? 1 : 0); // make taller if no language label
+
     return (
       <BaseDialog
         modal={true}
@@ -111,14 +113,36 @@ class VerseEditor extends React.Component {
         onClose={this._handleCancel}
       >
         <div className='screen' style={{ display: 'flex', flexDirection: 'row' }}>
-          <EditScreen
-            verseText={text}
-            onChange={this._handleVerseChange} />
-          <ReasonScreen
-            translate={translate}
-            selectedReasons={reasons}
-            onChange={this._handleReasonChange}
-          />
+          <div>
+            { targetLanguage ? (
+              <div>
+                {translate('select_reasons')}
+              </div>
+            ) : ''}
+            <EditScreen
+              verseText={text}
+              rows={rows}
+              align={'left'}
+              onChange={this._handleVerseChange}
+              style={{ fontSize: '16px' }}
+            />
+          </div>
+          <div style={{
+            margin: '0 0 0 10px',
+            fontWeight: 'bold',
+            fontSize: '1.1em',
+            width: '280px',
+          }}>
+            <div>
+              {translate('select_reasons')}
+            </div>
+            <ReasonScreen
+              translate={translate}
+              selectedReasons={reasons}
+              columns={1}
+              onChange={this._handleReasonChange}
+            />
+          </div>
         </div>
         <div className='actions'>
           <button className="btn-second"
@@ -143,6 +167,9 @@ VerseEditor.propTypes = {
   translate: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  targetLanguage: PropTypes.string.isRequired,
 };
+
+VerseEditor.defaultProps = { targetLanguage: '' };
 
 export default VerseEditor;
