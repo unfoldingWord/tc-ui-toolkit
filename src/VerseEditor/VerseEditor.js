@@ -11,9 +11,9 @@ import './VerseEditor.styles.css';
 /**
  * Renders a form for editing a single verse
  * @property {string} verseText - the verse text to edit
- * @property {func} translate - the locale function
- * @property {VerseEditor~submitCallback} onSubmit - callback when the edit is submitted
- * @property {func} onCancel - callback when the edit is canceled
+ * @property {function} translate - the locale function
+ * @property {function} onSubmit - callback when the edit is submitted
+ * @property {function} onCancel - callback when the edit is canceled
  */
 class VerseEditor extends React.Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class VerseEditor extends React.Component {
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleVerseChange = this._handleVerseChange.bind(this);
     this._handleReasonChange = this._handleReasonChange.bind(this);
+    this._handleReset = this._handleReset.bind(this);
     this._resetState = this._resetState.bind(this);
     this.state = {
       newVerse: '',
@@ -40,9 +41,14 @@ class VerseEditor extends React.Component {
     });
   }
 
-  isVerseChanged() {
+  isVerseChangedAndHaveReasons() {
     const { reasons, verseChanged } = this.state;
     return verseChanged && reasons && reasons.length;
+  }
+
+  isVerseChanged() {
+    const { verseChanged } = this.state;
+    return verseChanged;
   }
 
   _handleCancel() {
@@ -51,10 +57,19 @@ class VerseEditor extends React.Component {
     this._resetState();
   }
 
+  _handleReset() {
+    const { verseText } = this.props;
+
+    this.setState({
+      newVerse: verseText,
+      verseChanged: false,
+    });
+  }
+
   _handleSubmit() {
     const { verseText, onSubmit } = this.props;
 
-    if (this.isVerseChanged() && onSubmit) {
+    if (this.isVerseChangedAndHaveReasons() && onSubmit) {
       const { newVerse, reasons } = this.state;
       onSubmit(verseText, newVerse, reasons);
       this._resetState();
@@ -66,7 +81,7 @@ class VerseEditor extends React.Component {
     const { verseText } = this.props;
 
     this.setState({
-      newVerse: newVerse,
+      newVerse,
       verseChanged: newVerse !== verseText,
     });
   }
@@ -83,7 +98,8 @@ class VerseEditor extends React.Component {
       newVerse, reasons, verseChanged,
     } = this.state;
     let text = !verseChanged ? verseText : newVerse;
-    const isVerseChangedAndHaveReason = this.isVerseChanged();
+    const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
+    const isVerseChanged = this.isVerseChanged();
 
     const title = (
       <span>
@@ -107,7 +123,9 @@ class VerseEditor extends React.Component {
         }}>
           <div>
             { targetLanguage ? (
-              <div style={{ paddingLeft: '6px', fontSize: '1.1em' }}>
+              <div style={{
+                paddingLeft: '6px', fontWeight: 'bold', fontSize: '1.1em',
+              }}>
                 {targetLanguage}
               </div>
             ) : ''}
@@ -117,7 +135,7 @@ class VerseEditor extends React.Component {
               align={'left'}
               onChange={this._handleVerseChange}
               style={{
-                fontSize: '16px', width: '320px', padding: '6px',
+                fontWeight: 'bold', fontSize: '16px', width: '320px', padding: '6px',
               }}
             />
           </div>
@@ -142,6 +160,11 @@ class VerseEditor extends React.Component {
           <button className="btn-second"
             onClick={this._handleCancel}>
             {translate('buttons.cancel_button')}
+          </button>
+          <button className="btn-second"
+            disabled={!isVerseChanged}
+            onClick={this._handleReset}>
+            {translate('buttons.reset_button')}
           </button>
           <button className="btn-prime"
             disabled={!isVerseChangedAndHaveReason}
