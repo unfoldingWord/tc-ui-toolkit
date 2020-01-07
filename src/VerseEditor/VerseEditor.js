@@ -14,7 +14,7 @@ const styles = {
     display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
   },
   editor: {
-    fontWeight: 'bold', fontSize: '16px', width: '320px', padding: '6px',
+    fontSize: '16px', width: '320px', padding: '6px',
   },
   editHeading: {
     paddingLeft: '6px', fontWeight: 'bold', fontSize: '16px',
