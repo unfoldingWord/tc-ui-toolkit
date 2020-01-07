@@ -173,6 +173,7 @@ class VerseEditor extends React.Component {
           <button className="btn-second"
             disabled={!isVerseChanged}
             onClick={this._handleReset}>
+            { /* TRICKY - do mirror image of repeat to make reset icon */ }
             <Glyphicon glyph='repeat' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
             {translate('buttons.reset_button')}
           </button>
