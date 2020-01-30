@@ -1,29 +1,28 @@
 /* eslint-env jest */
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import toJson from 'enzyme-to-json';
+import { shallow } from 'enzyme';
 import VerseEditor from '../VerseEditor';
 
-const mock_translate = (text) => (text);
+const mock_translate = (text, params) => {
+  if (params) {
+    text += ': ' + JSON.stringify(params);
+  }
+  return text;
+};
 
 describe('VerseEditor component:', () => {
   test('should render', () => {
     // given
-    const theme = createMuiTheme({
-      typography: { useNextVariants: true },
-      scrollbarThumb: { borderRadius: '10px' },
-    });
     const props = getBasePropertiesAndMockActions();
 
     // when
-    const component = renderer.create(
-      <MuiThemeProvider theme={theme}>
-        <VerseEditor {...props} />
-      </MuiThemeProvider>
+    const wrapper = shallow(
+      <VerseEditor {...props} />
     );
 
     // then
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
 
@@ -34,7 +33,7 @@ describe('VerseEditor component:', () => {
 function getBasePropertiesAndMockActions() {
   const props = {
     open: true,
-    verseTitle: 'Dummy Title',
+    verseTitle: 'Rom 3:11',
     verseText: 'Dummy Text',
     translate: mock_translate,
     onCancel: () => jest.fn(),
