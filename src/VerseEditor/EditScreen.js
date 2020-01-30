@@ -23,15 +23,19 @@ class EditScreen extends React.Component {
   }
 
   render() {
-    const { verseText } = this.props;
+    const {
+      verseText, rows, style,
+    } = this.props;
     return (
       <textarea
         id="verse-editor-field"
-        rows={4}
+        rows={rows}
         className='edit-screen'
         autoFocus={true}
         onChange={this._handleChange}
-        value={verseText}/>
+        value={verseText}
+        style={style}
+      />
     );
   }
 }
@@ -39,6 +43,13 @@ class EditScreen extends React.Component {
 EditScreen.propTypes = {
   verseText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  rows: PropTypes.number.isRequired,
+  style: PropTypes.object.isRequired,
+};
+
+EditScreen.defaultProps = {
+  rows: 4,
+  style: {},
 };
 
 export default EditScreen;
