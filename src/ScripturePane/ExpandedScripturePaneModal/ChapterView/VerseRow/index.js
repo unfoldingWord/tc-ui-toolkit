@@ -84,7 +84,7 @@ class VerseRow extends Component {
                 chapter={chapter}
                 verse={currentVerseNumber}
                 onEdit={this.handleEdit} />
-            </Col>
+            </Col>,
           );
         } catch (error) {
           console.error(error);

@@ -48,7 +48,7 @@ const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelec
 const ChangeModeArea = ({
   translate,
   bookmarkEnabled,
-  toggleReminder,
+  toggleBookmark,
   changeMode,
 }) => (
   <div className='actions-area'>
@@ -57,7 +57,7 @@ const ChangeModeArea = ({
       color='primary'
       checked={bookmarkEnabled}
       label={translate('bookmark')}
-      onChange={toggleReminder} />
+      onChange={toggleBookmark} />
     <div style={{ display: 'flex', marginLeft: 'auto' }}>
       <button
         style={{ width: '140px', marginRight: '5px' }}
@@ -228,7 +228,7 @@ const ActionsArea = ({
   localNothingToSelect,
   nothingToSelect,
   toggleNothingToSelect,
-  toggleReminder,
+  toggleBookmark,
   changeMode,
   cancelEditVerse,
   saveEditVerse,
@@ -274,7 +274,7 @@ const ActionsArea = ({
       <ChangeModeArea
         translate={translate}
         bookmarkEnabled={bookmarkEnabled}
-        toggleReminder={toggleReminder}
+        toggleBookmark={toggleBookmark}
         changeMode={changeMode}
       />
     );
@@ -283,7 +283,7 @@ const ActionsArea = ({
       <ChangeModeArea
         translate={translate}
         bookmarkEnabled={bookmarkEnabled}
-        toggleReminder={toggleReminder}
+        toggleBookmark={toggleBookmark}
         changeMode={changeMode}
       />
     );
@@ -305,7 +305,7 @@ ActionsArea.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   toggleNothingToSelect: PropTypes.func.isRequired,
-  toggleReminder: PropTypes.func.isRequired,
+  toggleBookmark: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   cancelEditVerse: PropTypes.func.isRequired,
   saveEditVerse: PropTypes.func.isRequired,

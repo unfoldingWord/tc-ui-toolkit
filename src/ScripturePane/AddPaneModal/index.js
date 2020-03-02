@@ -96,7 +96,7 @@ const AddPaneModal = ({
         disabled={foundInCurrentPaneSettings}
       >
         {displayText}
-      </option>
+      </option>,
     );
   }
 

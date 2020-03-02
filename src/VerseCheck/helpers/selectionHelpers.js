@@ -312,7 +312,7 @@ export const optimizeSelections = (string, selections) => {
 export const removeSelectionFromSelections = (selection, selections, string) => {
   selections = Array.from(selections);
   selections = selections.filter(_selection =>
-    !(_selection.occurrence === selection.occurrence && _selection.text === selection.text)
+    !(_selection.occurrence === selection.occurrence && _selection.text === selection.text),
   );
   selections = optimizeSelections(string, selections);
   return selections;

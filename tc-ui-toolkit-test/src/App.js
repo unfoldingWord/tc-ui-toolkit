@@ -61,7 +61,7 @@ class App extends Component {
     });
   }
 
-  toggleReminder(event) {
+  toggleBookmark(event) {
     this.setState({
       remindersReducer: {
         ...this.state.remindersReducer,

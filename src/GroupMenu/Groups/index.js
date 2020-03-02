@@ -56,7 +56,7 @@ const Groups = ({
           progress={getGroupProgress(groupIndex, groupsData)}
           groupMenuExpandSubMenu={groupMenuExpandSubMenu}
           openGroup={() => groupMenuChangeGroup(currentGroupData[0].contextId)}
-        />
+        />,
       );
     }
   }

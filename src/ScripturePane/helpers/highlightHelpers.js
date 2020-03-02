@@ -164,7 +164,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       const highlightedDetails = getWordHighlightedDetails(
         contextId,
         nestedPreviousWord,
-        nestedWord
+        nestedWord,
       );
       isHighlightedWord = highlightedDetails.isHighlightedWord;
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
@@ -179,7 +179,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
           <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
             {removeMarker(nestedWord.text)}
           </span>
-        </span>
+        </span>,
       );
     } else if (nestedWord.text) {
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
@@ -189,13 +189,13 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
         wordSpans.push(
           <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {text}
-          </span>
+          </span>,
         );
       } else {
         wordSpans.push(
           <span key={nestedWordSpanIndex}>
             {text}
-          </span>
+          </span>,
         );
       }
     }
@@ -286,6 +286,6 @@ export function addSpace(verseSpan) {
   verseSpan.push(
     <span key={'space_' +(++spaceCounter)} style={{ backgroundColor: 'transparent' }}>
       {' '}
-    </span>
+    </span>,
   );
 }

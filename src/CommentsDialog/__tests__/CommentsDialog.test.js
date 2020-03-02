@@ -18,7 +18,7 @@ describe('CommentsDialog component:', () => {
 
     // when
     const wrapper = shallow(
-      <CommentsDialog {...props} />
+      <CommentsDialog {...props} />,
     );
 
     // then

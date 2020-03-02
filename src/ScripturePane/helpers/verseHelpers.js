@@ -53,7 +53,7 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
       verseTextSpans.push(
         <span key={index} style={spanStyle}>
           {selection.text}
-        </span>
+        </span>,
       );
     }
   }
@@ -83,7 +83,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     verseSpan.push(
       <span key={translate('pane.missing_verse_warning')}>
         {translate('pane.missing_verse_warning')}
-      </span>
+      </span>,
     );
   } else {
     const isHebrew = (bibleId === 'uhb');
@@ -136,7 +136,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
               <span style={spanStyle}>
                 {removeMarker(text)}
               </span>
-            </span>
+            </span>,
           );
         } else {
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));

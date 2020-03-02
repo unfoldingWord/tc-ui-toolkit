@@ -20,7 +20,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -35,7 +35,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -50,7 +50,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -66,7 +66,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -82,7 +82,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -114,7 +114,7 @@ function addMockActions(props) {
     cancelEditVerse: () => jest.fn(),
     saveEditVerse: () => jest.fn(),
     validateSelections: () => jest.fn(),
-    toggleReminder: () => jest.fn(),
+    toggleBookmark: () => jest.fn(),
     openAlertDialog: () => jest.fn(),
     selectModalTab: () => jest.fn(),
     cancelSelection: () => jest.fn(),

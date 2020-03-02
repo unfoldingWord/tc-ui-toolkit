@@ -46,7 +46,7 @@ class DefaultArea extends React.Component {
         verseTextSpans.push(
           <span key={index} style={style}>
             {selection.text}
-          </span>
+          </span>,
         );
       }
     }

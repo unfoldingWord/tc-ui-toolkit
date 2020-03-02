@@ -43,7 +43,7 @@ class VerseCheck extends Component {
       handleOpenDialog,
       openAlertDialog,
       changeSelectionsInLocalState,
-      toggleReminder,
+      toggleBookmark,
       changeMode,
       cancelEditVerse,
       saveEditVerse,
@@ -146,7 +146,7 @@ class VerseCheck extends Component {
               saveSelection={saveSelection}
               cancelSelection={cancelSelection}
               clearSelection={clearSelection}
-              toggleReminder={toggleReminder}
+              toggleBookmark={toggleBookmark}
               changeMode={changeMode}
               cancelEditVerse={cancelEditVerse}
               saveEditVerse={saveEditVerse}
@@ -195,7 +195,7 @@ VerseCheck.propTypes = {
   handleGoToPrevious: PropTypes.func.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
-  toggleReminder: PropTypes.func.isRequired,
+  toggleBookmark: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   cancelEditVerse: PropTypes.func.isRequired,
   saveEditVerse: PropTypes.func.isRequired,

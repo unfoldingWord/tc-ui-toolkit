@@ -18,7 +18,7 @@ describe('VerseEditor component:', () => {
 
     // when
     const wrapper = shallow(
-      <VerseEditor {...props} />
+      <VerseEditor {...props} />,
     );
 
     // then

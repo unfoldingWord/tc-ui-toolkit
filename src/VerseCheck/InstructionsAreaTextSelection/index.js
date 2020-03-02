@@ -20,7 +20,7 @@ const getSelectionSpans = (selections) => {
           {`${selection.text.trim()}`}
         </strong>
         {selections[index + 1] ? <span>{' '}</span> : null}
-      </span>
+      </span>,
     );
   }
 

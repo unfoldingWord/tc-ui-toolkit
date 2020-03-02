@@ -148,7 +148,7 @@ class ScripturePane extends Component {
             verseElements={verseElements}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
             removePane={this.removePane}
-          />
+          />,
         );
       } catch (err) {
         console.warn(err);
@@ -241,6 +241,12 @@ class ScripturePane extends Component {
     );
   }
 }
+
+ScripturePane.defaultProps = {
+  handleModalOpen: () => {
+    console.info('handleModalOpen prop was not passed.');
+  },
+};
 
 ScripturePane.propTypes = {
   titleLabel: PropTypes.string.isRequired,
