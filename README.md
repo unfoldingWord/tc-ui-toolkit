@@ -1,6 +1,6 @@
 # tc-ui-toolkit
 
-[![Build Status](https://travis-ci.org/translationCoreApps/tc-ui-toolkit.svg?branch=master)](https://travis-ci.org/translationCoreApps/tc-ui-toolkit) ![npm](https://img.shields.io/npm/dt/tc-ui-toolkit.svg)
+[![Build Status](https://travis-ci.org/unfoldingWord/tc-ui-toolkit.svg?branch=master)](https://travis-ci.org/unfoldingWord/tc-ui-toolkit) ![npm](https://img.shields.io/npm/dt/tc-ui-toolkit.svg)
 [![npm](https://img.shields.io/npm/v/tc-ui-toolkit.svg)](https://www.npmjs.com/package/tc-ui-toolkit)
 
 React components used to develop tools for the desktop app [translationCore](https://github.com/unfoldingWord-dev/translationCore).
@@ -46,20 +46,20 @@ class App extends Component {
 
 Note:
 
-- I am using the feature branch named `my-feature-branch` which is a branch you would have created on the `translationCoreApps/tc-ui-toolkit` repo for your feature implementation.
+- I am using the feature branch named `my-feature-branch` which is a branch you would have created on the `unfoldingWord/tc-ui-toolkit` repo for your feature implementation.
 - You do not have to do anything different if your changes are reflected in a translationCore tool. Because the tool will get its `node_modules` from translationCore during runtime.
 
 1. Checkout the master branch for `tc-ui-toolkit`(pull latest), create/checkout your branch called `my-feature-branch`.
 2. Implement your feature on `my-feature-branch` and test it in the `tc-ui-toolkit-test` app (That workflow is outlined below)
 3. Push your changes from `my-feature-branch` to the `tc-ui-toolkit` origin
-4. Once you are ready to test your app on the translationCore repo run `npm i translationCoreApps/tc-ui-toolkit#my-feature-branch` in your translationCore root directory
+4. Once you are ready to test your app on the translationCore repo run `npm i unfoldingWord/tc-ui-toolkit#my-feature-branch` in your translationCore root directory
     - This will give you the changes you made on `tc-ui-toolkit/my-feature-branch` without having to do a premature `npm publish`
 5. Ensure all changes work as expected on translationCore branch.
     - Note the workflow to make more changes from your `my-feature-branch` and test them on translationCore is to simply repeat step 3, and then run `rm -rf node_modules/tc-ui-toolkit; npm i tc-ui-toolkit;` in the translationCore root directory. This will give you the pushed changes without having to re-install all the `node_modules`
 6. When the feature you implemented is ready and all tests are passing then you are ready for PRs.
 7. **run `npm uninstall tc-ui-toolkit; npm i tc-ui-toolkit;`** in the translationCore root directory
    - This will ensure that you do not have the tc-ui-toolkit branch as a npm version. That was merely for testing, not production.
-8. Make a PR on the `translationCoreApps/tc-ui-toolkit` repo with your feature implementation `my-feature-branch`
+8. Make a PR on the `unfoldingWord/tc-ui-toolkit` repo with your feature implementation `my-feature-branch`
 9. After the feature branch on tc-ui-toolkit gets merged make a PR on the `translationCore` repo with a new branch that includes the latest `tc-ui-toolkit` version
     - Note: up until now you did not have to push any changes to a branch for the `tc-ui-toolkit` feature implementation. At this point you will have to do so in order to see changes you made in `my-feature-branch`, reflected in translationCore.
 10. Once the PR has been merged, verify the fix from `my-feature-branch` is still working.
