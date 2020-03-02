@@ -89,7 +89,7 @@ class MyLanguageModal extends Component {
                 styles={versePaneStyle}
                 dir={languageDirection}
               />
-            </div>
+            </div>,
           );
         }
       }

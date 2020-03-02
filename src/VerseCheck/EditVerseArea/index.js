@@ -62,7 +62,7 @@ const EditVerseArea = ({
         />
       }
       label={tag[1]}
-    />
+    />,
   );
 
   const checkboxesColumn2 = tagList2.map(tag =>
@@ -84,7 +84,7 @@ const EditVerseArea = ({
         />
       }
       label={tag[1]}
-    />
+    />,
   );
 
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');

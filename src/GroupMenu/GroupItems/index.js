@@ -40,7 +40,7 @@ const GroupItems = ({
         active={active}
         bookName={bookName}
         selectionText={getSelections(groupItemData.contextId)}
-      />
+      />,
     );
     index++;
   }

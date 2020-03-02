@@ -76,7 +76,7 @@ class ChapterView extends Component {
             currentVerseNumber={verseNumber}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
-            ref={node => this.verseRefs[refKey] = node} />
+            ref={node => this.verseRefs[refKey] = node} />,
         );
       }
     }

@@ -12,7 +12,7 @@ export function generateMenuData(
   data,
   progressKey,
   onProcessItem = null,
-  progressKey2 = null
+  progressKey2 = null,
 ) {
   const menu = [];
   const dataKeys = Object.keys(data);

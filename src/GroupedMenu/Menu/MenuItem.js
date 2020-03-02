@@ -228,7 +228,7 @@ class MenuItem extends React.Component {
                   React.cloneElement(i, {
                     key,
                     style: { color: '#333333' },
-                  })
+                  }),
                 )}
               </React.Fragment>
             }

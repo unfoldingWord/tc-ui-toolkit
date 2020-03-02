@@ -59,7 +59,7 @@ class FilteredMenu extends React.Component {
         {
           value: true, disables: [], id: filters[i].key,
         },
-        filters[i]
+        filters[i],
       );
       normalized.push(filter);
     }
