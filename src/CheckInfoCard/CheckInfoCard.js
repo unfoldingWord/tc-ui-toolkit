@@ -10,6 +10,7 @@ const CheckInfoCard = ({
   phrase,
   seeMoreLabel,
   onSeeMoreClick,
+  onLinkClick,
   showSeeMoreButton,
   getScriptureFromReference,
 }) => (
@@ -21,7 +22,7 @@ const CheckInfoCard = ({
     </div>
     <div className="rightSide">
       <div className="phrase">
-        <PhraseWithToolTip getScriptureFromReference={getScriptureFromReference} phrase={phrase} />
+        <PhraseWithToolTip getScriptureFromReference={getScriptureFromReference} phrase={phrase} onClickLink={onLinkClick} />
       </div>
       <div onClick={showSeeMoreButton ? onSeeMoreClick : null} className={showSeeMoreButton ? 'linkActive' : 'linkInactive'}>
         {seeMoreLabel}
@@ -35,6 +36,7 @@ CheckInfoCard.propTypes = {
   title: PropTypes.string,
   seeMoreLabel: PropTypes.string,
   onSeeMoreClick: PropTypes.func,
+  onLinkClick: PropTypes.func,
   showSeeMoreButton: PropTypes.bool,
   getScriptureFromReference: PropTypes.func,
 };
