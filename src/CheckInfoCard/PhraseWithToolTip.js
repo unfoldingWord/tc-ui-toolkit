@@ -53,7 +53,7 @@ function PhraseWithToolTip({
     );
   } else {
     return (
-      <div ref={phraseEl} style={{ color: '#abd4fd' }} dangerouslySetInnerHTML={{ __html: marked(phrase) }} />
+      <div ref={phraseEl} style={{ color: '#fff' }} dangerouslySetInnerHTML={{ __html: marked(phrase) }} />
     );
   }
 }
