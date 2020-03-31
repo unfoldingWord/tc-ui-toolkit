@@ -1,8 +1,21 @@
 /* eslint-disable no-return-assign */
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import { getOffset } from './helpers';
+import marked from 'marked';
 
 function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
+  const phraseEl = useRef(null);
+  useEffect(() => {
+    const anchors = phraseEl.current.getElementsByTagName(`a`);
+    console.log(anchors);
+    for (const a of anchors) {
+      a.onclick = (event) => {
+        event.preventDefault();
+        console.log(`Intercepted link ${a.href}`);
+      }
+    }
+  }, [phrase, phraseEl]);
+
   let scriptureRef;
   let tooltipRef;
   const rcMatch = phrase.match(/\[([^\]]+)\]\s*\(rc:\/\/([\w-]+)\/([\w-]+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
@@ -27,12 +40,13 @@ function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
           textDecoration: 'underline',
         }} ref={(ref) => scriptureRef = ref}>{referenceText}</span>
       </span>
+      {/*  TODO: this needs to be marked() as well */}
       {postReference}
     </div>
     );
   } else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: phrase }} />
+      <div ref={phraseEl} dangerouslySetInnerHTML={{ __html: marked(phrase) }} />
     );
   }
 }
