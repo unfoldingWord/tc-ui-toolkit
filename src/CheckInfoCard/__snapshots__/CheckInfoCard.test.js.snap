@@ -22,7 +22,13 @@ exports[`CheckInfoCard renders correctly 1`] = `
       <div
         dangerouslySetInnerHTML={
           Object {
-            "__html": "The term \\"save\\" refers to keeping someone from experiencing something bad or harmful. To \\"be safe\\" means to be protected from harm or danger.",
+            "__html": "<p>The term &quot;save&quot; refers to keeping someone from experiencing something bad or harmful. To &quot;be safe&quot; means to be protected from harm or danger.</p>
+",
+          }
+        }
+        style={
+          Object {
+            "color": "#fff",
           }
         }
       />
