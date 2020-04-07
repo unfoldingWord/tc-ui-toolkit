@@ -29,7 +29,6 @@ function PhraseWithToolTip({
   const showTooltip = rcMatch.length > 0;
 
   if (showTooltip) {
-    console.log("rendering smurf phrase with tooltip"); //debug
     const [wholeMatch, referenceText, lang, id, book, chapter, verse] = rcMatch;
     const [preReference, postReference] = phrase.split(wholeMatch);
     const tooltipLabel = getScriptureFromReference(lang, id, book, chapter, verse);
@@ -48,12 +47,11 @@ function PhraseWithToolTip({
           textDecoration: 'underline',
         }} ref={(ref) => scriptureRef = ref}>{referenceText}</span>
       </span>
-      {/*  TODO: this needs to be marked() as well */}
+      {/*  TODO: this needs to be marked() as well. But we need a use case to test this. */}
       {postReference}
     </div>
     );
   } else {
-    console.log("rendering smurf phrase"); // debug
     return (
       <div ref={phraseEl} style={{ color: '#fff' }} dangerouslySetInnerHTML={{ __html: marked(phrase) }} />
     );
