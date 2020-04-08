@@ -1,8 +1,28 @@
 /* eslint-disable no-return-assign */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import marked from 'marked';
 import { getOffset } from './helpers';
 
-function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
+function PhraseWithToolTip({
+  phrase, getScriptureFromReference, onClickLink,
+}) {
+  const phraseEl = useRef(null);
+
+  useEffect(() => {
+    const anchors = phraseEl.current.getElementsByTagName(`a`);
+
+    for (const a of anchors) {
+      a.onclick = (event) => {
+        event.preventDefault();
+
+        if (typeof onClickLink === 'function') {
+          // give the link path and title to the handler.
+          onClickLink(a.href, a.innerHTML);
+        }
+      };
+    }
+  }, [phrase, phraseEl, onClickLink]);
+
   let scriptureRef;
   let tooltipRef;
   const rcMatch = phrase.match(/\[([^\]]+)\]\s*\(rc:\/\/([\w-]+)\/([\w-]+)\/book\/(\w+)\/(\d+)\/(\d+)\)/) || [];
@@ -27,12 +47,13 @@ function PhraseWithToolTip({ phrase, getScriptureFromReference }) {
           textDecoration: 'underline',
         }} ref={(ref) => scriptureRef = ref}>{referenceText}</span>
       </span>
+      {/*  TODO: this needs to be marked() as well. But we need a use case to test this. */}
       {postReference}
     </div>
     );
   } else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: phrase }} />
+      <div ref={phraseEl} style={{ color: '#fff' }} dangerouslySetInnerHTML={{ __html: marked(phrase) }} />
     );
   }
 }
