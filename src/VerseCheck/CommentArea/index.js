@@ -5,6 +5,14 @@ import {
 } from 'react-bootstrap';
 import './CommentArea.styles.css';
 
+const _onFocus = (e) => {
+  const length = (e.target && e.target.value && e.target.value.length) || 0;
+
+  if ( length > 0 ) {
+    e.target.setSelectionRange(length, length); // TRICKY: we need to move cursor to end of text to match behavior of electron 3
+  }
+};
+
 const CommentArea = ({
   comment,
   translate,
@@ -17,7 +25,9 @@ const CommentArea = ({
       {translate('comment')}
     </div>
     <FormGroup style={{ flex: 'auto', display: 'flex' }} controlId="formControlsTextarea">
-      <FormControl autoFocus
+      <FormControl
+        autoFocus
+        onFocus={_onFocus}
         componentClass='textarea'
         type='text'
         defaultValue={comment}
