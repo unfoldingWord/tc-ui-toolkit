@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
 
 import './EditVerseArea.styles.css';
 
@@ -100,6 +101,7 @@ const EditVerseArea = ({
       }} controlId='formControlsTextarea'>
         <FormControl
           autoFocus
+          onFocus={moveCursorToEnd}
           componentClass='textarea'
           type='text'
           defaultValue={verseText}

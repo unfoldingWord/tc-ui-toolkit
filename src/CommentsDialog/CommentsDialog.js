@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
+import { moveCursorToEnd } from '../VerseEditor/helpers/editHelpers';
 import BaseDialog from './BaseDialog';
 
 /**
@@ -86,6 +87,7 @@ class CommentsDialog extends React.Component {
           rows={8}
           className='edit-screen'
           autoFocus={true}
+          onFocus={moveCursorToEnd}
           onChange={this._handleCommentChange}
           value={currentComment}/>
       </BaseDialog>

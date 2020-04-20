@@ -39,6 +39,7 @@ exports[`CommentsDialog component: should render 1`] = `
     className="edit-screen"
     id="verse-editor-field"
     onChange={[Function]}
+    onFocus={[Function]}
     rows={8}
     value="Comment Text"
   />

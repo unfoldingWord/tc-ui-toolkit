@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { moveCursorToEnd } from './helpers/editHelpers';
 
 /**
  * @callback EditScreen~onChange
@@ -32,6 +33,7 @@ class EditScreen extends React.Component {
         rows={rows}
         className='edit-screen'
         autoFocus={true}
+        onFocus={moveCursorToEnd}
         onChange={this._handleChange}
         value={verseText}
         style={style}
