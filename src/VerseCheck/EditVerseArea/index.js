@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
 
 import './EditVerseArea.styles.css';
 
@@ -18,14 +19,6 @@ const styles = {
   },
   checkBox: { '&$checked': { color: 'var(--accent-color-dark)' } },
   checked:{},
-};
-
-const _onFocus = (e) => {
-  const length = (e.target && e.target.value && e.target.value.length) || 0;
-
-  if ( length > 0 ) {
-    e.target.setSelectionRange(length, length); // TRICKY: we need to move cursor to end of text to match behavior of electron 3
-  }
 };
 
 const EditVerseArea = ({
@@ -108,7 +101,7 @@ const EditVerseArea = ({
       }} controlId='formControlsTextarea'>
         <FormControl
           autoFocus
-          onFocus={_onFocus}
+          onFocus={moveCursorToEnd}
           componentClass='textarea'
           type='text'
           defaultValue={verseText}

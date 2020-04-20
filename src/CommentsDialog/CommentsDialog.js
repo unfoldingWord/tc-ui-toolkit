@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
+import { moveCursorToEnd } from '../VerseEditor/helpers/editHelpers';
 import BaseDialog from './BaseDialog';
 
 /**
@@ -23,7 +24,6 @@ class CommentsDialog extends React.Component {
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleClose = this._handleClose.bind(this);
     this._handleCommentChange = this._handleCommentChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
 
     const { comment } = props;
 
@@ -54,14 +54,6 @@ class CommentsDialog extends React.Component {
   _handleClose() {
     const { onClose } = this.props;
     onClose();
-  }
-
-  onFocus(e) {
-    const length = (e.target && e.target.value && e.target.value.length) || 0;
-
-    if ( length > 0 ) {
-      e.target.setSelectionRange(length, length); // TRICKY: we need to move cursor to end of text to match behavior of electron 3
-    }
   }
 
   render() {
@@ -95,7 +87,7 @@ class CommentsDialog extends React.Component {
           rows={8}
           className='edit-screen'
           autoFocus={true}
-          onFocus={this.onFocus}
+          onFocus={moveCursorToEnd}
           onChange={this._handleCommentChange}
           value={currentComment}/>
       </BaseDialog>
