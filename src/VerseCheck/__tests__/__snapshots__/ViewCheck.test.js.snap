@@ -188,6 +188,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
 \\\\s5
 "
                 id="formControlsTextarea"
+                onFocus={[Function]}
                 style={
                   Object {
                     "direction": "ltr",

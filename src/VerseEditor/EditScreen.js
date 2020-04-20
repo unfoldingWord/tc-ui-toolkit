@@ -15,11 +15,20 @@ class EditScreen extends React.Component {
   constructor(props) {
     super(props);
     this._handleChange = this._handleChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   _handleChange(event) {
     const { onChange } = this.props;
     onChange(event.target.value);
+  }
+
+  onFocus(e) {
+    const length = (e.target && e.target.value && e.target.value.length) || 0;
+
+    if ( length > 0 ) {
+      e.target.setSelectionRange(length, length); // TRICKY: we need to move cursor to end of text to match behavior of electron 3
+    }
   }
 
   render() {
@@ -32,6 +41,7 @@ class EditScreen extends React.Component {
         rows={rows}
         className='edit-screen'
         autoFocus={true}
+        onFocus={this.onFocus}
         onChange={this._handleChange}
         value={verseText}
         style={style}
