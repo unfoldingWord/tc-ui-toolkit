@@ -1,7 +1,11 @@
 language: node_js
 
 node_js:
-  - stable
+  - 12.4.0
+
+before_install:
+  - npm i -g npm@6.4.1 jest codecov
+  - npm --version
 
 install:
   - npm install
