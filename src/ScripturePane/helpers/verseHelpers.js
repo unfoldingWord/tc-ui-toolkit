@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
-import stringTokenizer from 'string-punctuation-tokenizer';
+import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
