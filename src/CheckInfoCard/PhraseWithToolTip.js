@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import marked from 'marked';
-import {getOffset} from './helpers';
+import { getOffset } from './helpers';
 
 /**
  * Attaches click listeners to links in the ref's text
@@ -27,7 +27,9 @@ const useLinkEffect = (ref, onClick) => {
   }, [ref, onClick]);
 };
 
-function PhraseWithToolTip({phrase, getScriptureFromReference, onClickLink}) {
+function PhraseWithToolTip({
+  phrase, getScriptureFromReference, onClickLink,
+}) {
   const phraseEl = useRef(null);
   const toolTippedPhraseEl = useRef(null);
 
@@ -45,18 +47,18 @@ function PhraseWithToolTip({phrase, getScriptureFromReference, onClickLink}) {
     const tooltipLabel = getScriptureFromReference(lang, id, book, chapter, verse);
     return (
       <div>
-        <span dangerouslySetInnerHTML={{__html: preReference}}/>
+        <span dangerouslySetInnerHTML={{ __html: preReference }}/>
         <span onMouseEnter={() => {
-          const {top, left} = getOffset(scriptureRef);
+          const { top, left } = getOffset(scriptureRef);
           tooltipRef.style.top = `${top}px`;
           tooltipRef.style.left = `${left}px`;
           tooltipRef.style.width = `${scriptureRef.offsetWidth}px`;
           tooltipRef.style.height = `${scriptureRef.offsetHeight}px`;
-        }} style={{position: 'relative'}}>
+        }} style={{ position: 'relative' }}>
           <div ref={(ref) => tooltipRef = ref}
-               aria-label={tooltipLabel}
-               className="hint--top hint--medium"
-               style={{position: 'fixed'}}/>
+            aria-label={tooltipLabel}
+            className="hint--top hint--medium"
+            style={{ position: 'fixed' }}/>
           <span style={{
             whiteSpace: 'nowrap',
             textDecoration: 'underline',
@@ -64,13 +66,13 @@ function PhraseWithToolTip({phrase, getScriptureFromReference, onClickLink}) {
             {referenceText}
           </span>
         </span>
-        <span ref={toolTippedPhraseEl} style={{color: '#fff'}}
-              dangerouslySetInnerHTML={{__html: marked(postReference)}}/>
+        <span ref={toolTippedPhraseEl} style={{ color: '#fff' }}
+          dangerouslySetInnerHTML={{ __html: marked(postReference) }}/>
       </div>
     );
   } else {
     return (
-      <div ref={phraseEl} style={{color: '#fff'}} dangerouslySetInnerHTML={{__html: marked(phrase)}}/>
+      <div ref={phraseEl} style={{ color: '#fff' }} dangerouslySetInnerHTML={{ __html: marked(phrase) }}/>
     );
   }
 }
