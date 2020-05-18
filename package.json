@@ -44,7 +44,9 @@
     ],
     "coverageDirectory": "coverage",
     "testPathIgnorePatterns": [
-      "tc-ui-toolkit-test/*"
+      "tc-ui-toolkit-test/*",
+      "dist/*",
+      "lib/*"
     ],
     "rootDir": "./",
     "moduleNameMapper": {
