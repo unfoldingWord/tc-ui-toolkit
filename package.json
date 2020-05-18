@@ -10,7 +10,7 @@
     "test": "eslint ./src && jest",
     "fix": "eslint ./src --fix",
     "prebuild": "rm -rf ./lib",
-    "build": "NODE_ENV=production babel ./src -d ./lib --source-maps",
+    "build": "NODE_ENV=production babel ./src -d ./lib --copy-files --no-copy-ignored",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build",
     "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"
