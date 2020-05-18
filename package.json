@@ -48,10 +48,6 @@
       "dist/*",
       "lib/*"
     ],
-    "rootDir": "./",
-    "moduleNameMapper": {
-      "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
-    },
     "modulePathIgnorePatterns": [
       "tc-ui-toolkit-test/"
     ]
@@ -115,7 +111,7 @@
     "react-dom": "16.8.6",
     "react-test-renderer": "16.8.5",
     "string-punctuation-tokenizer": "2.0.0",
-    "style-loader": "^1.1.3",
+    "style-loader": "0.23.1",
     "word-aligner": "0.3.0"
   }
 }
