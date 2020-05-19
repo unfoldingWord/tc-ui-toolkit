@@ -1,10 +1,12 @@
 /* eslint-env jest */
+import path from 'path';
+import fs from 'fs-extra';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import VerseCheck from '../VerseCheck';
 
 const mock_translate = (text) => (text);
-const base_props = require('./fixtures/project/loadedProjectShortened');
+const base_props = fs.readJsonSync(path.join('./src/VerseCheck/__tests__/fixtures/project/loadedProjectShortened.json'));
 let currentInvalidated = false;
 let currentEdited = false;
 
