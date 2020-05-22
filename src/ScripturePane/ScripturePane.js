@@ -111,6 +111,7 @@ class ScripturePane extends Component {
         const { languageId, bibleId } = paneSettings;
         const { manifest } = bibles[languageId][bibleId];
         let language_name = manifest.language_name;
+        const targetLanguageFont = manifest.languageFont || '';
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
@@ -137,17 +138,18 @@ class ScripturePane extends Component {
         panes.push(
           <Pane
             key={index.toString()}
-            translate={translate}
             index={index}
-            chapter={chapter}
             verse={verse}
+            chapter={chapter}
             bibleId={bibleId}
-            languageName={language_name}
-            direction={manifest.direction}
+            translate={translate}
             description={description}
-            verseElements={verseElements}
-            clickToRemoveResourceLabel={translate('pane.remove_resource')}
+            languageName={language_name}
             removePane={this.removePane}
+            verseElements={verseElements}
+            direction={manifest.direction}
+            targetLanguageFont={targetLanguageFont}
+            clickToRemoveResourceLabel={translate('pane.remove_resource')}
           />,
         );
       } catch (err) {
