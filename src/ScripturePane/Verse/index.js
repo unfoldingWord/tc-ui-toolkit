@@ -74,6 +74,10 @@ class Verse extends Component {
 
     if (isTargetBible) {
       fontClass = getFontClassName(targetLanguageFont);
+      console.log('====================================');
+      console.log('Verse targetLanguageFont', targetLanguageFont);
+      console.log('Verse fontClass', fontClass);
+      console.log('====================================');
     }
 
     return (

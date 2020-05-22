@@ -135,6 +135,10 @@ class ScripturePane extends Component {
           verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
 
+        console.log('====================================');
+        console.log('ScripturePane targetLanguageFont', targetLanguageFont);
+        console.log('====================================');
+
         panes.push(
           <Pane
             key={index.toString()}
