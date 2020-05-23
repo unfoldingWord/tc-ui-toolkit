@@ -20,10 +20,8 @@ const Pane = ({
   description,
   languageName,
   verseElements,
-  targetLanguageFont,
   clickToRemoveResourceLabel,
 }) => {
-  const isTargetBible = bibleId === 'targetBible';
   const headingText = bibleId !== 'targetBible' ? languageName + ' (' + bibleId.toUpperCase() + ')' : (languageName || '');
   const PANECHAR = 9;
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
@@ -66,8 +64,6 @@ const Pane = ({
           translate={translate}
           direction={direction}
           verseElements={verseElements}
-          isTargetBible={isTargetBible}
-          targetLanguageFont={targetLanguageFont}
         />
       </div>
     </div>
@@ -84,7 +80,6 @@ Pane.propTypes = {
   verse: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
-  targetLanguageFont: PropTypes.string,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,

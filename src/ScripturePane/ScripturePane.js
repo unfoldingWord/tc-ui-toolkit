@@ -134,7 +134,8 @@ class ScripturePane extends Component {
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize);
+          const isTargetBible = bibleId === 'targetBible';
+          verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
         } else if (verseData) { // else the verse content is an array of verse objects.
           verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
@@ -156,7 +157,6 @@ class ScripturePane extends Component {
             removePane={this.removePane}
             verseElements={verseElements}
             direction={manifest.direction}
-            targetLanguageFont={targetLanguageFont}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
           />,
         );

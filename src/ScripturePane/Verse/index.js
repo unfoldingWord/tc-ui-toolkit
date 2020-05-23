@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import './Verse.styles.css';
-import { getFontClassName } from '../../common/fontUtils';
 
 const styles = {
   edit_wrapper: { textAlign: 'right' },
@@ -40,8 +39,6 @@ class Verse extends Component {
       verse,
       onEdit,
       translate,
-      isTargetBible,
-      targetLanguageFont,
     } = this.props;
     const chapterVerseContent = `${chapter}:${verse} `;
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
@@ -70,19 +67,6 @@ class Verse extends Component {
 
     const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
     let fontClass = '';
-
-    console.log('====================================');
-    console.log('isTargetBible', isTargetBible);
-    console.log('====================================');
-    console.log('Verse targetLanguageFont', targetLanguageFont);
-
-    if (isTargetBible) {
-      fontClass = getFontClassName(targetLanguageFont);
-      console.log('====================================');
-      console.log('Verse targetLanguageFont', targetLanguageFont);
-      console.log('Verse fontClass', fontClass);
-      console.log('====================================');
-    }
 
     return (
       <div className="verse-container">
@@ -116,8 +100,6 @@ Verse.propTypes = {
   ]),
   onEdit: PropTypes.func,
   translate: PropTypes.func.isRequired,
-  isTargetBible: PropTypes.bool,
-  targetLanguageFont: PropTypes.string,
 };
 
 export default Verse;
