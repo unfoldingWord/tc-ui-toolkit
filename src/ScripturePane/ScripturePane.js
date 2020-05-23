@@ -99,6 +99,7 @@ class ScripturePane extends Component {
       selections,
       getLexiconData,
       showPopover,
+      projectDetailsReducer: { manifest: projectManifest },
     } = this.props;
 
     const panes = [];
@@ -108,10 +109,13 @@ class ScripturePane extends Component {
       const index = i;
 
       try {
+        console.log('====================================');
+        console.log('projectManifest', projectManifest);
+        console.log('====================================');
         const { languageId, bibleId } = paneSettings;
         const { manifest } = bibles[languageId][bibleId];
         let language_name = manifest.language_name;
-        const targetLanguageFont = manifest.languageFont || '';
+        const targetLanguageFont = projectManifest.languageFont || '';
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
