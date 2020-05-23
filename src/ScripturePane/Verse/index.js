@@ -69,7 +69,6 @@ class Verse extends Component {
     }
 
     const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
-
     let fontClass = '';
 
     console.log('====================================');
@@ -87,9 +86,9 @@ class Verse extends Component {
 
     return (
       <div className="verse-container">
-        <div className={`${directionClassName} ${fontClass}`}>
+        <div className={directionClassName}>
           {chapterVerse}
-          {verseSpan}
+          <span className={fontClass}>{verseSpan}</span>
         </div>
         {edit}
       </div>
