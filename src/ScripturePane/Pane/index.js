@@ -23,8 +23,8 @@ const Pane = ({
   targetLanguageFont,
   clickToRemoveResourceLabel,
 }) => {
-  const isTargetBible = bibleId !== 'targetBible';
-  const headingText = isTargetBible ? languageName + ' (' + bibleId.toUpperCase() + ')' : (languageName || '');
+  const isTargetBible = bibleId === 'targetBible';
+  const headingText = bibleId !== 'targetBible' ? languageName + ' (' + bibleId.toUpperCase() + ')' : (languageName || '');
   const PANECHAR = 9;
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
   return (
