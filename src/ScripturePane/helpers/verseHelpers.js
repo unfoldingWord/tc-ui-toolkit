@@ -42,10 +42,6 @@ export const verseString = (verseText, selections, translate, fontSize = 0, isTa
 
   if (isTargetBible) {
     fontClass = getFontClassName(targetLanguageFont);
-    console.log('====================================');
-    console.log('isTargetBible verseString targetLanguageFont', targetLanguageFont);
-    console.log('verseString fontClass', fontClass);
-    console.log('====================================');
   }
 
   let verseTextSpans = <span className={fontClass}>{newVerseText}</span>;

@@ -61,22 +61,26 @@ class ChapterView extends Component {
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
+        const { manifest: projectManifest } = projectDetailsReducer;
+        const targetLanguageFont = projectManifest.languageFont || '';
 
         verseRows.push(
           <VerseRow
-            translate={translate}
             key={verseNumber.toString()}
-            chapter={chapter}
             verse={verse}
             bibles={bibles}
+            chapter={chapter}
+            translate={translate}
             contextId={contextId}
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
+            targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
-            ref={node => this.verseRefs[refKey] = node} />,
+            ref={node => this.verseRefs[refKey] = node}
+          />,
         );
       }
     }
