@@ -51,6 +51,7 @@ class MyLanguageModal extends Component {
       classes,
       bookName,
       languageDirection,
+      targetLanguageFont,
     } = this.props;
     const title = bookName;
     let MyTargetLanguage = [];
@@ -88,6 +89,7 @@ class MyLanguageModal extends Component {
                 verseText={verseText}
                 styles={versePaneStyle}
                 dir={languageDirection}
+                targetLanguageFont={targetLanguageFont}
               />
             </div>,
           );
@@ -146,6 +148,7 @@ MyLanguageModal.propTypes = {
   translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   bookName: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default withStyles(styles)(MyLanguageModal);

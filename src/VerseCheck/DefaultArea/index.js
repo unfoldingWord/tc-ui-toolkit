@@ -99,14 +99,15 @@ class DefaultArea extends React.Component {
             <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }} />
           </div>
           <MyLanguageModal
+            bookName={bookName}
             translate={translate}
-            targetLanguageDetails={targetLanguageDetails}
-            show={this.state.modalVisibility}
             targetBible={targetBible}
             chapter={reference.chapter}
             currentVerse={reference.verse}
+            show={this.state.modalVisibility}
+            targetLanguageFont={targetLanguageFont}
+            targetLanguageDetails={targetLanguageDetails}
             languageDirection={languageDirection || 'ltr'}
-            bookName={bookName}
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
