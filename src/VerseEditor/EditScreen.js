@@ -32,7 +32,7 @@ class EditScreen extends React.Component {
       targetLanguageFont,
     } = this.props;
     const fontClass = getFontClassName(targetLanguageFont);
-    const className = fontClass ? `edit-screen ${fontClass}-text` : 'edit-screen';
+    const className = fontClass ? `edit-screen ${fontClass}` : 'edit-screen';
 
     return (
       <textarea
