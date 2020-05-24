@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
 
 import './EditVerseArea.styles.css';
+import { getFontClassName } from '../../common/fontUtils';
 
 const styles = {
   formControlLabelRoot: { height: 30 },
@@ -31,6 +32,7 @@ const EditVerseArea = ({
   handleTagsCheckbox,
   handleEditVerse,
   checkIfVerseChanged,
+  targetLanguageFont,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -89,6 +91,7 @@ const EditVerseArea = ({
   );
 
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
+  const fontClass = getFontClassName(targetLanguageFont);
 
   return (
     <div className='edit-area'>
@@ -105,6 +108,7 @@ const EditVerseArea = ({
           componentClass='textarea'
           type='text'
           defaultValue={verseText}
+          className={fontClass}
           style={{
             flex: 'auto',
             minHeight: '110px',
@@ -146,6 +150,7 @@ EditVerseArea.propTypes = {
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default withStyles(styles)(EditVerseArea);

@@ -5,6 +5,7 @@ import isEqual from 'deep-equal';
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
+import { getFontClassName } from '../../common/fontUtils';
 
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
@@ -88,8 +89,10 @@ class RenderSelectionTextComponent extends Component {
         }
       }
 
+      const fontClass = getFontClassName(this.props.targetLanguageFont);
+
       return (
-        <span key={index} style={style} onClick={callback}>
+        <span key={index} className={fontClass} style={style} onClick={callback}>
           {stringSplice.text}
         </span>
       );
@@ -122,6 +125,7 @@ RenderSelectionTextComponent.propTypes = {
   maximumSelections: PropTypes.number.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default RenderSelectionTextComponent;

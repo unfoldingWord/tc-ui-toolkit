@@ -117,6 +117,7 @@ DefaultArea.propTypes = {
   validateSelections: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default DefaultArea;

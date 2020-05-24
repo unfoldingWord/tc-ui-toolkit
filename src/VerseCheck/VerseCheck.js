@@ -57,8 +57,9 @@ class VerseCheck extends Component {
       checkIfVerseChanged,
       checkIfCommentChanged,
       validateSelections,
+      manifest,
     } = this.props;
-
+    const targetLanguageFont = manifest.languageFont || '';
     let titleText;
     let saveArea;
 
@@ -109,27 +110,28 @@ class VerseCheck extends Component {
               mode={mode}
               tags={tags}
               verseText={verseText}
-              unfilteredVerseText={unfilteredVerseText}
-              isVerseChanged={isVerseChanged}
               comment={commentText}
-              newSelections={newSelections}
-              selections={selections}
               translate={translate}
-              nothingToSelect={nothingToSelect}
-              targetLanguageDetails={targetLanguageDetails}
-              bookDetails={bookDetails}
               contextId={contextId}
-              targetBible={targetBible}// TODO:
+              selections={selections}
+              bookDetails={bookDetails}
+              targetBible={targetBible}
+              newSelections={newSelections}
               alignedGLText={alignedGLText}
-              invalidated={isVerseInvalidated}
-              maximumSelections={maximumSelections}
               handleComment={handleComment}
+              isVerseChanged={isVerseChanged}
+              invalidated={isVerseInvalidated}
+              nothingToSelect={nothingToSelect}
               openAlertDialog={openAlertDialog}
               handleEditVerse={handleEditVerse}
-              checkIfVerseChanged={checkIfVerseChanged}
-              checkIfCommentChanged={checkIfCommentChanged}
+              maximumSelections={maximumSelections}
               handleTagsCheckbox={handleTagsCheckbox}
               validateSelections={validateSelections}
+              targetLanguageFont={targetLanguageFont}
+              unfilteredVerseText={unfilteredVerseText}
+              checkIfVerseChanged={checkIfVerseChanged}
+              targetLanguageDetails={targetLanguageDetails}
+              checkIfCommentChanged={checkIfCommentChanged}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
             />
             <ActionsArea
@@ -213,6 +215,7 @@ VerseCheck.propTypes = {
   validateSelections: PropTypes.func.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
+  manifest: PropTypes.object,
 };
 
 VerseCheck.defaultProps = {

@@ -15,6 +15,7 @@ const SelectionArea = ({
   changeSelectionsInLocalState,
   bookDetails,
   targetLanguageDetails,
+  targetLanguageFont,
 }) => {
   const { book, direction: languageDirection } = targetLanguageDetails;
   const bookName = book && book.name ? book.name : bookDetails.name;
@@ -35,12 +36,13 @@ const SelectionArea = ({
       <div style={{ overflow: 'auto' }}>
         <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           <RenderSelectionTextComponent
-            translate={translate}
             mode={mode}
+            translate={translate}
             verseText={verseText}
             selections={selections}
-            maximumSelections={maximumSelections}
             openAlertDialog={openAlertDialog}
+            maximumSelections={maximumSelections}
+            targetLanguageFont={targetLanguageFont}
             changeSelectionsInLocalState={changeSelectionsInLocalState}
           />
         </div>
@@ -61,6 +63,7 @@ SelectionArea.propTypes = {
   openAlertDialog: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default SelectionArea;
