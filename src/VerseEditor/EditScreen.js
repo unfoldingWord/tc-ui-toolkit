@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getFontClassName } from '../common/fontUtils';
 import { moveCursorToEnd } from './helpers/editHelpers';
 
 /**
@@ -25,13 +26,19 @@ class EditScreen extends React.Component {
 
   render() {
     const {
-      verseText, rows, style,
+      rows,
+      style,
+      verseText,
+      targetLanguageFont,
     } = this.props;
+    const fontClass = getFontClassName(targetLanguageFont);
+    const className = fontClass ? `edit-screen ${fontClass}` : 'edit-screen';
+
     return (
       <textarea
         id="verse-editor-field"
         rows={rows}
-        className='edit-screen'
+        className={className}
         autoFocus={true}
         onFocus={moveCursorToEnd}
         onChange={this._handleChange}
@@ -43,10 +50,11 @@ class EditScreen extends React.Component {
 }
 
 EditScreen.propTypes = {
-  verseText: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   rows: PropTypes.number.isRequired,
   style: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  verseText: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 EditScreen.defaultProps = {
