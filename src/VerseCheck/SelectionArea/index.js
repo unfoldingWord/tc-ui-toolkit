@@ -21,6 +21,9 @@ const SelectionArea = ({
   const bookName = book && book.name ? book.name : bookDetails.name;
   const languageName = targetLanguageDetails.name || null;
 
+  console.log('====================================');
+  console.log('SelectionArea targetLanguageFont', targetLanguageFont);
+  console.log('====================================');
   return (
     <div className='selection-area-root'>
       <div className='verse-title'>
