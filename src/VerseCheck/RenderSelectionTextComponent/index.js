@@ -104,10 +104,13 @@ class RenderSelectionTextComponent extends Component {
   }
 
   render() {
-    let { verseText, selections } = this.props;
+    let {
+      verseText, selections, targetLanguageFont,
+    } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = stringHelpers.normalizeString(verseText);
-    let verseTextSpans = <span>{verseText}</span>;
+    const fontClass = getFontClassName(targetLanguageFont);
+    let verseTextSpans = <span className={fontClass}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       verseTextSpans = this.verseTextSpans(selections, verseText);
