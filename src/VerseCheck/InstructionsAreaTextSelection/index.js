@@ -11,6 +11,7 @@ QuoatationMarks.propTypes = { children: PropTypes.object.isRequired };
 
 const getSelectionSpans = (selections, targetLanguageFont) => {
   const results = [];
+  const fontClass = getFontClassName(targetLanguageFont);
 
   for (let i = 0, len = selections.length; i < len; i++) {
     const selection = selections[i];
@@ -18,7 +19,7 @@ const getSelectionSpans = (selections, targetLanguageFont) => {
 
     results.push(
       <span key={index} >
-        <strong style={{ color: 'var(--accent-color)' }}>
+        <strong style={{ color: 'var(--accent-color)' }} className={fontClass}>
           {`${selection.text.trim()}`}
         </strong>
         {selections[index + 1] ? <span>{' '}</span> : null}
