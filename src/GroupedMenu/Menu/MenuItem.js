@@ -9,6 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge';
 import memoize from 'memoize-one';
 import _ from 'lodash';
+import { getFontClassName } from '../../common/fontUtils';
 
 /**
  * Utility to generate styles for a tooltip arrow
@@ -291,10 +292,13 @@ class MenuItem extends React.Component {
     const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
+    const fontClass = getFontClassName(targetLanguageFont);
     console.log('====================================');
     console.log('MenuItem tooltipText', tooltipText);
     console.log('targetLanguageFont', targetLanguageFont);
+    console.log('fontClass', fontClass);
     console.log('====================================');
+
 
     return (
       <ListItem
@@ -313,7 +317,7 @@ class MenuItem extends React.Component {
             enterDelay={300}
             title={
               <React.Fragment>
-                <span>{tooltipText}</span>
+                <span className={fontClass}>{tooltipText}</span>
                 <span className={classes.arrow} ref={this.handleArrowRef}/>
               </React.Fragment>
             }
