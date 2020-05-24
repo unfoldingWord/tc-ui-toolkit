@@ -320,6 +320,7 @@ class Menu extends React.Component {
       entries,
       statusIcons,
       emptyNotice,
+      targetLanguageFont,
     } = this.props;
 
     const normalizedStatusIcons = this.normalizeStatusIcons(statusIcons);
@@ -356,6 +357,7 @@ class Menu extends React.Component {
                             onClick={this.handleClick(item)}
                             tooltip={item.tooltip ? item.tooltip : item.title}
                             title={item.title}
+                            targetLanguageFont={targetLanguageFont}
                           />
                         </RootRef>
                       ))}
@@ -385,6 +387,7 @@ Menu.propTypes = {
   emptyNotice: PropTypes.string,
   autoSelect: PropTypes.bool,
   autoScroll: PropTypes.bool,
+  targetLanguageFont: PropTypes.string,
 };
 
 Menu.defaultProps = {

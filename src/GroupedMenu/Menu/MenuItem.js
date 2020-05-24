@@ -279,17 +279,22 @@ class MenuItem extends React.Component {
 
   render() {
     const {
-      classes,
-      title,
-      statusIcons,
-      status,
       key,
-      selected,
+      title,
+      status,
       tooltip,
+      classes,
+      selected,
+      statusIcons,
+      targetLanguageFont,
     } = this.props;
     const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
+    console.log('====================================');
+    console.log('MenuItem tooltipText', tooltipText);
+    console.log('targetLanguageFont', targetLanguageFont);
+    console.log('====================================');
 
     return (
       <ListItem
@@ -308,7 +313,7 @@ class MenuItem extends React.Component {
             enterDelay={300}
             title={
               <React.Fragment>
-                {tooltipText}
+                <span>{tooltipText}</span>
                 <span className={classes.arrow} ref={this.handleArrowRef}/>
               </React.Fragment>
             }
@@ -358,6 +363,7 @@ MenuItem.propTypes = {
   selected: PropTypes.bool,
   statusIcons: PropTypes.arrayOf(PropTypes.object),
   status: PropTypes.object,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default withStyles(styles)(MenuItem);

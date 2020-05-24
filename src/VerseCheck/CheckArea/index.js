@@ -77,6 +77,7 @@ const CheckArea = ({
           mode={mode}
           translate={translate}
           invalidated={invalidated}
+          targetLanguageFont={targetLanguageFont}
         />
       </div>);
     break;
@@ -94,6 +95,7 @@ const CheckArea = ({
           translate={translate}
           invalidated={invalidated}
           nothingToSelect={nothingToSelect}
+          targetLanguageFont={targetLanguageFont}
         />
       </div>
     );
