@@ -78,6 +78,10 @@ class DefaultArea extends React.Component {
     const languageName = targetLanguageDetails.name || null;
     const languageDirection = direction || null;
 
+    console.log('====================================');
+    console.log('DefaultArea targetLanguageFont', targetLanguageFont);
+    console.log('====================================');
+
     return (
       <div style={{
         WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column',

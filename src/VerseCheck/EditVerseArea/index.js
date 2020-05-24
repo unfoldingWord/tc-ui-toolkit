@@ -93,6 +93,10 @@ const EditVerseArea = ({
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
   const fontClass = getFontClassName(targetLanguageFont);
 
+  console.log('====================================');
+  console.log('EditVerseArea fontClass', fontClass);
+  console.log('====================================');
+
   return (
     <div className='edit-area'>
       <div style={{ fontWeight: 'bold' }}>
