@@ -8,6 +8,7 @@ import { occurrencesInString } from '../helpers/stringHelpers';
 import MyLanguageModal from '../MyLanguageModal';
 // styling
 import '../VerseCheck.styles.css';
+import { getFontClassName } from '../../common/fontUtils';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -18,11 +19,12 @@ class DefaultArea extends React.Component {
     };
   }
 
-  displayText(verseText, selections) {
+  displayText(verseText, selections, targetLanguageFont) {
     const { validateSelections } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
-    let verseTextSpans = <span>{verseText}</span>;
+    const fontClass = getFontClassName(targetLanguageFont);
+    let verseTextSpans = <span className={fontClass}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
@@ -66,6 +68,7 @@ class DefaultArea extends React.Component {
       targetBible,
       bookDetails,
       targetLanguageDetails,
+      targetLanguageFont,
     } = this.props;
     const { book, direction } = targetLanguageDetails;
     const bookName = book && book.name ? book.name : bookDetails.name;
@@ -101,7 +104,7 @@ class DefaultArea extends React.Component {
           />
         </div>
         <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
-          {this.displayText(verseText, selections)}
+          {this.displayText(verseText, selections, targetLanguageFont)}
         </div>
       </div>
     );
