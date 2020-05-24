@@ -350,7 +350,7 @@ class MenuItem extends React.Component {
                 root: classes.textRoot,
                 primary: classes.text,
               }}
-              primary={<span ref={this.textRef}>{title}</span>}
+              primary={<span className={fontClass} ref={this.textRef}>{title}</span>}
             />
           </Tooltip>
         </RootRef>
