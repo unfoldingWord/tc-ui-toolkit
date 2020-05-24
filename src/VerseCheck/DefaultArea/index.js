@@ -49,7 +49,7 @@ class DefaultArea extends React.Component {
         let style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
 
         verseTextSpans.push(
-          <span key={index} style={style}>
+          <span key={index} className={fontClass} style={style}>
             {selection.text}
           </span>,
         );
