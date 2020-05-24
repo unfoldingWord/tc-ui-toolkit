@@ -24,6 +24,9 @@ class DefaultArea extends React.Component {
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
     const fontClass = getFontClassName(targetLanguageFont);
+    console.log('====================================');
+    console.log('DefaultArea displayText fontClass', fontClass);
+    console.log('====================================');
     let verseTextSpans = <span className={fontClass}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
