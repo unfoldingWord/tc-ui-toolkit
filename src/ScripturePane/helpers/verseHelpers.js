@@ -60,7 +60,7 @@ export const verseString = (verseText, selections, translate, fontSize = 0, isTa
         spanStyle.fontSize = Math.round(fontSize) + '%';
       }
       verseTextSpans.push(
-        <span key={index} style={spanStyle}>
+        <span key={index} className={fontClass} style={spanStyle}>
           {selection.text}
         </span>,
       );
