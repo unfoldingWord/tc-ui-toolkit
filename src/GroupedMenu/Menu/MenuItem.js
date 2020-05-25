@@ -293,13 +293,6 @@ class MenuItem extends React.Component {
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
     const fontClass = getFontClassName(targetLanguageFont);
-    console.log('====================================');
-    console.log('MenuItem tooltipText', tooltipText);
-    console.log('MenuItem title', title);
-    console.log('targetLanguageFont', targetLanguageFont);
-    console.log('fontClass', fontClass);
-    console.log('====================================');
-
 
     return (
       <ListItem

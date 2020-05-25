@@ -322,10 +322,6 @@ class Menu extends React.Component {
       emptyNotice,
       targetLanguageFont,
     } = this.props;
-
-    console.log('====================================');
-    console.log('Menu targetLanguageFont', targetLanguageFont);
-    console.log('====================================');
     const normalizedStatusIcons = this.normalizeStatusIcons(statusIcons);
 
     return (

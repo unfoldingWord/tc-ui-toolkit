@@ -91,9 +91,6 @@ class RenderSelectionTextComponent extends Component {
 
       const fontClass = getFontClassName(this.props.targetLanguageFont);
 
-      console.log('====================================');
-      console.log('RenderSelectionTextComponent verseTextSpans fontClass', fontClass);
-      console.log('====================================');
       return (
         <span key={index} className={fontClass} style={style} onClick={callback}>
           {stringSplice.text}
