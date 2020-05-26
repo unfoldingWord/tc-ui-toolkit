@@ -26,38 +26,60 @@ const Pane = ({
   const headingText = bibleId !== 'targetBible' ? languageName + ' (' + bibleId.toUpperCase() + ')' : (languageName || '');
   const PANECHAR = 9;
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
+
+  function getGlyphicon() {
+    return <Glyphicon
+      className="remove-glyph-icon"
+      glyph={'remove'}
+      title={clickToRemoveResourceLabel}
+      onClick={() => removePane(index)}
+    />;
+  }
+
+  function getContainerContent() {
+    return <div className="pane-title-container-content">
+      <span
+        className={headingText.length > 21 ? 'pane-title-text hint--bottom hint--medium' : 'pane-title-text'}
+        aria-label={headingText}>
+        {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
+      </span>
+      <ContainerDimensions>
+        {
+          ({ width }) =>
+            <span
+              className={localizedDescription.length > width / PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
+              aria-label={localizedDescription}>
+              {
+                localizedDescription.length > width / PANECHAR ?
+                  localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
+                  localizedDescription
+              }
+            </span>
+        }
+      </ContainerDimensions>
+    </div>;
+  }
+
+  function getTitleContainer(ltr) {
+    if (ltr) {
+      return <>
+        {getContainerContent()}
+        {getGlyphicon()}
+      </>;
+    } else { // arrange rtl
+      return <>
+        {getGlyphicon()}
+        {getContainerContent()}
+      </>;
+    }
+  }
+
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        <div className="pane-title-container-content">
-          <span
-            className={headingText.length > 21 ? 'pane-title-text hint--bottom hint--medium' : 'pane-title-text'}
-            aria-label={headingText}>
-            {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
-          </span>
-          <ContainerDimensions>
-            {
-              ({ width }) =>
-                <span
-                  className={localizedDescription.length > width/PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
-                  aria-label={localizedDescription}>
-                  {
-                    localizedDescription.length > width/PANECHAR ?
-                      localizedDescription.slice(0, Math.round(width/PANECHAR)) + '...' :
-                      localizedDescription
-                  }
-                </span>
-            }
-          </ContainerDimensions>
-        </div>
-        <Glyphicon
-          className="remove-glyph-icon"
-          glyph={'remove'}
-          title={clickToRemoveResourceLabel}
-          onClick={() => removePane(index)}
-        />
+        {getTitleContainer(layoutDirectionLTR)}
       </div>
-      <div className={layoutDirectionLTR ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
           translate={translate}
           verseElements={verseElements}
