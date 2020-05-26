@@ -14,6 +14,7 @@ const Pane = ({
   bibleId,
   languageName,
   direction,
+  layoutDirectionLTR,
   description,
   chapter,
   verse,
@@ -56,7 +57,7 @@ const Pane = ({
           onClick={() => removePane(index)}
         />
       </div>
-      <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={layoutDirectionLTR ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
           translate={translate}
           verseElements={verseElements}
@@ -86,6 +87,7 @@ Pane.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
+  layoutDirectionLTR: PropTypes.bool.isRequired,
 };
 
 Pane.defaultProps = { verseElements: [] };
