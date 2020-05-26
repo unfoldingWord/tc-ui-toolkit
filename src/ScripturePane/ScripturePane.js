@@ -99,7 +99,6 @@ class ScripturePane extends Component {
       selections,
       getLexiconData,
       showPopover,
-      layoutDirectionLTR,
     } = this.props;
 
     const panes = [];
@@ -149,7 +148,6 @@ class ScripturePane extends Component {
             verseElements={verseElements}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
             removePane={this.removePane}
-            layoutDirectionLTR={layoutDirectionLTR}
           />,
         );
       } catch (err) {
@@ -265,7 +263,6 @@ ScripturePane.propTypes = {
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func,
-  layoutDirectionLTR: PropTypes.bool.isRequired,
 };
 
 export default ScripturePane;

@@ -103,7 +103,6 @@ const Pane = ({
   bibleId,
   languageName,
   direction,
-  layoutDirectionLTR,
   description,
   chapter,
   verse,
@@ -112,18 +111,19 @@ const Pane = ({
   clickToRemoveResourceLabel,
   translate,
 }) => {
+  const isLTR = !direction || (direction == 'ltr');
   const headingText = bibleId !== 'targetBible' ?
-    getTargetBibleTitle(languageName, layoutDirectionLTR, bibleId)
+    getTargetBibleTitle(languageName, isLTR, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
 
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        {getTitleContainer(layoutDirectionLTR, headingText, localizedDescription,
+        {getTitleContainer(isLTR, headingText, localizedDescription,
           clickToRemoveResourceLabel, index, removePane)}
       </div>
-      <div className={direction === 'ltr' ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={isLTR ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
           translate={translate}
           verseElements={verseElements}
@@ -153,7 +153,6 @@ Pane.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
-  layoutDirectionLTR: PropTypes.bool.isRequired,
 };
 
 Pane.defaultProps = { verseElements: [] };
