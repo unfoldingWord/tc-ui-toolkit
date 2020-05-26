@@ -251,16 +251,8 @@ ScripturePane.defaultProps = {
 };
 
 ScripturePane.propTypes = {
-  titleLabel: PropTypes.string.isRequired,
-  closeButtonLabel: PropTypes.string.isRequired,
-  addResourceLabel: PropTypes.string.isRequired,
-  clickToRemoveResourceLabel: PropTypes.string.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
-  expandButtonHoverText: PropTypes.string.isRequired,
-  clickAddResource: PropTypes.string.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
-  selectLanguageLabel: PropTypes.string.isRequired,
-  selectLabel: PropTypes.string.isRequired,
   setToolSettings: PropTypes.func.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
