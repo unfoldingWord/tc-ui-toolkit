@@ -27,3 +27,17 @@ export function getTranslation(translate, text, deflt) {
   }
   return translation;
 }
+
+/**
+ * get proper text arrangement for language orientation
+ * @param {string} languageName
+ * @param {string} identifier
+ * @param {boolean} isLTR
+ * @return {string}
+ */
+export function getTargetBibleTitle(languageName, identifier, isLTR) {
+  if (isLTR) {
+    return `${languageName} (${identifier.toUpperCase()})`;
+  }
+  return `(${identifier.toUpperCase()}) ${languageName}`;
+}

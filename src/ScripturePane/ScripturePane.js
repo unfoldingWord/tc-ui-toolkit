@@ -9,6 +9,7 @@ import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
 // helpers
 import { verseString, verseArray } from './helpers/verseHelpers';
+import { getTargetBibleTitle } from './helpers/utils';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -119,7 +120,8 @@ class ScripturePane extends Component {
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          language_name = manifest.language_name + ' (' + manifest.language_id.toUpperCase() + ')';
+          let isLTR = !manifest.direction || (manifest.direction !== 'rtl');
+          language_name = getTargetBibleTitle(manifest.language_name, manifest.language_id, isLTR);
         }
 
         let description = manifest.description;

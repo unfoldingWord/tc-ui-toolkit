@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
-import { getTranslation } from '../helpers/utils';
+import { getTargetBibleTitle, getTranslation } from '../helpers/utils';
 
 import './Pane.styles.css';
 
@@ -11,20 +11,6 @@ import Verse from '../Verse';
 
 // constants
 const PANECHAR = 9;
-
-/**
- * get proper text arrangement
- * @param {string} languageName
- * @param {boolean} isLTR
- * @param {string} bibleId
- * @return {string}
- */
-function getTargetBibleTitle(languageName, isLTR, bibleId) {
-  if (isLTR) {
-    return `${languageName} (${bibleId.toUpperCase()})`;
-  }
-  return `(${bibleId.toUpperCase()}) ${languageName}`;
-}
 
 /**
  * create remove icon
@@ -111,9 +97,9 @@ const Pane = ({
   clickToRemoveResourceLabel,
   translate,
 }) => {
-  const isLTR = !direction || (direction == 'ltr');
+  const isLTR = !direction || (direction !== 'rtl');
   const headingText = bibleId !== 'targetBible' ?
-    getTargetBibleTitle(languageName, isLTR, bibleId)
+    getTargetBibleTitle(languageName, bibleId, isLTR)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
 
