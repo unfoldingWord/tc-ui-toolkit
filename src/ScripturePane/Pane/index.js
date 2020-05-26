@@ -36,8 +36,14 @@ const Pane = ({
     />;
   }
 
-  function getContainerContent() {
-    return <div className="pane-title-container-content">
+  /**
+   * create title container with selected overall justification
+   * @param {boolean} ltr - justification to use
+   * @return {*}
+   */
+  function getTitleContainerContent(ltr) {
+    const alignment = ltr ? 'textAlign: left' : 'textAlign: right';
+    return <div className="pane-title-container-content" style={alignment}>
       <span
         className={headingText.length > 21 ? 'pane-title-text hint--bottom hint--medium' : 'pane-title-text'}
         aria-label={headingText}>
@@ -60,16 +66,21 @@ const Pane = ({
     </div>;
   }
 
+  /**
+   * create title container content with selected justification
+   * @param {boolean} ltr - justification to use
+   * @return {*}
+   */
   function getTitleContainer(ltr) {
     if (ltr) {
       return <>
-        {getContainerContent()}
+        {getTitleContainerContent(ltr)}
         {getGlyphicon()}
       </>;
     } else { // arrange rtl
       return <>
         {getGlyphicon()}
-        {getContainerContent()}
+        {getTitleContainerContent(ltr)}
       </>;
     }
   }
