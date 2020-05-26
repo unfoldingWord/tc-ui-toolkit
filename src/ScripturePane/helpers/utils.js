@@ -41,3 +41,17 @@ export function getTargetBibleTitle(languageName, identifier, isLTR) {
   }
   return `(${identifier.toUpperCase()}) ${languageName}`;
 }
+
+/**
+ * get reference in order appropriate for language direction
+ * @param chapter
+ * @param verse
+ * @param isLTR
+ * @return {string}
+ */
+export function getReference(chapter, verse, isLTR) {
+  if (isLTR) {
+    return `${chapter}:${verse}`;
+  }
+  return `${verse}:${chapter}`;
+}
