@@ -42,8 +42,8 @@ const Pane = ({
    * @return {*}
    */
   function getTitleContainerContent(ltr) {
-    const alignment = ltr ? 'left' : 'right';
-    return <div className="pane-title-container-content" style={'textAlign: ' + alignment}>
+    const styles = { textAlign: ltr ? 'left' : 'right' };
+    return <div className="pane-title-container-content" style={styles}>
       <span
         className={headingText.length > 21 ? 'pane-title-text hint--bottom hint--medium' : 'pane-title-text'}
         aria-label={headingText}>
