@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
-import { getTargetBibleTitle, getTranslation } from '../helpers/utils';
+import {
+  getTargetBibleTitle, getTranslation, isLTR,
+} from '../helpers/utils';
 
 import './Pane.styles.css';
 
@@ -97,19 +99,19 @@ const Pane = ({
   clickToRemoveResourceLabel,
   translate,
 }) => {
-  const isLTR = (direction !== 'rtl');
+  const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
-    getTargetBibleTitle(languageName, bibleId, isLTR)
+    getTargetBibleTitle(languageName, bibleId, isLTR_)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
 
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        {getTitleContainer(isLTR, headingText, localizedDescription,
+        {getTitleContainer(isLTR_, headingText, localizedDescription,
           clickToRemoveResourceLabel, index, removePane)}
       </div>
-      <div className={isLTR ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
           translate={translate}
           verseElements={verseElements}
