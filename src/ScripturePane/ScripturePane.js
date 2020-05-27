@@ -120,7 +120,7 @@ class ScripturePane extends Component {
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          const isLTR = manifest.direction !== 'rtl';
+          const isLTR = (manifest.direction !== 'rtl');
           language_name = getTargetBibleTitle(manifest.language_name, manifest.language_id, isLTR);
         }
 
