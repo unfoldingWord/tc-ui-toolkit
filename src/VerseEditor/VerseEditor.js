@@ -113,7 +113,7 @@ class VerseEditor extends React.Component {
   render() {
     const {
       translate, open, verseTitle, verseText,
-      targetLanguage, targetLanguageDirection,
+      targetLanguage, direction,
     } = this.props;
     const {
       newVerse, reasons, verseChanged,
@@ -149,7 +149,7 @@ class VerseEditor extends React.Component {
             <EditScreen
               verseText={text}
               rows={rows}
-              direction={targetLanguageDirection}
+              direction={direction}
               onChange={this._handleVerseChange}
               style={styles.editor}
             />
@@ -198,12 +198,12 @@ VerseEditor.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   targetLanguage: PropTypes.string.isRequired,
-  targetLanguageDirection: PropTypes.string.isRequired,
+  direction: PropTypes.string.isRequired,
 };
 
 VerseEditor.defaultProps = {
   targetLanguage: '',
-  targetLanguageDirection: 'ltr',
+  direction: 'ltr',
 };
 
 export default VerseEditor;
