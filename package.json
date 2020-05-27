@@ -98,6 +98,7 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-jest-hoist": "^24.9.0",
+    "babel-plugin-react-css-modules": "5.2.6",
     "css-loader": "^3.4.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",

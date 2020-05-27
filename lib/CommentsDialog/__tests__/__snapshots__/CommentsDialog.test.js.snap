@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentsDialog component: should render 1`] = `
+<WithStyles(BaseDialog)
+  bodyStyle={
+    Object {
+      "overflowY": "auto",
+      "padding": "0 10px 0 10px",
+    }
+  }
+  contentStyle={
+    Object {
+      "width": "500px",
+    }
+  }
+  onClose={[Function]}
+  onSubmit={[Function]}
+  open={true}
+  primaryActionEnabled={false}
+  primaryLabel={
+    <div>
+      <Glyphicon
+        bsClass="glyphicon"
+        glyph="ok"
+        style={
+          Object {
+            "marginRight": "10px",
+          }
+        }
+      />
+      buttons.save_button
+    </div>
+  }
+  secondaryLabel="buttons.cancel_button"
+  title="comment_title: {\\"passage\\":\\"Rom 3:13\\"}"
+>
+  <textarea
+    autoFocus={true}
+    className="edit-screen"
+    id="verse-editor-field"
+    onChange={[Function]}
+    onFocus={[Function]}
+    rows={8}
+    value="Comment Text"
+  />
+</WithStyles(BaseDialog)>
+`;

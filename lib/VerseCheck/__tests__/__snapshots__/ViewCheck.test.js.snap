@@ -1,0 +1,1911 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    className="verse-check-flex"
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          edit_verse
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          style={
+            Object {
+              "WebkitUserSelect": "none",
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              <span
+                className="glyphicon glyphicon-fullscreen"
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="click_show_expanded"
+              />
+            </div>
+          </div>
+          <div
+            className="ltr-content"
+          >
+            <div
+              style={
+                Object {
+                  "color": "var(--text-color-light)",
+                  "userSelect": "none",
+                }
+              }
+            >
+              <span
+                className=""
+              >
+                Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            className="edit-area"
+          >
+            <div
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              <span
+                className="glyphicon glyphicon-pencil"
+                style={
+                  Object {
+                    "marginRight": "5px",
+                  }
+                }
+              />
+              edit_verse
+            </div>
+            <div
+              className="form-group"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": "auto",
+                  "flexDirection": "column",
+                  "marginBottom": "5px",
+                }
+              }
+            >
+              <textarea
+                autoFocus={true}
+                className="form-control"
+                defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
+\\\\s5
+"
+                id="formControlsTextarea"
+                onFocus={[Function]}
+                style={
+                  Object {
+                    "direction": "ltr",
+                    "flex": "auto",
+                    "minHeight": "110px",
+                  }
+                }
+                type="text"
+              />
+              <div
+                style={
+                  Object {
+                    "flex": "0 0 65px",
+                    "fontSize": "0.9em",
+                    "marginTop": "5px",
+                  }
+                }
+              >
+                first_make_change
+                <br />
+                <div
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "margin": "0px 0px 0px 15px",
+                      }
+                    }
+                  >
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        spelling
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        punctuation
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        word_choice
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "margin": "0px 0px 0px 15px",
+                      }
+                    }
+                  >
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        meaning
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        grammar
+                      </span>
+                    </label>
+                    <label
+                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                    >
+                      <span
+                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        onBlur={[Function]}
+                        onContextMenu={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        tabIndex="-1"
+                      >
+                        <span
+                          className="MuiIconButton-label-27"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="MuiSvgIcon-root-31"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                          </svg>
+                          <input
+                            checked={false}
+                            className="MuiPrivateSwitchBase-input-21"
+                            data-indeterminate={false}
+                            disabled={true}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                        </span>
+                      </span>
+                      <span
+                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                      >
+                        other
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="actions-area"
+      >
+        <button
+          className="btn-second"
+        >
+          cancel
+        </button>
+        <button
+          className="btn-prime"
+          disabled={true}
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "marginRight": "10px",
+              }
+            }
+          />
+          save
+        </button>
+      </div>
+    </div>
+    <div />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`VerseCheck component: Integrated View test 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    className="verse-check-flex"
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          select
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          className="selection-area-root"
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="ltr-content"
+            >
+              <div
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+              >
+                <span
+                  className=""
+                >
+                  Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "WebkitUserSelect": "none",
+                "alignItems": "center",
+                "display": "flex",
+                "flex": "1",
+                "justifyContent": "center",
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="instructions-area"
+            >
+              <span>
+                please_select
+              </span>
+              <br />
+              <span>
+                <strong
+                  style={
+                    Object {
+                      "color": "var(--accent-color)",
+                    }
+                  }
+                >
+                  "undefined"
+                </strong>
+              </span>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="selection-actions-area"
+      >
+        <div
+          className="flex-row"
+        >
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              no_selection_needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark"
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "0px",
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`VerseCheck component: Integrated View test with default and invalidated 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    className="verse-check-flex"
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          step2_check
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          style={
+            Object {
+              "WebkitUserSelect": "none",
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              <span
+                className="glyphicon glyphicon-fullscreen"
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="click_show_expanded"
+              />
+            </div>
+          </div>
+          <div
+            className="ltr-content"
+          >
+            <div
+              style={
+                Object {
+                  "color": "var(--text-color-light)",
+                  "userSelect": "none",
+                }
+              }
+            >
+              <span
+                className=""
+              >
+                Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "WebkitUserSelect": "none",
+                "alignItems": "center",
+                "display": "flex",
+                "height": "100%",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              className="instructions-area"
+            >
+              <span>
+                no_selection
+              </span>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="actions-area"
+      >
+        <label
+          className="MuiFormControlLabel-root-6"
+          style={
+            Object {
+              "paddingLeft": 10,
+            }
+          }
+        >
+          <span
+            className="MuiSwitch-root-104"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-107 Bookmark-colorSwitchBase-100 MuiSwitch-colorPrimary-109"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <span
+                  className="MuiSwitch-icon-105"
+                />
+                <input
+                  checked={false}
+                  className="MuiPrivateSwitchBase-input-21"
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="bookmark"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiSwitch-bar-112 Bookmark-colorBar-101"
+            />
+          </span>
+          <span
+            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-103"
+          >
+            bookmark
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "marginLeft": "auto",
+            }
+          }
+        >
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            select
+          </button>
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-pencil"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            edit_verse
+          </button>
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-comment"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            comment
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="save-area"
+    >
+      <button
+        className="btn-second"
+        onClick={[Function]}
+      >
+        <span
+          className="glyphicon glyphicon-share-alt"
+          style={
+            Object {
+              "marginRight": "10px",
+              "transform": "scaleX(-1)",
+            }
+          }
+        />
+        save_previous
+      </button>
+      <button
+        className="btn-prime"
+        onClick={[Function]}
+      >
+        save_continue
+        <span
+          className="glyphicon glyphicon-share-alt"
+          style={
+            Object {
+              "marginLeft": "10px",
+            }
+          }
+        />
+      </button>
+    </div>
+  </div>
+  <div />
+</div>
+`;
+
+exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    className="verse-check-flex"
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          select
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          className="selection-area-root"
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="ltr-content"
+            >
+              <div
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+              >
+                <span
+                  className=""
+                >
+                  Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "WebkitUserSelect": "none",
+                "alignItems": "center",
+                "display": "flex",
+                "flex": "1",
+                "justifyContent": "center",
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="instructions-area"
+            >
+              <span>
+                please_select
+              </span>
+              <br />
+              <span>
+                <strong
+                  style={
+                    Object {
+                      "color": "var(--accent-color)",
+                    }
+                  }
+                >
+                  "undefined"
+                </strong>
+              </span>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="selection-actions-area"
+      >
+        <div
+          className="flex-row"
+        >
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              no_selection_needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark"
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "0px",
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
+<div
+  className="verse-check"
+>
+  <div
+    className="verse-check-flex"
+  >
+    <div
+      className="verse-check-card"
+    >
+      <div
+        className="title-bar"
+      >
+        <span>
+          select
+        </span>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <span
+            className="glyphicon glyphicon-ok"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_selections_found"
+          />
+          <span
+            className="glyphicon glyphicon-pencil"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_verse_edits_found"
+          />
+          <span
+            className="glyphicon glyphicon-comment"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.no_comments_found"
+          />
+          <span
+            className="glyphicon glyphicon-bookmark"
+            style={
+              Object {
+                "color": "var(--reverse-color)",
+                "margin": "0px 20px",
+                "opacity": 0.2,
+              }
+            }
+            title="icons.not_bookmarked"
+          />
+        </div>
+      </div>
+      <div
+        className="check-area"
+      >
+        <div
+          className="selection-area-root"
+        >
+          <div
+            className="verse-title"
+          >
+            <div
+              className="pane"
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <span
+                className="verse-title-title"
+              >
+                Fwe
+              </span>
+              <span
+                className="verse-title-subtitle"
+              >
+                Titus
+                 
+                2:5
+              </span>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="ltr-content"
+            >
+              <div
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+              >
+                <span
+                  className=""
+                >
+                  Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid var(--border-color)",
+              "display": "flex",
+              "flex": 1,
+              "justifyContent": "center",
+              "overflowY": "auto",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "WebkitUserSelect": "none",
+                "alignItems": "center",
+                "display": "flex",
+                "flex": "1",
+                "justifyContent": "center",
+                "overflow": "auto",
+              }
+            }
+          >
+            <div
+              className="instructions-area"
+            >
+              <span>
+                please_select
+              </span>
+              <br />
+              <span>
+                <strong
+                  style={
+                    Object {
+                      "color": "var(--accent-color)",
+                    }
+                  }
+                >
+                  "undefined"
+                </strong>
+              </span>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="selection-actions-area"
+      >
+        <div
+          className="flex-row"
+        >
+          <label
+            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+          >
+            <span
+              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              onBlur={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={null}
+            >
+              <span
+                className="MuiIconButton-label-27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root-31"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                </svg>
+                <input
+                  className="MuiPrivateSwitchBase-input-21"
+                  data-indeterminate={false}
+                  disabled={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="nothingToSelect"
+                />
+              </span>
+              <span
+                className="MuiTouchRipple-root-92"
+              />
+            </span>
+            <span
+              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+            >
+              no_selection_needed
+            </span>
+          </label>
+          <div
+            data-class="selection-tooltip"
+            data-delay-hide="100"
+            data-effect="float"
+            data-place="top"
+            data-tip="nothing_to_select_description"
+            data-type="dark"
+            style={
+              Object {
+                "fontSize": "0.8em",
+                "verticalAlign": "super",
+              }
+            }
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+            <div
+              className="__react_component_tooltip place-top type-dark"
+              data-id="tooltip"
+            />
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
+          <button
+            className="btn-second"
+            onClick={[Function]}
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "0px",
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            cancel
+          </button>
+          <button
+            className="btn-second"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-erase"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            clear_selection
+          </button>
+          <button
+            className="btn-prime"
+            disabled={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "140px",
+              }
+            }
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
+              }
+            />
+            save
+          </button>
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
+  <div />
+</div>
+`;
