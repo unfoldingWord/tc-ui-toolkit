@@ -29,13 +29,13 @@ export function getTranslation(translate, text, deflt) {
 }
 
 /**
- * get proper text arrangement for language orientation
+ * get title with id arranged for language direction
  * @param {string} languageName
  * @param {string} identifier
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getTargetBibleTitle(languageName, identifier, direction) {
+export function getTitleWithId(languageName, identifier, direction) {
   if (isLTR(direction)) {
     return `${languageName} (${identifier.toUpperCase()})`;
   }
@@ -43,7 +43,7 @@ export function getTargetBibleTitle(languageName, identifier, direction) {
 }
 
 /**
- * get reference in order appropriate for language direction
+ * get reference arranged for language direction
  * @param {string} chapter
  * @param {string} verse
  * @param {boolean|string} direction
@@ -57,9 +57,9 @@ export function getReferenceStr(chapter, verse, direction) {
 }
 
 /**
- * get title in order appropriate for language direction
- * @param {string} first
- * @param {string} second
+ * get title arranged for language direction
+ * @param {string} first - initial text
+ * @param {string} second - following text
  * @param {boolean|string} direction
  * @return {string}
  */
@@ -71,7 +71,8 @@ export function getTitleStr(first, second, direction) {
 }
 
 /**
- * determine if direction is ltr.  If direction is not string then presume boolean true if LTR
+ * determine if language direction is ltr.  If direction parameter is not
+ *   string then treat as boolean (if true then LTR)
  * @param {boolean|string} direction
  * @return {boolean} true if LTR
  */

@@ -132,7 +132,7 @@ class VerseEditor extends React.Component {
     );
     const headingStyle = { ...styles.editHeading };
 
-    if (!isLTR(direction)) { // if rtl
+    if (!isLTR(direction)) { // if rtl, right justify
       headingStyle.textAlign = 'right';
       headingStyle.paddingRight = '6px';
     }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
 import { Glyphicon } from 'react-bootstrap';
 import {
-  getTargetBibleTitle, getTranslation, isLTR,
+  getTitleWithId, getTranslation, isLTR,
 } from '../helpers/utils';
 
 import './Pane.styles.css';
@@ -101,7 +101,7 @@ const Pane = ({
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
-    getTargetBibleTitle(languageName, bibleId, isLTR_)
+    getTitleWithId(languageName, bibleId, isLTR_)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
 

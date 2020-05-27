@@ -21,6 +21,6 @@ export { default as WordLexiconDetails } from './WordLexiconDetails';
 export { default as SpinningLogo } from './SpinningLogo';
 export { getAlignedText } from './VerseCheck/helpers/checkAreaHelpers';
 export {
-  getReferenceStr, getTargetBibleTitle, getTitleStr, isLTR,
+  getReferenceStr, getTitleWithId, getTitleStr, isLTR,
 } from './ScripturePane/helpers/utils';
 export { lexiconHelpers };
