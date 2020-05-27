@@ -133,7 +133,9 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                 }
               }
             >
-              <span>
+              <span
+                className=""
+              >
                 Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
               </span>
             </div>
@@ -677,7 +679,9 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>
@@ -1027,7 +1031,9 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 }
               }
             >
-              <span>
+              <span
+                className=""
+              >
                 Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
               </span>
             </div>
@@ -1349,7 +1355,9 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>
@@ -1683,7 +1691,9 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>

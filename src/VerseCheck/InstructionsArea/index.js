@@ -29,14 +29,15 @@ function getSelectionString(invalidated, translate) {
 }
 
 const InstructionsArea = ({
-  alignedGLText,
-  selections,
-  dontShowTranslation,
-  verseText,
   mode,
+  verseText,
   translate,
+  selections,
   invalidated,
+  alignedGLText,
   nothingToSelect,
+  targetLanguageFont,
+  dontShowTranslation,
 }) => {
   if (!verseText) {
     return (
@@ -92,7 +93,9 @@ const InstructionsArea = ({
       <span>
         <InstructionsAreaTextSelection
           selections={selections}
-          verseText={verseText} />
+          verseText={verseText}
+          targetLanguageFont={targetLanguageFont}
+        />
       </span>
     </div>
   );
@@ -107,6 +110,7 @@ InstructionsArea.propTypes = {
   mode: PropTypes.string,
   invalidated: PropTypes.bool,
   nothingToSelect: PropTypes.bool,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default InstructionsArea;

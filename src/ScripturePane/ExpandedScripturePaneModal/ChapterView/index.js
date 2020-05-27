@@ -54,6 +54,8 @@ class ChapterView extends Component {
 
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
+    const { manifest: projectManifest } = projectDetailsReducer;
+    const targetLanguageFont = projectManifest.languageFont || '';
     this.verseRefs = {};
     let verseRows = [];
 
@@ -64,19 +66,21 @@ class ChapterView extends Component {
 
         verseRows.push(
           <VerseRow
-            translate={translate}
             key={verseNumber.toString()}
-            chapter={chapter}
             verse={verse}
             bibles={bibles}
+            chapter={chapter}
+            translate={translate}
             contextId={contextId}
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
+            targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
-            ref={node => this.verseRefs[refKey] = node} />,
+            ref={node => this.verseRefs[refKey] = node}
+          />,
         );
       }
     }
@@ -102,12 +106,15 @@ class ChapterView extends Component {
         <div className="verse-row-container">
           {verseRows}
         </div>
-        <VerseEditorDialog translate={translate}
-          onSubmit={handleEditorSubmit}
+        <VerseEditorDialog
           open={openEditor}
-          onCancel={handleEditorCancel}
+          translate={translate}
           verseText={verseText}
-          verseTitle={verseTitle}/>
+          verseTitle={verseTitle}
+          onSubmit={handleEditorSubmit}
+          onCancel={handleEditorCancel}
+          targetLanguageFont={targetLanguageFont}
+        />
       </div>
     );
   }

@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 // components
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
+import { getFontClassName } from '../../common/fontUtils';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
@@ -112,20 +113,22 @@ class ExpandedScripturePaneModal extends Component {
   render() {
     const {
       show,
-      onHide,
       title,
-      contextId,
-      currentPaneSettings,
-      editTargetVerse,
-      translate,
-      projectDetailsReducer,
+      onHide,
       bibles,
-      selections,
-      getLexiconData,
-      showPopover,
       classes,
+      contextId,
+      translate,
+      selections,
+      showPopover,
+      getLexiconData,
+      editTargetVerse,
+      targetLanguageFont,
+      currentPaneSettings,
+      projectDetailsReducer,
     } = this.props;
     const { editVerse } = this.state;
+    const fontClass = getFontClassName(targetLanguageFont);
 
     return (
       <Dialog
@@ -138,7 +141,7 @@ class ExpandedScripturePaneModal extends Component {
         aria-labelledby="draggable-expanded-scripture-pane"
       >
         <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
-          <div style={styles.title}>
+          <div style={styles.title} className={fontClass}>
             {title}
           </div>
           <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
@@ -179,17 +182,18 @@ ExpandedScripturePaneModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  primaryLabel: PropTypes.string.isRequired,
-  contextId: PropTypes.object.isRequired,
-  currentPaneSettings: PropTypes.array.isRequired,
-  editTargetVerse: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired,
-  projectDetailsReducer: PropTypes.object.isRequired,
   bibles: PropTypes.object.isRequired,
-  selections: PropTypes.array.isRequired,
-  getLexiconData: PropTypes.func.isRequired,
-  showPopover: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  targetLanguageFont: PropTypes.string,
+  contextId: PropTypes.object.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  selections: PropTypes.array.isRequired,
+  primaryLabel: PropTypes.string.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ExpandedScripturePaneModal);

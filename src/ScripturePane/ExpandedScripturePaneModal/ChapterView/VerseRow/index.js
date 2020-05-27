@@ -23,15 +23,16 @@ class VerseRow extends Component {
 
   render() {
     const {
-      chapter,
-      currentVerseNumber,
-      currentPaneSettings,
       bibles,
+      chapter,
       translate,
       contextId,
       selections,
-      getLexiconData,
       showPopover,
+      getLexiconData,
+      targetLanguageFont,
+      currentVerseNumber,
+      currentPaneSettings,
     } = this.props;
     let verseCells = [];
 
@@ -66,7 +67,8 @@ class VerseRow extends Component {
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
 
           if (typeof verseData === 'string') { // if the verse content is string.
-            verseElements = verseString(verseData, selections, translate);
+            const isTargetBible = bibleId === 'targetBible';
+            verseElements = verseString(verseData, selections, translate, null, isTargetBible, targetLanguageFont);
           } else if (verseData) { // else the verse content is an array of verse objects.
             verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
           }
@@ -122,6 +124,7 @@ VerseRow.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default VerseRow;

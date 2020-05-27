@@ -4,6 +4,7 @@ import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
 // helpers
+import { getFontClassName } from '../../common/fontUtils';
 import * as highlightHelpers from './highlightHelpers';
 import {
   onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
@@ -22,9 +23,11 @@ import {
  * @param {Array} selections - text selections to highlight
  * @param {Function} translate
  * @param {Number} fontSize
+ * @param {String} isTargetBible
+ * @param {String} targetLanguageFont
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontSize = 0) => {
+export const verseString = (verseText, selections, translate, fontSize = 0, isTargetBible, targetLanguageFont) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
@@ -35,7 +38,13 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
     newVerseText = translate('pane.missing_verse_warning');
   }
 
-  let verseTextSpans = <span>{newVerseText}</span>;
+  let fontClass = '';
+
+  if (isTargetBible) {
+    fontClass = getFontClassName(targetLanguageFont);
+  }
+
+  let verseTextSpans = <span className={fontClass}>{newVerseText}</span>;
 
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
@@ -51,7 +60,7 @@ export const verseString = (verseText, selections, translate, fontSize = 0) => {
         spanStyle.fontSize = Math.round(fontSize) + '%';
       }
       verseTextSpans.push(
-        <span key={index} style={spanStyle}>
+        <span key={index} className={fontClass} style={spanStyle}>
           {selection.text}
         </span>,
       );
