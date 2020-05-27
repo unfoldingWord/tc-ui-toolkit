@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import { Glyphicon } from 'react-bootstrap';
+import { isLTR } from '../ScripturePane/helpers/utils';
+
 // components
 import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
@@ -121,15 +123,19 @@ class VerseEditor extends React.Component {
     let text = !verseChanged ? verseText : newVerse;
     const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
     const isVerseChanged = this.isVerseChanged();
-
+    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
     const title = (
       <span>
         <EditIcon className='edit-icon' />
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
     );
+    const headingStyle = { ...styles.editHeading };
 
-    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
+    if (!isLTR(direction)) { // if rtl
+      headingStyle.textAlign = 'right';
+      headingStyle.paddingRight = '6px';
+    }
 
     return (
       <BaseDialog
@@ -142,7 +148,7 @@ class VerseEditor extends React.Component {
         <div className='screen' style={styles.screen}>
           <div>
             { targetLanguage ? (
-              <div style={styles.editHeading}>
+              <div style={headingStyle}>
                 {targetLanguage}
               </div>
             ) : ''}
