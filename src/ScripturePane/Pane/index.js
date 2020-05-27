@@ -29,7 +29,7 @@ function getRemoveicon(clickToRemoveResourceLabel, index, removePane) {
 }
 
 /**
- * create title container with selected overall justification
+ * create content for title container with selected overall justification
  * @param {boolean} isLTR - justification to use, if true do LTR
  * @param {string} headingText
  * @param {string} localizedDescription
@@ -97,7 +97,7 @@ const Pane = ({
   clickToRemoveResourceLabel,
   translate,
 }) => {
-  const isLTR = !direction || (direction !== 'rtl');
+  const isLTR = (direction !== 'rtl');
   const headingText = bibleId !== 'targetBible' ?
     getTargetBibleTitle(languageName, bibleId, isLTR)
     : (languageName || '');

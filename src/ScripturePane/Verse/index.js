@@ -41,7 +41,7 @@ class Verse extends Component {
       onEdit,
       translate,
     } = this.props;
-    const isLTR = direction !== 'rtl';
+    const isLTR = (direction !== 'rtl');
     const chapterVerseContent = getReference(chapter, verse, isLTR) + ' ';
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
