@@ -110,6 +110,7 @@ InstructionsArea.propTypes = {
   mode: PropTypes.string,
   invalidated: PropTypes.bool,
   nothingToSelect: PropTypes.bool,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default InstructionsArea;

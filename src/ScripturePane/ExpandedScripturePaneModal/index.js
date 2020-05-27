@@ -10,11 +10,11 @@ import { withStyles } from '@material-ui/core/styles';
 // components
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
+import { getFontClassName } from '../../common/fontUtils';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
 import './ExpandedScripturePaneModal.styles.css';
-import { getFontClassName } from '../../common/fontUtils';
 
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
