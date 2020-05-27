@@ -121,7 +121,6 @@ class VerseEditor extends React.Component {
     let text = !verseChanged ? verseText : newVerse;
     const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
     const isVerseChanged = this.isVerseChanged();
-    const isLTR = (targetLanguageDirection !== 'ltr');
 
     const title = (
       <span>
@@ -150,7 +149,7 @@ class VerseEditor extends React.Component {
             <EditScreen
               verseText={text}
               rows={rows}
-              align={isLTR ? 'left' : 'right'}
+              direction={targetLanguageDirection}
               onChange={this._handleVerseChange}
               style={styles.editor}
             />

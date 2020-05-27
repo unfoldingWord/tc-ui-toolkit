@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import './ChapterView.styles.css';
 
 // components
-import {
-  getReferenceStr, getTitleStr, isLTR,
-} from '../../helpers/utils';
+import { getReferenceStr, getTitleStr } from '../../helpers/utils';
 import VerseEditorDialog from '../../../VerseEditor';
 import VerseRow from './VerseRow';
 
@@ -85,12 +83,13 @@ class ChapterView extends Component {
     }
 
     const { editVerse } = this.props;
+    const manifest = projectDetailsReducer.manifest;
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
+    const direction = manifest && manifest.target_language && manifest.target_language.direction || 'ltr';
 
     if (openEditor) {
-      let manifest = projectDetailsReducer.manifest;
       let bookName = manifest.target_language.book.name;
 
       if (bookName === null) {
@@ -98,9 +97,8 @@ class ChapterView extends Component {
         bookName = manifest.project.name;
       }
 
-      const isLTR_ = isLTR(manifest.target_language.direction);
-      const refStr = getReferenceStr(chapter, verse, isLTR_);
-      verseTitle = getTitleStr(bookName, refStr, isLTR_);
+      const refStr = getReferenceStr(editVerse.chapter, editVerse.verse, direction);
+      verseTitle = getTitleStr(bookName, refStr, direction);
       verseText = editVerse.verseText;
     }
 
@@ -114,7 +112,9 @@ class ChapterView extends Component {
           open={openEditor}
           onCancel={handleEditorCancel}
           verseText={verseText}
-          verseTitle={verseTitle}/>
+          verseTitle={verseTitle}
+          direction={direction}
+        />
       </div>
     );
   }

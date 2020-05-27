@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { moveCursorToEnd } from './helpers/editHelpers';
+import { isLTR } from '..';
 
 /**
  * @callback EditScreen~onChange
@@ -25,8 +26,12 @@ class EditScreen extends React.Component {
 
   render() {
     const {
-      verseText, rows, style,
+      verseText, rows, style, direction,
     } = this.props;
+    const style_ = {
+      ...style,
+      textAlign: isLTR(direction) ? 'left' : 'right',
+    };
     return (
       <textarea
         id="verse-editor-field"
@@ -36,7 +41,7 @@ class EditScreen extends React.Component {
         onFocus={moveCursorToEnd}
         onChange={this._handleChange}
         value={verseText}
-        style={style}
+        style={style_}
       />
     );
   }
@@ -47,11 +52,13 @@ EditScreen.propTypes = {
   onChange: PropTypes.func.isRequired,
   rows: PropTypes.number.isRequired,
   style: PropTypes.object.isRequired,
+  direction: PropTypes.string.isRequired,
 };
 
 EditScreen.defaultProps = {
   rows: 4,
   style: {},
+  direction: 'ltr',
 };
 
 export default EditScreen;
