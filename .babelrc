@@ -9,6 +9,7 @@
     "@babel/plugin-transform-async-to-generator",
     "@babel/plugin-transform-regenerator",
     "@babel/plugin-transform-runtime",
+    "transform-import-css",
     "jest-hoist"
   ],
   "sourceMaps": "inline"
