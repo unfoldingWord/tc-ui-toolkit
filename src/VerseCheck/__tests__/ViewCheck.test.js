@@ -133,6 +133,7 @@ function addMockActions(props) {
     goToNextOrPrevious: 'next',
     findIfVerseEdited: jest.fn(() => ( currentEdited)),
     findIfVerseInvalidated: jest.fn(() => (currentInvalidated)),
+    manifest: { languageFont: 'default' },
   };
 }
 

@@ -34,6 +34,7 @@ const CheckArea = ({
   validateSelections,
   bookDetails,
   targetLanguageDetails,
+  targetLanguageFont,
 }) => {
   let modeArea;
   const { direction: languageDirection = 'ltr' } = targetLanguageDetails || {};
@@ -50,6 +51,7 @@ const CheckArea = ({
         checkIfVerseChanged={checkIfVerseChanged}
         languageDirection={languageDirection}
         translate={translate}
+        targetLanguageFont={targetLanguageFont}
       />
     );
     break;
@@ -75,6 +77,7 @@ const CheckArea = ({
           mode={mode}
           translate={translate}
           invalidated={invalidated}
+          targetLanguageFont={targetLanguageFont}
         />
       </div>);
     break;
@@ -92,6 +95,7 @@ const CheckArea = ({
           translate={translate}
           invalidated={invalidated}
           nothingToSelect={nothingToSelect}
+          targetLanguageFont={targetLanguageFont}
         />
       </div>
     );
@@ -111,6 +115,7 @@ const CheckArea = ({
           changeSelectionsInLocalState={changeSelectionsInLocalState}
           bookDetails={bookDetails}
           targetLanguageDetails={targetLanguageDetails}
+          targetLanguageFont={targetLanguageFont}
         />
         :
         <DefaultArea
@@ -122,6 +127,7 @@ const CheckArea = ({
           validateSelections={validateSelections}
           bookDetails={bookDetails}
           targetLanguageDetails={targetLanguageDetails}
+          targetLanguageFont={targetLanguageFont}
         />
       }
       <div style={{
@@ -159,6 +165,7 @@ CheckArea.propTypes = {
   openAlertDialog: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default CheckArea;

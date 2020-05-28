@@ -66,11 +66,14 @@ class Verse extends Component {
       );
     }
 
+    const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
+    let fontClass = '';
+
     return (
       <div className="verse-container">
-        <div className={direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl'}>
+        <div className={directionClassName}>
           {chapterVerse}
-          {verseSpan}
+          <span className={fontClass}>{verseSpan}</span>
         </div>
         {edit}
       </div>

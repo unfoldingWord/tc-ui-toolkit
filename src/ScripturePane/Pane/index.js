@@ -88,16 +88,16 @@ function getTitleContainer(isLTR, headingText, localizedDescription, clickToRemo
 
 const Pane = ({
   index,
-  bibleId,
-  languageName,
-  direction,
-  description,
-  chapter,
   verse,
+  chapter,
+  bibleId,
+  direction,
+  translate,
   removePane,
+  description,
+  languageName,
   verseElements,
   clickToRemoveResourceLabel,
-  translate,
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
@@ -113,12 +113,12 @@ const Pane = ({
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
-          translate={translate}
-          verseElements={verseElements}
-          bibleId={bibleId}
-          direction={direction}
-          chapter={chapter}
           verse={verse}
+          bibleId={bibleId}
+          chapter={chapter}
+          translate={translate}
+          direction={direction}
+          verseElements={verseElements}
         />
       </div>
     </div>

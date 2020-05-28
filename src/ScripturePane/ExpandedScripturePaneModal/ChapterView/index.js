@@ -55,6 +55,8 @@ class ChapterView extends Component {
 
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
+    const { manifest: projectManifest } = projectDetailsReducer;
+    const targetLanguageFont = projectManifest.languageFont || '';
     this.verseRefs = {};
     let verseRows = [];
 
@@ -65,36 +67,37 @@ class ChapterView extends Component {
 
         verseRows.push(
           <VerseRow
-            translate={translate}
             key={verseNumber.toString()}
-            chapter={chapter}
             verse={verse}
             bibles={bibles}
+            chapter={chapter}
+            translate={translate}
             contextId={contextId}
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
+            targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
-            ref={node => this.verseRefs[refKey] = node} />,
+            ref={node => this.verseRefs[refKey] = node}
+          />,
         );
       }
     }
 
     const { editVerse } = this.props;
-    const manifest = projectDetailsReducer.manifest;
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
-    const direction = manifest && manifest.target_language && manifest.target_language.direction || 'ltr';
+    const direction = projectManifest.target_language && projectManifest.target_language.direction || 'ltr';
 
     if (openEditor) {
-      let bookName = manifest.target_language.book.name;
+      let bookName = projectManifest.target_language.book.name;
 
       if (bookName === null) {
         console.warn('The localized book name could not be found. This is likely a bug in tC.');
-        bookName = manifest.project.name;
+        bookName = projectManifest.project.name;
       }
 
       const refStr = getReferenceStr(editVerse.chapter, editVerse.verse, direction);
@@ -107,12 +110,14 @@ class ChapterView extends Component {
         <div className="verse-row-container">
           {verseRows}
         </div>
-        <VerseEditorDialog translate={translate}
-          onSubmit={handleEditorSubmit}
+        <VerseEditorDialog
           open={openEditor}
-          onCancel={handleEditorCancel}
+          translate={translate}
           verseText={verseText}
           verseTitle={verseTitle}
+          onSubmit={handleEditorSubmit}
+          onCancel={handleEditorCancel}
+          targetLanguageFont={targetLanguageFont}
           direction={direction}
         />
       </div>

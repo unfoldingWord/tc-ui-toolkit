@@ -100,6 +100,7 @@ class ScripturePane extends Component {
       selections,
       getLexiconData,
       showPopover,
+      projectDetailsReducer: { manifest: projectManifest },
     } = this.props;
 
     const panes = [];
@@ -112,6 +113,7 @@ class ScripturePane extends Component {
         const { languageId, bibleId } = paneSettings;
         const { manifest } = bibles[languageId][bibleId];
         let language_name = manifest.language_name;
+        const targetLanguageFont = projectManifest.languageFont || '';
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
@@ -130,7 +132,8 @@ class ScripturePane extends Component {
         }
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize);
+          const isTargetBible = bibleId === 'targetBible';
+          verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
         } else if (verseData) { // else the verse content is an array of verse objects.
           verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
         }
@@ -138,17 +141,17 @@ class ScripturePane extends Component {
         panes.push(
           <Pane
             key={index.toString()}
-            translate={translate}
             index={index}
-            chapter={chapter}
             verse={verse}
+            chapter={chapter}
             bibleId={bibleId}
-            languageName={language_name}
-            direction={manifest.direction}
+            translate={translate}
             description={description}
-            verseElements={verseElements}
-            clickToRemoveResourceLabel={translate('pane.remove_resource')}
+            languageName={language_name}
             removePane={this.removePane}
+            verseElements={verseElements}
+            direction={manifest.direction}
+            clickToRemoveResourceLabel={translate('pane.remove_resource')}
           />,
         );
       } catch (err) {
@@ -161,18 +164,20 @@ class ScripturePane extends Component {
 
   render() {
     let {
-      expandedScripturePaneTitle,
-      currentPaneSettings,
-      contextId,
-      editTargetVerse,
-      translate,
-      projectDetailsReducer,
       bibles,
-      getAvailableScripturePaneSelections,
+      contextId,
+      translate,
       selections,
-      getLexiconData,
       showPopover,
+      getLexiconData,
+      editTargetVerse,
+      currentPaneSettings,
+      projectDetailsReducer,
+      expandedScripturePaneTitle,
+      getAvailableScripturePaneSelections,
     } = this.props;
+    const { manifest: projectManifest } = projectDetailsReducer;
+    const targetLanguageFont = projectManifest.languageFont || '';
 
     // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
     currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
@@ -202,19 +207,20 @@ class ScripturePane extends Component {
         {
           this.state.showExpandedScripturePane ?
             <ExpandedScripturePaneModal
-              show={this.state.showExpandedScripturePane}
-              onHide={this.closeExpandedScripturePane}
-              title={expandedScripturePaneTitle}
-              primaryLabel={translate('close')}
-              currentPaneSettings={currentPaneSettings}
-              contextId={contextId}
               bibles={bibles}
-              editTargetVerse={editTargetVerse}
+              contextId={contextId}
               translate={translate}
-              projectDetailsReducer={projectDetailsReducer}
               selections={selections}
-              getLexiconData={getLexiconData}
               showPopover={showPopover}
+              getLexiconData={getLexiconData}
+              editTargetVerse={editTargetVerse}
+              primaryLabel={translate('close')}
+              title={expandedScripturePaneTitle}
+              targetLanguageFont={targetLanguageFont}
+              onHide={this.closeExpandedScripturePane}
+              currentPaneSettings={currentPaneSettings}
+              show={this.state.showExpandedScripturePane}
+              projectDetailsReducer={projectDetailsReducer}
               onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
             />
             :
@@ -224,15 +230,15 @@ class ScripturePane extends Component {
           this.state.showAddPaneModal ?
             <AddPaneModal
               translate={translate}
-              show={this.state.showAddPaneModal}
               onHide={this.hideAddBibleModal}
-              title={translate('pane.add_resource_label')}
-              selectedPane={this.state.selectedPane}
-              selectLanguageLabel={translate('pane.select_language')}
               selectLabel={translate('select')}
-              selectSourceLanguage={this.selectSourceLanguage}
-              addNewBibleResource={this.addNewBibleResource}
+              show={this.state.showAddPaneModal}
+              selectedPane={this.state.selectedPane}
               currentPaneSettings={currentPaneSettings}
+              title={translate('pane.add_resource_label')}
+              addNewBibleResource={this.addNewBibleResource}
+              selectSourceLanguage={this.selectSourceLanguage}
+              selectLanguageLabel={translate('pane.select_language')}
               getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
             />
             :

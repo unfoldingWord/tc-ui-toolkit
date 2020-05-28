@@ -114,8 +114,13 @@ class VerseEditor extends React.Component {
 
   render() {
     const {
-      translate, open, verseTitle, verseText,
-      targetLanguage, direction,
+      open,
+      verseText,
+      translate,
+      verseTitle,
+      targetLanguage,
+      targetLanguageFont,
+      direction,
     } = this.props;
     const {
       newVerse, reasons, verseChanged,
@@ -123,13 +128,13 @@ class VerseEditor extends React.Component {
     let text = !verseChanged ? verseText : newVerse;
     const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
     const isVerseChanged = this.isVerseChanged();
-    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
     const title = (
       <span>
         <EditIcon className='edit-icon' />
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
     );
+    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
     const headingStyle = { ...styles.editHeading };
 
     if (!isLTR(direction)) { // if rtl, right justify
@@ -153,11 +158,13 @@ class VerseEditor extends React.Component {
               </div>
             ) : ''}
             <EditScreen
-              verseText={text}
               rows={rows}
-              direction={direction}
-              onChange={this._handleVerseChange}
+              align={'left'}
+              verseText={text}
               style={styles.editor}
+              onChange={this._handleVerseChange}
+              targetLanguageFont={targetLanguageFont}
+              direction={direction}
             />
           </div>
           <div style={styles.reasonHeading}>
@@ -204,6 +211,7 @@ VerseEditor.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   targetLanguage: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
   direction: PropTypes.string.isRequired,
 };
 

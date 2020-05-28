@@ -8,6 +8,7 @@ import { occurrencesInString } from '../helpers/stringHelpers';
 import MyLanguageModal from '../MyLanguageModal';
 // styling
 import '../VerseCheck.styles.css';
+import { getFontClassName } from '../../common/fontUtils';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -18,11 +19,12 @@ class DefaultArea extends React.Component {
     };
   }
 
-  displayText(verseText, selections) {
+  displayText(verseText, selections, targetLanguageFont) {
     const { validateSelections } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
-    let verseTextSpans = <span>{verseText}</span>;
+    const fontClass = getFontClassName(targetLanguageFont);
+    let verseTextSpans = <span className={fontClass}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
@@ -44,7 +46,7 @@ class DefaultArea extends React.Component {
         let style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
 
         verseTextSpans.push(
-          <span key={index} style={style}>
+          <span key={index} className={fontClass} style={style}>
             {selection.text}
           </span>,
         );
@@ -66,6 +68,7 @@ class DefaultArea extends React.Component {
       targetBible,
       bookDetails,
       targetLanguageDetails,
+      targetLanguageFont,
     } = this.props;
     const { book, direction } = targetLanguageDetails;
     const bookName = book && book.name ? book.name : bookDetails.name;
@@ -89,19 +92,20 @@ class DefaultArea extends React.Component {
             <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }} />
           </div>
           <MyLanguageModal
+            bookName={bookName}
             translate={translate}
-            targetLanguageDetails={targetLanguageDetails}
-            show={this.state.modalVisibility}
             targetBible={targetBible}
             chapter={reference.chapter}
             currentVerse={reference.verse}
+            show={this.state.modalVisibility}
+            targetLanguageFont={targetLanguageFont}
+            targetLanguageDetails={targetLanguageDetails}
             languageDirection={languageDirection || 'ltr'}
-            bookName={bookName}
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
         <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
-          {this.displayText(verseText, selections)}
+          {this.displayText(verseText, selections, targetLanguageFont)}
         </div>
       </div>
     );
@@ -117,6 +121,7 @@ DefaultArea.propTypes = {
   validateSelections: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default DefaultArea;
