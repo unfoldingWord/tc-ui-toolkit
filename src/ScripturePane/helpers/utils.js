@@ -1,3 +1,5 @@
+const defaultDirection = 'ltr';
+
 /**
  * Delays code execution for a number of ms given.
  * @param {ms} ms
@@ -35,7 +37,7 @@ export function getTranslation(translate, text, deflt) {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getTitleWithId(languageName, identifier, direction = 'ltr') {
+export function getTitleWithId(languageName, identifier, direction = defaultDirection) {
   if (isLTR(direction)) {
     return `${languageName} (${identifier.toUpperCase()})`;
   }
@@ -49,7 +51,7 @@ export function getTitleWithId(languageName, identifier, direction = 'ltr') {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getReferenceStr(chapter, verse, direction = 'ltr') {
+export function getReferenceStr(chapter, verse, direction = defaultDirection) {
   if (isLTR(direction)) {
     return `${chapter}:${verse}`;
   }
@@ -63,7 +65,7 @@ export function getReferenceStr(chapter, verse, direction = 'ltr') {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getTitleStr(first, second, direction = 'ltr') {
+export function getTitleStr(first, second, direction = defaultDirection) {
   if (isLTR(direction)) {
     return `${first} ${second}`;
   }
