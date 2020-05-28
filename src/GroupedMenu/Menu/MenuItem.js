@@ -295,7 +295,12 @@ class MenuItem extends React.Component {
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
     const fontClass = getFontClassName(targetLanguageFont);
-    const style = { textAlign: isLTR(direction) ? 'left' : 'right' };
+    const style = {};
+
+    if (isLTR(direction)) {
+      style.textAlign = 'right';
+      style.paddingRight = '16px';
+    }
 
     return (
       <ListItem
