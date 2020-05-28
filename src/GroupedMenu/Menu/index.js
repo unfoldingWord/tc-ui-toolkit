@@ -275,6 +275,8 @@ class Menu extends React.Component {
       groupId,
       itemId,
     } = item;
+    console.log(`isItemSelected: active item: ${JSON.stringify(activeItem)}`);
+    console.log(`isItemSelected: item: ${JSON.stringify(item)}`);
     return (
       activeItem &&
       activeItem.groupId === groupId &&
