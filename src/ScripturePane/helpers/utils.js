@@ -35,7 +35,7 @@ export function getTranslation(translate, text, deflt) {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getTitleWithId(languageName, identifier, direction) {
+export function getTitleWithId(languageName, identifier, direction = 'ltr') {
   if (isLTR(direction)) {
     return `${languageName} (${identifier.toUpperCase()})`;
   }
@@ -49,7 +49,7 @@ export function getTitleWithId(languageName, identifier, direction) {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getReferenceStr(chapter, verse, direction) {
+export function getReferenceStr(chapter, verse, direction = 'ltr') {
   if (isLTR(direction)) {
     return `${chapter}:${verse}`;
   }
@@ -63,7 +63,7 @@ export function getReferenceStr(chapter, verse, direction) {
  * @param {boolean|string} direction
  * @return {string}
  */
-export function getTitleStr(first, second, direction) {
+export function getTitleStr(first, second, direction = 'ltr') {
   if (isLTR(direction)) {
     return `${first} ${second}`;
   }

@@ -100,7 +100,7 @@ class ChapterView extends Component {
         bookName = projectManifest.project.name;
       }
 
-      const refStr = getReferenceStr(editVerse.chapter, editVerse.verse, direction);
+      const refStr = getReferenceStr(editVerse.chapter, editVerse.verse);
       verseTitle = getTitleStr(bookName, refStr, direction);
       verseText = editVerse.verseText;
     }

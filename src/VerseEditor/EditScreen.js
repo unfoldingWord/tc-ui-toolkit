@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getFontClassName } from '../common/fontUtils';
+import { isLTR } from '../ScripturePane/helpers/utils';
 import { moveCursorToEnd } from './helpers/editHelpers';
-import { isLTR } from '..';
 
 /**
  * @callback EditScreen~onChange
