@@ -159,7 +159,6 @@ class VerseEditor extends React.Component {
             ) : ''}
             <EditScreen
               rows={rows}
-              align={'left'}
               verseText={text}
               style={styles.editor}
               onChange={this._handleVerseChange}
