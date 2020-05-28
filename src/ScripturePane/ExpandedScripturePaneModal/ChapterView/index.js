@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import './ChapterView.styles.css';
 
 // components
+import { getReferenceStr, getTitleStr } from '../../helpers/utils';
 import VerseEditorDialog from '../../../VerseEditor';
 import VerseRow from './VerseRow';
 
@@ -89,15 +90,18 @@ class ChapterView extends Component {
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
+    const direction = projectManifest.target_language && projectManifest.target_language.direction || 'ltr';
 
     if (openEditor) {
-      let bookName = projectDetailsReducer.manifest.target_language.book.name;
+      let bookName = projectManifest.target_language.book.name;
 
       if (bookName === null) {
         console.warn('The localized book name could not be found. This is likely a bug in tC.');
-        bookName = projectDetailsReducer.manifest.project.name;
+        bookName = projectManifest.project.name;
       }
-      verseTitle = `${bookName} ${editVerse.chapter}:${editVerse.verse}`;
+
+      const refStr = getReferenceStr(editVerse.chapter, editVerse.verse);
+      verseTitle = getTitleStr(bookName, refStr, direction);
       verseText = editVerse.verseText;
     }
 
@@ -114,6 +118,7 @@ class ChapterView extends Component {
           onSubmit={handleEditorSubmit}
           onCancel={handleEditorCancel}
           targetLanguageFont={targetLanguageFont}
+          direction={direction}
         />
       </div>
     );

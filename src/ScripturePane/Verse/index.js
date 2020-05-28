@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { getReferenceStr } from '../helpers/utils';
 
 import './Verse.styles.css';
 
@@ -40,7 +41,7 @@ class Verse extends Component {
       onEdit,
       translate,
     } = this.props;
-    const chapterVerseContent = `${chapter}:${verse} `;
+    const chapterVerseContent = getReferenceStr(chapter, verse) + ' ';
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
     let verseSpan = verseElements;

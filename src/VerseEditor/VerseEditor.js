@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import { Glyphicon } from 'react-bootstrap';
+import { isLTR } from '../ScripturePane/helpers/utils';
+
 // components
 import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
@@ -118,6 +120,7 @@ class VerseEditor extends React.Component {
       verseTitle,
       targetLanguage,
       targetLanguageFont,
+      direction,
     } = this.props;
     const {
       newVerse, reasons, verseChanged,
@@ -125,15 +128,19 @@ class VerseEditor extends React.Component {
     let text = !verseChanged ? verseText : newVerse;
     const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
     const isVerseChanged = this.isVerseChanged();
-
     const title = (
       <span>
         <EditIcon className='edit-icon' />
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
     );
-
     const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
+    const headingStyle = { ...styles.editHeading };
+
+    if (!isLTR(direction)) { // if rtl, right justify
+      headingStyle.textAlign = 'right';
+      headingStyle.paddingRight = '6px';
+    }
 
     return (
       <BaseDialog
@@ -146,17 +153,17 @@ class VerseEditor extends React.Component {
         <div className='screen' style={styles.screen}>
           <div>
             { targetLanguage ? (
-              <div style={styles.editHeading}>
+              <div style={headingStyle}>
                 {targetLanguage}
               </div>
             ) : ''}
             <EditScreen
               rows={rows}
-              align={'left'}
               verseText={text}
               style={styles.editor}
               onChange={this._handleVerseChange}
               targetLanguageFont={targetLanguageFont}
+              direction={direction}
             />
           </div>
           <div style={styles.reasonHeading}>
@@ -204,8 +211,12 @@ VerseEditor.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   targetLanguage: PropTypes.string.isRequired,
   targetLanguageFont: PropTypes.string,
+  direction: PropTypes.string.isRequired,
 };
 
-VerseEditor.defaultProps = { targetLanguage: '' };
+VerseEditor.defaultProps = {
+  targetLanguage: '',
+  direction: 'ltr',
+};
 
 export default VerseEditor;

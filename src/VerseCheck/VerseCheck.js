@@ -59,7 +59,7 @@ class VerseCheck extends Component {
       validateSelections,
       manifest,
     } = this.props;
-    const targetLanguageFont = manifest.languageFont || '';
+    const targetLanguageFont = manifest && manifest.languageFont || '';
     let titleText;
     let saveArea;
 

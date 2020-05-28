@@ -9,6 +9,7 @@ import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
 // helpers
 import { verseString, verseArray } from './helpers/verseHelpers';
+import { getTitleWithId, isLTR } from './helpers/utils';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -121,7 +122,7 @@ class ScripturePane extends Component {
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          language_name = manifest.language_name + ' (' + manifest.language_id.toUpperCase() + ')';
+          language_name = getTitleWithId(manifest.language_name, manifest.language_id, isLTR(manifest.direction));
         }
 
         let description = manifest.description;
@@ -255,16 +256,8 @@ ScripturePane.defaultProps = {
 };
 
 ScripturePane.propTypes = {
-  titleLabel: PropTypes.string.isRequired,
-  closeButtonLabel: PropTypes.string.isRequired,
-  addResourceLabel: PropTypes.string.isRequired,
-  clickToRemoveResourceLabel: PropTypes.string.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
-  expandButtonHoverText: PropTypes.string.isRequired,
-  clickAddResource: PropTypes.string.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
-  selectLanguageLabel: PropTypes.string.isRequired,
-  selectLabel: PropTypes.string.isRequired,
   setToolSettings: PropTypes.func.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
