@@ -38,7 +38,7 @@ exports[`VerseEditor component: should render 1`] = `
         Klingon
       </div>
       <EditScreen
-        align="left"
+        direction="ltr"
         onChange={[Function]}
         rows={9}
         style={
