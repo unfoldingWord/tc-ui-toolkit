@@ -31,7 +31,8 @@ export function generateMenuData(
       const children = new Array(gl);
 
       for (let j = 0; j < gl; j++) {
-        const item = processMenuItem(group[j], direction);
+        const item = processMenuItem(group[j]);
+        item.direction = direction;
         children[j] = onProcessItem ? onProcessItem(item) : item;
       }
       menu.push({
