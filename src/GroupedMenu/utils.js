@@ -117,7 +117,7 @@ function processMenuItem(data) {
   return {
     ...data,
     groupId,
-    itemId: passageTitle,
+    itemId: refStr,
     title: passageTitle,
   };
 }
