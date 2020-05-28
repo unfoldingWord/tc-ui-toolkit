@@ -297,7 +297,7 @@ class MenuItem extends React.Component {
     const fontClass = getFontClassName(targetLanguageFont);
     const style = {};
 
-    if (isLTR(direction)) {
+    if (!isLTR(direction)) { // if RTL
       style.textAlign = 'right';
       style.paddingRight = '16px';
     }
