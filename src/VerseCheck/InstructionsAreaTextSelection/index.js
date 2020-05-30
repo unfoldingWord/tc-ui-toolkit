@@ -40,10 +40,6 @@ const InstructionsAreaTextSelection = ({
   targetLanguageFont,
 }) => {
   const fontClass = getFontClassName(targetLanguageFont);
-  console.log('InstructionsAreaTextSelection ====================================');
-  console.log('targetLanguageFont', targetLanguageFont);
-  console.log('fontClass', fontClass);
-  console.log('====================================');
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
@@ -56,9 +52,6 @@ const InstructionsAreaTextSelection = ({
       </QuoatationMarks>
     );
   } else {
-    console.log('====================================');
-    console.log('else getSelectionSpans');
-    console.log('====================================');
     return (
       <QuoatationMarks>
         {getSelectionSpans(selections, targetLanguageFont)}
