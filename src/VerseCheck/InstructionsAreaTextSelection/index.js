@@ -12,6 +12,10 @@ QuoatationMarks.propTypes = { children: PropTypes.object.isRequired };
 const getSelectionSpans = (selections, targetLanguageFont) => {
   const results = [];
   const fontClass = getFontClassName(targetLanguageFont);
+  console.log('InstructionsAreaTextSelection getSelectionSpans====================================');
+  console.log('targetLanguageFont', targetLanguageFont);
+  console.log('fontClass', fontClass);
+  console.log('====================================');
 
   for (let i = 0, len = selections.length; i < len; i++) {
     const selection = selections[i];
@@ -36,6 +40,10 @@ const InstructionsAreaTextSelection = ({
   targetLanguageFont,
 }) => {
   const fontClass = getFontClassName(targetLanguageFont);
+  console.log('InstructionsAreaTextSelection ====================================');
+  console.log('targetLanguageFont', targetLanguageFont);
+  console.log('fontClass', fontClass);
+  console.log('====================================');
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
