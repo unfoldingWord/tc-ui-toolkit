@@ -40,11 +40,11 @@ const InstructionsAreaTextSelection = ({
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
       <QuoatationMarks>
-        {selections[0].text.trim()}
-        <strong style={{ color: 'var(--accent-color)' }} className={fontClass}>
+        <span className={fontClass}>{selections[0].text.trim()}</span>
+        <strong className={fontClass} style={{ color: 'var(--accent-color)' }}>
           {` ${ELLIPSIS} `}
         </strong>
-        {selections[selections.length - 1].text.trim()}
+        <span className={fontClass}>{selections[selections.length - 1].text.trim()}</span>
       </QuoatationMarks>
     );
   } else {
