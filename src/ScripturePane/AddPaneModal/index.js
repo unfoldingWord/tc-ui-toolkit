@@ -127,7 +127,7 @@ const AddPaneModal = ({
         <button className="btn-second" onClick={onHide}>
           {translate('close')}
         </button>
-        <button className="btn-prime" onClick={addNewBibleResource} disabled={selectedPane.length}>
+        <button className="btn-prime" onClick={addNewBibleResource} disabled={selectedPane.length > 0 ? false : true}>
           {translate('load')}
         </button>
       </DialogActions>
