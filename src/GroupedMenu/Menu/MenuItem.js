@@ -10,6 +10,7 @@ import Badge from '@material-ui/core/Badge';
 import memoize from 'memoize-one';
 import _ from 'lodash';
 import { getFontClassName } from '../../common/fontUtils';
+import { isLTR } from '../..';
 
 /**
  * Utility to generate styles for a tooltip arrow
@@ -288,11 +289,19 @@ class MenuItem extends React.Component {
       selected,
       statusIcons,
       targetLanguageFont,
+      direction,
     } = this.props;
     const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
     const fontClass = getFontClassName(targetLanguageFont);
+    const style = {};
+
+    if (!isLTR(direction)) { // if RTL
+      style.textAlign = 'right';
+      style.paddingRight = '16px';
+      style.direction = 'rtl';
+    }
 
     return (
       <ListItem
@@ -343,6 +352,7 @@ class MenuItem extends React.Component {
                 root: classes.textRoot,
                 primary: classes.text,
               }}
+              style={style}
               primary={<span className={fontClass} ref={this.textRef}>{title}</span>}
             />
           </Tooltip>
@@ -362,6 +372,7 @@ MenuItem.propTypes = {
   statusIcons: PropTypes.arrayOf(PropTypes.object),
   status: PropTypes.object,
   targetLanguageFont: PropTypes.string,
+  direction: PropTypes.string,
 };
 
 export default withStyles(styles)(MenuItem);

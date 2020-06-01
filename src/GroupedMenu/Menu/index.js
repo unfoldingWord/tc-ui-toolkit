@@ -357,6 +357,7 @@ class Menu extends React.Component {
                             tooltip={item.tooltip ? item.tooltip : item.title}
                             title={item.title}
                             targetLanguageFont={targetLanguageFont}
+                            direction={item.direction}
                           />
                         </RootRef>
                       ))}
