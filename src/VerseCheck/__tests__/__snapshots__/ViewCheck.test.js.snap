@@ -86,6 +86,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -103,9 +104,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
               <span
                 className="verse-title-subtitle"
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
             <div
@@ -658,9 +657,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               <span
                 className="verse-title-subtitle"
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
           </div>
@@ -984,6 +981,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -1001,9 +999,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               <span
                 className="verse-title-subtitle"
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
             <div
@@ -1334,9 +1330,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               <span
                 className="verse-title-subtitle"
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
           </div>
@@ -1670,9 +1664,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               <span
                 className="verse-title-subtitle"
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
           </div>
