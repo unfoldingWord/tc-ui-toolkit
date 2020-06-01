@@ -137,7 +137,7 @@ function ExpandedScripturePaneModal({
           bibles={bibles}
           contextId={contextId}
           translate={translate}
-          editVerse={verseTextReference}
+          editVerse={Object.keys(verseTextReference).length === 0 ? null : verseTextReference}
           editTargetVerse={editTargetVerse}
           projectDetailsReducer={projectDetailsReducer}
           currentPaneSettings={currentPaneSettings}
