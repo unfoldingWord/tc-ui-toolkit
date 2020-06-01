@@ -6,7 +6,7 @@ describe('generate menu data', () => {
     const groupData = {};
     const progressKey = 'complete';
     const onProcessItem = null;
-    const menuData = generateMenuData(groupIndex, groupData, progressKey,
+    const menuData = generateMenuData(groupIndex, groupData, progressKey, undefined,
       onProcessItem);
     expect(menuData).toEqual([]);
   });
@@ -53,14 +53,15 @@ describe('generate menu data', () => {
             },
             customField: 'hello world',
             groupId: 'adoption',
-            itemId: 'gal 4:5',
+            itemId: '4:5',
             title: 'gal',
+            direction: 'ltr',
           }],
         id: 'adoption',
         progress: 0,
         title: 'adoption, adopt, adopted',
       }];
-    const menuData = generateMenuData(groupIndex, groupData, progressKey,
+    const menuData = generateMenuData(groupIndex, groupData, progressKey, undefined,
       onProcessItem);
     expect(menuData).toEqual(expected);
   });
@@ -126,8 +127,9 @@ describe('generate menu data', () => {
             },
             completed: true,
             groupId: 'abraham',
-            itemId: 'gal 3:6',
+            itemId: '3:6',
             title: 'gal 3:6',
+            direction: 'ltr',
           },
           {
             contextId: {
@@ -138,8 +140,9 @@ describe('generate menu data', () => {
               },
             },
             groupId: 'abraham',
-            itemId: 'gal 3:7',
+            itemId: '3:7',
             title: 'gal 3:7',
+            direction: 'ltr',
           }],
         id: 'abraham',
         progress: 50,
@@ -156,14 +159,15 @@ describe('generate menu data', () => {
               },
             },
             groupId: 'adoption',
-            itemId: 'gal 4:5',
+            itemId: '4:5',
             title: 'gal 4:5',
+            direction: 'ltr',
           }],
         id: 'adoption',
         progress: 0,
         title: 'adoption, adopt, adopted',
       }];
-    const menuData = generateMenuData(groupIndex, groupData, progressKey,
+    const menuData = generateMenuData(groupIndex, groupData, progressKey, undefined,
       onProcessItem);
     expect(menuData).toEqual(expected);
   });
