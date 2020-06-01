@@ -31,7 +31,7 @@ function ScripturePane({
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
-  const [selectedPane, setSelectedPane] = useState('');
+  const [selectedPane, setSelectedPane] = useState({});
 
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
@@ -59,13 +59,14 @@ function ScripturePane({
       languageId: identifier[0],
       bibleId: identifier[1],
     };
-    setSelectedPane(value ? selectedBibleId : '');
+
+    setSelectedPane(() => value ? selectedBibleId : {});
   }
 
   function addNewBibleResource() {
     try {
       if (currentPaneSettings) {
-        if (selectedPane) {
+        if (Object.keys(selectedPane).length) {
           currentPaneSettings.push(selectedPane);
           setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
           makeSureBiblesLoadedForTool();
