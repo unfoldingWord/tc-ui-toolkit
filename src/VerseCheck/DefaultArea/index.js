@@ -93,6 +93,7 @@ class DefaultArea extends React.Component {
     if (!isLTR_) { // for RTL
       style.justifyContent = 'right';
       style.width = '100%';
+      style.direction = 'rtl';
     }
 
     return (
