@@ -15,6 +15,7 @@ import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
 import './ExpandedScripturePaneModal.styles.css';
+import deepEqual from 'deep-equal';
 
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
@@ -171,4 +172,22 @@ ExpandedScripturePaneModal.propTypes = {
   projectDetailsReducer: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ExpandedScripturePaneModal);
+/**
+ * Custom comparison function to determine if component should rerender.
+ * @param {object} prevProps
+ * @param {object} nextProps
+ */
+function areEqual(prevProps, nextProps) {
+  /*
+  return true if passing nextProps to render would return
+  the same result as passing prevProps to render,
+  otherwise return false
+  */
+  const areEq = deepEqual(prevProps, nextProps);
+  console.log('====================================');
+  console.log('areEqual areEq', areEq);
+  console.log('====================================');
+  return areEq;
+}
+// using React.memo for performance boost in some cases by memoizing the result
+export default React.memo(withStyles(styles)(ExpandedScripturePaneModal), areEqual);
