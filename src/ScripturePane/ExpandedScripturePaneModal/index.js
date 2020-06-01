@@ -101,11 +101,11 @@ function ExpandedScripturePaneModal({
     } else {
       console.warn('Unable to edit verse. Callback is not a function.');
     }
-    editVerseText({ editVerse: {} });
+    editVerseText({});
   }
 
   function handleEditorCancel() {
-    editVerseText({ editVerse: {} });
+    editVerseText({});
   }
 
   const fontClass = getFontClassName(targetLanguageFont);
