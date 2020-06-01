@@ -183,9 +183,10 @@ function areEqual(prevProps, nextProps) {
   the same result as passing prevProps to render,
   otherwise return false
   */
-  const areEq = deepEqual(prevProps, nextProps);
+  const areEq = deepEqual(prevProps.bibles, nextProps.bibles);
   console.log('====================================');
   console.log('areEqual areEq', areEq);
+  console.log('prevProps.bibles', prevProps.bibles, 'nextProps.bibles', nextProps.bibles);
   console.log('====================================');
   return areEq;
 }
