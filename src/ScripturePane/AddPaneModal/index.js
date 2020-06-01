@@ -127,13 +127,9 @@ const AddPaneModal = ({
         <button className="btn-second" onClick={onHide}>
           {translate('close')}
         </button>
-        {
-          // eslint-disable-next-line react/prop-types
-          selectedPane.length &&
-          <button className="btn-prime" onClick={addNewBibleResource}>
-            {translate('load')}
-          </button>
-        }
+        <button className="btn-prime" onClick={addNewBibleResource} disabled={selectedPane.length}>
+          {translate('load')}
+        </button>
       </DialogActions>
     </Dialog>
   );
@@ -146,10 +142,7 @@ AddPaneModal.propTypes = {
   selectLanguageLabel: PropTypes.string.isRequired,
   selectLabel: PropTypes.string.isRequired,
   selectSourceLanguage: PropTypes.func.isRequired,
-  selectedPane: PropTypes.shape({
-    bibleId: PropTypes.string,
-    languageId: PropTypes.string,
-  }),
+  selectedPane: PropTypes.string,
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,
