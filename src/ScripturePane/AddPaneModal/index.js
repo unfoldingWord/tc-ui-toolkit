@@ -100,6 +100,13 @@ const AddPaneModal = ({
     );
   }
 
+  const isLoadButtonDisabled = selectedPane.length > 0 ? false : true;
+  console.log('====================================');
+  console.log('isLoadButtonDisabled', isLoadButtonDisabled);
+  console.log('selectedPane', selectedPane);
+  console.log('selectedPane.length', selectedPane.length);
+  console.log('====================================');
+
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
       <Toolbar style={styles.toolBar}>
@@ -127,7 +134,7 @@ const AddPaneModal = ({
         <button className="btn-second" onClick={onHide}>
           {translate('close')}
         </button>
-        <button className="btn-prime" onClick={addNewBibleResource} disabled={selectedPane.length > 0 ? false : true}>
+        <button className="btn-prime" onClick={addNewBibleResource} disabled={isLoadButtonDisabled}>
           {translate('load')}
         </button>
       </DialogActions>
