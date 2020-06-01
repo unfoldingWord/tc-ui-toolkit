@@ -300,6 +300,7 @@ class MenuItem extends React.Component {
     if (!isLTR(direction)) { // if RTL
       style.textAlign = 'right';
       style.paddingRight = '16px';
+      style.direction = 'rtl';
     }
 
     return (
