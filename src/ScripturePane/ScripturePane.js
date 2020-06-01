@@ -51,6 +51,7 @@ function ScripturePane({
   function hideAddBibleModal() {
     toggleAddPaneModal(false);
     handleModalOpen(false);
+    setSelectedPane({});
   }
 
   function selectSourceLanguage(value) {
