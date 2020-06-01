@@ -75,10 +75,6 @@ function ExpandedScripturePaneModal({
 }) {
   const [verseTextReference, editVerseText] = useState({});
 
-  console.log('====================================');
-  console.log('ExpandedScripturePaneModal verseTextReference', verseTextReference);
-  console.log('====================================');
-
   function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     editVerseText(prevState => ({
       ...prevState,
