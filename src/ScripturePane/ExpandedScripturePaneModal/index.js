@@ -10,12 +10,12 @@ import { withStyles } from '@material-ui/core/styles';
 // components
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
+import deepEqual from 'deep-equal';
 import { getFontClassName } from '../../common/fontUtils';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
 import './ExpandedScripturePaneModal.styles.css';
-import deepEqual from 'deep-equal';
 
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
@@ -179,16 +179,11 @@ ExpandedScripturePaneModal.propTypes = {
  */
 function areEqual(prevProps, nextProps) {
   /*
-  return true if passing nextProps to render would return
-  the same result as passing prevProps to render,
-  otherwise return false
+  Return true if passing nextProps.bibles to
+  render would return the same result as passing
+  prevProps.bibles to render, otherwise return false
   */
-  const areEq = deepEqual(prevProps.bibles, nextProps.bibles);
-  console.log('====================================');
-  console.log('areEqual areEq', areEq);
-  console.log('prevProps.bibles', prevProps.bibles, 'nextProps.bibles', nextProps.bibles);
-  console.log('====================================');
-  return areEq;
+  return deepEqual(prevProps.bibles, nextProps.bibles);
 }
-// using React.memo for performance boost in some cases by memoizing the result
+// using React.memo to boost performance by memoizing the result
 export default React.memo(withStyles(styles)(ExpandedScripturePaneModal), areEqual);
