@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import './ScripturePane.styles.css';
 // components
+import deepEqual from 'deep-equal';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
@@ -228,20 +229,46 @@ ScripturePane.defaultProps = {
 };
 
 ScripturePane.propTypes = {
-  expandedScripturePaneTitle: PropTypes.string.isRequired,
-  currentPaneSettings: PropTypes.array.isRequired,
-  setToolSettings: PropTypes.func.isRequired,
+  bibles: PropTypes.object.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
-  getLexiconData: PropTypes.func.isRequired,
-  showPopover: PropTypes.func.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
-  editTargetVerse: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired,
-  bibles: PropTypes.object.isRequired,
-  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
-  makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
+  expandedScripturePaneTitle: PropTypes.string.isRequired,
   handleModalOpen: PropTypes.func,
+  translate: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
+  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
 };
 
-export default ScripturePane;
+
+/**
+ * Custom comparison function to determine if component should rerender.
+ * @param {object} prevProps
+ * @param {object} nextProps
+ */
+function areEqual(prevProps, nextProps) {
+  /*
+  Return true if passing nextProps.bibles to
+  render would return the same result as passing
+  prevProps.bibles to render, otherwise return false
+  */
+  const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
+    deepEqual(prevProps.contextId, nextProps.contextId) &&
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+    prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
+    deepEqual(prevProps.selections, nextProps.selections);
+
+  console.log('====================================');
+  console.log('result', result);
+  console.log('====================================');
+  return result;
+}
+// using React.memo to boost performance by memoizing the result
+export default React.memo(ScripturePane, areEqual);
