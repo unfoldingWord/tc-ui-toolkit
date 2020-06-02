@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Col } from 'react-bootstrap';
 import { getFontClassName } from '../../common/fontUtils';
+import { getReferenceStr } from '../..';
 
 const MyTargetVerse = ({
   chapter,
@@ -11,14 +12,7 @@ const MyTargetVerse = ({
   dir,
   targetLanguageFont,
 }) => {
-  let chapterVerse;
-
-  if (dir == 'rtl'){
-    chapterVerse = verse + ':' + chapter + ' ';
-  } else {
-    chapterVerse = chapter + ':' + verse + ' ';
-  }
-
+  const chapterVerse = getReferenceStr(chapter, verse) + ' ';
   const fontClass = getFontClassName(targetLanguageFont);
 
   return (
