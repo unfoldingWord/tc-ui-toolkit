@@ -99,7 +99,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
               <span
                 className="verse-title-title"
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
@@ -652,7 +652,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               <span
                 className="verse-title-title"
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
@@ -994,7 +994,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               <span
                 className="verse-title-title"
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
@@ -1325,7 +1325,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               <span
                 className="verse-title-title"
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
@@ -1659,7 +1659,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               <span
                 className="verse-title-title"
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
