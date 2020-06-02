@@ -245,7 +245,6 @@ ScripturePane.propTypes = {
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
 };
 
-
 /**
  * Custom comparison function to determine if component should rerender.
  * @param {object} prevProps
@@ -253,9 +252,9 @@ ScripturePane.propTypes = {
  */
 function areEqual(prevProps, nextProps) {
   /*
-  Return true if passing nextProps.bibles to
-  render would return the same result as passing
-  prevProps.bibles to render, otherwise return false
+    Return true if passing nextProps.bibles to
+    render would return the same result as passing
+    prevProps.bibles to render, otherwise return false
   */
 
   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
@@ -268,7 +267,6 @@ function areEqual(prevProps, nextProps) {
 
   return result;
 }
+
 // using React.memo to boost performance by memoizing the result
 export default React.memo(ScripturePane, areEqual);
-
-// TODO: export default ScripturePane;

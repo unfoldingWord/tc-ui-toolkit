@@ -179,13 +179,12 @@ ExpandedScripturePaneModal.propTypes = {
  */
 function areEqual(prevProps, nextProps) {
   /*
-  Return true if passing nextProps.bibles to
-  render would return the same result as passing
-  prevProps.bibles to render, otherwise return false
+    Return true if passing nextProps.bibles to
+    render would return the same result as passing
+    prevProps.bibles to render, otherwise return false
   */
   return deepEqual(prevProps.bibles, nextProps.bibles);
 }
+
 // using React.memo to boost performance by memoizing the result
 export default React.memo(withStyles(styles)(ExpandedScripturePaneModal), areEqual);
-
-// TODO: export default withStyles(styles)(ExpandedScripturePaneModal);
