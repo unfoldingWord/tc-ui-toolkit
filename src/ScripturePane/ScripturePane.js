@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
-import './ScripturePane.styles.css';
+// import deepEqual from 'deep-equal';
 // components
-import deepEqual from 'deep-equal';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
@@ -11,6 +10,7 @@ import AddPaneModal from './AddPaneModal';
 // helpers
 import { verseString, verseArray } from './helpers/verseHelpers';
 import { getTitleWithId, isLTR } from './helpers/utils';
+import './ScripturePane.styles.css';
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -251,23 +251,25 @@ ScripturePane.propTypes = {
  * @param {object} prevProps
  * @param {object} nextProps
  */
-function areEqual(prevProps, nextProps) {
-  /*
-  Return true if passing nextProps.bibles to
-  render would return the same result as passing
-  prevProps.bibles to render, otherwise return false
-  */
+// function areEqual(prevProps, nextProps) {
+//   /*
+//   Return true if passing nextProps.bibles to
+//   render would return the same result as passing
+//   prevProps.bibles to render, otherwise return false
+//   */
 
-  // TODO: retest with memo and without it
-  const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
-    deepEqual(prevProps.contextId, nextProps.contextId) &&
-    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
-    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
-    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
-    prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
-    deepEqual(prevProps.selections, nextProps.selections);
+//   // TODO: retest with memo and without it
+//   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
+//     deepEqual(prevProps.contextId, nextProps.contextId) &&
+//     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+//     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+//     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+//     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
+//     deepEqual(prevProps.selections, nextProps.selections);
 
-  return result;
-}
+//   return result;
+// }
 // using React.memo to boost performance by memoizing the result
-export default React.memo(ScripturePane, areEqual);
+// export default React.memo(ScripturePane, areEqual);
+
+export default ScripturePane;
