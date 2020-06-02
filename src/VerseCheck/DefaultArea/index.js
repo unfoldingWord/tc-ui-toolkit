@@ -9,6 +9,12 @@ import MyLanguageModal from '../MyLanguageModal';
 // styling
 import '../VerseCheck.styles.css';
 import { getFontClassName } from '../../common/fontUtils';
+import {
+  getReferenceStr,
+  getTitleStr,
+  getTitleWithId,
+  isLTR,
+} from '../..';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -59,6 +65,12 @@ class DefaultArea extends React.Component {
     );
   }
 
+  getExpandIcon(translate) {
+    return <div onClick={() => this.setState({ modalVisibility: true })}>
+      <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }}/>
+    </div>;
+  }
+
   render() {
     const {
       translate,
@@ -70,27 +82,45 @@ class DefaultArea extends React.Component {
       targetLanguageDetails,
       targetLanguageFont,
     } = this.props;
-    const { book, direction } = targetLanguageDetails;
+    const {
+      book,
+      direction,
+      id:languageCode,
+    } = targetLanguageDetails;
     const bookName = book && book.name ? book.name : bookDetails.name;
     const languageName = targetLanguageDetails.name || null;
-    const languageDirection = direction || null;
+    const languageStr = getTitleWithId(languageName, languageCode);
+    const refStr = getReferenceStr(reference.chapter, reference.verse);
+    const title = getTitleStr(bookName, refStr);
+    const isLTR_ = isLTR(direction);
+    const style = { display: 'flex', flexDirection: 'column' };
+
+    if (!isLTR_) { // for RTL
+      style.justifyContent = 'right';
+      style.width = '100%';
+      style.direction = 'rtl';
+    }
 
     return (
       <div style={{
-        WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column',
+        WebkitUserSelect: 'none',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
         <div className='verse-title'>
-          <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
+          {/* put icon here if RTL */}
+          {isLTR_ ? '' : this.getExpandIcon(translate)}
+          <div className='pane' style={style}>
             <span className='verse-title-title'>
-              {languageName}
+              {languageStr}
             </span>
             <span className='verse-title-subtitle'>
-              {bookName} {reference.chapter + ':' + reference.verse}
+              {title}
             </span>
           </div>
-          <div onClick={() => this.setState({ modalVisibility: true })}>
-            <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }} />
-          </div>
+          {/* put icon here if LTR */}
+          {isLTR_ ? this.getExpandIcon(translate) : ''}
           <MyLanguageModal
             bookName={bookName}
             translate={translate}
@@ -100,11 +130,11 @@ class DefaultArea extends React.Component {
             show={this.state.modalVisibility}
             targetLanguageFont={targetLanguageFont}
             targetLanguageDetails={targetLanguageDetails}
-            languageDirection={languageDirection || 'ltr'}
+            languageDirection={direction || 'ltr'}
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           {this.displayText(verseText, selections, targetLanguageFont)}
         </div>
       </div>
