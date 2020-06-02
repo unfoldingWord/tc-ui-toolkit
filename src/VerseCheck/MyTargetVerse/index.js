@@ -12,7 +12,7 @@ const MyTargetVerse = ({
   dir,
   targetLanguageFont,
 }) => {
-  const chapterVerse = getReferenceStr(chapter, verse);
+  const chapterVerse = getReferenceStr(chapter, verse) + ' ';
   const fontClass = getFontClassName(targetLanguageFont);
 
   return (
