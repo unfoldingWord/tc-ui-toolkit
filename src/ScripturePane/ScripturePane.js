@@ -258,7 +258,7 @@ function areEqual(prevProps, nextProps) {
   prevProps.bibles to render, otherwise return false
   */
 
-  // TODO:
+  // TODO: retest with memo and without it
   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
     deepEqual(prevProps.contextId, nextProps.contextId) &&
     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
