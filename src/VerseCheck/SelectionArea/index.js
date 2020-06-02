@@ -6,6 +6,7 @@ import RenderSelectionTextComponent from '../RenderSelectionTextComponent';
 import {
   getReferenceStr,
   getTitleStr,
+  getTitleWithId,
   isLTR,
 } from '../..';
 
@@ -22,12 +23,17 @@ const SelectionArea = ({
   targetLanguageDetails,
   targetLanguageFont,
 }) => {
-  const { book, direction: languageDirection } = targetLanguageDetails;
+  const {
+    book,
+    direction,
+    id:languageCode,
+  } = targetLanguageDetails;
   const bookName = book && book.name ? book.name : bookDetails.name;
   const languageName = targetLanguageDetails.name || null;
+  const languageStr = getTitleWithId(languageName, languageCode);
   const refStr = getReferenceStr(reference.chapter, reference.verse);
   const title = getTitleStr(bookName, refStr);
-  const isLTR_ = isLTR(languageDirection);
+  const isLTR_ = isLTR(direction);
   const style = { display: 'flex', flexDirection: 'column' };
 
   if (!isLTR_) { // for RTL
@@ -41,7 +47,7 @@ const SelectionArea = ({
       <div className='verse-title'>
         <div className='pane' style={style}>
           <span className='verse-title-title'>
-            {languageName}
+            {languageStr}
           </span>
           <span className='verse-title-subtitle'>
             {title}
@@ -49,7 +55,7 @@ const SelectionArea = ({
         </div>
       </div>
       <div style={{ overflow: 'auto' }}>
-        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           <RenderSelectionTextComponent
             mode={mode}
             translate={translate}

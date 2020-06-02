@@ -12,6 +12,7 @@ import { getFontClassName } from '../../common/fontUtils';
 import {
   getReferenceStr,
   getTitleStr,
+  getTitleWithId,
   isLTR,
 } from '../..';
 
@@ -81,13 +82,17 @@ class DefaultArea extends React.Component {
       targetLanguageDetails,
       targetLanguageFont,
     } = this.props;
-    const { book, direction } = targetLanguageDetails;
+    const {
+      book,
+      direction,
+      id:languageCode,
+    } = targetLanguageDetails;
     const bookName = book && book.name ? book.name : bookDetails.name;
     const languageName = targetLanguageDetails.name || null;
-    const languageDirection = direction || null;
+    const languageStr = getTitleWithId(languageName, languageCode);
     const refStr = getReferenceStr(reference.chapter, reference.verse);
     const title = getTitleStr(bookName, refStr);
-    const isLTR_ = isLTR(languageDirection);
+    const isLTR_ = isLTR(direction);
     const style = { display: 'flex', flexDirection: 'column' };
 
     if (!isLTR_) { // for RTL
@@ -108,7 +113,7 @@ class DefaultArea extends React.Component {
           {isLTR_ ? '' : this.getExpandIcon(translate)}
           <div className='pane' style={style}>
             <span className='verse-title-title'>
-              {languageName}
+              {languageStr}
             </span>
             <span className='verse-title-subtitle'>
               {title}
@@ -125,11 +130,11 @@ class DefaultArea extends React.Component {
             show={this.state.modalVisibility}
             targetLanguageFont={targetLanguageFont}
             targetLanguageDetails={targetLanguageDetails}
-            languageDirection={languageDirection || 'ltr'}
+            languageDirection={direction || 'ltr'}
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
           {this.displayText(verseText, selections, targetLanguageFont)}
         </div>
       </div>
