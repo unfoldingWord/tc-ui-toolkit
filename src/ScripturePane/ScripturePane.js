@@ -251,24 +251,26 @@ ScripturePane.propTypes = {
  * @param {object} prevProps
  * @param {object} nextProps
  */
-function areEqual(prevProps, nextProps) {
-  /*
-  Return true if passing nextProps.bibles to
-  render would return the same result as passing
-  prevProps.bibles to render, otherwise return false
-  */
-  const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
-    deepEqual(prevProps.contextId, nextProps.contextId) &&
-    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
-    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
-    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
-    prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
-    deepEqual(prevProps.selections, nextProps.selections);
+// function areEqual(prevProps, nextProps) {
+//   /*
+//   Return true if passing nextProps.bibles to
+//   render would return the same result as passing
+//   prevProps.bibles to render, otherwise return false
+//   */
+//   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
+//     deepEqual(prevProps.contextId, nextProps.contextId) &&
+//     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+//     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+//     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+//     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
+//     deepEqual(prevProps.selections, nextProps.selections);
 
-  console.log('====================================');
-  console.log('result', result);
-  console.log('====================================');
-  return result;
-}
+//   console.log('====================================');
+//   console.log('result', result);
+//   console.log('====================================');
+//   return result;
+// }
 // using React.memo to boost performance by memoizing the result
-export default React.memo(ScripturePane, areEqual);
+// export default React.memo(ScripturePane, areEqual);
+
+export default ScripturePane;
