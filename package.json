@@ -81,7 +81,7 @@
     "react-draggable": "^3.3.2",
     "react-remarkable": "^1.1.3",
     "react-tooltip": "^3.11.6",
-    "usfm-js": "github:unfoldingWord/usfm-js#bugfix-mcleanb-6847"
+    "usfm-js": "2.0.4-alpha"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
