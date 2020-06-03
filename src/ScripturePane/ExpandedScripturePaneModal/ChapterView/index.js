@@ -56,7 +56,7 @@ class ChapterView extends Component {
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
     const { manifest: projectManifest } = projectDetailsReducer;
-    const targetLanguageFont = projectManifest.languageFont || '';
+    const targetLanguageFont = projectManifest.projectFont || '';
     this.verseRefs = {};
     let verseRows = [];
 
