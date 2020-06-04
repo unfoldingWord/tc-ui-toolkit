@@ -9,6 +9,7 @@ import {
   getTitleWithId,
   isLTR,
 } from '../..';
+import { getFontClassName } from '../../common/fontUtils';
 
 const SelectionArea = ({
   translate,
@@ -42,14 +43,18 @@ const SelectionArea = ({
     style.direction = 'rtl';
   }
 
+  const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
+  const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
+  const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
+
   return (
     <div className='selection-area-root'>
       <div className='verse-title'>
         <div className='pane' style={style}>
-          <span className='verse-title-title'>
+          <span className={verseTitleClassName}>
             {languageStr}
           </span>
-          <span className='verse-title-subtitle'>
+          <span className={verseSubtitleClassName}>
             {title}
           </span>
         </div>
@@ -63,7 +68,7 @@ const SelectionArea = ({
             selections={selections}
             openAlertDialog={openAlertDialog}
             maximumSelections={maximumSelections}
-            targetLanguageFont={targetLanguageFont}
+            targetLanguageFontClassName={targetLanguageFontClassName}
             changeSelectionsInLocalState={changeSelectionsInLocalState}
           />
         </div>

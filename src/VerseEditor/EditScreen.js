@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getFontClassName } from '../common/fontUtils';
 import { isLTR } from '../ScripturePane/helpers/utils';
 import { moveCursorToEnd } from './helpers/editHelpers';
 
@@ -30,11 +29,10 @@ class EditScreen extends React.Component {
       rows,
       style,
       verseText,
-      targetLanguageFont,
+      targetLanguageFontClassName,
       direction,
     } = this.props;
-    const fontClass = getFontClassName(targetLanguageFont);
-    const className = fontClass ? `edit-screen ${fontClass}` : 'edit-screen';
+    const className = targetLanguageFontClassName ? `edit-screen ${targetLanguageFontClassName}` : 'edit-screen';
     const style_ = {
       ...style,
       textAlign: isLTR(direction) ? 'left' : 'right',
@@ -59,8 +57,8 @@ EditScreen.propTypes = {
   style: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   verseText: PropTypes.string.isRequired,
-  targetLanguageFont: PropTypes.string,
   direction: PropTypes.string.isRequired,
+  targetLanguageFontClassName: PropTypes.string,
 };
 
 EditScreen.defaultProps = {
