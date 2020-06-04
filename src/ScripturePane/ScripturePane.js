@@ -102,7 +102,7 @@ function ScripturePane({
         const { languageId, bibleId } = paneSettings;
         const { manifest } = bibles[languageId][bibleId];
         let language_name = manifest.language_name;
-        const targetLanguageFont = projectManifest.languageFont || '';
+        const targetLanguageFont = projectManifest.projectFont || '';
         const { chapter, verse } = contextId.reference;
         const verseData = bibles[languageId][bibleId][chapter][verse];
         let verseElements = [];
@@ -152,7 +152,7 @@ function ScripturePane({
   }
 
   const { manifest: projectManifest } = projectDetailsReducer;
-  const targetLanguageFont = projectManifest.languageFont || '';
+  const targetLanguageFont = projectManifest.projectFont || '';
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
