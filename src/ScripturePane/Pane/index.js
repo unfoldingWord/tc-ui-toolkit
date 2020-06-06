@@ -42,28 +42,35 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
+  const paneSubtitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
 
-  return <div className="pane-title-container-content" style={styles}>
-    <span
-      className={headingClassName}
-      aria-label={headingText}>
-      {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
-    </span>
-    <ContainerDimensions>
-      {
-        ({ width }) =>
-          <span
-            className={localizedDescription.length > width / PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
-            aria-label={localizedDescription}>
-            {
-              localizedDescription.length > width / PANECHAR ?
-                localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
-                localizedDescription
-            }
-          </span>
-      }
-    </ContainerDimensions>
-  </div>;
+  return (
+    <div className="pane-title-container-content" style={styles}>
+      <span
+        className={headingClassName}
+        aria-label={headingText}>
+        {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
+      </span>
+      <ContainerDimensions>
+        {
+          ({ width }) => {
+            const className = localizedDescription.length > width / PANECHAR ? `${paneSubtitleClassName} hint--bottom hint--medium` : paneSubtitleClassName;
+            return (
+              <span
+                className={className}
+                aria-label={localizedDescription}>
+                {
+                  localizedDescription.length > width / PANECHAR ?
+                    localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
+                    localizedDescription
+                }
+              </span>
+            );
+          }
+        }
+      </ContainerDimensions>
+    </div>
+  );
 }
 
 /**
