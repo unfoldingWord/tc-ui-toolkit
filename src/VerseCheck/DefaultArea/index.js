@@ -96,6 +96,7 @@ class DefaultArea extends React.Component {
     const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
     const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
     const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
+    const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
 
     if (!isLTR_) { // for RTL
       style.justifyContent = 'right';
@@ -114,10 +115,10 @@ class DefaultArea extends React.Component {
           {/* put icon here if RTL */}
           {isLTR_ ? '' : this.getExpandIcon(translate)}
           <div className='pane' style={style}>
-            <span className={verseTitleClassName}>
+            <span className={verseTitleClassName} style={lineHeightStyle}>
               {languageStr}
             </span>
-            <span className={verseSubtitleClassName}>
+            <span className={verseSubtitleClassName} style={lineHeightStyle}>
               {title}
             </span>
           </div>
