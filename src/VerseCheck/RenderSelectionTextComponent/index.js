@@ -5,7 +5,6 @@ import isEqual from 'deep-equal';
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
-import { getFontClassName } from '../../common/fontUtils';
 
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
@@ -89,10 +88,10 @@ class RenderSelectionTextComponent extends Component {
         }
       }
 
-      const fontClass = getFontClassName(this.props.targetLanguageFont);
+      const { targetLanguageFontClassName } = this.props;
 
       return (
-        <span key={index} className={fontClass} style={style} onClick={callback}>
+        <span key={index} className={targetLanguageFontClassName} style={style} onClick={callback}>
           {stringSplice.text}
         </span>
       );
@@ -102,12 +101,11 @@ class RenderSelectionTextComponent extends Component {
 
   render() {
     let {
-      verseText, selections, targetLanguageFont,
+      verseText, selections, targetLanguageFontClassName,
     } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = stringHelpers.normalizeString(verseText);
-    const fontClass = getFontClassName(targetLanguageFont);
-    let verseTextSpans = <span className={fontClass}>{verseText}</span>;
+    let verseTextSpans = <span className={targetLanguageFontClassName}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       verseTextSpans = this.verseTextSpans(selections, verseText);
@@ -128,7 +126,7 @@ RenderSelectionTextComponent.propTypes = {
   maximumSelections: PropTypes.number.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
-  targetLanguageFont: PropTypes.string,
+  targetLanguageFontClassName: PropTypes.string,
 };
 
 export default RenderSelectionTextComponent;

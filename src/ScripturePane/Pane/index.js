@@ -35,31 +35,44 @@ function getRemoveicon(clickToRemoveResourceLabel, index, removePane) {
  * @param {boolean} isLTR - justification to use, if true do LTR
  * @param {string} headingText
  * @param {string} localizedDescription
+ * @param {string} fontClass
  * @return {*}
  */
-function getTitleContainerContent(isLTR, headingText, localizedDescription) {
+function getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass) {
   const styles = { textAlign: isLTR ? 'left' : 'right' };
-  return <div className="pane-title-container-content" style={styles}>
-    <span
-      className={headingText.length > 21 ? 'pane-title-text hint--bottom hint--medium' : 'pane-title-text'}
-      aria-label={headingText}>
-      {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
-    </span>
-    <ContainerDimensions>
-      {
-        ({ width }) =>
-          <span
-            className={localizedDescription.length > width / PANECHAR ? 'pane-subtitle-text hint--bottom hint--medium' : 'pane-subtitle-text'}
-            aria-label={localizedDescription}>
-            {
-              localizedDescription.length > width / PANECHAR ?
-                localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
-                localizedDescription
-            }
-          </span>
-      }
-    </ContainerDimensions>
-  </div>;
+  const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
+  const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
+  const paneSubtitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
+
+  return (
+    <div className="pane-title-container-content" style={styles}>
+      <span
+        style={{ lineHeight: fontClass ? 1.4 : '' }}
+        className={headingClassName}
+        aria-label={headingText}>
+        {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
+      </span>
+      <ContainerDimensions>
+        {
+          ({ width }) => {
+            const className = localizedDescription.length > width / PANECHAR ? `${paneSubtitleClassName} hint--bottom hint--medium` : paneSubtitleClassName;
+            return (
+              <span
+                className={className}
+                style={{ lineHeight: fontClass ? 1.4 : '' }}
+                aria-label={localizedDescription}>
+                {
+                  localizedDescription.length > width / PANECHAR ?
+                    localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
+                    localizedDescription
+                }
+              </span>
+            );
+          }
+        }
+      </ContainerDimensions>
+    </div>
+  );
 }
 
 /**
@@ -72,16 +85,24 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription) {
  * @param {function} removePane
  * @return {*}
  */
-function getTitleContainer(isLTR, headingText, localizedDescription, clickToRemoveResourceLabel, index, removePane) {
+function GetTitleContainer({
+  index,
+  isLTR,
+  fontClass,
+  removePane,
+  headingText,
+  localizedDescription,
+  clickToRemoveResourceLabel,
+}) {
   if (isLTR) {
     return <>
-      {getTitleContainerContent(isLTR, headingText, localizedDescription)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
       {getRemoveicon(clickToRemoveResourceLabel, index, removePane)}
     </>;
   } else { // arrange rtl
     return <>
       {getRemoveicon(clickToRemoveResourceLabel, index, removePane)}
-      {getTitleContainerContent(isLTR, headingText, localizedDescription)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
     </>;
   }
 }
@@ -91,6 +112,7 @@ const Pane = ({
   verse,
   chapter,
   bibleId,
+  fontClass,
   direction,
   translate,
   removePane,
@@ -108,8 +130,15 @@ const Pane = ({
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        {getTitleContainer(isLTR_, headingText, localizedDescription,
-          clickToRemoveResourceLabel, index, removePane)}
+        <GetTitleContainer
+          index={index}
+          isLTR={isLTR}
+          fontClass={fontClass}
+          removePane={removePane}
+          headingText={headingText}
+          localizedDescription={localizedDescription}
+          clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        />
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
         <Verse
@@ -126,6 +155,7 @@ const Pane = ({
 };
 
 Pane.propTypes = {
+  fontClass: PropTypes.string,
   index: PropTypes.number.isRequired,
   bibleId: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,

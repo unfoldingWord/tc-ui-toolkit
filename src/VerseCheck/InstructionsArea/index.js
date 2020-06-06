@@ -89,7 +89,7 @@ const InstructionsArea = ({
           {`"${alignedGLText}"`}
         </strong>
       </span><br />
-      <span>{translate('translated_as')}</span><br />
+      <span style={{ lineHeight: 2 }}>{translate('translated_as')}</span><br />
       <span>
         <InstructionsAreaTextSelection
           selections={selections}

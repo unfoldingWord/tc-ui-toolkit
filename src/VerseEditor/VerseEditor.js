@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import { Glyphicon } from 'react-bootstrap';
 import { isLTR } from '../ScripturePane/helpers/utils';
-
+import { getFontClassName } from '../common/fontUtils';
 // components
 import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
@@ -15,9 +15,7 @@ const styles = {
   screen: {
     display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
   },
-  editor: {
-    fontSize: '16px', width: '320px', padding: '6px',
-  },
+  editor: { width: '320px', padding: '6px' },
   editHeading: {
     paddingLeft: '6px', fontWeight: 'bold', fontSize: '16px',
   },
@@ -128,8 +126,9 @@ class VerseEditor extends React.Component {
     let text = !verseChanged ? verseText : newVerse;
     const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
     const isVerseChanged = this.isVerseChanged();
+    const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
     const title = (
-      <span>
+      <span className={targetLanguageFontClassName}>
         <EditIcon className='edit-icon' />
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
@@ -162,7 +161,7 @@ class VerseEditor extends React.Component {
               verseText={text}
               style={styles.editor}
               onChange={this._handleVerseChange}
-              targetLanguageFont={targetLanguageFont}
+              targetLanguageFontClassName={targetLanguageFontClassName}
               direction={direction}
             />
           </div>

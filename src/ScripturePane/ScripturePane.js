@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
 // components
+import { getFontClassName } from '../common/fontUtils';
 import Pane from './Pane';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
@@ -120,11 +121,18 @@ function ScripturePane({
           description = 'original_language';
         }
 
+        const isTargetBible = bibleId === 'targetBible';
+
         if (typeof verseData === 'string') { // if the verse content is string.
-          const isTargetBible = bibleId === 'targetBible';
           verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
         } else if (verseData) { // else the verse content is an array of verse objects.
           verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
+        }
+
+        let fontClass = '';
+
+        if (isTargetBible) {
+          fontClass = getFontClassName(targetLanguageFont);
         }
 
         panes.push(
@@ -134,10 +142,11 @@ function ScripturePane({
             verse={verse}
             chapter={chapter}
             bibleId={bibleId}
+            fontClass={fontClass}
             translate={translate}
+            removePane={removePane}
             description={description}
             languageName={language_name}
-            removePane={removePane}
             verseElements={verseElements}
             direction={manifest.direction}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}

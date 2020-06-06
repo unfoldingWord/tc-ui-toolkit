@@ -25,12 +25,11 @@ class DefaultArea extends React.Component {
     };
   }
 
-  displayText(verseText, selections, targetLanguageFont) {
+  displayText(verseText, selections, targetLanguageFontClassName) {
     const { validateSelections } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
-    const fontClass = getFontClassName(targetLanguageFont);
-    let verseTextSpans = <span className={fontClass}>{verseText}</span>;
+    let verseTextSpans = <span className={targetLanguageFontClassName}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
@@ -52,7 +51,7 @@ class DefaultArea extends React.Component {
         let style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
 
         verseTextSpans.push(
-          <span key={index} className={fontClass} style={style}>
+          <span key={index} className={targetLanguageFontClassName} style={style}>
             {selection.text}
           </span>,
         );
@@ -94,6 +93,9 @@ class DefaultArea extends React.Component {
     const title = getTitleStr(bookName, refStr);
     const isLTR_ = isLTR(direction);
     const style = { display: 'flex', flexDirection: 'column' };
+    const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
+    const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
+    const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
 
     if (!isLTR_) { // for RTL
       style.justifyContent = 'right';
@@ -112,10 +114,10 @@ class DefaultArea extends React.Component {
           {/* put icon here if RTL */}
           {isLTR_ ? '' : this.getExpandIcon(translate)}
           <div className='pane' style={style}>
-            <span className='verse-title-title'>
+            <span className={verseTitleClassName}>
               {languageStr}
             </span>
-            <span className='verse-title-subtitle'>
+            <span className={verseSubtitleClassName}>
               {title}
             </span>
           </div>
@@ -135,7 +137,7 @@ class DefaultArea extends React.Component {
           />
         </div>
         <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
-          {this.displayText(verseText, selections, targetLanguageFont)}
+          {this.displayText(verseText, selections, targetLanguageFontClassName)}
         </div>
       </div>
     );

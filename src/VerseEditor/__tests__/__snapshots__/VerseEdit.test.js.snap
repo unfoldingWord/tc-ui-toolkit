@@ -7,7 +7,9 @@ exports[`VerseEditor component: should render 1`] = `
   onClose={[Function]}
   open={true}
   title={
-    <span>
+    <span
+      className=""
+    >
       <pure(EditIcon)
         className="edit-icon"
       />
@@ -43,11 +45,11 @@ exports[`VerseEditor component: should render 1`] = `
         rows={9}
         style={
           Object {
-            "fontSize": "16px",
             "padding": "6px",
             "width": "320px",
           }
         }
+        targetLanguageFontClassName=""
         verseText="Dummy Text"
       />
     </div>

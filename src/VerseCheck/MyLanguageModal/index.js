@@ -12,6 +12,7 @@ import Draggable from 'react-draggable';
 import MyTargetVerse from '../MyTargetVerse';
 
 import './MyLanguageModal.styles.css';
+import { getFontClassName } from '../../common/fontUtils';
 
 function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
@@ -55,6 +56,7 @@ class MyLanguageModal extends Component {
     } = this.props;
     const title = bookName;
     let MyTargetLanguage = [];
+    const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
 
     if (show) {
       for (let key in targetBible[chapter]) {
@@ -89,7 +91,7 @@ class MyLanguageModal extends Component {
                 verseText={verseText}
                 styles={versePaneStyle}
                 dir={languageDirection}
-                targetLanguageFont={targetLanguageFont}
+                targetLanguageFontClassName={targetLanguageFontClassName}
               />
             </div>,
           );
@@ -115,7 +117,9 @@ class MyLanguageModal extends Component {
           }}
         >
           <DialogTitle disableTypography={true} className='verse-check-modal-title'>
-            <h4 style={{ color: 'var(--reverse-color)' }}>{title}</h4>
+            <h4 style={{ color: 'var(--reverse-color)' }} className={targetLanguageFontClassName}>
+              {title}
+            </h4>
             <Glyphicon
               onClick={onHide}
               glyph={'remove'}
