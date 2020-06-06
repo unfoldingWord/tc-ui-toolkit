@@ -36,6 +36,10 @@ const SelectionArea = ({
   const title = getTitleStr(bookName, refStr);
   const isLTR_ = isLTR(direction);
   const style = { display: 'flex', flexDirection: 'column' };
+  const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
+  const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
+  const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
+  const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
 
   if (!isLTR_) { // for RTL
     style.justifyContent = 'right';
@@ -43,18 +47,14 @@ const SelectionArea = ({
     style.direction = 'rtl';
   }
 
-  const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
-  const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
-  const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
-
   return (
     <div className='selection-area-root'>
       <div className='verse-title'>
         <div className='pane' style={style}>
-          <span className={verseTitleClassName}>
+          <span className={verseTitleClassName} style={lineHeightStyle}>
             {languageStr}
           </span>
-          <span className={verseSubtitleClassName}>
+          <span className={verseSubtitleClassName} style={lineHeightStyle}>
             {title}
           </span>
         </div>
