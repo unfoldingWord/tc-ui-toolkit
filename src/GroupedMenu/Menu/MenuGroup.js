@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ChevronRight from '@material-ui/icons/ChevronRight';
@@ -69,9 +69,9 @@ class MenuGroup extends React.Component {
         }}
         onClick={onClick}
       >
-        <ListItemIcon>
-          <ProgressIcon progress={progress}/>
-        </ListItemIcon>
+        {/* <ListItemIcon> */}
+        <ProgressIcon progress={progress}/>
+        {/* </ListItemIcon> */}
         <ListItemText
           inset={false}
           classes={{
