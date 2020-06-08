@@ -18,7 +18,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".my-language-modal-draggable-handle">
-      <Paper {...props}/>
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -134,7 +134,7 @@ class MyLanguageModal extends Component {
         }}>
           {MyTargetLanguage}
         </DialogContent>
-        <DialogActions disableActionSpacing={true}>
+        <DialogActions disableSpacing={true}>
           <button className='btn-prime' onClick={onHide}>{translate('close')}</button>
         </DialogActions>
       </Dialog>

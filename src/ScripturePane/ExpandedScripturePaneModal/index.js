@@ -21,7 +21,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".expanded-scripture-draggable-handle">
-      <Paper {...props}/>
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -145,7 +145,7 @@ function ExpandedScripturePaneModal({
           showPopover={showPopover}
           getLexiconData={getLexiconData} />
       </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
+      <DialogActions disableSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
           {translate('close')}
         </button>

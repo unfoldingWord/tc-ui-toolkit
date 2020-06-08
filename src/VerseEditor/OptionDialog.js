@@ -60,7 +60,7 @@ const OptionDialog = ({
         <DialogContent style={{ padding: '0 18px 18px' }}>
           {content}
         </DialogContent>
-        <DialogActions disableActionSpacing={true}>
+        <DialogActions disableSpacing={true}>
           {actions}
         </DialogActions>
       </Dialog>

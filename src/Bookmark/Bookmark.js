@@ -8,10 +8,10 @@ const styles = {
   colorSwitchBase: {
     '&$colorChecked': {
       'color': 'var(--accent-color-dark)',
-      '& + $colorBar': { backgroundColor: 'var(--accent-color-dark)' },
+      '& + $colorTrack': { backgroundColor: 'var(--accent-color-dark)' },
     },
   },
-  colorBar: {},
+  colorTrack: {},
   colorChecked: {},
   label: {
     color: 'var(--accent-color-dark)',
@@ -41,7 +41,7 @@ const Bookmark = ({
         classes={{
           switchBase: classes.colorSwitchBase,
           checked: classes.colorChecked,
-          bar: classes.colorBar,
+          track: classes.colorTrack,
         }}
       />
     }

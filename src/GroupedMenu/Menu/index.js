@@ -12,7 +12,6 @@ import EmptyItem from './EmptyItem';
 
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true,
     fontFamily: [
       '"Noto Sans"',
       'Roboto',

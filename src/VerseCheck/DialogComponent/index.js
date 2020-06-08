@@ -60,7 +60,7 @@ let DialogComponent = ({
             {skip[0]} <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}> {skip[1]} </span> {skip[2]}
           </p>
         </DialogContent>
-        <DialogActions disableActionSpacing={true}>
+        <DialogActions disableSpacing={true}>
           {actions}
         </DialogActions>
       </Dialog>
