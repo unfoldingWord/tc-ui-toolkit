@@ -5,9 +5,9 @@ import { getFontClassName } from '../../common/fontUtils';
 
 const ELLIPSIS = '…';
 
-export const QuoatationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
+export const QuotationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
 
-QuoatationMarks.propTypes = { children: PropTypes.object.isRequired };
+QuotationMarks.propTypes = { children: PropTypes.array.isRequired };
 
 const getSelectionSpans = (selections, targetLanguageFont) => {
   const results = [];
@@ -39,19 +39,19 @@ const InstructionsAreaTextSelection = ({
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
-      <QuoatationMarks>
+      <QuotationMarks>
         <span className={fontClass}>{selections[0].text.trim()}</span>
         <strong className={fontClass} style={{ color: 'var(--accent-color)' }}>
           {` ${ELLIPSIS} `}
         </strong>
         <span className={fontClass}>{selections[selections.length - 1].text.trim()}</span>
-      </QuoatationMarks>
+      </QuotationMarks>
     );
   } else {
     return (
-      <QuoatationMarks>
+      <QuotationMarks>
         {getSelectionSpans(selections, targetLanguageFont)}
-      </QuoatationMarks>
+      </QuotationMarks>
     );
   }
 };
