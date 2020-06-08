@@ -132,7 +132,7 @@ const Pane = ({
       <div className="pane-title-container">
         <GetTitleContainer
           index={index}
-          isLTR={isLTR}
+          isLTR={isLTR_}
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
