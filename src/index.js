@@ -1,4 +1,4 @@
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import * as lexiconHelpers from './ScripturePane/helpers/lexiconHelpers';
 // constants
 export const TcuiThemeProvider = MuiThemeProvider;

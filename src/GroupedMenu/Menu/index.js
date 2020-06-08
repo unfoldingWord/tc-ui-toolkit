@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles , createMuiTheme } from '@material-ui/core/styles';
+import {
+  withStyles,
+  createMuiTheme,
+  ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import RootRef from '@material-ui/core/RootRef';
-
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import memoize from 'memoize-one';
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';
