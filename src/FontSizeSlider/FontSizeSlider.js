@@ -5,7 +5,7 @@ import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({ root: { width: 150 } });
 
-function FontSlider({ value }) {
+function FontSizeSlider({ value }) {
   const classes = useStyles();
 
   return (
@@ -23,9 +23,9 @@ function FontSlider({ value }) {
   );
 }
 
-FontSlider.propTypes = {
+FontSizeSlider.propTypes = {
   value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-export default FontSlider;
+export default FontSizeSlider;
