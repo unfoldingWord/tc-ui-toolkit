@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
-const useStyles = makeStyles({ root: { width: 300 } });
+const useStyles = makeStyles({ root: { width: 150 } });
 
 function FontSlider({ value }) {
   const classes = useStyles();
@@ -12,9 +12,9 @@ function FontSlider({ value }) {
     <div className={classes.root}>
       <Slider
         marks
-        min={10}
-        max={100}
-        step={10}
+        min={90}
+        max={190}
+        step={20}
         valueLabelDisplay="auto"
         defaultValue={value || 0}
         aria-labelledby="font-size-slider"
