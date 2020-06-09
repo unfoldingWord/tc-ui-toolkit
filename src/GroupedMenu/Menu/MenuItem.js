@@ -142,6 +142,7 @@ const styles = {
   bootstrapPlacementRight: { margin: '0 8px' },
   bootstrapPlacementTop: { margin: '8px 40px' },
   bootstrapPlacementBottom: { margin: '8px 40px' },
+  listItemIconRoot: { minWidth: '0px' },
 };
 
 /**
@@ -216,11 +217,15 @@ class MenuItem extends React.Component {
     }
 
     if (icons.length === 1) {
-      return <ListItemIcon>{icons[0]}</ListItemIcon>;
+      return (
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+          {icons[0]}
+        </ListItemIcon>
+      );
     } else if (icons.length > 1) {
       // display badged icon with tooltip
       return (
-        <ListItemIcon>
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
           <Tooltip
             placement="right"
             classes={{ tooltip: this.props.classes.lightTooltipSmall }}

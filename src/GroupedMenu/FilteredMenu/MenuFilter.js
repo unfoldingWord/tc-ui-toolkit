@@ -51,6 +51,7 @@ const styles = () => ({
     '&:hover': { color: '#19579E' },
   },
   hover: {},
+  listItemIconRoot: { minWidth: '0px' },
 });
 
 /**
@@ -226,7 +227,7 @@ class MenuFilter extends React.Component {
                 disabled={!this.isEnabled(item)}
                 onClick={this.handleToggle(item)}
               >
-                <ListItemIcon>
+                <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
                   {this.isChecked(item) ? (
                     <CheckBoxIcon className={classes.checkbox}/>
                   ) : (

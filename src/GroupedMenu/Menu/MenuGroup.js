@@ -70,9 +70,7 @@ class MenuGroup extends React.Component {
         }}
         onClick={onClick}
       >
-        <ListItemIcon
-          classes={{ root: classes.listItemIconRoot }}
-        >
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
           <ProgressIcon progress={progress}/>
         </ListItemIcon>
         <ListItemText
