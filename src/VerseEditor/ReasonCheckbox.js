@@ -11,7 +11,10 @@ const useStyles = makeStyles({
     fontWeight: 700,
     fontSize: 16,
   },
-  checkBoxRoot: { fontSize: '24px' },
+  checkBoxRoot: {
+    'fontSize': '24px',
+    '&$checked': { color: 'var(--accent-color-dark)' },
+  },
   checkedCheckBox: { color: 'var(--accent-color-dark)' },
 });
 
@@ -35,10 +38,7 @@ function ReasonCheckbox({
       }}
       control={
         <Checkbox
-          classes={{
-            root: classes.checkBoxRoot,
-            checked: classes.checkedCheckBox,
-          }}
+          classes={{ root: classes.checkBoxRoot }}
           checked={selectedReasons.includes(reason)}
           onChange={handleCheck}
         />
