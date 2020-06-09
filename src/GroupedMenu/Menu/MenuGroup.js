@@ -35,6 +35,7 @@ const styles = {
     },
   },
   selected: {},
+  listItemIconRoot: { minWidth: '0px' },
 };
 
 /**
@@ -69,7 +70,9 @@ class MenuGroup extends React.Component {
         }}
         onClick={onClick}
       >
-        <ListItemIcon>
+        <ListItemIcon
+          classes={{ root: classes.listItemIconRoot }}
+        >
           <ProgressIcon progress={progress}/>
         </ListItemIcon>
         <ListItemText
