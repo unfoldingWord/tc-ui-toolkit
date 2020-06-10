@@ -10,7 +10,7 @@ import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
 // helpers
 import { verseString, verseArray } from './helpers/verseHelpers';
-import { getTitleWithId, isLTR } from './helpers/utils';
+import { getTitleWithId } from './helpers/utils';
 import './ScripturePane.styles.css';
 // constant
 const NAMESPACE = 'ScripturePane';
