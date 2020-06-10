@@ -75,7 +75,7 @@ const InstructionsArea = ({
         <span>{translate('please_select')}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
-            {`"${alignedGLText}"`}
+            {`${alignedGLText}`}
           </strong>
         </span><br />
       </div>
