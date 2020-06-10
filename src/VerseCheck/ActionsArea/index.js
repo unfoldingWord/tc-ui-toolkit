@@ -17,7 +17,7 @@ const styles = {
   label: {
     color: 'var(--accent-color-dark)',
     fontWeight: 'normal',
-    fontSize: 14,
+    fontSize: 16,
   },
   checkBoxRoot: {
     'padding': '12px 5px',
@@ -146,6 +146,17 @@ const ConfirmSelectionArea = ({
 }) => (
   <div className='selection-actions-area'>
     <div className='flex-row'>
+      <Checkbox
+        checked={localNothingToSelect}
+        disabled={newSelections && newSelections.length > 0}
+        onChange={event => toggleNothingToSelect(event.target.checked)}
+        value="nothingToSelect"
+        color="primary"
+        // classes={{
+        //   root: classes.checkBoxRoot,
+        //   checked: classes.checked,
+        // }}
+      />
       <FormControlLabel
         value="end"
         control={
