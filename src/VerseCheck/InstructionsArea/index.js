@@ -86,7 +86,7 @@ const InstructionsArea = ({
     <div className='instructions-area'>
       <span>
         <strong style={{ color: 'var(--accent-color)' }}>
-          {`"${alignedGLText}"`}
+          {`${alignedGLText}`}
         </strong>
       </span><br />
       <span style={{ lineHeight: 2 }}>{translate('translated_as')}</span><br />

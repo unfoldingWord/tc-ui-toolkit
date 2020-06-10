@@ -5,7 +5,7 @@ import { getFontClassName } from '../../common/fontUtils';
 
 const ELLIPSIS = '…';
 
-export const QuotationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{'"'}{children}{'"'}</strong>;
+export const QuotationMarks = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{children}</strong>;
 
 QuotationMarks.propTypes = { children: PropTypes.array.isRequired };
 
