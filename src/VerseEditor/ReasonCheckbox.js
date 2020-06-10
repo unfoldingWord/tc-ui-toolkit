@@ -38,10 +38,10 @@ function ReasonCheckbox({
       }}
       control={
         <Checkbox
-          classes={{
-            root: classes.checkBoxRoot,
-            checked: classes.checked,
-          }}
+          // classes={{
+          //   root: classes.checkBoxRoot,
+          //   checked: classes.checked,
+          // }}
           checked={selectedReasons.includes(reason)}
           onChange={handleCheck}
         />

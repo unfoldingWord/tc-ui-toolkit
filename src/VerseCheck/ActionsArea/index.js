@@ -155,10 +155,10 @@ const ConfirmSelectionArea = ({
             onChange={event => toggleNothingToSelect(event.target.checked)}
             value="nothingToSelect"
             color="primary"
-            classes={{
-              root: classes.checkBoxRoot,
-              checked: classes.checked,
-            }}
+            // classes={{
+            //   root: classes.checkBoxRoot,
+            //   checked: classes.checked,
+            // }}
           />
         }
         label={translate('no_selection_needed')}

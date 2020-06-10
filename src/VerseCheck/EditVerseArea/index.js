@@ -57,8 +57,8 @@ const EditVerseArea = ({
       control={
         <Checkbox
           classes={{
-            root: classes.checkBox,
-            checked:classes.checked,
+            // root: classes.checkBox,
+            // checked:classes.checked,
           }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
@@ -78,10 +78,10 @@ const EditVerseArea = ({
       }}
       control={
         <Checkbox
-          classes={{
-            root: classes.checkBox,
-            checked:classes.checked,
-          }}
+          // classes={{
+          //   root: classes.checkBox,
+          //   checked:classes.checked,
+          // }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
         />
