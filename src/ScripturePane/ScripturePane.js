@@ -112,7 +112,7 @@ function ScripturePane({
         const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          language_name = getTitleWithId(manifest.language_name, manifest.language_id, isLTR(manifest.direction));
+          language_name = getTitleWithId(manifest.language_name, manifest.language_id);
         }
 
         let description = manifest.description;
