@@ -7,7 +7,7 @@ const ELLIPSIS = '…';
 
 export const SelectedText = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{children}</strong>;
 
-SelectedText.propTypes = { children: PropTypes.array.isRequired };
+SelectedText.propTypes = { children: PropTypes.node.isRequired };
 
 const getSelectionSpans = (selections, targetLanguageFont) => {
   const results = [];
