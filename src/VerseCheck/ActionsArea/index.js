@@ -25,6 +25,7 @@ const styles = {
     'color': 'var(--accent-color-dark)',
     '&$checked': { color: 'var(--accent-color-dark)' },
   },
+  colorPrimary: { 'fontSize': '24px' },
   checked: {},
   icon: {
     color: 'var(--accent-color-dark)',
