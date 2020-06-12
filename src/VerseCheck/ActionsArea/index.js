@@ -23,7 +23,7 @@ const styles = {
     'fontSize': '24px',
     'padding': '12px 5px',
     'color': 'var(--accent-color-dark)',
-    '&$checked': { color: 'var(--accent-color-dark)' },
+    '&$checked': { color: 'var(--accent-color-dark)', fontSize: '24px' },
   },
   colorPrimary: { 'fontSize': '24px' },
   checked: {},
@@ -160,6 +160,7 @@ const ConfirmSelectionArea = ({
             classes={{
               root: classes.checkBoxRoot,
               checked: classes.checked,
+              colorPrimary: classes.colorPrimary,
             }}
           />
         }
