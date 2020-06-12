@@ -82,12 +82,14 @@ const EditVerseArea = ({
       }}
       control={
         <Checkbox
-          // classes={{
-          //   root: classes.checkBox,
-          //   checked:classes.checked,
-          // }}
+          classes={{
+            root: classes.checkBox,
+            checked:classes.checked,
+          }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={tag[1]}
