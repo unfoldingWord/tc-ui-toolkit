@@ -414,7 +414,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -443,10 +443,19 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                             aria-hidden={true}
                             className="MuiSvgIcon-root"
                             focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
                             viewBox="0 0 24 24"
                           >
                             <path
                               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
                             />
                           </svg>
                         </span>
@@ -462,7 +471,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -491,10 +500,19 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                             aria-hidden={true}
                             className="MuiSvgIcon-root"
                             focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
                             viewBox="0 0 24 24"
                           >
                             <path
                               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
                             />
                           </svg>
                         </span>
@@ -510,7 +528,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -539,10 +557,19 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                             aria-hidden={true}
                             className="MuiSvgIcon-root"
                             focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
                             viewBox="0 0 24 24"
                           >
                             <path
                               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
                             />
                           </svg>
                         </span>
