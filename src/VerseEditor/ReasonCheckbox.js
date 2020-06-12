@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const useStyles = makeStyles({
   formControlLabelRoot: { height: 30 },
@@ -38,12 +40,14 @@ function ReasonCheckbox({
       }}
       control={
         <Checkbox
-          // classes={{
-          //   root: classes.checkBoxRoot,
-          //   checked: classes.checked,
-          // }}
+          classes={{
+            root: classes.checkBoxRoot,
+            checked: classes.checked,
+          }}
           checked={selectedReasons.includes(reason)}
           onChange={handleCheck}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={label}

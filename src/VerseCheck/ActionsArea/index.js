@@ -6,6 +6,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InfoIcon from '@material-ui/icons/Info';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ReactTooltip from 'react-tooltip';
 // components
 import Bookmark from '../../Bookmark';
@@ -20,12 +22,10 @@ const styles = {
     fontSize: 16,
   },
   checkBoxRoot: {
-    'fontSize': '24px',
     'padding': '12px 5px',
     'color': 'var(--accent-color-dark)',
     '&$checked': { color: 'var(--accent-color-dark)', fontSize: '24px' },
   },
-  colorPrimary: { 'fontSize': '24px' },
   checked: {},
   icon: {
     color: 'var(--accent-color-dark)',
@@ -156,12 +156,12 @@ const ConfirmSelectionArea = ({
             disabled={newSelections && newSelections.length > 0}
             onChange={event => toggleNothingToSelect(event.target.checked)}
             value="nothingToSelect"
-            color="primary"
             classes={{
               root: classes.checkBoxRoot,
               checked: classes.checked,
-              colorPrimary: classes.colorPrimary,
             }}
+            icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+            checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
           />
         }
         label={translate('no_selection_needed')}
