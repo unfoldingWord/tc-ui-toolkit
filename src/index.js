@@ -19,6 +19,7 @@ export { default as CheckIcon } from './icons/Check';
 export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
 export { default as SpinningLogo } from './SpinningLogo';
+export { default as FontSizeSlider } from './FontSizeSlider';
 export { getAlignedText } from './VerseCheck/helpers/checkAreaHelpers';
 export {
   getReferenceStr, getTitleWithId, getTitleStr, isLTR,
