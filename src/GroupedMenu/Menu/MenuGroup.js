@@ -81,7 +81,7 @@ class MenuGroup extends React.Component {
           }}
           primary={label}
         />
-        {open ? <ExpandMore/> : <ChevronRight/>}
+        {open ? <ExpandMore style={{ fontSize: '22px' }} /> : <ChevronRight style={{ fontSize: '22px' }} />}
       </ListItem>
     );
   }
