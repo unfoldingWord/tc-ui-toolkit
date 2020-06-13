@@ -8,13 +8,11 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ProgressIcon from './ProgressIcon';
 
-/**
- * Utility to apply styles based on props
- */
-// const styledBy = (property, mapping) => props => mapping[props[property]];
-
 const styles = {
-  textRoot: { paddingRight: 0 },
+  textRoot: {
+    padding: '0 0 0 5px',
+    margin: '0px',
+  },
   text: {
     color: '#FFFFFF',
     fontSize: 12,
