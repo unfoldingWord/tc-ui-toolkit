@@ -24,7 +24,6 @@ const styles = {
     fontWeight: 700,
   },
   root: {
-    // paddingRight: 0,
     'borderBottom': 'solid #ffffff4d 1px',
     'cursor': 'pointer',
     '&$selected': {

@@ -37,7 +37,7 @@ const styles = () => ({
     fontWeight: 700,
     fontSize: 14,
   },
-  checkbox: { color: '#FFFFFF' },
+  checkbox: { color: '#FFFFFF', fontSize: '22px' },
   chip: {
     color: '#19579E',
     margin: 5,
