@@ -19,7 +19,7 @@ const styles = {
   label: {
     color: 'var(--accent-color-dark)',
     fontWeight: 'normal',
-    fontSize: 16,
+    fontSize: 14,
   },
   checkBoxRoot: {
     'padding': '12px 5px',
