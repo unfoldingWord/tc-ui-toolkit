@@ -235,7 +235,7 @@ class MenuFilter extends React.Component {
                   )}
                 </ListItemIcon>
                 {item.icon
-                  ? React.cloneElement(item.icon, { style: { color: '#ffffff' } })
+                  ? React.cloneElement(item.icon, { style: { color: '#ffffff', fontSize: '22px' } })
                   : null}
                 <ListItemText
                   classes={{ primary: classes.filterText }}
