@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Glyphicon } from 'react-bootstrap';
 import Slider from '@material-ui/core/Slider';
 
-const useStyles = makeStyles({ root: { width: 150 } });
+const useStyles = makeStyles({ root: { display: 'flex', width: 150 } });
 
 function FontSizeSlider({ value }) {
   const classes = useStyles();
