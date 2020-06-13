@@ -13,10 +13,7 @@ const useStyles = makeStyles({
     fontWeight: 700,
     fontSize: 16,
   },
-  checkBoxRoot: {
-    'fontSize': '24px',
-    '&$checked': { color: 'var(--accent-color-dark)' },
-  },
+  checkBoxRoot: { '&$checked': { color: 'var(--accent-color-dark)' } },
   checked:{},
 });
 

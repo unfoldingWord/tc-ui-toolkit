@@ -24,7 +24,7 @@ const styles = {
   checkBoxRoot: {
     'padding': '12px 5px',
     'color': 'var(--accent-color-dark)',
-    '&$checked': { color: 'var(--accent-color-dark)', fontSize: '24px' },
+    '&$checked': { color: 'var(--accent-color-dark)' },
   },
   checked: {},
   icon: {
@@ -154,6 +154,7 @@ const ConfirmSelectionArea = ({
           <Checkbox
             checked={localNothingToSelect}
             disabled={newSelections && newSelections.length > 0}
+            color="primary"
             onChange={event => toggleNothingToSelect(event.target.checked)}
             value="nothingToSelect"
             classes={{
