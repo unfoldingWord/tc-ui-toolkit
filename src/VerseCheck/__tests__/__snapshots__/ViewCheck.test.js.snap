@@ -781,7 +781,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />
@@ -1461,7 +1461,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />
@@ -1802,7 +1802,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />

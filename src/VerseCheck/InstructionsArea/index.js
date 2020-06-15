@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 // components
-import InstructionsAreaTextSelection, { QuoatationMarks } from '../InstructionsAreaTextSelection';
+import InstructionsAreaTextSelection, { SelectedText } from '../InstructionsAreaTextSelection';
 // css
 import './InstructionsArea.styles.css';
 
@@ -51,11 +51,11 @@ const InstructionsArea = ({
     return (
       <div className='instructions-area'>
         <span>{translate('no_selection_needed_description')}</span><br />
-        <QuoatationMarks>
+        <SelectedText>
           <strong className="no-selection-needed">
             {translate('no_selection_needed')}
           </strong>
-        </QuoatationMarks>
+        </SelectedText>
       </div>
     );
   }
@@ -75,7 +75,7 @@ const InstructionsArea = ({
         <span>{translate('please_select')}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
-            {`"${alignedGLText}"`}
+            {`${alignedGLText}`}
           </strong>
         </span><br />
       </div>
@@ -86,7 +86,7 @@ const InstructionsArea = ({
     <div className='instructions-area'>
       <span>
         <strong style={{ color: 'var(--accent-color)' }}>
-          {`"${alignedGLText}"`}
+          {`${alignedGLText}`}
         </strong>
       </span><br />
       <span style={{ lineHeight: 2 }}>{translate('translated_as')}</span><br />
