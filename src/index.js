@@ -20,7 +20,7 @@ export { default as Bookmark } from './Bookmark';
 export { default as WordLexiconDetails } from './WordLexiconDetails';
 export { default as SpinningLogo } from './SpinningLogo';
 export { default as FontSizeSlider } from './FontSizeSlider';
-export { default as DropdownMenu } from './DropdownMenu';
+export { default as DropdownMenu, MenuItem } from './DropdownMenu';
 export { getAlignedText } from './VerseCheck/helpers/checkAreaHelpers';
 export {
   getReferenceStr, getTitleWithId, getTitleStr, isLTR,
