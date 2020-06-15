@@ -7,23 +7,33 @@ export default function DropdownMenu({
   onClose,
   anchorEl,
   children,
+  anchorOrigin,
+  transformOrigin,
 }) {
   return (
     <Popover
       open={open}
-      anchorEl={anchorEl}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       onClose={onClose}
+      anchorEl={anchorEl}
+      anchorOrigin={anchorOrigin}
+      transformOrigin={transformOrigin}
     >
       {children}
     </Popover>
   );
 }
 
+DropdownMenu.defaultProps = {
+  transformOrigin: { vertical: 'top', horizontal: 'left' },
+  anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+};
+
 DropdownMenu.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  anchorOrigin: PropTypes.object.isRequired,
+  transformOrigin: PropTypes.object.isRequired,
   anchorEl: PropTypes.oneOfType([
     PropTypes.node.isRequired,
     PropTypes.bool.isRequired,
