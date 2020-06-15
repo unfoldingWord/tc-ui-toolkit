@@ -1,48 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Popover from '@material-ui/core/Popover';
 
-
-function DropdownMenu({
+export default function DropdownMenu({
   open,
-  options,
-  selected,
+  onClose,
   anchorEl,
-  handleClose,
+  children,
 }) {
   return (
-    <Menu
-      id='dropdown-menu'
-      anchorEl={anchorEl}
-      keepMounted
+    <Popover
       open={open}
-      onClose={handleClose}
-      // PaperProps={{
-      //   style: {
-      //     maxHeight: ITEM_HEIGHT * 4.5,
-      //     width: '20ch',
-      //   },
-      // }}
+      anchorEl={anchorEl}
+      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      onClose={onClose}
     >
-      {options.map((option) => (
-        <MenuItem key={option} selected={option.value === selected} onClick={handleClose}>
-          {option.node}
-        </MenuItem>
-      ))}
-    </Menu>
+      {children}
+    </Popover>
   );
 }
 
 DropdownMenu.propTypes = {
   open: PropTypes.bool.isRequired,
-  options: PropTypes.array.isRequired,
-  selected: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([
     PropTypes.node.isRequired,
     PropTypes.bool.isRequired,
   ]),
-  handleClose: PropTypes.func.isRequired,
 };
 
-export default DropdownMenu;
+export function MenuItem({
+  title,
+  divider,
+  onClose,
+  onClick,
+  children,
+  disableOnClick,
+}) {
+  const menuItemStyle = {
+    display: 'flex',
+    padding: '4px',
+    margin: '4px',
+    cursor: disableOnClick ? '' : 'pointer',
+  };
+
+  function handleOnClick() {
+    if (!disableOnClick) {
+      if (onClose) {
+        onClose();
+      }
+
+      if (onClick) {
+        onClick();
+      }
+    }
+  }
+
+  return (
+    <>
+      <div style={menuItemStyle} onClick={handleOnClick} title={title}>
+        {children}
+      </div>
+      {divider && <hr style={{ margin: '4px 4px 0' }} />}
+    </>
+  );
+}
+
+MenuItem.propTypes = {
+  title: PropTypes.string,
+  divider: PropTypes.bool,
+  disableOnClick: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  anchorEl: PropTypes.oneOfType([
+    PropTypes.node.isRequired,
+    PropTypes.bool.isRequired,
+  ]),
+};
