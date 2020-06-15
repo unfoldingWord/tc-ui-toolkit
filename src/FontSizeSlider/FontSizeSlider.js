@@ -19,7 +19,7 @@ function FontSizeSlider({ initialValue }) {
       <Grid item>
         <Glyphicon glyph='font' style={{ marginRight: '10px' }} onClick={() => handleChange(value - step)}/>
       </Grid>
-      <Grid item xs>
+      <Grid item style={{ width: '120px' }}>
         <Slider
           marks
           min={90}
