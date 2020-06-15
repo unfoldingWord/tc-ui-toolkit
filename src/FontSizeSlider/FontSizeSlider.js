@@ -1,33 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { Glyphicon } from 'react-bootstrap';
+import Grid from '@material-ui/core/Grid';
+
 import Slider from '@material-ui/core/Slider';
 
-const useStyles = makeStyles({ root: { display: 'flex', width: 150 } });
+function FontSizeSlider({ initialValue }) {
+  const [value, setValue] = useState(initialValue);
+  const step = 20;
 
-function FontSizeSlider({ value }) {
-  const classes = useStyles();
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
 
   return (
-    <div className={classes.root}>
-      <Glyphicon glyph='font' style={{ marginRight: '10px' }} />
-      <Slider
-        marks
-        min={90}
-        max={190}
-        step={20}
-        valueLabelDisplay="auto"
-        defaultValue={value || 0}
-        aria-labelledby="font-size-slider"
-      />
-      <Glyphicon glyph='font' style={{ marginLeft: '10px' }} />
-    </div>
+    <Grid container spacing={2}>
+      <Grid item>
+        <Glyphicon glyph='font' style={{ marginRight: '10px' }} onClick={() => handleChange(value - step)}/>
+      </Grid>
+      <Grid item xs>
+        <Slider
+          marks
+          min={90}
+          max={190}
+          step={step}
+          value={value}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          defaultValue={value || 0}
+          aria-labelledby="font-size-slider"
+        />
+      </Grid>
+      <Grid item>
+        <Glyphicon glyph='font' style={{ marginLeft: '10px' }} onClick={() => handleChange(value - step)}/>
+      </Grid>
+    </Grid>
   );
 }
 
 FontSizeSlider.propTypes = {
-  value: PropTypes.number.isRequired,
+  initialValue: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
