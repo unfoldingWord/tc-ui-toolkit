@@ -12,7 +12,12 @@ function ThreeDotIcon({
       glyph="option-vertical"
       title={title}
       onClick={onClick}
-      style={{ padding: 0, ...style }}
+      style={{
+        padding: 0,
+        fontSize: '18px',
+        cursor: 'pointer',
+        ...style,
+      }}
     />
     // <IconButton
     //   aria-label="more"
