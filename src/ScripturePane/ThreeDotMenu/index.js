@@ -41,10 +41,10 @@ function ThreeDotMenu({
         }
         <MenuItem onClose={handleClose}>
           <Glyphicon
-            className='remove-glyph-icon'
             glyph={'remove'}
-            title={clickToRemoveResourceLabel}
+            className='remove-glyph-icon'
             onClick={() => removePane(index)}
+            title={clickToRemoveResourceLabel}
           />
           <div>{removeResourceLabel}</div>
         </MenuItem>
