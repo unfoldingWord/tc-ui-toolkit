@@ -4,6 +4,7 @@ import Popover from '@material-ui/core/Popover';
 
 export default function DropdownMenu({
   open,
+  style,
   onClose,
   anchorEl,
   children,
@@ -14,6 +15,7 @@ export default function DropdownMenu({
     <Popover
       open={open}
       onClose={onClose}
+      style={{ ...style }}
       anchorEl={anchorEl}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
@@ -29,6 +31,7 @@ DropdownMenu.defaultProps = {
 };
 
 DropdownMenu.propTypes = {
+  style: PropTypes.object,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
@@ -41,6 +44,7 @@ DropdownMenu.propTypes = {
 };
 
 export function MenuItem({
+  style,
   title,
   divider,
   onClose,
@@ -53,6 +57,7 @@ export function MenuItem({
     padding: '4px',
     margin: '4px',
     cursor: disableOnClick ? '' : 'pointer',
+    ...style,
   };
 
   function handleOnClick() {
@@ -78,6 +83,7 @@ export function MenuItem({
 }
 
 MenuItem.propTypes = {
+  style: PropTypes.object,
   title: PropTypes.string,
   divider: PropTypes.bool,
   disableOnClick: PropTypes.bool,

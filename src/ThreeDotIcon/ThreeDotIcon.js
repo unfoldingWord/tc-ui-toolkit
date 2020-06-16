@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import IconButton from '@material-ui/core/IconButton';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Glyphicon } from 'react-bootstrap';
 
 function ThreeDotIcon({
-  onClick, style, title,
+  style,
+  title,
+  onClick,
 }) {
   return (
     <Glyphicon
@@ -19,15 +19,6 @@ function ThreeDotIcon({
         ...style,
       }}
     />
-    // <IconButton
-    //   aria-label="more"
-    //   aria-controls="long-menu"
-    //   aria-haspopup="true"
-    //   onClick={onClick}
-    //   style={{ padding: 0, ...style }}
-    // >
-    // <MoreVertIcon onClick={onClick} style={{ padding: 0, ...style }}/>
-    // </IconButton>
   );
 }
 
