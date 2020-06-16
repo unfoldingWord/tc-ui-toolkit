@@ -33,12 +33,6 @@ function ThreeDotMenu({
         onClose={handleClose}
         transformOrigin={transformOrigin}
       >
-        {
-          isTargetBible &&
-          <MenuItem onClose={handleClose} divider disableOnClick>
-            <FontSizeSlider initialValue={90} />
-          </MenuItem>
-        }
         <MenuItem onClose={handleClose}>
           <Glyphicon
             glyph={'remove'}
@@ -48,6 +42,12 @@ function ThreeDotMenu({
           />
           <div>{removeResourceLabel}</div>
         </MenuItem>
+        {
+          isTargetBible &&
+          <MenuItem onClose={handleClose} divider disableOnClick>
+            <FontSizeSlider initialValue={90} />
+          </MenuItem>
+        }
       </DropdownMenu>
     </>
   );
