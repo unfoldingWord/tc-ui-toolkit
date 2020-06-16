@@ -148,7 +148,9 @@ function ScripturePane({
             description={description}
             languageName={language_name}
             verseElements={verseElements}
+            isTargetBible={isTargetBible}
             direction={manifest.direction}
+            removeResourceLabel={translate('pane.remove_resource_label')}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
           />,
         );
