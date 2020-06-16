@@ -40,7 +40,9 @@ function FontSizeSlider({ initialValue }) {
       <Grid item>
         <Glyphicon
           glyph="font"
-          style={{ marginRight: '10px', cursor: 'pointer' }}
+          style={{
+            margin: '0px', cursor: 'pointer', fontSize: '16px',
+          }}
           onClick={handleDecrease}
         />
       </Grid>
@@ -62,7 +64,9 @@ function FontSizeSlider({ initialValue }) {
       <Grid item>
         <Glyphicon
           glyph="font"
-          style={{ marginLeft: '10px', cursor: 'pointer' }}
+          style={{
+            margin: '0px', cursor: 'pointer', fontSize: '22px',
+          }}
           onClick={handleIncrease}
         />
       </Grid>

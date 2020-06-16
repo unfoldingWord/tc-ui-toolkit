@@ -5,15 +5,15 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 function ThreeDotIcon({ onClick, style }) {
   return (
-    <IconButton
-      aria-label="more"
-      aria-controls="long-menu"
-      aria-haspopup="true"
-      onClick={onClick}
-      style={{ padding: 0, ...style }}
-    >
-      <MoreVertIcon />
-    </IconButton>
+    // <IconButton
+    //   aria-label="more"
+    //   aria-controls="long-menu"
+    //   aria-haspopup="true"
+    //   onClick={onClick}
+    //   style={{ padding: 0, ...style }}
+    // >
+    <MoreVertIcon onClick={onClick} style={{ padding: 0, ...style }}/>
+    // </IconButton>
   );
 }
 
