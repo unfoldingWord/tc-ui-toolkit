@@ -25,14 +25,14 @@ function ThreeDotMenu({
 
   return (
     <>
-      <ThreeDotIcon onClick={handleClick} style={{ margin: '0 0 0 10px' }}/>
+      <ThreeDotIcon onClick={handleClick}/>
       <DropdownMenu
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
-        style={{ margin: '-15px 0px 0px' }}
+        style={{ margin: '-20px 0px 0px' }}
       >
         <MenuItem
           divider

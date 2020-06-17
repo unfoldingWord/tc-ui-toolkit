@@ -19,7 +19,6 @@ export default function DropdownMenu({
       anchorEl={anchorEl}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
-      PaperProps={{ style }}
     >
       {children}
     </Popover>
