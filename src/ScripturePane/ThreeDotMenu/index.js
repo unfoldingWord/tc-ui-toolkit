@@ -8,6 +8,7 @@ import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 function ThreeDotMenu({
   index,
   removePane,
+  anchorOrigin,
   isTargetBible,
   transformOrigin,
   removeResourceLabel,
@@ -31,6 +32,7 @@ function ThreeDotMenu({
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
+        anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
       >
         <MenuItem
@@ -60,12 +62,16 @@ function ThreeDotMenu({
   );
 }
 
-ThreeDotMenu.defaultProps = { transformOrigin: { vertical: 'top', horizontal: 'right' } };
+ThreeDotMenu.defaultProps = {
+  anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+  transformOrigin: { vertical: 'top', horizontal: 'right' },
+};
 
 ThreeDotMenu.propTypes = {
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
   isTargetBible: PropTypes.bool.isRequired,
+  anchorOrigin: PropTypes.object.isRequired,
   transformOrigin: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
