@@ -87,7 +87,7 @@ function GetTitleContainer({
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
+          horizontal: 'left',
         }}
         transformOrigin={{
           vertical: 'top',
@@ -105,7 +105,7 @@ function GetTitleContainer({
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
+          horizontal: 'left',
         }}
         transformOrigin={{
           vertical: 'top',
