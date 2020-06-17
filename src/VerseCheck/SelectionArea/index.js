@@ -20,6 +20,7 @@ const SelectionArea = ({
   verseText,
   selections,
   bookDetails,
+  targetBible,
   openAlertDialog,
   maximumSelections,
   targetLanguageFont,
