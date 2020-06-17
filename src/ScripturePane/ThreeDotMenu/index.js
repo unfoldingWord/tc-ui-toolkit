@@ -33,14 +33,20 @@ function ThreeDotMenu({
         onClose={handleClose}
         transformOrigin={transformOrigin}
       >
-        <MenuItem onClose={handleClose}>
+        <MenuItem
+          onClose={handleClose}
+          divider={isTargetBible}
+          style={{
+            display: 'flex', justifyContent: 'center', alignItems: 'center',
+          }}
+        >
           <Glyphicon
             glyph={'remove'}
             className='remove-glyph-icon'
             onClick={() => removePane(index)}
             title={clickToRemoveResourceLabel}
           />
-          <div>{removeResourceLabel}</div>
+          <div style={{ margin: '0px 5px' }}>{removeResourceLabel}</div>
         </MenuItem>
         {
           isTargetBible &&
