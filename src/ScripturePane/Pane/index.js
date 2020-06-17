@@ -85,6 +85,14 @@ function GetTitleContainer({
         isTargetBible={isTargetBible}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
       />
     </>;
   } else { // arrange rtl
