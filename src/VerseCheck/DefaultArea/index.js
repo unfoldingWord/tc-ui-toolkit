@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import { selectionArray, normalizeString } from '../helpers/selectionHelpers';
 import { occurrencesInString } from '../helpers/stringHelpers';
-// components
 import MyLanguageModal from '../MyLanguageModal';
-// styling
-import '../VerseCheck.styles.css';
+import ThreeDotMenu from '../ThreeDotMenu';
 import { getFontClassName } from '../../common/fontUtils';
 import {
   getReferenceStr,
@@ -15,6 +13,8 @@ import {
   getTitleWithId,
   isLTR,
 } from '../..';
+// styling
+import '../VerseCheck.styles.css';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -113,7 +113,16 @@ class DefaultArea extends React.Component {
       }}>
         <div className='verse-title'>
           {/* put icon here if RTL */}
-          {isLTR_ ? '' : this.getExpandIcon(translate)}
+          {
+            isLTR_ ?
+              ''
+              :
+              <ThreeDotMenu
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                onClick={() => this.setState({ modalVisibility: true })}
+              />
+          }
           <div className='pane' style={style}>
             <span className={verseTitleClassName} style={lineHeightStyle}>
               {languageStr}
@@ -123,7 +132,16 @@ class DefaultArea extends React.Component {
             </span>
           </div>
           {/* put icon here if LTR */}
-          {isLTR_ ? this.getExpandIcon(translate) : ''}
+          {
+            isLTR_ ?
+              <ThreeDotMenu
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                onClick={() => this.setState({ modalVisibility: true })}
+              />
+              :
+              ''
+          }
           <MyLanguageModal
             bookName={bookName}
             translate={translate}

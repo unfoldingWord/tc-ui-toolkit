@@ -6,13 +6,11 @@ import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 
 function ThreeDotMenu({
-  index,
-  removePane,
+  title,
+  label,
+  onClick,
   anchorOrigin,
-  isTargetBible,
   transformOrigin,
-  removeResourceLabel,
-  clickToRemoveResourceLabel,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -37,29 +35,25 @@ function ThreeDotMenu({
         style={{ margin: '-15px 0px 0px' }}
       >
         <MenuItem
+          divider
+          onClick={onClick}
           onClose={handleClose}
-          divider={isTargetBible}
-          onClick={() => removePane(index)}
           style={{
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
           <Glyphicon
-            glyph={'remove'}
+            title={title}
+            glyph='fullscreen'
             style={{ fontSize: '20px', color: '#000000' }}
-            className='remove-glyph-icon'
-            title={clickToRemoveResourceLabel}
           />
-          <div title={clickToRemoveResourceLabel} style={{ margin: '0px 10px', color: '#000000' }}>
-            {removeResourceLabel}
+          <div title={title} style={{ margin: '0px 10px', color: '#000000' }}>
+            {label}
           </div>
         </MenuItem>
-        {
-          isTargetBible &&
-          <MenuItem onClose={handleClose} disableOnClick>
-            <FontSizeSlider initialValue={90} />
-          </MenuItem>
-        }
+        <MenuItem onClose={handleClose} disableOnClick>
+          <FontSizeSlider initialValue={90} />
+        </MenuItem>
       </DropdownMenu>
     </>
   );
@@ -71,13 +65,11 @@ ThreeDotMenu.defaultProps = {
 };
 
 ThreeDotMenu.propTypes = {
-  index: PropTypes.number.isRequired,
-  removePane: PropTypes.func.isRequired,
-  isTargetBible: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
   transformOrigin: PropTypes.object.isRequired,
-  removeResourceLabel: PropTypes.string.isRequired,
-  clickToRemoveResourceLabel: PropTypes.string.isRequired,
 };
 
 export default ThreeDotMenu;
