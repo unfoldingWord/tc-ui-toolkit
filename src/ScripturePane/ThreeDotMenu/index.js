@@ -50,7 +50,9 @@ function ThreeDotMenu({
             className='remove-glyph-icon'
             title={clickToRemoveResourceLabel}
           />
-          <div style={{ margin: '0px 10px', color: '#000000' }}>{removeResourceLabel}</div>
+          <div title={clickToRemoveResourceLabel} style={{ margin: '0px 10px', color: '#000000' }}>
+            {removeResourceLabel}
+          </div>
         </MenuItem>
         {
           isTargetBible &&
