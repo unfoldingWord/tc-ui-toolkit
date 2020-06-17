@@ -95,6 +95,7 @@ function GetTitleContainer({
         isTargetBible={isTargetBible}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       />
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
     </>;
