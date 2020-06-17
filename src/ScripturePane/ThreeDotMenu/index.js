@@ -36,17 +36,18 @@ function ThreeDotMenu({
         <MenuItem
           onClose={handleClose}
           divider={isTargetBible}
+          onClick={() => removePane(index)}
           style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
+            display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
           <Glyphicon
             glyph={'remove'}
+            style={{ fontSize: '20px' }}
             className='remove-glyph-icon'
-            onClick={() => removePane(index)}
             title={clickToRemoveResourceLabel}
           />
-          <div style={{ margin: '0px 5px' }}>{removeResourceLabel}</div>
+          <div style={{ margin: '0px 10px' }}>{removeResourceLabel}</div>
         </MenuItem>
         {
           isTargetBible &&
