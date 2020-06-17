@@ -64,12 +64,6 @@ class DefaultArea extends React.Component {
     );
   }
 
-  getExpandIcon(translate) {
-    return <div onClick={() => this.setState({ modalVisibility: true })}>
-      <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }}/>
-    </div>;
-  }
-
   render() {
     const {
       translate,
@@ -135,6 +129,14 @@ class DefaultArea extends React.Component {
           {
             isLTR_ ?
               <ThreeDotMenu
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
                 label={translate('expand_verses')}
                 title={translate('click_show_expanded')}
                 onClick={() => this.setState({ modalVisibility: true })}
