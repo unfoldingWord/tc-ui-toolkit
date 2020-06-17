@@ -32,7 +32,7 @@ function ThreeDotMenu({
         onClose={handleClose}
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
-        style={{ margin: '-20px 0px 0px' }}
+        style={{ margin: '-22px 0px 0px' }}
       >
         <MenuItem
           divider
