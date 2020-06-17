@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../VerseCheck.styles.css';
 // components
 import RenderSelectionTextComponent from '../RenderSelectionTextComponent';
+import ThreeDotMenu from '../ThreeDotMenu';
+import MyLanguageModal from '../MyLanguageModal';
 import {
   getReferenceStr,
   getTitleStr,
@@ -10,25 +11,27 @@ import {
   isLTR,
 } from '../..';
 import { getFontClassName } from '../../common/fontUtils';
+import '../VerseCheck.styles.css';
 
 const SelectionArea = ({
-  translate,
   mode,
+  translate,
   reference,
   verseText,
   selections,
-  maximumSelections,
-  openAlertDialog,
-  changeSelectionsInLocalState,
   bookDetails,
-  targetLanguageDetails,
+  openAlertDialog,
+  maximumSelections,
   targetLanguageFont,
+  targetLanguageDetails,
+  changeSelectionsInLocalState,
 }) => {
   const {
     book,
     direction,
     id:languageCode,
   } = targetLanguageDetails;
+  const [isModalVisible, changeModalVisibility] = useState(false);
   const bookName = book && book.name ? book.name : bookDetails.name;
   const languageName = targetLanguageDetails.name || null;
   const languageStr = getTitleWithId(languageName, languageCode);
@@ -50,6 +53,17 @@ const SelectionArea = ({
   return (
     <div className='selection-area-root'>
       <div className='verse-title'>
+        {/* put icon here if RTL */}
+        {
+          isLTR_ ?
+            ''
+            :
+            <ThreeDotMenu
+              label={translate('expand_verses')}
+              title={translate('click_show_expanded')}
+              onClick={() => changeModalVisibility(true)}
+            />
+        }
         <div className='pane' style={style}>
           <span className={verseTitleClassName} style={lineHeightStyle}>
             {languageStr}
@@ -58,6 +72,40 @@ const SelectionArea = ({
             {title}
           </span>
         </div>
+        {/* put icon here if LTR */}
+        {
+          isLTR_ ?
+            <ThreeDotMenu
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              label={translate('expand_verses')}
+              title={translate('click_show_expanded')}
+              onClick={() => changeModalVisibility(true)}
+            />
+            :
+            ''
+        }
+        {
+          isModalVisible &&
+          <MyLanguageModal
+            bookName={bookName}
+            show={isModalVisible}
+            translate={translate}
+            targetBible={targetBible}
+            chapter={reference.chapter}
+            currentVerse={reference.verse}
+            targetLanguageFont={targetLanguageFont}
+            targetLanguageDetails={targetLanguageDetails}
+            languageDirection={direction || 'ltr'}
+            onHide={() => changeModalVisibility(false)}
+          />
+        }
       </div>
       <div style={{ overflow: 'auto' }}>
         <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
@@ -79,17 +127,18 @@ const SelectionArea = ({
 
 
 SelectionArea.propTypes = {
-  reference: PropTypes.object.isRequired,
   mode: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
+  translate: PropTypes.func.isRequired,
+  reference: PropTypes.object.isRequired,
   verseText: PropTypes.string.isRequired,
   selections: PropTypes.array.isRequired,
-  translate: PropTypes.func.isRequired,
-  maximumSelections: PropTypes.number.isRequired,
-  changeSelectionsInLocalState: PropTypes.func.isRequired,
-  openAlertDialog: PropTypes.func.isRequired,
+  targetBible: PropTypes.object.isRequired,
   bookDetails: PropTypes.object.isRequired,
+  openAlertDialog: PropTypes.func.isRequired,
+  maximumSelections: PropTypes.number.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
-  targetLanguageFont: PropTypes.string,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
 };
 
 export default SelectionArea;

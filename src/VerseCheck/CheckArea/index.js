@@ -105,15 +105,16 @@ const CheckArea = ({
     <div className='check-area'>
       {mode === 'select' ?
         <SelectionArea
+          mode={mode}
           translate={translate}
           verseText={verseText}
-          selections={newSelections}
-          mode={mode}
-          reference={contextId.reference}
-          maximumSelections={maximumSelections}
-          openAlertDialog={openAlertDialog}
-          changeSelectionsInLocalState={changeSelectionsInLocalState}
           bookDetails={bookDetails}
+          targetBible={targetBible}
+          selections={newSelections}
+          reference={contextId.reference}
+          openAlertDialog={openAlertDialog}
+          maximumSelections={maximumSelections}
+          changeSelectionsInLocalState={changeSelectionsInLocalState}
           targetLanguageDetails={targetLanguageDetails}
           targetLanguageFont={targetLanguageFont}
         />

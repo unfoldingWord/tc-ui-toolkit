@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// helpers
-import { Glyphicon } from 'react-bootstrap';
 import { selectionArray, normalizeString } from '../helpers/selectionHelpers';
 import { occurrencesInString } from '../helpers/stringHelpers';
 import MyLanguageModal from '../MyLanguageModal';
