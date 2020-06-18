@@ -26,6 +26,7 @@ function FontSizeSlider({
   max,
   step,
   value,
+  marks,
   onChange,
 }) {
   const classes = useStyles();
@@ -59,7 +60,7 @@ function FontSizeSlider({
       </Grid>
       <Grid item style={{ display: 'flex', width: '120px' }}>
         <Slider
-          marks
+          marks={marks}
           min={min}
           max={max}
           step={step}
@@ -88,9 +89,11 @@ FontSizeSlider.defaultProps = {
   max: 190,
   step: 20,
   value: 90,
+  marks: true,
 };
 
 FontSizeSlider.propTypes = {
+  marks: PropTypes.bool.isRequired,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
