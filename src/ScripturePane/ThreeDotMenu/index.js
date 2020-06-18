@@ -9,7 +9,6 @@ function ThreeDotMenu({
   index,
   removePane,
   anchorOrigin,
-  isTargetBible,
   transformOrigin,
   removeResourceLabel,
   clickToRemoveResourceLabel,
@@ -37,8 +36,8 @@ function ThreeDotMenu({
         style={{ margin: '-15px 0px 0px' }}
       >
         <MenuItem
+          divider
           onClose={handleClose}
-          divider={isTargetBible}
           onClick={() => removePane(index)}
           style={{
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
@@ -54,12 +53,9 @@ function ThreeDotMenu({
             {removeResourceLabel}
           </div>
         </MenuItem>
-        {
-          isTargetBible &&
-          <MenuItem onClose={handleClose} disableOnClick>
-            <FontSizeSlider initialValue={90} />
-          </MenuItem>
-        }
+        <MenuItem onClose={handleClose} disableOnClick>
+          <FontSizeSlider />
+        </MenuItem>
       </DropdownMenu>
     </>
   );
@@ -73,7 +69,6 @@ ThreeDotMenu.defaultProps = {
 ThreeDotMenu.propTypes = {
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
-  isTargetBible: PropTypes.bool.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
   transformOrigin: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,

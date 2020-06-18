@@ -5,11 +5,15 @@ import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 
+const NAMESPACE = 'VerseCheck';
+
 function ThreeDotMenu({
   title,
   label,
   onClick,
   anchorOrigin,
+  toolsSettings,
+  setToolSettings,
   transformOrigin,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,6 +26,12 @@ function ThreeDotMenu({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleFontSizeChange = (fontSize) => {
+    setToolSettings(NAMESPACE, 'fontSize', fontSize);
+  };
+
+  const { fontSize } = toolsSettings[NAMESPACE] || {};
 
   return (
     <>
@@ -52,7 +62,7 @@ function ThreeDotMenu({
           </div>
         </MenuItem>
         <MenuItem onClose={handleClose} disableOnClick>
-          <FontSizeSlider initialValue={90} />
+          <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
       </DropdownMenu>
     </>
@@ -69,6 +79,8 @@ ThreeDotMenu.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   transformOrigin: PropTypes.object.isRequired,
 };
 

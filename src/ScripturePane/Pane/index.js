@@ -71,7 +71,6 @@ function GetTitleContainer({
   fontClass,
   removePane,
   headingText,
-  isTargetBible,
   removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
@@ -82,7 +81,6 @@ function GetTitleContainer({
       <ThreeDotMenu
         index={index}
         removePane={removePane}
-        isTargetBible={isTargetBible}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
@@ -100,7 +98,6 @@ function GetTitleContainer({
       <ThreeDotMenu
         index={index}
         removePane={removePane}
-        isTargetBible={isTargetBible}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
       />
@@ -121,7 +118,6 @@ const Pane = ({
   description,
   languageName,
   verseElements,
-  isTargetBible,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) => {
@@ -140,7 +136,6 @@ const Pane = ({
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
-          isTargetBible={isTargetBible}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -170,7 +165,6 @@ Pane.propTypes = {
   removePane: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  isTargetBible: PropTypes.bool.isRequired,
   languageName: PropTypes.string.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,

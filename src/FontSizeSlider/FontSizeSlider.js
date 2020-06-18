@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
@@ -21,28 +21,30 @@ const useStyles = makeStyles({
   sliderMark: { backgroundColor: '#19579E' },
 });
 
-function FontSizeSlider({ initialValue }) {
+function FontSizeSlider({
+  min,
+  max,
+  step,
+  value,
+  onChange,
+}) {
   const classes = useStyles();
-  const [value, setValue] = useState(initialValue);
-  const step = 20;
-  const min = 90;
-  const max = 190;
 
   const handleChange = (event, newValue) => {
     if (newValue >= 0) {
-      setValue(newValue);
+      onChange(newValue);
     }
   };
 
   const handleDecrease = () => {
     if (value !== min) {
-      setValue(value - step);
+      onChange(value - step);
     }
   };
 
   const handleIncrease = () => {
     if (value !== max) {
-      setValue(value + step);
+      onChange(value + step);
     }
   };
 
@@ -81,8 +83,18 @@ function FontSizeSlider({ initialValue }) {
   );
 }
 
+FontSizeSlider.defaultProps = {
+  min: 90,
+  max: 190,
+  step: 20,
+  value: 90,
+};
+
 FontSizeSlider.propTypes = {
-  initialValue: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
