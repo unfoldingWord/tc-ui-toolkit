@@ -42,13 +42,21 @@ function FontSizeSlider({
 
   const handleDecrease = () => {
     if (value >= min) {
-      onChange(value - step);
+      const newValue = value - step;
+      console.log('====================================');
+      console.log('newValue', newValue);
+      console.log('====================================');
+      onChange(newValue);
     }
   };
 
   const handleIncrease = () => {
     if (value <= max) {
-      onChange(value + step);
+      const newValue = value + step;
+      console.log('====================================');
+      console.log('newValue', newValue);
+      console.log('====================================');
+      onChange(newValue);
     }
   };
 
