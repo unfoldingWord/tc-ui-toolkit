@@ -86,18 +86,18 @@ function FontSizeSlider({
 
 FontSizeSlider.defaultProps = {
   min: 90,
-  max: 190,
-  step: 20,
-  value: 90,
+  max: 250,
+  step: 10,
+  value: 100,//100%
   marks: true,
 };
 
 FontSizeSlider.propTypes = {
-  marks: PropTypes.bool.isRequired,
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  marks: PropTypes.bool,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  value: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 };
 
