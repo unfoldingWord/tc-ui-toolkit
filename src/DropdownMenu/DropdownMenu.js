@@ -52,9 +52,6 @@ export function MenuItem({
   children,
   disableOnClick,
 }) {
-  console.log('====================================');
-  console.log('style', style);
-  console.log('====================================');
   const menuItemStyle = {
     display: 'flex',
     padding: '4px',

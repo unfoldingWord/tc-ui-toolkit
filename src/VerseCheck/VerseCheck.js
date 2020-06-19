@@ -92,10 +92,6 @@ class VerseCheck extends Component {
         );
     }
 
-    console.log('====================================');
-    console.log('VerseCheck toolsSettings', toolsSettings);
-    console.log('====================================');
-
     return (
       <div className='verse-check'>
         <div className='verse-check-flex'>
