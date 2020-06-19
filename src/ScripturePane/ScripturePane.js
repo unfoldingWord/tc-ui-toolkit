@@ -298,14 +298,19 @@ function areEqual(prevProps, nextProps) {
     prevProps.bibles to render, otherwise return false
   */
 
+  console.log('====================================');
+  console.log('deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings)', deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings));
+  console.log('====================================');
+
   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
     deepEqual(prevProps.contextId, nextProps.contextId) &&
     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
-    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
     deepEqual(prevProps.selections, nextProps.selections);
-
+  console.log('====================================');
+  console.log('ScripturePane areEqual', areEqual);
+  console.log('====================================');
   return result;
 }
 
