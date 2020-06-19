@@ -109,6 +109,7 @@ const SelectionArea = ({
             bookName={bookName}
             show={isModalVisible}
             translate={translate}
+            fontSize={`${fontSize}%`}
             targetBible={targetBible}
             chapter={reference.chapter}
             currentVerse={reference.verse}
