@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
+import _ from 'lodash';
 // components
 import Panes from './Panes';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
@@ -97,7 +98,7 @@ function ScripturePane({
       console.log('currentPaneSettings', currentPaneSettings);
 
       if (currentPaneSettings) {
-        const paneSettings = currentPaneSettings.slice();
+        const paneSettings = _.cloneDeep(currentPaneSettings);
         const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
           if (index === i) {
             paneSetting.fontSize = fontSize;

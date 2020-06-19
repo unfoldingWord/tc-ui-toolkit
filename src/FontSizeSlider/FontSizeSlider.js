@@ -25,8 +25,8 @@ function FontSizeSlider({
   min,
   max,
   step,
-  value,
   marks,
+  value,
   onChange,
 }) {
   console.log('====================================');
@@ -41,24 +41,14 @@ function FontSizeSlider({
   };
 
   const handleDecrease = () => {
-    if (value >= min) {
-      const newValue = value - step;
-      console.log('====================================');
-      console.log('value', value);
-      console.log('newValue', newValue);
-      console.log('====================================');
-      onChange(newValue);
+    if (value > min) {
+      onChange(value - step);
     }
   };
 
   const handleIncrease = () => {
-    if (value <= max) {
-      const newValue = value + step;
-      console.log('====================================');
-      console.log('value', value);
-      console.log('newValue', newValue);
-      console.log('====================================');
-      onChange(newValue);
+    if (value < max) {
+      onChange(value + step);
     }
   };
 

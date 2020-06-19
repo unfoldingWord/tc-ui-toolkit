@@ -103,6 +103,7 @@ function TitleContainer({
         index={index}
         fontSize={fontSize}
         removePane={removePane}
+        changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
       />
