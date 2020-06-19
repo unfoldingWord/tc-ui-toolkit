@@ -65,12 +65,15 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
  * @param {function} removePane
  * @return {*}
  */
-function GetTitleContainer({
+function TitleContainer({
   index,
   isLTR,
+  fontSize,
   fontClass,
   removePane,
   headingText,
+  setToolSettings,
+  changePaneFontSize,
   removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
@@ -80,7 +83,10 @@ function GetTitleContainer({
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
       <ThreeDotMenu
         index={index}
+        fontSize={fontSize}
         removePane={removePane}
+        setToolSettings={setToolSettings}
+        changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
@@ -97,6 +103,7 @@ function GetTitleContainer({
     return <>
       <ThreeDotMenu
         index={index}
+        fontSize={fontSize}
         removePane={removePane}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -111,6 +118,7 @@ const Pane = ({
   verse,
   chapter,
   bibleId,
+  fontSize,
   fontClass,
   direction,
   translate,
@@ -118,6 +126,8 @@ const Pane = ({
   description,
   languageName,
   verseElements,
+  setToolSettings,
+  changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) => {
@@ -130,12 +140,15 @@ const Pane = ({
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        <GetTitleContainer
+        <TitleContainer
           index={index}
           isLTR={isLTR_}
+          fontSize={fontSize}
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
+          setToolSettings={setToolSettings}
+          changePaneFontSize={changePaneFontSize}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -156,6 +169,7 @@ const Pane = ({
 };
 
 Pane.propTypes = {
+  fontSize: PropTypes.number,
   fontClass: PropTypes.string,
   index: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
@@ -166,6 +180,8 @@ Pane.propTypes = {
   direction: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([

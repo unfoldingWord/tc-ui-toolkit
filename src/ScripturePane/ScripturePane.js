@@ -92,6 +92,27 @@ function ScripturePane({
     }
   }
 
+  function changePaneFontSize(index, fontSize) {
+    try {
+      if (currentPaneSettings) {
+        // const = currentPaneSettings[index]
+        const newCurrentPaneSettings = currentPaneSettings.map((paneSetting, i) => {
+          if (index === i) {
+            paneSetting.fontSize = fontSize;
+          } else {
+            return paneSetting;
+          }
+        });
+        console.log('====================================');
+        console.log('newCurrentPaneSettings', newCurrentPaneSettings);
+        console.log('====================================');
+        // setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
   function getPanes() {
     const panes = [];
 
@@ -149,6 +170,8 @@ function ScripturePane({
             languageName={language_name}
             verseElements={verseElements}
             direction={manifest.direction}
+            setToolSettings={setToolSettings}
+            changePaneFontSize={changePaneFontSize}
             removeResourceLabel={translate('pane.remove_resource_label')}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}
           />,
@@ -239,19 +262,19 @@ ScripturePane.defaultProps = {
 };
 
 ScripturePane.propTypes = {
-  bibles: PropTypes.object.isRequired,
-  contextId: PropTypes.object.isRequired,
-  selections: PropTypes.array.isRequired,
-  currentPaneSettings: PropTypes.array.isRequired,
-  projectDetailsReducer: PropTypes.object.isRequired,
-  expandedScripturePaneTitle: PropTypes.string.isRequired,
   handleModalOpen: PropTypes.func,
+  bibles: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  contextId: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   setToolSettings: PropTypes.func.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
+  expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
 };
 

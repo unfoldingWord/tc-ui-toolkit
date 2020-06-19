@@ -7,9 +7,12 @@ import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 
 function ThreeDotMenu({
   index,
+  fontSize,
   removePane,
   anchorOrigin,
+  setToolSettings,
   transformOrigin,
+  changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) {
@@ -22,6 +25,10 @@ function ThreeDotMenu({
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleFontSizeChange = (fontSize) => {
+    changePaneFontSize(index, fontSize);
   };
 
   return (
@@ -54,7 +61,7 @@ function ThreeDotMenu({
           </div>
         </MenuItem>
         <MenuItem onClose={handleClose} disableOnClick>
-          <FontSizeSlider />
+          <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
       </DropdownMenu>
     </>
@@ -67,9 +74,12 @@ ThreeDotMenu.defaultProps = {
 };
 
 ThreeDotMenu.propTypes = {
+  fontSize: PropTypes.number,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
   transformOrigin: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
