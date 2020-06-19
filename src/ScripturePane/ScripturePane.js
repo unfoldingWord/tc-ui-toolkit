@@ -300,6 +300,7 @@ function areEqual(prevProps, nextProps) {
 
   console.log('====================================');
   console.log('deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings)', deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings));
+  console.log('prevProps.currentPaneSettings, nextProps.currentPaneSettings)', prevProps.currentPaneSettings, nextProps.currentPaneSettings);
   console.log('====================================');
 
   const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
@@ -309,7 +310,7 @@ function areEqual(prevProps, nextProps) {
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
     deepEqual(prevProps.selections, nextProps.selections);
   console.log('====================================');
-  console.log('ScripturePane areEqual', areEqual);
+  console.log('ScripturePane areEqual', result);
   console.log('====================================');
   return result;
 }

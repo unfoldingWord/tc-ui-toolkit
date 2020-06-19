@@ -30,7 +30,7 @@ function FontSizeSlider({
   onChange,
 }) {
   console.log('====================================');
-  console.log('FontSizeSlider value');
+  console.log('FontSizeSlider value', value);
   console.log('====================================');
   const classes = useStyles();
 
