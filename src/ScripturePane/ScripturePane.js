@@ -166,13 +166,13 @@ function ScripturePane({
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData}
+            show={showExpandedScripturePane}
             editTargetVerse={editTargetVerse}
             primaryLabel={translate('close')}
             title={expandedScripturePaneTitle}
-            targetLanguageFont={targetLanguageFont}
             onHide={closeExpandedScripturePane}
+            targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
-            show={showExpandedScripturePane}
             projectDetailsReducer={projectDetailsReducer}
           />
           :

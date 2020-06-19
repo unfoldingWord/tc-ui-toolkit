@@ -40,17 +40,17 @@ class ChapterView extends Component {
 
   render() {
     const {
-      contextId,
-      currentPaneSettings,
-      projectDetailsReducer,
-      translate,
       bibles,
+      contextId,
+      translate,
       selections,
-      getLexiconData,
       showPopover,
-      handleEditTargetVerse,
+      getLexiconData,
       handleEditorSubmit,
       handleEditorCancel,
+      currentPaneSettings,
+      projectDetailsReducer,
+      handleEditTargetVerse,
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
