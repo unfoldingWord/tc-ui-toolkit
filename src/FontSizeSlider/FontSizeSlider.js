@@ -6,10 +6,10 @@ import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+  gridItem: { cursor: 'pointer' },
   smallFont: {
     display: 'flex',
     margin: '0px',
-    cursor: 'pointer',
     fontSize: '16px',
   },
   largeFont: {
@@ -29,32 +29,34 @@ function FontSizeSlider({
   marks,
   onChange,
 }) {
+  console.log('====================================');
+  console.log('FontSizeSlider value');
+  console.log('====================================');
   const classes = useStyles();
 
-  const handleChange = (event, newValue) => {
-    if (newValue >= 0) {
+  const handleChange = (_, newValue) => {
+    if (newValue >= min) {
       onChange(newValue);
     }
   };
 
   const handleDecrease = () => {
-    if (value !== min) {
+    if (value >= min) {
       onChange(value - step);
     }
   };
 
   const handleIncrease = () => {
-    if (value !== max) {
+    if (value <= max) {
       onChange(value + step);
     }
   };
 
   return (
     <Grid container spacing={2} alignItems='center'>
-      <Grid item>
+      <Grid item onClick={handleDecrease} className={{ root: classes.gridItem }}>
         <Glyphicon
           glyph='font'
-          onClick={handleDecrease}
           className={classes.smallFont}
         />
       </Grid>
@@ -73,10 +75,9 @@ function FontSizeSlider({
           value={typeof value === 'number' ? value : min}
         />
       </Grid>
-      <Grid item>
+      <Grid item onClick={handleIncrease} className={{ root: classes.gridItem }}>
         <Glyphicon
           glyph='font'
-          onClick={handleIncrease}
           className={classes.largeFont}
         />
       </Grid>
