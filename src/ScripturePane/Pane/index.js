@@ -72,7 +72,6 @@ function TitleContainer({
   fontClass,
   removePane,
   headingText,
-  setToolSettings,
   changePaneFontSize,
   removeResourceLabel,
   localizedDescription,
@@ -85,7 +84,6 @@ function TitleContainer({
         index={index}
         fontSize={fontSize}
         removePane={removePane}
-        setToolSettings={setToolSettings}
         changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -126,7 +124,6 @@ const Pane = ({
   description,
   languageName,
   verseElements,
-  setToolSettings,
   changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
@@ -136,6 +133,7 @@ const Pane = ({
     getTitleWithId(languageName, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
+  const verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
   return (
     <div className="pane-container">
@@ -147,14 +145,13 @@ const Pane = ({
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
-          setToolSettings={setToolSettings}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         />
       </div>
-      <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
         <Verse
           verse={verse}
           bibleId={bibleId}
@@ -180,7 +177,6 @@ Pane.propTypes = {
   direction: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
-  setToolSettings: PropTypes.func.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,

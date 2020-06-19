@@ -130,7 +130,11 @@ function ScripturePane({
       const index = i;
 
       try {
-        const { languageId, bibleId } = paneSettings;
+        const {
+          bibleId,
+          fontSize,
+          languageId,
+        } = paneSettings;
         const { manifest } = bibles[languageId][bibleId];
         let language_name = manifest.language_name;
         const targetLanguageFont = projectManifest.projectFont || '';
@@ -172,6 +176,7 @@ function ScripturePane({
             verse={verse}
             chapter={chapter}
             bibleId={bibleId}
+            fontSize={fontSize}
             fontClass={fontClass}
             translate={translate}
             removePane={removePane}
@@ -179,7 +184,6 @@ function ScripturePane({
             languageName={language_name}
             verseElements={verseElements}
             direction={manifest.direction}
-            setToolSettings={setToolSettings}
             changePaneFontSize={changePaneFontSize}
             removeResourceLabel={translate('pane.remove_resource_label')}
             clickToRemoveResourceLabel={translate('pane.remove_resource')}

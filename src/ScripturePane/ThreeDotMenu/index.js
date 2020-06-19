@@ -10,7 +10,6 @@ function ThreeDotMenu({
   fontSize,
   removePane,
   anchorOrigin,
-  setToolSettings,
   transformOrigin,
   changePaneFontSize,
   removeResourceLabel,
@@ -78,9 +77,8 @@ ThreeDotMenu.propTypes = {
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
-  setToolSettings: PropTypes.func.isRequired,
-  toolsSettings: PropTypes.object.isRequired,
   transformOrigin: PropTypes.object.isRequired,
+  changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
 };
