@@ -101,11 +101,6 @@ function ScripturePane({
       if (currentPaneSettings) {
         // const = currentPaneSettings[index]
         const newCurrentPaneSettings = currentPaneSettings.map((paneSetting, i) => {
-          console.log('====================================');
-          console.log('index, i', index, i);
-          console.log('paneSetting', paneSetting);
-          console.log('====================================');
-
           if (index === i) {
             paneSetting.fontSize = fontSize;
           }
@@ -115,7 +110,7 @@ function ScripturePane({
         console.log('====================================');
         console.log('newCurrentPaneSettings', newCurrentPaneSettings);
         console.log('====================================');
-        // setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
+        setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
       }
     } catch (e) {
       console.warn(e);
