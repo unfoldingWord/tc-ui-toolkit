@@ -70,8 +70,10 @@ class DefaultArea extends React.Component {
       selections,
       targetBible,
       bookDetails,
-      targetLanguageDetails,
+      toolsSettings,
+      setToolSettings,
       targetLanguageFont,
+      targetLanguageDetails,
     } = this.props;
     const {
       book,
@@ -110,6 +112,8 @@ class DefaultArea extends React.Component {
               ''
               :
               <ThreeDotMenu
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
                 title={translate('click_show_expanded')}
                 onClick={() => this.setState({ modalVisibility: true })}
@@ -135,6 +139,9 @@ class DefaultArea extends React.Component {
                   vertical: 'top',
                   horizontal: 'left',
                 }}
+                namespace='CheckArea'
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
                 title={translate('click_show_expanded')}
                 onClick={() => this.setState({ modalVisibility: true })}
@@ -164,15 +171,17 @@ class DefaultArea extends React.Component {
 }
 
 DefaultArea.propTypes = {
+  targetLanguageFont: PropTypes.string,
   translate: PropTypes.func.isRequired,
   reference: PropTypes.object.isRequired,
-  targetBible: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
-  validateSelections: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  validateSelections: PropTypes.func.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
-  targetLanguageFont: PropTypes.string,
 };
 
 export default DefaultArea;

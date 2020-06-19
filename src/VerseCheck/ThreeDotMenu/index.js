@@ -5,12 +5,11 @@ import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 
-const NAMESPACE = 'VerseCheck';
-
 function ThreeDotMenu({
   title,
   label,
   onClick,
+  namespace,
   anchorOrigin,
   toolsSettings,
   setToolSettings,
@@ -28,10 +27,10 @@ function ThreeDotMenu({
   };
 
   const handleFontSizeChange = (fontSize) => {
-    setToolSettings(NAMESPACE, 'fontSize', fontSize);
+    setToolSettings(namespace, 'fontSize', fontSize);
   };
 
-  const { fontSize } = toolsSettings[NAMESPACE] || {};
+  const { fontSize } = toolsSettings[namespace] || {};
 
   return (
     <>
@@ -78,6 +77,7 @@ ThreeDotMenu.propTypes = {
   title: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  namespace: PropTypes.string.isRequired,
   anchorOrigin: PropTypes.object.isRequired,
   toolsSettings: PropTypes.object.isRequired,
   setToolSettings: PropTypes.func.isRequired,

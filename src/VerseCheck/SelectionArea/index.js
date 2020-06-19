@@ -21,6 +21,8 @@ const SelectionArea = ({
   selections,
   bookDetails,
   targetBible,
+  toolsSettings,
+  setToolSettings,
   openAlertDialog,
   maximumSelections,
   targetLanguageFont,
@@ -60,6 +62,8 @@ const SelectionArea = ({
             ''
             :
             <ThreeDotMenu
+              toolsSettings={toolsSettings}
+              setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
               onClick={() => changeModalVisibility(true)}
@@ -85,6 +89,8 @@ const SelectionArea = ({
                 vertical: 'top',
                 horizontal: 'left',
               }}
+              toolsSettings={toolsSettings}
+              setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
               onClick={() => changeModalVisibility(true)}
@@ -136,7 +142,9 @@ SelectionArea.propTypes = {
   selections: PropTypes.array.isRequired,
   targetBible: PropTypes.object.isRequired,
   bookDetails: PropTypes.object.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   maximumSelections: PropTypes.number.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,

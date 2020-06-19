@@ -52,6 +52,7 @@ class VerseCheck extends Component {
       cancelComment,
       saveComment,
       bookDetails,
+      setToolSettings,
       targetLanguageDetails,
       handleTagsCheckbox,
       handleEditVerse,
@@ -91,6 +92,10 @@ class VerseCheck extends Component {
         );
     }
 
+    console.log('====================================');
+    console.log('VerseCheck toolsSettings', toolsSettings);
+    console.log('====================================');
+
     return (
       <div className='verse-check'>
         <div className='verse-check-flex'>
@@ -123,6 +128,7 @@ class VerseCheck extends Component {
               handleComment={handleComment}
               isVerseChanged={isVerseChanged}
               invalidated={isVerseInvalidated}
+              setToolSettings={setToolSettings}
               nothingToSelect={nothingToSelect}
               openAlertDialog={openAlertDialog}
               handleEditVerse={handleEditVerse}
@@ -212,6 +218,7 @@ VerseCheck.propTypes = {
   cancelSelection: PropTypes.func.isRequired,
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
   checkIfCommentChanged: PropTypes.func.isRequired,
