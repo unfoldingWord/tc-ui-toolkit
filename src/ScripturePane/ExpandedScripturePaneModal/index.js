@@ -183,7 +183,8 @@ function areEqual(prevProps, nextProps) {
     render would return the same result as passing
     prevProps.bibles to render, otherwise return false
   */
-  return deepEqual(prevProps.bibles, nextProps.bibles);
+  return deepEqual(prevProps.bibles, nextProps.bibles) &&
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings);
 }
 
 // using React.memo to boost performance by memoizing the result
