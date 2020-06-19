@@ -94,9 +94,18 @@ function ScripturePane({
 
   function changePaneFontSize(index, fontSize) {
     try {
+      console.log('====================================');
+      console.log('index, fontSize', index, fontSize);
+      console.log('====================================');
+
       if (currentPaneSettings) {
         // const = currentPaneSettings[index]
         const newCurrentPaneSettings = currentPaneSettings.map((paneSetting, i) => {
+          console.log('====================================');
+          console.log('index, i', index, i);
+          console.log('paneSetting', paneSetting);
+          console.log('====================================');
+
           if (index === i) {
             paneSetting.fontSize = fontSize;
           } else {
