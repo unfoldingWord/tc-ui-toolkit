@@ -99,7 +99,8 @@ function ScripturePane({
       console.log('====================================');
 
       if (currentPaneSettings) {
-        const newCurrentPaneSettings = currentPaneSettings.map((paneSetting, i) => {
+        const paneSettings = currentPaneSettings.slice();
+        const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
           if (index === i) {
             paneSetting.fontSize = fontSize;
           }
@@ -107,6 +108,7 @@ function ScripturePane({
           return paneSetting;
         });
         console.log('====================================');
+        console.log('currentPaneSettings', currentPaneSettings);
         console.log('newCurrentPaneSettings', newCurrentPaneSettings);
         console.log('====================================');
         setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
