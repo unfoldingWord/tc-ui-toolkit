@@ -108,9 +108,9 @@ function ScripturePane({
 
           if (index === i) {
             paneSetting.fontSize = fontSize;
-          } else {
-            return paneSetting;
           }
+
+          return paneSetting;
         });
         console.log('====================================');
         console.log('newCurrentPaneSettings', newCurrentPaneSettings);
