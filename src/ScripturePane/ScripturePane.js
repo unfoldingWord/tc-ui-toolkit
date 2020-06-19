@@ -99,7 +99,6 @@ function ScripturePane({
       console.log('====================================');
 
       if (currentPaneSettings) {
-        // const = currentPaneSettings[index]
         const newCurrentPaneSettings = currentPaneSettings.map((paneSetting, i) => {
           if (index === i) {
             paneSetting.fontSize = fontSize;
@@ -197,6 +196,8 @@ function ScripturePane({
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
+
+  console.log('ScripturePane currentPaneSettings', currentPaneSettings);
 
   return (
     <div className="scripture-pane-container">
