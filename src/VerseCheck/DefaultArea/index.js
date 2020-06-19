@@ -13,6 +13,7 @@ import {
 } from '../..';
 // styling
 import '../VerseCheck.styles.css';
+const NAMESPACE = 'CheckArea';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -91,6 +92,8 @@ class DefaultArea extends React.Component {
     const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
     const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
     const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
+    const { fontSize } = toolsSettings[NAMESPACE] || {};
+    const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
     if (!isLTR_) { // for RTL
       style.justifyContent = 'right';
@@ -112,7 +115,7 @@ class DefaultArea extends React.Component {
               ''
               :
               <ThreeDotMenu
-                namespace='CheckArea'
+                namespace={NAMESPACE}
                 toolsSettings={toolsSettings}
                 setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
@@ -140,7 +143,7 @@ class DefaultArea extends React.Component {
                   vertical: 'top',
                   horizontal: 'left',
                 }}
-                namespace='CheckArea'
+                namespace={NAMESPACE}
                 toolsSettings={toolsSettings}
                 setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
@@ -163,7 +166,7 @@ class DefaultArea extends React.Component {
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'} style={textStyle}>
           {this.displayText(verseText, selections, targetLanguageFontClassName)}
         </div>
       </div>

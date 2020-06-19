@@ -12,6 +12,7 @@ import {
 } from '../..';
 import { getFontClassName } from '../../common/fontUtils';
 import '../VerseCheck.styles.css';
+const NAMESPACE = 'CheckArea';
 
 const SelectionArea = ({
   mode,
@@ -46,6 +47,8 @@ const SelectionArea = ({
   const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
   const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
   const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
+  const { fontSize } = toolsSettings[NAMESPACE] || {};
+  const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
   if (!isLTR_) { // for RTL
     style.justifyContent = 'right';
@@ -62,7 +65,7 @@ const SelectionArea = ({
             ''
             :
             <ThreeDotMenu
-              namespace='CheckArea'
+              namespace={NAMESPACE}
               toolsSettings={toolsSettings}
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
@@ -90,7 +93,7 @@ const SelectionArea = ({
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              namespace='CheckArea'
+              namespace={NAMESPACE}
               toolsSettings={toolsSettings}
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
@@ -117,7 +120,7 @@ const SelectionArea = ({
         }
       </div>
       <div style={{ overflow: 'auto' }}>
-        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'} style={textStyle}>
           <RenderSelectionTextComponent
             mode={mode}
             translate={translate}
