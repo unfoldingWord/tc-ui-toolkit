@@ -88,7 +88,7 @@ FontSizeSlider.defaultProps = {
   min: 80,
   max: 260,
   step: 20,
-  value: 100,//100%
+  value: 100,// 100%
   marks: true,
 };
 

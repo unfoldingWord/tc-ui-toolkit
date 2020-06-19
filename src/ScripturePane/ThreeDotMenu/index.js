@@ -27,6 +27,9 @@ function ThreeDotMenu({
   };
 
   const handleFontSizeChange = (fontSize) => {
+    console.log('====================================');
+    console.log('handleFontSizeChange', fontSize);
+    console.log('====================================');
     changePaneFontSize(index, fontSize);
   };
 
