@@ -44,6 +44,7 @@ function FontSizeSlider({
     if (value >= min) {
       const newValue = value - step;
       console.log('====================================');
+      console.log('value', value);
       console.log('newValue', newValue);
       console.log('====================================');
       onChange(newValue);
@@ -54,6 +55,7 @@ function FontSizeSlider({
     if (value <= max) {
       const newValue = value + step;
       console.log('====================================');
+      console.log('value', value);
       console.log('newValue', newValue);
       console.log('====================================');
       onChange(newValue);
