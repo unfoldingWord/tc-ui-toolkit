@@ -157,6 +157,7 @@ class DefaultArea extends React.Component {
             bookName={bookName}
             translate={translate}
             targetBible={targetBible}
+            fontSize={`${fontSize}%`}
             chapter={reference.chapter}
             currentVerse={reference.verse}
             show={this.state.modalVisibility}
