@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
 // components
-import { getFontClassName } from '../common/fontUtils';
-import Pane from './Pane';
+import Panes from './Panes';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
-// helpers
-import { verseString, verseArray } from './helpers/verseHelpers';
-import { getTitleWithId } from './helpers/utils';
+
 import './ScripturePane.styles.css';
 // constant
 const NAMESPACE = 'ScripturePane';
@@ -97,6 +94,7 @@ function ScripturePane({
       console.log('====================================');
       console.log('index, fontSize', index, fontSize);
       console.log('====================================');
+      console.log('currentPaneSettings', currentPaneSettings);
 
       if (currentPaneSettings) {
         const paneSettings = currentPaneSettings.slice();
@@ -118,80 +116,6 @@ function ScripturePane({
     }
   }
 
-  function getPanes() {
-    const panes = [];
-
-    for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
-      const paneSettings = currentPaneSettings[i];
-      const index = i;
-
-      try {
-        const {
-          bibleId,
-          fontSize,
-          languageId,
-        } = paneSettings;
-        const { manifest } = bibles[languageId][bibleId];
-        let language_name = manifest.language_name;
-        const targetLanguageFont = projectManifest.projectFont || '';
-        const { chapter, verse } = contextId.reference;
-        const verseData = bibles[languageId][bibleId][chapter][verse];
-        let verseElements = [];
-
-        // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-        const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
-
-        if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          language_name = getTitleWithId(manifest.language_name, manifest.language_id);
-        }
-
-        let description = manifest.description;
-
-        if (languageId === 'originalLanguage') {
-          description = 'original_language';
-        }
-
-        const isTargetBible = bibleId === 'targetBible';
-
-        if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
-        } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
-        }
-
-        let fontClass = '';
-
-        if (isTargetBible) {
-          fontClass = getFontClassName(targetLanguageFont);
-        }
-
-        panes.push(
-          <Pane
-            key={index.toString()}
-            index={index}
-            verse={verse}
-            chapter={chapter}
-            bibleId={bibleId}
-            fontSize={fontSize}
-            fontClass={fontClass}
-            translate={translate}
-            removePane={removePane}
-            description={description}
-            languageName={language_name}
-            verseElements={verseElements}
-            direction={manifest.direction}
-            changePaneFontSize={changePaneFontSize}
-            removeResourceLabel={translate('pane.remove_resource_label')}
-            clickToRemoveResourceLabel={translate('pane.remove_resource')}
-          />,
-        );
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-
-    return panes;
-  }
 
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
@@ -214,9 +138,18 @@ function ScripturePane({
           />
         </div>
         <div className="panes-container">
-          {
-            getPanes()
-          }
+          <Panes
+            bibles={bibles}
+            contextId={contextId}
+            translate={translate}
+            removePane={removePane}
+            selections={selections}
+            showPopover={showPopover}
+            getLexiconData={getLexiconData}
+            projectManifest={projectManifest}
+            changePaneFontSize={changePaneFontSize}
+            currentPaneSettings={currentPaneSettings}
+          />
           <AddBibleButton
             showAddBibleModal={showAddBibleModal}
             clickAddResource={translate('pane.add_resource')}
