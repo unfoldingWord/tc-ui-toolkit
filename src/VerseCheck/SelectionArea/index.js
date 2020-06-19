@@ -62,6 +62,7 @@ const SelectionArea = ({
             ''
             :
             <ThreeDotMenu
+              namespace='CheckArea'
               toolsSettings={toolsSettings}
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
@@ -89,6 +90,7 @@ const SelectionArea = ({
                 vertical: 'top',
                 horizontal: 'left',
               }}
+              namespace='CheckArea'
               toolsSettings={toolsSettings}
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}

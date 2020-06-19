@@ -112,6 +112,7 @@ class DefaultArea extends React.Component {
               ''
               :
               <ThreeDotMenu
+                namespace='CheckArea'
                 toolsSettings={toolsSettings}
                 setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
