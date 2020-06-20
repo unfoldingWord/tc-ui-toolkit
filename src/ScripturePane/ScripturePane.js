@@ -109,7 +109,7 @@ function ScripturePane({
         let verseElements = [];
 
         // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-        const fontStyle = (manifest.language_id === 'hbo') ? { fontSize: '175%',  WebkitFontSmoothing: 'antialiased' } : null;
+        const fontStyle = (manifest.language_id === 'hbo') ? { fontSize: '175%', WebkitFontSmoothing: 'antialiased' } : null;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
           language_name = getTitleWithId(manifest.language_name, manifest.language_id);
