@@ -60,8 +60,6 @@ class VerseRow extends Component {
         const paneSetting = currentPaneSettings[i];
         const index = i;
 
-        console.log('paneSetting', paneSetting);
-
         try {
           const {
             bibleId,
