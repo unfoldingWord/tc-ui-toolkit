@@ -6,34 +6,6 @@ import Slider from '@material-ui/core/Slider';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const LightTooltip = withStyles((theme) => ({
-  tooltip: {
-    // backgroundColor: ,
-    color: theme.palette.common.white,
-    boxShadow: theme.shadows[1],
-    fontSize: 11,
-  },
-  // arrow: { backgroundColor: theme.palette.common.white },
-}))(Tooltip);
-
-function ValueLabelComponent(props) {
-  const {
-    children, open, value,
-  } = props;
-
-  return (
-    <LightTooltip open={open} enterTouchDelay={0} placement="top" title={value} arrow>
-      {children}
-    </LightTooltip>
-  );
-}
-
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 const useStyles = makeStyles({
   gridItem: { cursor: 'pointer' },
   smallFont: {
@@ -48,6 +20,14 @@ const useStyles = makeStyles({
   },
   sliderRoot: { color: '#19579E' },
   sliderMark: { backgroundColor: '#19579E' },
+  valueLabel: {
+    'left': 'calc(-50% + 12px)',
+    'top': -22,
+    '& *': {
+      background: 'transparent',
+      color: '#000',
+    },
+  },
 });
 
 function FontSizeSlider({
@@ -99,10 +79,10 @@ function FontSizeSlider({
           classes={{
             root: classes.sliderRoot,
             mark: classes.sliderMark,
+            valueLabel: classes.valueLabel,
           }}
-          valueLabelDisplay="on"
+          valueLabelDisplay='on'
           aria-labelledby='font-size-slider'
-          ValueLabelComponent={ValueLabelComponent}
           value={typeof value === 'number' ? value : min}
         />
       </Grid>
