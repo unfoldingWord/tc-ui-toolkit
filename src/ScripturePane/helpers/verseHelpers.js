@@ -22,12 +22,12 @@ import {
  * @param {String} verseText
  * @param {Array} selections - text selections to highlight
  * @param {Function} translate
- * @param {Number} fontSize
+ * @param {Object} fontStyle - font specific styling
  * @param {String} isTargetBible
  * @param {String} targetLanguageFont
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontSize = 0, isTargetBible, targetLanguageFont) => {
+export const verseString = (verseText, selections, translate, fontStyle = 0, isTargetBible, targetLanguageFont) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
@@ -54,10 +54,13 @@ export const verseString = (verseText, selections, translate, fontSize = 0, isTa
     for (let i = 0, len = _selectionArray.length; i < len; i++) {
       const selection = _selectionArray[i];
       const index = i;
-      const spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
+      let spanStyle = { backgroundColor: selection.selected ? 'var(--highlight-color)' : '' };
 
-      if (fontSize) {
-        spanStyle.fontSize = Math.round(fontSize) + '%';
+      if (fontStyle) {
+        spanStyle = {
+          ...spanStyle,
+          ...fontStyle,
+        };
       }
       verseTextSpans.push(
         <span key={index} className={fontClass} style={spanStyle}>
@@ -78,10 +81,10 @@ export const verseString = (verseText, selections, translate, fontSize = 0, isTa
  * @param {Function} getLexiconData
  * @param {Boolean} showPopover
  * @param {Function} translate
- * @param {Number} fontSize - if zero, will default to 100%
+ * @param {Object} fontStyle - font specific styling
  * @return {Array} - verse elements to display
  */
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontSize = 0) {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = 0) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -128,10 +131,13 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb.  The reason for
         //            this is than some bibles have different strongs format.  We are waiting on long term solution.
         if (word.strong && origLangBible) { // if clickable
-          const spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
+          let spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
 
-          if (fontSize) {
-            spanStyle.fontSize = Math.round(fontSize) + '%';
+          if (fontStyle) {
+            spanStyle = {
+              ...spanStyle,
+              ...fontStyle,
+            };
           }
           verseSpan.push(
             <span
