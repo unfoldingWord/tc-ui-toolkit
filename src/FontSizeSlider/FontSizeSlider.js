@@ -13,6 +13,7 @@ const LightTooltip = withStyles((theme) => ({
     boxShadow: theme.shadows[1],
     fontSize: 11,
   },
+  arrow: { backgroundColor: theme.palette.common.white },
 }))(Tooltip);
 
 function ValueLabelComponent(props) {
