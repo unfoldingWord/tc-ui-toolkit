@@ -4,6 +4,25 @@ import { Glyphicon } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+
+function ValueLabelComponent(props) {
+  const {
+    children, open, value,
+  } = props;
+
+  return (
+    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+      {children}
+    </Tooltip>
+  );
+}
+
+ValueLabelComponent.propTypes = {
+  children: PropTypes.element.isRequired,
+  open: PropTypes.bool.isRequired,
+  value: PropTypes.number.isRequired,
+};
 
 const useStyles = makeStyles({
   gridItem: { cursor: 'pointer' },
@@ -71,8 +90,8 @@ function FontSizeSlider({
             root: classes.sliderRoot,
             mark: classes.sliderMark,
           }}
-          valueLabelDisplay='auto'
           aria-labelledby='font-size-slider'
+          ValueLabelComponent={ValueLabelComponent}
           value={typeof value === 'number' ? value : min}
         />
       </Grid>
