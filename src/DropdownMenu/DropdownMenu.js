@@ -55,7 +55,7 @@ export function MenuItem({
   const menuItemStyle = {
     display: 'flex',
     padding: '4px',
-    margin: '4px',
+    margin: '6px',
     cursor: disableOnClick ? '' : 'pointer',
     ...style,
   };

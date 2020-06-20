@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   gridItem: { cursor: 'pointer' },
@@ -21,11 +20,12 @@ const useStyles = makeStyles({
   sliderRoot: { color: '#19579E' },
   sliderMark: { backgroundColor: '#19579E' },
   valueLabel: {
-    'left': 'calc(-50% + 12px)',
-    'top': -22,
+    'top': -14,
+    'fontSize': '10px',
+    'fontWeight': 'bold',
     '& *': {
       background: 'transparent',
-      color: '#000',
+      color: 'var(--accent-color-dark)',
     },
   },
 });
@@ -38,9 +38,6 @@ function FontSizeSlider({
   value,
   onChange,
 }) {
-  console.log('====================================');
-  console.log('FontSizeSlider value', value);
-  console.log('====================================');
   const classes = useStyles();
 
   const handleChange = (_, newValue) => {
