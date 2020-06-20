@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}))(Tooltip);
 
 function ValueLabelComponent(props) {
   const {
@@ -12,9 +21,9 @@ function ValueLabelComponent(props) {
   } = props;
 
   return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+    <LightTooltip open={open} enterTouchDelay={0} placement="top" title={value} arrow>
       {children}
-    </Tooltip>
+    </LightTooltip>
   );
 }
 
@@ -90,6 +99,7 @@ function FontSizeSlider({
             root: classes.sliderRoot,
             mark: classes.sliderMark,
           }}
+          valueLabelDisplay="on"
           aria-labelledby='font-size-slider'
           ValueLabelComponent={ValueLabelComponent}
           value={typeof value === 'number' ? value : min}
