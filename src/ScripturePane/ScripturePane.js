@@ -124,7 +124,7 @@ function ScripturePane({
         const isTargetBible = bibleId === 'targetBible';
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
+          verseElements = verseString(verseData, selections, translate, fontStyle, isTargetBible, targetLanguageFont);
         } else if (verseData) { // else the verse content is an array of verse objects.
           verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, fontStyle);
         }
