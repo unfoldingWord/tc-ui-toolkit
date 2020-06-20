@@ -71,6 +71,7 @@ function FontSizeSlider({
             root: classes.sliderRoot,
             mark: classes.sliderMark,
           }}
+          valueLabelDisplay='auto'
           aria-labelledby='font-size-slider'
           value={typeof value === 'number' ? value : min}
         />
