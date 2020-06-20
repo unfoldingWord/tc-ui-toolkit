@@ -33,13 +33,14 @@ class Verse extends Component {
 
   render() {
     const {
-      verseElements,
-      bibleId,
-      direction,
-      chapter,
       verse,
       onEdit,
+      bibleId,
+      chapter,
+      fontSize,
+      direction,
       translate,
+      verseElements,
     } = this.props;
     const chapterVerseContent = getReferenceStr(chapter, verse) + ' ';
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
@@ -67,13 +68,13 @@ class Verse extends Component {
     }
 
     const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
-    let fontClass = '';
+    const verseTextStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
     return (
       <div className="verse-container">
-        <div className={directionClassName}>
+        <div className={directionClassName} style={verseTextStyle}>
           {chapterVerse}
-          <span className={fontClass}>{verseSpan}</span>
+          <span>{verseSpan}</span>
         </div>
         {edit}
       </div>
@@ -82,6 +83,16 @@ class Verse extends Component {
 }
 
 Verse.propTypes = {
+  onEdit: PropTypes.func,
+  translate: PropTypes.func.isRequired,
+  bibleId: PropTypes.string.isRequired,
+  chapter: PropTypes.number.isRequired,
+  fontSize: PropTypes.number.isRequired,
+  direction: PropTypes.string.isRequired,
+  verse: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
   verseText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
@@ -92,15 +103,6 @@ Verse.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]),
-  bibleId: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
-  chapter: PropTypes.number.isRequired,
-  verse: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.number.isRequired,
-  ]),
-  onEdit: PropTypes.func,
-  translate: PropTypes.func.isRequired,
 };
 
 export default Verse;
