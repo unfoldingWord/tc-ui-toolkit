@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     'top': -14,
     'fontSize': '10px',
     'fontWeight': 'bold',
+    'userSelect': 'none',
     '& *': {
       background: 'transparent',
       color: 'var(--accent-color-dark)',
