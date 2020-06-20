@@ -73,7 +73,7 @@ class VerseRow extends Component {
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
 
           if (fontSize) {
-            colStyle.fontSize = fontSize;
+            colStyle.fontSize = `${fontSize}%`;
           }
 
           if (typeof verseData === 'string') { // if the verse content is string.
