@@ -50,9 +50,9 @@ function Panes({
       const isTargetBible = bibleId === 'targetBible';
 
       if (typeof verseData === 'string') { // if the verse content is string.
-        verseElements = verseString(verseData, selections, translate, fontStyle, isTargetBible, targetLanguageFont);
+        verseElements = verseString(verseData, selections, translate, {}, isTargetBible, targetLanguageFont);
       } else if (verseData) { // else the verse content is an array of verse objects.
-        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, fontStyle);
+        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {});
       }
 
       let fontClass = '';

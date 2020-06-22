@@ -109,22 +109,21 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                 Titus 2:5
               </span>
             </div>
-            <div
+            <span
+              className="glyphicon glyphicon-option-vertical"
               onClick={[Function]}
-            >
-              <span
-                className="glyphicon glyphicon-fullscreen"
-                style={
-                  Object {
-                    "cursor": "pointer",
-                  }
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
                 }
-                title="click_show_expanded"
-              />
-            </div>
+              }
+            />
           </div>
           <div
             className="ltr-content"
+            style={Object {}}
           >
             <div
               style={
@@ -696,6 +695,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -718,6 +718,17 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -728,6 +739,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
                 onMouseEnter={[Function]}
@@ -1067,22 +1079,21 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 Titus 2:5
               </span>
             </div>
-            <div
+            <span
+              className="glyphicon glyphicon-option-vertical"
               onClick={[Function]}
-            >
-              <span
-                className="glyphicon glyphicon-fullscreen"
-                style={
-                  Object {
-                    "cursor": "pointer",
-                  }
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
                 }
-                title="click_show_expanded"
-              />
-            </div>
+              }
+            />
           </div>
           <div
             className="ltr-content"
+            style={Object {}}
           >
             <div
               style={
@@ -1376,6 +1387,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -1398,6 +1410,17 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                 Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -1408,6 +1431,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
                 onMouseEnter={[Function]}
@@ -1717,6 +1741,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -1739,6 +1764,17 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                 Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -1749,6 +1785,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
                 onMouseEnter={[Function]}

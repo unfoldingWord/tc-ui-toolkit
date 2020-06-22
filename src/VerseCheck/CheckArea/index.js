@@ -166,6 +166,7 @@ CheckArea.propTypes = {
   handleEditVerse: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
   toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
   handleTagsCheckbox: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,

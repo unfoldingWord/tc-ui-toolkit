@@ -183,6 +183,7 @@ Pane.propTypes = {
   translate: PropTypes.func.isRequired,
   removePane: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
+  languageId: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,

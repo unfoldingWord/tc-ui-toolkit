@@ -1,4 +1,40 @@
 {
+  "toolsSettings": {},
+  "commentText": "",
+  "bookmarkEnabled": false,
+  "contextId": {
+    "reference": {
+      "bookId": "tit",
+      "chapter": 2,
+      "verse": 5
+    },
+    "tool": "translationWords",
+    "groupId": "god",
+    "quote": "Θεοῦ",
+    "strong": ["G23160"],
+    "occurrence": 1
+  },
+  "targetLanguageDetails": {
+    "id": "fwe",
+    "name": "Fwe",
+    "direction": "ltr"
+  },
+  "bookDetails": {
+    "id": "tit",
+    "name": "Titus"
+  },
+  "selections": [],
+  "newSelections": [],
+  "tags": [],
+  "actions": {},
+  "mode": "select",
+  "comment": "",
+  "isCommentChanged": false,
+  "verseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara. ",
+  "unfilteredVerseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara.\n\\s5\n",
+  "isVerseChanged": false,
+  "dialogModalVisibility": false,
+  "goToNextOrPrevious": null,
   "bibles": {
     "en": {
       "ust": {
@@ -4806,40 +4842,5 @@
         "description": "Target Language"
       }
     }
-  },
-  "commentText": "",
-  "bookmarkEnabled": false,
-  "contextId": {
-    "reference": {
-      "bookId": "tit",
-      "chapter": 2,
-      "verse": 5
-    },
-    "tool": "translationWords",
-    "groupId": "god",
-    "quote": "Θεοῦ",
-    "strong": ["G23160"],
-    "occurrence": 1
-  },
-  "targetLanguageDetails": {
-    "id": "fwe",
-    "name": "Fwe",
-    "direction": "ltr"
-  },
-  "bookDetails": {
-    "id": "tit",
-    "name": "Titus"
-  },
-  "selections": [],
-  "newSelections": [],
-  "tags": [],
-  "actions": {},
-  "mode": "select",
-  "comment": "",
-  "isCommentChanged": false,
-  "verseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara. ",
-  "unfilteredVerseText": "Kono ewe, oambe ziyenderera ne ntaero zisepahara.\n\\s5\n",
-  "isVerseChanged": false,
-  "dialogModalVisibility": false,
-  "goToNextOrPrevious": null
+  }
 }
