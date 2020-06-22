@@ -37,9 +37,6 @@ function Panes({
       const verseData = bibles[languageId][bibleId][chapter][verse];
       let verseElements = [];
 
-      // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-      const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
-
       if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
         language_name = getTitleWithId(manifest.language_name, manifest.language_id);
       }
@@ -53,9 +50,9 @@ function Panes({
       const isTargetBible = bibleId === 'targetBible';
 
       if (typeof verseData === 'string') { // if the verse content is string.
-        verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
+        verseElements = verseString(verseData, selections, translate, fontStyle, isTargetBible, targetLanguageFont);
       } else if (verseData) { // else the verse content is an array of verse objects.
-        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
+        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, fontStyle);
       }
 
       let fontClass = '';
@@ -79,6 +76,7 @@ function Panes({
           languageName={language_name}
           verseElements={verseElements}
           direction={manifest.direction}
+          languageId={manifest.language_id}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}

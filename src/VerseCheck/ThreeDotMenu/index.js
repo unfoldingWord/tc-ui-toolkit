@@ -74,14 +74,14 @@ ThreeDotMenu.defaultProps = {
 };
 
 ThreeDotMenu.propTypes = {
+  anchorOrigin: PropTypes.object,
+  transformOrigin: PropTypes.object,
   title: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   namespace: PropTypes.string.isRequired,
-  anchorOrigin: PropTypes.object.isRequired,
   toolsSettings: PropTypes.object.isRequired,
   setToolSettings: PropTypes.func.isRequired,
-  transformOrigin: PropTypes.object.isRequired,
 };
 
 export default ThreeDotMenu;
