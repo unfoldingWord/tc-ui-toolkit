@@ -103,7 +103,7 @@ function generateWordPart(translate, lemma, morphStr, strongsNum, strongs, lexic
   morphStr = morphStr || translate('morph_missing');
   const multipart = count > 1;
   const key = 'lexicon_details_' + pos;
-  const origLangStyle = isHebrew ? { fontSize: '1.7em' } : { fontSize: '1.2em' };
+  const origLangStyle = isHebrew ? { fontSize: '1.7em', WebkitFontSmoothing: 'antialiased' } : { fontSize: '1.2em' };
 
   if (strongsNum) {
     return <div key={key} style={{ margin: '0px 10px 0px 10px', maxWidth: '400px' }}>
