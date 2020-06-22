@@ -109,7 +109,7 @@ function ScripturePane({
         let verseElements = [];
 
         // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-        const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
+        const fontStyle = (manifest.language_id === 'hbo') ? { fontSize: '175%', WebkitFontSmoothing: 'antialiased' } : null;
 
         if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
           language_name = getTitleWithId(manifest.language_name, manifest.language_id);
@@ -124,9 +124,9 @@ function ScripturePane({
         const isTargetBible = bibleId === 'targetBible';
 
         if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize, isTargetBible, targetLanguageFont);
+          verseElements = verseString(verseData, selections, translate, fontStyle, isTargetBible, targetLanguageFont);
         } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
+          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, fontStyle);
         }
 
         let fontClass = '';
