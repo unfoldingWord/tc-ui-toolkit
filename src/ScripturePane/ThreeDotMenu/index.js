@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Glyphicon } from 'react-bootstrap';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+// import { makeStyles } from '@material-ui/core/styles';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
+
+// const useStyles = makeStyles({ removeCircle: { fontSize: '20px', color: '#000000' } });
 
 function ThreeDotMenu({
   index,
@@ -45,17 +48,13 @@ function ThreeDotMenu({
           divider
           onClose={handleClose}
           onClick={() => removePane(index)}
+          title={clickToRemoveResourceLabel}
           style={{
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
-          <Glyphicon
-            glyph={'remove'}
-            style={{ fontSize: '20px', color: '#000000' }}
-            className='remove-glyph-icon'
-            title={clickToRemoveResourceLabel}
-          />
-          <div title={clickToRemoveResourceLabel} style={{ margin: '0px 10px', color: '#000000' }}>
+          <RemoveCircle />
+          <div style={{ margin: '0px 10px', color: '#000000' }}>
             {removeResourceLabel}
           </div>
         </MenuItem>
