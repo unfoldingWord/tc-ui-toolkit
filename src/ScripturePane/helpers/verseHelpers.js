@@ -27,7 +27,7 @@ import {
  * @param {String} targetLanguageFont
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontStyle = 0, isTargetBible, targetLanguageFont) => {
+export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, targetLanguageFont) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
@@ -84,7 +84,7 @@ export const verseString = (verseText, selections, translate, fontStyle = 0, isT
  * @param {Object} fontStyle - font specific styling
  * @return {Array} - verse elements to display
  */
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = 0) {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
