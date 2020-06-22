@@ -74,10 +74,10 @@ ThreeDotMenu.defaultProps = {
 
 ThreeDotMenu.propTypes = {
   fontSize: PropTypes.number,
+  anchorOrigin: PropTypes.object,
+  transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
-  anchorOrigin: PropTypes.object.isRequired,
-  transformOrigin: PropTypes.object.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,

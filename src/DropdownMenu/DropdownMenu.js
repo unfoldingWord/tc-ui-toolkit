@@ -32,11 +32,11 @@ DropdownMenu.defaultProps = {
 
 DropdownMenu.propTypes = {
   style: PropTypes.object,
+  anchorOrigin: PropTypes.object,
   open: PropTypes.bool.isRequired,
+  transformOrigin: PropTypes.object,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  anchorOrigin: PropTypes.object.isRequired,
-  transformOrigin: PropTypes.object.isRequired,
   anchorEl: PropTypes.oneOfType([
     PropTypes.node.isRequired,
     PropTypes.bool.isRequired,
