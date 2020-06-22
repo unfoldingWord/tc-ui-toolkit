@@ -92,11 +92,6 @@ function ScripturePane({
 
   function changePaneFontSize(index, fontSize) {
     try {
-      console.log('====================================');
-      console.log('index, fontSize', index, fontSize);
-      console.log('====================================');
-      console.log('currentPaneSettings', currentPaneSettings);
-
       if (currentPaneSettings) {
         const paneSettings = _.cloneDeep(currentPaneSettings);
         const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
@@ -106,10 +101,6 @@ function ScripturePane({
 
           return paneSetting;
         });
-        console.log('====================================');
-        console.log('currentPaneSettings', currentPaneSettings);
-        console.log('newCurrentPaneSettings', newCurrentPaneSettings);
-        console.log('====================================');
         setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
       }
     } catch (e) {
@@ -123,8 +114,6 @@ function ScripturePane({
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
-
-  console.log('ScripturePane currentPaneSettings', currentPaneSettings);
 
   return (
     <div className="scripture-pane-container">
@@ -234,22 +223,12 @@ function areEqual(prevProps, nextProps) {
     render would return the same result as passing
     prevProps.bibles to render, otherwise return false
   */
-
-  console.log('====================================');
-  console.log('deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings)', deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings));
-  console.log('prevProps.currentPaneSettings, nextProps.currentPaneSettings)', prevProps.currentPaneSettings, nextProps.currentPaneSettings);
-  console.log('====================================');
-
-  const result = deepEqual(prevProps.bibles, nextProps.bibles) &&
+  return deepEqual(prevProps.bibles, nextProps.bibles) &&
     deepEqual(prevProps.contextId, nextProps.contextId) &&
     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
     deepEqual(prevProps.selections, nextProps.selections);
-  console.log('====================================');
-  console.log('ScripturePane areEqual', result);
-  console.log('====================================');
-  return result;
 }
 
 // using React.memo to boost performance by memoizing the result

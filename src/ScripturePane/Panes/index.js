@@ -18,8 +18,6 @@ function Panes({
   changePaneFontSize,
   currentPaneSettings,
 }) {
-  console.log('Panes currentPaneSettings', currentPaneSettings);
-
   const panes = [];
 
   for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
