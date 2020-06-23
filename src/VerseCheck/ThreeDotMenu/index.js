@@ -8,12 +8,12 @@ import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 function ThreeDotMenu({
   title,
   label,
-  onClick,
   namespace,
   anchorOrigin,
   toolsSettings,
   setToolSettings,
   transformOrigin,
+  handleMyLanguageModal,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -45,8 +45,10 @@ function ThreeDotMenu({
       >
         <MenuItem
           divider
-          onClick={onClick}
-          onClose={handleClose}
+          onClick={() => {
+            handleMyLanguageModal();
+            handleClose();
+          }}
           style={{
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
@@ -60,7 +62,7 @@ function ThreeDotMenu({
             {label}
           </div>
         </MenuItem>
-        <MenuItem onClose={handleClose} disableOnClick>
+        <MenuItem disableOnClick>
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
       </DropdownMenu>
@@ -78,10 +80,10 @@ ThreeDotMenu.propTypes = {
   transformOrigin: PropTypes.object,
   title: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
   namespace: PropTypes.string.isRequired,
   toolsSettings: PropTypes.object.isRequired,
   setToolSettings: PropTypes.func.isRequired,
+  handleMyLanguageModal: PropTypes.func.isRequired,
 };
 
 export default ThreeDotMenu;

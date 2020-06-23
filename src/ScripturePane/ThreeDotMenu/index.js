@@ -46,8 +46,10 @@ function ThreeDotMenu({
       >
         <MenuItem
           divider
-          onClose={handleClose}
-          onClick={() => removePane(index)}
+          onClick={() => {
+            removePane(index);
+            handleClose();
+          }}
           title={clickToRemoveResourceLabel}
           style={{
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
@@ -58,7 +60,7 @@ function ThreeDotMenu({
             {removeResourceLabel}
           </div>
         </MenuItem>
-        <MenuItem onClose={handleClose} disableOnClick>
+        <MenuItem disableOnClick>
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
       </DropdownMenu>

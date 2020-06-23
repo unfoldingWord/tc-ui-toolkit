@@ -47,7 +47,6 @@ export function MenuItem({
   style,
   title,
   divider,
-  onClose,
   onClick,
   children,
   disableOnClick,
@@ -61,14 +60,8 @@ export function MenuItem({
   };
 
   function handleOnClick() {
-    if (!disableOnClick) {
-      if (onClose) {
-        onClose();
-      }
-
-      if (onClick) {
-        onClick();
-      }
+    if (!disableOnClick && onClick) {
+      onClick();
     }
   }
 
@@ -87,7 +80,6 @@ MenuItem.propTypes = {
   title: PropTypes.string,
   divider: PropTypes.bool,
   disableOnClick: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([

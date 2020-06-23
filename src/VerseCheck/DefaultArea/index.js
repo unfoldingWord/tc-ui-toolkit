@@ -120,7 +120,7 @@ class DefaultArea extends React.Component {
                 setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
                 title={translate('click_show_expanded')}
-                onClick={() => this.setState({ modalVisibility: true })}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
               />
           }
           <div className='pane' style={style}>
@@ -148,7 +148,7 @@ class DefaultArea extends React.Component {
                 setToolSettings={setToolSettings}
                 label={translate('expand_verses')}
                 title={translate('click_show_expanded')}
-                onClick={() => this.setState({ modalVisibility: true })}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
               />
               :
               ''
