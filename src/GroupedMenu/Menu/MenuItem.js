@@ -145,6 +145,14 @@ const styles = {
   listItemIconRoot: { minWidth: '0px' },
 };
 
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: '#333333',
+    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
+  },
+}))(Tooltip);
+
 /**
  * Renders a single item within the menu
  * @param {string} title - the menu item text
@@ -226,9 +234,8 @@ class MenuItem extends React.Component {
       // display badged icon with tooltip
       return (
         <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
-          <Tooltip
+          <LightTooltip
             placement="right"
-            classes={{ tooltip: this.props.classes.lightTooltipSmall }}
             title={
               <React.Fragment>
                 {icons.map((i, key) =>
@@ -246,7 +253,7 @@ class MenuItem extends React.Component {
             >
               {icons[0]}
             </Badge>
-          </Tooltip>
+          </LightTooltip>
         </ListItemIcon>
       );
     } else {
