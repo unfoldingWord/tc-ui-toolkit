@@ -6,10 +6,12 @@ import {
 } from 'react-bootstrap';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
+import { getFontClassName } from '../../common/fontUtils';
 
 import './EditVerseArea.styles.css';
-import { getFontClassName } from '../../common/fontUtils';
 
 const styles = {
   formControlLabelRoot: { height: 30 },
@@ -62,6 +64,8 @@ const EditVerseArea = ({
           }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={tag[1]}
@@ -84,6 +88,8 @@ const EditVerseArea = ({
           }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={tag[1]}

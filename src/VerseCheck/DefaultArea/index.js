@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// helpers
-import { Glyphicon } from 'react-bootstrap';
 import { selectionArray, normalizeString } from '../helpers/selectionHelpers';
 import { occurrencesInString } from '../helpers/stringHelpers';
-// components
 import MyLanguageModal from '../MyLanguageModal';
-// styling
-import '../VerseCheck.styles.css';
+import ThreeDotMenu from '../ThreeDotMenu';
 import { getFontClassName } from '../../common/fontUtils';
 import {
   getReferenceStr,
@@ -15,6 +11,9 @@ import {
   getTitleWithId,
   isLTR,
 } from '../..';
+// styling
+import '../VerseCheck.styles.css';
+const NAMESPACE = 'CheckArea';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -64,12 +63,6 @@ class DefaultArea extends React.Component {
     );
   }
 
-  getExpandIcon(translate) {
-    return <div onClick={() => this.setState({ modalVisibility: true })}>
-      <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }}/>
-    </div>;
-  }
-
   render() {
     const {
       translate,
@@ -78,8 +71,10 @@ class DefaultArea extends React.Component {
       selections,
       targetBible,
       bookDetails,
-      targetLanguageDetails,
+      toolsSettings,
+      setToolSettings,
       targetLanguageFont,
+      targetLanguageDetails,
     } = this.props;
     const {
       book,
@@ -97,6 +92,8 @@ class DefaultArea extends React.Component {
     const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
     const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
     const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
+    const { fontSize } = toolsSettings[NAMESPACE] || {};
+    const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
     if (!isLTR_) { // for RTL
       style.justifyContent = 'right';
@@ -113,7 +110,19 @@ class DefaultArea extends React.Component {
       }}>
         <div className='verse-title'>
           {/* put icon here if RTL */}
-          {isLTR_ ? '' : this.getExpandIcon(translate)}
+          {
+            isLTR_ ?
+              ''
+              :
+              <ThreeDotMenu
+                namespace={NAMESPACE}
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
+              />
+          }
           <div className='pane' style={style}>
             <span className={verseTitleClassName} style={lineHeightStyle}>
               {languageStr}
@@ -123,11 +132,32 @@ class DefaultArea extends React.Component {
             </span>
           </div>
           {/* put icon here if LTR */}
-          {isLTR_ ? this.getExpandIcon(translate) : ''}
+          {
+            isLTR_ ?
+              <ThreeDotMenu
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                namespace={NAMESPACE}
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
+              />
+              :
+              ''
+          }
           <MyLanguageModal
             bookName={bookName}
             translate={translate}
             targetBible={targetBible}
+            fontSize={`${fontSize}%`}
             chapter={reference.chapter}
             currentVerse={reference.verse}
             show={this.state.modalVisibility}
@@ -137,7 +167,7 @@ class DefaultArea extends React.Component {
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'}>
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'} style={textStyle}>
           {this.displayText(verseText, selections, targetLanguageFontClassName)}
         </div>
       </div>
@@ -146,15 +176,17 @@ class DefaultArea extends React.Component {
 }
 
 DefaultArea.propTypes = {
+  targetLanguageFont: PropTypes.string,
   translate: PropTypes.func.isRequired,
   reference: PropTypes.object.isRequired,
-  targetBible: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
-  validateSelections: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  validateSelections: PropTypes.func.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
-  targetLanguageFont: PropTypes.string,
 };
 
 export default DefaultArea;

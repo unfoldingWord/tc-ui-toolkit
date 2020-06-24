@@ -21,7 +21,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".expanded-scripture-draggable-handle">
-      <Paper {...props}/>
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -145,7 +145,7 @@ function ExpandedScripturePaneModal({
           showPopover={showPopover}
           getLexiconData={getLexiconData} />
       </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
+      <DialogActions disableSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>
           {translate('close')}
         </button>
@@ -183,7 +183,8 @@ function areEqual(prevProps, nextProps) {
     render would return the same result as passing
     prevProps.bibles to render, otherwise return false
   */
-  return deepEqual(prevProps.bibles, nextProps.bibles);
+  return deepEqual(prevProps.bibles, nextProps.bibles) &&
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings);
 }
 
 // using React.memo to boost performance by memoizing the result

@@ -37,6 +37,7 @@ class VerseCheck extends Component {
       isVerseInvalidated,
       contextId,
       targetBible,
+      toolsSettings,
       handleCloseDialog,
       handleGoToNext,
       handleGoToPrevious,
@@ -51,6 +52,7 @@ class VerseCheck extends Component {
       cancelComment,
       saveComment,
       bookDetails,
+      setToolSettings,
       targetLanguageDetails,
       handleTagsCheckbox,
       handleEditVerse,
@@ -116,11 +118,13 @@ class VerseCheck extends Component {
               selections={selections}
               bookDetails={bookDetails}
               targetBible={targetBible}
+              toolsSettings={toolsSettings}
               newSelections={newSelections}
               alignedGLText={alignedGLText}
               handleComment={handleComment}
               isVerseChanged={isVerseChanged}
               invalidated={isVerseInvalidated}
+              setToolSettings={setToolSettings}
               nothingToSelect={nothingToSelect}
               openAlertDialog={openAlertDialog}
               handleEditVerse={handleEditVerse}
@@ -170,35 +174,36 @@ class VerseCheck extends Component {
 
 
 VerseCheck.propTypes = {
-  translate: PropTypes.func.isRequired,
-  mode: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
+  mode: PropTypes.string.isRequired,
+  translate: PropTypes.func.isRequired,
+  changeMode: PropTypes.func.isRequired,
   selections: PropTypes.array.isRequired,
-  newSelections: PropTypes.array.isRequired,
-  nothingToSelect: PropTypes.bool.isRequired,
+  contextId: PropTypes.object.isRequired,
+  verseText: PropTypes.string.isRequired,
   isVerseEdited: PropTypes.bool.isRequired,
   commentText: PropTypes.string.isRequired,
-  bookmarkEnabled: PropTypes.bool.isRequired,
-  isVerseInvalidated: PropTypes.bool.isRequired,
-  contextId: PropTypes.object.isRequired,
   targetBible: PropTypes.object.isRequired,
   bookDetails: PropTypes.object.isRequired,
-  targetLanguageDetails: PropTypes.object.isRequired,
+  newSelections: PropTypes.array.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
+  handleGoToNext: PropTypes.func.isRequired,
+  nothingToSelect: PropTypes.bool.isRequired,
+  bookmarkEnabled: PropTypes.bool.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
   alignedGLText: PropTypes.string.isRequired,
   isCommentChanged: PropTypes.bool.isRequired,
-  isVerseChanged: PropTypes.bool.isRequired,
-  verseText: PropTypes.string.isRequired,
+  isVerseInvalidated: PropTypes.bool.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
   unfilteredVerseText: PropTypes.string.isRequired,
   dialogModalVisibility: PropTypes.bool.isRequired,
   localNothingToSelect: PropTypes.bool.isRequired,
   maximumSelections: PropTypes.number.isRequired,
   handleCloseDialog: PropTypes.func.isRequired,
-  handleGoToNext: PropTypes.func.isRequired,
   handleGoToPrevious: PropTypes.func.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
   toggleBookmark: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
   cancelEditVerse: PropTypes.func.isRequired,
   saveEditVerse: PropTypes.func.isRequired,
   handleComment: PropTypes.func.isRequired,
@@ -209,6 +214,7 @@ VerseCheck.propTypes = {
   cancelSelection: PropTypes.func.isRequired,
   clearSelection: PropTypes.func.isRequired,
   handleSkip: PropTypes.func.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
   checkIfCommentChanged: PropTypes.func.isRequired,

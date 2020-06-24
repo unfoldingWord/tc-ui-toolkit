@@ -11,7 +11,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".BaseDialog-draggable-handle">
-      <Paper {...props} />
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -136,7 +136,7 @@ class BaseDialog extends React.Component {
         </DialogTitle>
         {children}
         { actionsEnabled ?
-          <DialogActions disableActionSpacing={true}>
+          <DialogActions disableSpacing={true}>
             {dialogActions}
           </DialogActions> : ''}
       </Dialog>

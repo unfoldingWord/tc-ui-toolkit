@@ -36,7 +36,7 @@ class VerseRow extends Component {
     } = this.props;
     let verseCells = [];
 
-    const colStyle = {
+    let colStyle = {
       minWidth: '240px',
       alignItems: 'stretch',
       padding: '10px',
@@ -61,7 +61,11 @@ class VerseRow extends Component {
         const index = i;
 
         try {
-          const { languageId, bibleId } = paneSetting;
+          const {
+            bibleId,
+            fontSize,
+            languageId,
+          } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
@@ -78,14 +82,16 @@ class VerseRow extends Component {
           verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
-                translate={translate}
-                verseElements={verseElements}
-                verseText={verseText}
-                bibleId={bibleId}
-                direction={direction}
                 chapter={chapter}
+                bibleId={bibleId}
+                fontSize={fontSize}
+                translate={translate}
+                verseText={verseText}
+                direction={direction}
+                onEdit={this.handleEdit}
                 verse={currentVerseNumber}
-                onEdit={this.handleEdit} />
+                verseElements={verseElements}
+              />
             </Col>,
           );
         } catch (error) {

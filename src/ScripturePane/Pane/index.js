@@ -1,34 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContainerDimensions from 'react-container-dimensions';
-import { Glyphicon } from 'react-bootstrap';
 import {
   getTitleWithId, getTranslation, isLTR,
 } from '../helpers/utils';
-
-import './Pane.styles.css';
-
-// components
 import Verse from '../Verse';
-
+import ThreeDotMenu from '../ThreeDotMenu';
+import './Pane.styles.css';
 // constants
 const PANECHAR = 9;
-
-/**
- * create remove icon
- * @param {function} clickToRemoveResourceLabel
- * @param {number} index
- * @param {function} removePane
- * @return {*}
- */
-function getRemoveicon(clickToRemoveResourceLabel, index, removePane) {
-  return <Glyphicon
-    className="remove-glyph-icon"
-    glyph={'remove'}
-    title={clickToRemoveResourceLabel}
-    onClick={() => removePane(index)}
-  />;
-}
 
 /**
  * create content for title container with selected overall justification
@@ -85,23 +65,48 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
  * @param {function} removePane
  * @return {*}
  */
-function GetTitleContainer({
+function TitleContainer({
   index,
   isLTR,
+  fontSize,
   fontClass,
   removePane,
   headingText,
+  changePaneFontSize,
+  removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
 }) {
   if (isLTR) {
     return <>
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
-      {getRemoveicon(clickToRemoveResourceLabel, index, removePane)}
+      <ThreeDotMenu
+        index={index}
+        fontSize={fontSize}
+        removePane={removePane}
+        changePaneFontSize={changePaneFontSize}
+        removeResourceLabel={removeResourceLabel}
+        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      />
     </>;
   } else { // arrange rtl
     return <>
-      {getRemoveicon(clickToRemoveResourceLabel, index, removePane)}
+      <ThreeDotMenu
+        index={index}
+        fontSize={fontSize}
+        removePane={removePane}
+        changePaneFontSize={changePaneFontSize}
+        removeResourceLabel={removeResourceLabel}
+        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+      />
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
     </>;
   }
@@ -112,13 +117,17 @@ const Pane = ({
   verse,
   chapter,
   bibleId,
+  fontSize,
   fontClass,
   direction,
   translate,
+  languageId,
   removePane,
   description,
   languageName,
   verseElements,
+  changePaneFontSize,
+  removeResourceLabel,
   clickToRemoveResourceLabel,
 }) => {
   const isLTR_ = isLTR(direction);
@@ -126,21 +135,31 @@ const Pane = ({
     getTitleWithId(languageName, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
+  let verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
+
+  if (languageId === 'hbo' && !fontSize) {
+    verseContainerStyle = { fontSize: '175%', WebkitFontSmoothing: 'antialiased' };
+  } else if (languageId === 'hbo' && fontSize) {
+    verseContainerStyle.WebkitFontSmoothing = 'antialiased';
+  }
 
   return (
     <div className="pane-container">
       <div className="pane-title-container">
-        <GetTitleContainer
+        <TitleContainer
           index={index}
           isLTR={isLTR_}
+          fontSize={fontSize}
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
+          changePaneFontSize={changePaneFontSize}
+          removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         />
       </div>
-      <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'}>
+      <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
         <Verse
           verse={verse}
           bibleId={bibleId}
@@ -155,16 +174,20 @@ const Pane = ({
 };
 
 Pane.propTypes = {
+  fontSize: PropTypes.number,
   fontClass: PropTypes.string,
   index: PropTypes.number.isRequired,
-  bibleId: PropTypes.string.isRequired,
-  languageName: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  chapter: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
-  removePane: PropTypes.func.isRequired,
+  bibleId: PropTypes.string.isRequired,
+  chapter: PropTypes.number.isRequired,
   translate: PropTypes.func.isRequired,
+  removePane: PropTypes.func.isRequired,
+  direction: PropTypes.string.isRequired,
+  languageId: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  languageName: PropTypes.string.isRequired,
+  changePaneFontSize: PropTypes.func.isRequired,
+  removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,

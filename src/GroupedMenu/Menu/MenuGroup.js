@@ -8,13 +8,11 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ProgressIcon from './ProgressIcon';
 
-/**
- * Utility to apply styles based on props
- */
-// const styledBy = (property, mapping) => props => mapping[props[property]];
-
 const styles = {
-  textRoot: { paddingRight: 0 },
+  textRoot: {
+    padding: '0 0 0 5px',
+    margin: '0px',
+  },
   text: {
     color: '#FFFFFF',
     fontSize: 12,
@@ -26,7 +24,6 @@ const styles = {
     fontWeight: 700,
   },
   root: {
-    // paddingRight: 0,
     'borderBottom': 'solid #ffffff4d 1px',
     'cursor': 'pointer',
     '&$selected': {
@@ -35,6 +32,7 @@ const styles = {
     },
   },
   selected: {},
+  listItemIconRoot: { minWidth: '0px' },
 };
 
 /**
@@ -69,7 +67,7 @@ class MenuGroup extends React.Component {
         }}
         onClick={onClick}
       >
-        <ListItemIcon>
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
           <ProgressIcon progress={progress}/>
         </ListItemIcon>
         <ListItemText
@@ -80,7 +78,7 @@ class MenuGroup extends React.Component {
           }}
           primary={label}
         />
-        {open ? <ExpandMore/> : <ChevronRight/>}
+        {open ? <ExpandMore style={{ fontSize: '22px' }} /> : <ChevronRight style={{ fontSize: '22px' }} />}
       </ListItem>
     );
   }

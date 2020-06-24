@@ -125,7 +125,7 @@ const AddPaneModal = ({
           {panes}
         </FormControl>
       </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
+      <DialogActions disableSpacing style={styles.dialogActions}>
         <button className="btn-second" onClick={onHide}>
           {translate('close')}
         </button>
