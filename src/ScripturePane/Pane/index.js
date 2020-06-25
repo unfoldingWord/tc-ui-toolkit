@@ -22,7 +22,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
-  const paneSubtitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
+  const paneSubtitleClassName = fontClass ? `pane-subtitle-text ${fontClass}` : 'pane-subtitle-text';
 
   return (
     <div className="pane-title-container-content" style={styles}>
