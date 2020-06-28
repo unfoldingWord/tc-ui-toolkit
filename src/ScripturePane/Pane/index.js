@@ -39,6 +39,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
             return (
               <span
                 className={className}
+                style={{ lineHeight: 1.4 }}
                 aria-label={localizedDescription}>
                 {
                   localizedDescription.length > width / PANECHAR ?
