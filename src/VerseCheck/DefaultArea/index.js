@@ -92,6 +92,7 @@ class DefaultArea extends React.Component {
     const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
     const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
     const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
+    console.log('toolsSettings', toolsSettings);
     const { fontSize } = toolsSettings[NAMESPACE] || {};
     const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
