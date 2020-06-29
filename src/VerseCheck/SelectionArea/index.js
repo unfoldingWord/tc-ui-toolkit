@@ -70,7 +70,7 @@ const SelectionArea = ({
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
-              onClick={() => changeModalVisibility(true)}
+              handleMyLanguageModal={() => changeModalVisibility(true)}
             />
         }
         <div className='pane' style={style}>
@@ -98,7 +98,7 @@ const SelectionArea = ({
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
-              onClick={() => changeModalVisibility(true)}
+              handleMyLanguageModal={() => changeModalVisibility(true)}
             />
             :
             ''
