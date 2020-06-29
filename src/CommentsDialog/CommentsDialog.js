@@ -73,7 +73,9 @@ class CommentsDialog extends React.Component {
     </div>;
 
     return (
-      <BaseDialog onSubmit={this._handleSubmit}
+      <BaseDialog
+        key={`CommentsDialog-${verseTitle}`}
+        onSubmit={this._handleSubmit}
         primaryLabel={saveButton}
         primaryActionEnabled={isSaveEnabled}
         secondaryLabel={translate('buttons.cancel_button')}

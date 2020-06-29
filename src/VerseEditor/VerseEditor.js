@@ -143,6 +143,7 @@ class VerseEditor extends React.Component {
 
     return (
       <BaseDialog
+        key={`VerseEditor-${verseTitle}`}
         modal={true}
         open={open}
         title={title}

@@ -99,6 +99,7 @@ class BaseDialog extends React.Component {
 
   render() {
     const {
+      key,
       primaryActionEnabled,
       secondaryActionEnabled,
       modal,
@@ -135,6 +136,7 @@ class BaseDialog extends React.Component {
 
     return (
       <Dialog
+        key={key}
         open={open}
         modal={isModal}
         bodyStyle={bodyStyle}
@@ -176,6 +178,7 @@ BaseDialog.propTypes = {
   modal: PropTypes.bool,
   actions: PropTypes.array,
   title: PropTypes.any,
+  key: PropTypes.any,
   secondaryLabel: PropTypes.any,
   primaryLabel: PropTypes.any,
   primaryActionEnabled: PropTypes.bool,
