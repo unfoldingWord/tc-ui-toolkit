@@ -26,7 +26,6 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   return (
     <div className="pane-title-container-content" style={styles}>
       <span
-        style={{ lineHeight: fontClass ? 1.4 : '' }}
         className={headingClassName}
         aria-label={headingText}>
         {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
