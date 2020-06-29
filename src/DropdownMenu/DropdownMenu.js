@@ -80,7 +80,7 @@ MenuItem.propTypes = {
   title: PropTypes.string,
   divider: PropTypes.bool,
   disableOnClick: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([
     PropTypes.node.isRequired,
