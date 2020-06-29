@@ -26,6 +26,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   return (
     <div className="pane-title-container-content" style={styles}>
       <span
+        style={{ lineHeight: 1, padding: fontClass === 'AwamiNastaliq-text' ? '0px 0px 8px' : '0px' }}
         className={headingClassName}
         aria-label={headingText}>
         {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
@@ -35,7 +36,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
           ({ width }) => (
             <span
               className='pane-subtitle-text hint--bottom hint--medium'
-              style={{ lineHeight: 1.4 }}
+              style={{ lineHeight: 2.2 }}
               aria-label={localizedDescription}>
               {
                 localizedDescription.length > width / PANECHAR ?
