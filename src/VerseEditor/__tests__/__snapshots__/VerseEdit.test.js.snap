@@ -3,6 +3,7 @@
 exports[`VerseEditor component: should render 1`] = `
 <WithStyles(BaseDialog)
   actionsEnabled={false}
+  key="VerseEditor-Rom 3:11"
   modal={true}
   onClose={[Function]}
   open={true}
