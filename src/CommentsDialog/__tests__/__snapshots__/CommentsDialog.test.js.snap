@@ -13,6 +13,7 @@ exports[`CommentsDialog component: should render 1`] = `
       "width": "500px",
     }
   }
+  key="CommentsDialog-Rom 3:13"
   onClose={[Function]}
   onSubmit={[Function]}
   open={true}

@@ -46,7 +46,7 @@ const SelectionArea = ({
   const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
   const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
   const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
-  const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4 } : {};
+  const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4, padding: targetLanguageFontClassName.includes('Awami') ? '0 0 10px' : 0 } : {};
   const { fontSize } = toolsSettings[NAMESPACE] || {};
   const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
@@ -70,7 +70,7 @@ const SelectionArea = ({
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
-              onClick={() => changeModalVisibility(true)}
+              handleMyLanguageModal={() => changeModalVisibility(true)}
             />
         }
         <div className='pane' style={style}>
@@ -98,7 +98,7 @@ const SelectionArea = ({
               setToolSettings={setToolSettings}
               label={translate('expand_verses')}
               title={translate('click_show_expanded')}
-              onClick={() => changeModalVisibility(true)}
+              handleMyLanguageModal={() => changeModalVisibility(true)}
             />
             :
             ''

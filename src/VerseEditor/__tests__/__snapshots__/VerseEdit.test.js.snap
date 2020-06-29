@@ -3,6 +3,7 @@
 exports[`VerseEditor component: should render 1`] = `
 <WithStyles(BaseDialog)
   actionsEnabled={false}
+  key="VerseEditor-Rom 3:11"
   modal={true}
   onClose={[Function]}
   open={true}
@@ -12,6 +13,11 @@ exports[`VerseEditor component: should render 1`] = `
     >
       <pure(EditIcon)
         className="edit-icon"
+        style={
+          Object {
+            "fontSize": "24px",
+          }
+        }
       />
       edit_verse_title: {"passage":"Rom 3:11"}
     </span>

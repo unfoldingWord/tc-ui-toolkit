@@ -24,8 +24,8 @@ function ThreeDotIcon({
 
 ThreeDotIcon.propTypes = {
   title: PropTypes.string,
+  style: PropTypes.object,
   onClick: PropTypes.func.isRequired,
-  style: PropTypes.object.isRequired,
 };
 
 export default ThreeDotIcon;

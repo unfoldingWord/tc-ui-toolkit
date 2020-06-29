@@ -61,7 +61,7 @@ class Verse extends Component {
       edit = (
         <div style={styles.edit_wrapper}>
           <IconButton style={styles.edit_button} onClick={this.handleEdit}>
-            <EditIcon/>
+            <EditIcon style={{ fontSize: '24px' }}/>
           </IconButton>
         </div>
       );
@@ -84,10 +84,10 @@ class Verse extends Component {
 
 Verse.propTypes = {
   onEdit: PropTypes.func,
+  fontSize: PropTypes.number,
   translate: PropTypes.func.isRequired,
   bibleId: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
-  fontSize: PropTypes.number.isRequired,
   direction: PropTypes.string.isRequired,
   verse: PropTypes.oneOfType([
     PropTypes.string.isRequired,

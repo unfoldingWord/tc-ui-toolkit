@@ -22,33 +22,29 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
-  const paneSubtitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
 
   return (
     <div className="pane-title-container-content" style={styles}>
       <span
-        style={{ lineHeight: fontClass ? 1.4 : '' }}
+        style={{ lineHeight: 1, padding: fontClass.includes('Awami') ? '0px 0px 6px' : '0px' }}
         className={headingClassName}
         aria-label={headingText}>
         {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
       </span>
       <ContainerDimensions>
         {
-          ({ width }) => {
-            const className = localizedDescription.length > width / PANECHAR ? `${paneSubtitleClassName} hint--bottom hint--medium` : paneSubtitleClassName;
-            return (
-              <span
-                className={className}
-                style={{ lineHeight: fontClass ? 1.4 : '' }}
-                aria-label={localizedDescription}>
-                {
-                  localizedDescription.length > width / PANECHAR ?
-                    localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
-                    localizedDescription
-                }
-              </span>
-            );
-          }
+          ({ width }) => (
+            <span
+              className='pane-subtitle-text hint--bottom hint--medium'
+              style={{ lineHeight: 2 }}
+              aria-label={localizedDescription}>
+              {
+                localizedDescription.length > width / PANECHAR ?
+                  localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
+                  localizedDescription
+              }
+            </span>
+          )
         }
       </ContainerDimensions>
     </div>
