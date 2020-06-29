@@ -129,7 +129,7 @@ class VerseEditor extends React.Component {
     const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
     const title = (
       <span className={targetLanguageFontClassName}>
-        <EditIcon className='edit-icon' />
+        <EditIcon className='edit-icon' style={{ fontSize: '24px' }}/>
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
     );

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
-// import { makeStyles } from '@material-ui/core/styles';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
-
-// const useStyles = makeStyles({ removeCircle: { fontSize: '20px', color: '#000000' } });
 
 function ThreeDotMenu({
   index,

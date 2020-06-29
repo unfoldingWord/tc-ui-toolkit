@@ -61,7 +61,7 @@ class Verse extends Component {
       edit = (
         <div style={styles.edit_wrapper}>
           <IconButton style={styles.edit_button} onClick={this.handleEdit}>
-            <EditIcon/>
+            <EditIcon style={{ fontSize: '24px' }}/>
           </IconButton>
         </div>
       );
