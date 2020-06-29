@@ -22,7 +22,6 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
-  const paneSubtitleClassName = fontClass ? `pane-subtitle-text ${fontClass}` : 'pane-subtitle-text';
 
   return (
     <div className="pane-title-container-content" style={styles}>
@@ -34,21 +33,18 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
       </span>
       <ContainerDimensions>
         {
-          ({ width }) => {
-            const className = localizedDescription.length > width / PANECHAR ? `${paneSubtitleClassName} hint--bottom hint--medium` : paneSubtitleClassName;
-            return (
-              <span
-                className={className}
-                style={{ lineHeight: 1.4 }}
-                aria-label={localizedDescription}>
-                {
-                  localizedDescription.length > width / PANECHAR ?
-                    localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
-                    localizedDescription
-                }
-              </span>
-            );
-          }
+          ({ width }) => (
+            <span
+              className='pane-subtitle-text hint--bottom hint--medium'
+              style={{ lineHeight: 1.4 }}
+              aria-label={localizedDescription}>
+              {
+                localizedDescription.length > width / PANECHAR ?
+                  localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
+                  localizedDescription
+              }
+            </span>
+          )
         }
       </ContainerDimensions>
     </div>
