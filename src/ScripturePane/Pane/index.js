@@ -134,7 +134,7 @@ const Pane = ({
 
   return (
     <div className="pane-container">
-      <div className="pane-title-container">
+      <div className={isLTR_ ? 'pane-title-container-rtl' : 'pane-title-container-ltr'}>
         <TitleContainer
           index={index}
           isLTR={isLTR_}
