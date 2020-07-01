@@ -76,6 +76,7 @@ function Panes({
           languageName={language_name}
           verseElements={verseElements}
           direction={manifest.direction}
+          languageId={manifest.language_id}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
