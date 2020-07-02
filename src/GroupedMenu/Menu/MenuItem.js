@@ -308,11 +308,13 @@ class MenuItem extends React.Component {
     const icon = this.generateStatusIcon(status, statusIcons, selected);
     const fontClass = getFontClassName(targetLanguageFont);
     const style = {};
+    const toolTipStyle = {};
 
     if (!isLTR(direction)) { // if RTL
       style.textAlign = 'right';
       style.paddingRight = '16px';
       style.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
     }
 
     return (
@@ -332,7 +334,7 @@ class MenuItem extends React.Component {
             enterDelay={300}
             title={
               <React.Fragment>
-                <span className={fontClass}>{tooltipText}</span>
+                <span className={fontClass} style={toolTipStyle}>{tooltipText}</span>
                 <span className={classes.arrow} ref={this.handleArrowRef}/>
               </React.Fragment>
             }
