@@ -168,7 +168,7 @@ export const rangesToSelections = (string, ranges) => {
 function updateTrimmedTextOccurence(string, selection, trimmedText) {
   let originalRanges = selectionsToRanges(string, [selection]);
 
-  if (originalRanges) {
+  if (originalRanges && originalRanges.length) {
     const offset = selection.text.indexOf(trimmedText); // get offset of trimmed from non-trimmed
     const originalRange = originalRanges[0];
     const newStartPosition = originalRange[0] + offset;
