@@ -181,12 +181,10 @@ class MenuItem extends React.Component {
    * Check for the tooltip text overflow
    */
   checkOverflow = () => {
-    const { title } = this.props;
     const padding = 20; // correct for padding width
     const overflow =
       this.listItemTextRef.current.offsetWidth <=
       this.textRef.current.offsetWidth + padding;
-    console.log(`checkOverflow(${title.substr(0,5)}) Overflow ${overflow}), listItemTextRef ${this.listItemTextRef.current.offsetWidth}, textRef ${this.textRef.current.offsetWidth}, padding ${padding}`);
 
     if (overflow !== this.state.overflow) {
       this.setState({ overflow });
