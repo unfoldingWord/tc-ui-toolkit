@@ -183,7 +183,7 @@ class MenuItem extends React.Component {
    */
   checkOverflow = () => {
     const { title } = this.props;
-    const padding = 16; // correct for padding width
+    const padding = 20; // correct for padding width
     const overflow =
       this.listItemTextRef.current.offsetWidth <=
       this.textRef.current.offsetWidth + padding;
