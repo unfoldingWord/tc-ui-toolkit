@@ -333,10 +333,10 @@ class MenuItem extends React.Component {
           <Tooltip
             enterDelay={300}
             title={
-              <React.Fragment>
-                <span className={fontClass} style={toolTipStyle}>{tooltipText}</span>
+              <div style={toolTipStyle}>
+                <span className={fontClass}>{tooltipText}</span>
                 <span className={classes.arrow} ref={this.handleArrowRef}/>
-              </React.Fragment>
+              </div>
             }
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
