@@ -133,15 +133,13 @@ const Pane = ({
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
   let verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
-  if (languageId === 'hbo' && !fontSize) {
-    verseContainerStyle = { fontSize: '175%', WebkitFontSmoothing: 'antialiased' };
-  } else if (languageId === 'hbo' && fontSize) {
+  if (languageId === 'hbo') {
     verseContainerStyle.WebkitFontSmoothing = 'antialiased';
   }
 
   return (
     <div className="pane-container">
-      <div className="pane-title-container">
+      <div className={isLTR_ ? 'pane-title-container-rtl' : 'pane-title-container-ltr'}>
         <TitleContainer
           index={index}
           isLTR={isLTR_}
