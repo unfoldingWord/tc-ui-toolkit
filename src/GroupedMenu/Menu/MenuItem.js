@@ -184,9 +184,9 @@ class MenuItem extends React.Component {
     const { title } = this.props;
     const padding = 0; // correct for padding width
     const overflow =
-      this.listItemTextRef.current.offsetWidth <
-      this.textRef.current.scrollWidth;
-    console.log(`checkOverflow(${title.substr(0,5)}) Overflow ${overflow}), listItemTextRef ${this.listItemTextRef.current.offsetWidth}, textRef ${this.textRef.current.scrollWidth}, padding ${padding}`);
+      this.listItemTextRef.current.offsetWidth <=
+      this.textRef.current.offsetWidth + this.textRef.current.offsetLeft + padding;
+    console.log(`checkOverflow(${title.substr(0,5)}) Overflow ${overflow}), listItemTextRef ${this.listItemTextRef.current.offsetWidth}, textRef W=${this.textRef.current.offsetWidth} L=${this.textRef.current.offsetLeft}, padding ${padding}`);
 
     if (overflow !== this.state.overflow) {
       this.setState({ overflow });
