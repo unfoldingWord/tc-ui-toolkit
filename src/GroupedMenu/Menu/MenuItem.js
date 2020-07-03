@@ -183,12 +183,11 @@ class MenuItem extends React.Component {
    */
   checkOverflow = () => {
     delay(500).then(() => { // after screen renders check sizing
-      const { direction, title } = this.props;
+      const { direction } = this.props;
       const padding = isLTR(direction) ? 8 : 20; // correct for padding width
       const overflow =
         this.listItemTextRef.current.offsetWidth <=
         this.textRef.current.offsetWidth + padding;
-      console.log(`checkOverflow(${title.substr(0,5)}) Overflow ${overflow}), listItemTextRef ${this.listItemTextRef.current.offsetWidth}, textRef ${this.textRef.current.offsetWidth}, padding ${padding}`);
 
       if (overflow !== this.state.overflow) {
         this.setState({ overflow });
