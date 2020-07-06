@@ -24,7 +24,7 @@ class RenderSelectionTextComponent extends Component {
     console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
 
     if (e) {
-      console.log(`getSelectionText() - e ${JSON.stringify(e)}`);
+      console.log(`getSelectionText() - event ${JSON.stringify(e)}`);
     }
     this.addSelection(selection);
   }
