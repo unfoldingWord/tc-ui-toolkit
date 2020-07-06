@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'deep-equal';
-import stringify from 'json-stringify-safe';
 // helpers
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
@@ -22,10 +21,10 @@ class RenderSelectionTextComponent extends Component {
 
   getSelectionText(verseText, e) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText);
-    console.log(`getSelectionText() - selection ${stringify(selection)}`);
+    console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
 
     if (e) {
-      console.log(`getSelectionText() - event ${stringify(e)}`);
+      console.log(`getSelectionText() - event ${e}`, e);
     }
     this.addSelection(selection);
   }
@@ -38,9 +37,9 @@ class RenderSelectionTextComponent extends Component {
       openAlertDialog,
       changeSelectionsInLocalState,
     } = this.props;
-    console.log(`addSelection() - initial selections ${stringify(selections)}`);
+    console.log(`addSelection() - initial selections ${JSON.stringify(selections)}`);
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
-    console.log(`addSelection() - final selections ${stringify(selections)}`);
+    console.log(`addSelection() - final selections ${JSON.stringify(selections)}`);
 
     // this is a good place to preview selections before saved in state
     if (selections.length <= this.props.maximumSelections) {
