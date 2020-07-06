@@ -167,6 +167,7 @@ export const rangesToSelections = (string, ranges) => {
  */
 function updateTrimmedTextOccurence(string, selection, trimmedText) {
   let originalRanges = selectionsToRanges(string, [selection]);
+  console.log(`updateTrimmedTextOccurence() string: ${string}, selection: ${JSON.stringify(selection)}, trimmedText: ${trimmedText}, originalRanges: ${JSON.stringify(originalRanges)}`);
 
   if (originalRanges && originalRanges.length) {
     const offset = selection.text.indexOf(trimmedText); // get offset of trimmed from non-trimmed
