@@ -19,14 +19,14 @@ class RenderSelectionTextComponent extends Component {
     }
   }
 
-  getSelectionText(verseText) {
+  getSelectionText(verseText, e) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText);
     console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
-    this.addSelection(selection);
-  }
 
-  doubleClick(e) {
-    console.log(`doubleClick() - selection ${JSON.stringify(e)}`);
+    if (e) {
+      console.log(`getSelectionText() - e ${JSON.stringify(e)}`);
+    }
+    this.addSelection(selection);
   }
 
   addSelection(selection) {
@@ -118,8 +118,7 @@ class RenderSelectionTextComponent extends Component {
       verseTextSpans = this.verseTextSpans(selections, verseText);
     }
     return (
-      <div onMouseUp={() => this.getSelectionText(verseText)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}
-        onDblClick={(e) => this.doubleClick(e)}>
+      <div onMouseUp={(e) => this.getSelectionText(verseText, e)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}>
         {verseTextSpans}
       </div>
     );

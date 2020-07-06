@@ -12,9 +12,9 @@ export const getSelectionFromCurrentWindowSelection = (entireText) => {
   console.log(`getSelectionFromCurrentWindowSelection() - windowSelection ${JSON.stringify(windowSelection)}`);
   const selectedText = getSelectedTextFromWindowSelection(windowSelection);
   console.log(`getSelectionFromCurrentWindowSelection() - selectedText ${JSON.stringify(selectedText)}`);
-  console.log(`getSelectionFromCurrentWindowSelection() - selectedText ${JSON.stringify(selectedText)}`);
-  const prescedingText = getPrescedingTextFromWindowSelection(windowSelection);
   console.log(`getSelectionFromCurrentWindowSelection() - windowSelection.rangeCount ${windowSelection.rangeCount}`);
+  const prescedingText = getPrescedingTextFromWindowSelection(windowSelection);
+  console.log(`getSelectionFromCurrentWindowSelection() - prescedingText ${JSON.stringify(prescedingText)}`);
   // Some edge cases leave a weird selection remaining, let's clean up.
   selection = stringHelpers.generateSelection(selectedText, prescedingText, entireText);
   window.getSelection().empty();
