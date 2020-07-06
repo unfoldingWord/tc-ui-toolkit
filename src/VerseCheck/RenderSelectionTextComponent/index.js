@@ -21,7 +21,12 @@ class RenderSelectionTextComponent extends Component {
 
   getSelectionText(verseText) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText);
+    console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
     this.addSelection(selection);
+  }
+
+  doubleClick(e) {
+    console.log(`doubleClick() - selection ${JSON.stringify(e)}`);
   }
 
   addSelection(selection) {
@@ -32,7 +37,9 @@ class RenderSelectionTextComponent extends Component {
       openAlertDialog,
       changeSelectionsInLocalState,
     } = this.props;
+    console.log(`addSelection() - initial selections ${JSON.stringify(selections)}`);
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
+    console.log(`addSelection() - final selections ${JSON.stringify(selections)}`);
 
     // this is a good place to preview selections before saved in state
     if (selections.length <= this.props.maximumSelections) {
@@ -111,7 +118,8 @@ class RenderSelectionTextComponent extends Component {
       verseTextSpans = this.verseTextSpans(selections, verseText);
     }
     return (
-      <div onMouseUp={() => this.getSelectionText(verseText)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}>
+      <div onMouseUp={() => this.getSelectionText(verseText)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}
+        onDblClick={(e) => this.doubleClick(e)}>
         {verseTextSpans}
       </div>
     );

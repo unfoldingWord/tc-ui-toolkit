@@ -9,8 +9,11 @@ import * as stringHelpers from './stringHelpers';
 export const getSelectionFromCurrentWindowSelection = (entireText) => {
   let selection; // response
   const windowSelection = getCurrentWindowSelection();
+  console.log(`getSelectionFromCurrentWindowSelection() - windowSelection ${JSON.stringify(windowSelection)}`);
   const selectedText = getSelectedTextFromWindowSelection(windowSelection);
+  console.log(`getSelectionFromCurrentWindowSelection() - selectedText ${JSON.stringify(selectedText)}`);
   const prescedingText = getPrescedingTextFromWindowSelection(windowSelection);
+  console.log(`getSelectionFromCurrentWindowSelection() - prescedingText ${JSON.stringify(prescedingText)}`);
   // Some edge cases leave a weird selection remaining, let's clean up.
   selection = stringHelpers.generateSelection(selectedText, prescedingText, entireText);
   window.getSelection().empty();
