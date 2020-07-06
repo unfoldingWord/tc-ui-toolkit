@@ -336,7 +336,7 @@ class MenuItem extends React.Component {
         {icon}
         <RootRef rootRef={this.listItemTextRef}>
           <Tooltip
-            arrow
+            arrow={true}
             enterDelay={300}
             title={
               <React.Fragment>
