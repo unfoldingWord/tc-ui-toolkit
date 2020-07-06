@@ -131,11 +131,7 @@ const Pane = ({
     getTitleWithId(languageName, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
-  let verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
-
-  if (languageId === 'hbo') {
-    verseContainerStyle.WebkitFontSmoothing = 'antialiased';
-  }
+  const verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
   return (
     <div className="pane-container">
@@ -160,6 +156,7 @@ const Pane = ({
           chapter={chapter}
           translate={translate}
           direction={direction}
+          languageId={languageId}
           verseElements={verseElements}
         />
       </div>
