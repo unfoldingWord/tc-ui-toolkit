@@ -181,9 +181,11 @@ class MenuItem extends React.Component {
    * Check for the tooltip text overflow
    */
   checkOverflow = () => {
+    const { direction } = this.props;
+    const padding = isLTR(direction) ? 8 : 20; // correct for padding width
     const overflow =
-      this.listItemTextRef.current.offsetWidth <
-      this.textRef.current.offsetWidth;
+      this.listItemTextRef.current.offsetWidth <=
+      this.textRef.current.offsetWidth + padding;
 
     if (overflow !== this.state.overflow) {
       this.setState({ overflow });
@@ -308,11 +310,14 @@ class MenuItem extends React.Component {
     const icon = this.generateStatusIcon(status, statusIcons, selected);
     const fontClass = getFontClassName(targetLanguageFont);
     const style = {};
+    const toolTipStyle = {};
 
     if (!isLTR(direction)) { // if RTL
       style.textAlign = 'right';
       style.paddingRight = '16px';
       style.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
     }
 
     return (
@@ -332,7 +337,7 @@ class MenuItem extends React.Component {
             enterDelay={300}
             title={
               <React.Fragment>
-                <span className={fontClass}>{tooltipText}</span>
+                <div className={fontClass} style={toolTipStyle}>{tooltipText}</div>
                 <span className={classes.arrow} ref={this.handleArrowRef}/>
               </React.Fragment>
             }
