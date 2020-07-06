@@ -10,7 +10,6 @@ import Badge from '@material-ui/core/Badge';
 import memoize from 'memoize-one';
 import _ from 'lodash';
 import { getFontClassName } from '../../common/fontUtils';
-import { delay } from '../../ScripturePane/helpers/utils';
 import { isLTR } from '../..';
 
 /**
@@ -320,6 +319,7 @@ class MenuItem extends React.Component {
       style.paddingRight = '16px';
       style.direction = 'rtl';
       toolTipStyle.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
     }
 
     return (
@@ -336,12 +336,12 @@ class MenuItem extends React.Component {
         {icon}
         <RootRef rootRef={this.listItemTextRef}>
           <Tooltip
+            arrow
             enterDelay={300}
             title={
-              <div style={toolTipStyle}>
-                <span className={fontClass}>{tooltipText}</span>
-                <span className={classes.arrow} ref={this.handleArrowRef}/>
-              </div>
+              <React.Fragment>
+                <span className={fontClass} style={toolTipStyle}>{tooltipText}</span>
+              </React.Fragment>
             }
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
@@ -353,16 +353,6 @@ class MenuItem extends React.Component {
               tooltipPlacementRight: classes.bootstrapPlacementRight,
               tooltipPlacementTop: classes.bootstrapPlacementTop,
               tooltipPlacementBottom: classes.bootstrapPlacementBottom,
-            }}
-            PopperProps={{
-              popperOptions: {
-                modifiers: {
-                  arrow: {
-                    enabled: Boolean(this.state.arrowRef),
-                    element: this.state.arrowRef,
-                  },
-                },
-              },
             }}
           >
             <ListItemText
