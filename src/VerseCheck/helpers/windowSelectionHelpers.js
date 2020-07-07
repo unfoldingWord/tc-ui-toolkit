@@ -30,6 +30,8 @@ export const getSelectionFromCurrentWindowSelection = (entireText) => {
           // use last word for selection
           selectedText = lastWord;
           precedingText = precedingText.substr(0, pos);
+          console.log(`getSelectionFromCurrentWindowSelection() - switching to last word, selectedText ${JSON.stringify(selectedText)}`);
+          console.log(`getSelectionFromCurrentWindowSelection() - precedingText ${JSON.stringify(precedingText)}`);
         }
       }
     }
