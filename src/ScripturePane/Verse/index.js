@@ -37,7 +37,6 @@ class Verse extends Component {
       onEdit,
       bibleId,
       chapter,
-      fontSize,
       direction,
       translate,
       languageId,
@@ -74,7 +73,6 @@ class Verse extends Component {
     }
 
     const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
-    const verseTextStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
     return (
       <div className="verse-container" style={verseContainerStyle}>
@@ -90,7 +88,6 @@ class Verse extends Component {
 
 Verse.propTypes = {
   onEdit: PropTypes.func,
-  fontSize: PropTypes.number,
   translate: PropTypes.func.isRequired,
   bibleId: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,

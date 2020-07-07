@@ -79,12 +79,15 @@ class VerseRow extends Component {
 
           const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
+          if (fontSize) {
+            colStyle.fontSize = `${fontSize}%`;
+          }
+
           verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
                 chapter={chapter}
                 bibleId={bibleId}
-                fontSize={fontSize}
                 translate={translate}
                 verseText={verseText}
                 direction={direction}
