@@ -78,7 +78,7 @@ function ThreeDotMenu({
               {selectFontLabel}
             </div>
           </div>
-          <PlayArrowIcon style={{ color: '#a0a0a3', fontSize: '24px' }}/>
+          <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
         </MenuItem>
       </DropdownMenu>
     </>
