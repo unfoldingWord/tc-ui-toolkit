@@ -89,8 +89,8 @@ Verse.propTypes = {
   onEdit: PropTypes.func,
   translate: PropTypes.func.isRequired,
   chapter: PropTypes.number.isRequired,
+  bibleId: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
-  languageId: PropTypes.string.isRequired,
   verse: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,
