@@ -19,14 +19,35 @@ class RenderSelectionTextComponent extends Component {
     }
   }
 
-  getSelectionText(verseText, e) {
+  /**
+   * get new selected text and update selections
+   * @param {String} verseText
+   * @param {Object} event
+   */
+  getSelectionText(verseText, event) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText);
     console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
 
-    if (e) {
-      console.log(`getSelectionText() - event ${e}`, e);
+    if (event) {
+      console.log(`getSelectionText() - event ${event}`, event);
     }
     this.addSelection(selection);
+  }
+
+  /**
+   * keep track of mouse down event for double click calculations
+   * @param {String} verseText
+   * @param {Object} event
+   */
+  recordMouseDown(event) {
+    this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
+    this.mouseDnEvent = event;
+    this.mouseDnEvent.time = Date.now(); // add time stamp
+
+    if (this.lastMouseDnEvent) {
+      const delta = this.mouseDnEvent.time - this.lastMouseDnEvent.time;
+      console.log(`recordMouseDown() - time between clicks = ${delta}`);
+    }
   }
 
   addSelection(selection) {
@@ -118,7 +139,11 @@ class RenderSelectionTextComponent extends Component {
       verseTextSpans = this.verseTextSpans(selections, verseText);
     }
     return (
-      <div onMouseUp={(e) => this.getSelectionText(verseText, e)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}>
+      <div
+        onMouseUp={(e) => this.getSelectionText(verseText, e)}
+        onMouseDown={(e) => this.recordMouseDown(e)}
+        onMouseLeave={() => this.inDisplayBox(false)}
+        onMouseEnter={() => this.inDisplayBox(true)}>
         {verseTextSpans}
       </div>
     );
