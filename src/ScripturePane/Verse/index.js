@@ -76,7 +76,7 @@ class Verse extends Component {
 
     return (
       <div className="verse-container" style={verseContainerStyle}>
-        <div className={directionClassName} style={verseTextStyle}>
+        <div className={directionClassName}>
           {chapterVerse}
           <span>{verseSpan}</span>
         </div>
