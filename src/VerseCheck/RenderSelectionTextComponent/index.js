@@ -176,6 +176,7 @@ class RenderSelectionTextComponent extends Component {
     return (
       <div
         onMouseUp={(e) => this.getSelectionText(verseText, e)}
+        onMouseDown={(e) => this.recordMouseDown(e)}
         onMouseLeave={() => this.inDisplayBox(false)}
         onMouseEnter={() => this.inDisplayBox(true)}>
         {verseTextSpans}
