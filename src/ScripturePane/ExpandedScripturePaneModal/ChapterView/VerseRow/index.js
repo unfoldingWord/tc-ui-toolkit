@@ -84,6 +84,9 @@ class VerseRow extends Component {
             colStyle.fontSize = `${fontSize}%`;
           }
 
+          console.log('fontSize', fontSize);
+          console.log('colStyle', colStyle);
+
           verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
