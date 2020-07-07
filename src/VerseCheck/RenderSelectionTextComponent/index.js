@@ -6,6 +6,9 @@ import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
 
+const DBL_CLK_TIME = 1500;
+const DBL_CLK_DISTANCE = 4;
+
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
     // track when the selections change to prevent false clicks of removals
@@ -41,14 +44,30 @@ class RenderSelectionTextComponent extends Component {
    */
   recordMouseDown(event) {
     this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
-    this.mouseDnEvent = { ...event };
-    this.mouseDnEvent.time = Date.now(); // add time stamp
+    this.mouseDnEvent = { ...event }; // shallow copy
     console.log(`recordMouseDown() - this.mouseDnEvent.time = ${this.mouseDnEvent.time}`);
-    console.log(`recordMouseDown() - this.mouseDnEvent.timeStamp = ${this.mouseDnEvent.timeStamp}`);
 
     if (this.lastMouseDnEvent) {
-      const delta = this.mouseDnEvent.time - this.lastMouseDnEvent.time;
+      const delta = this.mouseDnEvent.timeStamp - this.lastMouseDnEvent.timeStamp;
       console.log(`recordMouseDown() - time between clicks = ${delta}`);
+
+      if (delta < DBL_CLK_TIME) {
+        console.log(`recordMouseDown() - Double click time`);
+      }
+
+      const deltaX = this.mouseDnEvent.clientX - this.lastMouseDnEvent.clientX;
+      console.log(`recordMouseDown() - x distance between clicks = ${deltaX}`);
+
+      if (Math.abs(deltaX) < DBL_CLK_DISTANCE) {
+        console.log(`recordMouseDown() - Double X`);
+      }
+
+      const deltaY = this.mouseDnEvent.clientY - this.lastMouseDnEvent.clientY;
+      console.log(`recordMouseDown() - x distance between clicks = ${deltaY}`);
+
+      if (Math.abs(deltaY) < DBL_CLK_DISTANCE) {
+        console.log(`recordMouseDown() - Double Y`);
+      }
     }
   }
 
