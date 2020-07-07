@@ -11,14 +11,8 @@ import * as stringHelpers from './stringHelpers';
 export const getSelectionFromCurrentWindowSelection = (entireText, fallbackToPreviousWord = false) => {
   let selection; // response
   const windowSelection = getCurrentWindowSelection();
-  console.log(`getSelectionFromCurrentWindowSelection() - windowSelection ${JSON.stringify(windowSelection)}`);
   let selectedText = getSelectedTextFromWindowSelection(windowSelection);
-  console.log(`getSelectionFromCurrentWindowSelection() - selectedText ${JSON.stringify(selectedText)}`);
-  console.log(`getSelectionFromCurrentWindowSelection() - windowSelection.rangeCount ${windowSelection.rangeCount}`);
   let precedingText = getPrecedingTextFromWindowSelection(windowSelection);
-  console.log(`getSelectionFromCurrentWindowSelection() - precedingText ${JSON.stringify(precedingText)}`);
-
-  console.log(`getSelectionFromCurrentWindowSelection() - fallbackToPreviousWord ${fallbackToPreviousWord}`);
 
   if (fallbackToPreviousWord && (selectedText === ' ')) { // handle edge case of clicking near end of word
     const words = tokenize({ text: precedingText });
@@ -34,7 +28,6 @@ export const getSelectionFromCurrentWindowSelection = (entireText, fallbackToPre
           selectedText = lastWord;
           precedingText = precedingText.substr(0, pos);
           console.log(`getSelectionFromCurrentWindowSelection() - switching to last word, selectedText ${JSON.stringify(selectedText)}`);
-          console.log(`getSelectionFromCurrentWindowSelection() - precedingText ${JSON.stringify(precedingText)}`);
         }
       }
     }
@@ -70,10 +63,8 @@ export const getSelectedTextFromWindowSelection = (windowSelection) => windowSel
 export const getPrecedingTextFromWindowSelection = (windowSelection) => {
   let precedingText; // response
   // concatenate spans etc... to get the precedingText from the windowSelection
-  // const selectedText = getSelectedTextFromWindowSelection(windowSelection);
 
-  // do nothing since an empty space was selected
-  if (windowSelection.rangeCount) { // (selectedText !== '') {
+  if (windowSelection.rangeCount) {
     // get the text after the preceding selection and current span selection is in.
     const selectionRange = windowSelection.getRangeAt(0);
     // get the character index of what is selected in context of the span it is in.

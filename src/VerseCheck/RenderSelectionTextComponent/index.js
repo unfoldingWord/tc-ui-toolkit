@@ -25,62 +25,35 @@ class RenderSelectionTextComponent extends Component {
   /**
    * get new selected text and update selections
    * @param {String} verseText - current verse text
-   * @param {Object} event - mouse event from callback
    */
-  getSelectionText(verseText, event) {
+  getSelectionText(verseText) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText, this.doubleClick);
-    console.log(`getSelectionText() - selection ${JSON.stringify(selection)}`);
-
-    if (event) {
-      console.log(`getSelectionText() - event ${event}`, event);
-    }
     this.addSelection(selection);
   }
 
   /**
-   * keep track of mouse down events for double click calculations
+   * keep track of mouse down events for double click calculation
    * @param {Object} event - mouse event from callback
    */
   recordMouseDown(event) {
     this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
     this.mouseDnEvent = { ...event }; // shallow copy
-    console.log(`recordMouseDown() - this.mouseDnEvent.time = ${this.mouseDnEvent.timeStamp}`);
 
-    if (this.lastMouseDnEvent) {
+    if (this.lastMouseDnEvent) { // if we had a previous mouse down, check if this is a double click
       const delta = this.mouseDnEvent.timeStamp - this.lastMouseDnEvent.timeStamp;
-      console.log(`recordMouseDown() - time between clicks = ${delta}`);
-      const isDblClkTime = delta < DBL_CLK_TIME;
-
-      if (isDblClkTime) {
-        console.log(`recordMouseDown() - Double click time`);
-      }
+      const isDblClkTime = delta < DBL_CLK_TIME; // both clicks must be within time limit
 
       const deltaX = this.mouseDnEvent.clientX - this.lastMouseDnEvent.clientX;
-      console.log(`recordMouseDown() - x distance between clicks = ${deltaX}`);
-      const isDblClkX = Math.abs(deltaX) < DBL_CLK_DISTANCE;
-
-      if (isDblClkX) {
-        console.log(`recordMouseDown() - Double Click X`);
-      }
+      const isDblClkX = Math.abs(deltaX) < DBL_CLK_DISTANCE; // both clicks X change must be within limit
 
       const deltaY = this.mouseDnEvent.clientY - this.lastMouseDnEvent.clientY;
-      console.log(`recordMouseDown() - y distance between clicks = ${deltaY}`);
-      const isDblClkY = Math.abs(deltaY) < DBL_CLK_DISTANCE;
-
-      if (isDblClkY) {
-        console.log(`recordMouseDown() - Double Click Y`);
-      }
+      const isDblClkY = Math.abs(deltaY) < DBL_CLK_DISTANCE; // both clicks Y change must be within limit
 
       this.doubleClick = isDblClkTime && isDblClkX && isDblClkY;
 
       if (this.doubleClick) {
-        console.log(`recordMouseDown() - is Double Click`);
+        console.log(`recordMouseDown() - Double Click detected`);
       }
-
-      const bounds = event.currentTarget.getBoundingClientRect();
-      const x = event.clientX - bounds.left;
-      const y = event.clientY - bounds.top;
-      console.log(`recordMouseDown() - mouse position at (${x},${y}) in ${event.currentTarget.innerText}`);
     }
   }
 
@@ -92,9 +65,7 @@ class RenderSelectionTextComponent extends Component {
       openAlertDialog,
       changeSelectionsInLocalState,
     } = this.props;
-    console.log(`addSelection() - initial selections ${JSON.stringify(selections)}`);
     selections = selectionHelpers.addSelectionToSelections(selection, selections, verseText);
-    console.log(`addSelection() - final selections ${JSON.stringify(selections)}`);
 
     // this is a good place to preview selections before saved in state
     if (selections.length <= this.props.maximumSelections) {
@@ -174,7 +145,7 @@ class RenderSelectionTextComponent extends Component {
     }
     return (
       <div
-        onMouseUp={(e) => this.getSelectionText(verseText, e)}
+        onMouseUp={() => this.getSelectionText(verseText)}
         onMouseDown={(e) => this.recordMouseDown(e)}
         onMouseLeave={() => this.inDisplayBox(false)}
         onMouseEnter={() => this.inDisplayBox(true)}>
