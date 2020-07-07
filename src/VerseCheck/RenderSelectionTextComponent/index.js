@@ -41,8 +41,10 @@ class RenderSelectionTextComponent extends Component {
    */
   recordMouseDown(event) {
     this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
-    this.mouseDnEvent = event;
+    this.mouseDnEvent = { ...event };
     this.mouseDnEvent.time = Date.now(); // add time stamp
+    console.log(`recordMouseDown() - this.mouseDnEvent.time = ${this.mouseDnEvent.time}`);
+    console.log(`recordMouseDown() - this.mouseDnEvent.timeStamp = ${this.mouseDnEvent.timeStamp}`);
 
     if (this.lastMouseDnEvent) {
       const delta = this.mouseDnEvent.time - this.lastMouseDnEvent.time;
