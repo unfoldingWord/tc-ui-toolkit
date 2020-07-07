@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
@@ -69,14 +69,14 @@ function ThreeDotMenu({
           }}
           title={selectFontLabel}
           style={{
-            display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}
         >
-          <TextFieldsIcon />
+          <TextFieldsIcon style={{ fontSize: '24px' }}/>
           <div style={{ margin: '0px 10px', color: '#000000' }}>
             {selectFontLabel}
           </div>
-          <ArrowRightIcon style={{ color: 'grey' }}/>
+          <PlayArrowIcon style={{ color: 'grey', fontSize: '24px' }}/>
         </MenuItem>
       </DropdownMenu>
     </>

@@ -179,6 +179,7 @@ Pane.propTypes = {
   direction: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
+  selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
