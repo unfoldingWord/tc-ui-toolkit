@@ -59,6 +59,7 @@ class VerseRow extends Component {
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
         const index = i;
+        console.log('paneSetting', paneSetting);
 
         try {
           const {
