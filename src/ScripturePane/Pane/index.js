@@ -117,7 +117,6 @@ const Pane = ({
   fontClass,
   direction,
   translate,
-  languageId,
   removePane,
   description,
   languageName,
@@ -131,11 +130,7 @@ const Pane = ({
     getTitleWithId(languageName, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
-  let verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
-
-  if (languageId === 'hbo') {
-    verseContainerStyle.WebkitFontSmoothing = 'antialiased';
-  }
+  const verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
   return (
     <div className="pane-container">
@@ -177,7 +172,6 @@ Pane.propTypes = {
   translate: PropTypes.func.isRequired,
   removePane: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
-  languageId: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,

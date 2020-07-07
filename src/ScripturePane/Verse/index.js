@@ -37,7 +37,6 @@ class Verse extends Component {
       onEdit,
       bibleId,
       chapter,
-      fontSize,
       direction,
       translate,
       verseElements,
@@ -46,6 +45,11 @@ class Verse extends Component {
     const chapterVerse = <strong>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
     let verseSpan = verseElements;
+    let verseContainerStyle = {};
+
+    if (bibleId === 'uhb') {
+      verseContainerStyle = { WebkitFontSmoothing: 'antialiased', fontSize: '175%' };
+    }
 
     if (!verseElements) {
       verseSpan = (
@@ -68,11 +72,10 @@ class Verse extends Component {
     }
 
     const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
-    const verseTextStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
 
     return (
-      <div className="verse-container">
-        <div className={directionClassName} style={verseTextStyle}>
+      <div className="verse-container" style={verseContainerStyle}>
+        <div className={directionClassName}>
           {chapterVerse}
           <span>{verseSpan}</span>
         </div>
@@ -84,10 +87,9 @@ class Verse extends Component {
 
 Verse.propTypes = {
   onEdit: PropTypes.func,
-  fontSize: PropTypes.number,
   translate: PropTypes.func.isRequired,
-  bibleId: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
+  bibleId: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   verse: PropTypes.oneOfType([
     PropTypes.string.isRequired,
