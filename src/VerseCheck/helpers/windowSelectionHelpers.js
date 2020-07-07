@@ -4,10 +4,11 @@ import * as stringHelpers from './stringHelpers';
 /**
  * @description - Gets the selection object from the currently selected text from the Web UI
  * @param {String} entireText - the text that the selection should be in, ie verseText
+ * @param {Boolean} fallbackToPreviousWord - if true then we select previous word if selection is at end
  * @return {Object} - the selection object to be used
  * TODO: Find a way to test
  */
-export const getSelectionFromCurrentWindowSelection = (entireText) => {
+export const getSelectionFromCurrentWindowSelection = (entireText, fallbackToPreviousWord = false) => {
   let selection; // response
   const windowSelection = getCurrentWindowSelection();
   console.log(`getSelectionFromCurrentWindowSelection() - windowSelection ${JSON.stringify(windowSelection)}`);
@@ -17,7 +18,9 @@ export const getSelectionFromCurrentWindowSelection = (entireText) => {
   let precedingText = getPrecedingTextFromWindowSelection(windowSelection);
   console.log(`getSelectionFromCurrentWindowSelection() - precedingText ${JSON.stringify(precedingText)}`);
 
-  if (selectedText === '') { // handle edge case of clicking near end of word
+  console.log(`getSelectionFromCurrentWindowSelection() - fallbackToPreviousWord ${fallbackToPreviousWord}`);
+
+  if (fallbackToPreviousWord && (selectedText === '')) { // handle edge case of clicking near end of word
     const words = tokenize({ text: precedingText });
 
     if (words && words.length) {
