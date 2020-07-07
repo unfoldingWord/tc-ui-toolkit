@@ -7,7 +7,7 @@ import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
 
 const DBL_CLK_TIME = 1500;
-const DBL_CLK_DISTANCE = 4;
+const DBL_CLK_DISTANCE = 10;
 
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
@@ -45,29 +45,39 @@ class RenderSelectionTextComponent extends Component {
   recordMouseDown(event) {
     this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
     this.mouseDnEvent = { ...event }; // shallow copy
-    console.log(`recordMouseDown() - this.mouseDnEvent.time = ${this.mouseDnEvent.time}`);
+    console.log(`recordMouseDown() - this.mouseDnEvent.time = ${this.mouseDnEvent.timeStamp}`);
 
     if (this.lastMouseDnEvent) {
       const delta = this.mouseDnEvent.timeStamp - this.lastMouseDnEvent.timeStamp;
       console.log(`recordMouseDown() - time between clicks = ${delta}`);
+      const isDblClkTime = delta < DBL_CLK_TIME;
 
-      if (delta < DBL_CLK_TIME) {
+      if (isDblClkTime) {
         console.log(`recordMouseDown() - Double click time`);
       }
 
       const deltaX = this.mouseDnEvent.clientX - this.lastMouseDnEvent.clientX;
       console.log(`recordMouseDown() - x distance between clicks = ${deltaX}`);
+      const isDblClkX = Math.abs(deltaX) < DBL_CLK_DISTANCE;
 
-      if (Math.abs(deltaX) < DBL_CLK_DISTANCE) {
-        console.log(`recordMouseDown() - Double X`);
+      if (isDblClkX) {
+        console.log(`recordMouseDown() - Double Click X`);
       }
 
       const deltaY = this.mouseDnEvent.clientY - this.lastMouseDnEvent.clientY;
-      console.log(`recordMouseDown() - x distance between clicks = ${deltaY}`);
+      console.log(`recordMouseDown() - y distance between clicks = ${deltaY}`);
+      const isDblClkY = Math.abs(deltaY) < DBL_CLK_DISTANCE;
 
-      if (Math.abs(deltaY) < DBL_CLK_DISTANCE) {
-        console.log(`recordMouseDown() - Double Y`);
+      if (isDblClkY) {
+        console.log(`recordMouseDown() - Double Click Y`);
       }
+
+      if (isDblClkTime && isDblClkX && isDblClkY) {
+        console.log(`recordMouseDown() - is Double Click`);
+      }
+
+      const selectionStart = event.currentTarget.selectionStart;
+      console.log(`recordMouseDown() - selectionStart ${selectionStart && JSON.stringify(selectionStart)}`);
     }
   }
 
