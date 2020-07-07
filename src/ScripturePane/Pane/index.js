@@ -156,7 +156,6 @@ const Pane = ({
           chapter={chapter}
           translate={translate}
           direction={direction}
-          languageId={languageId}
           verseElements={verseElements}
         />
       </div>

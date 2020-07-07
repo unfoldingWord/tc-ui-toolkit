@@ -39,7 +39,6 @@ class Verse extends Component {
       chapter,
       direction,
       translate,
-      languageId,
       verseElements,
     } = this.props;
     const chapterVerseContent = getReferenceStr(chapter, verse) + ' ';
@@ -48,7 +47,7 @@ class Verse extends Component {
     let verseSpan = verseElements;
     let verseContainerStyle = {};
 
-    if (languageId === 'hbo') {
+    if (bibleId === 'uhb') {
       verseContainerStyle = { WebkitFontSmoothing: 'antialiased', fontSize: '175%' };
     }
 
@@ -89,7 +88,6 @@ class Verse extends Component {
 Verse.propTypes = {
   onEdit: PropTypes.func,
   translate: PropTypes.func.isRequired,
-  bibleId: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
   direction: PropTypes.string.isRequired,
   languageId: PropTypes.string.isRequired,
