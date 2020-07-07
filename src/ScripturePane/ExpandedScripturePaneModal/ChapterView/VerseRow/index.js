@@ -36,14 +36,6 @@ class VerseRow extends Component {
     } = this.props;
     let verseCells = [];
 
-    let colStyle = {
-      minWidth: '240px',
-      alignItems: 'stretch',
-      padding: '10px',
-      paddingTop: '20px',
-      borderRight: '1px solid var(--border-color)',
-    };
-
     let rowStyle = {
       display: 'flex',
       margin: '0',
@@ -70,6 +62,14 @@ class VerseRow extends Component {
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
+          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+          let colStyle = {
+            minWidth: '240px',
+            alignItems: 'stretch',
+            padding: '10px',
+            paddingTop: '20px',
+            borderRight: '1px solid var(--border-color)',
+          };
 
           if (typeof verseData === 'string') { // if the verse content is string.
             const isTargetBible = bibleId === 'targetBible';
@@ -77,8 +77,6 @@ class VerseRow extends Component {
           } else if (verseData) { // else the verse content is an array of verse objects.
             verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
           }
-
-          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
 
           if (fontSize) {
             colStyle.fontSize = `${fontSize}%`;
