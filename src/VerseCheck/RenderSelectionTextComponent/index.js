@@ -76,8 +76,10 @@ class RenderSelectionTextComponent extends Component {
         console.log(`recordMouseDown() - is Double Click`);
       }
 
-      const selectionStart = event.currentTarget.selectionStart;
-      console.log(`recordMouseDown() - selectionStart ${selectionStart && JSON.stringify(selectionStart)}`);
+      const bounds = event.currentTarget.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      console.log(`recordMouseDown() - mouse position at (${x},${y}) in ${event.currentTarget.innerText}`);
     }
   }
 
