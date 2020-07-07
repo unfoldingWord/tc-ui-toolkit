@@ -48,7 +48,7 @@ export const getPrescedingTextFromWindowSelection = (windowSelection) => {
   const selectedText = getSelectedTextFromWindowSelection(windowSelection);
 
   // do nothing since an empty space was selected
-  if (selectedText !== '') {
+  if (windowSelection.rangeCount) { // (selectedText !== '') {
     // get the text after the presceding selection and current span selection is in.
     const selectionRange = windowSelection.getRangeAt(0);
     // get the character index of what is selected in context of the span it is in.
