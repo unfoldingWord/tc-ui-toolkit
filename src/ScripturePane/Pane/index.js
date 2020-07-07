@@ -68,6 +68,7 @@ function TitleContainer({
   fontClass,
   removePane,
   headingText,
+  selectFontLabel,
   changePaneFontSize,
   removeResourceLabel,
   localizedDescription,
@@ -80,6 +81,7 @@ function TitleContainer({
         index={index}
         fontSize={fontSize}
         removePane={removePane}
+        selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -99,6 +101,7 @@ function TitleContainer({
         index={index}
         fontSize={fontSize}
         removePane={removePane}
+        selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -121,6 +124,7 @@ const Pane = ({
   description,
   languageName,
   verseElements,
+  selectFontLabel,
   changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
@@ -142,6 +146,7 @@ const Pane = ({
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
+          selectFontLabel={selectFontLabel}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}

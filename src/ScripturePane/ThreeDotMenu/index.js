@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
@@ -11,6 +13,7 @@ function ThreeDotMenu({
   removePane,
   anchorOrigin,
   transformOrigin,
+  selectFontLabel,
   changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
@@ -57,8 +60,23 @@ function ThreeDotMenu({
             {removeResourceLabel}
           </div>
         </MenuItem>
-        <MenuItem disableOnClick>
+        <MenuItem disableOnClick divider>
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+          }}
+          title={selectFontLabel}
+          style={{
+            display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
+          }}
+        >
+          <TextFieldsIcon />
+          <div style={{ margin: '0px 10px', color: '#000000' }}>
+            {selectFontLabel}
+          </div>
+          <ArrowRightIcon style={{ color: 'grey' }}/>
         </MenuItem>
       </DropdownMenu>
     </>
@@ -76,6 +94,7 @@ ThreeDotMenu.propTypes = {
   transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
+  selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
