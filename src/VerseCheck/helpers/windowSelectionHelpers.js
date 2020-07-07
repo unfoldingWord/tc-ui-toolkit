@@ -4,7 +4,7 @@ import * as stringHelpers from './stringHelpers';
 /**
  * @description - Gets the selection object from the currently selected text from the Web UI
  * @param {String} entireText - the text that the selection should be in, ie verseText
- * @param {Boolean} fallbackToPreviousWord - if true then we select previous word if selection is at end
+ * @param {Boolean} fallbackToPreviousWord - if true then we select previous word if selection is at end of word
  * @return {Object} - the selection object to be used
  * TODO: Find a way to test
  */

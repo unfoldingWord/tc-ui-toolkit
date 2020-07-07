@@ -6,8 +6,8 @@ import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
 
-const DBL_CLK_TIME = 1500;
-const DBL_CLK_DISTANCE = 10;
+const DBL_CLK_TIME = 1500; // time in ms
+const DBL_CLK_DISTANCE = 10; // in pixels
 
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
@@ -24,8 +24,8 @@ class RenderSelectionTextComponent extends Component {
 
   /**
    * get new selected text and update selections
-   * @param {String} verseText
-   * @param {Object} event
+   * @param {String} verseText - current verse text
+   * @param {Object} event - mouse event from callback
    */
   getSelectionText(verseText, event) {
     const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText, this.doubleClick);
@@ -38,9 +38,8 @@ class RenderSelectionTextComponent extends Component {
   }
 
   /**
-   * keep track of mouse down event for double click calculations
-   * @param {String} verseText
-   * @param {Object} event
+   * keep track of mouse down events for double click calculations
+   * @param {Object} event - mouse event from callback
    */
   recordMouseDown(event) {
     this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
