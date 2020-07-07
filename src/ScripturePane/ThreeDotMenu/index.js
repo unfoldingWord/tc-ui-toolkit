@@ -64,19 +64,21 @@ function ThreeDotMenu({
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
         <MenuItem
-          onClick={() => {
-            handleClose();
-          }}
+          onClick={() => {}}
           title={selectFontLabel}
           style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}
         >
-          <TextFieldsIcon style={{ fontSize: '24px' }}/>
-          <div style={{ margin: '0px 10px', color: '#000000' }}>
-            {selectFontLabel}
+          <div style={{
+            display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
+          }}>
+            <TextFieldsIcon style={{ fontSize: '24px' }}/>
+            <div style={{ margin: '0px 10px', color: '#000000' }}>
+              {selectFontLabel}
+            </div>
           </div>
-          <PlayArrowIcon style={{ color: 'grey', fontSize: '24px' }}/>
+          <PlayArrowIcon style={{ color: '#a0a0a3', fontSize: '24px' }}/>
         </MenuItem>
       </DropdownMenu>
     </>
