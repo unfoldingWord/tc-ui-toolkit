@@ -20,7 +20,7 @@ export const getSelectionFromCurrentWindowSelection = (entireText, fallbackToPre
 
   console.log(`getSelectionFromCurrentWindowSelection() - fallbackToPreviousWord ${fallbackToPreviousWord}`);
 
-  if (fallbackToPreviousWord && (selectedText === '')) { // handle edge case of clicking near end of word
+  if (fallbackToPreviousWord && (selectedText === ' ')) { // handle edge case of clicking near end of word
     const words = tokenize({ text: precedingText });
 
     if (words && words.length) {
