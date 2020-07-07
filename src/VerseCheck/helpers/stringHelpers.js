@@ -35,20 +35,20 @@ export const normalizeString = (string) => {
   return string;
 };
 /**
- * @description - generates a selection object from the selected text, prescedingText and whole text
+ * @description - generates a selection object from the selected text, precedingText and whole text
  * @param {String} selectedText - the text that is selected
- * @param {String} prescedingText - the text that prescedes the selection
+ * @param {String} precedingText - the text that precedes the selection
  * @param {String} entireText - the text that the selection should be in
  * @return {Object} - the selection object to be used
  */
-export const generateSelection = (selectedText, prescedingText, entireText) => {
+export const generateSelection = (selectedText, precedingText, entireText) => {
   let selection = {}; // response
   // replace more than one contiguous space with a single one since HTML/selection only renders 1
   entireText = normalizeString(entireText);
   // get the occurrences before this one
-  let prescedingOccurrences = occurrencesInString(prescedingText, selectedText);
-  // calculate this occurrence number by adding it to the presceding ones
-  let occurrence = prescedingOccurrences + 1;
+  let precedingOccurrences = occurrencesInString(precedingText, selectedText);
+  // calculate this occurrence number by adding it to the preceding ones
+  let occurrence = precedingOccurrences + 1;
   // get the total occurrences from the verse
   let occurrences = occurrencesInString(entireText, selectedText);
 
