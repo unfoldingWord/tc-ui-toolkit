@@ -53,8 +53,6 @@ class ChapterView extends Component {
       handleEditTargetVerse,
     } = this.props;
 
-    console.log('currentPaneSettings', currentPaneSettings);
-
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
     const { manifest: projectManifest } = projectDetailsReducer;

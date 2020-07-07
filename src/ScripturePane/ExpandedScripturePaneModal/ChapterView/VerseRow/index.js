@@ -51,7 +51,6 @@ class VerseRow extends Component {
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
         const index = i;
-        console.log('paneSetting', paneSetting);
 
         try {
           const {
@@ -81,9 +80,6 @@ class VerseRow extends Component {
           if (fontSize) {
             colStyle.fontSize = `${fontSize}%`;
           }
-
-          console.log('fontSize', fontSize);
-          console.log('colStyle', colStyle);
 
           verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>

@@ -106,7 +106,6 @@ function ExpandedScripturePaneModal({
   }
 
   const fontClass = getFontClassName(targetLanguageFont);
-  console.log('currentPaneSettings', currentPaneSettings);
 
   return (
     <Dialog
