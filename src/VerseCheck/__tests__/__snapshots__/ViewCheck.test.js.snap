@@ -742,6 +742,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
@@ -1434,6 +1435,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
@@ -1788,6 +1790,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
