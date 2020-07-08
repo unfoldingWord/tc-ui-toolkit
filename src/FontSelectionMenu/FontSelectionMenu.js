@@ -4,6 +4,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({ menu: { marginLeft: '180px' } });
 
 const FontSelectionMenu = ({
   // anchorOrigin,
@@ -12,6 +15,7 @@ const FontSelectionMenu = ({
   handleCloseParent,
   complexScriptFonts,
 }) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   // const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -50,6 +54,7 @@ const FontSelectionMenu = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         open={Boolean(anchorEl)}
+        classes={{ paper: classes.menu }}
         // anchorOrigin={anchorOrigin}
         // transformOrigin={transformOrigin}
       >

@@ -68,6 +68,7 @@ function ThreeDotMenu({
           title={selectFontLabel}
         >
           <FontSelectionMenu
+            selectFontLabel={selectFontLabel}
             handleCloseParent={handleClose}
             complexScriptFonts={complexScriptFonts}
           />
