@@ -65,7 +65,7 @@ const FontSelectionMenu = ({
             return (
               <MenuItem
                 onClick={handleMenuItemClick}
-                classes={{ root: classes.menu }}
+                classes={{ root: classes.menuItem }}
                 key={`${fontName}-font-menu-item`}
               >
                 {fontName}
