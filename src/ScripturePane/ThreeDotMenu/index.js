@@ -66,6 +66,7 @@ function ThreeDotMenu({
         <MenuItem
           disableOnClick
           title={selectFontLabel}
+          style={{ padding: '0px', margin: '0px' }}
         >
           <FontSelectionMenu
             selectFontLabel={selectFontLabel}

@@ -40,7 +40,14 @@ const FontSelectionMenu = ({
       <div
         onClick={handleClick}
         style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          height: '100%',
+          padding: '4px',
+          margin: '6px',
+          cursor: 'pointer',
         }}
       >
         <TextFieldsIcon style={{ fontSize: '24px' }}/>
@@ -50,14 +57,11 @@ const FontSelectionMenu = ({
         <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
       </div>
       <Menu
-        // keepMounted
         id='simple-menu'
         anchorEl={anchorEl}
         onClose={handleClose}
         open={Boolean(anchorEl)}
         classes={{ paper: classes.menu }}
-        // anchorOrigin={anchorOrigin}
-        // transformOrigin={transformOrigin}
       >
         {
           Object.keys(complexScriptFonts).map((fontName) => {
