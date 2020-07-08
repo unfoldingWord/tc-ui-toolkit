@@ -6,11 +6,12 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({ menu: { marginLeft: '180px' } });
+const useStyles = makeStyles({
+  menu: { marginLeft: '180px' },
+  menuItem: { fontSize: '14px', width: '150px' },
+});
 
 const FontSelectionMenu = ({
-  // anchorOrigin,
-  // transformOrigin,
   selectFontLabel,
   handleCloseParent,
   complexScriptFonts,
@@ -60,10 +61,14 @@ const FontSelectionMenu = ({
       >
         {
           Object.keys(complexScriptFonts).map((fontName) => {
-            const label = complexScriptFonts[fontName].font;
+            {/* const value = complexScriptFonts[fontName].font; */}
             return (
-              <MenuItem key={`${fontName}-font-menu-item`} onClick={handleMenuItemClick}>
-                {label}
+              <MenuItem
+                onClick={handleMenuItemClick}
+                classes={{ root: classes.menu }}
+                key={`${fontName}-font-menu-item`}
+              >
+                {fontName}
               </MenuItem>
             );
           })
@@ -73,14 +78,7 @@ const FontSelectionMenu = ({
   );
 };
 
-FontSelectionMenu.defaultProps = {
-  anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-  transformOrigin: { vertical: 'top', horizontal: 'right' },
-};
-
 FontSelectionMenu.propTypes = {
-  anchorOrigin: PropTypes.object,
-  transformOrigin: PropTypes.object,
   selectFontLabel: PropTypes.string.isRequired,
   handleCloseParent: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
