@@ -1,38 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DropdownMenu, { MenuItem } from '../DropdownMenu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const FontsDropdownMenu = ({
   open,
   onClose,
   anchorEl,
-  anchorOrigin,
-  transformOrigin,
+  // anchorOrigin,
+  // transformOrigin,
   handleCloseParent,
   complexScriptFonts,
 }) => (
-  <DropdownMenu
+  <Menu
+    // keepMounted
     open={open}
-    anchorEl={anchorEl}
+    id="simple-menu"
     onClose={onClose}
-    anchorOrigin={anchorOrigin}
-    transformOrigin={transformOrigin}
-    // style={{ margin: '-15px 0px 0px' }}
+    anchorEl={anchorEl}
+    // anchorOrigin={anchorOrigin}
+    // transformOrigin={transformOrigin}
   >
     {
       Object.keys(complexScriptFonts).map((fontName) => {
         const label = complexScriptFonts[fontName].font;
         return (
           <MenuItem key={`${fontName}-font-menu-item`} onClick={handleCloseParent}>
-            <div>{label}</div>
+            {label}
           </MenuItem>
         );
       })
     }
-  </DropdownMenu>
+  </Menu>
 );
 
-DropdownMenu.defaultProps = {
+FontsDropdownMenu.defaultProps = {
   anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
   transformOrigin: { vertical: 'top', horizontal: 'right' },
 };
