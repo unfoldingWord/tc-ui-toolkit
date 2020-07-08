@@ -38,7 +38,9 @@ function ThreeDotMenu({
   };
 
   const handleSubMenu = event => {
-    setSubMenuAnchorEl(event.currentTarget);
+    if (event) {
+      setSubMenuAnchorEl(event.currentTarget);
+    }
   };
 
   const handleCloseSubmenu = () => {
@@ -76,31 +78,26 @@ function ThreeDotMenu({
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
         <MenuItem
-          onClick={() => {
-            handleSubMenu();
-          }}
+          onClick={handleSubMenu}
+          onHover={handleSubMenu}
           title={selectFontLabel}
           style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}
         >
-          <div style={{
-            display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
-          }}>
-            <TextFieldsIcon style={{ fontSize: '24px' }}/>
-            <div style={{ margin: '0px 5px', color: '#000000' }}>
-              {selectFontLabel}
-            </div>
-            <FontsDropdownMenu
-              open={submenuOpen}
-              anchorEl={subMenuAnchorEl}
-              onClose={handleCloseSubmenu}
-              handleCloseParent={handleClose}
-              complexScriptFonts={complexScriptFonts}
-            />
+          <TextFieldsIcon style={{ fontSize: '24px' }}/>
+          <div style={{ margin: '0px 5px', color: '#000000' }}>
+            {selectFontLabel}
           </div>
           <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
         </MenuItem>
+        <FontsDropdownMenu
+          open={submenuOpen}
+          anchorEl={subMenuAnchorEl}
+          onClose={handleCloseSubmenu}
+          handleCloseParent={handleClose}
+          complexScriptFonts={complexScriptFonts}
+        />
       </DropdownMenu>
     </>
   );
