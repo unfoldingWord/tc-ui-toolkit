@@ -15,6 +15,7 @@ function Panes({
   showPopover,
   getLexiconData,
   projectManifest,
+  complexScriptFonts,
   changePaneFontSize,
   currentPaneSettings,
 }) {
@@ -76,6 +77,7 @@ function Panes({
           languageName={language_name}
           verseElements={verseElements}
           direction={manifest.direction}
+          complexScriptFonts={complexScriptFonts}
           selectFontLabel={translate('pane.select_font_label')}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={translate('pane.remove_resource_label')}

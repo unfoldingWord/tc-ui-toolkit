@@ -23,6 +23,7 @@ function ScripturePane({
   setToolSettings,
   editTargetVerse,
   handleModalOpen,
+  complexScriptFonts,
   currentPaneSettings,
   projectDetailsReducer,
   expandedScripturePaneTitle,
@@ -137,6 +138,7 @@ function ScripturePane({
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             projectManifest={projectManifest}
+            complexScriptFonts={complexScriptFonts}
             changePaneFontSize={changePaneFontSize}
             currentPaneSettings={currentPaneSettings}
           />
@@ -205,6 +207,7 @@ ScripturePane.propTypes = {
   getLexiconData: PropTypes.func.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   setToolSettings: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.array.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,

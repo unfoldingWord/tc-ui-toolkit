@@ -70,6 +70,7 @@ function TitleContainer({
   headingText,
   selectFontLabel,
   changePaneFontSize,
+  complexScriptFonts,
   removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
@@ -82,6 +83,7 @@ function TitleContainer({
         fontSize={fontSize}
         removePane={removePane}
         selectFontLabel={selectFontLabel}
+        complexScriptFonts={complexScriptFonts}
         changePaneFontSize={changePaneFontSize}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -103,6 +105,7 @@ function TitleContainer({
         removePane={removePane}
         selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
+        complexScriptFonts={complexScriptFonts}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
       />
@@ -126,6 +129,7 @@ const Pane = ({
   verseElements,
   selectFontLabel,
   changePaneFontSize,
+  complexScriptFonts,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) => {
@@ -147,6 +151,7 @@ const Pane = ({
           removePane={removePane}
           headingText={headingText}
           selectFontLabel={selectFontLabel}
+          complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
@@ -181,6 +186,7 @@ Pane.propTypes = {
   languageName: PropTypes.string.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([

@@ -6,6 +6,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
+import FontsDropdownMenu from '../../FontsDropdownMenu';
 
 function ThreeDotMenu({
   index,
@@ -14,12 +15,15 @@ function ThreeDotMenu({
   anchorOrigin,
   transformOrigin,
   selectFontLabel,
+  complexScriptFonts,
   changePaneFontSize,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [subMenuAnchorEl, setSubMenuAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const submenuOpen = Boolean(subMenuAnchorEl);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -31,6 +35,14 @@ function ThreeDotMenu({
 
   const handleFontSizeChange = (fontSize) => {
     changePaneFontSize(index, fontSize);
+  };
+
+  const handleSubMenu = event => {
+    setSubMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseSubmenu = () => {
+    setSubMenuAnchorEl(null);
   };
 
   return (
@@ -55,7 +67,7 @@ function ThreeDotMenu({
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
-          <RemoveCircle />
+          <RemoveCircle style={{ fontSize: '20px' }}/>
           <div style={{ margin: '0px 10px', color: '#000000' }}>
             {removeResourceLabel}
           </div>
@@ -64,7 +76,9 @@ function ThreeDotMenu({
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
         <MenuItem
-          onClick={() => {}}
+          onClick={() => {
+            handleSubMenu();
+          }}
           title={selectFontLabel}
           style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -74,9 +88,16 @@ function ThreeDotMenu({
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}>
             <TextFieldsIcon style={{ fontSize: '24px' }}/>
-            <div style={{ margin: '0px 10px', color: '#000000' }}>
+            <div style={{ margin: '0px 5px', color: '#000000' }}>
               {selectFontLabel}
             </div>
+            <FontsDropdownMenu
+              open={submenuOpen}
+              anchorEl={subMenuAnchorEl}
+              onClose={handleCloseSubmenu}
+              handleCloseParent={handleClose}
+              complexScriptFonts={complexScriptFonts}
+            />
           </div>
           <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
         </MenuItem>
@@ -98,6 +119,7 @@ ThreeDotMenu.propTypes = {
   removePane: PropTypes.func.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
 };
