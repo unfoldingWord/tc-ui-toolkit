@@ -31,18 +31,21 @@ const FontSelectionMenu = ({
 
   const handleMenuItemClick = (font) => {
     console.log('paneIndex, font', paneIndex, font);
+    setAnchorEl(null);
     if (isTargetBible) {
       addObjectPropertyToManifest('projectFont', font);
     } else {
       changePaneFontType(paneIndex, font);
     }
-    setAnchorEl(null);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
     handleCloseParent();
   };
+
+  console.log('currentFont', currentFont)
+  console.log('currentFont === '' || currentFont === default', currentFont === '' || currentFont === 'default')
 
   return (
     <>
