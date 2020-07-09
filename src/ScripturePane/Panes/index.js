@@ -64,6 +64,8 @@ function Panes({
       if (isTargetBible) {
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
+      } else {
+        fontClass = getFontClassName(font);
       }
 
       panes.push(
