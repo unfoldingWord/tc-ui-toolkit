@@ -39,7 +39,7 @@ class EditScreen extends React.Component {
       textAlign: isLTR(direction) ? 'left' : 'right',
     };
     return (
-      <div style={{ fontSize: targetLanguageFontSize }}>
+      <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
         <textarea
           id="verse-editor-field"
           rows={rows}

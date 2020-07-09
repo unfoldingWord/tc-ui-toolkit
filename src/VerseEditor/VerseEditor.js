@@ -220,7 +220,7 @@ VerseEditor.propTypes = {
 VerseEditor.defaultProps = {
   targetLanguage: '',
   direction: 'ltr',
-  targetLanguageFontSize: '150%',
+  targetLanguageFontSize: '100%',
 };
 
 export default VerseEditor;
