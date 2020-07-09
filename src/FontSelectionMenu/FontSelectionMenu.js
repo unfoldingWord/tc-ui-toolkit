@@ -31,7 +31,7 @@ const FontSelectionMenu = ({
 
   const handleMenuItemClick = (font) => {
     console.log('paneIndex, font', paneIndex, font);
-    setAnchorEl(null);
+    handleClose();
 
     if (isTargetBible) {
       addObjectPropertyToManifest('projectFont', font);
@@ -79,7 +79,10 @@ const FontSelectionMenu = ({
         <MenuItem
           key='NotoSans-font-menu-item'
           selected={currentFont === '' || currentFont === 'default'}
-          classes={{ root: classes.menuItem }}
+          classes={{
+            root: classes.menuItem,
+            selected: classes.menuItemSelected,
+          }}
           onClick={() => handleMenuItemClick('default')}
         >
           {'Noto Sans (Default)'}
