@@ -7,6 +7,7 @@ import DropdownMenu, { MenuItem } from '../../DropdownMenu';
 import FontSelectionMenu from '../../FontSelectionMenu';
 
 function ThreeDotMenu({
+  font,
   index,
   fontSize,
   removePane,
@@ -15,6 +16,7 @@ function ThreeDotMenu({
   selectFontLabel,
   complexScriptFonts,
   changePaneFontSize,
+  changePaneFontType,
   removeResourceLabel,
   clickToRemoveResourceLabel,
 }) {
@@ -69,8 +71,11 @@ function ThreeDotMenu({
           style={{ padding: '0px', margin: '0px' }}
         >
           <FontSelectionMenu
-            selectFontLabel={selectFontLabel}
+            paneIndex={index}
+            currentFont={font}
             handleCloseParent={handleClose}
+            selectFontLabel={selectFontLabel}
+            onFontSelection={changePaneFontType}
             complexScriptFonts={complexScriptFonts}
           />
         </MenuItem>
@@ -87,11 +92,13 @@ ThreeDotMenu.defaultProps = {
 ThreeDotMenu.propTypes = {
   fontSize: PropTypes.number,
   anchorOrigin: PropTypes.object,
+  font: PropTypes.string.isRequired,
   transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,

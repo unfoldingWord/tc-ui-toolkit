@@ -12,21 +12,23 @@ const useStyles = makeStyles({
 });
 
 const FontSelectionMenu = ({
+  paneIndex,
+  currentFont,
   selectFontLabel,
+  onFontSelection,
   handleCloseParent,
   complexScriptFonts,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  // const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (_, index) => {
-    // setSelectedIndex(index);
-    console.log(index);
+  const handleMenuItemClick = (font) => {
+    console.log('paneIndex, font', paneIndex, font);
+    onFontSelection(paneIndex, font);
     setAnchorEl(null);
     handleCloseParent();
   };
@@ -65,12 +67,13 @@ const FontSelectionMenu = ({
       >
         {
           Object.keys(complexScriptFonts).map((fontName) => {
-            {/* const value = complexScriptFonts[fontName].font; */}
+            const font = complexScriptFonts[fontName].font;
             return (
               <MenuItem
-                onClick={handleMenuItemClick}
-                classes={{ root: classes.menuItem }}
+                selected={currentFont === font}
                 key={`${fontName}-font-menu-item`}
+                classes={{ root: classes.menuItem }}
+                onClick={() => handleMenuItemClick(font)}
               >
                 {fontName}
               </MenuItem>
@@ -83,6 +86,9 @@ const FontSelectionMenu = ({
 };
 
 FontSelectionMenu.propTypes = {
+  paneIndex: PropTypes.number.isRequired,
+  currentFont: PropTypes.string.isRequired,
+  onFontSelection: PropTypes.func.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   handleCloseParent: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,

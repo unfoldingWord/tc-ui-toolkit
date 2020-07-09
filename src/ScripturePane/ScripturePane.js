@@ -109,6 +109,24 @@ function ScripturePane({
     }
   }
 
+  function changePaneFontType(index, fontType) {
+    try {
+      if (currentPaneSettings) {
+        const paneSettings = _.cloneDeep(currentPaneSettings);
+        const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
+          if (index === i) {
+            paneSetting.font = fontType;
+          }
+
+          return paneSetting;
+        });
+        setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
 
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
@@ -140,6 +158,7 @@ function ScripturePane({
             projectManifest={projectManifest}
             complexScriptFonts={complexScriptFonts}
             changePaneFontSize={changePaneFontSize}
+            changePaneFontType={changePaneFontType}
             currentPaneSettings={currentPaneSettings}
           />
           <AddBibleButton

@@ -62,6 +62,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
  * @return {*}
  */
 function TitleContainer({
+  font,
   index,
   isLTR,
   fontSize,
@@ -70,6 +71,7 @@ function TitleContainer({
   headingText,
   selectFontLabel,
   changePaneFontSize,
+  changePaneFontType,
   complexScriptFonts,
   removeResourceLabel,
   localizedDescription,
@@ -79,12 +81,14 @@ function TitleContainer({
     return <>
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
       <ThreeDotMenu
+        font={font}
         index={index}
         fontSize={fontSize}
         removePane={removePane}
         selectFontLabel={selectFontLabel}
         complexScriptFonts={complexScriptFonts}
         changePaneFontSize={changePaneFontSize}
+        changePaneFontType={changePaneFontType}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
@@ -100,11 +104,13 @@ function TitleContainer({
   } else { // arrange rtl
     return <>
       <ThreeDotMenu
+        font={font}
         index={index}
         fontSize={fontSize}
         removePane={removePane}
         selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
+        changePaneFontType={changePaneFontType}
         complexScriptFonts={complexScriptFonts}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -115,6 +121,7 @@ function TitleContainer({
 }
 
 const Pane = ({
+  font,
   index,
   verse,
   chapter,
@@ -129,6 +136,7 @@ const Pane = ({
   verseElements,
   selectFontLabel,
   changePaneFontSize,
+  changePaneFontType,
   complexScriptFonts,
   removeResourceLabel,
   clickToRemoveResourceLabel,
@@ -144,6 +152,7 @@ const Pane = ({
     <div className="pane-container">
       <div className={isLTR_ ? 'pane-title-container-rtl' : 'pane-title-container-ltr'}>
         <TitleContainer
+          font={font}
           index={index}
           isLTR={isLTR_}
           fontSize={fontSize}
@@ -153,6 +162,7 @@ const Pane = ({
           selectFontLabel={selectFontLabel}
           complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
+          changePaneFontType={changePaneFontType}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
@@ -175,6 +185,7 @@ const Pane = ({
 Pane.propTypes = {
   fontSize: PropTypes.number,
   fontClass: PropTypes.string,
+  font: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
   bibleId: PropTypes.string.isRequired,
@@ -186,6 +197,7 @@ Pane.propTypes = {
   languageName: PropTypes.string.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
