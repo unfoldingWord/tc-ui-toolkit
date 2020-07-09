@@ -31,11 +31,11 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate, isH
 };
 
 export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass) => (
-  <span key={index.toString()} className={fontClass}>
-    <span style={paddingSpanStyle}>
+  <span key={index.toString()}>
+    <span className={fontClass} style={paddingSpanStyle}>
       {padding}
     </span>
-    <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
+    <span className={fontClass} style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
       {removeMarker(text)}
     </span>
   </span>
