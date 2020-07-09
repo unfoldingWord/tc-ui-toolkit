@@ -136,15 +136,10 @@ class VerseEditor extends React.Component {
     );
     const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
     const headingStyle = { ...styles.editHeading };
-    const editorStyles = { ...styles.editor };
 
     if (!isLTR(direction)) { // if rtl, right justify
       headingStyle.textAlign = 'right';
       headingStyle.paddingRight = '6px';
-    }
-
-    if (targetLanguageFontSize) {
-      editorStyles.fontSize = targetLanguageFontSize;
     }
 
     return (
@@ -166,9 +161,10 @@ class VerseEditor extends React.Component {
             <EditScreen
               rows={rows}
               verseText={text}
-              style={editorStyles}
+              style={styles.editor}
               onChange={this._handleVerseChange}
               targetLanguageFontClassName={targetLanguageFontClassName}
+              targetLanguageFontSize={targetLanguageFontSize}
               direction={direction}
             />
           </div>
