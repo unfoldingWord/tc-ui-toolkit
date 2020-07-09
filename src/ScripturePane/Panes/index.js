@@ -52,20 +52,19 @@ function Panes({
       }
 
       const isTargetBible = bibleId === 'targetBible';
-
-      if (typeof verseData === 'string') { // if the verse content is string.
-        verseElements = verseString(verseData, selections, translate, {}, isTargetBible, targetLanguageFont);
-      } else if (verseData) { // else the verse content is an array of verse objects.
-        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {});
-      }
-
       let fontClass = '';
 
       if (isTargetBible) {
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
-      } else {
+      } else if (font) {
         fontClass = getFontClassName(font);
+      }
+
+      if (typeof verseData === 'string') { // if the verse content is string.
+        verseElements = verseString(verseData, selections, translate, {}, isTargetBible, fontClass);
+      } else if (verseData) { // else the verse content is an array of verse objects.
+        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
       }
 
       panes.push(

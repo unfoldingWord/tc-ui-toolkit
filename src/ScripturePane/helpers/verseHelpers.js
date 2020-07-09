@@ -4,7 +4,6 @@ import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
 // helpers
-import { getFontClassName } from '../../common/fontUtils';
 import * as highlightHelpers from './highlightHelpers';
 import {
   onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
@@ -27,7 +26,7 @@ import {
  * @param {String} targetLanguageFont
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, targetLanguageFont) => {
+export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass) => {
   let newVerseText = removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
@@ -36,12 +35,6 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
   // if empty string then newVerseText = place holder warning.
   if (newVerseText.length === 0) {
     newVerseText = translate('pane.missing_verse_warning');
-  }
-
-  let fontClass = '';
-
-  if (isTargetBible) {
-    fontClass = getFontClassName(targetLanguageFont);
   }
 
   let verseTextSpans = <span className={fontClass}>{newVerseText}</span>;
@@ -82,9 +75,10 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
  * @param {Boolean} showPopover
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
+ * @param {String} fontClass - font class name
  * @return {Array} - verse elements to display
  */
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null) {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass) {
   let words = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -128,8 +122,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         previousWord = word;
         const paddingSpanStyle = { backgroundColor: isBetweenHighlightedWord ? 'var(--highlight-color)' : 'transparent' };
 
-        // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb.  The reason for
-        //            this is than some bibles have different strongs format.  We are waiting on long term solution.
+        // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb. The reason for
+        // this is than some bibles have different strongs format. We are waiting on long term solution.
         if (word.strong && origLangBible) { // if clickable
           let spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
 
@@ -142,6 +136,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(
             <span
               key={index.toString()}
+              className={fontClass}
               onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate, isHebrew)}
               style={{ cursor: 'pointer' }}
             >
