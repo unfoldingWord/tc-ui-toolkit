@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   menu: { marginLeft: '180px' },
   menuItem: { fontSize: '14px', width: '150px' },
-  menuItemSelected: { color: '#FF4081' }
+  menuItemSelected: { color: '#FF4081' },
 });
 
 const FontSelectionMenu = ({
@@ -32,6 +32,7 @@ const FontSelectionMenu = ({
   const handleMenuItemClick = (font) => {
     console.log('paneIndex, font', paneIndex, font);
     setAnchorEl(null);
+
     if (isTargetBible) {
       addObjectPropertyToManifest('projectFont', font);
     } else {
@@ -44,8 +45,8 @@ const FontSelectionMenu = ({
     handleCloseParent();
   };
 
-  console.log('currentFont', currentFont)
-  console.log('currentFont === '' || currentFont === default', currentFont === '' || currentFont === 'default')
+  console.log('currentFont', currentFont);
+  console.log('currentFont === currentFont === default', currentFont === '' || currentFont === 'default');
 
   return (
     <>
@@ -90,7 +91,7 @@ const FontSelectionMenu = ({
               <MenuItem
                 selected={currentFont === font}
                 key={`${fontName}-font-menu-item`}
-                classes={{ 
+                classes={{
                   root: classes.menuItem,
                   selected: classes.menuItemSelected,
                 }}
