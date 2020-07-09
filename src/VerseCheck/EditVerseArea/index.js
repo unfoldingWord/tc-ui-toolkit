@@ -108,7 +108,7 @@ const EditVerseArea = ({
       <FormGroup style={{
         flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
       }} controlId='formControlsTextarea'>
-        <div style={{ fontSize: targetLanguageFontSize }}>
+        <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
           <FormControl
             autoFocus
             onFocus={moveCursorToEnd}

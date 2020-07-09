@@ -90,7 +90,7 @@ class ChapterView extends Component {
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
-    let targetLanguageFontSize = '100%';
+    let fontSizePercent = 100; // default font size
     const direction = projectManifest.target_language && projectManifest.target_language.direction || 'ltr';
 
     if (openEditor) {
@@ -107,7 +107,7 @@ class ChapterView extends Component {
       const targetConfig = currentPaneSettings.find(pane => (pane.languageId === 'targetLanguage'));
 
       if (targetConfig) {
-        targetLanguageFontSize = `${targetConfig.fontSize}%`;
+        fontSizePercent = targetConfig.fontSize;
       }
     }
 
@@ -124,7 +124,7 @@ class ChapterView extends Component {
           onSubmit={handleEditorSubmit}
           onCancel={handleEditorCancel}
           targetLanguageFont={targetLanguageFont}
-          targetLanguageFontSize={targetLanguageFontSize}
+          targetLanguageFontSize={`${fontSizePercent}%`}
           direction={direction}
         />
       </div>
