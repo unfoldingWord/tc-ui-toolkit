@@ -54,7 +54,8 @@ class VerseRow extends Component {
         const index = i;
 
         try {
-          const {
+          let {
+            font,
             bibleId,
             fontSize,
             languageId,
