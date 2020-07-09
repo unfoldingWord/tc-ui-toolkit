@@ -35,6 +35,7 @@ const EditVerseArea = ({
   handleEditVerse,
   checkIfVerseChanged,
   targetLanguageFont,
+  targetLanguageFontSize,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -105,7 +106,7 @@ const EditVerseArea = ({
         {translate('edit_verse')}
       </div>
       <FormGroup style={{
-        flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
+        flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px', fontSize: targetLanguageFontSize,
       }} controlId='formControlsTextarea'>
         <FormControl
           autoFocus
@@ -156,6 +157,7 @@ EditVerseArea.propTypes = {
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
   targetLanguageFont: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);
