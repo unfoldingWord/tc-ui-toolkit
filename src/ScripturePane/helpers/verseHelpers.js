@@ -136,23 +136,22 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(
             <span
               key={index.toString()}
-              className={fontClass}
               onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate, isHebrew)}
               style={{ cursor: 'pointer' }}
             >
-              <span style={paddingSpanStyle}>
+              <span className={fontClass} style={paddingSpanStyle}>
                 {padding}
               </span>
-              <span style={spanStyle}>
+              <span className={fontClass} style={spanStyle}>
                 {removeMarker(text)}
               </span>
             </span>,
           );
         } else {
-          verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text));
+          verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass));
         }
       } else if (isNestedMilestone(word)) { // if nested milestone
-        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing);
+        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing, fontClass);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[j];
@@ -182,7 +181,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         wordSpacing = punctuationWordSpacing(word); // spacing before words
 
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
-          verseSpan.push(createHighlightedSpan(index, text));
+          verseSpan.push(createHighlightedSpan(index, text, fontClass));
         } else {
           verseSpan.push(createTextSpan(index, text));
         }

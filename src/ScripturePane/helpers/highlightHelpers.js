@@ -133,7 +133,7 @@ export function getWordHighlightedDetails(contextId, previousWord, word) {
   };
 }
 
-export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing) {
+export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) {
     nestedWords = getDeepNestedWords(nestedWords);
@@ -176,7 +176,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
           <span style={paddingSpanStyle}>
             {padding}
           </span>
-          <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
+          <span className={fontClass} style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
             {removeMarker(nestedWord.text)}
           </span>
         </span>,
@@ -187,13 +187,13 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
 
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
         wordSpans.push(
-          <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
+          <span key={nestedWordSpanIndex} className={fontClass} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {text}
           </span>,
         );
       } else {
         wordSpans.push(
-          <span key={nestedWordSpanIndex}>
+          <span className={fontClass} key={nestedWordSpanIndex}>
             {text}
           </span>,
         );
