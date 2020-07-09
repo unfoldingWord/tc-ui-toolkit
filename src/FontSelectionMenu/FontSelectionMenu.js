@@ -65,6 +65,14 @@ const FontSelectionMenu = ({
         open={Boolean(anchorEl)}
         classes={{ paper: classes.menu }}
       >
+        <MenuItem
+          key='NotoSans-font-menu-item'
+          selected={currentFont === '' || currentFont === 'default'}
+          classes={{ root: classes.menuItem }}
+          onClick={() => handleMenuItemClick('default')}
+        >
+          {'Noto Sans (Default)'}
+        </MenuItem>
         {
           Object.keys(complexScriptFonts).map((fontName) => {
             const font = complexScriptFonts[fontName].font;

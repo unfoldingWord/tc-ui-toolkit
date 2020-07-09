@@ -72,7 +72,7 @@ function ThreeDotMenu({
         >
           <FontSelectionMenu
             paneIndex={index}
-            currentFont={font}
+            currentFont={font || ''}
             handleCloseParent={handleClose}
             selectFontLabel={selectFontLabel}
             onFontSelection={changePaneFontType}
