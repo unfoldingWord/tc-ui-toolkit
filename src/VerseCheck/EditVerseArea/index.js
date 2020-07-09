@@ -106,23 +106,25 @@ const EditVerseArea = ({
         {translate('edit_verse')}
       </div>
       <FormGroup style={{
-        flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px', fontSize: targetLanguageFontSize,
+        flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
       }} controlId='formControlsTextarea'>
-        <FormControl
-          autoFocus
-          onFocus={moveCursorToEnd}
-          componentClass='textarea'
-          type='text'
-          defaultValue={verseText}
-          className={fontClass}
-          style={{
-            flex: 'auto',
-            minHeight: '110px',
-            direction: languageDirection,
-          }}
-          onBlur={handleEditVerse}
-          onInput={checkIfVerseChanged}
-        />
+        <div style={{ fontSize: targetLanguageFontSize }}>
+          <FormControl
+            autoFocus
+            onFocus={moveCursorToEnd}
+            componentClass='textarea'
+            type='text'
+            defaultValue={verseText}
+            className={fontClass}
+            style={{
+              flex: 'auto',
+              minHeight: '110px',
+              direction: languageDirection,
+            }}
+            onBlur={handleEditVerse}
+            onInput={checkIfVerseChanged}
+          />
+        </div>
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
         }}>
