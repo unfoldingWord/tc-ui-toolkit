@@ -12,6 +12,7 @@ function ThreeDotMenu({
   fontSize,
   removePane,
   anchorOrigin,
+  isTargetBible,
   transformOrigin,
   selectFontLabel,
   complexScriptFonts,
@@ -19,6 +20,7 @@ function ThreeDotMenu({
   changePaneFontType,
   removeResourceLabel,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -73,9 +75,11 @@ function ThreeDotMenu({
           <FontSelectionMenu
             paneIndex={index}
             currentFont={font || ''}
+            isTargetBible={isTargetBible}
             handleCloseParent={handleClose}
             selectFontLabel={selectFontLabel}
-            onFontSelection={changePaneFontType}
+            changePaneFontType={changePaneFontType}
+            addObjectPropertyToManifest={addObjectPropertyToManifest}
             complexScriptFonts={complexScriptFonts}
           />
         </MenuItem>
@@ -96,11 +100,13 @@ ThreeDotMenu.propTypes = {
   transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
+  isTargetBible: PropTypes.bool.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   changePaneFontType: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
 };
 

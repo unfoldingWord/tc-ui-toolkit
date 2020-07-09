@@ -9,15 +9,18 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   menu: { marginLeft: '180px' },
   menuItem: { fontSize: '14px', width: '150px' },
+  menuItemSelected: { color: '#FF4081' }
 });
 
 const FontSelectionMenu = ({
   paneIndex,
   currentFont,
+  isTargetBible,
   selectFontLabel,
-  onFontSelection,
   handleCloseParent,
+  changePaneFontType,
   complexScriptFonts,
+  addObjectPropertyToManifest,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,13 +31,17 @@ const FontSelectionMenu = ({
 
   const handleMenuItemClick = (font) => {
     console.log('paneIndex, font', paneIndex, font);
-    onFontSelection(paneIndex, font);
+    if (isTargetBible) {
+      addObjectPropertyToManifest('projectFont', font);
+    } else {
+      changePaneFontType(paneIndex, font);
+    }
     setAnchorEl(null);
-    handleCloseParent();
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    handleCloseParent();
   };
 
   return (
@@ -80,7 +87,10 @@ const FontSelectionMenu = ({
               <MenuItem
                 selected={currentFont === font}
                 key={`${fontName}-font-menu-item`}
-                classes={{ root: classes.menuItem }}
+                classes={{ 
+                  root: classes.menuItem,
+                  selected: classes.menuItemSelected,
+                }}
                 onClick={() => handleMenuItemClick(font)}
               >
                 {fontName}
@@ -96,10 +106,12 @@ const FontSelectionMenu = ({
 FontSelectionMenu.propTypes = {
   paneIndex: PropTypes.number.isRequired,
   currentFont: PropTypes.string.isRequired,
-  onFontSelection: PropTypes.func.isRequired,
+  isTargetBible: PropTypes.bool.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
   handleCloseParent: PropTypes.func.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
 };
 
 export default FontSelectionMenu;

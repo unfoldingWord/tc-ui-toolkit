@@ -20,6 +20,7 @@ function Panes({
   changePaneFontSize,
   changePaneFontType,
   currentPaneSettings,
+  addObjectPropertyToManifest,
 }) {
   const panes = [];
 
@@ -81,12 +82,14 @@ function Panes({
           removePane={removePane}
           description={description}
           languageName={language_name}
+          isTargetBible={isTargetBible}
           verseElements={verseElements}
           direction={manifest.direction}
           complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
           changePaneFontType={changePaneFontType}
           selectFontLabel={translate('pane.select_font_label')}
+          addObjectPropertyToManifest={addObjectPropertyToManifest}
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
         />,
@@ -107,11 +110,12 @@ Panes.propTypes = {
   selections: PropTypes.array.isRequired,
   showPopover: PropTypes.func.isRequired,
   getLexiconData: PropTypes.func.isRequired,
+  projectManifest: PropTypes.object.isRequired,
   changePaneFontType: PropTypes.func.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
-  projectManifest: PropTypes.object.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
 };
 
 export default Panes;

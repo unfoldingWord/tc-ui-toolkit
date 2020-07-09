@@ -28,6 +28,7 @@ function ScripturePane({
   projectDetailsReducer,
   expandedScripturePaneTitle,
   makeSureBiblesLoadedForTool,
+  addObjectPropertyToManifest,
   getAvailableScripturePaneSelections,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
@@ -160,6 +161,7 @@ function ScripturePane({
             changePaneFontSize={changePaneFontSize}
             changePaneFontType={changePaneFontType}
             currentPaneSettings={currentPaneSettings}
+            addObjectPropertyToManifest={addObjectPropertyToManifest}
           />
           <AddBibleButton
             showAddBibleModal={showAddBibleModal}
@@ -229,6 +231,7 @@ ScripturePane.propTypes = {
   complexScriptFonts: PropTypes.array.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,

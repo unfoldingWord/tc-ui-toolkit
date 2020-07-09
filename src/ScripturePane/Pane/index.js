@@ -69,6 +69,7 @@ function TitleContainer({
   fontClass,
   removePane,
   headingText,
+  isTargetBible,
   selectFontLabel,
   changePaneFontSize,
   changePaneFontType,
@@ -76,6 +77,7 @@ function TitleContainer({
   removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) {
   if (isLTR) {
     return <>
@@ -84,13 +86,6 @@ function TitleContainer({
         font={font}
         index={index}
         fontSize={fontSize}
-        removePane={removePane}
-        selectFontLabel={selectFontLabel}
-        complexScriptFonts={complexScriptFonts}
-        changePaneFontSize={changePaneFontSize}
-        changePaneFontType={changePaneFontType}
-        removeResourceLabel={removeResourceLabel}
-        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -99,6 +94,15 @@ function TitleContainer({
           vertical: 'top',
           horizontal: 'left',
         }}
+        removePane={removePane}
+        isTargetBible={isTargetBible}
+        selectFontLabel={selectFontLabel}
+        complexScriptFonts={complexScriptFonts}
+        changePaneFontSize={changePaneFontSize}
+        changePaneFontType={changePaneFontType}
+        removeResourceLabel={removeResourceLabel}
+        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
     </>;
   } else { // arrange rtl
@@ -108,12 +112,14 @@ function TitleContainer({
         index={index}
         fontSize={fontSize}
         removePane={removePane}
+        isTargetBible={isTargetBible}
         selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
         changePaneFontType={changePaneFontType}
         complexScriptFonts={complexScriptFonts}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
     </>;
@@ -134,12 +140,14 @@ const Pane = ({
   description,
   languageName,
   verseElements,
+  isTargetBible,
   selectFontLabel,
   changePaneFontSize,
   changePaneFontType,
   complexScriptFonts,
   removeResourceLabel,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
@@ -159,6 +167,7 @@ const Pane = ({
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
+          isTargetBible={isTargetBible}
           selectFontLabel={selectFontLabel}
           complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
@@ -166,6 +175,7 @@ const Pane = ({
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+          addObjectPropertyToManifest={addObjectPropertyToManifest}
         />
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
@@ -193,6 +203,7 @@ Pane.propTypes = {
   translate: PropTypes.func.isRequired,
   removePane: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
+  isTargetBible: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
@@ -200,6 +211,7 @@ Pane.propTypes = {
   changePaneFontType: PropTypes.func.isRequired,
   complexScriptFonts: PropTypes.array.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,
