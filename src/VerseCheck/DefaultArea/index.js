@@ -99,6 +99,7 @@ class DefaultArea extends React.Component {
       style.justifyContent = 'right';
       style.width = '100%';
       style.direction = 'rtl';
+      style.paddingRight = '15px';
     }
 
     return (
