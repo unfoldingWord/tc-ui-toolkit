@@ -196,5 +196,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     }
   }
 
+  console.log('verseSpan', verseSpan);
+
   return verseSpan;
 }
