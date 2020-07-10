@@ -281,10 +281,11 @@ let spaceCounter = 0;
 /**
  * pushes a span to the array
  * @param {Array} verseSpan
+ * @param {String} fontClass
  */
-export function addSpace(verseSpan) {
+export function addSpace(verseSpan, fontClass) {
   verseSpan.push(
-    <span key={'space_' +(++spaceCounter)} style={{ backgroundColor: 'transparent' }}>
+    <span key={'space_' +(++spaceCounter)} className={fontClass} style={{ backgroundColor: 'transparent' }}>
       {' '}
     </span>,
   );

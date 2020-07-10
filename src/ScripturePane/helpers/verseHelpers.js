@@ -167,7 +167,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
 
         if (hasLeadingSpace(text)) { // leading spaces are not significant in html, so we need to replace with a hard space
           text = text.substr(1);
-          highlightHelpers.addSpace(verseSpan);
+          highlightHelpers.addSpace(verseSpan, fontClass);
         }
 
         const trailingSpace = hasTrailingSpace(text);
