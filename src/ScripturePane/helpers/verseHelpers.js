@@ -96,6 +96,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     const origLangBible = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
 
+    console.log('bibleId', bibleId)
+    console.log('fontClass', fontClass)
+
     for (let i = 0, len = words.length; i < len; i++) {
       const word = words[i];
       const index = i;
