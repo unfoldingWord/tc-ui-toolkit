@@ -99,6 +99,7 @@ class VerseRow extends Component {
                 translate={translate}
                 verseText={verseText}
                 direction={direction}
+                fontClass={fontClass}
                 onEdit={this.handleEdit}
                 verse={currentVerseNumber}
                 verseElements={verseElements}

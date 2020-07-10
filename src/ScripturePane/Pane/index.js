@@ -186,6 +186,7 @@ const Pane = ({
           chapter={chapter}
           translate={translate}
           direction={direction}
+          fontClass={fontClass}
           verseElements={verseElements}
         />
       </div>

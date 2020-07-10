@@ -186,7 +186,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
           verseSpan.push(createHighlightedSpan(index, text, fontClass));
         } else {
-          verseSpan.push(createTextSpan(index, text));
+          verseSpan.push(createTextSpan(index, text, fontClass));
         }
 
         if (trailingSpace) { // add the trailing space after the text span
