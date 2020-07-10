@@ -22,6 +22,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
+  const paneSubtitleClassName = fontClass ? `pane-subtitle-text hint--bottom hint--medium ${fontClass}` : `pane-subtitle-text hint--bottom hint--medium`;
 
   return (
     <div className="pane-title-container-content" style={styles}>
@@ -35,8 +36,8 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
         {
           ({ width }) => (
             <span
-              className='pane-subtitle-text hint--bottom hint--medium'
-              style={{ lineHeight: 2 }}
+              className={paneSubtitleClassName}
+              style={{ lineHeight: fontClass && fontClass.includes('Awami') ? 1 : 2, textAlign: isLTR ? 'left' : 'right' }}
               aria-label={localizedDescription}>
               {
                 localizedDescription.length > width / PANECHAR ?
@@ -81,7 +82,7 @@ function TitleContainer({
 }) {
   if (isLTR) {
     return <>
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
       <ThreeDotMenu
         font={font}
         index={index}
@@ -121,7 +122,7 @@ function TitleContainer({
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
     </>;
   }
 }

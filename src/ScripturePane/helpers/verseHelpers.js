@@ -1,4 +1,4 @@
-'use strict';
+;'use strict';
 import React from 'react';
 import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
@@ -96,7 +96,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
     const origLangBible = isHebrew || bibleId === 'ugnt';
     words = Array.isArray(words) ? words : words.verseObject;
 
-    console.log('bibleId', bibleId)
+    console.log('bibleId', bibleId);
     console.log('fontClass', fontClass)
 
     for (let i = 0, len = words.length; i < len; i++) {
