@@ -6,6 +6,9 @@ import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 import * as stringHelpers from '../helpers/stringHelpers';
 
+const DBL_CLK_TIME = 1500; // time in ms
+const DBL_CLK_DISTANCE = 10; // in pixels
+
 class RenderSelectionTextComponent extends Component {
   componentWillMount() {
     // track when the selections change to prevent false clicks of removals
@@ -19,9 +22,39 @@ class RenderSelectionTextComponent extends Component {
     }
   }
 
+  /**
+   * get new selected text and update selections
+   * @param {String} verseText - current verse text
+   */
   getSelectionText(verseText) {
-    const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText);
+    const selection = windowSelectionHelpers.getSelectionFromCurrentWindowSelection(verseText, this.doubleClick);
     this.addSelection(selection);
+  }
+
+  /**
+   * keep track of mouse down events for double click calculation
+   * @param {Object} event - mouse event from callback
+   */
+  recordMouseDown(event) {
+    this.lastMouseDnEvent = this.mouseDnEvent; // need two mouse down events for double click calcs
+    this.mouseDnEvent = { ...event }; // shallow copy
+
+    if (this.lastMouseDnEvent) { // if we had a previous mouse down, check if this is a double click
+      const delta = this.mouseDnEvent.timeStamp - this.lastMouseDnEvent.timeStamp;
+      const isDblClkTime = delta < DBL_CLK_TIME; // both clicks must be within time limit
+
+      const deltaX = this.mouseDnEvent.clientX - this.lastMouseDnEvent.clientX;
+      const isDblClkX = Math.abs(deltaX) < DBL_CLK_DISTANCE; // both clicks X change must be within limit
+
+      const deltaY = this.mouseDnEvent.clientY - this.lastMouseDnEvent.clientY;
+      const isDblClkY = Math.abs(deltaY) < DBL_CLK_DISTANCE; // both clicks Y change must be within limit
+
+      this.doubleClick = isDblClkTime && isDblClkX && isDblClkY;
+
+      if (this.doubleClick) {
+        console.log(`recordMouseDown() - Double Click detected`);
+      }
+    }
   }
 
   addSelection(selection) {
@@ -111,7 +144,11 @@ class RenderSelectionTextComponent extends Component {
       verseTextSpans = this.verseTextSpans(selections, verseText);
     }
     return (
-      <div onMouseUp={() => this.getSelectionText(verseText)} onMouseLeave={() => this.inDisplayBox(false)} onMouseEnter={() => this.inDisplayBox(true)}>
+      <div
+        onMouseUp={() => this.getSelectionText(verseText)}
+        onMouseDown={(e) => this.recordMouseDown(e)}
+        onMouseLeave={() => this.inDisplayBox(false)}
+        onMouseEnter={() => this.inDisplayBox(true)}>
         {verseTextSpans}
       </div>
     );
