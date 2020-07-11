@@ -56,6 +56,7 @@ exports[`VerseEditor component: should render 1`] = `
           }
         }
         targetLanguageFontClassName=""
+        targetLanguageFontSize="100%"
         verseText="Dummy Text"
       />
     </div>

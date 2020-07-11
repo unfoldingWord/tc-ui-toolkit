@@ -43,6 +43,8 @@ const CheckArea = ({
 
   switch (mode) {
   case 'edit':
+    var fontSize = (toolsSettings['CheckArea'] && toolsSettings['CheckArea'].fontSize) || 100;
+
     modeArea = (
       <EditVerseArea
         tags={tags}
@@ -54,6 +56,7 @@ const CheckArea = ({
         languageDirection={languageDirection}
         translate={translate}
         targetLanguageFont={targetLanguageFont}
+        targetLanguageFontSize={`${fontSize}%`}
       />
     );
     break;

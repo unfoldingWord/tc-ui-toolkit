@@ -35,6 +35,7 @@ const EditVerseArea = ({
   handleEditVerse,
   checkIfVerseChanged,
   targetLanguageFont,
+  targetLanguageFontSize,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -107,21 +108,23 @@ const EditVerseArea = ({
       <FormGroup style={{
         flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
       }} controlId='formControlsTextarea'>
-        <FormControl
-          autoFocus
-          onFocus={moveCursorToEnd}
-          componentClass='textarea'
-          type='text'
-          defaultValue={verseText}
-          className={fontClass}
-          style={{
-            flex: 'auto',
-            minHeight: '110px',
-            direction: languageDirection,
-          }}
-          onBlur={handleEditVerse}
-          onInput={checkIfVerseChanged}
-        />
+        <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
+          <FormControl
+            autoFocus
+            onFocus={moveCursorToEnd}
+            componentClass='textarea'
+            type='text'
+            defaultValue={verseText}
+            className={fontClass}
+            style={{
+              flex: 'auto',
+              minHeight: '110px',
+              direction: languageDirection,
+            }}
+            onBlur={handleEditVerse}
+            onInput={checkIfVerseChanged}
+          />
+        </div>
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
         }}>
@@ -156,6 +159,7 @@ EditVerseArea.propTypes = {
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
   targetLanguageFont: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);
