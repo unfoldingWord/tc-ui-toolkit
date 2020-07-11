@@ -190,6 +190,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                   }
                 }
               >
+                 
                 <textarea
                   autoFocus={true}
                   className="form-control"
