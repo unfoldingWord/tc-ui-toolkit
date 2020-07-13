@@ -30,7 +30,6 @@ const FontSelectionMenu = ({
   };
 
   const handleMenuItemClick = (font) => {
-    console.log('paneIndex, font', paneIndex, font);
     handleClose();
 
     if (isTargetBible) {
@@ -44,9 +43,6 @@ const FontSelectionMenu = ({
     setAnchorEl(null);
     handleCloseParent();
   };
-
-  console.log('currentFont', currentFont);
-  console.log('currentFont === currentFont === default', currentFont === '' || currentFont === 'default');
 
   return (
     <>
