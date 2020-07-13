@@ -118,6 +118,7 @@ class VerseEditor extends React.Component {
       verseTitle,
       targetLanguage,
       targetLanguageFont,
+      targetLanguageFontSize,
       direction,
     } = this.props;
     const {
@@ -163,6 +164,7 @@ class VerseEditor extends React.Component {
               style={styles.editor}
               onChange={this._handleVerseChange}
               targetLanguageFontClassName={targetLanguageFontClassName}
+              targetLanguageFontSize={targetLanguageFontSize}
               direction={direction}
             />
           </div>
@@ -211,12 +213,14 @@ VerseEditor.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   targetLanguage: PropTypes.string.isRequired,
   targetLanguageFont: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string,
   direction: PropTypes.string.isRequired,
 };
 
 VerseEditor.defaultProps = {
   targetLanguage: '',
   direction: 'ltr',
+  targetLanguageFontSize: '100%',
 };
 
 export default VerseEditor;

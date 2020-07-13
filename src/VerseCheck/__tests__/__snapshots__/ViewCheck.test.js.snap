@@ -183,23 +183,32 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                 }
               }
             >
-              <textarea
-                autoFocus={true}
-                className="form-control"
-                defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
-\\\\s5
-"
-                id="formControlsTextarea"
-                onFocus={[Function]}
+              <div
                 style={
                   Object {
-                    "direction": "ltr",
-                    "flex": "auto",
-                    "minHeight": "110px",
+                    "fontSize": "100%",
                   }
                 }
-                type="text"
-              />
+              >
+                 
+                <textarea
+                  autoFocus={true}
+                  className="form-control"
+                  defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
+\\\\s5
+"
+                  id="formControlsTextarea"
+                  onFocus={[Function]}
+                  style={
+                    Object {
+                      "direction": "ltr",
+                      "flex": "auto",
+                      "minHeight": "110px",
+                    }
+                  }
+                  type="text"
+                />
+              </div>
               <div
                 style={
                   Object {

@@ -30,6 +30,7 @@ class EditScreen extends React.Component {
       style,
       verseText,
       targetLanguageFontClassName,
+      targetLanguageFontSize,
       direction,
     } = this.props;
     const className = targetLanguageFontClassName ? `edit-screen ${targetLanguageFontClassName}` : 'edit-screen';
@@ -38,16 +39,18 @@ class EditScreen extends React.Component {
       textAlign: isLTR(direction) ? 'left' : 'right',
     };
     return (
-      <textarea
-        id="verse-editor-field"
-        rows={rows}
-        className={className}
-        autoFocus={true}
-        onFocus={moveCursorToEnd}
-        onChange={this._handleChange}
-        value={verseText}
-        style={style_}
-      />
+      <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
+        <textarea
+          id="verse-editor-field"
+          rows={rows}
+          className={className}
+          autoFocus={true}
+          onFocus={moveCursorToEnd}
+          onChange={this._handleChange}
+          value={verseText}
+          style={style_}
+        />
+      </div>
     );
   }
 }
@@ -59,12 +62,14 @@ EditScreen.propTypes = {
   verseText: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   targetLanguageFontClassName: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string,
 };
 
 EditScreen.defaultProps = {
   rows: 4,
   style: {},
   direction: 'ltr',
+  targetLanguageFontSize: '100%',
 };
 
 export default EditScreen;
