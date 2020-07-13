@@ -59,6 +59,8 @@ function FontSizeSlider({
     }
   };
 
+  console.log('classes.gridItem', classes.gridItem);
+
   return (
     <Grid container spacing={2} alignItems='center'>
       <Grid item onClick={handleDecrease} className={{ root: classes.gridItem }}>
