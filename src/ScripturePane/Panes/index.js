@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // components
-import { getFontClassName } from '../../common/fontUtils';
 import Pane from '../Pane';
 // helpers
+import { getFontClassName } from '../../common/fontUtils';
 import { verseString, verseArray } from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
 
@@ -15,8 +16,11 @@ function Panes({
   showPopover,
   getLexiconData,
   projectManifest,
+  complexScriptFonts,
   changePaneFontSize,
+  changePaneFontType,
   currentPaneSettings,
+  addObjectPropertyToManifest,
 }) {
   const panes = [];
 
@@ -25,7 +29,8 @@ function Panes({
     const index = i;
 
     try {
-      const {
+      let {
+        font,
         bibleId,
         fontSize,
         languageId,
@@ -48,22 +53,25 @@ function Panes({
       }
 
       const isTargetBible = bibleId === 'targetBible';
-
-      if (typeof verseData === 'string') { // if the verse content is string.
-        verseElements = verseString(verseData, selections, translate, {}, isTargetBible, targetLanguageFont);
-      } else if (verseData) { // else the verse content is an array of verse objects.
-        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {});
-      }
-
       let fontClass = '';
 
       if (isTargetBible) {
+        font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
+      } else if (font) {
+        fontClass = getFontClassName(font);
+      }
+
+      if (typeof verseData === 'string') { // if the verse content is string.
+        verseElements = verseString(verseData, selections, translate, {}, isTargetBible, fontClass);
+      } else if (verseData) { // else the verse content is an array of verse objects.
+        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
       }
 
       panes.push(
         <Pane
           key={index.toString()}
+          font={font || ''}
           index={index}
           verse={verse}
           chapter={chapter}
@@ -74,9 +82,14 @@ function Panes({
           removePane={removePane}
           description={description}
           languageName={language_name}
+          isTargetBible={isTargetBible}
           verseElements={verseElements}
           direction={manifest.direction}
+          complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
+          changePaneFontType={changePaneFontType}
+          selectFontLabel={translate('pane.select_font_label')}
+          addObjectPropertyToManifest={addObjectPropertyToManifest}
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
         />,
@@ -88,5 +101,21 @@ function Panes({
 
   return panes;
 }
+
+Panes.propTypes = {
+  bibles: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
+  removePane: PropTypes.func.isRequired,
+  contextId: PropTypes.object.isRequired,
+  selections: PropTypes.array.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  projectManifest: PropTypes.object.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
+  changePaneFontSize: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
+};
 
 export default Panes;

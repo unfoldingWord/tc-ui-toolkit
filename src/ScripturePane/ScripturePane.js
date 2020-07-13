@@ -23,10 +23,12 @@ function ScripturePane({
   setToolSettings,
   editTargetVerse,
   handleModalOpen,
+  complexScriptFonts,
   currentPaneSettings,
   projectDetailsReducer,
   expandedScripturePaneTitle,
   makeSureBiblesLoadedForTool,
+  addObjectPropertyToManifest,
   getAvailableScripturePaneSelections,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
@@ -108,6 +110,24 @@ function ScripturePane({
     }
   }
 
+  function changePaneFontType(index, fontType) {
+    try {
+      if (currentPaneSettings) {
+        const paneSettings = _.cloneDeep(currentPaneSettings);
+        const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
+          if (index === i) {
+            paneSetting.font = fontType;
+          }
+
+          return paneSetting;
+        });
+        setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
 
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
@@ -137,8 +157,11 @@ function ScripturePane({
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             projectManifest={projectManifest}
+            complexScriptFonts={complexScriptFonts}
             changePaneFontSize={changePaneFontSize}
+            changePaneFontType={changePaneFontType}
             currentPaneSettings={currentPaneSettings}
+            addObjectPropertyToManifest={addObjectPropertyToManifest}
           />
           <AddBibleButton
             showAddBibleModal={showAddBibleModal}
@@ -205,8 +228,10 @@ ScripturePane.propTypes = {
   getLexiconData: PropTypes.func.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   setToolSettings: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,

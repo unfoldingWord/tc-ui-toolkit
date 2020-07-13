@@ -37,12 +37,13 @@ class Verse extends Component {
       onEdit,
       bibleId,
       chapter,
+      fontClass,
       direction,
       translate,
       verseElements,
     } = this.props;
     const chapterVerseContent = getReferenceStr(chapter, verse) + ' ';
-    const chapterVerse = <strong>{chapterVerseContent}</strong>;
+    const chapterVerse = <strong className={fontClass}>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
     let verseSpan = verseElements;
     let verseContainerStyle = {};
@@ -87,6 +88,7 @@ class Verse extends Component {
 
 Verse.propTypes = {
   onEdit: PropTypes.func,
+  fontClass: PropTypes.string,
   translate: PropTypes.func.isRequired,
   chapter: PropTypes.number.isRequired,
   bibleId: PropTypes.string.isRequired,

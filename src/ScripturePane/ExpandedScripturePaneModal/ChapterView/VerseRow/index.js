@@ -6,6 +6,7 @@ import './VerseRow.styles.css';
 import Verse from '../../../Verse';
 // helpers
 import { verseString, verseArray } from '../../../helpers/verseHelpers';
+import { getFontClassName } from '../../../../common/fontUtils';
 
 class VerseRow extends Component {
   constructor(props) {
@@ -53,7 +54,8 @@ class VerseRow extends Component {
         const index = i;
 
         try {
-          const {
+          let {
+            font,
             bibleId,
             fontSize,
             languageId,
@@ -69,12 +71,20 @@ class VerseRow extends Component {
             paddingTop: '20px',
             borderRight: '1px solid var(--border-color)',
           };
+          const isTargetBible = bibleId === 'targetBible';
+          let fontClass = '';
+
+          if (isTargetBible) {
+            font = targetLanguageFont;
+            fontClass = getFontClassName (targetLanguageFont);
+          } else if (font) {
+            fontClass = getFontClassName(font);
+          }
 
           if (typeof verseData === 'string') { // if the verse content is string.
-            const isTargetBible = bibleId === 'targetBible';
-            verseElements = verseString(verseData, selections, translate, null, isTargetBible, targetLanguageFont);
+            verseElements = verseString(verseData, selections, translate, null, isTargetBible, fontClass);
           } else if (verseData) { // else the verse content is an array of verse objects.
-            verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+            verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
           }
 
           if (fontSize) {
@@ -89,6 +99,7 @@ class VerseRow extends Component {
                 translate={translate}
                 verseText={verseText}
                 direction={direction}
+                fontClass={fontClass}
                 onEdit={this.handleEdit}
                 verse={currentVerseNumber}
                 verseElements={verseElements}
