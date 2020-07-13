@@ -4,16 +4,23 @@ import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import ThreeDotIcon from '../../ThreeDotIcon';
 import FontSizeSlider from '../../FontSizeSlider';
 import DropdownMenu, { MenuItem } from '../../DropdownMenu';
+import FontSelectionMenu from '../../FontSelectionMenu';
 
 function ThreeDotMenu({
+  font,
   index,
   fontSize,
   removePane,
   anchorOrigin,
+  isTargetBible,
   transformOrigin,
+  selectFontLabel,
+  complexScriptFonts,
   changePaneFontSize,
+  changePaneFontType,
   removeResourceLabel,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -52,13 +59,29 @@ function ThreeDotMenu({
             display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
           }}
         >
-          <RemoveCircle />
+          <RemoveCircle style={{ fontSize: '20px' }}/>
           <div style={{ margin: '0px 10px', color: '#000000' }}>
             {removeResourceLabel}
           </div>
         </MenuItem>
-        <MenuItem disableOnClick>
+        <MenuItem disableOnClick divider>
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
+        </MenuItem>
+        <MenuItem
+          disableOnClick
+          title={selectFontLabel}
+          style={{ padding: '0px', margin: '0px' }}
+        >
+          <FontSelectionMenu
+            paneIndex={index}
+            currentFont={font || ''}
+            isTargetBible={isTargetBible}
+            handleCloseParent={handleClose}
+            selectFontLabel={selectFontLabel}
+            changePaneFontType={changePaneFontType}
+            addObjectPropertyToManifest={addObjectPropertyToManifest}
+            complexScriptFonts={complexScriptFonts}
+          />
         </MenuItem>
       </DropdownMenu>
     </>
@@ -73,11 +96,17 @@ ThreeDotMenu.defaultProps = {
 ThreeDotMenu.propTypes = {
   fontSize: PropTypes.number,
   anchorOrigin: PropTypes.object,
+  font: PropTypes.string.isRequired,
   transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
   removePane: PropTypes.func.isRequired,
+  isTargetBible: PropTypes.bool.isRequired,
+  selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
 };
 

@@ -61,7 +61,7 @@ function FontSizeSlider({
 
   return (
     <Grid container spacing={2} alignItems='center'>
-      <Grid item onClick={handleDecrease} className={{ root: classes.gridItem }}>
+      <Grid item onClick={handleDecrease} classes={{ root: classes.gridItem }}>
         <Glyphicon
           glyph='font'
           className={classes.smallFont}
@@ -84,7 +84,7 @@ function FontSizeSlider({
           value={typeof value === 'number' ? value : min}
         />
       </Grid>
-      <Grid item onClick={handleIncrease} className={{ root: classes.gridItem }}>
+      <Grid item onClick={handleIncrease} classes={{ root: classes.gridItem }}>
         <Glyphicon
           glyph='font'
           className={classes.largeFont}

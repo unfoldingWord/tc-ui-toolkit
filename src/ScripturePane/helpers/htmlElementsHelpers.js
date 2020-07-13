@@ -30,25 +30,25 @@ export const onWordClick = (e, word, getLexiconData, showPopover, translate, isH
   }
 };
 
-export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighlightedWord, text) => (
+export const createNonClickableSpan = (index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass) => (
   <span key={index.toString()}>
-    <span style={paddingSpanStyle}>
+    <span className={fontClass} style={paddingSpanStyle}>
       {padding}
     </span>
-    <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
+    <span className={fontClass} style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
       {removeMarker(text)}
     </span>
   </span>
 );
 
-export const createTextSpan = (index, text) => (
-  <span key={index}>
+export const createTextSpan = (index, text, fontClass) => (
+  <span key={index} className={fontClass}>
     {removeMarker(text)}
   </span>
 );
 
-export const createHighlightedSpan = (index, text) => (
-  <span key={index} style={{ backgroundColor: 'var(--highlight-color)' }}>
+export const createHighlightedSpan = (index, text, fontClass) => (
+  <span key={index} className={fontClass} style={{ backgroundColor: 'var(--highlight-color)' }}>
     {removeMarker(text)}
   </span>
 );

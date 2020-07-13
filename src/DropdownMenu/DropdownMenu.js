@@ -38,8 +38,11 @@ DropdownMenu.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([
-    PropTypes.node.isRequired,
-    PropTypes.bool.isRequired,
+    PropTypes.node,
+    PropTypes.bool,
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.element,
   ]),
 };
 
@@ -79,8 +82,8 @@ MenuItem.propTypes = {
   style: PropTypes.object,
   title: PropTypes.string,
   divider: PropTypes.bool,
-  disableOnClick: PropTypes.bool,
   onClick: PropTypes.func,
+  disableOnClick: PropTypes.bool,
   children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([
     PropTypes.node.isRequired,

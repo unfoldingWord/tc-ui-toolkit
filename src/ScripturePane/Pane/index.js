@@ -22,6 +22,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
   const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
+  const paneSubtitleClassName = fontClass ? `pane-subtitle-text hint--bottom hint--medium ${fontClass}` : `pane-subtitle-text hint--bottom hint--medium`;
 
   return (
     <div className="pane-title-container-content" style={styles}>
@@ -35,8 +36,8 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
         {
           ({ width }) => (
             <span
-              className='pane-subtitle-text hint--bottom hint--medium'
-              style={{ lineHeight: 2 }}
+              className={paneSubtitleClassName}
+              style={{ lineHeight: fontClass && fontClass.includes('Awami') ? 1 : 2, textAlign: isLTR ? 'left' : 'right' }}
               aria-label={localizedDescription}>
               {
                 localizedDescription.length > width / PANECHAR ?
@@ -62,27 +63,30 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
  * @return {*}
  */
 function TitleContainer({
+  font,
   index,
   isLTR,
   fontSize,
   fontClass,
   removePane,
   headingText,
+  isTargetBible,
+  selectFontLabel,
   changePaneFontSize,
+  changePaneFontType,
+  complexScriptFonts,
   removeResourceLabel,
   localizedDescription,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) {
   if (isLTR) {
     return <>
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
       <ThreeDotMenu
+        font={font}
         index={index}
         fontSize={fontSize}
-        removePane={removePane}
-        changePaneFontSize={changePaneFontSize}
-        removeResourceLabel={removeResourceLabel}
-        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -91,24 +95,40 @@ function TitleContainer({
           vertical: 'top',
           horizontal: 'left',
         }}
+        removePane={removePane}
+        isTargetBible={isTargetBible}
+        selectFontLabel={selectFontLabel}
+        complexScriptFonts={complexScriptFonts}
+        changePaneFontSize={changePaneFontSize}
+        changePaneFontType={changePaneFontType}
+        removeResourceLabel={removeResourceLabel}
+        clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
     </>;
   } else { // arrange rtl
     return <>
       <ThreeDotMenu
+        font={font}
         index={index}
         fontSize={fontSize}
         removePane={removePane}
+        isTargetBible={isTargetBible}
+        selectFontLabel={selectFontLabel}
         changePaneFontSize={changePaneFontSize}
+        changePaneFontType={changePaneFontType}
+        complexScriptFonts={complexScriptFonts}
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+        addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
     </>;
   }
 }
 
 const Pane = ({
+  font,
   index,
   verse,
   chapter,
@@ -121,9 +141,14 @@ const Pane = ({
   description,
   languageName,
   verseElements,
+  isTargetBible,
+  selectFontLabel,
   changePaneFontSize,
+  changePaneFontType,
+  complexScriptFonts,
   removeResourceLabel,
   clickToRemoveResourceLabel,
+  addObjectPropertyToManifest,
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
@@ -136,16 +161,22 @@ const Pane = ({
     <div className="pane-container">
       <div className={isLTR_ ? 'pane-title-container-rtl' : 'pane-title-container-ltr'}>
         <TitleContainer
+          font={font}
           index={index}
           isLTR={isLTR_}
           fontSize={fontSize}
           fontClass={fontClass}
           removePane={removePane}
           headingText={headingText}
+          isTargetBible={isTargetBible}
+          selectFontLabel={selectFontLabel}
+          complexScriptFonts={complexScriptFonts}
           changePaneFontSize={changePaneFontSize}
+          changePaneFontType={changePaneFontType}
           removeResourceLabel={removeResourceLabel}
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
+          addObjectPropertyToManifest={addObjectPropertyToManifest}
         />
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
@@ -155,6 +186,7 @@ const Pane = ({
           chapter={chapter}
           translate={translate}
           direction={direction}
+          fontClass={fontClass}
           verseElements={verseElements}
         />
       </div>
@@ -165,6 +197,7 @@ const Pane = ({
 Pane.propTypes = {
   fontSize: PropTypes.number,
   fontClass: PropTypes.string,
+  font: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   verse: PropTypes.number.isRequired,
   bibleId: PropTypes.string.isRequired,
@@ -172,10 +205,15 @@ Pane.propTypes = {
   translate: PropTypes.func.isRequired,
   removePane: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
+  isTargetBible: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   languageName: PropTypes.string.isRequired,
+  selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
+  changePaneFontType: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,
