@@ -48,7 +48,6 @@ export function MenuItem({
   title,
   divider,
   onClick,
-  onHover,
   children,
   disableOnClick,
 }) {
@@ -68,7 +67,7 @@ export function MenuItem({
 
   return (
     <>
-      <div style={menuItemStyle} onClick={handleOnClick} title={title} onHover={onHover}>
+      <div style={menuItemStyle} onClick={handleOnClick} title={title}>
         {children}
       </div>
       {divider && <hr style={{ margin: '4px 4px 0' }} />}
@@ -80,7 +79,6 @@ MenuItem.propTypes = {
   style: PropTypes.object,
   title: PropTypes.string,
   divider: PropTypes.bool,
-  onHover: PropTypes.func,
   onClick: PropTypes.func,
   disableOnClick: PropTypes.bool,
   children: PropTypes.node.isRequired,
