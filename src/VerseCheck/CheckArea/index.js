@@ -102,7 +102,7 @@ const CheckArea = ({
           invalidated={invalidated}
           nothingToSelect={nothingToSelect}
           targetLanguageFont={targetLanguageFont}
-          languageDirection={targetLanguageDirection}
+          targetLanguageDirection={targetLanguageDirection}
         />
       </div>
     );
