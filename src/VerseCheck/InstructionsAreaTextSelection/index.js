@@ -34,24 +34,25 @@ const InstructionsAreaTextSelection = ({
   verseText,
   selections,
   targetLanguageFont,
+  languageDirection,
 }) => {
   const fontClass = getFontClassName(targetLanguageFont);
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
-      <SelectedText>
+      <strong style={{ color: 'var(--accent-color)', direction: languageDirection }}>
         <span className={fontClass}>{selections[0].text.trim()}</span>
         <strong className={fontClass} style={{ color: 'var(--accent-color)' }}>
           {` ${ELLIPSIS} `}
         </strong>
         <span className={fontClass}>{selections[selections.length - 1].text.trim()}</span>
-      </SelectedText>
+      </strong>
     );
   } else {
     return (
-      <SelectedText>
+      <strong style={{ color: 'var(--accent-color)', direction: languageDirection }}>
         {getSelectionSpans(selections, targetLanguageFont)}
-      </SelectedText>
+      </strong>
     );
   }
 };
@@ -60,6 +61,9 @@ InstructionsAreaTextSelection.propTypes = {
   selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
   targetLanguageFont: PropTypes.string,
+  languageDirection: PropTypes.string,
 };
+
+InstructionsAreaTextSelection.defaultProps = { languageDirection: 'ltr' };
 
 export default InstructionsAreaTextSelection;
