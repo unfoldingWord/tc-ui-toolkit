@@ -113,7 +113,7 @@ FontSelectionMenu.propTypes = {
   selectFontLabel: PropTypes.string.isRequired,
   handleCloseParent: PropTypes.func.isRequired,
   changePaneFontType: PropTypes.func.isRequired,
-  complexScriptFonts: PropTypes.array.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,
 };
 
