@@ -228,7 +228,7 @@ ScripturePane.propTypes = {
   getLexiconData: PropTypes.func.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
   setToolSettings: PropTypes.func.isRequired,
-  complexScriptFonts: PropTypes.array.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,

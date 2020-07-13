@@ -38,8 +38,11 @@ DropdownMenu.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   anchorEl: PropTypes.oneOfType([
-    PropTypes.node.isRequired,
-    PropTypes.bool.isRequired,
+    PropTypes.node,
+    PropTypes.bool,
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.element,
   ]),
 };
 

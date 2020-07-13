@@ -71,7 +71,7 @@ function Panes({
       panes.push(
         <Pane
           key={index.toString()}
-          font={font}
+          font={font || ''}
           index={index}
           verse={verse}
           chapter={chapter}
@@ -113,7 +113,7 @@ Panes.propTypes = {
   projectManifest: PropTypes.object.isRequired,
   changePaneFontType: PropTypes.func.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
-  complexScriptFonts: PropTypes.array.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,
 };

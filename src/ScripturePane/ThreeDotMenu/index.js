@@ -104,7 +104,7 @@ ThreeDotMenu.propTypes = {
   selectFontLabel: PropTypes.string.isRequired,
   changePaneFontSize: PropTypes.func.isRequired,
   changePaneFontType: PropTypes.func.isRequired,
-  complexScriptFonts: PropTypes.array.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
   removeResourceLabel: PropTypes.string.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
