@@ -40,19 +40,19 @@ const InstructionsAreaTextSelection = ({
 
   if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
     return (
-      <strong style={{ color: 'var(--accent-color)', direction: languageDirection }}>
+      <div style={{ color: 'var(--accent-color)', direction: languageDirection }}>
         <span className={fontClass}>{selections[0].text.trim()}</span>
         <strong className={fontClass} style={{ color: 'var(--accent-color)' }}>
           {` ${ELLIPSIS} `}
         </strong>
         <span className={fontClass}>{selections[selections.length - 1].text.trim()}</span>
-      </strong>
+      </div>
     );
   } else {
     return (
-      <strong style={{ color: 'var(--accent-color)', direction: languageDirection }}>
+      <div style={{ color: 'var(--accent-color)', direction: languageDirection }}>
         {getSelectionSpans(selections, targetLanguageFont)}
-      </strong>
+      </div>
     );
   }
 };
