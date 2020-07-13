@@ -39,7 +39,7 @@ const CheckArea = ({
   changeSelectionsInLocalState,
 }) => {
   let modeArea;
-  const { direction: languageDirection = 'ltr' } = targetLanguageDetails || {};
+  const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
   switch (mode) {
   case 'edit':
@@ -53,7 +53,7 @@ const CheckArea = ({
         handleTagsCheckbox={handleTagsCheckbox}
         handleEditVerse={handleEditVerse}
         checkIfVerseChanged={checkIfVerseChanged}
-        languageDirection={languageDirection}
+        languageDirection={targetLanguageDirection}
         translate={translate}
         targetLanguageFont={targetLanguageFont}
         targetLanguageFontSize={`${fontSize}%`}
@@ -83,6 +83,7 @@ const CheckArea = ({
           translate={translate}
           invalidated={invalidated}
           targetLanguageFont={targetLanguageFont}
+          targetLanguageDirection={targetLanguageDirection}
         />
       </div>);
     break;
@@ -101,6 +102,7 @@ const CheckArea = ({
           invalidated={invalidated}
           nothingToSelect={nothingToSelect}
           targetLanguageFont={targetLanguageFont}
+          targetLanguageDirection={targetLanguageDirection}
         />
       </div>
     );

@@ -38,6 +38,7 @@ const InstructionsArea = ({
   nothingToSelect,
   targetLanguageFont,
   dontShowTranslation,
+  targetLanguageDirection,
 }) => {
   if (!verseText) {
     return (
@@ -95,6 +96,7 @@ const InstructionsArea = ({
           selections={selections}
           verseText={verseText}
           targetLanguageFont={targetLanguageFont}
+          languageDirection={targetLanguageDirection}
         />
       </span>
     </div>
@@ -111,6 +113,9 @@ InstructionsArea.propTypes = {
   invalidated: PropTypes.bool,
   nothingToSelect: PropTypes.bool,
   targetLanguageFont: PropTypes.string,
+  targetLanguageDirection: PropTypes.string,
 };
+
+InstructionsArea.defaultProps = { targetLanguageDirection: 'ltr' };
 
 export default InstructionsArea;
