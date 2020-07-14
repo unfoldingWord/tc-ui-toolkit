@@ -193,7 +193,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                  
                 <textarea
                   autoFocus={true}
-                  className="form-control"
+                  className="default-text form-control"
                   defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
 \\\\s5
 "
