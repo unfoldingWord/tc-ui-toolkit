@@ -9,17 +9,28 @@ export default function DropdownMenu({
   anchorEl,
   children,
   anchorOrigin,
+  anchorPosition,
   transformOrigin,
 }) {
+  const props = {
+    open,
+    onClose,
+    style: { ...style },
+    anchorOrigin,
+    transformOrigin,
+  };
+
+  const useAbsolutePositioning = !!anchorPosition;
+
+  if (useAbsolutePositioning) {
+    props.anchorReference = 'anchorPosition';
+    props.anchorPosition = anchorPosition;
+  } else { // position relative to another component
+    props.anchorEl = anchorEl;
+  }
+
   return (
-    <Popover
-      open={open}
-      onClose={onClose}
-      style={{ ...style }}
-      anchorEl={anchorEl}
-      anchorOrigin={anchorOrigin}
-      transformOrigin={transformOrigin}
-    >
+    <Popover {...props}>
       {children}
     </Popover>
   );
@@ -44,6 +55,7 @@ DropdownMenu.propTypes = {
     PropTypes.object,
     PropTypes.element,
   ]),
+  anchorPosition: PropTypes.object,
 };
 
 export function MenuItem({
