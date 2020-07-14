@@ -44,6 +44,27 @@ const FontSelectionMenu = ({
     handleCloseParent();
   };
 
+  const getFontList = (isHebrew) => {
+    // add all complex script fonts to font list
+    const fontList = Object.keys(complexScriptFonts).map((fontName) => ({
+      key: `${fontName}-font-menu-item`,
+      value: complexScriptFonts[fontName].font,
+      primaryText: fontName,
+      selected: currentFont === complexScriptFonts[fontName].font,
+    }));
+
+    // add default font
+    fontList.push({
+      key: 'NotoSans-font-menu-item',
+      value: 'default',
+      primaryText: isHebrew ? 'Ezra (Default)' : 'Noto Sans (Default)',
+      selected: currentFont === '' || currentFont === 'default',
+    });
+
+    // return sorted font list
+    return fontList.sort((a, b) => a.primaryText < b.primaryText ? -1 : 1);
+  };
+
   return (
     <>
       <div
@@ -72,34 +93,22 @@ const FontSelectionMenu = ({
         open={Boolean(anchorEl)}
         classes={{ paper: classes.menu }}
       >
-        <MenuItem
-          key='NotoSans-font-menu-item'
-          selected={currentFont === '' || currentFont === 'default'}
-          classes={{
-            root: classes.menuItem,
-            selected: classes.menuItemSelected,
-          }}
-          onClick={() => handleMenuItemClick('default')}
-        >
-          {'Noto Sans (Default)'}
-        </MenuItem>
         {
-          Object.keys(complexScriptFonts).map((fontName) => {
-            const font = complexScriptFonts[fontName].font;
-            return (
-              <MenuItem
-                selected={currentFont === font}
-                key={`${fontName}-font-menu-item`}
-                classes={{
-                  root: classes.menuItem,
-                  selected: classes.menuItemSelected,
-                }}
-                onClick={() => handleMenuItemClick(font)}
-              >
-                {fontName}
-              </MenuItem>
-            );
-          })
+          getFontList().map(({
+            key, value, selected, primaryText,
+          }) => (
+            <MenuItem
+              key={key}
+              selected={selected}
+              classes={{
+                root: classes.menuItem,
+                selected: classes.menuItemSelected,
+              }}
+              onClick={() => handleMenuItemClick(value)}
+            >
+              {primaryText}
+            </MenuItem>
+          ))
         }
       </Menu>
     </>
