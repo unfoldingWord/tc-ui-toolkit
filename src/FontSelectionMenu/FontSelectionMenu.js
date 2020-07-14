@@ -69,7 +69,7 @@ const FontSelectionMenu = ({
     return fontList.sort((a, b) => a.primaryText < b.primaryText ? -1 : 1);
   };
 
-  console.log('inView 1', inView);
+  console.log('inView 1 trigger', inView);
 
   return (
     <>
