@@ -96,6 +96,7 @@ const FontSelectionMenu = ({
       </div>
       <Menu
         ref={ref}
+        variant='menu'
         id='simple-menu'
         anchorEl={anchorEl}
         onClose={handleClose}
