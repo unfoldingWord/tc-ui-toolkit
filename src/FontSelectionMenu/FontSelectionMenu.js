@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   // menu: { marginLeft: '180px' },
-  menu: { margin: '180px 0px 0px 38px' },
+  menu: { margin: '47px 0px 0px 38px' },
   menuItem: { fontSize: '14px', width: '150px' },
   menuItemSelected: { color: '#FF4081' },
 });
