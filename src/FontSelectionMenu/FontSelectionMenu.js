@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import ArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { makeStyles } from '@material-ui/core/styles';
-// import { useInView } from 'react-intersection-observer';
 
 const useStyles = makeStyles({
-  // menu: { marginLeft: '180px' },
   menu: { margin: '47px 0px 0px 38px' },
   menuItem: { fontSize: '14px', width: '150px' },
   menuItemSelected: { color: '#FF4081' },
@@ -27,9 +24,6 @@ const FontSelectionMenu = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  // const [ref, inView] = useInView({
-  //   threshold: 1, triggerOnce: true, rootMargin: '180px 0px 0px 0px',
-  // });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,8 +65,6 @@ const FontSelectionMenu = ({
     return fontList.sort((a, b) => a.primaryText < b.primaryText ? -1 : 1);
   };
 
-  // console.log('inView 1 trigger', inView);
-
   return (
     <>
       <div
@@ -95,7 +87,6 @@ const FontSelectionMenu = ({
         <ArrowDownIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
       </div>
       <Menu
-        // ref={ref}
         variant='menu'
         id='simple-menu'
         anchorEl={anchorEl}
