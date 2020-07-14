@@ -97,7 +97,7 @@ const EditVerseArea = ({
     />,
   );
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
-  const fontClass = getFontClassName(targetLanguageFont);
+  const fontClass = getFontClassName(targetLanguageFont) || 'default-text';
 
   return (
     <div className='edit-area'>
