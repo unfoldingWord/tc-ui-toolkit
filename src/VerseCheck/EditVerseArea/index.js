@@ -97,7 +97,7 @@ const EditVerseArea = ({
     />,
   );
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
-  const fontClass = getFontClassName(targetLanguageFont) || 'default-text'; // TRICKY defaulting to the 'default-text' here class prevents 'form-control' class from resetting font-size to 14px
+  const fontClass = getFontClassName(targetLanguageFont) || 'default-text'; // TRICKY defaulting to the 'default-text' class prevents 'form-control' class from resetting font-size to 14px
 
   return (
     <div className='edit-area'>
