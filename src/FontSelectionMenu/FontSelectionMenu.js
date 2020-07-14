@@ -27,7 +27,7 @@ const FontSelectionMenu = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ref, inView] = useInView({ threshold: 1 });
+  const [ref, inView] = useInView({ threshold: 1, triggerOnce: true });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
