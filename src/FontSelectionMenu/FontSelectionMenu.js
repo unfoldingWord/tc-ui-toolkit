@@ -90,7 +90,7 @@ const FontSelectionMenu = ({
         <div style={{ margin: '0px 5px', color: '#000000' }}>
           {selectFontLabel}
         </div>
-        {inView ? <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>}
+        <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
       </div>
       <Menu
         ref={ref}
