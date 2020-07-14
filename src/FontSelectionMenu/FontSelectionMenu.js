@@ -27,7 +27,7 @@ const FontSelectionMenu = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ref, inView] = useInView({ threshold: 0.90 });
+  const [ref, inView] = useInView({ threshold: 1 });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,7 +69,7 @@ const FontSelectionMenu = ({
     return fontList.sort((a, b) => a.primaryText < b.primaryText ? -1 : 1);
   };
 
-  console.log('inView', inView);
+  console.log('inView 1', inView);
 
   return (
     <>
