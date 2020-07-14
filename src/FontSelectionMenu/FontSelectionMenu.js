@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
+// import ArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { makeStyles } from '@material-ui/core/styles';
 import { useInView } from 'react-intersection-observer';
 
@@ -26,7 +27,7 @@ const FontSelectionMenu = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ref, inView] = useInView({ threshold: 0 });
+  const [ref, inView] = useInView({ threshold: 0.90 });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -89,7 +90,7 @@ const FontSelectionMenu = ({
         <div style={{ margin: '0px 5px', color: '#000000' }}>
           {selectFontLabel}
         </div>
-        <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
+        {inView ? <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>}
       </div>
       <Menu
         ref={ref}
