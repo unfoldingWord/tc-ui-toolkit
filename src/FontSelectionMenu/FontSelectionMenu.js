@@ -73,7 +73,6 @@ const FontSelectionMenu = ({
   return (
     <>
       <div
-        ref={ref}
         onClick={handleClick}
         style={{
           display: 'flex',
@@ -93,6 +92,7 @@ const FontSelectionMenu = ({
         <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
       </div>
       <Menu
+        ref={ref}
         id='simple-menu'
         anchorEl={anchorEl}
         onClose={handleClose}
