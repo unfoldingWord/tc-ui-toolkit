@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
+import { useInView } from 'react-intersection-observer';
 
 const useStyles = makeStyles({
-  menu: { margin: '80px 0px 0px 38px' },
+  menu: { marginLeft: '180px' },
+  menuOutOfView: { margin: '180px 0px 0px 38px' },
   menuItem: { fontSize: '14px', width: '150px' },
   menuItemSelected: { color: '#FF4081' },
 });
@@ -24,6 +26,7 @@ const FontSelectionMenu = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [ref, inView] = useInView({ threshold: 0 });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -68,6 +71,7 @@ const FontSelectionMenu = ({
   return (
     <>
       <div
+        ref={ref}
         onClick={handleClick}
         style={{
           display: 'flex',
@@ -84,14 +88,14 @@ const FontSelectionMenu = ({
         <div style={{ margin: '0px 5px', color: '#000000' }}>
           {selectFontLabel}
         </div>
-        <ExpandMoreIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
+        <PlayArrowIcon style={{ color: '#b5b3b3', fontSize: '24px' }}/>
       </div>
       <Menu
         id='simple-menu'
         anchorEl={anchorEl}
         onClose={handleClose}
         open={Boolean(anchorEl)}
-        classes={{ paper: classes.menu }}
+        classes={{ paper: inView ? classes.menu : classes.menuOutOfView }}
       >
         {
           getFontList().map(({
