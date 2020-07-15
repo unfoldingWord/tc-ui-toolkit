@@ -325,10 +325,6 @@ class Menu extends React.Component {
     } = this.props;
     const normalizedStatusIcons = this.normalizeStatusIcons(statusIcons);
 
-    console.log('Menu ====================================');
-    console.log('targetLanguageFont', targetLanguageFont);
-    console.log('====================================');
-
     return (
       <MuiThemeProvider theme={theme}>
         <RootRef rootRef={this.menuRef}>
