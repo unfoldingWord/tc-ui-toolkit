@@ -12,23 +12,17 @@ export default function DropdownMenu({
   anchorPosition,
   transformOrigin,
 }) {
-  const props = {
-    open,
-    onClose,
-    style: { ...style },
-    anchorOrigin,
-    transformOrigin,
-  };
-
-  if (anchorPosition) { // use absolute positioning to specified coordinates
-    props.anchorReference = 'anchorPosition';
-    props.anchorPosition = anchorPosition;
-  } else { // position relative to another component
-    props.anchorEl = anchorEl;
-  }
-
   return (
-    <Popover {...props}>
+    <Popover
+      open={open}
+      onClose={onClose}
+      style={{ ...style }}
+      anchorEl={anchorEl}
+      anchorReference={anchorPosition ? 'anchorPosition' : null}
+      anchorPosition={anchorPosition || null}
+      anchorOrigin={anchorOrigin}
+      transformOrigin={transformOrigin}
+    >
       {children}
     </Popover>
   );
