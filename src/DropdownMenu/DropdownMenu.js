@@ -37,6 +37,7 @@ export default function DropdownMenu({
 DropdownMenu.defaultProps = {
   transformOrigin: { vertical: 'top', horizontal: 'left' },
   anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+  anchorPosition: null,
 };
 
 DropdownMenu.propTypes = {
