@@ -20,9 +20,7 @@ export default function DropdownMenu({
     transformOrigin,
   };
 
-  const useAbsolutePositioning = !!anchorPosition;
-
-  if (useAbsolutePositioning) {
+  if (anchorPosition) { // use absolute positioning to specified coordinates
     props.anchorReference = 'anchorPosition';
     props.anchorPosition = anchorPosition;
   } else { // position relative to another component
