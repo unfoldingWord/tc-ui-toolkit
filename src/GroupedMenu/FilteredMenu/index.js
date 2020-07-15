@@ -163,13 +163,4 @@ FilteredMenu.propTypes = {
 
 FilteredMenu.defaultProps = { emptyNotice: 'No results found' };
 
-/**
- * Custom comparison function to determine if component should rerender.
- * @param {object} prevProps
- * @param {object} nextProps
- */
-function areEqual(prevProps, nextProps) {
-  return prevProps.targetLanguageFont === nextProps.targetLanguageFont;
-}
-
-export default React.memo(FilteredMenu, areEqual);
+export default React.memo(FilteredMenu);
