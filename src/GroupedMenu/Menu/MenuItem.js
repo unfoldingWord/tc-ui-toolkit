@@ -267,7 +267,11 @@ class MenuItem extends React.Component {
     // TRICKY: we should technically check for an update to statusIcons
     // however that is not a known use case and it's faster to ignore it.
     const {
-      title, key, selected, status,
+      key,
+      title,
+      status,
+      selected,
+      targetLanguageFont,
     } = this.props;
     const { overflow } = this.state;
     return (
@@ -275,6 +279,7 @@ class MenuItem extends React.Component {
       title !== nextProps.title ||
       key !== nextProps.key ||
       selected !== nextProps.selected ||
+      targetLanguageFont !== nextProps.targetLanguageFont ||
       !_.isEqual(status, nextProps.status)
     );
   }
