@@ -301,10 +301,13 @@ class MenuItem extends React.Component {
       tooltip,
       classes,
       selected,
+      direction,
       statusIcons,
       targetLanguageFont,
-      direction,
     } = this.props;
+    console.log('====================================');
+    console.log('MenuItem targetLanguageFont', targetLanguageFont);
+    console.log('====================================');
     const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
