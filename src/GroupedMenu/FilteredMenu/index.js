@@ -111,6 +111,9 @@ class FilteredMenu extends React.Component {
     const normalizedFilters = this.normalizeFilters(filters);
     const filteredEntries = this.filter(entries, selectedFilters);
 
+    console.log('====================================');
+    console.log('FilteredMenu targetLanguageFont', targetLanguageFont);
+    console.log('====================================');
     // fallback to filter icons
     const menuStatusIcons = statusIcons !== undefined ? statusIcons : filters;
 
