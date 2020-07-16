@@ -358,14 +358,14 @@ class MenuItem extends React.Component {
               tooltipPlacementTop: classes.bootstrapPlacementTop,
               tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
-            PopperProps={{
-              modifiers: {
-                offset: {
-                  enabled: true,
-                  offset: "0px, -10px"
-                }
-              },
-            }}
+            {/*PopperProps={{*/}
+            {/*  modifiers: {*/}
+            //     offset: {
+            //       enabled: true,
+            //       offset: "0px, -10px",
+            //     }
+            //   },
+            // }}
           >
             <ListItemText
               inset={!icon}
