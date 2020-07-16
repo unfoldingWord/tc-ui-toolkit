@@ -123,7 +123,6 @@ const styles = {
   },
   arrowPopper: arrowGenerator('#fff'),
   arrow: {
-    'position': 'absolute',
     'fontSize': 7,
     'width': '3em',
     'height': '3em',
@@ -131,10 +130,18 @@ const styles = {
       content: '""',
       margin: 'auto',
       display: 'block',
+      backgroundColor: '#fff',
       width: 0,
       height: 0,
       borderStyle: 'solid',
     },
+    // fontSize: 16,
+    // width: 17,
+    // "&::before": {
+    //   border: "1px solid #000",
+    //   backgroundColor: "#fff",
+    //   boxSizing: "border-box"
+    // }
   },
   bootstrapPopper: arrowGenerator('#000'),
   bootstrapTooltip: { backgroundColor: '#000' },
