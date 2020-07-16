@@ -121,7 +121,7 @@ const styles = {
     color: '#333333',
     boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
   },
-  arrowPopper: arrowGenerator('#fff'),
+  // arrowPopper: arrowGenerator('#fff'),
   arrow: {
     'position': 'absolute',
     'fontSize': 7,
@@ -352,22 +352,20 @@ class MenuItem extends React.Component {
             disableTouchListener={!overflow}
             classes={{
               tooltip: classes.lightTooltip,
-              // popper: classes.arrowPopper,
+              popper: classes.arrow,
               tooltipPlacementLeft: classes.bootstrapPlacementLeft,
               tooltipPlacementRight: classes.bootstrapPlacementRight,
               tooltipPlacementTop: classes.bootstrapPlacementTop,
               tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
-            // PopperProps={{
-            //   popperOptions: {
-            //     modifiers: {
-            //       arrow: {
-            //         enabled: Boolean(this.state.arrowRef),
-            //         element: this.state.arrowRef,
-            //       },
-            //     },
-            //   },
-            // }}
+            PopperProps={{
+              modifiers: {
+                offset: {
+                  enabled: true,
+                  offset: "0px, -10px"
+                }
+              },
+            }}
           >
             <ListItemText
               inset={!icon}
