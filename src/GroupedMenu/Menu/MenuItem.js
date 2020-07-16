@@ -340,11 +340,12 @@ class MenuItem extends React.Component {
         <RootRef rootRef={this.listItemTextRef}>
           <Tooltip
             enterDelay={300}
+            arrow
             title={
-              <React.Fragment>
-                <div className={fontClass} style={toolTipStyle}>{tooltipText}</div>
-                <span className={classes.arrow} ref={this.handleArrowRef}/>
-              </React.Fragment>
+              // <React.Fragment>
+              <div className={fontClass} style={toolTipStyle}>{tooltipText}</div>
+              //   <span className={classes.arrow} ref={this.handleArrowRef}/>
+              // </React.Fragment>
             }
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
@@ -357,16 +358,16 @@ class MenuItem extends React.Component {
               tooltipPlacementTop: classes.bootstrapPlacementTop,
               tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
-            PopperProps={{
-              popperOptions: {
-                modifiers: {
-                  arrow: {
-                    enabled: Boolean(this.state.arrowRef),
-                    element: this.state.arrowRef,
-                  },
-                },
-              },
-            }}
+            // PopperProps={{
+            //   popperOptions: {
+            //     modifiers: {
+            //       arrow: {
+            //         enabled: Boolean(this.state.arrowRef),
+            //         element: this.state.arrowRef,
+            //       },
+            //     },
+            //   },
+            // }}
           >
             <ListItemText
               inset={!icon}

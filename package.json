@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "5.3.0",
+  "version": "5.3.1-alpha",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "lib/index.js",
   "display": "library",
