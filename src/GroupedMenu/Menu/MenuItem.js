@@ -123,9 +123,9 @@ const styles = {
   },
   arrowPopper: arrowGenerator('#fff'),
   arrow: {
-    // 'fontSize': 7,
-    // 'width': '3em',
-    // 'height': '3em',
+    'fontSize': 7,
+    'width': '3em',
+    'height': '3em',
     // '&::before': {
     //   content: '""',
     //   margin: 'auto',
@@ -135,8 +135,8 @@ const styles = {
     //   height: 0,
     //   borderStyle: 'solid',
     // },
-    'fontSize': 16,
-    'width': 17,
+    // 'fontSize': 16,
+    // 'width': 17,
     '&::before': {
       border: '1px solid #000',
       backgroundColor: '#fff',
@@ -357,7 +357,7 @@ class MenuItem extends React.Component {
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
             disableTouchListener={!overflow}
-            placement={'left'}
+            placement={'bottom-start'}
             classes={{
               tooltip: classes.lightTooltip,
               arrow: classes.arrow,
