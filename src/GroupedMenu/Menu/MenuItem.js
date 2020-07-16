@@ -360,10 +360,10 @@ class MenuItem extends React.Component {
             classes={{
               tooltip: classes.lightTooltip,
               arrow: classes.arrow,
-              // tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-              // tooltipPlacementRight: classes.bootstrapPlacementRight,
-              // tooltipPlacementTop: classes.bootstrapPlacementTop,
-              // tooltipPlacementBottom: classes.bootstrapPlacementBottom,
+              tooltipPlacementLeft: classes.bootstrapPlacementLeft,
+              tooltipPlacementRight: classes.bootstrapPlacementRight,
+              tooltipPlacementTop: classes.bootstrapPlacementTop,
+              tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
             // PopperProps={{
             //   popperOptions: {
