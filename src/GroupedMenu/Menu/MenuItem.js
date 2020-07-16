@@ -244,7 +244,7 @@ class MenuItem extends React.Component {
       return (
         <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
           <LightTooltip
-            placement="bottom-end"
+            placement="right"
             title={
               <React.Fragment>
                 {icons.map((i, key) =>
