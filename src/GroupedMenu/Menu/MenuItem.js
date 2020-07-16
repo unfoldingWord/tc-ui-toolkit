@@ -290,7 +290,7 @@ class MenuItem extends React.Component {
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
             disableTouchListener={!overflow}
-            placement={'right'}
+            placement={'bottom-start'}
             classes={{
               tooltip: classes.lightTooltip,
               arrow: classes.arrow,
