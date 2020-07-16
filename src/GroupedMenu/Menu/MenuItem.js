@@ -80,11 +80,6 @@ const styles = {
       boxSizing: 'border-box',
     },
   },
-  bootstrapTooltip: { backgroundColor: '#000' },
-  bootstrapPlacementLeft: { margin: '0 8px' },
-  bootstrapPlacementRight: { margin: '0 8px' },
-  bootstrapPlacementTop: { margin: '8px 40px' },
-  bootstrapPlacementBottom: { margin: '8px 40px' },
   listItemIconRoot: { minWidth: '0px' },
 };
 
@@ -294,10 +289,6 @@ class MenuItem extends React.Component {
             classes={{
               tooltip: classes.lightTooltip,
               arrow: classes.arrow,
-              // tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-              // tooltipPlacementRight: classes.bootstrapPlacementRight,
-              // tooltipPlacementTop: classes.bootstrapPlacementTop,
-              // tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
           >
             <ListItemText
