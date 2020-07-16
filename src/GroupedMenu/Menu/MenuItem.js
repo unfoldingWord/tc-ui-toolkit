@@ -13,56 +13,6 @@ import { getFontClassName } from '../../common/fontUtils';
 import { isLTR } from '../..';
 
 /**
- * Utility to generate styles for a tooltip arrow
- */
-function arrowGenerator(color) {
-  return {
-    '&[x-placement*="bottom"] $arrow': {
-      'top': 0,
-      'left': 0,
-      'marginTop': '-0.9em',
-      'width': '3em',
-      'height': '1em',
-      '&::before': {
-        borderWidth: '0 1em 1em 1em',
-        borderColor: `transparent transparent ${color} transparent`,
-      },
-    },
-    '&[x-placement*="top"] $arrow': {
-      'bottom': 0,
-      'left': 0,
-      'marginBottom': '-0.9em',
-      'width': '3em',
-      'height': '1em',
-      '&::before': {
-        borderWidth: '1em 1em 0 1em',
-        borderColor: `${color} transparent transparent transparent`,
-      },
-    },
-    '&[x-placement*="right"] $arrow': {
-      'left': 0,
-      'marginLeft': '-0.9em',
-      'height': '3em',
-      'width': '1em',
-      '&::before': {
-        borderWidth: '1em 1em 1em 0',
-        borderColor: `transparent ${color} transparent transparent`,
-      },
-    },
-    '&[x-placement*="left"] $arrow': {
-      'right': 0,
-      'marginRight': '-0.9em',
-      'height': '3em',
-      'width': '1em',
-      '&::before': {
-        borderWidth: '1em 0 1em 1em',
-        borderColor: `transparent transparent transparent ${color}`,
-      },
-    },
-  };
-}
-
-/**
  * Utility to apply styles based on props
  */
 // const styledBy = (property, mapping) => props => mapping[props[property]];
@@ -121,20 +71,7 @@ const styles = {
     color: '#333333',
     boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
   },
-  arrowPopper: arrowGenerator('#fff'),
   arrow: {
-    // 'fontSize': 7,
-    // 'width': '3em',
-    // 'height': '3em',
-    // '&::before': {
-    //   content: '""',
-    //   margin: 'auto',
-    //   display: 'block',
-    //   backgroundColor: '#fff',
-    //   width: 0,
-    //   height: 0,
-    //   borderStyle: 'solid',
-    // },
     'fontSize': 16,
     'width': 17,
     '&::before': {
@@ -143,7 +80,6 @@ const styles = {
       boxSizing: 'border-box',
     },
   },
-  bootstrapPopper: arrowGenerator('#000'),
   bootstrapTooltip: { backgroundColor: '#000' },
   bootstrapPlacementLeft: { margin: '0 8px' },
   bootstrapPlacementRight: { margin: '0 8px' },
@@ -349,33 +285,20 @@ class MenuItem extends React.Component {
             enterDelay={300}
             arrow={true}
             title={
-              // <React.Fragment>
               <div className={fontClass} style={toolTipStyle}>{tooltipText}</div>
-              //   <span className={classes.arrow} ref={this.handleArrowRef}/>
-              // </React.Fragment>
             }
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
             disableTouchListener={!overflow}
-            placement={'bottom-start'}
+            placement={'right'}
             classes={{
               tooltip: classes.lightTooltip,
               arrow: classes.arrow,
-              tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-              tooltipPlacementRight: classes.bootstrapPlacementRight,
-              tooltipPlacementTop: classes.bootstrapPlacementTop,
-              tooltipPlacementBottom: classes.bootstrapPlacementBottom,
+              // tooltipPlacementLeft: classes.bootstrapPlacementLeft,
+              // tooltipPlacementRight: classes.bootstrapPlacementRight,
+              // tooltipPlacementTop: classes.bootstrapPlacementTop,
+              // tooltipPlacementBottom: classes.bootstrapPlacementBottom,
             }}
-            // PopperProps={{
-            //   popperOptions: {
-            //     modifiers: {
-            //       arrow: {
-            //         enabled: Boolean(this.state.arrowRef),
-            //         element: this.state.arrowRef,
-            //       },
-            //     },
-            //   },
-            // }}
           >
             <ListItemText
               inset={!icon}
