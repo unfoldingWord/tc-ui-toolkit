@@ -350,14 +350,14 @@ class MenuItem extends React.Component {
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
             disableTouchListener={!overflow}
-            classes={{
-              tooltip: classes.lightTooltip,
-              popper: classes.arrowPopper,
-              tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-              tooltipPlacementRight: classes.bootstrapPlacementRight,
-              tooltipPlacementTop: classes.bootstrapPlacementTop,
-              tooltipPlacementBottom: classes.bootstrapPlacementBottom,
-            }}
+            // classes={{
+            //   tooltip: classes.lightTooltip,
+            //   popper: classes.arrowPopper,
+            //   tooltipPlacementLeft: classes.bootstrapPlacementLeft,
+            //   tooltipPlacementRight: classes.bootstrapPlacementRight,
+            //   tooltipPlacementTop: classes.bootstrapPlacementTop,
+            //   tooltipPlacementBottom: classes.bootstrapPlacementBottom,
+            // }}
             // PopperProps={{
             //   popperOptions: {
             //     modifiers: {
