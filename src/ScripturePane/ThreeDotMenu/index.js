@@ -10,6 +10,7 @@ function ThreeDotMenu({
   font,
   index,
   fontSize,
+  isHebrew,
   removePane,
   anchorOrigin,
   isTargetBible,
@@ -74,6 +75,7 @@ function ThreeDotMenu({
         >
           <FontSelectionMenu
             paneIndex={index}
+            isHebrew={isHebrew}
             currentFont={font || ''}
             isTargetBible={isTargetBible}
             handleCloseParent={handleClose}
