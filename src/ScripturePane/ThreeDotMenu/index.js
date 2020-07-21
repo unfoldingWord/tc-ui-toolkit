@@ -101,6 +101,7 @@ ThreeDotMenu.propTypes = {
   font: PropTypes.string.isRequired,
   transformOrigin: PropTypes.object,
   index: PropTypes.number.isRequired,
+  isHebrew: PropTypes.bool.isRequired,
   removePane: PropTypes.func.isRequired,
   isTargetBible: PropTypes.bool.isRequired,
   selectFontLabel: PropTypes.string.isRequired,
