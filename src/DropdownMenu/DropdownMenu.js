@@ -9,6 +9,7 @@ export default function DropdownMenu({
   anchorEl,
   children,
   anchorOrigin,
+  anchorPosition,
   transformOrigin,
 }) {
   return (
@@ -17,6 +18,8 @@ export default function DropdownMenu({
       onClose={onClose}
       style={{ ...style }}
       anchorEl={anchorEl}
+      anchorReference={anchorPosition ? 'anchorPosition' : null}
+      anchorPosition={anchorPosition || null}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
     >
@@ -28,6 +31,7 @@ export default function DropdownMenu({
 DropdownMenu.defaultProps = {
   transformOrigin: { vertical: 'top', horizontal: 'left' },
   anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+  anchorPosition: null,
 };
 
 DropdownMenu.propTypes = {
@@ -44,6 +48,7 @@ DropdownMenu.propTypes = {
     PropTypes.object,
     PropTypes.element,
   ]),
+  anchorPosition: PropTypes.object,
 };
 
 export function MenuItem({
