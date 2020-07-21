@@ -67,6 +67,7 @@ function TitleContainer({
   index,
   isLTR,
   fontSize,
+  isHebrew,
   fontClass,
   removePane,
   headingText,
@@ -86,6 +87,7 @@ function TitleContainer({
       <ThreeDotMenu
         font={font}
         index={index}
+        isHebrew={isHebrew}
         fontSize={fontSize}
         anchorOrigin={{
           vertical: 'bottom',
@@ -112,6 +114,7 @@ function TitleContainer({
         font={font}
         index={index}
         fontSize={fontSize}
+        isHebrew={isHebrew}
         removePane={removePane}
         isTargetBible={isTargetBible}
         selectFontLabel={selectFontLabel}
@@ -156,6 +159,7 @@ const Pane = ({
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
   const verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
+  const isHebrew = (bibleId === 'uhb');
 
   return (
     <div className="pane-container">
@@ -164,6 +168,7 @@ const Pane = ({
           font={font}
           index={index}
           isLTR={isLTR_}
+          isHebrew={isHebrew}
           fontSize={fontSize}
           fontClass={fontClass}
           removePane={removePane}

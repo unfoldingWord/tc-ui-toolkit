@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 });
 
 const FontSelectionMenu = ({
+  isHebrew,
   paneIndex,
   currentFont,
   isTargetBible,
@@ -44,7 +45,7 @@ const FontSelectionMenu = ({
     handleCloseParent();
   };
 
-  const getFontList = (isHebrew) => {
+  const getFontList = () => {
     // add all complex script fonts to font list
     const fontList = Object.keys(complexScriptFonts).map((fontName) => ({
       key: `${fontName}-font-menu-item`,
@@ -117,6 +118,7 @@ const FontSelectionMenu = ({
 };
 
 FontSelectionMenu.propTypes = {
+  isHebrew: PropTypes.bool.isRequired,
   paneIndex: PropTypes.number.isRequired,
   currentFont: PropTypes.string.isRequired,
   isTargetBible: PropTypes.bool.isRequired,
