@@ -37,6 +37,7 @@ class EditScreen extends React.Component {
     const style_ = {
       ...style,
       textAlign: isLTR(direction) ? 'left' : 'right',
+      direction,
     };
     return (
       <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
