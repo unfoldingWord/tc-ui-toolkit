@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// helpers
-import { Glyphicon } from 'react-bootstrap';
 import { selectionArray, normalizeString } from '../helpers/selectionHelpers';
 import { occurrencesInString } from '../helpers/stringHelpers';
-// components
 import MyLanguageModal from '../MyLanguageModal';
+import ThreeDotMenu from '../ThreeDotMenu';
+import { getFontClassName } from '../../common/fontUtils';
+import {
+  getReferenceStr,
+  getTitleStr,
+  getTitleWithId,
+  isLTR,
+} from '../..';
 // styling
 import '../VerseCheck.styles.css';
+const NAMESPACE = 'CheckArea';
 
 class DefaultArea extends React.Component {
   constructor() {
@@ -18,11 +24,11 @@ class DefaultArea extends React.Component {
     };
   }
 
-  displayText(verseText, selections) {
+  displayText(verseText, selections, targetLanguageFontClassName) {
     const { validateSelections } = this.props;
     // normalize whitespace for text rendering in order to display highlights with more than one space since html selections show one space
     verseText = normalizeString(verseText);
-    let verseTextSpans = <span>{verseText}</span>;
+    let verseTextSpans = <span className={targetLanguageFontClassName}>{verseText}</span>;
 
     if (selections && selections.length > 0) {
       let _selectionArray = selectionArray(verseText, selections);
@@ -44,9 +50,9 @@ class DefaultArea extends React.Component {
         let style = selection.selected ? { backgroundColor: 'var(--highlight-color)' } : {};
 
         verseTextSpans.push(
-          <span key={index} style={style}>
+          <span key={index} className={targetLanguageFontClassName} style={style}>
             {selection.text}
-          </span>
+          </span>,
         );
       }
     }
@@ -65,43 +71,105 @@ class DefaultArea extends React.Component {
       selections,
       targetBible,
       bookDetails,
+      toolsSettings,
+      setToolSettings,
+      targetLanguageFont,
       targetLanguageDetails,
     } = this.props;
-    const { book, direction } = targetLanguageDetails;
+    const {
+      book,
+      direction,
+      id:languageCode,
+    } = targetLanguageDetails;
     const bookName = book && book.name ? book.name : bookDetails.name;
     const languageName = targetLanguageDetails.name || null;
-    const languageDirection = direction || null;
+    const languageStr = getTitleWithId(languageName, languageCode);
+    const refStr = getReferenceStr(reference.chapter, reference.verse);
+    const title = getTitleStr(bookName, refStr);
+    const isLTR_ = isLTR(direction);
+    const style = { display: 'flex', flexDirection: 'column' };
+    const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
+    const verseTitleClassName = targetLanguageFontClassName ? `verse-title-title ${targetLanguageFontClassName}` : 'verse-title-title';
+    const verseSubtitleClassName = targetLanguageFontClassName ? `verse-title-subtitle ${targetLanguageFontClassName}` : 'verse-title-subtitle';
+    const lineHeightStyle = targetLanguageFontClassName ? { lineHeight: 1.4, padding: targetLanguageFontClassName.includes('Awami') ? '0 0 10px' : 0 } : {};
+    const { fontSize } = toolsSettings[NAMESPACE] || {};
+    const textStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
+
+    if (!isLTR_) { // for RTL
+      style.justifyContent = 'right';
+      style.width = '100%';
+      style.direction = 'rtl';
+      style.paddingRight = '15px';
+    }
 
     return (
       <div style={{
-        WebkitUserSelect: 'none', flex: 1, display: 'flex', flexDirection: 'column',
+        WebkitUserSelect: 'none',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
         <div className='verse-title'>
-          <div className='pane' style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className='verse-title-title'>
-              {languageName}
+          {/* put icon here if RTL */}
+          {
+            isLTR_ ?
+              ''
+              :
+              <ThreeDotMenu
+                namespace={NAMESPACE}
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
+              />
+          }
+          <div className='pane' style={style}>
+            <span className={verseTitleClassName} style={lineHeightStyle}>
+              {languageStr}
             </span>
-            <span className='verse-title-subtitle'>
-              {bookName} {reference.chapter + ':' + reference.verse}
+            <span className={verseSubtitleClassName} style={lineHeightStyle}>
+              {title}
             </span>
           </div>
-          <div onClick={() => this.setState({ modalVisibility: true })}>
-            <Glyphicon glyph="fullscreen" title={translate('click_show_expanded')} style={{ cursor: 'pointer' }} />
-          </div>
+          {/* put icon here if LTR */}
+          {
+            isLTR_ ?
+              <ThreeDotMenu
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                namespace={NAMESPACE}
+                toolsSettings={toolsSettings}
+                setToolSettings={setToolSettings}
+                label={translate('expand_verses')}
+                title={translate('click_show_expanded')}
+                handleMyLanguageModal={() => this.setState({ modalVisibility: true })}
+              />
+              :
+              ''
+          }
           <MyLanguageModal
+            bookName={bookName}
             translate={translate}
-            targetLanguageDetails={targetLanguageDetails}
-            show={this.state.modalVisibility}
             targetBible={targetBible}
+            fontSize={`${fontSize}%`}
             chapter={reference.chapter}
             currentVerse={reference.verse}
-            languageDirection={languageDirection || 'ltr'}
-            bookName={bookName}
+            show={this.state.modalVisibility}
+            targetLanguageFont={targetLanguageFont}
+            targetLanguageDetails={targetLanguageDetails}
+            languageDirection={direction || 'ltr'}
             onHide={() => this.setState({ modalVisibility: false })}
           />
         </div>
-        <div className={languageDirection === 'ltr' ? 'ltr-content' : 'rtl-content'}>
-          {this.displayText(verseText, selections)}
+        <div className={direction === 'ltr' ? 'ltr-content' : 'rtl-content'} style={textStyle}>
+          {this.displayText(verseText, selections, targetLanguageFontClassName)}
         </div>
       </div>
     );
@@ -109,13 +177,16 @@ class DefaultArea extends React.Component {
 }
 
 DefaultArea.propTypes = {
+  targetLanguageFont: PropTypes.string,
   translate: PropTypes.func.isRequired,
   reference: PropTypes.object.isRequired,
-  targetBible: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   verseText: PropTypes.string.isRequired,
-  validateSelections: PropTypes.func.isRequired,
   bookDetails: PropTypes.object.isRequired,
+  targetBible: PropTypes.object.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  validateSelections: PropTypes.func.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
 };
 

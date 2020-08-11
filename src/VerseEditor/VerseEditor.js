@@ -1,58 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
+import { Glyphicon } from 'react-bootstrap';
+import { isLTR } from '../ScripturePane/helpers/utils';
+import { getFontClassName } from '../common/fontUtils';
 // components
 import EditScreen from './EditScreen';
 import ReasonScreen from './ReasonScreen';
 import BaseDialog from './BaseDialog';
-import VerseEditorStepper from './VerseEditorStepper';
-import OptionDialog from './OptionDialog';
-import WarningDialogContent from './WarningDialogContent';
 
 import './VerseEditor.styles.css';
 
-const steps = ['edit_verse', 'select_reasons'];
+const styles = {
+  screen: {
+    display: 'flex', flexDirection: 'row', padding: '12px 12px 0 12px',
+  },
+  editor: { width: '320px', padding: '6px' },
+  editHeading: {
+    paddingLeft: '6px', fontWeight: 'bold', fontSize: '16px',
+  },
+  reasonHeading: {
+    margin: '0 0 0 10px',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    width: '240px',
+  },
 
-/**
- * Checks if the next butt should be enabled
- * @param state
- * @return {*}
- */
-export const isNextEnabled = (state) => {
-  const {
-    stepIndex, verseChanged, newVerse, reasons,
-  } = state;
-
-  switch (stepIndex) {
-  case 0:
-    return verseChanged && Boolean(newVerse);
-  case 1:
-    return reasons.length > 0;
-  default:
-    return false;
-  }
 };
 
 /**
  * Renders a form for editing a single verse
  * @property {string} verseText - the verse text to edit
- * @property {func} translate - the locale function
- * @property {VerseEditor~submitCallback} onSubmit - callback when the edit is submitted
- * @property {func} onCancel - callback when the edit is canceled
+ * @property {function} translate - the locale function
+ * @property {function} onSubmit - callback when the edit is submitted
+ * @property {function} onCancel - callback when the edit is canceled
  */
 class VerseEditor extends React.Component {
   constructor(props) {
     super(props);
-    this._handleBack = this._handleBack.bind(this);
     this._handleCancel = this._handleCancel.bind(this);
-    this._handleNext = this._handleNext.bind(this);
-    this._isLastStep = this._isLastStep.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
     this._handleVerseChange = this._handleVerseChange.bind(this);
     this._handleReasonChange = this._handleReasonChange.bind(this);
+    this._handleReset = this._handleReset.bind(this);
     this._resetState = this._resetState.bind(this);
     this.state = {
-      stepIndex: 0,
       newVerse: '',
       verseChanged: false,
       reasons: [],
@@ -62,7 +54,6 @@ class VerseEditor extends React.Component {
 
   _resetState() {
     this.setState({
-      stepIndex: 0,
       newVerse: '',
       verseChanged: false,
       reasons: [],
@@ -70,10 +61,14 @@ class VerseEditor extends React.Component {
     });
   }
 
-  _handleBack() {
-    const { stepIndex } = this.state;
+  isVerseChangedAndHaveReasons() {
+    const { reasons, verseChanged } = this.state;
+    return verseChanged && reasons && reasons.length;
+  }
 
-    this.setState({ stepIndex: Math.max(stepIndex - 1, 0) });
+  isVerseChanged() {
+    const { verseChanged } = this.state;
+    return verseChanged;
   }
 
   _handleCancel() {
@@ -82,17 +77,23 @@ class VerseEditor extends React.Component {
     this._resetState();
   }
 
-  _handleNext() {
-    const {
-      stepIndex, newVerse, reasons,
-    } = this.state;
+  _handleReset() {
+    const { verseText } = this.props;
+
+    this.setState({
+      newVerse: verseText,
+      verseChanged: false,
+    });
+  }
+
+  _handleSubmit() {
     const { verseText, onSubmit } = this.props;
 
-    if (this._isLastStep()) {
+    if (this.isVerseChangedAndHaveReasons() && onSubmit) {
+      const { newVerse, reasons } = this.state;
       onSubmit(verseText, newVerse, reasons);
       this._resetState();
-    } else {
-      this.setState({ stepIndex: stepIndex + 1 });
+      this._handleCancel();
     }
   }
 
@@ -100,7 +101,7 @@ class VerseEditor extends React.Component {
     const { verseText } = this.props;
 
     this.setState({
-      newVerse: newVerse,
+      newVerse,
       verseChanged: newVerse !== verseText,
     });
   }
@@ -109,111 +110,95 @@ class VerseEditor extends React.Component {
     this.setState({ reasons: newReasons });
   }
 
-
-  _isLastStep() {
-    const { stepIndex } = this.state;
-    return stepIndex === steps.length - 1;
-  }
-
-  /**
-   * Checks if the next button is enabled
-   * @return {*}
-   */
-  _isNextEnabled() {
-    return isNextEnabled(this.state);
-  }
-
-  openOptionDialog = () => this.setState({ isOptionDialogOpen: true })
-
-  closeOptionDialog = () => this.setState({ isOptionDialogOpen: false })
-
   render() {
     const {
-      translate, open, verseTitle, verseText,
+      open,
+      verseText,
+      translate,
+      verseTitle,
+      targetLanguage,
+      targetLanguageFont,
+      targetLanguageFontSize,
+      direction,
     } = this.props;
     const {
-      stepIndex, newVerse, reasons, verseChanged,
+      newVerse, reasons, verseChanged,
     } = this.state;
-    let text = !this.state.verseChanged ? verseText : newVerse;
-    let screen;
-
-    switch (stepIndex) {
-    case 0:
-      screen = (<EditScreen verseText={text} onChange={this._handleVerseChange} />);
-      break;
-    case 1:
-      screen = (<ReasonScreen translate={translate} selectedReasons={reasons} onChange={this._handleReasonChange} />);
-      break;
-    default:
-      screen = translate('oops');
-    }
-
-    let nextStepButtonTitle = translate('buttons.next_button');
-
-    if (this._isLastStep()) {
-      nextStepButtonTitle = (
-        <React.Fragment>
-          <DoneIcon className='done-icon' />
-          {translate('buttons.save_button')}
-        </React.Fragment>
-      );
-    }
-
-    const localizedSteps = [];
-
-    for (const step of steps) {
-      localizedSteps.push(translate(step));
-    }
-
+    let text = !verseChanged ? verseText : newVerse;
+    const isVerseChangedAndHaveReason = this.isVerseChangedAndHaveReasons();
+    const isVerseChanged = this.isVerseChanged();
+    const targetLanguageFontClassName = getFontClassName(targetLanguageFont);
     const title = (
-      <span>
-        <EditIcon className='edit-icon' />
+      <span className={targetLanguageFontClassName}>
+        <EditIcon className='edit-icon' style={{ fontSize: '24px' }}/>
         {translate('edit_verse_title', { passage: verseTitle })}
       </span>
     );
+    const rows = 9 + (!targetLanguage ? 1 : 0); // make taller if no language label
+    const headingStyle = { ...styles.editHeading };
 
-    const hasVerseChanged = verseChanged && Boolean(newVerse);
+    if (!isLTR(direction)) { // if rtl, right justify
+      headingStyle.textAlign = 'right';
+      headingStyle.paddingRight = '6px';
+    }
 
     return (
       <BaseDialog
+        key={`VerseEditor-${verseTitle}`}
         modal={true}
         open={open}
         title={title}
-        onClose={hasVerseChanged ? this.openOptionDialog : this._handleCancel}
+        onClose={this._handleCancel}
+        actionsEnabled={false}
       >
-        <VerseEditorStepper
-          stepIndex={stepIndex}
-          className='stepper'
-          steps={localizedSteps}/>
-        <div className='screen'>
-          {screen}
+        <div className='screen' style={styles.screen}>
+          <div>
+            { targetLanguage ? (
+              <div style={headingStyle}>
+                {targetLanguage}
+              </div>
+            ) : ''}
+            <EditScreen
+              rows={rows}
+              verseText={text}
+              style={styles.editor}
+              onChange={this._handleVerseChange}
+              targetLanguageFontClassName={targetLanguageFontClassName}
+              targetLanguageFontSize={targetLanguageFontSize}
+              direction={direction}
+            />
+          </div>
+          <div style={styles.reasonHeading}>
+            <div>
+              {translate('select_reasons')}
+            </div>
+            <ReasonScreen
+              translate={translate}
+              selectedReasons={reasons}
+              columns={1}
+              onChange={this._handleReasonChange}
+            />
+          </div>
         </div>
         <div className='actions'>
-          <button className="btn btn-link"
-            disabled={stepIndex === 0}
-            style={{ color: stepIndex === 0 ? '#777' : 'var(--accent-color-dark)' }}
-            onClick={this._handleBack}>
-            {translate('buttons.back_button')}
-          </button>
           <button className="btn-second"
             onClick={this._handleCancel}>
             {translate('buttons.cancel_button')}
           </button>
+          <button className="btn-second"
+            disabled={!isVerseChanged}
+            onClick={this._handleReset}>
+            { /* TRICKY - do mirror image of repeat to make reset icon */ }
+            <Glyphicon glyph='repeat' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
+            {translate('buttons.reset_button')}
+          </button>
           <button className="btn-prime"
-            disabled={!this._isNextEnabled()}
-            onClick={this._handleNext}>
-            {nextStepButtonTitle}
+            disabled={!isVerseChangedAndHaveReason}
+            onClick={this._handleSubmit}>
+            <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
+            {translate('buttons.save_button')}
           </button>
         </div>
-        <OptionDialog
-          isOpen={this.state.isOptionDialogOpen}
-          content={<WarningDialogContent translate={translate}/>}
-          headerTitleText={translate('attention')}
-          primaryButtonText={translate('buttons.discard_changes')}
-          secondaryButtonText={translate('buttons.cancel_button')}
-          primaryOnclick={this._handleCancel}
-          handleClose={this.closeOptionDialog}
-        />
       </BaseDialog>
     );
   }
@@ -226,6 +211,16 @@ VerseEditor.propTypes = {
   translate: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  targetLanguage: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string,
+  direction: PropTypes.string.isRequired,
+};
+
+VerseEditor.defaultProps = {
+  targetLanguage: '',
+  direction: 'ltr',
+  targetLanguageFontSize: '100%',
 };
 
 export default VerseEditor;

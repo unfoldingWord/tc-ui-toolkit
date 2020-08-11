@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import './ChapterView.styles.css';
 
 // components
+import { getReferenceStr, getTitleStr } from '../../helpers/utils';
 import VerseEditorDialog from '../../../VerseEditor';
 import VerseRow from './VerseRow';
 
@@ -39,21 +40,23 @@ class ChapterView extends Component {
 
   render() {
     const {
-      contextId,
-      currentPaneSettings,
-      projectDetailsReducer,
-      translate,
       bibles,
+      contextId,
+      translate,
       selections,
-      getLexiconData,
       showPopover,
-      handleEditTargetVerse,
+      getLexiconData,
       handleEditorSubmit,
       handleEditorCancel,
+      currentPaneSettings,
+      projectDetailsReducer,
+      handleEditTargetVerse,
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
     const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
+    const { manifest: projectManifest } = projectDetailsReducer;
+    const targetLanguageFont = projectManifest.projectFont || '';
     this.verseRefs = {};
     let verseRows = [];
 
@@ -64,19 +67,21 @@ class ChapterView extends Component {
 
         verseRows.push(
           <VerseRow
-            translate={translate}
             key={verseNumber.toString()}
-            chapter={chapter}
             verse={verse}
             bibles={bibles}
+            chapter={chapter}
+            translate={translate}
             contextId={contextId}
             selections={selections}
             showPopover={showPopover}
             getLexiconData={getLexiconData}
             currentVerseNumber={verseNumber}
+            targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
-            ref={node => this.verseRefs[refKey] = node} />
+            ref={node => this.verseRefs[refKey] = node}
+          />,
         );
       }
     }
@@ -85,16 +90,25 @@ class ChapterView extends Component {
     const openEditor = editVerse !== null;
     let verseTitle = '';
     let verseText = '';
+    let fontSizePercent = 100; // default font size
+    const direction = projectManifest.target_language && projectManifest.target_language.direction || 'ltr';
 
     if (openEditor) {
-      let bookName = projectDetailsReducer.manifest.target_language.book.name;
+      let bookName = projectManifest.target_language.book.name;
 
       if (bookName === null) {
         console.warn('The localized book name could not be found. This is likely a bug in tC.');
-        bookName = projectDetailsReducer.manifest.project.name;
+        bookName = projectManifest.project.name;
       }
-      verseTitle = `${bookName} ${editVerse.chapter}:${editVerse.verse}`;
+
+      const refStr = getReferenceStr(editVerse.chapter, editVerse.verse);
+      verseTitle = getTitleStr(bookName, refStr, direction);
       verseText = editVerse.verseText;
+      const targetConfig = currentPaneSettings.find(pane => (pane.languageId === 'targetLanguage'));
+
+      if (targetConfig) {
+        fontSizePercent = targetConfig.fontSize;
+      }
     }
 
     return (
@@ -102,12 +116,17 @@ class ChapterView extends Component {
         <div className="verse-row-container">
           {verseRows}
         </div>
-        <VerseEditorDialog translate={translate}
-          onSubmit={handleEditorSubmit}
+        <VerseEditorDialog
           open={openEditor}
-          onCancel={handleEditorCancel}
+          translate={translate}
           verseText={verseText}
-          verseTitle={verseTitle}/>
+          verseTitle={verseTitle}
+          onSubmit={handleEditorSubmit}
+          onCancel={handleEditorCancel}
+          targetLanguageFont={targetLanguageFont}
+          targetLanguageFontSize={`${fontSizePercent}%`}
+          direction={direction}
+        />
       </div>
     );
   }

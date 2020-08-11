@@ -168,7 +168,7 @@ export const rangesToSelections = (string, ranges) => {
 function updateTrimmedTextOccurence(string, selection, trimmedText) {
   let originalRanges = selectionsToRanges(string, [selection]);
 
-  if (originalRanges) {
+  if (originalRanges && originalRanges.length) {
     const offset = selection.text.indexOf(trimmedText); // get offset of trimmed from non-trimmed
     const originalRange = originalRanges[0];
     const newStartPosition = originalRange[0] + offset;
@@ -312,7 +312,7 @@ export const optimizeSelections = (string, selections) => {
 export const removeSelectionFromSelections = (selection, selections, string) => {
   selections = Array.from(selections);
   selections = selections.filter(_selection =>
-    !(_selection.occurrence === selection.occurrence && _selection.text === selection.text)
+    !(_selection.occurrence === selection.occurrence && _selection.text === selection.text),
   );
   selections = optimizeSelections(string, selections);
   return selections;

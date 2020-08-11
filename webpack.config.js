@@ -31,5 +31,9 @@ module.exports = {
       },
     ],
   },
-  externals: { 'react': 'commonjs react' },
+  externals: {
+    'react': 'commonjs react',
+    'string-punctuation-tokenizer': 'commonjs string-punctuation-tokenizer',
+    'word-aligner': 'commonjs word-aligner',
+  },
 };

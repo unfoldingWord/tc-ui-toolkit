@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import FilterBadge from '../FilterBadge';
 
 const FilterMenuHeader = ({
-  currentToolName, expandFilter, handleFilterShowHideToggle, filterCount,
+  filterCount,
+  expandFilter,
+  currentToolName,
+  handleFilterShowHideToggle,
 }) => currentToolName === 'translationWords' && (
   <div className="filter-toggle">
     <Glyphicon
@@ -17,5 +21,12 @@ const FilterMenuHeader = ({
       expandFilter={expandFilter} />
   </div>
 );
+
+FilterMenuHeader.propTypes = {
+  expandFilter: PropTypes.bool.isRequired,
+  filterCount: PropTypes.number.isRequired,
+  currentToolName: PropTypes.string.isRequired,
+  handleFilterShowHideToggle: PropTypes.func.isRequired,
+};
 
 export default FilterMenuHeader;

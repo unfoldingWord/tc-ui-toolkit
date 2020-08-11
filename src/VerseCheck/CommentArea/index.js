@@ -4,6 +4,7 @@ import {
   FormGroup, FormControl, Glyphicon,
 } from 'react-bootstrap';
 import './CommentArea.styles.css';
+import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
 
 const CommentArea = ({
   comment,
@@ -17,7 +18,9 @@ const CommentArea = ({
       {translate('comment')}
     </div>
     <FormGroup style={{ flex: 'auto', display: 'flex' }} controlId="formControlsTextarea">
-      <FormControl autoFocus
+      <FormControl
+        autoFocus
+        onFocus={moveCursorToEnd}
         componentClass='textarea'
         type='text'
         defaultValue={comment}

@@ -86,6 +86,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -97,33 +98,32 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
             >
               <span
                 className="verse-title-title"
+                style={Object {}}
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
+                style={Object {}}
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
-            <div
+            <span
+              className="glyphicon glyphicon-option-vertical"
               onClick={[Function]}
-            >
-              <span
-                className="glyphicon glyphicon-fullscreen"
-                style={
-                  Object {
-                    "cursor": "pointer",
-                  }
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
                 }
-                title="click_show_expanded"
-              />
-            </div>
+              }
+            />
           </div>
           <div
             className="ltr-content"
+            style={Object {}}
           >
             <div
               style={
@@ -133,7 +133,9 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                 }
               }
             >
-              <span>
+              <span
+                className=""
+              >
                 Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
               </span>
             </div>
@@ -181,22 +183,32 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                 }
               }
             >
-              <textarea
-                autoFocus={true}
-                className="form-control"
-                defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
-\\\\s5
-"
-                id="formControlsTextarea"
+              <div
                 style={
                   Object {
-                    "direction": "ltr",
-                    "flex": "auto",
-                    "minHeight": "110px",
+                    "fontSize": "100%",
                   }
                 }
-                type="text"
-              />
+              >
+                 
+                <textarea
+                  autoFocus={true}
+                  className="default-text form-control"
+                  defaultValue="Kono ewe, oambe ziyenderera ne ntaero zisepahara.
+\\\\s5
+"
+                  id="formControlsTextarea"
+                  onFocus={[Function]}
+                  style={
+                    Object {
+                      "direction": "ltr",
+                      "flex": "auto",
+                      "minHeight": "110px",
+                    }
+                  }
+                  type="text"
+                />
+              </div>
               <div
                 style={
                   Object {
@@ -225,12 +237,13 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     }
                   >
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -240,45 +253,54 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         spelling
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -288,45 +310,54 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         punctuation
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -336,34 +367,42 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         word_choice
                       </span>
@@ -379,12 +418,13 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     }
                   >
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -394,45 +434,54 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         meaning
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -442,45 +491,54 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         grammar
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root-6 EditVerseArea-formControlLabelRoot-113 MuiFormControlLabel-disabled-10"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
                     >
                       <span
-                        className="MuiButtonBase-root-28 MuiButtonBase-disabled-29 MuiIconButton-root-22 MuiIconButton-disabled-26 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 EditVerseArea-checkBox-115 MuiCheckbox-colorSecondary-17 MuiPrivateSwitchBase-disabled-20 MuiCheckbox-disabled-14"
+                        aria-disabled={true}
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
-                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
@@ -490,34 +548,42 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         onTouchEnd={[Function]}
                         onTouchMove={[Function]}
                         onTouchStart={[Function]}
-                        tabIndex="-1"
+                        tabIndex={-1}
                       >
                         <span
-                          className="MuiIconButton-label-27"
+                          className="MuiIconButton-label"
                         >
-                          <svg
-                            aria-hidden="true"
-                            className="MuiSvgIcon-root-31"
-                            focusable="false"
-                            role="presentation"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
                           <input
                             checked={false}
-                            className="MuiPrivateSwitchBase-input-21"
+                            className="PrivateSwitchBase-input-9"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
                             type="checkbox"
                           />
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            style={
+                              Object {
+                                "fontSize": "24px",
+                              }
+                            }
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                            />
+                            <path
+                              d="M0 0h24v24H0z"
+                              fill="none"
+                            />
+                          </svg>
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 EditVerseArea-formControlLabel-114 MuiFormControlLabel-disabled-10"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
                       >
                         other
                       </span>
@@ -638,6 +704,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -649,17 +716,28 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             >
               <span
                 className="verse-title-title"
+                style={Object {}}
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
+                style={Object {}}
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -670,13 +748,17 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>
@@ -721,7 +803,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />
@@ -736,12 +818,13 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
               onBlur={[Function]}
-              onContextMenu={[Function]}
+              onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -754,34 +837,39 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-27"
+                className="MuiIconButton-label"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-31"
-                  focusable="false"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                  />
-                </svg>
                 <input
-                  className="MuiPrivateSwitchBase-input-21"
+                  className="PrivateSwitchBase-input-9"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
                   value="nothingToSelect"
                 />
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  style={
+                    Object {
+                      "fontSize": "24px",
+                    }
+                  }
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
               </span>
-              <span
-                className="MuiTouchRipple-root-92"
-              />
             </span>
             <span
-              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+              className="MuiTypography-root MuiFormControlLabel-label ActionsArea-label-2 MuiTypography-body1"
             >
               no_selection_needed
             </span>
@@ -801,10 +889,9 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             }
           >
             <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              aria-hidden={true}
+              className="MuiSvgIcon-root ActionsArea-icon-5"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
@@ -816,7 +903,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
               />
             </svg>
             <div
-              className="__react_component_tooltip place-top type-dark "
+              className="__react_component_tooltip place-top type-dark"
               data-id="tooltip"
             />
           </div>
@@ -979,6 +1066,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -990,33 +1078,32 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             >
               <span
                 className="verse-title-title"
+                style={Object {}}
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
+                style={Object {}}
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
-            <div
+            <span
+              className="glyphicon glyphicon-option-vertical"
               onClick={[Function]}
-            >
-              <span
-                className="glyphicon glyphicon-fullscreen"
-                style={
-                  Object {
-                    "cursor": "pointer",
-                  }
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
                 }
-                title="click_show_expanded"
-              />
-            </div>
+              }
+            />
           </div>
           <div
             className="ltr-content"
+            style={Object {}}
           >
             <div
               style={
@@ -1026,7 +1113,9 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
                 }
               }
             >
-              <span>
+              <span
+                className=""
+              >
                 Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
               </span>
             </div>
@@ -1069,7 +1158,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         className="actions-area"
       >
         <label
-          className="MuiFormControlLabel-root-6"
+          className="MuiFormControlLabel-root"
           style={
             Object {
               "paddingLeft": 10,
@@ -1077,12 +1166,13 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           }
         >
           <span
-            className="MuiSwitch-root-104"
+            className="MuiSwitch-root"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiSwitch-switchBase-107 Bookmark-colorSwitchBase-100 MuiSwitch-colorPrimary-109"
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiSwitch-switchBase Bookmark-colorSwitchBase-11 MuiSwitch-colorPrimary"
               onBlur={[Function]}
-              onContextMenu={[Function]}
+              onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -1095,30 +1185,27 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-27"
+                className="MuiIconButton-label"
               >
-                <span
-                  className="MuiSwitch-icon-105"
-                />
                 <input
                   checked={false}
-                  className="MuiPrivateSwitchBase-input-21"
+                  className="PrivateSwitchBase-input-9 MuiSwitch-input"
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
                   value="bookmark"
                 />
+                <span
+                  className="MuiSwitch-thumb"
+                />
               </span>
-              <span
-                className="MuiTouchRipple-root-92"
-              />
             </span>
             <span
-              className="MuiSwitch-bar-112 Bookmark-colorBar-101"
+              className="MuiSwitch-track Bookmark-colorTrack-12"
             />
           </span>
           <span
-            className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 Bookmark-label-103"
+            className="MuiTypography-root MuiFormControlLabel-label Bookmark-label-14 MuiTypography-body1"
           >
             bookmark
           </span>
@@ -1310,6 +1397,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -1321,17 +1409,28 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             >
               <span
                 className="verse-title-title"
+                style={Object {}}
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
+                style={Object {}}
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -1342,13 +1441,17 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>
@@ -1393,7 +1496,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />
@@ -1408,12 +1511,13 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
           className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
               onBlur={[Function]}
-              onContextMenu={[Function]}
+              onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -1426,34 +1530,39 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-27"
+                className="MuiIconButton-label"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-31"
-                  focusable="false"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                  />
-                </svg>
                 <input
-                  className="MuiPrivateSwitchBase-input-21"
+                  className="PrivateSwitchBase-input-9"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
                   value="nothingToSelect"
                 />
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  style={
+                    Object {
+                      "fontSize": "24px",
+                    }
+                  }
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
               </span>
-              <span
-                className="MuiTouchRipple-root-92"
-              />
             </span>
             <span
-              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+              className="MuiTypography-root MuiFormControlLabel-label ActionsArea-label-2 MuiTypography-body1"
             >
               no_selection_needed
             </span>
@@ -1473,10 +1582,9 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             }
           >
             <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              aria-hidden={true}
+              className="MuiSvgIcon-root ActionsArea-icon-5"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
@@ -1488,7 +1596,7 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
               />
             </svg>
             <div
-              className="__react_component_tooltip place-top type-dark "
+              className="__react_component_tooltip place-top type-dark"
               data-id="tooltip"
             />
           </div>
@@ -1644,6 +1752,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
           <div
             className="verse-title"
           >
+            
             <div
               className="pane"
               style={
@@ -1655,17 +1764,28 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             >
               <span
                 className="verse-title-title"
+                style={Object {}}
               >
-                Fwe
+                Fwe (FWE)
               </span>
               <span
                 className="verse-title-subtitle"
+                style={Object {}}
               >
-                Titus
-                 
-                2:5
+                Titus 2:5
               </span>
             </div>
+            <span
+              className="glyphicon glyphicon-option-vertical"
+              onClick={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fontSize": "18px",
+                  "padding": 0,
+                }
+              }
+            />
           </div>
           <div
             style={
@@ -1676,13 +1796,17 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
           >
             <div
               className="ltr-content"
+              style={Object {}}
             >
               <div
+                onMouseDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onMouseUp={[Function]}
               >
-                <span>
+                <span
+                  className=""
+                >
                   Kono ewe, oambe ziyenderera ne ntaero zisepahara. 
                 </span>
               </div>
@@ -1727,7 +1851,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
                     }
                   }
                 >
-                  "undefined"
+                  undefined
                 </strong>
               </span>
               <br />
@@ -1742,12 +1866,13 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
           className="flex-row"
         >
           <label
-            className="MuiFormControlLabel-root-6 ActionsArea-formControl-1"
+            className="MuiFormControlLabel-root ActionsArea-formControl-1"
           >
             <span
-              className="MuiButtonBase-root-28 MuiIconButton-root-22 MuiPrivateSwitchBase-root-18 MuiCheckbox-root-12 ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary-16"
+              aria-disabled={false}
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
               onBlur={[Function]}
-              onContextMenu={[Function]}
+              onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -1760,34 +1885,39 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               tabIndex={null}
             >
               <span
-                className="MuiIconButton-label-27"
+                className="MuiIconButton-label"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-31"
-                  focusable="false"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                  />
-                </svg>
                 <input
-                  className="MuiPrivateSwitchBase-input-21"
+                  className="PrivateSwitchBase-input-9"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
                   value="nothingToSelect"
                 />
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  style={
+                    Object {
+                      "fontSize": "24px",
+                    }
+                  }
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
               </span>
-              <span
-                className="MuiTouchRipple-root-92"
-              />
             </span>
             <span
-              className="MuiTypography-root-40 MuiTypography-body1-49 MuiFormControlLabel-label-11 ActionsArea-label-2"
+              className="MuiTypography-root MuiFormControlLabel-label ActionsArea-label-2 MuiTypography-body1"
             >
               no_selection_needed
             </span>
@@ -1807,10 +1937,9 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             }
           >
             <svg
-              aria-hidden="true"
-              className="MuiSvgIcon-root-31 ActionsArea-icon-5"
+              aria-hidden={true}
+              className="MuiSvgIcon-root ActionsArea-icon-5"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path
@@ -1822,7 +1951,7 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
               />
             </svg>
             <div
-              className="__react_component_tooltip place-top type-dark "
+              className="__react_component_tooltip place-top type-dark"
               data-id="tooltip"
             />
           </div>

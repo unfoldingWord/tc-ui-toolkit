@@ -21,7 +21,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".thelps-tool-bar ">
-      <Paper {...props}/>
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -62,7 +62,7 @@ const ExpandedHelpsModal = ({
     <DialogContent className="dialog-content">
       <div dangerouslySetInnerHTML={{ __html: marked(article) }} />
     </DialogContent>
-    <DialogActions disableActionSpacing className="dialog-actions">
+    <DialogActions disableSpacing className="dialog-actions">
       <button className="btn-prime" onClick={onHide}>
         {translate('close')}
       </button>

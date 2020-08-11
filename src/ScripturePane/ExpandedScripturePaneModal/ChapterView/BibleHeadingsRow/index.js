@@ -47,7 +47,7 @@ class BibleHeadingsRow extends Component {
       bibleHeadings.push(
         <Col key={index} md={4} sm={4} xs={4} lg={4} style={colStyle} >
           <span>{headingText}</span>
-        </Col>
+        </Col>,
       );
     }
 

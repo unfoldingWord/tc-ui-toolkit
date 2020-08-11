@@ -1,7 +1,10 @@
+import { getReferenceStr, getTitleStr } from '..';
+
 /**
  * Helper utility to generate data for the menu.
  * @param {[]} index - the group index
  * @param {object} data - the group data
+ * @param {string} direction - layout direction - default 'ltr'
  * @param {string} progressKey - the key by which the group progress will be measured
  * @param {function} [onProcessItem=null] - an optional callback to perform additional processing on a menu item. This is executed before the `progressKey` is evaluated.
  * @param {string} progressKey2 - the secondary key by which the group progress will be measured
@@ -11,8 +14,9 @@ export function generateMenuData(
   index,
   data,
   progressKey,
+  direction = 'ltr',
   onProcessItem = null,
-  progressKey2 = null
+  progressKey2 = null,
 ) {
   const menu = [];
   const dataKeys = Object.keys(data);
@@ -28,6 +32,7 @@ export function generateMenuData(
 
       for (let j = 0; j < gl; j++) {
         const item = processMenuItem(group[j]);
+        item.direction = direction;
         children[j] = onProcessItem ? onProcessItem(item) : item;
       }
       menu.push({
@@ -48,10 +53,11 @@ export function generateMenuData(
  * Produces a valid menu item from a context id or a group data entry.
  * This is useful for pre-processing the active entry.
  * @param {object} contextId - a context id or group data entry.
+ * @param {string} direction - layout direction - default 'ltr'
  * @param {function} [onProcessItem=null] - an optional preprocessor
  * @returns {object}
  */
-export function generateMenuItem(contextId, onProcessItem = null) {
+export function generateMenuItem(contextId, direction = 'ltr', onProcessItem = null) {
   // TRICKY: determine if this is a contextId or group data entry.
   let item;
 
@@ -60,6 +66,7 @@ export function generateMenuItem(contextId, onProcessItem = null) {
   } else {
     item = { contextId };
   }
+  item.direction = direction;
 
   // perform pre-processing
   if (typeof onProcessItem === 'function') {
@@ -104,12 +111,13 @@ function processMenuItem(data) {
       },
     },
   } = data;
-  const passageTitle = `${bookId} ${chapter}:${verse}`;
+  const refStr = getReferenceStr(chapter, verse);
+  const passageTitle = getTitleStr(bookId, refStr, data.direction);
 
   return {
     ...data,
     groupId,
-    itemId: passageTitle,
+    itemId: refStr,
     title: passageTitle,
   };
 }

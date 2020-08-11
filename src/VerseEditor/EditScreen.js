@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isLTR } from '../ScripturePane/helpers/utils';
+import { moveCursorToEnd } from './helpers/editHelpers';
 
 /**
  * @callback EditScreen~onChange
@@ -23,22 +25,52 @@ class EditScreen extends React.Component {
   }
 
   render() {
-    const { verseText } = this.props;
+    const {
+      rows,
+      style,
+      verseText,
+      targetLanguageFontClassName,
+      targetLanguageFontSize,
+      direction,
+    } = this.props;
+    const className = targetLanguageFontClassName ? `edit-screen ${targetLanguageFontClassName}` : 'edit-screen';
+    const style_ = {
+      ...style,
+      textAlign: isLTR(direction) ? 'left' : 'right',
+      direction,
+    };
     return (
-      <textarea
-        id="verse-editor-field"
-        rows={4}
-        className='edit-screen'
-        autoFocus={true}
-        onChange={this._handleChange}
-        value={verseText}/>
+      <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
+        <textarea
+          id="verse-editor-field"
+          rows={rows}
+          className={className}
+          autoFocus={true}
+          onFocus={moveCursorToEnd}
+          onChange={this._handleChange}
+          value={verseText}
+          style={style_}
+        />
+      </div>
     );
   }
 }
 
 EditScreen.propTypes = {
-  verseText: PropTypes.string.isRequired,
+  rows: PropTypes.number.isRequired,
+  style: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  verseText: PropTypes.string.isRequired,
+  direction: PropTypes.string.isRequired,
+  targetLanguageFontClassName: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string,
+};
+
+EditScreen.defaultProps = {
+  rows: 4,
+  style: {},
+  direction: 'ltr',
+  targetLanguageFontSize: '100%',
 };
 
 export default EditScreen;

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
@@ -12,7 +11,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".BaseDialog-draggable-handle">
-      <Paper {...props} />
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -135,12 +134,11 @@ class BaseDialog extends React.Component {
           }}>
           {title}
         </DialogTitle>
-        <DialogContent className='stepper-body'>
-          {children}
-        </DialogContent>
-        <DialogActions disableActionSpacing={true}>
-          {dialogActions}
-        </DialogActions>
+        {children}
+        { actionsEnabled ?
+          <DialogActions disableSpacing={true}>
+            {dialogActions}
+          </DialogActions> : ''}
       </Dialog>
     );
   }

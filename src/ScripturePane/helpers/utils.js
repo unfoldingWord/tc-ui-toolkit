@@ -1,10 +1,12 @@
+const defaultDirection = 'ltr';
+
 /**
  * Delays code execution for a number of ms given.
  * @param {ms} ms
  */
 export function delay(ms) {
   return new Promise((resolve) =>
-    setTimeout(resolve, ms)
+    setTimeout(resolve, ms),
   );
 }
 
@@ -26,4 +28,59 @@ export function getTranslation(translate, text, deflt) {
     translation = deflt;
   }
   return translation;
+}
+
+/**
+ * get title with id arranged for language direction
+ * @param {string} languageName
+ * @param {string} identifier
+ * @param {boolean|string} direction
+ * @return {string}
+ */
+export function getTitleWithId(languageName, identifier, direction = defaultDirection) {
+  if (isLTR(direction)) {
+    return `${languageName} (${identifier.toUpperCase()})`;
+  }
+  return `(${identifier.toUpperCase()}) ${languageName}`;
+}
+
+/**
+ * get reference arranged for language direction
+ * @param {string} chapter
+ * @param {string} verse
+ * @param {boolean|string} direction
+ * @return {string}
+ */
+export function getReferenceStr(chapter, verse, direction = defaultDirection) {
+  if (isLTR(direction)) {
+    return `${chapter}:${verse}`;
+  }
+  return `${verse}:${chapter}`;
+}
+
+/**
+ * get title arranged for language direction
+ * @param {string} first - initial text
+ * @param {string} second - following text
+ * @param {boolean|string} direction
+ * @return {string}
+ */
+export function getTitleStr(first, second, direction = defaultDirection) {
+  if (isLTR(direction)) {
+    return `${first} ${second}`;
+  }
+  return `${second} ${first}`;
+}
+
+/**
+ * determine if language direction is ltr.  If direction parameter is not
+ *   string then treat as boolean (if true then LTR)
+ * @param {boolean|string} direction
+ * @return {boolean} true if LTR
+ */
+export function isLTR(direction) {
+  if (typeof direction === 'string'){
+    return (direction !== 'rtl');
+  }
+  return direction;
 }

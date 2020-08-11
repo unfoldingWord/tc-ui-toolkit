@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col } from 'react-bootstrap';
+import { getReferenceStr } from '../..';
 
 const MyTargetVerse = ({
   chapter,
@@ -8,20 +9,15 @@ const MyTargetVerse = ({
   verseText,
   styles,
   dir,
+  targetLanguageFontClassName,
 }) => {
-  let chapterVerse;
-
-  if (dir == 'rtl'){
-    chapterVerse = verse + ':' + chapter + ' ';
-  } else {
-    chapterVerse = chapter + ':' + verse + ' ';
-  }
+  const chapterVerse = getReferenceStr(chapter, verse) + ' ';
 
   return (
     <Col md={12} sm={12} xs={12} lg={12} style={styles}>
       <div style={{ direction: dir }}>
         <b>{chapterVerse}</b>
-        {verseText}
+        <span className={targetLanguageFontClassName}>{verseText}</span>
       </div>
     </Col>
   );
@@ -33,6 +29,7 @@ MyTargetVerse.propTypes = {
   verseText: PropTypes.string.isRequired,
   styles: PropTypes.object.isRequired,
   dir: PropTypes.string.isRequired,
+  targetLanguageFontClassName: PropTypes.string,
 };
 
 export default MyTargetVerse;

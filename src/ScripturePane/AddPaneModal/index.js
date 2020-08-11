@@ -58,15 +58,15 @@ const styles = {
 
 const AddPaneModal = ({
   show,
-  onHide,
   title,
-  selectLanguageLabel,
+  onHide,
+  translate,
   selectLabel,
-  selectSourceLanguage,
   selectedPane,
+  selectLanguageLabel,
   addNewBibleResource,
   currentPaneSettings,
-  translate,
+  selectSourceLanguage,
   getAvailableScripturePaneSelections,
 }) => {
   const panes = [];
@@ -96,9 +96,11 @@ const AddPaneModal = ({
         disabled={foundInCurrentPaneSettings}
       >
         {displayText}
-      </option>
+      </option>,
     );
   }
+
+  const isLoadButtonDisabled = Object.keys(selectedPane).length > 0 ? false : true;
 
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>
@@ -123,16 +125,13 @@ const AddPaneModal = ({
           {panes}
         </FormControl>
       </DialogContent>
-      <DialogActions disableActionSpacing style={styles.dialogActions}>
+      <DialogActions disableSpacing style={styles.dialogActions}>
         <button className="btn-second" onClick={onHide}>
           {translate('close')}
         </button>
-        {
-          selectedPane &&
-          <button className="btn-prime" onClick={addNewBibleResource}>
-            {translate('load')}
-          </button>
-        }
+        <button className="btn-prime" onClick={addNewBibleResource} disabled={isLoadButtonDisabled}>
+          {translate('load')}
+        </button>
       </DialogActions>
     </Dialog>
   );
@@ -145,13 +144,10 @@ AddPaneModal.propTypes = {
   selectLanguageLabel: PropTypes.string.isRequired,
   selectLabel: PropTypes.string.isRequired,
   selectSourceLanguage: PropTypes.func.isRequired,
-  selectedPane: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.shape({
-      bibleId: PropTypes.string,
-      languageId: PropTypes.string,
-    }),
-  ]),
+  selectedPane: PropTypes.shape({
+    bibleId: PropTypes.string,
+    languageId: PropTypes.string,
+  }),
   addNewBibleResource: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   translate: PropTypes.func.isRequired,

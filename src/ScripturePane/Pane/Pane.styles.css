@@ -9,11 +9,18 @@
   border-right: 1px solid var(--border-color);
 }
 
-.pane-title-container {
+.pane-title-container-ltr {
   flex: 0 0 35px;
   display: flex;
   justify-content: space-between;
-  margin: 5px 10px 5px 15px;
+  margin: 5px 15px 5px 15px;
+}
+
+.pane-title-container-rtl {
+  flex: 0 0 35px;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 15px 5px 15px;
 }
 
 .pane-title-container-content {

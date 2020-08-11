@@ -6,6 +6,7 @@ import './VerseRow.styles.css';
 import Verse from '../../../Verse';
 // helpers
 import { verseString, verseArray } from '../../../helpers/verseHelpers';
+import { getFontClassName } from '../../../../common/fontUtils';
 
 class VerseRow extends Component {
   constructor(props) {
@@ -23,25 +24,18 @@ class VerseRow extends Component {
 
   render() {
     const {
-      chapter,
-      currentVerseNumber,
-      currentPaneSettings,
       bibles,
+      chapter,
       translate,
       contextId,
       selections,
-      getLexiconData,
       showPopover,
+      getLexiconData,
+      targetLanguageFont,
+      currentVerseNumber,
+      currentPaneSettings,
     } = this.props;
     let verseCells = [];
-
-    const colStyle = {
-      minWidth: '240px',
-      alignItems: 'stretch',
-      padding: '10px',
-      paddingTop: '20px',
-      borderRight: '1px solid var(--border-color)',
-    };
 
     let rowStyle = {
       display: 'flex',
@@ -60,31 +54,57 @@ class VerseRow extends Component {
         const index = i;
 
         try {
-          const { languageId, bibleId } = paneSetting;
+          let {
+            font,
+            bibleId,
+            fontSize,
+            languageId,
+          } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
           const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
+          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+          let colStyle = {
+            minWidth: '240px',
+            alignItems: 'stretch',
+            padding: '10px',
+            paddingTop: '20px',
+            borderRight: '1px solid var(--border-color)',
+          };
+          const isTargetBible = bibleId === 'targetBible';
+          let fontClass = '';
 
-          if (typeof verseData === 'string') { // if the verse content is string.
-            verseElements = verseString(verseData, selections, translate);
-          } else if (verseData) { // else the verse content is an array of verse objects.
-            verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate);
+          if (isTargetBible) {
+            font = targetLanguageFont;
+            fontClass = getFontClassName (targetLanguageFont);
+          } else if (font) {
+            fontClass = getFontClassName(font);
           }
 
-          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+          if (typeof verseData === 'string') { // if the verse content is string.
+            verseElements = verseString(verseData, selections, translate, null, isTargetBible, fontClass);
+          } else if (verseData) { // else the verse content is an array of verse objects.
+            verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
+          }
+
+          if (fontSize) {
+            colStyle.fontSize = `${fontSize}%`;
+          }
 
           verseCells.push(
             <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
               <Verse
-                translate={translate}
-                verseElements={verseElements}
-                verseText={verseText}
-                bibleId={bibleId}
-                direction={direction}
                 chapter={chapter}
+                bibleId={bibleId}
+                translate={translate}
+                verseText={verseText}
+                direction={direction}
+                fontClass={fontClass}
+                onEdit={this.handleEdit}
                 verse={currentVerseNumber}
-                onEdit={this.handleEdit} />
-            </Col>
+                verseElements={verseElements}
+              />
+            </Col>,
           );
         } catch (error) {
           console.error(error);
@@ -122,6 +142,7 @@ VerseRow.propTypes = {
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
 };
 
 export default VerseRow;

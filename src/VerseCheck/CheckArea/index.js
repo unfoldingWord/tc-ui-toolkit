@@ -9,37 +9,42 @@ import CommentArea from '../CommentArea';
 import './CheckArea.styles.css';
 
 const CheckArea = ({
-  contextId,
   mode,
   tags,
-  verseText,
-  unfilteredVerseText,
-  isVerseChanged,
   comment,
-  newSelections,
-  selections,
+  verseText,
   translate,
+  contextId,
+  selections,
   invalidated,
   targetBible,
+  bookDetails,
+  newSelections,
   alignedGLText,
+  handleComment,
+  toolsSettings,
+  isVerseChanged,
   nothingToSelect,
+  openAlertDialog,
+  handleEditVerse,
+  setToolSettings,
   maximumSelections,
   handleTagsCheckbox,
-  handleEditVerse,
-  checkIfVerseChanged,
-  handleComment,
-  checkIfCommentChanged,
-  openAlertDialog,
-  changeSelectionsInLocalState,
   validateSelections,
-  bookDetails,
+  targetLanguageFont,
+  unfilteredVerseText,
+  checkIfVerseChanged,
+  checkIfCommentChanged,
   targetLanguageDetails,
+  changeSelectionsInLocalState,
 }) => {
   let modeArea;
-  const { direction: languageDirection = 'ltr' } = targetLanguageDetails || {};
+  const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
   switch (mode) {
   case 'edit':
+    var fontSize = (toolsSettings['CheckArea'] && toolsSettings['CheckArea'].fontSize) || 100;
+
     modeArea = (
       <EditVerseArea
         tags={tags}
@@ -48,8 +53,10 @@ const CheckArea = ({
         handleTagsCheckbox={handleTagsCheckbox}
         handleEditVerse={handleEditVerse}
         checkIfVerseChanged={checkIfVerseChanged}
-        languageDirection={languageDirection}
+        languageDirection={targetLanguageDirection}
         translate={translate}
+        targetLanguageFont={targetLanguageFont}
+        targetLanguageFontSize={`${fontSize}%`}
       />
     );
     break;
@@ -75,6 +82,8 @@ const CheckArea = ({
           mode={mode}
           translate={translate}
           invalidated={invalidated}
+          targetLanguageFont={targetLanguageFont}
+          targetLanguageDirection={targetLanguageDirection}
         />
       </div>);
     break;
@@ -92,6 +101,8 @@ const CheckArea = ({
           translate={translate}
           invalidated={invalidated}
           nothingToSelect={nothingToSelect}
+          targetLanguageFont={targetLanguageFont}
+          targetLanguageDirection={targetLanguageDirection}
         />
       </div>
     );
@@ -101,26 +112,33 @@ const CheckArea = ({
     <div className='check-area'>
       {mode === 'select' ?
         <SelectionArea
+          mode={mode}
           translate={translate}
           verseText={verseText}
-          selections={newSelections}
-          mode={mode}
-          reference={contextId.reference}
-          maximumSelections={maximumSelections}
-          openAlertDialog={openAlertDialog}
-          changeSelectionsInLocalState={changeSelectionsInLocalState}
           bookDetails={bookDetails}
+          targetBible={targetBible}
+          selections={newSelections}
+          toolsSettings={toolsSettings}
+          reference={contextId.reference}
+          setToolSettings={setToolSettings}
+          openAlertDialog={openAlertDialog}
+          maximumSelections={maximumSelections}
+          targetLanguageFont={targetLanguageFont}
           targetLanguageDetails={targetLanguageDetails}
+          changeSelectionsInLocalState={changeSelectionsInLocalState}
         />
         :
         <DefaultArea
-          reference={contextId.reference}
           translate={translate}
           verseText={verseText}
           selections={selections}
           targetBible={targetBible}
-          validateSelections={validateSelections}
           bookDetails={bookDetails}
+          toolsSettings={toolsSettings}
+          reference={contextId.reference}
+          setToolSettings={setToolSettings}
+          validateSelections={validateSelections}
+          targetLanguageFont={targetLanguageFont}
           targetLanguageDetails={targetLanguageDetails}
         />
       }
@@ -134,31 +152,34 @@ const CheckArea = ({
 };
 
 CheckArea.propTypes = {
-  translate: PropTypes.func.isRequired,
-  mode: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
+  mode: PropTypes.string.isRequired,
+  targetLanguageFont: PropTypes.string,
+  translate: PropTypes.func.isRequired,
+  comment: PropTypes.string.isRequired,
   invalidated: PropTypes.bool.isRequired,
   verseText: PropTypes.string.isRequired,
-  unfilteredVerseText: PropTypes.string.isRequired,
-  isVerseChanged: PropTypes.bool.isRequired,
-  comment: PropTypes.string.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
-  newSelections: PropTypes.array.isRequired,
+  bookDetails: PropTypes.object.isRequired,
+  handleComment: PropTypes.func.isRequired,
   targetBible: PropTypes.object.isRequired,
+  newSelections: PropTypes.array.isRequired,
+  isVerseChanged: PropTypes.bool.isRequired,
   alignedGLText: PropTypes.string.isRequired,
   nothingToSelect: PropTypes.bool.isRequired,
-  maximumSelections: PropTypes.number.isRequired,
-  bookDetails: PropTypes.object.isRequired,
-  targetLanguageDetails: PropTypes.object.isRequired,
-  handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
-  handleComment: PropTypes.func.isRequired,
-  checkIfVerseChanged: PropTypes.func.isRequired,
-  checkIfCommentChanged: PropTypes.func.isRequired,
   openAlertDialog: PropTypes.func.isRequired,
-  changeSelectionsInLocalState: PropTypes.func.isRequired,
+  toolsSettings: PropTypes.object.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
   validateSelections: PropTypes.func.isRequired,
+  handleTagsCheckbox: PropTypes.func.isRequired,
+  checkIfVerseChanged: PropTypes.func.isRequired,
+  maximumSelections: PropTypes.number.isRequired,
+  unfilteredVerseText: PropTypes.string.isRequired,
+  checkIfCommentChanged: PropTypes.func.isRequired,
+  targetLanguageDetails: PropTypes.object.isRequired,
+  changeSelectionsInLocalState: PropTypes.func.isRequired,
 };
 
 export default CheckArea;

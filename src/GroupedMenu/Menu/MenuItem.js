@@ -9,56 +9,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge';
 import memoize from 'memoize-one';
 import _ from 'lodash';
-
-/**
- * Utility to generate styles for a tooltip arrow
- */
-function arrowGenerator(color) {
-  return {
-    '&[x-placement*="bottom"] $arrow': {
-      'top': 0,
-      'left': 0,
-      'marginTop': '-0.9em',
-      'width': '3em',
-      'height': '1em',
-      '&::before': {
-        borderWidth: '0 1em 1em 1em',
-        borderColor: `transparent transparent ${color} transparent`,
-      },
-    },
-    '&[x-placement*="top"] $arrow': {
-      'bottom': 0,
-      'left': 0,
-      'marginBottom': '-0.9em',
-      'width': '3em',
-      'height': '1em',
-      '&::before': {
-        borderWidth: '1em 1em 0 1em',
-        borderColor: `${color} transparent transparent transparent`,
-      },
-    },
-    '&[x-placement*="right"] $arrow': {
-      'left': 0,
-      'marginLeft': '-0.9em',
-      'height': '3em',
-      'width': '1em',
-      '&::before': {
-        borderWidth: '1em 1em 1em 0',
-        borderColor: `transparent ${color} transparent transparent`,
-      },
-    },
-    '&[x-placement*="left"] $arrow': {
-      'right': 0,
-      'marginRight': '-0.9em',
-      'height': '3em',
-      'width': '1em',
-      '&::before': {
-        borderWidth: '1em 0 1em 1em',
-        borderColor: `transparent transparent transparent ${color}`,
-      },
-    },
-  };
-}
+import { getFontClassName } from '../../common/fontUtils';
+import { isLTR } from '../..';
 
 /**
  * Utility to apply styles based on props
@@ -119,28 +71,25 @@ const styles = {
     color: '#333333',
     boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
   },
-  arrowPopper: arrowGenerator('#fff'),
   arrow: {
-    'position': 'absolute',
-    'fontSize': 7,
-    'width': '3em',
-    'height': '3em',
+    'fontSize': 16,
+    'width': 17,
     '&::before': {
-      content: '""',
-      margin: 'auto',
-      display: 'block',
-      width: 0,
-      height: 0,
-      borderStyle: 'solid',
+      border: '1px solid #000',
+      backgroundColor: '#fff',
+      boxSizing: 'border-box',
     },
   },
-  bootstrapPopper: arrowGenerator('#000'),
-  bootstrapTooltip: { backgroundColor: '#000' },
-  bootstrapPlacementLeft: { margin: '0 8px' },
-  bootstrapPlacementRight: { margin: '0 8px' },
-  bootstrapPlacementTop: { margin: '8px 40px' },
-  bootstrapPlacementBottom: { margin: '8px 40px' },
+  listItemIconRoot: { minWidth: '0px' },
 };
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: '#333333',
+    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
+  },
+}))(Tooltip);
 
 /**
  * Renders a single item within the menu
@@ -170,9 +119,11 @@ class MenuItem extends React.Component {
    * Check for the tooltip text overflow
    */
   checkOverflow = () => {
+    const { direction } = this.props;
+    const padding = isLTR(direction) ? 8 : 20; // correct for padding width
     const overflow =
-      this.listItemTextRef.current.offsetWidth <
-      this.textRef.current.offsetWidth;
+      this.listItemTextRef.current.offsetWidth <=
+      this.textRef.current.offsetWidth + padding;
 
     if (overflow !== this.state.overflow) {
       this.setState({ overflow });
@@ -214,21 +165,24 @@ class MenuItem extends React.Component {
     }
 
     if (icons.length === 1) {
-      return <ListItemIcon>{icons[0]}</ListItemIcon>;
+      return (
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+          {icons[0]}
+        </ListItemIcon>
+      );
     } else if (icons.length > 1) {
       // display badged icon with tooltip
       return (
-        <ListItemIcon>
-          <Tooltip
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+          <LightTooltip
             placement="right"
-            classes={{ tooltip: this.props.classes.lightTooltipSmall }}
             title={
               <React.Fragment>
                 {icons.map((i, key) =>
                   React.cloneElement(i, {
                     key,
                     style: { color: '#333333' },
-                  })
+                  }),
                 )}
               </React.Fragment>
             }
@@ -239,7 +193,7 @@ class MenuItem extends React.Component {
             >
               {icons[0]}
             </Badge>
-          </Tooltip>
+          </LightTooltip>
         </ListItemIcon>
       );
     } else {
@@ -251,7 +205,11 @@ class MenuItem extends React.Component {
     // TRICKY: we should technically check for an update to statusIcons
     // however that is not a known use case and it's faster to ignore it.
     const {
-      title, key, selected, status,
+      key,
+      title,
+      status,
+      selected,
+      targetLanguageFont,
     } = this.props;
     const { overflow } = this.state;
     return (
@@ -259,6 +217,7 @@ class MenuItem extends React.Component {
       title !== nextProps.title ||
       key !== nextProps.key ||
       selected !== nextProps.selected ||
+      targetLanguageFont !== nextProps.targetLanguageFont ||
       !_.isEqual(status, nextProps.status)
     );
   }
@@ -279,17 +238,30 @@ class MenuItem extends React.Component {
 
   render() {
     const {
-      classes,
-      title,
-      statusIcons,
-      status,
       key,
-      selected,
+      title,
+      status,
       tooltip,
+      classes,
+      selected,
+      direction,
+      statusIcons,
+      targetLanguageFont,
     } = this.props;
     const { overflow } = this.state;
     const tooltipText = tooltip ? tooltip : title;
     const icon = this.generateStatusIcon(status, statusIcons, selected);
+    const fontClass = getFontClassName(targetLanguageFont);
+    const style = {};
+    const toolTipStyle = {};
+
+    if (!isLTR(direction)) { // if RTL
+      style.textAlign = 'right';
+      style.paddingRight = '16px';
+      style.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
+      toolTipStyle.direction = 'rtl';
+    }
 
     return (
       <ListItem
@@ -306,32 +278,17 @@ class MenuItem extends React.Component {
         <RootRef rootRef={this.listItemTextRef}>
           <Tooltip
             enterDelay={300}
+            arrow={true}
             title={
-              <React.Fragment>
-                {tooltipText}
-                <span className={classes.arrow} ref={this.handleArrowRef}/>
-              </React.Fragment>
+              <div className={fontClass} style={toolTipStyle}>{tooltipText}</div>
             }
             disableFocusListener={!overflow}
             disableHoverListener={!overflow}
             disableTouchListener={!overflow}
+            placement={'bottom-start'}
             classes={{
               tooltip: classes.lightTooltip,
-              popper: classes.arrowPopper,
-              tooltipPlacementLeft: classes.bootstrapPlacementLeft,
-              tooltipPlacementRight: classes.bootstrapPlacementRight,
-              tooltipPlacementTop: classes.bootstrapPlacementTop,
-              tooltipPlacementBottom: classes.bootstrapPlacementBottom,
-            }}
-            PopperProps={{
-              popperOptions: {
-                modifiers: {
-                  arrow: {
-                    enabled: Boolean(this.state.arrowRef),
-                    element: this.state.arrowRef,
-                  },
-                },
-              },
+              arrow: classes.arrow,
             }}
           >
             <ListItemText
@@ -340,7 +297,8 @@ class MenuItem extends React.Component {
                 root: classes.textRoot,
                 primary: classes.text,
               }}
-              primary={<span ref={this.textRef}>{title}</span>}
+              style={style}
+              primary={<span className={fontClass} ref={this.textRef}>{title}</span>}
             />
           </Tooltip>
         </RootRef>
@@ -358,6 +316,8 @@ MenuItem.propTypes = {
   selected: PropTypes.bool,
   statusIcons: PropTypes.arrayOf(PropTypes.object),
   status: PropTypes.object,
+  targetLanguageFont: PropTypes.string,
+  direction: PropTypes.string,
 };
 
 export default withStyles(styles)(MenuItem);

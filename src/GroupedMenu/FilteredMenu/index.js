@@ -59,7 +59,7 @@ class FilteredMenu extends React.Component {
         {
           value: true, disables: [], id: filters[i].key,
         },
-        filters[i]
+        filters[i],
       );
       normalized.push(filter);
     }
@@ -105,6 +105,7 @@ class FilteredMenu extends React.Component {
       width,
       statusIcons,
       emptyNotice,
+      targetLanguageFont,
     } = this.props;
     const { selectedFilters, filtersOpen } = this.state;
     const normalizedFilters = this.normalizeFilters(filters);
@@ -137,6 +138,7 @@ class FilteredMenu extends React.Component {
           active={active}
           height={height}
           onItemClick={onItemClick}
+          targetLanguageFont={targetLanguageFont}
         />
       </React.Fragment>
     );
@@ -152,6 +154,7 @@ FilteredMenu.propTypes = {
   onItemClick: PropTypes.func,
   width: PropTypes.number,
   emptyNotice: PropTypes.string,
+  targetLanguageFont: PropTypes.string,
   statusIcons: PropTypes.arrayOf(PropTypes.object),
 };
 

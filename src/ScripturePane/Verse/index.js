@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { getReferenceStr } from '../helpers/utils';
 
 import './Verse.styles.css';
 
@@ -32,18 +33,24 @@ class Verse extends Component {
 
   render() {
     const {
-      verseElements,
-      bibleId,
-      direction,
-      chapter,
       verse,
       onEdit,
+      bibleId,
+      chapter,
+      fontClass,
+      direction,
       translate,
+      verseElements,
     } = this.props;
-    const chapterVerseContent = `${chapter}:${verse} `;
-    const chapterVerse = <strong>{chapterVerseContent}</strong>;
+    const chapterVerseContent = getReferenceStr(chapter, verse) + ' ';
+    const chapterVerse = <strong className={fontClass}>{chapterVerseContent}</strong>;
     const isEditable = bibleId === 'targetBible';
     let verseSpan = verseElements;
+    let verseContainerStyle = {};
+
+    if (bibleId === 'uhb') {
+      verseContainerStyle = { WebkitFontSmoothing: 'antialiased', fontSize: '175%' };
+    }
 
     if (!verseElements) {
       verseSpan = (
@@ -59,17 +66,19 @@ class Verse extends Component {
       edit = (
         <div style={styles.edit_wrapper}>
           <IconButton style={styles.edit_button} onClick={this.handleEdit}>
-            <EditIcon/>
+            <EditIcon style={{ fontSize: '24px' }}/>
           </IconButton>
         </div>
       );
     }
 
+    const directionClassName = direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl';
+
     return (
-      <div className="verse-container">
-        <div className={direction === 'ltr' ? 'verse-content-ltr' : 'verse-content-rtl'}>
+      <div className="verse-container" style={verseContainerStyle}>
+        <div className={directionClassName}>
           {chapterVerse}
-          {verseSpan}
+          <span>{verseSpan}</span>
         </div>
         {edit}
       </div>
@@ -78,6 +87,16 @@ class Verse extends Component {
 }
 
 Verse.propTypes = {
+  onEdit: PropTypes.func,
+  fontClass: PropTypes.string,
+  translate: PropTypes.func.isRequired,
+  chapter: PropTypes.number.isRequired,
+  bibleId: PropTypes.string.isRequired,
+  direction: PropTypes.string.isRequired,
+  verse: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
   verseText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
@@ -88,15 +107,6 @@ Verse.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]),
-  bibleId: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
-  chapter: PropTypes.number.isRequired,
-  verse: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.number.isRequired,
-  ]),
-  onEdit: PropTypes.func,
-  translate: PropTypes.func.isRequired,
 };
 
 export default Verse;

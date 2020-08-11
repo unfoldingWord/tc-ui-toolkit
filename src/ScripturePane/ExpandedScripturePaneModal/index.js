@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 // components
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
+import deepEqual from 'deep-equal';
+import { getFontClassName } from '../../common/fontUtils';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
@@ -19,7 +21,7 @@ function PaperComponent(props) {
   // component will only be draggable by element with the className in the handle prop
   return (
     <Draggable handle=".expanded-scripture-draggable-handle">
-      <Paper {...props}/>
+      <Paper {...props} elevation={2} />
     </Draggable>
   );
 }
@@ -56,140 +58,134 @@ const styles = {
   paperRoot: { margin: '0px' },
 };
 
-class ExpandedScripturePaneModal extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEditTargetVerse = this.handleEditTargetVerse.bind(this);
-    this.handleEditorCancel = this.handleEditorCancel.bind(this);
-    this.handleEditorSubmit = this.handleEditorSubmit.bind(this);
-    this.state = { editVerse: null };
-  }
+function ExpandedScripturePaneModal({
+  show,
+  title,
+  onHide,
+  bibles,
+  classes,
+  contextId,
+  translate,
+  selections,
+  showPopover,
+  getLexiconData,
+  editTargetVerse,
+  targetLanguageFont,
+  currentPaneSettings,
+  projectDetailsReducer,
+}) {
+  const [verseTextReference, editVerseText] = useState({});
 
-  componentDidCatch(error, info) {
-    console.error(error, info);
-  }
+  function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
+    editVerseText(prevState => ({
+      ...prevState,
+      bibleId,
+      chapter,
+      verse,
+      verseText,
+    }));
+  };
 
-  /**
-   * Handles events to edit the target verse
-   * @param bibleId
-   * @param chapter
-   * @param verse
-   * @param verseText
-   */
-  handleEditTargetVerse(bibleId, chapter, verse, verseText) {
-    this.setState({
-      editVerse: {
-        bibleId,
-        chapter,
-        verse,
-        verseText,
-      },
-    });
-  }
-
-  handleEditorSubmit(originalVerse, newVerse, reasons) {
-    const { editTargetVerse } = this.props;
-    const { editVerse } = this.state;
-
-    if (editVerse === null) {
+  function handleEditorSubmit(originalVerse, newVerse, reasons) {
+    if (Object.keys(verseTextReference).length === 0) {
       return;
     }
 
-    const { chapter, verse } = editVerse;
+    const { chapter, verse } = verseTextReference;
 
     if (typeof editTargetVerse === 'function') {
       editTargetVerse(chapter, verse, originalVerse, newVerse, reasons);
     } else {
       console.warn('Unable to edit verse. Callback is not a function.');
     }
-    this.setState({ editVerse: null });
+    editVerseText({});
   }
 
-  handleEditorCancel() {
-    this.setState({ editVerse: null });
+  function handleEditorCancel() {
+    editVerseText({});
   }
 
-  render() {
-    const {
-      show,
-      onHide,
-      title,
-      contextId,
-      currentPaneSettings,
-      editTargetVerse,
-      translate,
-      projectDetailsReducer,
-      bibles,
-      selections,
-      getLexiconData,
-      showPopover,
-      classes,
-    } = this.props;
-    const { editVerse } = this.state;
+  const fontClass = getFontClassName(targetLanguageFont);
 
-    return (
-      <Dialog
-        open={show}
-        onClose={onHide}
-        fullWidth
-        maxWidth='md'
-        PaperComponent={PaperComponent}
-        PaperProps={{ className: classes.paperRoot }}
-        aria-labelledby="draggable-expanded-scripture-pane"
-      >
-        <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
-          <div style={styles.title}>
-            {title}
-          </div>
-          <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
-            <Glyphicon glyph="remove" />
-          </IconButton>
-        </Toolbar>
-        <DialogContent style={styles.dialogContent}>
-          <BibleHeadingsRow
-            bibles={bibles}
-            currentPaneSettings={currentPaneSettings}
-            projectDetailsReducer={projectDetailsReducer} />
-          <ChapterView
-            bibles={bibles}
-            contextId={contextId}
-            translate={translate}
-            editVerse={editVerse}
-            editTargetVerse={editTargetVerse}
-            projectDetailsReducer={projectDetailsReducer}
-            currentPaneSettings={currentPaneSettings}
-            handleEditTargetVerse={this.handleEditTargetVerse}
-            handleEditorSubmit={this.handleEditorSubmit}
-            handleEditorCancel={this.handleEditorCancel}
-            selections={selections}
-            showPopover={showPopover}
-            getLexiconData={getLexiconData} />
-        </DialogContent>
-        <DialogActions disableActionSpacing style={styles.dialogActions}>
-          <button className="btn-prime" onClick={onHide}>
-            {translate('close')}
-          </button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog
+      open={show}
+      onClose={onHide}
+      fullWidth
+      maxWidth='md'
+      PaperComponent={PaperComponent}
+      PaperProps={{ className: classes.paperRoot }}
+      aria-labelledby="draggable-expanded-scripture-pane"
+    >
+      <Toolbar style={styles.toolBar} className="expanded-scripture-draggable-handle">
+        <div style={styles.title} className={fontClass}>
+          {title}
+        </div>
+        <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
+          <Glyphicon glyph="remove" />
+        </IconButton>
+      </Toolbar>
+      <DialogContent style={styles.dialogContent}>
+        <BibleHeadingsRow
+          bibles={bibles}
+          currentPaneSettings={currentPaneSettings}
+          projectDetailsReducer={projectDetailsReducer} />
+        <ChapterView
+          bibles={bibles}
+          contextId={contextId}
+          translate={translate}
+          editVerse={Object.keys(verseTextReference).length === 0 ? null : verseTextReference}
+          editTargetVerse={editTargetVerse}
+          projectDetailsReducer={projectDetailsReducer}
+          currentPaneSettings={currentPaneSettings}
+          handleEditTargetVerse={handleEditTargetVerse}
+          handleEditorSubmit={handleEditorSubmit}
+          handleEditorCancel={handleEditorCancel}
+          selections={selections}
+          showPopover={showPopover}
+          getLexiconData={getLexiconData} />
+      </DialogContent>
+      <DialogActions disableSpacing style={styles.dialogActions}>
+        <button className="btn-prime" onClick={onHide}>
+          {translate('close')}
+        </button>
+      </DialogActions>
+    </Dialog>
+  );
 }
 
 ExpandedScripturePaneModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  primaryLabel: PropTypes.string.isRequired,
-  contextId: PropTypes.object.isRequired,
-  currentPaneSettings: PropTypes.array.isRequired,
-  editTargetVerse: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired,
-  projectDetailsReducer: PropTypes.object.isRequired,
   bibles: PropTypes.object.isRequired,
-  selections: PropTypes.array.isRequired,
-  getLexiconData: PropTypes.func.isRequired,
-  showPopover: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  targetLanguageFont: PropTypes.string,
+  contextId: PropTypes.object.isRequired,
+  showPopover: PropTypes.func.isRequired,
+  selections: PropTypes.array.isRequired,
+  primaryLabel: PropTypes.string.isRequired,
+  getLexiconData: PropTypes.func.isRequired,
+  editTargetVerse: PropTypes.func.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ExpandedScripturePaneModal);
+/**
+ * Custom comparison function to determine if component should rerender.
+ * @param {object} prevProps
+ * @param {object} nextProps
+ */
+function areEqual(prevProps, nextProps) {
+  /*
+    Return true if passing nextProps.bibles to
+    render would return the same result as passing
+    prevProps.bibles to render, otherwise return false
+  */
+  return deepEqual(prevProps.bibles, nextProps.bibles) &&
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings);
+}
+
+// using React.memo to boost performance by memoizing the result
+export default React.memo(withStyles(styles)(ExpandedScripturePaneModal), areEqual);

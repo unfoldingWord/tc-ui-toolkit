@@ -6,6 +6,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InfoIcon from '@material-ui/icons/Info';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ReactTooltip from 'react-tooltip';
 // components
 import Bookmark from '../../Bookmark';
@@ -48,7 +50,7 @@ const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelec
 const ChangeModeArea = ({
   translate,
   bookmarkEnabled,
-  toggleReminder,
+  toggleBookmark,
   changeMode,
 }) => (
   <div className='actions-area'>
@@ -57,7 +59,7 @@ const ChangeModeArea = ({
       color='primary'
       checked={bookmarkEnabled}
       label={translate('bookmark')}
-      onChange={toggleReminder} />
+      onChange={toggleBookmark} />
     <div style={{ display: 'flex', marginLeft: 'auto' }}>
       <button
         style={{ width: '140px', marginRight: '5px' }}
@@ -152,13 +154,15 @@ const ConfirmSelectionArea = ({
           <Checkbox
             checked={localNothingToSelect}
             disabled={newSelections && newSelections.length > 0}
+            color="primary"
             onChange={event => toggleNothingToSelect(event.target.checked)}
             value="nothingToSelect"
-            color="primary"
             classes={{
               root: classes.checkBoxRoot,
               checked: classes.checked,
             }}
+            icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+            checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
           />
         }
         label={translate('no_selection_needed')}
@@ -228,7 +232,7 @@ const ActionsArea = ({
   localNothingToSelect,
   nothingToSelect,
   toggleNothingToSelect,
-  toggleReminder,
+  toggleBookmark,
   changeMode,
   cancelEditVerse,
   saveEditVerse,
@@ -274,7 +278,7 @@ const ActionsArea = ({
       <ChangeModeArea
         translate={translate}
         bookmarkEnabled={bookmarkEnabled}
-        toggleReminder={toggleReminder}
+        toggleBookmark={toggleBookmark}
         changeMode={changeMode}
       />
     );
@@ -283,7 +287,7 @@ const ActionsArea = ({
       <ChangeModeArea
         translate={translate}
         bookmarkEnabled={bookmarkEnabled}
-        toggleReminder={toggleReminder}
+        toggleBookmark={toggleBookmark}
         changeMode={changeMode}
       />
     );
@@ -305,7 +309,7 @@ ActionsArea.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   translate: PropTypes.func.isRequired,
   toggleNothingToSelect: PropTypes.func.isRequired,
-  toggleReminder: PropTypes.func.isRequired,
+  toggleBookmark: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   cancelEditVerse: PropTypes.func.isRequired,
   saveEditVerse: PropTypes.func.isRequired,

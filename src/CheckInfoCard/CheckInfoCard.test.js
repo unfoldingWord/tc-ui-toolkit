@@ -20,7 +20,7 @@ describe('CheckInfoCard', () => {
           seeMoreLabel={props.seeMoreLabel}
           showSeeMoreButton={props.showSeeMoreButton}
           onSeeMoreClick={props.onSeeMoreClick}
-        />
+        />,
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

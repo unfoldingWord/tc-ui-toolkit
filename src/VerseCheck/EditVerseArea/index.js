@@ -6,6 +6,10 @@ import {
 } from 'react-bootstrap';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import { moveCursorToEnd } from '../../VerseEditor/helpers/editHelpers';
+import { getFontClassName } from '../../common/fontUtils';
 
 import './EditVerseArea.styles.css';
 
@@ -30,6 +34,8 @@ const EditVerseArea = ({
   handleTagsCheckbox,
   handleEditVerse,
   checkIfVerseChanged,
+  targetLanguageFont,
+  targetLanguageFontSize,
 }) => {
   const tagList1 = [
     ['spelling', translate('spelling')],
@@ -59,10 +65,12 @@ const EditVerseArea = ({
           }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={tag[1]}
-    />
+    />,
   );
 
   const checkboxesColumn2 = tagList2.map(tag =>
@@ -81,13 +89,15 @@ const EditVerseArea = ({
           }}
           checked={tags.includes(tag[0])}
           onChange={() => handleTagsCheckbox(tag[0])}
+          icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
+          checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
         />
       }
       label={tag[1]}
-    />
+    />,
   );
-
   const checkBoxText = isVerseChanged ? translate('next_change_reason') : translate('first_make_change');
+  const fontClass = getFontClassName(targetLanguageFont) || 'default-text'; // TRICKY defaulting to the 'default-text' class prevents 'form-control' class from resetting font-size to 14px
 
   return (
     <div className='edit-area'>
@@ -98,19 +108,23 @@ const EditVerseArea = ({
       <FormGroup style={{
         flex: 'auto', display: 'flex', flexDirection: 'column', marginBottom: '5px',
       }} controlId='formControlsTextarea'>
-        <FormControl
-          autoFocus
-          componentClass='textarea'
-          type='text'
-          defaultValue={verseText}
-          style={{
-            flex: 'auto',
-            minHeight: '110px',
-            direction: languageDirection,
-          }}
-          onBlur={handleEditVerse}
-          onInput={checkIfVerseChanged}
-        />
+        <div style={{ fontSize: targetLanguageFontSize }}> {/*apply desired font size multiplier before font class styling*/}
+          <FormControl
+            autoFocus
+            onFocus={moveCursorToEnd}
+            componentClass='textarea'
+            type='text'
+            defaultValue={verseText}
+            className={fontClass}
+            style={{
+              flex: 'auto',
+              minHeight: '110px',
+              direction: languageDirection,
+            }}
+            onBlur={handleEditVerse}
+            onInput={checkIfVerseChanged}
+          />
+        </div>
         <div style={{
           flex: '0 0 65px', marginTop: '5px', fontSize: '0.9em',
         }}>
@@ -144,6 +158,8 @@ EditVerseArea.propTypes = {
   handleTagsCheckbox: PropTypes.func.isRequired,
   handleEditVerse: PropTypes.func.isRequired,
   checkIfVerseChanged: PropTypes.func.isRequired,
+  targetLanguageFont: PropTypes.string,
+  targetLanguageFontSize: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(EditVerseArea);

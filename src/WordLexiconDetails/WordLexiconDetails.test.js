@@ -21,7 +21,7 @@ describe('WordLexiconDetails', () => {
             morph: 'Gr,NS,,,,GMPF',
             strong: 'G1230',
           }}
-          translate={k => k}/>
+          translate={k => k}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -37,7 +37,7 @@ describe('WordLexiconDetails', () => {
             strong: 'b:H7225',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -53,7 +53,7 @@ describe('WordLexiconDetails', () => {
             strong: 'H1254a',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -69,7 +69,7 @@ describe('WordLexiconDetails', () => {
             strong: 'c:d:H0776',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -85,7 +85,7 @@ describe('WordLexiconDetails', () => {
             strong: 'H2233',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -101,7 +101,7 @@ describe('WordLexiconDetails', () => {
             strong: 'l:H4327',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -117,7 +117,7 @@ describe('WordLexiconDetails', () => {
             strong: 'H0894',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -133,7 +133,7 @@ describe('WordLexiconDetails', () => {
             strong: 'l:H4430',
           }}
           translate={k => k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -149,7 +149,7 @@ describe('WordLexiconDetails', () => {
             strong: 'b',
           }}
           translate={k=>k}
-          isHebrew={true}/>
+          isHebrew={true}/>,
       );
       expect(wrapper).toMatchSnapshot();
     });

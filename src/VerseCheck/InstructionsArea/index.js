@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 // components
-import InstructionsAreaTextSelection, { QuoatationMarks } from '../InstructionsAreaTextSelection';
+import InstructionsAreaTextSelection, { SelectedText } from '../InstructionsAreaTextSelection';
 // css
 import './InstructionsArea.styles.css';
 
@@ -29,14 +29,16 @@ function getSelectionString(invalidated, translate) {
 }
 
 const InstructionsArea = ({
-  alignedGLText,
-  selections,
-  dontShowTranslation,
-  verseText,
   mode,
+  verseText,
   translate,
+  selections,
   invalidated,
+  alignedGLText,
   nothingToSelect,
+  targetLanguageFont,
+  dontShowTranslation,
+  targetLanguageDirection,
 }) => {
   if (!verseText) {
     return (
@@ -50,11 +52,11 @@ const InstructionsArea = ({
     return (
       <div className='instructions-area'>
         <span>{translate('no_selection_needed_description')}</span><br />
-        <QuoatationMarks>
+        <SelectedText>
           <strong className="no-selection-needed">
             {translate('no_selection_needed')}
           </strong>
-        </QuoatationMarks>
+        </SelectedText>
       </div>
     );
   }
@@ -74,7 +76,7 @@ const InstructionsArea = ({
         <span>{translate('please_select')}</span><br />
         <span>
           <strong style={{ color: 'var(--accent-color)' }}>
-            {`"${alignedGLText}"`}
+            {`${alignedGLText}`}
           </strong>
         </span><br />
       </div>
@@ -85,14 +87,17 @@ const InstructionsArea = ({
     <div className='instructions-area'>
       <span>
         <strong style={{ color: 'var(--accent-color)' }}>
-          {`"${alignedGLText}"`}
+          {`${alignedGLText}`}
         </strong>
       </span><br />
-      <span>{translate('translated_as')}</span><br />
+      <span style={{ lineHeight: 2 }}>{translate('translated_as')}</span><br />
       <span>
         <InstructionsAreaTextSelection
           selections={selections}
-          verseText={verseText} />
+          verseText={verseText}
+          targetLanguageFont={targetLanguageFont}
+          languageDirection={targetLanguageDirection}
+        />
       </span>
     </div>
   );
@@ -107,6 +112,10 @@ InstructionsArea.propTypes = {
   mode: PropTypes.string,
   invalidated: PropTypes.bool,
   nothingToSelect: PropTypes.bool,
+  targetLanguageFont: PropTypes.string,
+  targetLanguageDirection: PropTypes.string,
 };
+
+InstructionsArea.defaultProps = { targetLanguageDirection: 'ltr' };
 
 export default InstructionsArea;

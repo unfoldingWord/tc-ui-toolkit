@@ -133,7 +133,7 @@ export function getWordHighlightedDetails(contextId, previousWord, word) {
   };
 }
 
-export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing) {
+export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) {
     nestedWords = getDeepNestedWords(nestedWords);
@@ -164,7 +164,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       const highlightedDetails = getWordHighlightedDetails(
         contextId,
         nestedPreviousWord,
-        nestedWord
+        nestedWord,
       );
       isHighlightedWord = highlightedDetails.isHighlightedWord;
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
@@ -176,10 +176,10 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
           <span style={paddingSpanStyle}>
             {padding}
           </span>
-          <span style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
+          <span className={fontClass} style={{ backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' }}>
             {removeMarker(nestedWord.text)}
           </span>
-        </span>
+        </span>,
       );
     } else if (nestedWord.text) {
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
@@ -187,15 +187,15 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
 
       if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
         wordSpans.push(
-          <span key={nestedWordSpanIndex} style={{ backgroundColor: 'var(--highlight-color)' }}>
+          <span key={nestedWordSpanIndex} className={fontClass} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {text}
-          </span>
+          </span>,
         );
       } else {
         wordSpans.push(
-          <span key={nestedWordSpanIndex}>
+          <span className={fontClass} key={nestedWordSpanIndex}>
             {text}
-          </span>
+          </span>,
         );
       }
     }
@@ -281,11 +281,12 @@ let spaceCounter = 0;
 /**
  * pushes a span to the array
  * @param {Array} verseSpan
+ * @param {String} fontClass
  */
-export function addSpace(verseSpan) {
+export function addSpace(verseSpan, fontClass) {
   verseSpan.push(
-    <span key={'space_' +(++spaceCounter)} style={{ backgroundColor: 'transparent' }}>
+    <span key={'space_' +(++spaceCounter)} className={fontClass} style={{ backgroundColor: 'transparent' }}>
       {' '}
-    </span>
+    </span>,
   );
 }

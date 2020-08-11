@@ -7,7 +7,7 @@ describe('tc-ui-toolkit', () => {
 
   it('should not do undefined exports', () => {
     Object.keys(TcUiToolkit).forEach(exportKey =>
-      expect(Boolean(TcUiToolkit[exportKey])).toBeTruthy()
+      expect(Boolean(TcUiToolkit[exportKey])).toBeTruthy(),
     );
   });
 });

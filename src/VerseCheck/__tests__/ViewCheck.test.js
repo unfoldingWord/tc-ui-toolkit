@@ -1,10 +1,12 @@
 /* eslint-env jest */
+import path from 'path';
+import fs from 'fs-extra';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import VerseCheck from '../VerseCheck';
 
 const mock_translate = (text) => (text);
-const base_props = require('./fixtures/project/loadedProjectShortened');
+const base_props = fs.readJsonSync(path.join('./src/VerseCheck/__tests__/fixtures/project/loadedProjectShortened.json'));
 let currentInvalidated = false;
 let currentEdited = false;
 
@@ -20,7 +22,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -35,7 +37,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -50,7 +52,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -66,7 +68,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -82,7 +84,7 @@ describe('VerseCheck component:', () => {
 
     // when
     const component = renderer.create(
-      <VerseCheck {...props} />
+      <VerseCheck {...props} />,
     );
 
     // then
@@ -114,7 +116,7 @@ function addMockActions(props) {
     cancelEditVerse: () => jest.fn(),
     saveEditVerse: () => jest.fn(),
     validateSelections: () => jest.fn(),
-    toggleReminder: () => jest.fn(),
+    toggleBookmark: () => jest.fn(),
     openAlertDialog: () => jest.fn(),
     selectModalTab: () => jest.fn(),
     cancelSelection: () => jest.fn(),
@@ -131,6 +133,7 @@ function addMockActions(props) {
     goToNextOrPrevious: 'next',
     findIfVerseEdited: jest.fn(() => ( currentEdited)),
     findIfVerseInvalidated: jest.fn(() => (currentInvalidated)),
+    manifest: { projectFont: 'default' },
   };
 }
 

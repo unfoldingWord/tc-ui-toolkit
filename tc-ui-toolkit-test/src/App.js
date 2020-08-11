@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
-import { ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme } from 'tc-ui-toolkit';
+import React, { Component } from 'react';
+import {
+  ScripturePane, VerseCheck, CheckInfoCard, GroupedMenu, generateMenuData, TranslationHelps, TcuiThemeProvider, createTcuiTheme,
+} from 'tc-ui-toolkit';
 import {
   sampleIndex,
   sampleData,
   groupedMenufilters,
-  groupedMenuActions
+  groupedMenuActions,
 } from './assets/groupedMenuProps';
 import {
   bibles,
@@ -16,15 +18,15 @@ import {
   verseCheckActions,
   // verseCheckSelections
 } from './assets/verseCheckProps';
-import translationHelpsProps from './assets/translationHelpsProps'
+import translationHelpsProps from './assets/translationHelpsProps';
 // reducers props
-import projectDetailsReducer from './assets/projectDetailsReducer'
-import contextIdReducer from './assets/contextIdReducer'
-import groupsDataReducer from './assets/groupsDataReducer'
-import groupsIndexReducer from './assets/groupsIndexReducer'
-import groupMenuReducer from './assets/groupMenuReducer'
-import toolsReducer from './assets/toolsReducer'
-import selectionsReducer from './assets/selectionsReducer'
+import projectDetailsReducer from './assets/projectDetailsReducer';
+import contextIdReducer from './assets/contextIdReducer';
+import groupsDataReducer from './assets/groupsDataReducer';
+import groupsIndexReducer from './assets/groupsIndexReducer';
+import groupMenuReducer from './assets/groupMenuReducer';
+import toolsReducer from './assets/toolsReducer';
+import selectionsReducer from './assets/selectionsReducer';
 // import resourcesReducer from './assets/resourcesReducer'
 // import commentsReducer from './assets/commentsReducer'
 // import remindersReducer from './assets/remindersReducer'
@@ -38,9 +40,7 @@ class App extends Component {
     this.state = {
       showHelps: false,
       showHelpsModal: false,
-      remindersReducer: {
-        enabled: false
-      },
+      remindersReducer: { enabled: false },
       tags: [],
       mode: 'default',
       nothingToSelect: false,
@@ -50,41 +50,34 @@ class App extends Component {
   }
 
   toggleHelps() {
-    this.setState({
-      showHelps: !this.state.showHelps
-    });
+    this.setState({ showHelps: !this.state.showHelps });
   }
 
   toggleHelpsModal() {
-    this.setState({
-      showHelpsModal: !this.state.showHelpsModal
-    });
+    this.setState({ showHelpsModal: !this.state.showHelpsModal });
   }
 
-  toggleReminder(event) {
+  toggleBookmark(event) {
     this.setState({
       remindersReducer: {
         ...this.state.remindersReducer,
-        enabled: event.target.checked
-      }
+        enabled: event.target.checked,
+      },
     });
   }
 
   render() {
-    const theme = createTcuiTheme({
-      typography: {
-        useNextVariants: true,
-      },
-      scrollbarThumb: {borderRadius: '10px'}
-    });
+    const theme = createTcuiTheme({ scrollbarThumb: { borderRadius: '10px' } });
 
-    const statusIcons = groupedMenufilters.filter(f => f.id !== "incomplete");
+    const statusIcons = groupedMenufilters.filter(f => f.id !== 'incomplete');
 
     const entries = generateMenuData(sampleIndex, sampleData, 'done');
 
     return (
       <TcuiThemeProvider theme={theme}>
-        <div style={{display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh'}}>
+        <div style={{
+          display: 'flex', flexDirection: 'row', width: '100vw', height: '100vh',
+        }}>
           <GroupedMenu
             title="Menu"
             filters={groupedMenufilters}
@@ -98,7 +91,9 @@ class App extends Component {
             groupMenuReducer={groupMenuReducer}
             toolsReducer={toolsReducer}
           />
-          <div style={{display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto'}}>
+          <div style={{
+            display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto',
+          }}>
             <ScripturePane
               {...otherSPProps}
               translate={k => k}
@@ -108,7 +103,7 @@ class App extends Component {
               projectDetailsReducer={projectDetailsReducer}
             />
             <CheckInfoCard
-              getScriptureFromReference={() => "Scripture Reference"}
+              getScriptureFromReference={() => 'Scripture Reference'}
               phrase="For the grace of God has appeared for the salvation of all people. Paul speaks of the grace of God [Titus 2:11](rc://en/ulb/book/tit/02/11) as if it were a person who goes to other people and trains them to live holy lives."
               translate={k => k}
               seeMoreLabel="see more"
@@ -129,7 +124,7 @@ class App extends Component {
               nothingToSelect={this.state.nothingToSelect}
               cancelSelection={() => this.setState({ mode: 'default' })}
               clearSelection={() => {
-                this.setState({ selectionsReducer: { selections: [] }})
+                this.setState({ selectionsReducer: { selections: [] } });
               }}
               translate={k => k}
               newSelections={[]}

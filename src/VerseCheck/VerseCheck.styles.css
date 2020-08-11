@@ -4,7 +4,7 @@
   margin: 10px;
   height: 100%;
   display: flex;
-  margin: 10px;
+  flex-grow: 1;
 }
 
 .verse-check-flex {
@@ -56,7 +56,7 @@
   flex: 0 0 45px;
   display: flex;
   justify-content: space-between;
-  margin: 5px 10px 5px 15px;
+  margin: 5px 0px 5px 15px;
 }
 
 .selection-area-root {

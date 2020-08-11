@@ -37,7 +37,7 @@ const styles = () => ({
     fontWeight: 700,
     fontSize: 14,
   },
-  checkbox: { color: '#FFFFFF' },
+  checkbox: { color: '#FFFFFF', fontSize: '22px' },
   chip: {
     color: '#19579E',
     margin: 5,
@@ -51,6 +51,7 @@ const styles = () => ({
     '&:hover': { color: '#19579E' },
   },
   hover: {},
+  listItemIconRoot: { minWidth: '0px' },
 });
 
 /**
@@ -226,7 +227,7 @@ class MenuFilter extends React.Component {
                 disabled={!this.isEnabled(item)}
                 onClick={this.handleToggle(item)}
               >
-                <ListItemIcon>
+                <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
                   {this.isChecked(item) ? (
                     <CheckBoxIcon className={classes.checkbox}/>
                   ) : (
@@ -234,7 +235,7 @@ class MenuFilter extends React.Component {
                   )}
                 </ListItemIcon>
                 {item.icon
-                  ? React.cloneElement(item.icon, { style: { color: '#ffffff' } })
+                  ? React.cloneElement(item.icon, { style: { color: '#ffffff', fontSize: '22px' } })
                   : null}
                 <ListItemText
                   classes={{ primary: classes.filterText }}

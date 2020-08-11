@@ -1,75 +1,79 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
-import './ScripturePane.styles.css';
+import deepEqual from 'deep-equal';
+import _ from 'lodash';
 // components
-import Pane from './Pane';
+import Panes from './Panes';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
-// helpers
-import { verseString, verseArray } from './helpers/verseHelpers';
+
+import './ScripturePane.styles.css';
 // constant
 const NAMESPACE = 'ScripturePane';
 
-class ScripturePane extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showExpandedScripturePane: false,
-      showAddPaneModal: false,
-      selectedPane: false,
-    };
-    this.openExpandedScripturePane = this.openExpandedScripturePane.bind(this);
-    this.closeExpandedScripturePane = this.closeExpandedScripturePane.bind(this);
-    this.showAddBibleModal = this.showAddBibleModal.bind(this);
-    this.hideAddBibleModal = this.hideAddBibleModal.bind(this);
-    this.selectSourceLanguage = this.selectSourceLanguage.bind(this);
-    this.addNewBibleResource = this.addNewBibleResource.bind(this);
-    this.removePane = this.removePane.bind(this);
+function ScripturePane({
+  bibles,
+  contextId,
+  translate,
+  selections,
+  showPopover,
+  getLexiconData,
+  setToolSettings,
+  editTargetVerse,
+  handleModalOpen,
+  complexScriptFonts,
+  currentPaneSettings,
+  projectDetailsReducer,
+  expandedScripturePaneTitle,
+  makeSureBiblesLoadedForTool,
+  addObjectPropertyToManifest,
+  getAvailableScripturePaneSelections,
+}) {
+  const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
+  const [showAddPaneModal, toggleAddPaneModal] = useState(false);
+  const [selectedPane, setSelectedPane] = useState({});
+
+  function openExpandedScripturePane() {
+    toggleExpandedScripturePane(true);
+    handleModalOpen(true);
   }
 
-  openExpandedScripturePane() {
-    this.setState({ showExpandedScripturePane: true });
-    this.props.handleModalOpen(true);
+  function closeExpandedScripturePane() {
+    toggleExpandedScripturePane(false);
+    handleModalOpen(false);
   }
 
-  closeExpandedScripturePane() {
-    this.setState({ showExpandedScripturePane: false });
-    this.props.handleModalOpen(false);
+  function showAddBibleModal() {
+    toggleAddPaneModal(true);
+    handleModalOpen(true);
   }
 
-  showAddBibleModal() {
-    this.setState({ showAddPaneModal: true });
-    this.props.handleModalOpen(true);
+  function hideAddBibleModal() {
+    toggleAddPaneModal(false);
+    handleModalOpen(false);
+    setSelectedPane({});
   }
 
-  hideAddBibleModal() {
-    this.setState({ showAddPaneModal: false });
-    this.props.handleModalOpen(false);
-  }
-
-  selectSourceLanguage(value) {
+  function selectSourceLanguage(value) {
     const identifier = value.split('_');
     const selectedBibleId = {
       languageId: identifier[0],
       bibleId: identifier[1],
     };
-    this.setState({ selectedPane: value ? selectedBibleId : false });
+
+    setSelectedPane(() => value ? selectedBibleId : {});
   }
 
-  addNewBibleResource() {
-    let {
-      currentPaneSettings, setToolSettings, makeSureBiblesLoadedForTool,
-    } = this.props;
-
+  function addNewBibleResource() {
     try {
       if (currentPaneSettings) {
-        if (this.state.selectedPane) {
-          currentPaneSettings.push(this.state.selectedPane);
+        if (Object.keys(selectedPane).length) {
+          currentPaneSettings.push(selectedPane);
           setToolSettings(NAMESPACE, 'currentPaneSettings', currentPaneSettings);
           makeSureBiblesLoadedForTool();
-          this.hideAddBibleModal();
+          hideAddBibleModal();
         }
       }
     } catch (e) {
@@ -77,9 +81,7 @@ class ScripturePane extends Component {
     }
   }
 
-  removePane(key) {
-    let { currentPaneSettings, setToolSettings } = this.props;
-
+  function removePane(key) {
     try {
       if (currentPaneSettings) {
         currentPaneSettings.splice(key, 1);
@@ -90,181 +92,169 @@ class ScripturePane extends Component {
     }
   }
 
-  getPanes() {
-    const {
-      currentPaneSettings,
-      contextId,
-      translate,
-      bibles,
-      selections,
-      getLexiconData,
-      showPopover,
-    } = this.props;
+  function changePaneFontSize(index, fontSize) {
+    try {
+      if (currentPaneSettings) {
+        const paneSettings = _.cloneDeep(currentPaneSettings);
+        const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
+          if (index === i) {
+            paneSetting.fontSize = fontSize;
+          }
 
-    const panes = [];
-
-    for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
-      const paneSettings = currentPaneSettings[i];
-      const index = i;
-
-      try {
-        const { languageId, bibleId } = paneSettings;
-        const { manifest } = bibles[languageId][bibleId];
-        let language_name = manifest.language_name;
-        const { chapter, verse } = contextId.reference;
-        const verseData = bibles[languageId][bibleId][chapter][verse];
-        let verseElements = [];
-
-        // TODO: this is temporary hack, there is a later issue to make font size user adjustable
-        const setFontSize = (manifest.language_id === 'hbo') ? 175 : 0;
-
-        if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
-          language_name = manifest.language_name + ' (' + manifest.language_id.toUpperCase() + ')';
-        }
-
-        let description = manifest.description;
-
-        if (languageId === 'originalLanguage') {
-          description = 'original_language';
-        }
-
-        if (typeof verseData === 'string') { // if the verse content is string.
-          verseElements = verseString(verseData, selections, translate, setFontSize);
-        } else if (verseData) { // else the verse content is an array of verse objects.
-          verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, setFontSize);
-        }
-
-        panes.push(
-          <Pane
-            key={index.toString()}
-            translate={translate}
-            index={index}
-            chapter={chapter}
-            verse={verse}
-            bibleId={bibleId}
-            languageName={language_name}
-            direction={manifest.direction}
-            description={description}
-            verseElements={verseElements}
-            clickToRemoveResourceLabel={translate('pane.remove_resource')}
-            removePane={this.removePane}
-          />
-        );
-      } catch (err) {
-        console.warn(err);
+          return paneSetting;
+        });
+        setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
       }
+    } catch (e) {
+      console.warn(e);
     }
-
-    return panes;
   }
 
-  render() {
-    let {
-      expandedScripturePaneTitle,
-      currentPaneSettings,
-      contextId,
-      editTargetVerse,
-      translate,
-      projectDetailsReducer,
-      bibles,
-      getAvailableScripturePaneSelections,
-      selections,
-      getLexiconData,
-      showPopover,
-    } = this.props;
+  function changePaneFontType(index, fontType) {
+    try {
+      if (currentPaneSettings) {
+        const paneSettings = _.cloneDeep(currentPaneSettings);
+        const newCurrentPaneSettings = paneSettings.map((paneSetting, i) => {
+          if (index === i) {
+            paneSetting.font = fontType;
+          }
 
-    // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
-    currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
+          return paneSetting;
+        });
+        setToolSettings(NAMESPACE, 'currentPaneSettings', newCurrentPaneSettings);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
 
-    return (
-      <div className="scripture-pane-container">
-        <div className="inner-container">
-          <div className="title-bar">
-            <span>{translate('pane.title')}</span>
-            <Glyphicon
-              onClick={this.openExpandedScripturePane}
-              glyph={'fullscreen'}
-              style={{ cursor: 'pointer' }}
-              title={translate('pane.expand_hover')}
-            />
-          </div>
-          <div className="panes-container">
-            {
-              this.getPanes()
-            }
-            <AddBibleButton
-              showAddBibleModal={this.showAddBibleModal}
-              clickAddResource={translate('pane.add_resource')}
-            />
-          </div>
+
+  const { manifest: projectManifest } = projectDetailsReducer;
+  const targetLanguageFont = projectManifest.projectFont || '';
+
+  // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
+
+  return (
+    <div className="scripture-pane-container">
+      <div className="inner-container">
+        <div className="title-bar">
+          <span>{translate('pane.title')}</span>
+          <Glyphicon
+            onClick={openExpandedScripturePane}
+            glyph={'fullscreen'}
+            style={{ cursor: 'pointer' }}
+            title={translate('pane.expand_hover')}
+          />
         </div>
-        {
-          this.state.showExpandedScripturePane ?
-            <ExpandedScripturePaneModal
-              show={this.state.showExpandedScripturePane}
-              onHide={this.closeExpandedScripturePane}
-              title={expandedScripturePaneTitle}
-              primaryLabel={translate('close')}
-              currentPaneSettings={currentPaneSettings}
-              contextId={contextId}
-              bibles={bibles}
-              editTargetVerse={editTargetVerse}
-              translate={translate}
-              projectDetailsReducer={projectDetailsReducer}
-              selections={selections}
-              getLexiconData={getLexiconData}
-              showPopover={showPopover}
-              onFinishLoad={() => this.setState({ loadingExpandedScripturePane: false })}
-            />
-            :
-            <div/>
-        }
-        {
-          this.state.showAddPaneModal ?
-            <AddPaneModal
-              translate={translate}
-              show={this.state.showAddPaneModal}
-              onHide={this.hideAddBibleModal}
-              title={translate('pane.add_resource_label')}
-              selectedPane={this.state.selectedPane}
-              selectLanguageLabel={translate('pane.select_language')}
-              selectLabel={translate('select')}
-              selectSourceLanguage={this.selectSourceLanguage}
-              addNewBibleResource={this.addNewBibleResource}
-              currentPaneSettings={currentPaneSettings}
-              getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
-            />
-            :
-            <div/>
-        }
+        <div className="panes-container">
+          <Panes
+            bibles={bibles}
+            contextId={contextId}
+            translate={translate}
+            removePane={removePane}
+            selections={selections}
+            showPopover={showPopover}
+            getLexiconData={getLexiconData}
+            projectManifest={projectManifest}
+            complexScriptFonts={complexScriptFonts}
+            changePaneFontSize={changePaneFontSize}
+            changePaneFontType={changePaneFontType}
+            currentPaneSettings={currentPaneSettings}
+            addObjectPropertyToManifest={addObjectPropertyToManifest}
+          />
+          <AddBibleButton
+            showAddBibleModal={showAddBibleModal}
+            clickAddResource={translate('pane.add_resource')}
+          />
+        </div>
       </div>
-    );
-  }
+      {
+        showExpandedScripturePane ?
+          <ExpandedScripturePaneModal
+            bibles={bibles}
+            contextId={contextId}
+            translate={translate}
+            selections={selections}
+            showPopover={showPopover}
+            getLexiconData={getLexiconData}
+            show={showExpandedScripturePane}
+            editTargetVerse={editTargetVerse}
+            primaryLabel={translate('close')}
+            title={expandedScripturePaneTitle}
+            onHide={closeExpandedScripturePane}
+            targetLanguageFont={targetLanguageFont}
+            currentPaneSettings={currentPaneSettings}
+            projectDetailsReducer={projectDetailsReducer}
+          />
+          :
+          <div/>
+      }
+      {
+        showAddPaneModal ?
+          <AddPaneModal
+            translate={translate}
+            onHide={hideAddBibleModal}
+            selectLabel={translate('select')}
+            show={showAddPaneModal}
+            selectedPane={selectedPane}
+            currentPaneSettings={currentPaneSettings}
+            title={translate('pane.add_resource_label')}
+            addNewBibleResource={addNewBibleResource}
+            selectSourceLanguage={selectSourceLanguage}
+            selectLanguageLabel={translate('pane.select_language')}
+            getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
+          />
+          :
+          <div/>
+      }
+    </div>
+  );
 }
 
+ScripturePane.defaultProps = {
+  handleModalOpen: () => {
+    console.info('handleModalOpen prop was not passed.');
+  },
+};
+
 ScripturePane.propTypes = {
-  titleLabel: PropTypes.string.isRequired,
-  closeButtonLabel: PropTypes.string.isRequired,
-  addResourceLabel: PropTypes.string.isRequired,
-  clickToRemoveResourceLabel: PropTypes.string.isRequired,
-  expandedScripturePaneTitle: PropTypes.string.isRequired,
-  expandButtonHoverText: PropTypes.string.isRequired,
-  clickAddResource: PropTypes.string.isRequired,
-  currentPaneSettings: PropTypes.array.isRequired,
-  selectLanguageLabel: PropTypes.string.isRequired,
-  selectLabel: PropTypes.string.isRequired,
-  setToolSettings: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func,
+  bibles: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
+  showPopover: PropTypes.func.isRequired,
   contextId: PropTypes.object.isRequired,
   selections: PropTypes.array.isRequired,
   getLexiconData: PropTypes.func.isRequired,
-  showPopover: PropTypes.func.isRequired,
-  projectDetailsReducer: PropTypes.object.isRequired,
   editTargetVerse: PropTypes.func.isRequired,
-  translate: PropTypes.func.isRequired,
-  bibles: PropTypes.object.isRequired,
-  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
+  setToolSettings: PropTypes.func.isRequired,
+  complexScriptFonts: PropTypes.object.isRequired,
+  currentPaneSettings: PropTypes.array.isRequired,
+  projectDetailsReducer: PropTypes.object.isRequired,
+  addObjectPropertyToManifest: PropTypes.func.isRequired,
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
-  handleModalOpen: PropTypes.func,
+  expandedScripturePaneTitle: PropTypes.string.isRequired,
+  getAvailableScripturePaneSelections: PropTypes.func.isRequired,
 };
 
-export default ScripturePane;
+/**
+ * Custom comparison function to determine if component should rerender.
+ * @param {object} prevProps
+ * @param {object} nextProps
+ */
+function areEqual(prevProps, nextProps) {
+  /*
+    Return true if passing nextProps.bibles to
+    render would return the same result as passing
+    prevProps.bibles to render, otherwise return false
+  */
+  return deepEqual(prevProps.bibles, nextProps.bibles) &&
+    deepEqual(prevProps.contextId, nextProps.contextId) &&
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+    deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
+    prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
+    deepEqual(prevProps.selections, nextProps.selections);
+}
+
+// using React.memo to boost performance by memoizing the result
+export default React.memo(ScripturePane, areEqual);

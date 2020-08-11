@@ -13,7 +13,7 @@ describe('Tests for Bookmark', () => {
       checked: false,
     };
     const tree = renderer.create(
-      <Bookmark {...props} />
+      <Bookmark {...props} />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -27,7 +27,7 @@ describe('Tests for Bookmark', () => {
       checked: true,
     };
     const tree = renderer.create(
-      <Bookmark {...props} />
+      <Bookmark {...props} />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -41,7 +41,7 @@ describe('Tests for Bookmark', () => {
       checked: true,
     };
     const wrapper = mount(
-      <Bookmark {...props} />
+      <Bookmark {...props} />,
     );
     wrapper.find('input[value="bookmark"]').simulate('change', { target: { checked: !props.checked } });
     expect(onChange).toHaveBeenCalled();
