@@ -18,20 +18,27 @@ import { getTitleWithId } from '../helpers/utils';
  */
 function getVerseData(bibles, languageId, bibleId, chapter, verse) {
   let verseData = null;
+  let verseLabel = null;
+
   try {
     const chapterData = bibles[languageId][bibleId][chapter];
+
     if (chapterData) {
       verseData = chapterData[verse];
+
       if (!verseData) {
-        const verseVal = parseInt(verse)
+        const verseVal = parseInt(verse);
+
         for (let verseIndex in chapterData) {
           if (verseIndex.includes('-')) {
-            const span = verseIndex.split('-')
+            const span = verseIndex.split('-');
             // see if verse contained in span
-            const low = parseInt(span[0])
-            const hi = parseInt(span[1])
+            const low = parseInt(span[0]);
+            const hi = parseInt(span[1]);
+
             if ( (verseVal >= low) && (verseVal <= hi) ) {
-              verseData = chapterData[verseIndex]
+              verseData = chapterData[verseIndex];
+              verseLabel = verseIndex;
               break;
             }
           }
@@ -39,7 +46,7 @@ function getVerseData(bibles, languageId, bibleId, chapter, verse) {
       }
     }
   } catch (e) {}
-  return verseData;
+  return {verseData, verseLabel};
 }
 
 function Panes({
@@ -74,7 +81,7 @@ function Panes({
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
-      const verseData = getVerseData(bibles, languageId, bibleId, chapter, verse);
+      const {verseData, verseLabel} = getVerseData(bibles, languageId, bibleId, chapter, verse);
       let verseElements = [];
 
       if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
@@ -108,7 +115,7 @@ function Panes({
           key={index.toString()}
           font={font || ''}
           index={index}
-          verse={verse}
+          verse={verseLabel || verse}
           chapter={chapter}
           bibleId={bibleId}
           fontSize={fontSize}
