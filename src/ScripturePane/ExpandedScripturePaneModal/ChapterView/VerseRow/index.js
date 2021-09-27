@@ -64,7 +64,7 @@ class VerseRow extends Component {
           let verseElements = [];
           const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
           const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
-          const blankVerse = isVerseSpan && isFirstVerse;
+          const blankVerse = isVerseSpan && !isFirstVerse;
           const verseText = verseData;
           let colStyle = {
             minWidth: '240px',

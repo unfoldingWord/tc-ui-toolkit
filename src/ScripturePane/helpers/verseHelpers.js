@@ -255,11 +255,14 @@ export function isVerseInSpan(verseLabel, verse) {
       const [, hi] = verseLabel.split('-');
       isVerseSpan = !!hi;
 
-      if (typeof verse === 'string') {
-        verse = parseInt(verse);
-      }
+      if (isVerseSpan) {
+        if (typeof verse === 'string') {
+          verse = parseInt(verse);
+        }
 
-      isFirstVerse = (verse === parseInt(verseLabel));
+        const startVerse = parseInt(verseLabel);
+        isFirstVerse = (verse === startVerse);
+      }
       // eslint-disable-next-line no-empty
     } catch (e) {
     }
