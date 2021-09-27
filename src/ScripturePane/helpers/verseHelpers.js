@@ -240,3 +240,29 @@ export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
   } catch (e) {}
   return { verseData, verseLabel };
 }
+
+/**
+ * try to find verse from chapter.  If not found look for verse spans
+ * @param {string} verseLabel - label to display
+ * @param {string|number} verse - verse number to check if first verse in span
+ * @return {object|null}
+ */
+export function isVerseInSpan(verseLabel, verse) {
+  let isVerseSpan = false, isFirstVerse = false;
+
+  if (verseLabel) {
+    try {
+      const [, hi] = verseLabel.split('-');
+      isVerseSpan = !!hi;
+
+      if (typeof verse === 'string') {
+        verse = parseInt(verse);
+      }
+
+      isFirstVerse = (verse === parseInt(verseLabel));
+      // eslint-disable-next-line no-empty
+    } catch (e) {
+    }
+  }
+  return { isVerseSpan, isFirstVerse };
+}

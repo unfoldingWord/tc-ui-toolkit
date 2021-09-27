@@ -69,7 +69,6 @@ class ChapterView extends Component {
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
-        const blankRow = (verseLabel === lastVerse);
         lastVerse = verseLabel;
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
 
@@ -89,7 +88,6 @@ class ChapterView extends Component {
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
             evenVerse={i % 2 === 0}
-            blankRow={blankRow}
             ref={node => this.verseRefs[refKey] = node}
           />,
         );

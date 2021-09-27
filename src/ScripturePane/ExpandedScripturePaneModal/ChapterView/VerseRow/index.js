@@ -5,7 +5,7 @@ import './VerseRow.styles.css';
 // components
 import Verse from '../../../Verse';
 // helpers
-import { getVerseData, verseString, verseArray } from '../../../helpers/verseHelpers';
+import { getVerseData, isVerseInSpan, verseString, verseArray } from '../../../helpers/verseHelpers';
 import { getFontClassName } from '../../../../common/fontUtils';
 
 class VerseRow extends Component {
@@ -35,7 +35,6 @@ class VerseRow extends Component {
       currentVerseNumber,
       currentPaneSettings,
       evenVerse,
-      blankRow,
     } = this.props;
     let verseCells = [];
 
@@ -63,7 +62,9 @@ class VerseRow extends Component {
           } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
-          const { verseData } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
+          const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
+          const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
+          const blankVerse = isVerseSpan && isFirstVerse;
           const verseText = verseData;
           let colStyle = {
             minWidth: '240px',
@@ -94,7 +95,7 @@ class VerseRow extends Component {
 
           verseCells.push(
             <Col key={i.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
-              {blankRow ?
+              {blankVerse ?
                 <div/>
                 :
                 <Verse
@@ -149,7 +150,6 @@ VerseRow.propTypes = {
   showPopover: PropTypes.func.isRequired,
   targetLanguageFont: PropTypes.string,
   evenVerse: PropTypes.bool,
-  blankRow: PropTypes.bool,
 };
 
 export default VerseRow;
