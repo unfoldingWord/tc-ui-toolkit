@@ -106,7 +106,7 @@ class VerseRow extends Component {
                   direction={direction}
                   fontClass={fontClass}
                   onEdit={this.handleEdit}
-                  verse={currentVerseNumber}
+                  verse={verseLabel || currentVerseNumber}
                   verseElements={verseElements}
                 />
               }
