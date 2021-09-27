@@ -10,6 +10,7 @@ import './ChapterView.styles.css';
 // components
 import { getReferenceStr, getTitleStr } from '../../helpers/utils';
 import VerseEditorDialog from '../../../VerseEditor';
+import { getVerseData } from '../../helpers/verseHelpers';
 import VerseRow from './VerseRow';
 
 class ChapterView extends Component {
@@ -54,21 +55,28 @@ class ChapterView extends Component {
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
-    const verseNumbers = Object.keys(bibles['en']['ult'][chapter]);
+    const languageID = 'en';
+    const bookID = 'ult';
+    const verseNumbers = Object.keys(bibles[languageID][bookID][chapter]);
     const { manifest: projectManifest } = projectDetailsReducer;
     const targetLanguageFont = projectManifest.projectFont || '';
     this.verseRefs = {};
     let verseRows = [];
 
     if (verseNumbers.length > 0) {
+      let lastVerse;
+
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
+        const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
+        const blankRow = (verseLabel === lastVerse);
+        lastVerse = verseLabel;
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
 
         verseRows.push(
           <VerseRow
             key={verseNumber.toString()}
-            verse={verse}
+            verse={verseLabel || verse}
             bibles={bibles}
             chapter={chapter}
             translate={translate}
@@ -80,6 +88,8 @@ class ChapterView extends Component {
             targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             onEditTargetVerse={handleEditTargetVerse}
+            evenVerse={i % 2 === 0}
+            blankRow={blankRow}
             ref={node => this.verseRefs[refKey] = node}
           />,
         );

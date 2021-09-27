@@ -4,50 +4,8 @@ import PropTypes from 'prop-types';
 import Pane from '../Pane';
 // helpers
 import { getFontClassName } from '../../common/fontUtils';
-import { verseString, verseArray } from '../helpers/verseHelpers';
+import { getVerseData, verseString, verseArray } from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
-
-/**
- * try to find verse from chapter.  If not found look for verse spans
- * @param bibles
- * @param languageId
- * @param bibleId
- * @param chapter
- * @param verse
- * @return {object|null}
- */
-function getVerseData(bibles, languageId, bibleId, chapter, verse) {
-  let verseData = null;
-  let verseLabel = null;
-
-  try {
-    const chapterData = bibles[languageId][bibleId][chapter];
-
-    if (chapterData) {
-      verseData = chapterData[verse];
-
-      if (!verseData) {
-        const verseVal = parseInt(verse);
-
-        for (let verseIndex in chapterData) {
-          if (verseIndex.includes('-')) {
-            const span = verseIndex.split('-');
-            // see if verse contained in span
-            const low = parseInt(span[0]);
-            const hi = parseInt(span[1]);
-
-            if ( (verseVal >= low) && (verseVal <= hi) ) {
-              verseData = chapterData[verseIndex];
-              verseLabel = verseIndex;
-              break;
-            }
-          }
-        }
-      }
-    }
-  } catch (e) {}
-  return {verseData, verseLabel};
-}
 
 function Panes({
   bibles,
@@ -81,7 +39,7 @@ function Panes({
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
-      const {verseData, verseLabel} = getVerseData(bibles, languageId, bibleId, chapter, verse);
+      const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, verse);
       let verseElements = [];
 
       if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name

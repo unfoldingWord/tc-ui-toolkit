@@ -23,7 +23,7 @@ import {
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
  * @param {String} isTargetBible
- * @param {String} targetLanguageFont
+ * @param {String} fontClass
  * @return {*}
  */
 export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass) => {
@@ -194,4 +194,49 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
   }
 
   return verseSpan;
+}
+
+/**
+ * try to find verse from chapter.  If not found look for verse spans
+ * @param {object} bibles
+ * @param {string} languageId
+ * @param {string} bibleId
+ * @param {string} chapter
+ * @param {string} verse
+ * @return {object|null}
+ */
+export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
+  let verseData = null;
+  let verseLabel = null;
+
+  try {
+    const chapterData = bibles[languageId][bibleId][chapter];
+
+    if (chapterData) {
+      verseData = chapterData[verse];
+
+      if (verseData) {
+        verseLabel = verse;
+      } else { // search for verse span that contains verse
+        const verseVal = parseInt(verse);
+
+        for (let verseIndex in chapterData) {
+          if (verseIndex.includes('-')) {
+            const span = verseIndex.split('-');
+            // see if verse contained in span
+            const low = parseInt(span[0]);
+            const hi = parseInt(span[1]);
+
+            if ( (verseVal >= low) && (verseVal <= hi) ) {
+              verseData = chapterData[verseIndex];
+              verseLabel = verseIndex;
+              break;
+            }
+          }
+        }
+      }
+    }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+  return { verseData, verseLabel };
 }

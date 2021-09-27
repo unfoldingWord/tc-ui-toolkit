@@ -5,7 +5,7 @@ import './VerseRow.styles.css';
 // components
 import Verse from '../../../Verse';
 // helpers
-import { verseString, verseArray } from '../../../helpers/verseHelpers';
+import { getVerseData, verseString, verseArray } from '../../../helpers/verseHelpers';
 import { getFontClassName } from '../../../../common/fontUtils';
 
 class VerseRow extends Component {
@@ -34,6 +34,8 @@ class VerseRow extends Component {
       targetLanguageFont,
       currentVerseNumber,
       currentPaneSettings,
+      evenVerse,
+      blankRow,
     } = this.props;
     let verseCells = [];
 
@@ -44,14 +46,13 @@ class VerseRow extends Component {
       width: '100%',
     };
 
-    if (currentVerseNumber % 2 === 0) {
+    if (evenVerse) {
       rowStyle.backgroundColor = 'var(--background-color-light)';
     }
 
     if (currentPaneSettings.length > 0) {
       for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
         const paneSetting = currentPaneSettings[i];
-        const index = i;
 
         try {
           let {
@@ -62,8 +63,8 @@ class VerseRow extends Component {
           } = paneSetting;
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
-          const verseData = bibles[languageId][bibleId][chapter][currentVerseNumber];
-          const verseText = bibles[languageId][bibleId][chapter][currentVerseNumber]; // string value of the verse.
+          const { verseData } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
+          const verseText = verseData;
           let colStyle = {
             minWidth: '240px',
             alignItems: 'stretch',
@@ -92,18 +93,22 @@ class VerseRow extends Component {
           }
 
           verseCells.push(
-            <Col key={index.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
-              <Verse
-                chapter={chapter}
-                bibleId={bibleId}
-                translate={translate}
-                verseText={verseText}
-                direction={direction}
-                fontClass={fontClass}
-                onEdit={this.handleEdit}
-                verse={currentVerseNumber}
-                verseElements={verseElements}
-              />
+            <Col key={i.toString()} md={4} sm={4} xs={4} lg={4} style={colStyle}>
+              {blankRow ?
+                <div/>
+                :
+                <Verse
+                  chapter={chapter}
+                  bibleId={bibleId}
+                  translate={translate}
+                  verseText={verseText}
+                  direction={direction}
+                  fontClass={fontClass}
+                  onEdit={this.handleEdit}
+                  verse={currentVerseNumber}
+                  verseElements={verseElements}
+                />
+              }
             </Col>,
           );
         } catch (error) {
@@ -143,6 +148,8 @@ VerseRow.propTypes = {
   getLexiconData: PropTypes.func.isRequired,
   showPopover: PropTypes.func.isRequired,
   targetLanguageFont: PropTypes.string,
+  evenVerse: PropTypes.bool,
+  blankRow: PropTypes.bool,
 };
 
 export default VerseRow;
