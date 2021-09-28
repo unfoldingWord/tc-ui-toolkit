@@ -46,7 +46,7 @@ function Panes({
         const { low, hi } = getVerseRangeFromSpan(verse);
         verseData = [];
 
-        for (let i = low; i < hi; i++) {
+        for (let i = low; i <= hi; i++) {
           const verseData_ = chapterData[i];
 
           if (verseData_) {
