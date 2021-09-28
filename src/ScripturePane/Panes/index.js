@@ -50,6 +50,9 @@ function Panes({
           const data = chapterData[i];
 
           if (data) {
+            if (verseSpanData.length) {
+              verseSpanData = verseSpanData.concat({ type: 'text', text: '\n' });
+            }
             verseSpanData = verseSpanData.concat(data.verseObjects);
           }
         }
