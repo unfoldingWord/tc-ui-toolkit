@@ -57,7 +57,7 @@ function Panes({
           }
         }
         verseData = { verseObjects: verseSpanData };
-        verseLabel = verse;
+        verseLabel = low.toString();
       } else {
         const response = getVerseData(bibles, languageId, bibleId, chapter, verse);
         verseData = response.verseData;
