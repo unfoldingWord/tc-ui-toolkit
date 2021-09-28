@@ -44,6 +44,7 @@ function Panes({
 
       if (verse.toString().includes('-') && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
         const { low, hi } = getVerseRangeFromSpan(verse);
+        verseData = [];
 
         for (let i = low; i < hi; i++) {
           const verseData_ = chapterData[i];
