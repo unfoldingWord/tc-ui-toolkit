@@ -44,15 +44,16 @@ function Panes({
 
       if (verse.toString().includes('-') && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
         const { low, hi } = getVerseRangeFromSpan(verse);
-        verseData = [];
+        let verseSpanData = [];
 
         for (let i = low; i <= hi; i++) {
-          const verseData_ = chapterData[i];
+          const data = chapterData[i];
 
-          if (verseData_) {
-            verseData = verseData.concat(verseData_);
+          if (data) {
+            verseSpanData = verseSpanData.concat(data.verseObjects);
           }
         }
+        verseData = { verseObjects: verseSpanData };
         verseLabel = verse;
       } else {
         const response = getVerseData(bibles, languageId, bibleId, chapter, verse);
