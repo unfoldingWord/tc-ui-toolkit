@@ -197,6 +197,23 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
 }
 
 /**
+ * get verse range from span
+ * @param verseIndex
+ * @return {{}|{hi: number, low: number}}
+ */
+export function getVerseRangeFromSpan(verseIndex) {
+  const span = verseIndex.split('-');
+
+  if (span.length >= 2) {
+    // see if verse contained in span
+    const low = parseInt(span[0]);
+    const hi = parseInt(span[1]);
+    return { low, hi };
+  }
+  return {};
+}
+
+/**
  * try to find verse from chapter.  If not found look for verse spans
  * @param {object} bibles
  * @param {string} languageId
@@ -222,10 +239,7 @@ export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
 
         for (let verseIndex in chapterData) {
           if (verseIndex.includes('-')) {
-            const span = verseIndex.split('-');
-            // see if verse contained in span
-            const low = parseInt(span[0]);
-            const hi = parseInt(span[1]);
+            const { low, hi } = getVerseRangeFromSpan(verseIndex);
 
             if ( (verseVal >= low) && (verseVal <= hi) ) {
               verseData = chapterData[verseIndex];

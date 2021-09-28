@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Pane from '../Pane';
 // helpers
 import { getFontClassName } from '../../common/fontUtils';
-import { getVerseData, verseString, verseArray } from '../helpers/verseHelpers';
+import { getVerseData, verseString, verseArray, getVerseRangeFromSpan } from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
 
 function Panes({
@@ -39,7 +39,26 @@ function Panes({
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
-      const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, verse);
+      let verseData, verseLabel;
+      const chapterData = bibles[languageId][bibleId][chapter];
+
+      if (verse.toString().includes('-') && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
+        const { low, hi } = getVerseRangeFromSpan(verse);
+
+        for (let i = low; i < hi; i++) {
+          const verseData_ = chapterData[i];
+
+          if (verseData_) {
+            verseData = verseData.concat(verseData_);
+          }
+        }
+        verseLabel = verse;
+      } else {
+        const response = getVerseData(bibles, languageId, bibleId, chapter, verse);
+        verseData = response.verseData;
+        verseLabel = response.verseLabel;
+      }
+
       let verseElements = [];
 
       if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
