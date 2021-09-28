@@ -51,7 +51,7 @@ function Panes({
 
           if (data) {
             if (verseSpanData.length) {
-              verseSpanData = verseSpanData.concat({ type: 'text', text: '\n' });
+              verseSpanData = verseSpanData.concat({ type: 'text', text: '${chapter}:${i}\n' });
             }
             verseSpanData = verseSpanData.concat(data.verseObjects);
           }
