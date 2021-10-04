@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import Pane from '../Pane';
 // helpers
 import { getFontClassName } from '../../common/fontUtils';
-import { getVerseData, verseString, verseArray, getVerseRangeFromSpan } from '../helpers/verseHelpers';
+import {
+  getVerseData,
+  getVerseRangeFromSpan,
+  verseString,
+  verseArray,
+} from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
 
 function Panes({

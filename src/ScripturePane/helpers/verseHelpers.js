@@ -261,7 +261,7 @@ export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
  * @param {string|number} verse - verse number to check if first verse in span
  * @return {object|null}
  */
-export function isVerseInSpan(verseLabel, verse) {
+export function isVerseSpan(verseLabel, verse) {
   let isVerseSpan = false, isFirstVerse = false;
 
   if (verseLabel) {

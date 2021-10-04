@@ -5,7 +5,11 @@ import './VerseRow.styles.css';
 // components
 import Verse from '../../../Verse';
 // helpers
-import { getVerseData, isVerseInSpan, verseString, verseArray } from '../../../helpers/verseHelpers';
+import {
+  getVerseData,
+  verseString,
+  verseArray,
+} from '../../../helpers/verseHelpers';
 import { getFontClassName } from '../../../../common/fontUtils';
 
 class VerseRow extends Component {
@@ -63,7 +67,7 @@ class VerseRow extends Component {
           const { manifest: { direction } } = bibles[languageId][bibleId];
           let verseElements = [];
           const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
-          const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
+          const { isVerseSpan, isFirstVerse } = isVerseSpan(verseLabel, currentVerseNumber);
           const blankVerse = isVerseSpan && !isFirstVerse;
           const verseText = verseData;
           let colStyle = {

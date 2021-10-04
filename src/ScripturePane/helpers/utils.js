@@ -47,7 +47,7 @@ export function getTitleWithId(languageName, identifier, direction = defaultDire
 /**
  * get reference arranged for language direction
  * @param {string} chapter
- * @param {string} verse
+ * @param {string|number} verse
  * @param {boolean|string} direction
  * @return {string}
  */

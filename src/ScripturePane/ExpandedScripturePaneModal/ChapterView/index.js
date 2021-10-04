@@ -64,12 +64,9 @@ class ChapterView extends Component {
     let verseRows = [];
 
     if (verseNumbers.length > 0) {
-      let lastVerse;
-
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
-        lastVerse = verseLabel;
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
 
         verseRows.push(

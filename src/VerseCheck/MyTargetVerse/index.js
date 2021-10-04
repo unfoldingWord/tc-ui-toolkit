@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { Col } from 'react-bootstrap';
 import { getReferenceStr } from '../..';
 
@@ -25,7 +25,10 @@ const MyTargetVerse = ({
 
 MyTargetVerse.propTypes = {
   chapter: PropTypes.number.isRequired,
-  verse: PropTypes.number.isRequired,
+  verse: oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   verseText: PropTypes.string.isRequired,
   styles: PropTypes.object.isRequired,
   dir: PropTypes.string.isRequired,

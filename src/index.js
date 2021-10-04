@@ -28,3 +28,4 @@ export {
   getReferenceStr, getTitleWithId, getTitleStr, isLTR,
 } from './ScripturePane/helpers/utils';
 export { lexiconHelpers };
+export { verseHelpers };
