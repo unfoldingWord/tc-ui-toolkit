@@ -58,7 +58,7 @@ function Panes({
             if (verseSpanData.length) {
               verseSpanData = verseSpanData.concat({
                 type: 'html',
-                html: `<br><b>${i}</b> `,
+                html: <><br/><b>{i}</b> </>,
                 text: '',
               });
             }
