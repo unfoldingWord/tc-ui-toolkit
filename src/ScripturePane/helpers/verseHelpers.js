@@ -102,7 +102,9 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
 
-      if (isWord(word)) {
+      if (word.type === 'html') {
+        verseSpan.push(word.html);
+      } else if (isWord(word)) {
         const padding = wordSpacing;
         wordSpacing = ' '; // spacing between words
         const text = (word.word || word.text);
