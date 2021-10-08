@@ -12,6 +12,10 @@ import {
 } from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
 
+export function verseMarker(verse) {
+  return <><br/><b>{verse}</b> </>;
+}
+
 function Panes({
   bibles,
   contextId,
@@ -46,8 +50,9 @@ function Panes({
       const { chapter, verse } = contextId.reference;
       let verseData, verseLabel;
       const chapterData = bibles[languageId][bibleId][chapter];
+      const isVerseSpan = verse.toString().includes('-');
 
-      if (verse.toString().includes('-') && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
+      if (isVerseSpan && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
         const { low, hi } = getVerseRangeFromSpan(verse);
         let verseSpanData = [];
 
@@ -58,7 +63,7 @@ function Panes({
             if (verseSpanData.length) {
               verseSpanData = verseSpanData.concat({
                 type: 'html',
-                html: <><br/><b>{i}</b> </>,
+                html: verseMarker(i),
                 text: '',
               });
             }

@@ -15,6 +15,7 @@ import {
   isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
   isIsolatedLeftQuote,
 } from './stringHelpers';
+import { verseMarker } from '../Panes';
 
 /**
  *
@@ -101,8 +102,12 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
       const index = i;
       const wordsArray = words;
       const nextWord = wordsArray[index + 1];
+      const verseTag = (word.type === 'text') ? splitVerseTag(word.text) : false;
 
-      if (word.type === 'html') {
+      if (verseTag) {
+        const { verse } = verseTag;
+        verseSpan.push(verseMarker(verse));
+      } else if (word.type === 'html') {
         verseSpan.push(word.html);
       } else if (isWord(word)) {
         const padding = wordSpacing;
@@ -294,4 +299,18 @@ export function isVerseSpan(verseLabel, verse) {
  */
 export function getVerseTag(chapter, verse) {
   return `[[${chapter}:${verse}]]`;
+}
+
+/**
+ * get string tag for verse
+ * @param {string} text
+ * @return {object}
+ */
+export function splitVerseTag(text) {
+  if ( (text.substr(0, 2) === `[[`) &&
+    (text.substr(-2) === `]]`) ) {
+    const [ chapter, verse ] = text.substr(2, -2).split(':');
+    return { chapter, verse };
+  }
+  return null;
 }
