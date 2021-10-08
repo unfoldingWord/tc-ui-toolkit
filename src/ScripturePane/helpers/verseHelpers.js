@@ -309,7 +309,8 @@ export function getVerseTag(chapter, verse) {
 export function splitVerseTag(text) {
   if ( (text.substr(0, 2) === `[[`) &&
     (text.substr(-2) === `]]`) ) {
-    const [ chapter, verse ] = text.substr(2, -2).split(':');
+    const ref = text.substr(2, text.length - 2);
+    const [ chapter, verse ] = ref.split(':');
     return { chapter, verse };
   }
   return null;
