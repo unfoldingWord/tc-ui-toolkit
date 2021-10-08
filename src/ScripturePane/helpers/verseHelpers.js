@@ -285,3 +285,13 @@ export function isVerseSpan(verseLabel, verse) {
   }
   return { isVerseSpan, isFirstVerse };
 }
+
+/**
+ * get string tag for verse
+ * @param {string} chapter
+ * @param {string} verse
+ * @return {string}
+ */
+export function getVerseTag(chapter, verse) {
+  return `[[${chapter}:${verse}]]`;
+}
