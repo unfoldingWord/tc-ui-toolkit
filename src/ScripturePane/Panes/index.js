@@ -5,16 +5,13 @@ import Pane from '../Pane';
 // helpers
 import { getFontClassName } from '../../common/fontUtils';
 import {
+  createVerseMarker,
   getVerseData,
   getVerseRangeFromSpan,
   verseString,
   verseArray,
 } from '../helpers/verseHelpers';
 import { getTitleWithId } from '../helpers/utils';
-
-export function verseMarker(verse) {
-  return <><br/><b>{verse}</b> </>;
-}
 
 function Panes({
   bibles,
@@ -61,11 +58,7 @@ function Panes({
 
           if (data) {
             if (verseSpanData.length) {
-              verseSpanData = verseSpanData.concat({
-                type: 'html',
-                html: verseMarker(i),
-                text: '',
-              });
+              verseSpanData.push(createVerseMarker(i));
             }
             verseSpanData = verseSpanData.concat(data.verseObjects);
           }

@@ -6,16 +6,23 @@ import { VerseObjectUtils } from 'word-aligner';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
 import {
-  onWordClick, createNonClickableSpan, createTextSpan, createHighlightedSpan,
+  createHighlightedSpan,
+  createNonClickableSpan,
+  createTextSpan,
+  onWordClick,
 } from './htmlElementsHelpers';
 import {
-  removeMarker, hasLeadingSpace, hasTrailingSpace,
+  hasLeadingSpace,
+  hasTrailingSpace,
+  removeMarker,
 } from './usfmHelpers';
 import {
-  isWord, isNestedMilestone, punctuationWordSpacing, textIsEmptyInVerseObject,
   isIsolatedLeftQuote,
+  isNestedMilestone,
+  isWord,
+  punctuationWordSpacing,
+  textIsEmptyInVerseObject,
 } from './stringHelpers';
-import { verseMarker } from '../Panes';
 
 /**
  *
@@ -80,7 +87,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
  * @return {Array} - verse elements to display
  */
 export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass) {
-  let words = VerseObjectUtils.getWordListForVerse(verseText);
+  let verseObjects = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
   const verseSpan = [];
@@ -95,43 +102,38 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
   } else {
     const isHebrew = (bibleId === 'uhb');
     const origLangBible = isHebrew || bibleId === 'ugnt';
-    words = Array.isArray(words) ? words : words.verseObject;
+    verseObjects = Array.isArray(verseObjects) ? verseObjects : verseObjects.verseObject;
 
-    for (let i = 0, len = words.length; i < len; i++) {
-      const word = words[i];
+    for (let i = 0, len = verseObjects.length; i < len; i++) {
+      const object = verseObjects[i];
       const index = i;
-      const wordsArray = words;
-      const nextWord = wordsArray[index + 1];
-      const verseTag = (word.type === 'text') ? splitVerseTag(word.text) : false;
+      const nextWord = verseObjects[index + 1];
 
-      if (verseTag) {
-        const { verse } = verseTag;
-        verseSpan.push(verseMarker(verse));
-      } else if (word.type === 'html') {
-        verseSpan.push(word.html);
-      } else if (isWord(word)) {
+      if (object.type === 'html') {
+        verseSpan.push(object.html);
+      } else if (isWord(object)) {
         const padding = wordSpacing;
         wordSpacing = ' '; // spacing between words
-        const text = (word.word || word.text);
+        const text = (object.word || object.text);
         let isHighlightedWord = false;
         let isBetweenHighlightedWord = false;
 
-        if (origLangBible && contextId.quote && word.text) {
-          isHighlightedWord = highlightHelpers.isWordMatch(word, contextId, words, index);
-          isBetweenHighlightedWord = previousWord && !isEqual(previousWord, word) &&
-            highlightHelpers.isWordMatch(previousWord, contextId, words, index - 1) && isHighlightedWord;
-        } else if (contextId.quote && word.content) {
-          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, word);
+        if (origLangBible && contextId.quote && object.text) {
+          isHighlightedWord = highlightHelpers.isWordMatch(object, contextId, verseObjects, index);
+          isBetweenHighlightedWord = previousWord && !isEqual(previousWord, object) &&
+            highlightHelpers.isWordMatch(previousWord, contextId, verseObjects, index - 1) && isHighlightedWord;
+        } else if (contextId.quote && object.content) {
+          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, object);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
         }
         // Save word to be used as previousWord in next word.
-        previousWord = word;
+        previousWord = object;
         const paddingSpanStyle = { backgroundColor: isBetweenHighlightedWord ? 'var(--highlight-color)' : 'transparent' };
 
         // TRICKY: for now we are disabling lexicon popups for any bible that is not ugnt or uhb. The reason for
         // this is than some bibles have different strongs format. We are waiting on long term solution.
-        if (word.strong && origLangBible) { // if clickable
+        if (object.strong && origLangBible) { // if clickable
           let spanStyle = { backgroundColor: isHighlightedWord ? 'var(--highlight-color)' : '' };
 
           if (fontStyle) {
@@ -143,7 +145,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(
             <span
               key={index.toString()}
-              onClick={(e) => onWordClick(e, word, getLexiconData, showPopover, translate, isHebrew)}
+              onClick={(e) => onWordClick(e, object, getLexiconData, showPopover, translate, isHebrew)}
               style={{ cursor: 'pointer' }}
             >
               <span className={fontClass} style={paddingSpanStyle}>
@@ -157,8 +159,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         } else {
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass));
         }
-      } else if (isNestedMilestone(word)) { // if nested milestone
-        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(word, contextId, index, previousWord, wordSpacing, fontClass);
+      } else if (isNestedMilestone(object)) { // if nested milestone
+        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(object, contextId, index, previousWord, wordSpacing, fontClass);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[j];
@@ -166,8 +168,8 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         }
         previousWord = nestedMilestone.nestedPreviousWord;
         wordSpacing = nestedMilestone.nestedWordSpacing;
-      } else if (word.text) { // if not word, show punctuation, etc. but not clickable
-        let text = word.text;
+      } else if (object.text) { // if not word, show punctuation, etc. but not clickable
+        let text = object.text;
 
         if (hasLeadingSpace(text)) { // leading spaces are not significant in html, so we need to replace with a hard space
           text = text.substr(1);
@@ -180,14 +182,14 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           text = text.substr(0, text.length - 1);
         }
 
-        const isUsfmTagNotSpan = word.tag && !word.endTag; // see if USFM tag does not have a matching end tag.
+        const isUsfmTagNotSpan = object.tag && !object.endTag; // see if USFM tag does not have a matching end tag.
 
         if (isUsfmTagNotSpan || isIsolatedLeftQuote(text)) { // if this was not just simple text marker, need to add whitespace
           highlightHelpers.addSpace(verseSpan);
         }
-        wordSpacing = punctuationWordSpacing(word); // spacing before words
+        wordSpacing = punctuationWordSpacing(object); // spacing before words
 
-        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, words, index)) {
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, verseObjects, index)) {
           verseSpan.push(createHighlightedSpan(index, text, fontClass));
         } else {
           verseSpan.push(createTextSpan(index, text, fontClass));
@@ -263,12 +265,12 @@ export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
 }
 
 /**
- * try to find verse from chapter.  If not found look for verse spans
- * @param {string} verseLabel - label to display
+ * check to see if verseLabel is a span, if so see if verse is the first verse in the span
+ * @param {string} verseLabel - verse label to display
  * @param {string|number} verse - verse number to check if first verse in span
  * @return {object|null}
  */
-export function isVerseSpan(verseLabel, verse) {
+export function isVerseInSpan(verseLabel, verse) {
   let isVerseSpan = false, isFirstVerse = false;
 
   if (verseLabel) {
@@ -292,26 +294,32 @@ export function isVerseSpan(verseLabel, verse) {
 }
 
 /**
- * get string tag for verse
- * @param {string} chapter
- * @param {string} verse
- * @return {string}
+ * create html to mark verse
+ * @param verse
+ * @return {JSX.Element}
  */
-export function getVerseTag(chapter, verse) {
-  return `[[${chapter}:${verse}]]`;
+export function getVerseMarker(verse) {
+  return <><br/><b>{verse}</b> </>;
 }
 
 /**
- * get string tag for verse
- * @param {string} text
+ * create an html object to insert into scripture pane
+ * @param {JSX.Element} html
+ * @return {{html, text: string, type: string}}
+ */
+function createHtmlInsert(html) {
+  return {
+    type: 'html',
+    html: html,
+    text: '',
+  };
+}
+
+/**
+ * create an object to mark the beginning of a verse
+ * @param {string} verse
  * @return {object}
  */
-export function splitVerseTag(text) {
-  if ( (text.substr(0, 2) === `[[`) &&
-    (text.substr(-2) === `]]`) ) {
-    const ref = text.substr(2, text.length - 4);
-    const [ chapter, verse ] = ref.split(':');
-    return { chapter, verse };
-  }
-  return null;
+export function createVerseMarker(verse) {
+  return createHtmlInsert(getVerseMarker(verse));
 }
