@@ -49,7 +49,7 @@ function Panes({
       const chapterData = bibles[languageId][bibleId][chapter];
       const isVerseSpan = verse.toString().includes('-');
 
-      if (isVerseSpan && (!chapterData[verse]) ) { // see if we need to glom data to create verse span data
+      if (isVerseSpan && (!chapterData[verse]) ) { // see if we need to combine verses together to create verse span
         const { low, hi } = getVerseRangeFromSpan(verse);
         let verseSpanData = [];
 

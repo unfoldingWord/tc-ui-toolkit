@@ -207,17 +207,18 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
 
 /**
  * get verse range from span
- * @param verseIndex
+ * @param {string} verseIndex
  * @return {{}|{hi: number, low: number}}
  */
 export function getVerseRangeFromSpan(verseIndex) {
   const span = verseIndex.split('-');
 
-  if (span.length >= 2) {
-    // see if verse contained in span
-    const low = parseInt(span[0]);
-    const hi = parseInt(span[1]);
-    return { low, hi };
+  if (span.length >= 2) { // see if verse contained in span
+    if (span[0] && span[1]) {
+      const low = parseInt(span[0]);
+      const hi = parseInt(span[1]);
+      return { low, hi };
+    }
   }
   return {};
 }
@@ -266,7 +267,7 @@ export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
 
 /**
  * check to see if verseLabel is a span, if so see if verse is the first verse in the span
- * @param {string} verseLabel - verse label to display
+ * @param {string} verseLabel - verse label to test for span
  * @param {string|number} verse - verse number to check if first verse in span
  * @return {object|null}
  */
