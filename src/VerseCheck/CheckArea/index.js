@@ -108,10 +108,13 @@ const CheckArea = ({
     );
   }
 
-  const reference = contextId.reference;
+  let reference = contextId.reference;
 
   if (contextId.verseSpan) { // if are in a verse span, use it
-    reference.verse = contextId.verseSpan;
+    reference = {
+      ...contextId.reference,
+      verse: contextId.verseSpan,
+    };
   }
 
   return (
