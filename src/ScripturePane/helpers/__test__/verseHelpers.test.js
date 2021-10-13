@@ -89,7 +89,7 @@ describe('verseHelpers.isVerseInSpan', () => {
 
   it('should return false if verseLabel other text', () => {
     // given
-    const verseLabel = 'before';
+    const verseLabel = 'front';
     const verse = '1';
     const expect_isVerseSpan = false;
 
@@ -161,7 +161,7 @@ describe('verseHelpers.getVerseRangeFromSpan', () => {
 
   it('should return no range if not verse', () => {
     // given
-    const verseIndex = 'before';
+    const verseIndex = 'front';
     const expect_range = {};
 
     // when
