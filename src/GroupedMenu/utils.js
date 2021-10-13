@@ -109,11 +109,9 @@ function processMenuItem(data) {
       reference: {
         bookId, chapter, verse,
       },
-      verseSpan,
     },
   } = data;
-  const verseRef = verseSpan || verse; // use verse span if given
-  const refStr = getReferenceStr(chapter, verseRef);
+  const refStr = getReferenceStr(chapter, verse);
   const passageTitle = getTitleStr(bookId, refStr, data.direction);
 
   return {
