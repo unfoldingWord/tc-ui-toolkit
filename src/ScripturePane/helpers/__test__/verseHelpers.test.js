@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import React from 'react';
 import * as verseHelpers from '../verseHelpers';
 
 describe('verseHelpers.verseArray', () => {
@@ -56,6 +57,193 @@ describe('verseHelpers.verseArray', () => {
   });
   it('should succeed with jhn-6-21-en-t4t', () => {
     generateTest('jhn-6-21-en-t4t', 't4t');
+  });
+});
+
+describe('verseHelpers.isVerseInSpan', () => {
+  it('should return false if verseLabel not span', () => {
+    // given
+    const verseLabel = '1';
+    const verse = '1';
+    const expect_isVerseSpan = false;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+  });
+
+  it('should return false if verseLabel number', () => {
+    // given
+    const verseLabel = 1;
+    const verse = '1';
+    const expect_isVerseSpan = false;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+  });
+
+  it('should return false if verseLabel other text', () => {
+    // given
+    const verseLabel = 'front';
+    const verse = '1';
+    const expect_isVerseSpan = false;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+  });
+
+  it('should return true if verseLabel span and verse is number', () => {
+    // given
+    const verseLabel = '1-2';
+    const verse = 1;
+    const expect_isVerseSpan = true;
+    const expect_isFirstVerse = true;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+    expect(results.isFirstVerse).toEqual(expect_isFirstVerse);
+  });
+
+  it('should return true if verseLabel span and verse is number', () => {
+    // given
+    const verseLabel = '1-2';
+    const verse = '1';
+    const expect_isVerseSpan = true;
+    const expect_isFirstVerse = true;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+    expect(results.isFirstVerse).toEqual(expect_isFirstVerse);
+  });
+
+  it('should return true if verseLabel span and verse is not first', () => {
+    // given
+    const verseLabel = '1-2';
+    const verse = '2';
+    const expect_isVerseSpan = true;
+    const expect_isFirstVerse = false;
+
+    // when
+    const results = verseHelpers.isVerseInSpan(verseLabel, verse);
+
+    // then
+    expect(results.isVerseSpan).toEqual(expect_isVerseSpan);
+    expect(results.isFirstVerse).toEqual(expect_isFirstVerse);
+  });
+});
+
+describe('verseHelpers.getVerseRangeFromSpan', () => {
+  it('should return no range if single verse', () => {
+    // given
+    const verseIndex = '1';
+    const expect_range = {};
+
+    // when
+    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+
+    // then
+    expect(results).toEqual(expect_range);
+  });
+
+  it('should return no range if not verse', () => {
+    // given
+    const verseIndex = 'front';
+    const expect_range = {};
+
+    // when
+    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+
+    // then
+    expect(results).toEqual(expect_range);
+  });
+
+  it('should return no range if incomplete', () => {
+    // given
+    const verseIndex = '1-';
+    const expect_range = {};
+
+    // when
+    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+
+    // then
+    expect(results).toEqual(expect_range);
+  });
+
+  it('should return no range if incomplete #2', () => {
+    // given
+    const verseIndex = '-2';
+    const expect_range = {};
+
+    // when
+    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+
+    // then
+    expect(results).toEqual(expect_range);
+  });
+
+  it('should return range', () => {
+    // given
+    const verseIndex = '5-10';
+    const expect_range = {
+      low: 5,
+      hi: 10,
+    };
+
+    // when
+    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+
+    // then
+    expect(results).toEqual(expect_range);
+  });
+});
+
+describe('verseHelpers.createVerseMarker', () => {
+  it('should succeed with string verse', () => {
+    // given
+    const verse = '1';
+    const expected_html = <><br/><b>{verse}</b> </>;
+    const expected_results = {
+      html: expected_html,
+      type: 'html',
+      text: '',
+    };
+
+    // when
+    const results = verseHelpers.createVerseMarker(verse);
+
+    // then
+    expect(results).toEqual(expected_results);
+  });
+
+  it('should succeed with numerical verse', () => {
+    // given
+    const verse = 1;
+    const expected_html = <><br/><b>{verse}</b> </>;
+    const expected_results = {
+      html: expected_html,
+      type: 'html',
+      text: '',
+    };
+
+    // when
+    const results = verseHelpers.createVerseMarker(verse);
+
+    // then
+    expect(results).toEqual(expected_results);
   });
 });
 

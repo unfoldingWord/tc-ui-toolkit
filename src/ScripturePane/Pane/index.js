@@ -204,7 +204,7 @@ Pane.propTypes = {
   fontClass: PropTypes.string,
   font: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  verse: PropTypes.number.isRequired,
+  verse: PropTypes.oneOfType(PropTypes.number, PropTypes.string).isRequired,
   bibleId: PropTypes.string.isRequired,
   chapter: PropTypes.number.isRequired,
   translate: PropTypes.func.isRequired,

@@ -108,6 +108,15 @@ const CheckArea = ({
     );
   }
 
+  let reference = contextId.reference;
+
+  if (contextId.verseSpan) { // if are in a verse span, use it
+    reference = {
+      ...contextId.reference,
+      verse: contextId.verseSpan,
+    };
+  }
+
   return (
     <div className='check-area'>
       {mode === 'select' ?
@@ -119,7 +128,7 @@ const CheckArea = ({
           targetBible={targetBible}
           selections={newSelections}
           toolsSettings={toolsSettings}
-          reference={contextId.reference}
+          reference={reference}
           setToolSettings={setToolSettings}
           openAlertDialog={openAlertDialog}
           maximumSelections={maximumSelections}
@@ -135,7 +144,7 @@ const CheckArea = ({
           targetBible={targetBible}
           bookDetails={bookDetails}
           toolsSettings={toolsSettings}
-          reference={contextId.reference}
+          reference={reference}
           setToolSettings={setToolSettings}
           validateSelections={validateSelections}
           targetLanguageFont={targetLanguageFont}

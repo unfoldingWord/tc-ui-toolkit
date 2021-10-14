@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -90,7 +90,7 @@ const MyLanguageModal = ({
           <div key={key} id={'MyTargetVerse:' + chapter.toString() + key.toString()}>
             <MyTargetVerse
               chapter={chapter}
-              verse={parseInt(key, 10)}
+              verse={key}
               verseText={verseText}
               styles={versePaneStyle}
               dir={languageDirection}
@@ -147,7 +147,10 @@ MyLanguageModal.propTypes = {
   onHide: PropTypes.func.isRequired,
   targetBible: PropTypes.object.isRequired,
   chapter: PropTypes.number.isRequired,
-  currentVerse: PropTypes.number.isRequired,
+  currentVerse: oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   languageDirection: PropTypes.string.isRequired,
   translate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

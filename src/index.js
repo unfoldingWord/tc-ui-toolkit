@@ -1,5 +1,6 @@
 import { ThemeProvider as MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import * as lexiconHelpers from './ScripturePane/helpers/lexiconHelpers';
+import * as verseHelpers from './ScripturePane/helpers/verseHelpers';
 // constants
 export const TcuiThemeProvider = MuiThemeProvider;
 export const createTcuiTheme = createMuiTheme;
@@ -27,3 +28,4 @@ export {
   getReferenceStr, getTitleWithId, getTitleStr, isLTR,
 } from './ScripturePane/helpers/utils';
 export { lexiconHelpers };
+export { verseHelpers };
