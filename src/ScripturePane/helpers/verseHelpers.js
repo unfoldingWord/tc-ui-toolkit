@@ -26,22 +26,22 @@ import {
 
 /**
  * if showing html, replace
- * @param {object} selection
+ * @param {string} text
  * @param {boolean} showUsfm
  * @return {JSX.Element}
  */
-function textToHtml(selection, showUsfm) {
-  if (showUsfm && (selection.text.indexOf('\n') >= 0)) {
-    const parts = selection.text.split('\n');
+function textToHtml(text, showUsfm) {
+  if (showUsfm && (text.indexOf('\n') >= 0)) {
+    const parts = text.split('\n');
     const html = [parts[0]];
 
     for (let i = 1; i < parts.length; i++) {
       html.push(<br/>);
       html.push(parts[i]);
     }
-    return <> {html} </>;
+    return html;
   }
-  return <>{selection.text}</>;
+  return text;
 }
 
 /**
