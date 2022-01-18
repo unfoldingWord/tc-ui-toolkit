@@ -143,7 +143,9 @@ function ExpandedScripturePaneModal({
           handleEditorCancel={handleEditorCancel}
           selections={selections}
           showPopover={showPopover}
-          getLexiconData={getLexiconData} />
+          getLexiconData={getLexiconData}
+          showTargetUsfm={true}
+        />
       </DialogContent>
       <DialogActions disableSpacing style={styles.dialogActions}>
         <button className="btn-prime" onClick={onHide}>

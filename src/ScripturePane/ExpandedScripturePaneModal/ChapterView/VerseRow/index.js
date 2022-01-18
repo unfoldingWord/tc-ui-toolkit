@@ -40,6 +40,7 @@ class VerseRow extends Component {
       currentVerseNumber,
       currentPaneSettings,
       evenVerse,
+      showTargetUsfm,
     } = this.props;
     let verseCells = [];
 
@@ -80,16 +81,18 @@ class VerseRow extends Component {
           };
           const isTargetBible = bibleId === 'targetBible';
           let fontClass = '';
+          let showUsfm = false;
 
           if (isTargetBible) {
             font = targetLanguageFont;
             fontClass = getFontClassName (targetLanguageFont);
+            showUsfm = showTargetUsfm;
           } else if (font) {
             fontClass = getFontClassName(font);
           }
 
           if (typeof verseData === 'string') { // if the verse content is string.
-            verseElements = verseString(verseData, selections, translate, null, isTargetBible, fontClass);
+            verseElements = verseString(verseData, selections, translate, null, isTargetBible, fontClass, showUsfm);
           } else if (verseData) { // else the verse content is an array of verse objects.
             verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
           }
@@ -155,6 +158,7 @@ VerseRow.propTypes = {
   showPopover: PropTypes.func.isRequired,
   targetLanguageFont: PropTypes.string,
   evenVerse: PropTypes.bool,
+  showTargetUsfm: PropTypes.bool,
 };
 
 export default VerseRow;

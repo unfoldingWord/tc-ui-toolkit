@@ -32,10 +32,11 @@ import {
  * @param {Object} fontStyle - font specific styling
  * @param {String} isTargetBible
  * @param {String} fontClass
+ * @param {boolean} showUsfm
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass) => {
-  let newVerseText = removeMarker(verseText);
+export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass, showUsfm) => {
+  let newVerseText = showUsfm ? verseText : removeMarker(verseText);
   newVerseText = newVerseText.replace(/\s+/g, ' ');
   // if string only contains spaces then make it an empty string
   newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;

@@ -52,6 +52,7 @@ class ChapterView extends Component {
       currentPaneSettings,
       projectDetailsReducer,
       handleEditTargetVerse,
+      showTargetUsfm,
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
@@ -86,6 +87,7 @@ class ChapterView extends Component {
             onEditTargetVerse={handleEditTargetVerse}
             evenVerse={i % 2 === 0}
             ref={node => this.verseRefs[refKey] = node}
+            showTargetUsfm={showTargetUsfm}
           />,
         );
       }
@@ -151,6 +153,7 @@ ChapterView.propTypes = {
   handleEditTargetVerse: PropTypes.func.isRequired,
   handleEditorSubmit: PropTypes.func.isRequired,
   handleEditorCancel: PropTypes.func.isRequired,
+  showTargetUsfm: PropTypes.bool,
 };
 
 export default ChapterView;
