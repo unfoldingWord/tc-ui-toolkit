@@ -25,6 +25,26 @@ import {
 } from './stringHelpers';
 
 /**
+ * if showing html, replace
+ * @param {object} selection
+ * @param {boolean} showUsfm
+ * @return {JSX.Element}
+ */
+function textToHtml(selection, showUsfm) {
+  if (showUsfm && (selection.text.indexOf('\n') >= 0)) {
+    const parts = selection.text.split('\n');
+    const html = [parts[0]];
+
+    for (let i = 1; i < parts.length; i++) {
+      html.push(<br/>);
+      html.push(parts[i]);
+    }
+    return <> {html} </>;
+  }
+  return <>{selection.text}</>;
+}
+
+/**
  *
  * @param {String} verseText
  * @param {Array} selections - text selections to highlight
@@ -66,7 +86,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
       }
       verseTextSpans.push(
         <span key={index} className={fontClass} style={spanStyle}>
-          {selection.text}
+          {textToHtml(selection, showUsfm)}
         </span>,
       );
     }
