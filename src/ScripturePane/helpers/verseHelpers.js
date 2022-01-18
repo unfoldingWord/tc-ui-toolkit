@@ -59,7 +59,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
   let newVerseText = verseText;
 
   if (!showUsfm) {
-    removeMarker(verseText);
+    newVerseText = removeMarker(verseText);
     newVerseText = newVerseText.replace(/\s+/g, ' ');
     // if string only contains spaces then make it an empty string
     newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
