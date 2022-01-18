@@ -65,6 +65,14 @@ class ChapterView extends Component {
     let verseRows = [];
 
     if (verseNumbers.length > 0) {
+      let frontIdx = verseNumbers.indexOf('front');
+
+      if (frontIdx >= 0) { // move front to top
+        const front = verseNumbers[frontIdx];
+        verseNumbers.splice(frontIdx);
+        verseNumbers.unshift(front);
+      }
+
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
