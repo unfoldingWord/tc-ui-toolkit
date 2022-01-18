@@ -65,12 +65,14 @@ class ChapterView extends Component {
     let verseRows = [];
 
     if (verseNumbers.length > 0) {
-      let frontIdx = verseNumbers.indexOf('front');
+      if (showTargetUsfm) {
+        let frontIdx = verseNumbers.indexOf('front');
 
-      if (frontIdx >= 0) { // move front to top
-        const front = verseNumbers[frontIdx];
-        verseNumbers.splice(frontIdx);
-        verseNumbers.unshift(front);
+        if (frontIdx >= 0) { // move front to top
+          const front = verseNumbers[frontIdx];
+          verseNumbers.splice(frontIdx);
+          verseNumbers.unshift(front);
+        }
       }
 
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
