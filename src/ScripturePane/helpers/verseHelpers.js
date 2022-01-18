@@ -66,7 +66,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
     newVerseText = translate('pane.missing_verse_warning');
   }
 
-  let verseTextSpans = <span className={fontClass}>{newVerseText}</span>;
+  let verseTextSpans = <span className={fontClass}>{textToHtml(newVerseText, showUsfm)}</span>;
 
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
@@ -86,7 +86,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
       }
       verseTextSpans.push(
         <span key={index} className={fontClass} style={spanStyle}>
-          {textToHtml(selection, showUsfm)}
+          {selection.text}
         </span>,
       );
     }
