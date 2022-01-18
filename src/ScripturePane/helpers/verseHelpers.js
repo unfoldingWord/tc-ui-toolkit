@@ -56,10 +56,14 @@ function textToHtml(text, showUsfm) {
  * @return {*}
  */
 export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass, showUsfm) => {
-  let newVerseText = showUsfm ? verseText : removeMarker(verseText);
-  newVerseText = newVerseText.replace(/\s+/g, ' ');
-  // if string only contains spaces then make it an empty string
-  newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
+  let newVerseText = verseText;
+
+  if (!showUsfm) {
+    removeMarker(verseText);
+    newVerseText = newVerseText.replace(/\s+/g, ' ');
+    // if string only contains spaces then make it an empty string
+    newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
+  }
 
   // if empty string then newVerseText = place holder warning.
   if (newVerseText.length === 0) {
