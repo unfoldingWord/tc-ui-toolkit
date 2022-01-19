@@ -25,7 +25,7 @@ import {
 } from './stringHelpers';
 
 /**
- * if showing html, replace
+ * if showing USFM codes, replace newlines
  * @param {string} text
  * @param {boolean} showUsfm
  * @return {JSX.Element}
@@ -36,6 +36,7 @@ function textToHtml(text, showUsfm) {
     const html = [parts[0]];
 
     for (let i = 1; i < parts.length; i++) {
+      html.push('↲');
       html.push(<br/>);
       html.push(parts[i]);
     }
@@ -45,12 +46,12 @@ function textToHtml(text, showUsfm) {
 }
 
 /**
- *
+ * render text as HTML and overlay any selections
  * @param {String} verseText
  * @param {Array} selections - text selections to highlight
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
- * @param {String} isTargetBible
+ * @param {boolean} isTargetBible
  * @param {String} fontClass
  * @param {boolean} showUsfm
  * @return {*}

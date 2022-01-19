@@ -45,7 +45,7 @@ const styles = {
     fontWeight: '400',
   },
   usfmButton: { marginLeft: 'auto' },
-  closeButton: { marginLeft: 'auto' },
+  closeButton: { marginLeft: '10px' },
   dialogContent: {
     padding: '0px',
     margin: '0px',
@@ -137,9 +137,9 @@ function ExpandedScripturePaneModal({
           color="inherit"
         >
           {showTargetUsfm ? (
-            <VisibilityOffIcon id='visibility_icon' htmlColor='#FFF' />
-          ) : (
             <VisibilityIcon id='visibility_icon' htmlColor='#FFF' />
+          ) : (
+            <VisibilityOffIcon id='visibility_icon' htmlColor='#FFF' />
           )}
         </IconButton>
         <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
