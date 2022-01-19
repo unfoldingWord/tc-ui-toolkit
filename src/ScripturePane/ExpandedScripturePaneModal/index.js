@@ -44,6 +44,7 @@ const styles = {
     fontSize: '22px',
     fontWeight: '400',
   },
+  usfmButton: { marginLeft: 'auto' },
   closeButton: { marginLeft: 'auto' },
   dialogContent: {
     padding: '0px',
@@ -129,16 +130,16 @@ function ExpandedScripturePaneModal({
           {title}
         </div>
         <IconButton
-          title={showTargetUsfm ? 'Show USFM' : 'Hide USFM'}
-          aria-label={showTargetUsfm ? 'ShowUSFM' : 'HideUSGM'}
+          title={showTargetUsfm ? 'Hide USFM' : 'Show USFM'}
+          aria-label={showTargetUsfm ? 'HideUSGM' : 'ShowUSFM'}
           onClick={() => toggleUsfm()}
-          className={classes.margin}
+          style={styles.usfmButton}
           color="inherit"
         >
           {showTargetUsfm ? (
-            <VisibilityOffIcon id='visibility_icon' htmlColor='#000' />
+            <VisibilityOffIcon id='visibility_icon' htmlColor='#FFF' />
           ) : (
-            <VisibilityIcon id='visibility_icon' htmlColor='#000' />
+            <VisibilityIcon id='visibility_icon' htmlColor='#FFF' />
           )}
         </IconButton>
         <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
