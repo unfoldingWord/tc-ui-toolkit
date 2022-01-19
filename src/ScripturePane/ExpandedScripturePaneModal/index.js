@@ -5,6 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { Glyphicon } from 'react-bootstrap';
 import { withStyles } from '@material-ui/core/styles';
 // components
@@ -75,6 +77,7 @@ function ExpandedScripturePaneModal({
   projectDetailsReducer,
 }) {
   const [verseTextReference, editVerseText] = useState({});
+  const [showTargetUsfm, setShowTargetUsfm] = useState(false);
 
   function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     editVerseText(prevState => ({
@@ -84,7 +87,11 @@ function ExpandedScripturePaneModal({
       verse,
       verseText,
     }));
-  };
+  }
+
+  function toggleUsfm() {
+    setShowTargetUsfm(!showTargetUsfm);
+  }
 
   function handleEditorSubmit(originalVerse, newVerse, reasons) {
     if (Object.keys(verseTextReference).length === 0) {
@@ -121,6 +128,19 @@ function ExpandedScripturePaneModal({
         <div style={styles.title} className={fontClass}>
           {title}
         </div>
+        <IconButton
+          title={showTargetUsfm ? 'Show USFM' : 'Hide USFM'}
+          aria-label={showTargetUsfm ? 'ShowUSFM' : 'HideUSGM'}
+          onClick={() => toggleUsfm()}
+          className={classes.margin}
+          color="inherit"
+        >
+          {showTargetUsfm ? (
+            <VisibilityOffIcon id='visibility_icon' htmlColor='#000' />
+          ) : (
+            <VisibilityIcon id='visibility_icon' htmlColor='#000' />
+          )}
+        </IconButton>
         <IconButton color="inherit" onClick={onHide} aria-label="Close" style={styles.closeButton}>
           <Glyphicon glyph="remove" />
         </IconButton>
@@ -144,7 +164,7 @@ function ExpandedScripturePaneModal({
           selections={selections}
           showPopover={showPopover}
           getLexiconData={getLexiconData}
-          showTargetUsfm={true}
+          showTargetUsfm={showTargetUsfm}
         />
       </DialogContent>
       <DialogActions disableSpacing style={styles.dialogActions}>
