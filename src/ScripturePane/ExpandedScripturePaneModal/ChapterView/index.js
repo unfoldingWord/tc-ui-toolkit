@@ -52,6 +52,7 @@ class ChapterView extends Component {
       currentPaneSettings,
       projectDetailsReducer,
       handleEditTargetVerse,
+      showTargetUsfm,
     } = this.props;
 
     const { chapter, verse } = contextId.reference;
@@ -64,6 +65,14 @@ class ChapterView extends Component {
     let verseRows = [];
 
     if (verseNumbers.length > 0) {
+      const frontIdx = verseNumbers.indexOf('front');
+
+      if (showTargetUsfm && (frontIdx > 0)) { // move front to top if not there
+        const front = verseNumbers[frontIdx];
+        verseNumbers.splice(frontIdx);
+        verseNumbers.unshift(front);
+      }
+
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
         const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
@@ -86,6 +95,7 @@ class ChapterView extends Component {
             onEditTargetVerse={handleEditTargetVerse}
             evenVerse={i % 2 === 0}
             ref={node => this.verseRefs[refKey] = node}
+            showTargetUsfm={showTargetUsfm}
           />,
         );
       }
@@ -151,6 +161,7 @@ ChapterView.propTypes = {
   handleEditTargetVerse: PropTypes.func.isRequired,
   handleEditorSubmit: PropTypes.func.isRequired,
   handleEditorCancel: PropTypes.func.isRequired,
+  showTargetUsfm: PropTypes.bool,
 };
 
 export default ChapterView;

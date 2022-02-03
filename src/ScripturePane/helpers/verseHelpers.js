@@ -25,27 +25,53 @@ import {
 } from './stringHelpers';
 
 /**
- *
+ * if showing USFM codes, replace newlines
+ * @param {string} text
+ * @param {boolean} showUsfm
+ * @return {JSX.Element}
+ */
+function textToHtml(text, showUsfm) {
+  if (showUsfm && (text.indexOf('\n') >= 0)) {
+    const parts = text.split('\n');
+    const html = [parts[0]];
+
+    for (let i = 1; i < parts.length; i++) {
+      html.push('↲');
+      html.push(<br/>);
+      html.push(parts[i]);
+    }
+    return html;
+  }
+  return text;
+}
+
+/**
+ * render text as HTML and overlay any selections
  * @param {String} verseText
  * @param {Array} selections - text selections to highlight
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
- * @param {String} isTargetBible
+ * @param {boolean} isTargetBible
  * @param {String} fontClass
+ * @param {boolean} showUsfm
  * @return {*}
  */
-export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass) => {
-  let newVerseText = removeMarker(verseText);
-  newVerseText = newVerseText.replace(/\s+/g, ' ');
-  // if string only contains spaces then make it an empty string
-  newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
+export const verseString = (verseText, selections, translate, fontStyle = null, isTargetBible, fontClass, showUsfm) => {
+  let newVerseText = verseText;
+
+  if (!showUsfm) {
+    newVerseText = removeMarker(verseText);
+    newVerseText = newVerseText.replace(/\s+/g, ' ');
+    // if string only contains spaces then make it an empty string
+    newVerseText = newVerseText.replace(/\s/g, '').length === 0 ? '' : newVerseText;
+  }
 
   // if empty string then newVerseText = place holder warning.
   if (newVerseText.length === 0) {
     newVerseText = translate('pane.missing_verse_warning');
   }
 
-  let verseTextSpans = <span className={fontClass}>{newVerseText}</span>;
+  let verseTextSpans = <span className={fontClass}>{textToHtml(newVerseText, showUsfm)}</span>;
 
   if (selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
