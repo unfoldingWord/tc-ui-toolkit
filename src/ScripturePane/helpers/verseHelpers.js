@@ -73,7 +73,7 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
 
   let verseTextSpans = <span className={fontClass}>{textToHtml(newVerseText, showUsfm)}</span>;
 
-  if (selections && selections.length > 0) {
+  if (!showUsfm && selections && selections.length > 0) {
     const _selectionArray = stringTokenizer.selectionArray(newVerseText, selections);
     verseTextSpans = [];
     verseTextSpans.length = 0;
