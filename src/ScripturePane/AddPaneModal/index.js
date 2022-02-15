@@ -79,20 +79,26 @@ const AddPaneModal = ({
       resource_title, language_name, language_id,
     } = resource.manifest;
     let displayText = '';
+    const owner = resource.owner || '';
 
     if (resource.bibleId !== 'targetBible') {
       const languageId = (resource.languageId !== 'originalLanguage') ? resource.languageId : translate('pane.original_language');
-      displayText = `${language_name} (${languageId})  (${resource_title}) (${resource.owner})`;
+      displayText = `${language_name} (${languageId})  (${resource_title})`;
+
+      if (owner) {
+        displayText += ` (${owner})`;
+      }
     } else {
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
 
     const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
+    const ownerStr = owner ? `_${owner}` : '';
 
     panes.push(
       <option
-        key={`${i}${resource.languageId}_${resource.bibleId}`}
-        value={`${resource.languageId}_${resource.bibleId}`}
+        key={`${i}${resource.languageId}_${resource.bibleId}${ownerStr}`}
+        value={`${resource.languageId}_${resource.bibleId}${ownerStr}`}
         disabled={foundInCurrentPaneSettings}
       >
         {displayText}

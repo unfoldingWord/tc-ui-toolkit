@@ -57,10 +57,11 @@ function ScripturePane({
   }
 
   function selectSourceLanguage(value) {
-    const identifier = value.split('_');
+    const [ languageId, bibleId, owner] = value.split('_');
     const selectedBibleId = {
-      languageId: identifier[0],
-      bibleId: identifier[1],
+      languageId,
+      bibleId,
+      owner,
     };
 
     setSelectedPane(() => value ? selectedBibleId : {});
