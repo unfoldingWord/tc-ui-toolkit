@@ -82,7 +82,7 @@ const AddPaneModal = ({
 
     if (resource.bibleId !== 'targetBible') {
       const languageId = (resource.languageId !== 'originalLanguage') ? resource.languageId : translate('pane.original_language');
-      displayText = `${language_name} (${languageId})  (${resource_title})`;
+      displayText = `${language_name} (${languageId})  (${resource_title}) (${resource.owner})`;
     } else {
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
