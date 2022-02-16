@@ -93,12 +93,11 @@ const AddPaneModal = ({
     }
 
     const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
-    const ownerStr = owner ? `_${owner}` : '';
 
     panes.push(
       <option
-        key={`${i}${resource.languageId}_${resource.bibleId}${ownerStr}`}
-        value={`${resource.languageId}_${resource.bibleId}${ownerStr}`}
+        key={`${i}${resource.languageId}_${resource.bibleId}_${owner}`}
+        value={`${resource.languageId}_${resource.bibleId}_${owner}`}
         disabled={foundInCurrentPaneSettings}
       >
         {displayText}
