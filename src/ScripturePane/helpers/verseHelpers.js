@@ -250,20 +250,32 @@ export function getVerseRangeFromSpan(verseIndex) {
 }
 
 /**
- * try to find verse from chapter.  If not found look for verse spans
+ * get bible from bibles
  * @param {object} bibles
  * @param {string} languageId
- * @param {string} bibleId
+ * @param owner
+ * @param bibleId
+ * @return {*}
+ */
+export function getBibleElement(bibles, languageId, bibleId, owner = null) {
+  const key = (owner && languageId !== 'targetLanguage') ? `${languageId}_${owner}` : languageId;
+  const bibleElement = bibles[key]?.[bibleId];
+  return bibleElement;
+}
+
+/**
+ * try to find verse from chapter.  If not found look for verse spans
+ * @param {object} bible
  * @param {string} chapter
  * @param {string} verse
  * @return {object|null}
  */
-export function getVerseData(bibles, languageId, bibleId, chapter, verse) {
+export function getVerseDataFromBible(bible, chapter, verse) {
   let verseData = null;
   let verseLabel = null;
 
   try {
-    const chapterData = bibles[languageId][bibleId][chapter];
+    const chapterData = bible[chapter];
 
     if (chapterData) {
       verseData = chapterData[verse];

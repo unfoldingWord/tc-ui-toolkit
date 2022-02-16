@@ -6,7 +6,8 @@ import './VerseRow.styles.css';
 import Verse from '../../../Verse';
 // helpers
 import {
-  getVerseData,
+  getBibleElement,
+  getVerseDataFromBible,
   isVerseInSpan,
   verseString,
   verseArray,
@@ -66,9 +67,10 @@ class VerseRow extends Component {
             fontSize,
             languageId,
           } = paneSetting;
-          const { manifest: { direction } } = bibles[languageId][bibleId];
+          const bible = getBibleElement(bibles, languageId, bibleId);
+          const { manifest: { direction } } = bible;
           let verseElements = [];
-          const { verseData, verseLabel } = getVerseData(bibles, languageId, bibleId, chapter, currentVerseNumber);
+          const { verseData, verseLabel } = getVerseDataFromBible(bible, chapter, currentVerseNumber);
           const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
           const blankVerse = isVerseSpan && !isFirstVerse;
           const verseText = verseData;

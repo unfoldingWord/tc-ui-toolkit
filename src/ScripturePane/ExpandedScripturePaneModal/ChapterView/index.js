@@ -10,7 +10,7 @@ import './ChapterView.styles.css';
 // components
 import { getReferenceStr, getTitleStr } from '../../helpers/utils';
 import VerseEditorDialog from '../../../VerseEditor';
-import { getVerseData } from '../../helpers/verseHelpers';
+import { getBibleElement, getVerseDataFromBible } from '../../helpers/verseHelpers';
 import VerseRow from './VerseRow';
 
 class ChapterView extends Component {
@@ -58,7 +58,8 @@ class ChapterView extends Component {
     const { chapter, verse } = contextId.reference;
     const languageID = 'en';
     const bookID = 'ult';
-    const verseNumbers = Object.keys(bibles[languageID][bookID][chapter]);
+    const bible = getBibleElement(bibles, languageID, bookID);
+    const verseNumbers = Object.keys(bible[chapter]);
     const { manifest: projectManifest } = projectDetailsReducer;
     const targetLanguageFont = projectManifest.projectFont || '';
     this.verseRefs = {};
@@ -75,7 +76,7 @@ class ChapterView extends Component {
 
       for (let i = 0, len = verseNumbers.length; i < len; i++) {
         const verseNumber = verseNumbers[i];
-        const { verseLabel } = getVerseData(bibles, languageID, bookID, chapter, verse);
+        const { verseLabel } = getVerseDataFromBible(bible, chapter, verse);
         const refKey = ChapterView.makeRefKey(chapter, verseNumber);
 
         verseRows.push(
