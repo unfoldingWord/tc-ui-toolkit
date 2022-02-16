@@ -136,7 +136,11 @@ function ScripturePane({
   const targetLanguageFont = projectManifest.projectFont || '';
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
-  currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
+    const key = `${paneSetting.bibleId}_${paneSetting.owner}`;
+    const found = bibles[paneSetting.languageId]?.[key];
+    return !!found;
+  });
 
   return (
     <div className="scripture-pane-container">
