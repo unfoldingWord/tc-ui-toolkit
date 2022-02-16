@@ -137,7 +137,7 @@ function ScripturePane({
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
-    const key = `${paneSetting.languageId}_${paneSetting.owner}`;
+    const key = (paneSetting.languageId !== 'targetLanguage') ? `${paneSetting.languageId}_${paneSetting.owner}` : paneSetting.languageId;
     const found = bibles[key]?.[paneSetting.bibleId];
 
     if (!found) {
