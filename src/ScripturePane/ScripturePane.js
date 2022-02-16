@@ -139,7 +139,11 @@ function ScripturePane({
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
     const key = `${paneSetting.bibleId}_${paneSetting.owner}`;
     const found = bibles[paneSetting.languageId]?.[key];
-    return !!found;
+
+    if (!found) {
+      console.log(`Pane not loaded in bible: ${JSON.stringify(paneSetting)}`);
+    }
+    return found;
   });
 
   return (
