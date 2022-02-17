@@ -6,7 +6,8 @@ import Pane from '../Pane';
 import { getFontClassName } from '../../common/fontUtils';
 import {
   createVerseMarker,
-  getVerseData,
+  getBibleElement,
+  getVerseDataFromBible,
   getVerseRangeFromSpan,
   verseString,
   verseArray,
@@ -40,13 +41,15 @@ function Panes({
         bibleId,
         fontSize,
         languageId,
+        owner,
       } = paneSettings;
-      const { manifest } = bibles[languageId][bibleId];
+      const bible = getBibleElement(bibles, languageId, bibleId, owner);
+      const { manifest } = bible;
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
       let verseData, verseLabel;
-      const chapterData = bibles[languageId][bibleId][chapter];
+      const chapterData = bible[chapter];
       const isVerseSpan = verse.toString().includes('-');
 
       if (isVerseSpan && (!chapterData[verse]) ) { // see if we need to combine verses together to create verse span
@@ -66,7 +69,7 @@ function Panes({
         verseData = { verseObjects: verseSpanData };
         verseLabel = low.toString();
       } else {
-        const response = getVerseData(bibles, languageId, bibleId, chapter, verse);
+        const response = getVerseDataFromBible(bible, chapter, verse);
         verseData = response.verseData;
         verseLabel = response.verseLabel;
       }

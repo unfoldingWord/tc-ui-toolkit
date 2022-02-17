@@ -8,8 +8,10 @@ import Panes from './Panes';
 import ExpandedScripturePaneModal from './ExpandedScripturePaneModal';
 import AddBibleButton from './AddBibleButton';
 import AddPaneModal from './AddPaneModal';
+import { getBibleElement } from './helpers/verseHelpers';
 
 import './ScripturePane.styles.css';
+
 // constant
 const NAMESPACE = 'ScripturePane';
 
@@ -136,7 +138,14 @@ function ScripturePane({
   const targetLanguageFont = projectManifest.projectFont || '';
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
-  currentPaneSettings = currentPaneSettings.filter((paneSetting) => bibles[paneSetting.languageId] && bibles[paneSetting.languageId][paneSetting.bibleId] ? true : false);
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
+    const found = getBibleElement(bibles, paneSetting.languageId, paneSetting.bibleId, paneSetting.owner);
+
+    if (!found) {
+      console.log(`Pane not loaded in bible: ${JSON.stringify(paneSetting)}`);
+    }
+    return found;
+  });
 
   return (
     <div className="scripture-pane-container">
