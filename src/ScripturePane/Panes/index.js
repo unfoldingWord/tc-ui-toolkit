@@ -43,7 +43,7 @@ function Panes({
         languageId,
         owner,
       } = paneSettings;
-      const bible = getBibleElement(bibles,languageId, bibleId, owner);
+      const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const { manifest } = bible;
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
