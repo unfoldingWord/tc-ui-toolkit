@@ -66,14 +66,25 @@ class VerseRow extends Component {
             bibleId,
             fontSize,
             languageId,
+            owner,
           } = paneSetting;
-          const bible = getBibleElement(bibles, languageId, bibleId);
-          const { manifest: { direction } } = bible;
+          const bible = getBibleElement(bibles, languageId, bibleId, owner);
+          const direction = bible?.manifest?.direction || 'ltr';
           let verseElements = [];
-          const { verseData, verseLabel } = getVerseDataFromBible(bible, chapter, currentVerseNumber);
-          const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
-          const blankVerse = isVerseSpan && !isFirstVerse;
-          const verseText = verseData;
+          let verseText = '';
+          let verseLabel = '';
+          let verseData = '';
+          let blankVerse = false;
+
+          if (bible) {
+            const verseDataFromBible = getVerseDataFromBible(bible, chapter, currentVerseNumber);
+            verseData = verseDataFromBible.verseData;
+            verseLabel = verseDataFromBible.verseLabel;
+            const { isVerseSpan, isFirstVerse } = isVerseInSpan(verseLabel, currentVerseNumber);
+            blankVerse = isVerseSpan && !isFirstVerse;
+            verseText = verseData;
+          }
+
           let colStyle = {
             minWidth: '240px',
             alignItems: 'stretch',
@@ -123,7 +134,7 @@ class VerseRow extends Component {
             </Col>,
           );
         } catch (error) {
-          console.error(error);
+          console.error(`VerseRow: error rendering verse ${JSON.stringify(paneSetting)}`, error);
         }
       }
     }
