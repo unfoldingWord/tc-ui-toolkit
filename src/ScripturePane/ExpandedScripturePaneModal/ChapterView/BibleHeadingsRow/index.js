@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 
 import './BibleHeadingsRow.styles.css';
+import { getBibleElement } from '../../../helpers/verseHelpers';
 
 const rowStyle = {
   display: 'flex',
@@ -21,21 +22,24 @@ class BibleHeadingsRow extends Component {
     const bibleHeadings = [];
 
     for (let i = 0, len = currentPaneSettings.length; i < len; i++) {
-      const paneSetting = currentPaneSettings[i];
+      const {
+        languageId,
+        bibleId,
+        owner,
+      } = currentPaneSettings[i];
+      const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const index = i;
-      const languageId = paneSetting.languageId;
-      const bibleId = paneSetting.bibleId;
       const {
         language_name,
         direction,
-      } = bibles[languageId][bibleId]['manifest'];
+      } = bible?.manifest || {};
 
       const resourceText = bibleId !== 'targetBible' ? ' (' + bibleId.toUpperCase() + ')' : '' ;
       const headingText = language_name + resourceText;
       let dir = direction;
 
       if (!dir) {
-        dir = projectDetailsReducer.manifest.target_language.direction;
+        dir = projectDetailsReducer?.manifest?.target_language?.direction || 'ltr';
       }
 
       const colStyle = {
