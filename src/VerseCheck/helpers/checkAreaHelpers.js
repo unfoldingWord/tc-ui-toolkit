@@ -24,7 +24,8 @@ export const getQuoteAsArray = (quote, occurrenceToMatch) => {
  * @returns {boolean}
  */
 function isOccurrenceMatch(verseObject, match) {
-  return (verseObject.occurrence === match.occurrence) || (match.occurrence === -1);
+  const isMatch = (verseObject.occurrence === match.occurrence) || (match.occurrence === -1);
+  return isMatch;
 }
 
 /**

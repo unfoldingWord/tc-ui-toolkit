@@ -39,7 +39,7 @@ export function isWordArrayMatch(word, contextId) {
  * @param {number} index - position of word
  * @param {Array} words - list of word objects to search
  * @param {String} wordText - text to match
- * @param {number} occurrence - to match
+ * @param {number} occurrence - to match (if -1, then match all occurrences)
  * @return {Boolean} - true if same occurrence
  */
 function getOccurrenceOfWord(index, words, wordText, occurrence) {
@@ -54,7 +54,7 @@ function getOccurrenceOfWord(index, words, wordText, occurrence) {
     }
   }
 
-  const isMatch = (_occurrence === occurrence);
+  const isMatch = (_occurrence === occurrence) || (occurrence === -1);
   return isMatch;
 }
 
