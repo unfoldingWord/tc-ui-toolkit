@@ -18,6 +18,17 @@ export const getQuoteAsArray = (quote, occurrenceToMatch) => {
 };
 
 /**
+ * see if occurrence of verseObject is a match to `match`.  If match occurrence is -1, it will match all occurrences in verse
+ * @param {object} verseObject
+ * @param {object} match
+ * @returns {boolean}
+ */
+function isOccurrenceMatch(verseObject, match) {
+  const isMatch = (verseObject.occurrence === match.occurrence) || (match.occurrence === -1);
+  return isMatch;
+}
+
+/**
  * getAlignedText - returns a string of the text found in an array of verseObjects that matches the words to find
  *                  and their occurrence in the verse.
  * @param {Array} verseObjects
@@ -42,10 +53,10 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
 
     if ((verseObject.type === 'milestone' || verseObject.type === 'word')) {
       // It is a milestone or a word...we want to handle all of them.
-      if (isMatch || wordsToMatch.find(item => (verseObject.content === item.word) && (verseObject.occurrence === item.occurrence))) {
+      if (isMatch || wordsToMatch.find(item => (verseObject.content === item.word) && isOccurrenceMatch(verseObject, item))) {
         lastMatch = true;
 
-        // We have a match (or previoiusly had a match in the parent) so we want to include all text that we find,
+        // We have a match (or previously had a match in the parent) so we want to include all text that we find,
         if (needsEllipsis) {
           // Need to add an ellipsis to the separator since a previous match but not one right next to this one
           separator += ELLIPSIS+DEFAULT_SEPARATOR;
