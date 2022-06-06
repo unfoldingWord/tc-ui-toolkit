@@ -57,11 +57,20 @@ function Panes({
         let verseSpanData = [];
 
         for (let i = low; i <= hi; i++) {
-          const data = chapterData[i];
+          let data = chapterData[i];
 
           if (data) {
             if (verseSpanData.length) {
               verseSpanData.push(createVerseMarker(i));
+            }
+
+            if (typeof data === 'string') { // if string, we need to wrap in a verse object
+              data = {
+                verseObjects: {
+                  type: 'text',
+                  text: data,
+                },
+              };
             }
             verseSpanData = verseSpanData.concat(data.verseObjects);
           }
