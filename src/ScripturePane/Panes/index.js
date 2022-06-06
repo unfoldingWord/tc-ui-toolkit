@@ -64,12 +64,12 @@ function Panes({
               verseSpanData.push(createVerseMarker(i));
             }
 
-            if (typeof data === 'string') { // if string, we need to wrap in a verse object
+            if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
               data = {
-                verseObjects: {
+                verseObjects: [{
                   type: 'text',
                   text: data,
-                },
+                }],
               };
             }
             verseSpanData = verseSpanData.concat(data.verseObjects);
