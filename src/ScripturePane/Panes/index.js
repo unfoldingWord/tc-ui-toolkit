@@ -7,8 +7,7 @@ import { getFontClassName } from '../../common/fontUtils';
 import {
   createVerseMarker,
   getBibleElement,
-  getVerseDataFromBible,
-  getVerseRangeFromSpan,
+  getVerseData,
   verseString,
   verseArray,
 } from '../helpers/verseHelpers';
@@ -48,40 +47,7 @@ function Panes({
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
-      let verseData, verseLabel;
-      const chapterData = bible[chapter];
-      const isVerseSpan = verse.toString().includes('-');
-
-      if (isVerseSpan && (!chapterData[verse]) ) { // see if we need to combine verses together to create verse span
-        const { low, hi } = getVerseRangeFromSpan(verse);
-        let verseSpanData = [];
-
-        for (let i = low; i <= hi; i++) {
-          let data = chapterData[i];
-
-          if (data) {
-            if (verseSpanData.length) {
-              verseSpanData.push(createVerseMarker(i));
-            }
-
-            if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
-              data = {
-                verseObjects: [{
-                  type: 'text',
-                  text: data,
-                }],
-              };
-            }
-            verseSpanData = verseSpanData.concat(data.verseObjects);
-          }
-        }
-        verseData = { verseObjects: verseSpanData };
-        verseLabel = low.toString();
-      } else {
-        const response = getVerseDataFromBible(bible, chapter, verse);
-        verseData = response.verseData;
-        verseLabel = response.verseLabel;
-      }
+      let { verseData, verseLabel } = getVerseData(bible, chapter, verse, createVerseMarker);
 
       let verseElements = [];
 
