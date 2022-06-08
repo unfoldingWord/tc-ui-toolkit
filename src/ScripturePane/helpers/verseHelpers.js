@@ -398,6 +398,9 @@ export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
         let label = response.verseLabel;
 
         if (data && !history.includes(label)) {
+          if (!verseLabel) {
+            verseLabel = label.toString();
+          }
           history.push(label + '');
 
           if (verseSpanData.length) {
@@ -414,10 +417,6 @@ export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
           }
           verseSpanData = verseSpanData.concat(data.verseObjects);
         }
-      }
-
-      if (!verseLabel) {
-        verseLabel = low.toString();
       }
     } else {
       const response = getVerseDataFromBible(bibleData, chapter, verse);

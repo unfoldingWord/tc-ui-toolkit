@@ -38,7 +38,7 @@ describe('verseHelpers.getVerseData', () => {
         chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2' },
       },
     ];
 
@@ -83,7 +83,13 @@ describe('verseHelpers.getVerseData', () => {
         chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2,4,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2,3,4,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '1-4', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1', 'type': 'text' }, { 'text': '2-3', 'type': 'verse' }, { 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }] }, 'verseLabel': '1' },
       },
     ];
 
