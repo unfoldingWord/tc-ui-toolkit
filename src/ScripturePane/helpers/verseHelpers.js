@@ -386,7 +386,7 @@ export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
   const chapterData = bibleData[chapter];
   const verses = getVerseList(verseList);
   let verseSpanData = [];
-  let history = [];
+  const history = []; // to guard against duplicate verses
 
   for (const verse of verses) {
     if (isVerseSpan(verse) && (!chapterData[verse])) { // see if we need to combine verses together to create verse span

@@ -14,31 +14,31 @@ function createMarker(verse) {
 describe('verseHelpers.getVerseData', () => {
   it('test multiple cases without verse spans in data', () => {
     const chapter1 = {
-      '1': 'v1',
-      '2': 'v2',
-      '3': 'v3',
-      '4': 'v4',
-      '5': 'v5',
+      '1': 'v1-Content',
+      '2': 'v2-Content',
+      '3': 'v3-Content',
+      '4': 'v4-Content',
+      '5': 'v5-Content',
     };
     const bibleData = { '1': chapter1 };
     const tests = [
       {
-        chapter: 1, verse: 2, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: 1, verse: 2, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
       {
-        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2' },
+        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2' },
       },
     ];
 
@@ -57,39 +57,39 @@ describe('verseHelpers.getVerseData', () => {
 
   it('test multiple cases with verse spans in data', () => {
     const chapter1 = {
-      '1': 'v1',
-      '2-3': 'v2-3',
-      '4': 'v4',
-      '5': 'v5',
+      '1': 'v1-Content',
+      '2-3': 'v2-3-Content',
+      '4': 'v4-Content',
+      '5': 'v5-Content',
     };
     const bibleData = { '1': chapter1 };
     const tests = [
       {
-        chapter: 1, verse: 1, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1', 'type': 'text' }] }, 'verseLabel': '1' },
+        chapter: 1, verse: 1, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1-Content', 'type': 'text' }] }, 'verseLabel': '1' },
       },
       {
-        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2,3,4,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2,3,4,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '2-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5', 'type': 'text' }] }, 'verseLabel': '2-3' },
+        chapter: '1', verse: '2-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
       },
       {
-        chapter: '1', verse: '1-4', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1', 'type': 'text' }, { 'text': '2-3', 'type': 'verse' }, { 'text': 'v2-3', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4', 'type': 'text' }] }, 'verseLabel': '1' },
+        chapter: '1', verse: '1-4', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1-Content', 'type': 'text' }, { 'text': '2-3', 'type': 'verse' }, { 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }] }, 'verseLabel': '1' },
       },
     ];
 
