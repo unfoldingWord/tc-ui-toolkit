@@ -233,20 +233,61 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
 
 /**
  * get verse range from span
- * @param {string} verseIndex
- * @return {{}|{hi: number, low: number}}
+ * @param {string} verseSpan
+ * @return {{high: number, low: number}}
  */
-export function getVerseRangeFromSpan(verseIndex) {
-  const span = verseIndex.split('-');
+export function getVerseSpanRange(verseSpan) {
+  let [low, high] = verseSpan.split('-');
 
-  if (span.length >= 2) { // see if verse contained in span
-    if (span[0] && span[1]) {
-      const low = parseInt(span[0]);
-      const hi = parseInt(span[1]);
-      return { low, hi };
+  if (low && high) {
+    low = parseInt(low, 10);
+    high = parseInt(high, 10);
+
+    if ((low > 0) && (high >= low)) {
+      return { low, high };
     }
   }
   return {};
+}
+
+/**
+ * splits verse list into individual verses
+ * @param {string} verseStr
+ * @return {[number]}
+ */
+export function getVerseList(verseStr) {
+  const verses = verseStr.toString().split(',');
+  return verses;
+}
+
+/**
+ * test if verse is valid verse span string
+ * @param {string|number} verse
+ * @return {boolean}
+ */
+export function isVerseSpan(verse) {
+  const isSpan = (typeof verse === 'string') && verse.includes('-');
+  return isSpan;
+}
+
+/**
+ * test if verse is valid verse list (verse numbers separated by commas)
+ * @param {string|number} verse
+ * @return {boolean}
+ */
+export function isVerseList(verse) {
+  const isList = (typeof verse === 'string') && verse.includes(',');
+  return isList;
+}
+
+/**
+ * test if verse is valid verse span or verse list
+ * @param {string|number} verse
+ * @return {boolean}
+ */
+export function isVerseSet(verse) {
+  const isSet = isVerseSpan(verse) || isVerseList(verse);
+  return isSet;
 }
 
 /**
@@ -286,10 +327,10 @@ export function getVerseDataFromBible(bible, chapter, verse) {
         const verseVal = parseInt(verse);
 
         for (let verseIndex in chapterData) {
-          if (verseIndex.includes('-')) {
-            const { low, hi } = getVerseRangeFromSpan(verseIndex);
+          if (isVerseSpan(verseIndex)) {
+            const { low, high } = getVerseSpanRange(verseIndex);
 
-            if ( (verseVal >= low) && (verseVal <= hi) ) {
+            if ( (verseVal >= low) && (verseVal <= high) ) {
               verseData = chapterData[verseIndex];
               verseLabel = verseIndex;
               break;
@@ -331,6 +372,84 @@ export function isVerseInSpan(verseLabel, verse) {
   }
   return { isVerseSpan, isFirstVerse };
 }
+
+/**
+ * gets verse data for verseList
+ * @param {object} bibleData
+ * @param {number|string} chapter
+ * @param {string} verseList - can be a single verse, comma separated list of verses or verse range
+ * @param {function} createVerseMarker - to create a verse marker
+ * @returns {{verseData: {verseObjects: *[]}, verseLabel: string}}
+ */
+export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
+  let verseLabel = '';
+  const chapterData = bibleData[chapter];
+  const verses = getVerseList(verseList);
+  let verseSpanData = [];
+  const history = []; // to guard against duplicate verses
+
+  for (const verse of verses) {
+    if (isVerseSpan(verse) && (!chapterData[verse])) { // see if we need to combine verses together to create verse span
+      const { low, high } = getVerseSpanRange(verse);
+
+      for (let i = low; i <= high; i++) {
+        const response = getVerseDataFromBible(bibleData, chapter, i);
+        let data = response.verseData;
+        let label = response.verseLabel;
+
+        if (data && !history.includes(label)) {
+          if (!verseLabel) {
+            verseLabel = label.toString();
+          }
+          history.push(label + '');
+
+          if (verseSpanData.length) {
+            verseSpanData.push(createVerseMarker(label));
+          }
+
+          if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
+            data = {
+              verseObjects: [{
+                type: 'text',
+                text: data,
+              }],
+            };
+          }
+          verseSpanData = verseSpanData.concat(data.verseObjects);
+        }
+      }
+    } else {
+      const response = getVerseDataFromBible(bibleData, chapter, verse);
+      let data = response.verseData;
+      let label = response.verseLabel;
+
+      if (data && !history.includes(label)) {
+        history.push(label + '');
+
+        if (verseSpanData.length) {
+          verseSpanData.push(createVerseMarker(label));
+        }
+
+        if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
+          verseSpanData.push({
+            type: 'text',
+            text: data,
+          });
+        } else {
+          verseSpanData = verseSpanData.concat(data?.verseObjects);
+        }
+
+        if (!verseLabel) {
+          verseLabel = label.toString();
+        }
+      }
+    }
+  }
+
+  const verseData = { verseObjects: verseSpanData };
+  return { verseData, verseLabel };
+}
+
 
 /**
  * create html to mark verse

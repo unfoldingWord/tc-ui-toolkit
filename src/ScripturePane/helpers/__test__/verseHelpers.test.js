@@ -1,7 +1,111 @@
 import fs from 'fs';
 import path from 'path';
 import React from 'react';
+import isEqual from 'deep-equal';
 import * as verseHelpers from '../verseHelpers';
+
+function createMarker(verse) {
+  return {
+    type: 'verse',
+    text: verse + '',
+  };
+}
+
+describe('verseHelpers.getVerseData', () => {
+  it('test multiple cases without verse spans in data', () => {
+    const chapter1 = {
+      '1': 'v1-Content',
+      '2': 'v2-Content',
+      '3': 'v3-Content',
+      '4': 'v4-Content',
+      '5': 'v5-Content',
+    };
+    const bibleData = { '1': chapter1 };
+    const tests = [
+      {
+        chapter: 1, verse: 2, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+      {
+        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+      {
+        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+      {
+        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+      {
+        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '3', 'type': 'verse' }, { 'text': 'v3-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+      {
+        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2' },
+      },
+    ];
+
+    for (const test of tests) {
+      let {
+        chapter, verse, expected,
+      } = test;
+      const results = verseHelpers.getVerseData(bibleData, chapter, verse, createMarker);
+
+      if (!isEqual(results, expected)) {
+        console.log(`compare failed for ${chapter}:${verse}`);
+        expect(results).toEqual(expected);
+      }
+    }
+  });
+
+  it('test multiple cases with verse spans in data', () => {
+    const chapter1 = {
+      '1': 'v1-Content',
+      '2-3': 'v2-3-Content',
+      '4': 'v4-Content',
+      '5': 'v5-Content',
+    };
+    const bibleData = { '1': chapter1 };
+    const tests = [
+      {
+        chapter: 1, verse: 1, expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1-Content', 'type': 'text' }] }, 'verseLabel': '1' },
+      },
+      {
+        chapter: '1', verse: '2', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2-3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2,3', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2-3,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2,4-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2,3,4,5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '2-5', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }, { 'text': '5', 'type': 'verse' }, { 'text': 'v5-Content', 'type': 'text' }] }, 'verseLabel': '2-3' },
+      },
+      {
+        chapter: '1', verse: '1-4', expected: { 'verseData': { 'verseObjects': [{ 'text': 'v1-Content', 'type': 'text' }, { 'text': '2-3', 'type': 'verse' }, { 'text': 'v2-3-Content', 'type': 'text' }, { 'text': '4', 'type': 'verse' }, { 'text': 'v4-Content', 'type': 'text' }] }, 'verseLabel': '1' },
+      },
+    ];
+
+    for (const test of tests) {
+      let {
+        chapter, verse, expected,
+      } = test;
+      const results = verseHelpers.getVerseData(bibleData, chapter, verse, createMarker);
+
+      if (!isEqual(results, expected)) {
+        console.log(`compare failed for ${chapter}:${verse}`);
+        expect(results).toEqual(expected);
+      }
+    }
+  });
+});
 
 describe('verseHelpers.verseArray', () => {
   it('should succeed with heb-12-27.el-x-koine', () => {
@@ -146,14 +250,14 @@ describe('verseHelpers.isVerseInSpan', () => {
   });
 });
 
-describe('verseHelpers.getVerseRangeFromSpan', () => {
+describe('verseHelpers.getVerseSpanRange', () => {
   it('should return no range if single verse', () => {
     // given
     const verseIndex = '1';
     const expect_range = {};
 
     // when
-    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+    const results = verseHelpers.getVerseSpanRange(verseIndex);
 
     // then
     expect(results).toEqual(expect_range);
@@ -165,7 +269,7 @@ describe('verseHelpers.getVerseRangeFromSpan', () => {
     const expect_range = {};
 
     // when
-    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+    const results = verseHelpers.getVerseSpanRange(verseIndex);
 
     // then
     expect(results).toEqual(expect_range);
@@ -177,7 +281,7 @@ describe('verseHelpers.getVerseRangeFromSpan', () => {
     const expect_range = {};
 
     // when
-    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+    const results = verseHelpers.getVerseSpanRange(verseIndex);
 
     // then
     expect(results).toEqual(expect_range);
@@ -189,7 +293,7 @@ describe('verseHelpers.getVerseRangeFromSpan', () => {
     const expect_range = {};
 
     // when
-    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+    const results = verseHelpers.getVerseSpanRange(verseIndex);
 
     // then
     expect(results).toEqual(expect_range);
@@ -200,11 +304,11 @@ describe('verseHelpers.getVerseRangeFromSpan', () => {
     const verseIndex = '5-10';
     const expect_range = {
       low: 5,
-      hi: 10,
+      high: 10,
     };
 
     // when
-    const results = verseHelpers.getVerseRangeFromSpan(verseIndex);
+    const results = verseHelpers.getVerseSpanRange(verseIndex);
 
     // then
     expect(results).toEqual(expect_range);
