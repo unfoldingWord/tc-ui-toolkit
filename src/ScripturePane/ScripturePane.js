@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
@@ -38,6 +38,12 @@ function ScripturePane({
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
   const [selectedPane, setSelectedPane] = useState({});
+
+  useEffect(() => {
+    if (editVerse) { // if verse is to be edited
+      openExpandedScripturePane();
+    }
+  }, [editVerse]);
 
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);

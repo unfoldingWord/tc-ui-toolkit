@@ -84,7 +84,7 @@ function ExpandedScripturePaneModal({
 
   useEffect(() => {
     if (editVerse) { // if verse is to be edited
-      const { chapter } = this.props.contextId.reference;
+      const { chapter } = contextId.reference;
       const bibleId = 'targetBible';
       const currentVerseNumber = editVerse;
       const bible = getBibleElement(bibles, 'targetLanguage', bibleId);
