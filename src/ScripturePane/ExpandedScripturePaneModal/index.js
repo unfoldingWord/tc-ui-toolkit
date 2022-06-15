@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import deepEqual from 'deep-equal';
 import { getFontClassName } from '../../common/fontUtils';
+import { getBibleElement, getVerseDataFromBible } from '../helpers/verseHelpers';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
@@ -76,9 +77,32 @@ function ExpandedScripturePaneModal({
   targetLanguageFont,
   currentPaneSettings,
   projectDetailsReducer,
+  editVerse,
 }) {
   const [verseTextReference, editVerseText] = useState({});
   const [showTargetUsfm, setShowTargetUsfm] = useState(false);
+
+  useEffect(() => {
+    if (editVerse) { // if verse is to be edited
+      const { chapter } = this.props.contextId.reference;
+      const bibleId = 'targetBible';
+      const currentVerseNumber = editVerse;
+      const bible = getBibleElement(bibles, 'targetLanguage', bibleId);
+      const verseText = bible && getVerseDataFromBible(bible, chapter, currentVerseNumber);
+
+      if (verseText) {
+        editVerseText(prevState => ({
+          ...prevState,
+          bibleId,
+          chapter,
+          verse: currentVerseNumber,
+          verseText,
+        }));
+      } else {
+        console.warn(`ExpandedScripturePaneModal - cannot open edit verse`);
+      }
+    }
+  }, [editVerse]);
 
   function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     editVerseText(prevState => ({
@@ -193,6 +217,7 @@ ExpandedScripturePaneModal.propTypes = {
   editTargetVerse: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  editVerse: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**

@@ -32,6 +32,8 @@ function ScripturePane({
   makeSureBiblesLoadedForTool,
   addObjectPropertyToManifest,
   getAvailableScripturePaneSelections,
+  onExpandedScripturePaneShow,
+  editVerse,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
@@ -40,11 +42,13 @@ function ScripturePane({
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
     handleModalOpen(true);
+    onExpandedScripturePaneShow(true);
   }
 
   function closeExpandedScripturePane() {
     toggleExpandedScripturePane(false);
     handleModalOpen(false);
+    onExpandedScripturePaneShow(false);
   }
 
   function showAddBibleModal() {
@@ -198,6 +202,7 @@ function ScripturePane({
             targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer}
+            editVerse={editVerse}
           />
           :
           <div/>
@@ -216,6 +221,7 @@ function ScripturePane({
             selectSourceLanguage={selectSourceLanguage}
             selectLanguageLabel={translate('pane.select_language')}
             getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
+            onExpandedScripturePaneShow={onExpandedScripturePaneShow}
           />
           :
           <div/>
@@ -247,6 +253,8 @@ ScripturePane.propTypes = {
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
+  onExpandedScripturePaneShow: PropTypes.func.isRequired, // called when expanded Scripture Pane as shown or hidden
+  editVerse: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**
