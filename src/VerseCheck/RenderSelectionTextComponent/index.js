@@ -10,12 +10,12 @@ const DBL_CLK_TIME = 1500; // time in ms
 const DBL_CLK_DISTANCE = 10; // in pixels
 
 class RenderSelectionTextComponent extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // track when the selections change to prevent false clicks of removals
     this.renderTimestamp = Date.now();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // track when the selections change to prevent false clicks of removals
     if (!isEqual(this.props.selections, nextProps.selections)) {
       this.renderTimestamp = Date.now();

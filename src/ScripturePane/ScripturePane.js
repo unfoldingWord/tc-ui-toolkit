@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
@@ -32,19 +32,29 @@ function ScripturePane({
   makeSureBiblesLoadedForTool,
   addObjectPropertyToManifest,
   getAvailableScripturePaneSelections,
+  onExpandedScripturePaneShow,
+  editVerseRef,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
   const [selectedPane, setSelectedPane] = useState({});
 
+  useEffect(() => {
+    if (editVerseRef) { // if verse is to be edited
+      openExpandedScripturePane();
+    }
+  }, [editVerseRef]);
+
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
     handleModalOpen(true);
+    onExpandedScripturePaneShow(true);
   }
 
   function closeExpandedScripturePane() {
     toggleExpandedScripturePane(false);
     handleModalOpen(false);
+    onExpandedScripturePaneShow(false);
   }
 
   function showAddBibleModal() {
@@ -198,6 +208,7 @@ function ScripturePane({
             targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer}
+            editVerseRef={editVerseRef}
           />
           :
           <div/>
@@ -216,6 +227,7 @@ function ScripturePane({
             selectSourceLanguage={selectSourceLanguage}
             selectLanguageLabel={translate('pane.select_language')}
             getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
+            onExpandedScripturePaneShow={onExpandedScripturePaneShow}
           />
           :
           <div/>
@@ -247,6 +259,8 @@ ScripturePane.propTypes = {
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
+  onExpandedScripturePaneShow: PropTypes.func.isRequired, // called when expanded Scripture Pane as shown or hidden
+  editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**
@@ -265,7 +279,8 @@ function areEqual(prevProps, nextProps) {
     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
-    deepEqual(prevProps.selections, nextProps.selections);
+    deepEqual(prevProps.selections, nextProps.selections) &&
+    (prevProps.editVerseRef === nextProps.editVerseRef);
 }
 
 // using React.memo to boost performance by memoizing the result

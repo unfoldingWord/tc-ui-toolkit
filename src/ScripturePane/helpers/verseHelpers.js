@@ -415,7 +415,7 @@ export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
               }],
             };
           }
-          verseSpanData = verseSpanData.concat(data.verseObjects);
+          Array.prototype.push.apply(verseSpanData, data.verseObjects);
         }
       }
     } else {
@@ -436,7 +436,7 @@ export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
             text: data,
           });
         } else {
-          verseSpanData = verseSpanData.concat(data?.verseObjects);
+          Array.prototype.push.apply(verseSpanData, data?.verseObjects);
         }
 
         if (!verseLabel) {

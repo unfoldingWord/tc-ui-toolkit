@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import deepEqual from 'deep-equal';
 import { getFontClassName } from '../../common/fontUtils';
+import { getBibleElement, getVerseDataFromBible } from '../helpers/verseHelpers';
 import ChapterView from './ChapterView';
 import BibleHeadingsRow from './ChapterView/BibleHeadingsRow';
 
@@ -76,9 +77,33 @@ function ExpandedScripturePaneModal({
   targetLanguageFont,
   currentPaneSettings,
   projectDetailsReducer,
+  editVerseRef,
 }) {
   const [verseTextReference, editVerseText] = useState({});
   const [showTargetUsfm, setShowTargetUsfm] = useState(false);
+
+  useEffect(() => {
+    if (editVerseRef) { // if verse is to be edited
+      const { chapter } = contextId.reference;
+      const bibleId = 'targetBible';
+      const currentVerseNumber = editVerseRef;
+      const bible = getBibleElement(bibles, 'targetLanguage', bibleId);
+      const verseObj = bible && getVerseDataFromBible(bible, chapter, currentVerseNumber);
+      const verseText = verseObj?.verseData;
+
+      if (verseText) {
+        editVerseText(prevState => ({
+          ...prevState,
+          bibleId,
+          chapter,
+          verse: currentVerseNumber,
+          verseText,
+        }));
+      } else {
+        console.warn(`ExpandedScripturePaneModal - cannot open edit verse`);
+      }
+    }
+  }, [editVerseRef]);
 
   function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     editVerseText(prevState => ({
@@ -193,6 +218,7 @@ ExpandedScripturePaneModal.propTypes = {
   editTargetVerse: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
+  editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**
@@ -207,7 +233,8 @@ function areEqual(prevProps, nextProps) {
     prevProps.bibles to render, otherwise return false
   */
   return deepEqual(prevProps.bibles, nextProps.bibles) &&
-    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings);
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+    (prevProps.editVerseRef === nextProps.editVerseRef);
 }
 
 // using React.memo to boost performance by memoizing the result

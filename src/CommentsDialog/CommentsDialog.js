@@ -30,7 +30,7 @@ class CommentsDialog extends React.Component {
     this.state = { comment };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { comment } = nextProps;
 
     if (comment !== this.state.comment) { // only update state if comment changed

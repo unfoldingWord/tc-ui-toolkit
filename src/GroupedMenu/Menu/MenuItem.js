@@ -230,7 +230,7 @@ class MenuItem extends React.Component {
     this.checkOverflow();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.title !== this.props.title) {
       this.setState({ overflow: false });
     }

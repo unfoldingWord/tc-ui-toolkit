@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "lib/index.js",
   "display": "library",
@@ -62,8 +62,8 @@
     ]
   },
   "peerDependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "string-punctuation-tokenizer": "^2.0.0",
     "usfm-js": "^2.1.0",
     "word-aligner": "^1.0.0"
@@ -116,8 +116,8 @@
     "ospath": "1.2.2",
     "path": "0.12.7",
     "prettier": "^1.19.1",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
     "react-test-renderer": "16.8.5",
     "string-punctuation-tokenizer": "2.0.0",
     "style-loader": "1.1.3",
