@@ -88,7 +88,8 @@ function ExpandedScripturePaneModal({
       const bibleId = 'targetBible';
       const currentVerseNumber = editVerseRef;
       const bible = getBibleElement(bibles, 'targetLanguage', bibleId);
-      const verseText = bible && getVerseDataFromBible(bible, chapter, currentVerseNumber);
+      const verseObj = bible && getVerseDataFromBible(bible, chapter, currentVerseNumber);
+      const verseText = verseObj?.verseData;
 
       if (verseText) {
         editVerseText(prevState => ({
