@@ -77,16 +77,16 @@ function ExpandedScripturePaneModal({
   targetLanguageFont,
   currentPaneSettings,
   projectDetailsReducer,
-  editVerse,
+  editVerseRef,
 }) {
   const [verseTextReference, editVerseText] = useState({});
   const [showTargetUsfm, setShowTargetUsfm] = useState(false);
 
   useEffect(() => {
-    if (editVerse) { // if verse is to be edited
+    if (editVerseRef) { // if verse is to be edited
       const { chapter } = contextId.reference;
       const bibleId = 'targetBible';
-      const currentVerseNumber = editVerse;
+      const currentVerseNumber = editVerseRef;
       const bible = getBibleElement(bibles, 'targetLanguage', bibleId);
       const verseText = bible && getVerseDataFromBible(bible, chapter, currentVerseNumber);
 
@@ -102,7 +102,7 @@ function ExpandedScripturePaneModal({
         console.warn(`ExpandedScripturePaneModal - cannot open edit verse`);
       }
     }
-  }, [editVerse]);
+  }, [editVerseRef]);
 
   function handleEditTargetVerse(bibleId, chapter, verse, verseText) {
     editVerseText(prevState => ({
@@ -217,7 +217,7 @@ ExpandedScripturePaneModal.propTypes = {
   editTargetVerse: PropTypes.func.isRequired,
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
-  editVerse: PropTypes.string, // if given then open verse for edit (single verse)
+  editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**
@@ -232,7 +232,8 @@ function areEqual(prevProps, nextProps) {
     prevProps.bibles to render, otherwise return false
   */
   return deepEqual(prevProps.bibles, nextProps.bibles) &&
-    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings);
+    deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
+    (prevProps.editVerseRef === nextProps.editVerseRef);
 }
 
 // using React.memo to boost performance by memoizing the result

@@ -33,17 +33,17 @@ function ScripturePane({
   addObjectPropertyToManifest,
   getAvailableScripturePaneSelections,
   onExpandedScripturePaneShow,
-  editVerse,
+  editVerseRef,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
   const [selectedPane, setSelectedPane] = useState({});
 
   useEffect(() => {
-    if (editVerse) { // if verse is to be edited
+    if (editVerseRef) { // if verse is to be edited
       openExpandedScripturePane();
     }
-  }, [editVerse]);
+  }, [editVerseRef]);
 
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
@@ -208,7 +208,7 @@ function ScripturePane({
             targetLanguageFont={targetLanguageFont}
             currentPaneSettings={currentPaneSettings}
             projectDetailsReducer={projectDetailsReducer}
-            editVerse={editVerse}
+            editVerseRef={editVerseRef}
           />
           :
           <div/>
@@ -260,7 +260,7 @@ ScripturePane.propTypes = {
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   onExpandedScripturePaneShow: PropTypes.func.isRequired, // called when expanded Scripture Pane as shown or hidden
-  editVerse: PropTypes.string, // if given then open verse for edit (single verse)
+  editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
 };
 
 /**
@@ -279,7 +279,8 @@ function areEqual(prevProps, nextProps) {
     deepEqual(prevProps.currentPaneSettings, nextProps.currentPaneSettings) &&
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
-    deepEqual(prevProps.selections, nextProps.selections);
+    deepEqual(prevProps.selections, nextProps.selections) &&
+    (prevProps.editVerseRef === nextProps.editVerseRef);
 }
 
 // using React.memo to boost performance by memoizing the result
