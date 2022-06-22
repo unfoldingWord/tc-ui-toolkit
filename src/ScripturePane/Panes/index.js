@@ -66,12 +66,12 @@ function Panes({
       let fullTitle = '';
 
       if (isTargetBible) {
-        fullTitle = `${language_name} (${translate('pane.target_language')})<br>(${translate('pane.current_project')})`;
+        fullTitle = `${language_name} (${translate('pane.target_language')})\n(${translate('pane.current_project')})`;
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
       } else {
         const languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
-        fullTitle = `${language_name} (${languageId_})<br>(${manifest.resource_title || ''})`;
+        fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
 
         if (owner) {
           fullTitle += ` (${owner})`;
