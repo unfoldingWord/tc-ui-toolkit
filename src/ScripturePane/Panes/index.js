@@ -63,12 +63,23 @@ function Panes({
 
       const isTargetBible = bibleId === 'targetBible';
       let fontClass = '';
+      let fullTitle = '';
 
       if (isTargetBible) {
+        fullTitle = `${language_name} (${translate('pane.target_language')})\n(${translate('pane.current_project')})`;
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
-      } else if (font) {
-        fontClass = getFontClassName(font);
+      } else {
+        const languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
+        fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
+
+        if (owner) {
+          fullTitle += ` (${owner})`;
+        }
+
+        if (font) {
+          fontClass = getFontClassName(font);
+        }
       }
 
       if (typeof verseData === 'string') { // if the verse content is string.
@@ -101,6 +112,7 @@ function Panes({
           addObjectPropertyToManifest={addObjectPropertyToManifest}
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
+          fullTitle={fullTitle}
         />,
       );
     } catch (err) {

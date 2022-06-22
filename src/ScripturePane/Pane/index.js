@@ -16,12 +16,13 @@ const PANECHAR = 9;
  * @param {string} headingText
  * @param {string} localizedDescription
  * @param {string} fontClass
+ * @param {string} fullTitle
  * @return {*}
  */
-function getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass) {
+function getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, fullTitle) {
   const styles = { textAlign: isLTR ? 'left' : 'right' };
   const paneTitleClassName = fontClass ? `pane-title-text ${fontClass}` : 'pane-title-text';
-  const headingClassName = headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
+  const headingClassName = fullTitle || headingText.length > 21 ? `${paneTitleClassName} hint--bottom hint--medium` : paneTitleClassName;
   const paneSubtitleClassName = fontClass ? `pane-subtitle-text hint--bottom hint--medium ${fontClass}` : `pane-subtitle-text hint--bottom hint--medium`;
 
   return (
@@ -29,7 +30,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
       <span
         style={{ lineHeight: 1, padding: fontClass.includes('Awami') ? '0px 0px 6px' : '0px' }}
         className={headingClassName}
-        aria-label={headingText}>
+        aria-label={fullTitle || headingText}>
         {headingText.length > 21 ? headingText.slice(0, 21) + '...' : headingText}
       </span>
       <ContainerDimensions>
@@ -38,7 +39,7 @@ function getTitleContainerContent(isLTR, headingText, localizedDescription, font
             <span
               className={paneSubtitleClassName}
               style={{ lineHeight: fontClass && fontClass.includes('Awami') ? 1 : 2, textAlign: isLTR ? 'left' : 'right' }}
-              aria-label={localizedDescription}>
+              aria-label={fullTitle || localizedDescription}>
               {
                 localizedDescription.length > width / PANECHAR ?
                   localizedDescription.slice(0, Math.round(width / PANECHAR)) + '...' :
@@ -80,10 +81,11 @@ function TitleContainer({
   localizedDescription,
   clickToRemoveResourceLabel,
   addObjectPropertyToManifest,
+  fullTitle,
 }) {
   if (isLTR) {
     return <>
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, fullTitle)}
       <ThreeDotMenu
         font={font}
         index={index}
@@ -125,7 +127,7 @@ function TitleContainer({
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         addObjectPropertyToManifest={addObjectPropertyToManifest}
       />
-      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, font)}
+      {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, fullTitle)}
     </>;
   }
 }
@@ -152,6 +154,7 @@ const Pane = ({
   removeResourceLabel,
   clickToRemoveResourceLabel,
   addObjectPropertyToManifest,
+  fullTitle,
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = bibleId !== 'targetBible' ?
@@ -182,6 +185,7 @@ const Pane = ({
           localizedDescription={localizedDescription}
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
           addObjectPropertyToManifest={addObjectPropertyToManifest}
+          fullTitle={fullTitle}
         />
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
@@ -220,6 +224,7 @@ Pane.propTypes = {
   removeResourceLabel: PropTypes.string.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
+  fullTitle: PropTypes.string,
   verseElements: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.string,
