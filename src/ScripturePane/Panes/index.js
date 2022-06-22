@@ -66,17 +66,20 @@ function Panes({
       let fullTitle = '';
 
       if (isTargetBible) {
-        fullTitle = `${language_name} (${languageId})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
+        fullTitle = `${language_name} (${translate('pane.target_language')})\n(${translate('pane.current_project')})`;
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
-      } else if (font) {
+      } else {
         const languageId = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
-        fullTitle = `${language_name} (${languageId})  (${manifest.resource_title || ''})`;
+        fullTitle = `${language_name} (${languageId})\n(${manifest.resource_title || ''})`;
 
         if (owner) {
           fullTitle += ` (${owner})`;
         }
-        fontClass = getFontClassName(font);
+
+        if (font) {
+          fontClass = getFontClassName(font);
+        }
       }
 
       if (typeof verseData === 'string') { // if the verse content is string.
