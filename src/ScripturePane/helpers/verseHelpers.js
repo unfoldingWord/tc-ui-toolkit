@@ -3,6 +3,7 @@ import React from 'react';
 import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
+import { verseHelpers } from 'tsv-groupdata-parser';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
 import {
@@ -375,73 +376,50 @@ export function isVerseInSpan(verseLabel, verse) {
 
 /**
  * gets verse data for verseList
- * @param {object} bibleData
+ * @param {object} bookData
  * @param {number|string} chapter
  * @param {string} verseList - can be a single verse, comma separated list of verses or verse range
  * @param {function} createVerseMarker - to create a verse marker
  * @returns {{verseData: {verseObjects: *[]}, verseLabel: string}}
  */
-export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
+export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   let verseLabel = '';
-  const chapterData = bibleData[chapter];
-  const verses = getVerseList(verseList);
+  let initialChapter;
+  const refs = verseHelpers.getVerses(bookData, `${chapter}:${verseList}`);
   let verseSpanData = [];
   const history = []; // to guard against duplicate verses
 
-  for (const verse of verses) {
-    if (isVerseSpan(verse) && (!chapterData[verse])) { // see if we need to combine verses together to create verse span
-      const { low, high } = getVerseSpanRange(verse);
+  if (refs && refs.length) {
+    initialChapter = refs[0].chapter;
+  }
 
-      for (let i = low; i <= high; i++) {
-        const response = getVerseDataFromBible(bibleData, chapter, i);
-        let data = response.verseData;
-        let label = response.verseLabel;
+  for (const ref of refs) {
+    const chapter = ref.chapter;
+    const data = ref.verseData;
+    let label = ref.verse;
 
-        if (data && !history.includes(label)) {
-          if (!verseLabel) {
-            verseLabel = label.toString();
-          }
-          history.push(label + '');
+    if (chapter !== initialChapter) {
+      label = `${chapter}:${label}`;
+    }
 
-          if (verseSpanData.length) {
-            verseSpanData.push(createVerseMarker(label));
-          }
+    if (data && !history.includes(label)) {
+      history.push(label + '');
 
-          if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
-            data = {
-              verseObjects: [{
-                type: 'text',
-                text: data,
-              }],
-            };
-          }
-          Array.prototype.push.apply(verseSpanData, data.verseObjects);
-        }
+      if (verseSpanData.length) {
+        verseSpanData.push(createVerseMarker(label));
       }
-    } else {
-      const response = getVerseDataFromBible(bibleData, chapter, verse);
-      let data = response.verseData;
-      let label = response.verseLabel;
 
-      if (data && !history.includes(label)) {
-        history.push(label + '');
+      if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
+        verseSpanData.push({
+          type: 'text',
+          text: data,
+        });
+      } else {
+        Array.prototype.push.apply(verseSpanData, data?.verseObjects);
+      }
 
-        if (verseSpanData.length) {
-          verseSpanData.push(createVerseMarker(label));
-        }
-
-        if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
-          verseSpanData.push({
-            type: 'text',
-            text: data,
-          });
-        } else {
-          Array.prototype.push.apply(verseSpanData, data?.verseObjects);
-        }
-
-        if (!verseLabel) {
-          verseLabel = label.toString();
-        }
+      if (!verseLabel) {
+        verseLabel = label.toString();
       }
     }
   }
