@@ -35,8 +35,18 @@ const styles = {
     height: 30,
     cursor: 'pointer',
   },
+  actionButtons: {
+    width: '140px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  },
 };
 
+const actionButtonStyleRM = {
+  ...styles.actionButtons,
+  marginRight: '5px',
+};
 
 const isSelectionsSaveDisable = (localNothingToSelect, nothingToSelect, newSelections, selections) => {
   if (newSelections.length > 0 || (newSelections.length === 0 && !isEqual(newSelections, selections))) {
@@ -62,7 +72,7 @@ const ChangeModeArea = ({
       onChange={toggleBookmark} />
     <div style={{ display: 'flex', marginLeft: 'auto' }}>
       <button
-        style={{ width: '140px', marginRight: '5px' }}
+        style={actionButtonStyleRM}
         className='btn-second'
         onClick={() => changeMode('select')}
       >
@@ -70,7 +80,7 @@ const ChangeModeArea = ({
         {translate('select')}
       </button>
       <button
-        style={{ width: '140px', marginRight: '5px' }}
+        style={actionButtonStyleRM}
         className='btn-second'
         onClick={() => changeMode('edit')}
       >
@@ -78,7 +88,7 @@ const ChangeModeArea = ({
         {translate('edit_verse')}
       </button>
       <button
-        style={{ width: '140px' }}
+        style={styles.actionButtons}
         className='btn-second'
         onClick={() => changeMode('comment')}
       >
@@ -188,7 +198,7 @@ const ConfirmSelectionArea = ({
       <button
         className='btn-second'
         style={{
-          marginLeft: '0px', width: '140px', marginRight: '5px', alignSelf: 'flex-start',
+          ...actionButtonStyleRM, marginLeft: '0px', alignSelf: 'flex-start',
         }}
         onClick={cancelSelection}
       >
@@ -196,7 +206,7 @@ const ConfirmSelectionArea = ({
       </button>
       <button
         className='btn-second'
-        style={{ width: '140px', marginRight: '5px' }}
+        style={actionButtonStyleRM}
         disabled={newSelections.length > 0 ? false : true}
         onClick={clearSelection}
       >
@@ -205,7 +215,7 @@ const ConfirmSelectionArea = ({
       </button>
       <button
         className='btn-prime'
-        style={{ width: '140px', marginRight: '5px' }}
+        style={actionButtonStyleRM}
         disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
         onClick={saveSelection}
       >
