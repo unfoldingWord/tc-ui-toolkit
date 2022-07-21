@@ -6,7 +6,6 @@ import './SaveArea.styles.css';
 
 const styles = {
   actionButtons: {
-    width: '140px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
