@@ -40,6 +40,7 @@ const styles = {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+    paddingRight: '0px',
   },
 };
 
