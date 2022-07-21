@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import './SaveArea.styles.css';
 
+const styles = {
+  actionButtons: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    paddingRight: '0px',
+  },
+};
+
 const SaveArea = ({
   translate,
   selections,
@@ -23,12 +32,14 @@ const SaveArea = ({
   return (
     <div className='save-area'>
       <button className='btn-second'
+        style={styles.actionButtons}
         onClick={handlePrevious}
       >
         <Glyphicon glyph='share-alt' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
         {translate('save_previous')}
       </button>
       <button className='btn-prime'
+        style={styles.actionButtons}
         onClick={handleNext}
       >
         {translate('save_continue')}
