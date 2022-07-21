@@ -237,11 +237,11 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     }
                   >
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -260,7 +260,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -288,17 +288,17 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         spelling
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -317,7 +317,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -345,17 +345,17 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         punctuation
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -374,7 +374,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -402,7 +402,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         word_choice
                       </span>
@@ -418,11 +418,11 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                     }
                   >
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -441,7 +441,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -469,17 +469,17 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         meaning
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -498,7 +498,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -526,17 +526,17 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         grammar
                       </span>
                     </label>
                     <label
-                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-15 Mui-disabled"
+                      className="MuiFormControlLabel-root EditVerseArea-formControlLabelRoot-16 Mui-disabled"
                     >
                       <span
                         aria-disabled={true}
-                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root EditVerseArea-checkBox-17 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-8 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root EditVerseArea-checkBox-18 MuiCheckbox-colorSecondary PrivateSwitchBase-disabled-9 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
                         onBlur={[Function]}
                         onDragLeave={[Function]}
                         onFocus={[Function]}
@@ -555,7 +555,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         >
                           <input
                             checked={false}
-                            className="PrivateSwitchBase-input-9"
+                            className="PrivateSwitchBase-input-10"
                             data-indeterminate={false}
                             disabled={true}
                             onChange={[Function]}
@@ -583,7 +583,7 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
                         </span>
                       </span>
                       <span
-                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-16 Mui-disabled MuiTypography-body1"
+                        className="MuiTypography-root MuiFormControlLabel-label EditVerseArea-formControlLabel-17 Mui-disabled MuiTypography-body1"
                       >
                         other
                       </span>
@@ -822,7 +822,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiCheckbox-root ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root ActionsArea-checkBoxRoot-3 MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -840,7 +840,7 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  className="PrivateSwitchBase-input-9"
+                  className="PrivateSwitchBase-input-10"
                   data-indeterminate={false}
                   disabled={false}
                   onChange={[Function]}
@@ -923,6 +923,10 @@ exports[`VerseCheck component: Integrated View test 1`] = `
                 "alignSelf": "flex-start",
                 "marginLeft": "0px",
                 "marginRight": "5px",
+                "overflow": "hidden",
+                "paddingRight": "0px",
+                "textOverflow": "ellipsis",
+                "whiteSpace": "nowrap",
                 "width": "140px",
               }
             }
@@ -936,6 +940,10 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             style={
               Object {
                 "marginRight": "5px",
+                "overflow": "hidden",
+                "paddingRight": "0px",
+                "textOverflow": "ellipsis",
+                "whiteSpace": "nowrap",
                 "width": "140px",
               }
             }
@@ -957,6 +965,10 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             style={
               Object {
                 "marginRight": "5px",
+                "overflow": "hidden",
+                "paddingRight": "0px",
+                "textOverflow": "ellipsis",
+                "whiteSpace": "nowrap",
                 "width": "140px",
               }
             }
@@ -1170,7 +1182,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiSwitch-switchBase Bookmark-colorSwitchBase-8 MuiSwitch-colorPrimary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiSwitch-switchBase Bookmark-colorSwitchBase-12 MuiSwitch-colorPrimary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -1189,7 +1201,7 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               >
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-15 MuiSwitch-input"
+                  className="PrivateSwitchBase-input-10 MuiSwitch-input"
                   disabled={false}
                   onChange={[Function]}
                   type="checkbox"
@@ -1201,11 +1213,11 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
               </span>
             </span>
             <span
-              className="MuiSwitch-track Bookmark-colorTrack-9"
+              className="MuiSwitch-track Bookmark-colorTrack-13"
             />
           </span>
           <span
-            className="MuiTypography-root MuiFormControlLabel-label Bookmark-label-11 MuiTypography-body1"
+            className="MuiTypography-root MuiFormControlLabel-label Bookmark-label-15 MuiTypography-body1"
           >
             bookmark
           </span>
