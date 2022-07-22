@@ -66,6 +66,8 @@ const ChangeModeArea = ({
   changeMode,
 }) => {
   const selectText = translate('select');
+  const editVerseText = translate('edit_verse');
+  const commentText = translate('comment');
   return (
     <div className='actions-area'>
       <Bookmark
@@ -76,10 +78,11 @@ const ChangeModeArea = ({
         onChange={toggleBookmark} />
       <div style={{ display: 'flex', marginLeft: 'auto' }}>
         <Hint
-          position={'left'}
+          position={'top'}
           size='medium'
           label={selectText}
           enabled={!!selectText}
+          hintLength={14}
         >
           <button
             style={actionButtonStyleRM}
@@ -90,22 +93,38 @@ const ChangeModeArea = ({
             {selectText}
           </button>
         </Hint>
-        <button
-          style={actionButtonStyleRM}
-          className='btn-second'
-          onClick={() => changeMode('edit')}
+        <Hint
+          position={'top'}
+          size='medium'
+          label={editVerseText}
+          enabled={!!editVerseText}
+          hintLength={14}
         >
-          <Glyphicon glyph='pencil' style={{ marginRight: '10px' }} />
-          {translate('edit_verse')}
-        </button>
-        <button
-          style={styles.actionButtons}
-          className='btn-second'
-          onClick={() => changeMode('comment')}
+          <button
+            style={actionButtonStyleRM}
+            className='btn-second'
+            onClick={() => changeMode('edit')}
+          >
+            <Glyphicon glyph='pencil' style={{ marginRight: '10px' }} />
+            {editVerseText}
+          </button>
+        </Hint>
+        <Hint
+          position={'top'}
+          size='medium'
+          label={commentText}
+          enabled={!!commentText}
+          hintLength={14}
         >
-          <Glyphicon glyph='comment' style={{ marginRight: '10px' }} />
-          {translate('comment')}
-        </button>
+          <button
+            style={styles.actionButtons}
+            className='btn-second'
+            onClick={() => changeMode('comment')}
+          >
+            <Glyphicon glyph='comment' style={{ marginRight: '10px' }} />
+            {commentText}
+          </button>
+        </Hint>
       </div>
     </div>
   );
@@ -117,14 +136,16 @@ const ConfirmEditVerseArea = ({
   cancelEditVerse,
   saveEditVerse,
 }) => {
-  let cancelText = translate('cancel');
+  const cancelText = translate('cancel');
+  const saveText = translate('save');
   return (
     <div className='actions-area'>
       <Hint
-        position={'left'}
+        position={'top'}
         size='medium'
         label={cancelText}
         enabled={!!cancelText}
+        hintLength={14}
       >
         <button
           className='btn-second'
@@ -133,13 +154,21 @@ const ConfirmEditVerseArea = ({
           {cancelText}
         </button>
       </Hint>
-      <button className='btn-prime'
-        disabled={!tags.length}
-        onClick={saveEditVerse}
+      <Hint
+        position={'top'}
+        size='medium'
+        label={saveText}
+        enabled={!!saveText}
+        hintLength={14}
       >
-        <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
-        {translate('save')}
-      </button>
+        <button className='btn-prime'
+          disabled={!tags.length}
+          onClick={saveEditVerse}
+        >
+          <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
+          {saveText}
+        </button>
+      </Hint>
     </div>
   );
 };
@@ -150,14 +179,16 @@ const ConfirmCommentArea = ({
   cancelComment,
   saveComment,
 }) => {
-  let cancelText = translate('cancel');
+  const cancelText = translate('cancel');
+  const saveText = translate('save');
   return (
     <div className='actions-area'>
       <Hint
-        position={'left'}
+        position={'top'}
         size='medium'
         label={cancelText}
         enabled={!!cancelText}
+        hintLength={14}
       >
         <button className='btn-second'
           onClick={cancelComment}
@@ -165,13 +196,21 @@ const ConfirmCommentArea = ({
           {cancelText}
         </button>
       </Hint>
-      <button className='btn-prime'
-        disabled={!isCommentChanged}
-        onClick={saveComment}
+      <Hint
+        position={'top'}
+        size='medium'
+        label={saveText}
+        enabled={!!saveText}
+        hintLength={14}
       >
-        <Glyphicon glyph='ok' style={{ marginRight: '10px' }}/>
-        {translate('save')}
-      </button>
+        <button className='btn-prime'
+          disabled={!isCommentChanged}
+          onClick={saveComment}
+        >
+          <Glyphicon glyph='ok' style={{ marginRight: '10px' }}/>
+          {saveText}
+        </button>
+      </Hint>
     </div>
   );
 };
@@ -188,7 +227,9 @@ const ConfirmSelectionArea = ({
   clearSelection,
   saveSelection,
 }) => {
-  let cancelText = translate('cancel');
+  const cancelText = translate('cancel');
+  const clearSelectionText = translate('clear_selection');
+  const saveText = translate('save');
   return (
     <div className='selection-actions-area'>
       <div className='flex-row'>
@@ -229,33 +270,57 @@ const ConfirmSelectionArea = ({
         </div>
       </div>
       <div style={{ whiteSpace: 'nowrap' }}>
-        <button
-          className='btn-second'
-          style={{
-            ...actionButtonStyleRM, marginLeft: '0px', alignSelf: 'flex-start',
-          }}
-          onClick={cancelSelection}
+        <Hint
+          position={'top'}
+          size='medium'
+          label={cancelText}
+          enabled={!!cancelText}
+          hintLength={14}
         >
-          {cancelText}
-        </button>
-        <button
-          className='btn-second'
-          style={actionButtonStyleRM}
-          disabled={newSelections.length > 0 ? false : true}
-          onClick={clearSelection}
+          <button
+            className='btn-second'
+            style={{
+              ...actionButtonStyleRM, marginLeft: '0px', alignSelf: 'flex-start',
+            }}
+            onClick={cancelSelection}
+          >
+            {cancelText}
+          </button>
+        </Hint>
+        <Hint
+          position={'top'}
+          size='medium'
+          label={clearSelectionText}
+          enabled={!!clearSelectionText}
+          hintLength={14}
         >
-          <Glyphicon glyph='erase' style={{marginRight: '10px'}}/>
-          {translate('clear_selection')}
-        </button>
-        <button
-          className='btn-prime'
-          style={actionButtonStyleRM}
-          disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
-          onClick={saveSelection}
+          <button
+            className='btn-second'
+            style={actionButtonStyleRM}
+            disabled={newSelections.length > 0 ? false : true}
+            onClick={clearSelection}
+          >
+            <Glyphicon glyph='erase' style={{marginRight: '10px'}}/>
+            {clearSelectionText}
+          </button>
+        </Hint>
+        <Hint
+          position={'top'}
+          size='medium'
+          label={saveText}
+          enabled={!!saveText}
+          hintLength={14}
         >
-          <Glyphicon glyph='ok' style={{marginRight: '10px'}}/>
-          {translate('save')}
-        </button>
+          <button
+            className='btn-prime'
+            style={actionButtonStyleRM}
+            disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
+            onClick={saveSelection}
+          >
+            <Glyphicon glyph='ok' style={{marginRight: '10px'}}/>
+            {saveText}
+          </button>
+        </Hint>
       </div>
     </div>
   );
