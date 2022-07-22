@@ -107,7 +107,8 @@ const ChangeModeArea = ({
           {translate('comment')}
         </button>
       </div>
-    </div>)
+    </div>
+  );
 };
 
 const ConfirmEditVerseArea = ({
@@ -139,7 +140,8 @@ const ConfirmEditVerseArea = ({
         <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
         {translate('save')}
       </button>
-    </div>)
+    </div>
+  );
 };
 
 const ConfirmCommentArea = ({
@@ -226,7 +228,7 @@ const ConfirmSelectionArea = ({
           <ReactTooltip/>
         </div>
       </div>
-      <div style={{whiteSpace: 'nowrap'}}>
+      <div style={{ whiteSpace: 'nowrap' }}>
         <button
           className='btn-second'
           style={{
