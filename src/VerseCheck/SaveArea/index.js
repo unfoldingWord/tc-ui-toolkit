@@ -35,7 +35,7 @@ const SaveArea = ({
   return (
     <div className='save-area'>
       <Hint
-        position={'left'}
+        position={'top'}
         size='medium'
         label={savePreviousText}
         enabled={!!savePreviousText}

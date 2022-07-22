@@ -246,8 +246,8 @@ const ConfirmSelectionArea = ({
                 root: classes.checkBoxRoot,
                 checked: classes.checked,
               }}
-              icon={<CheckBoxOutlineIcon style={{fontSize: '24px'}}/>}
-              checkedIcon={<CheckBoxIcon style={{fontSize: '24px'}}/>}
+              icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }}/>}
+              checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }}/>}
             />
           }
           label={translate('no_selection_needed')}
@@ -263,9 +263,9 @@ const ConfirmSelectionArea = ({
           data-type="dark"
           data-class="selection-tooltip"
           data-delay-hide="100"
-          style={{verticalAlign: 'super', fontSize: '0.8em'}}
+          style={{ verticalAlign: 'super', fontSize: '0.8em' }}
         >
-          <InfoIcon classes={{root: classes.icon}}/>
+          <InfoIcon classes={{ root: classes.icon }}/>
           <ReactTooltip/>
         </div>
       </div>
@@ -300,7 +300,7 @@ const ConfirmSelectionArea = ({
             disabled={newSelections.length > 0 ? false : true}
             onClick={clearSelection}
           >
-            <Glyphicon glyph='erase' style={{marginRight: '10px'}}/>
+            <Glyphicon glyph='erase' style={{ marginRight: '10px' }}/>
             {clearSelectionText}
           </button>
         </Hint>
@@ -317,7 +317,7 @@ const ConfirmSelectionArea = ({
             disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
             onClick={saveSelection}
           >
-            <Glyphicon glyph='ok' style={{marginRight: '10px'}}/>
+            <Glyphicon glyph='ok' style={{ marginRight: '10px' }}/>
             {saveText}
           </button>
         </Hint>
