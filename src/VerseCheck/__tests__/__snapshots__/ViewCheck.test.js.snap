@@ -598,25 +598,29 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
       <div
         className="actions-area"
       >
-        <button
-          className="btn-second"
-        >
-          cancel
-        </button>
-        <button
-          className="btn-prime"
-          disabled={true}
-        >
-          <span
-            className="glyphicon glyphicon-ok"
-            style={
-              Object {
-                "marginRight": "10px",
+        <span>
+          <button
+            className="btn-second"
+          >
+            cancel
+          </button>
+        </span>
+        <span>
+          <button
+            className="btn-prime"
+            disabled={true}
+          >
+            <span
+              className="glyphicon glyphicon-ok"
+              style={
+                Object {
+                  "marginRight": "10px",
+                }
               }
-            }
-          />
-          save
-        </button>
+            />
+            save
+          </button>
+        </span>
       </div>
     </div>
     <div />
@@ -915,74 +919,83 @@ exports[`VerseCheck component: Integrated View test 1`] = `
             }
           }
         >
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "alignSelf": "flex-start",
-                "marginLeft": "0px",
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            cancel
-          </button>
-          <button
-            className="btn-second"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-erase"
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "alignSelf": "flex-start",
+                  "marginLeft": "0px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            clear_selection
-          </button>
-          <button
-            className="btn-prime"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
+            >
+              cancel
+            </button>
+          </span>
+          <span
+            aria-label="clear_selection"
+            className="hint--top hint--medium"
           >
-            <span
-              className="glyphicon glyphicon-ok"
+            <button
+              className="btn-second"
+              disabled={true}
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            save
-          </button>
+            >
+              <span
+                className="glyphicon glyphicon-erase"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              clear_selection
+            </button>
+          </span>
+          <span>
+            <button
+              className="btn-prime"
+              disabled={true}
+              onClick={[Function]}
+              style={
+                Object {
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
+                }
+              }
+            >
+              <span
+                className="glyphicon glyphicon-ok"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              save
+            </button>
+          </span>
         </div>
       </div>
     </div>
@@ -1230,128 +1243,138 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
             }
           }
         >
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-ok"
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            select
-          </button>
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-pencil"
+            >
+              <span
+                className="glyphicon glyphicon-ok"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              select
+            </button>
+          </span>
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            edit_verse
-          </button>
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-comment"
+            >
+              <span
+                className="glyphicon glyphicon-pencil"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              edit_verse
+            </button>
+          </span>
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            comment
-          </button>
+            >
+              <span
+                className="glyphicon glyphicon-comment"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              comment
+            </button>
+          </span>
         </div>
       </div>
     </div>
     <div
       className="save-area"
     >
-      <button
-        className="btn-second"
-        onClick={[Function]}
-        style={
-          Object {
-            "overflow": "hidden",
-            "paddingRight": "0px",
-            "textOverflow": "ellipsis",
-            "whiteSpace": "nowrap",
-          }
-        }
-      >
-        <span
-          className="glyphicon glyphicon-share-alt"
+      <span>
+        <button
+          className="btn-second"
+          onClick={[Function]}
           style={
             Object {
-              "marginRight": "10px",
-              "transform": "scaleX(-1)",
+              "overflow": "hidden",
+              "paddingRight": "0px",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
             }
           }
-        />
-        save_previous
-      </button>
-      <button
-        className="btn-prime"
-        onClick={[Function]}
-        style={
-          Object {
-            "overflow": "hidden",
-            "paddingRight": "0px",
-            "textOverflow": "ellipsis",
-            "whiteSpace": "nowrap",
-          }
-        }
-      >
-        save_continue
-        <span
-          className="glyphicon glyphicon-share-alt"
+        >
+          <span
+            className="glyphicon glyphicon-share-alt"
+            style={
+              Object {
+                "marginRight": "10px",
+                "transform": "scaleX(-1)",
+              }
+            }
+          />
+          save_previous
+        </button>
+      </span>
+      <span>
+        <button
+          className="btn-prime"
+          onClick={[Function]}
           style={
             Object {
-              "marginLeft": "10px",
+              "overflow": "hidden",
+              "paddingRight": "0px",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
             }
           }
-        />
-      </button>
+        >
+          save_continue
+          <span
+            className="glyphicon glyphicon-share-alt"
+            style={
+              Object {
+                "marginLeft": "10px",
+              }
+            }
+          />
+        </button>
+      </span>
     </div>
   </div>
   <div />
@@ -1648,74 +1671,83 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
             }
           }
         >
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "alignSelf": "flex-start",
-                "marginLeft": "0px",
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            cancel
-          </button>
-          <button
-            className="btn-second"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-erase"
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "alignSelf": "flex-start",
+                  "marginLeft": "0px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            clear_selection
-          </button>
-          <button
-            className="btn-prime"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
+            >
+              cancel
+            </button>
+          </span>
+          <span
+            aria-label="clear_selection"
+            className="hint--top hint--medium"
           >
-            <span
-              className="glyphicon glyphicon-ok"
+            <button
+              className="btn-second"
+              disabled={true}
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            save
-          </button>
+            >
+              <span
+                className="glyphicon glyphicon-erase"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              clear_selection
+            </button>
+          </span>
+          <span>
+            <button
+              className="btn-prime"
+              disabled={true}
+              onClick={[Function]}
+              style={
+                Object {
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
+                }
+              }
+            >
+              <span
+                className="glyphicon glyphicon-ok"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              save
+            </button>
+          </span>
         </div>
       </div>
     </div>
@@ -2015,74 +2047,83 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
             }
           }
         >
-          <button
-            className="btn-second"
-            onClick={[Function]}
-            style={
-              Object {
-                "alignSelf": "flex-start",
-                "marginLeft": "0px",
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            cancel
-          </button>
-          <button
-            className="btn-second"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
-          >
-            <span
-              className="glyphicon glyphicon-erase"
+          <span>
+            <button
+              className="btn-second"
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "alignSelf": "flex-start",
+                  "marginLeft": "0px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            clear_selection
-          </button>
-          <button
-            className="btn-prime"
-            disabled={true}
-            onClick={[Function]}
-            style={
-              Object {
-                "marginRight": "5px",
-                "overflow": "hidden",
-                "paddingRight": "0px",
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-                "width": "140px",
-              }
-            }
+            >
+              cancel
+            </button>
+          </span>
+          <span
+            aria-label="clear_selection"
+            className="hint--top hint--medium"
           >
-            <span
-              className="glyphicon glyphicon-ok"
+            <button
+              className="btn-second"
+              disabled={true}
+              onClick={[Function]}
               style={
                 Object {
-                  "marginRight": "10px",
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
                 }
               }
-            />
-            save
-          </button>
+            >
+              <span
+                className="glyphicon glyphicon-erase"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              clear_selection
+            </button>
+          </span>
+          <span>
+            <button
+              className="btn-prime"
+              disabled={true}
+              onClick={[Function]}
+              style={
+                Object {
+                  "marginRight": "5px",
+                  "overflow": "hidden",
+                  "paddingRight": "0px",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "140px",
+                }
+              }
+            >
+              <span
+                className="glyphicon glyphicon-ok"
+                style={
+                  Object {
+                    "marginRight": "10px",
+                  }
+                }
+              />
+              save
+            </button>
+          </span>
         </div>
       </div>
     </div>
