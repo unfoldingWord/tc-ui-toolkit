@@ -13,6 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import Bookmark from '../../Bookmark';
 // css
 import './ActionsArea.styles.css';
+import Hint from '../../Hint/Hint';
 
 const styles = {
   formControl: { margin: '0' },
@@ -63,87 +64,115 @@ const ChangeModeArea = ({
   bookmarkEnabled,
   toggleBookmark,
   changeMode,
-}) => (
-  <div className='actions-area'>
-    <Bookmark
-      value='bookmark'
-      color='primary'
-      checked={bookmarkEnabled}
-      label={translate('bookmark')}
-      onChange={toggleBookmark} />
-    <div style={{ display: 'flex', marginLeft: 'auto' }}>
-      <button
-        style={actionButtonStyleRM}
-        className='btn-second'
-        onClick={() => changeMode('select')}
-      >
-        <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
-        {translate('select')}
-      </button>
-      <button
-        style={actionButtonStyleRM}
-        className='btn-second'
-        onClick={() => changeMode('edit')}
-      >
-        <Glyphicon glyph='pencil' style={{ marginRight: '10px' }} />
-        {translate('edit_verse')}
-      </button>
-      <button
-        style={styles.actionButtons}
-        className='btn-second'
-        onClick={() => changeMode('comment')}
-      >
-        <Glyphicon glyph='comment' style={{ marginRight: '10px' }} />
-        {translate('comment')}
-      </button>
-    </div>
-  </div>
-);
+}) => {
+  const selectText = translate('select');
+  return (
+    <div className='actions-area'>
+      <Bookmark
+        value='bookmark'
+        color='primary'
+        checked={bookmarkEnabled}
+        label={translate('bookmark')}
+        onChange={toggleBookmark} />
+      <div style={{ display: 'flex', marginLeft: 'auto' }}>
+        <Hint
+          position={'left'}
+          size='medium'
+          label={selectText}
+          enabled={!!selectText}
+        >
+          <button
+            style={actionButtonStyleRM}
+            className='btn-second'
+            onClick={() => changeMode('select')}
+          >
+            <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
+            {selectText}
+          </button>
+        </Hint>
+        <button
+          style={actionButtonStyleRM}
+          className='btn-second'
+          onClick={() => changeMode('edit')}
+        >
+          <Glyphicon glyph='pencil' style={{ marginRight: '10px' }} />
+          {translate('edit_verse')}
+        </button>
+        <button
+          style={styles.actionButtons}
+          className='btn-second'
+          onClick={() => changeMode('comment')}
+        >
+          <Glyphicon glyph='comment' style={{ marginRight: '10px' }} />
+          {translate('comment')}
+        </button>
+      </div>
+    </div>)
+};
 
 const ConfirmEditVerseArea = ({
   translate,
   tags,
   cancelEditVerse,
   saveEditVerse,
-}) => (
-  <div className='actions-area'>
-    <button
-      className='btn-second'
-      onClick={cancelEditVerse}
-    >
-      {translate('cancel')}
-    </button>
-    <button className='btn-prime'
-      disabled={!tags.length}
-      onClick={saveEditVerse}
-    >
-      <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
-      {translate('save')}
-    </button>
-  </div>
-);
+}) => {
+  let cancelText = translate('cancel');
+  return (
+    <div className='actions-area'>
+      <Hint
+        position={'left'}
+        size='medium'
+        label={cancelText}
+        enabled={!!cancelText}
+      >
+        <button
+          className='btn-second'
+          onClick={cancelEditVerse}
+        >
+          {cancelText}
+        </button>
+      </Hint>
+      <button className='btn-prime'
+        disabled={!tags.length}
+        onClick={saveEditVerse}
+      >
+        <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
+        {translate('save')}
+      </button>
+    </div>)
+};
 
 const ConfirmCommentArea = ({
   translate,
   isCommentChanged,
   cancelComment,
   saveComment,
-}) => (
-  <div className='actions-area'>
-    <button className='btn-second'
-      onClick={cancelComment}
-    >
-      {translate('cancel')}
-    </button>
-    <button className='btn-prime'
-      disabled={!isCommentChanged}
-      onClick={saveComment}
-    >
-      <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
-      {translate('save')}
-    </button>
-  </div>
-);
+}) => {
+  let cancelText = translate('cancel');
+  return (
+    <div className='actions-area'>
+      <Hint
+        position={'left'}
+        size='medium'
+        label={cancelText}
+        enabled={!!cancelText}
+      >
+        <button className='btn-second'
+          onClick={cancelComment}
+        >
+          {cancelText}
+        </button>
+      </Hint>
+      <button className='btn-prime'
+        disabled={!isCommentChanged}
+        onClick={saveComment}
+      >
+        <Glyphicon glyph='ok' style={{ marginRight: '10px' }}/>
+        {translate('save')}
+      </button>
+    </div>
+  );
+};
 
 const ConfirmSelectionArea = ({
   classes,
@@ -156,76 +185,79 @@ const ConfirmSelectionArea = ({
   cancelSelection,
   clearSelection,
   saveSelection,
-}) => (
-  <div className='selection-actions-area'>
-    <div className='flex-row'>
-      <FormControlLabel
-        value="end"
-        control={
-          <Checkbox
-            checked={localNothingToSelect}
-            disabled={newSelections && newSelections.length > 0}
-            color="primary"
-            onChange={event => toggleNothingToSelect(event.target.checked)}
-            value="nothingToSelect"
-            classes={{
-              root: classes.checkBoxRoot,
-              checked: classes.checked,
-            }}
-            icon={<CheckBoxOutlineIcon style={{ fontSize: '24px' }} />}
-            checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }} />}
-          />
-        }
-        label={translate('no_selection_needed')}
-        classes={{
-          root: classes.formControl,
-          label: classes.label,
-        }}
-      />
-      <div
-        data-tip={translate('nothing_to_select_description')}
-        data-place="top"
-        data-effect="float"
-        data-type="dark"
-        data-class="selection-tooltip"
-        data-delay-hide="100"
-        style={{ verticalAlign: 'super', fontSize: '0.8em' }}
-      >
-        <InfoIcon classes={{ root: classes.icon }} />
-        <ReactTooltip/>
+}) => {
+  let cancelText = translate('cancel');
+  return (
+    <div className='selection-actions-area'>
+      <div className='flex-row'>
+        <FormControlLabel
+          value="end"
+          control={
+            <Checkbox
+              checked={localNothingToSelect}
+              disabled={newSelections && newSelections.length > 0}
+              color="primary"
+              onChange={event => toggleNothingToSelect(event.target.checked)}
+              value="nothingToSelect"
+              classes={{
+                root: classes.checkBoxRoot,
+                checked: classes.checked,
+              }}
+              icon={<CheckBoxOutlineIcon style={{fontSize: '24px'}}/>}
+              checkedIcon={<CheckBoxIcon style={{fontSize: '24px'}}/>}
+            />
+          }
+          label={translate('no_selection_needed')}
+          classes={{
+            root: classes.formControl,
+            label: classes.label,
+          }}
+        />
+        <div
+          data-tip={translate('nothing_to_select_description')}
+          data-place="top"
+          data-effect="float"
+          data-type="dark"
+          data-class="selection-tooltip"
+          data-delay-hide="100"
+          style={{verticalAlign: 'super', fontSize: '0.8em'}}
+        >
+          <InfoIcon classes={{root: classes.icon}}/>
+          <ReactTooltip/>
+        </div>
+      </div>
+      <div style={{whiteSpace: 'nowrap'}}>
+        <button
+          className='btn-second'
+          style={{
+            ...actionButtonStyleRM, marginLeft: '0px', alignSelf: 'flex-start',
+          }}
+          onClick={cancelSelection}
+        >
+          {cancelText}
+        </button>
+        <button
+          className='btn-second'
+          style={actionButtonStyleRM}
+          disabled={newSelections.length > 0 ? false : true}
+          onClick={clearSelection}
+        >
+          <Glyphicon glyph='erase' style={{marginRight: '10px'}}/>
+          {translate('clear_selection')}
+        </button>
+        <button
+          className='btn-prime'
+          style={actionButtonStyleRM}
+          disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
+          onClick={saveSelection}
+        >
+          <Glyphicon glyph='ok' style={{marginRight: '10px'}}/>
+          {translate('save')}
+        </button>
       </div>
     </div>
-    <div style={{ whiteSpace: 'nowrap' }}>
-      <button
-        className='btn-second'
-        style={{
-          ...actionButtonStyleRM, marginLeft: '0px', alignSelf: 'flex-start',
-        }}
-        onClick={cancelSelection}
-      >
-        {translate('cancel')}
-      </button>
-      <button
-        className='btn-second'
-        style={actionButtonStyleRM}
-        disabled={newSelections.length > 0 ? false : true}
-        onClick={clearSelection}
-      >
-        <Glyphicon glyph='erase' style={{ marginRight: '10px' }} />
-        {translate('clear_selection')}
-      </button>
-      <button
-        className='btn-prime'
-        style={actionButtonStyleRM}
-        disabled={isSelectionsSaveDisable(localNothingToSelect, nothingToSelect, newSelections, selections)}
-        onClick={saveSelection}
-      >
-        <Glyphicon glyph='ok' style={{ marginRight: '10px' }} />
-        {translate('save')}
-      </button>
-    </div>
-  </div>
-);
+  );
+};
 /* eslint-enable react/prop-types */
 
 const ActionsArea = ({
