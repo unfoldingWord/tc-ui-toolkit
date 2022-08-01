@@ -3,7 +3,7 @@ import React from 'react';
 import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
-import { verseHelpers } from 'tsv-groupdata-parser';
+import { getVerses } from 'bible-reference-range';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
 import {
@@ -385,7 +385,7 @@ export function isVerseInSpan(verseLabel, verse) {
 export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   let verseLabel = '';
   let initialChapter;
-  const refs = verseHelpers.getVerses(bookData, `${chapter}:${verseList}`);
+  const refs = getVerses(bookData, `${chapter}:${verseList}`);
   let verseSpanData = [];
   const history = []; // to guard against duplicate verses
 
