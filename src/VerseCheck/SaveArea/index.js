@@ -3,6 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon } from 'react-bootstrap';
 import './SaveArea.styles.css';
+import Hint from '../../Hint/Hint';
+
+const styles = {
+  actionButtons: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    paddingRight: '0px',
+  },
+};
 
 const SaveArea = ({
   translate,
@@ -20,20 +30,40 @@ const SaveArea = ({
     selections.length > 0 || nothingToSelect ? handleGoToPrevious() : handleOpenDialog('previous');
   };
 
+  const savePreviousText = translate('save_previous');
+  const saveContinueText = translate('save_continue');
   return (
     <div className='save-area'>
-      <button className='btn-second'
-        onClick={handlePrevious}
+      <Hint
+        position={'top'}
+        size='medium'
+        label={savePreviousText}
+        enabled={!!savePreviousText}
+        hintLength={19}
       >
-        <Glyphicon glyph='share-alt' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
-        {translate('save_previous')}
-      </button>
-      <button className='btn-prime'
-        onClick={handleNext}
+        <button className='btn-second'
+          style={styles.actionButtons}
+          onClick={handlePrevious}
+        >
+          <Glyphicon glyph='share-alt' style={{ marginRight: '10px', transform: 'scaleX(-1)' }} />
+          {savePreviousText}
+        </button>
+      </Hint>
+      <Hint
+        position={'top'}
+        size='medium'
+        label={saveContinueText}
+        enabled={!!saveContinueText}
+        hintLength={19}
       >
-        {translate('save_continue')}
-        <Glyphicon glyph='share-alt' style={{ marginLeft: '10px' }} />
-      </button>
+        <button className='btn-prime'
+          style={styles.actionButtons}
+          onClick={handleNext}
+        >
+          {saveContinueText}
+          <Glyphicon glyph='share-alt' style={{ marginLeft: '10px' }} />
+        </button>
+      </Hint>
     </div>
   );
 };
