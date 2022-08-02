@@ -4,6 +4,12 @@ import isEqual from 'lodash/isEqual';
 import { isWord, punctuationWordSpacing } from './stringHelpers';
 import { removeMarker } from './usfmHelpers';
 
+/**
+ * check if word is part of quote
+ * @param {object} word
+ * @param {object} contextId
+ * @returns {boolean}
+ */
 export function isWordArrayMatch(word, contextId) {
   let isMatch = false;
 
@@ -21,12 +27,12 @@ export function isWordArrayMatch(word, contextId) {
           }
         }
       } else if (contextId.quote.split(' ').includes(wordItem.content)) {
-        let stringOccurrence = contextId.occurrence;
+        let occurrence_ = contextId.occurrence;
 
-        if (typeof stringOccurrence === 'string' && stringOccurrence.length === 0) {
-          stringOccurrence = 1;
+        if (typeof occurrence_ === 'string' && occurrence_.length === 0) {
+          occurrence_ = 1;
         }
-        foundMatch = (stringOccurrence === wordItem.occurrence);
+        foundMatch = (occurrence_ === wordItem.occurrence) || (occurrence_ === -1);
       }
       return foundMatch;
     });
@@ -35,14 +41,14 @@ export function isWordArrayMatch(word, contextId) {
 }
 
 /**
- * search word list to find occurrence of word
- * @param {number} index - position of word
+ * search word list to match occurrence of word. Counts occurrences current word and makes sure it matches occurrence
+ * @param {number} index - position of word to stop at
  * @param {Array} words - list of word objects to search
  * @param {String} wordText - text to match
  * @param {number} occurrence - to match (if -1, then match all occurrences)
  * @return {Boolean} - true if same occurrence
  */
-function getOccurrenceOfWord(index, words, wordText, occurrence) {
+function matchOccurrenceOfWord(index, words, wordText, occurrence) {
 // get occurrence of word
   let _occurrence = 0;
 
@@ -77,7 +83,7 @@ export function isWordMatch(word, contextId, words, index) {
           const quote = contextId.quote[i];
 
           if (quote.word === word.text) {
-            isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+            isMatch = matchOccurrenceOfWord(index, words, word.text, quote.occurrence);
 
             if (isMatch) {
               break;
@@ -98,7 +104,7 @@ export function isWordMatch(word, contextId, words, index) {
               wordsWithoutApostrophe.push(wordItem);
             }
 
-            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+            isMatch = matchOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
 
             if (isMatch) {
               break;
@@ -112,7 +118,7 @@ export function isWordMatch(word, contextId, words, index) {
           const quote = quotes[i];
 
           if (quote === word.text) {
-            isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
+            isMatch = matchOccurrenceOfWord(index, words, quote, contextId.occurrence);
           }
         }
       }
@@ -242,6 +248,8 @@ export function getDeepNestedWords(nestedWords) {
  * @param {object} previousWord
  * @param {object} nextWord
  * @param {object} contextId
+ * @param {array} words
+ * @param {number} index
  * @returns {bool} true or false. highlighted or not highlighted.
  */
 export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index) {

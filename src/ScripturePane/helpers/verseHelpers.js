@@ -388,12 +388,18 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   const refs = getVerses(bookData, `${chapter}:${verseList}`);
   let verseSpanData = [];
   const history = []; // to guard against duplicate verses
+  const verseWordCounts = [];
+  const multiVerse = refs.length > 1;
 
   if (refs && refs.length) {
     initialChapter = refs[0].chapter;
   }
 
-  for (const ref of refs) {
+  for (let verseCnt = 0; verseCnt < refs.length; verseCnt++) {
+    const previousVerseWordCounts = verseCnt > 0 ? verseWordCounts[verseCnt-1] : {};
+    const currentVerseCounts = {};
+    verseWordCounts.push(currentVerseCounts);
+    const ref = refs[verseCnt];
     const chapter = ref.chapter;
     const data = ref.verseData;
     let label = ref.verse;
@@ -402,7 +408,7 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
       label = `${chapter}:${label}`;
     }
 
-    if (data && !history.includes(label)) {
+    if (data && !history.includes(label)) { // skip over duplicates
       history.push(label + '');
 
       if (verseSpanData.length) {
@@ -414,8 +420,29 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
           type: 'text',
           text: data,
         });
-      } else {
-        Array.prototype.push.apply(verseSpanData, data?.verseObjects);
+      } else { // get cumulative word counts for each verse
+        const verseObjects = data?.verseObjects;
+
+        if (verseObjects) {
+          for (const vo of verseObjects) {
+            verseObjects.verseCnt = verseCnt;
+
+            if (multiVerse) {
+              const origObject = vo?.content?.[0];
+              const origWord = origObject?.content;
+
+              if (origWord) {
+                const previousCount = previousVerseWordCounts[origWord] || 0;
+                const currentCount = verseWordCounts[origWord] || 0;
+
+                if (!currentCount) {
+                  verseWordCounts[origWord] = origObject.occurrences + previousCount;
+                }
+              }
+            }
+          }
+          Array.prototype.push.apply(verseSpanData, data.verseObjects);
+        }
       }
 
       if (!verseLabel) {
@@ -425,7 +452,12 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   }
 
   const verseData = { verseObjects: verseSpanData };
-  return { verseData, verseLabel };
+  return {
+    verseData,
+    verseLabel,
+    multiVerse,
+    verseWordCounts,
+  };
 }
 
 
