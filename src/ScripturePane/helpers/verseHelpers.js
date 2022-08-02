@@ -375,6 +375,39 @@ export function isVerseInSpan(verseLabel, verse) {
 }
 
 /**
+ * count original words in verseObjects - it is nested so this is recursive
+ * @param {array} verseObjects
+ * @param {number} verseCnt
+ * @param {boolean} multiVerse
+ * @param {object} previousVerseWordCounts
+ * @param {object} verseWordCounts
+ */
+function countOriginalWords(verseObjects, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts) {
+  if (verseObjects) {
+    for (const vo of verseObjects) {
+      vo.verseCnt = verseCnt;
+
+      if (multiVerse && (vo?.tag === 'zaln')) {
+        const origWord = vo?.content;
+
+        if (origWord) {
+          const previousCount = previousVerseWordCounts[origWord] || 0;
+          const currentCount = verseWordCounts[origWord] || 0;
+
+          if (!currentCount) {
+            verseWordCounts[origWord] = vo.occurrences + previousCount;
+          }
+
+          if (vo.children) {
+            countOriginalWords(vo.children, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * gets verse data for verseList
  * @param {object} bookData
  * @param {number|string} chapter
@@ -424,23 +457,7 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
         const verseObjects = data?.verseObjects;
 
         if (verseObjects) {
-          for (const vo of verseObjects) {
-            verseObjects.verseCnt = verseCnt;
-
-            if (multiVerse) {
-              const origObject = vo?.content?.[0];
-              const origWord = origObject?.content;
-
-              if (origWord) {
-                const previousCount = previousVerseWordCounts[origWord] || 0;
-                const currentCount = verseWordCounts[origWord] || 0;
-
-                if (!currentCount) {
-                  verseWordCounts[origWord] = origObject.occurrences + previousCount;
-                }
-              }
-            }
-          }
+          countOriginalWords(verseObjects, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts);
           Array.prototype.push.apply(verseSpanData, data.verseObjects);
         }
       }
