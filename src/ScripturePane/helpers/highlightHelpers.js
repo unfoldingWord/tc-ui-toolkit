@@ -295,9 +295,9 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
   }
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
-    isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1, verseWordCounts);
+    isWordArrayMatch(previousWord, contextId, verseWordCounts) : isWordMatch(previousWord, contextId, words, index - 1);
   const isNextWordMatch = nextWord && nextWord.content ?
-    isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index + 1, verseWordCounts);
+    isWordArrayMatch(nextWord, contextId, verseWordCounts) : isWordMatch(nextWord, contextId, words, index + 1);
 
   if (previousWord && nextWord) {
     return isPreviousWordMatch && isNextWordMatch;
