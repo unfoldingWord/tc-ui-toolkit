@@ -111,9 +111,10 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
  * @param {String} fontClass - font class name
+ * @param {array} verseWordCounts - array of word counts for multi-verse
  * @return {Array} - verse elements to display
  */
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass) {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass, verseWordCounts = null) {
   let verseObjects = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -150,7 +151,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, object) &&
             highlightHelpers.isWordMatch(previousWord, contextId, verseObjects, index - 1) && isHighlightedWord;
         } else if (contextId.quote && object.content) {
-          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, object);
+          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, object, verseWordCounts);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
         }

@@ -8,9 +8,10 @@ import { removeMarker } from './usfmHelpers';
  * check if word is part of quote
  * @param {object} word
  * @param {object} contextId
+ * @param {array} verseWordCounts - array of word counts for multi-verse
  * @returns {boolean}
  */
-export function isWordArrayMatch(word, contextId) {
+export function isWordArrayMatch(word, contextId, verseWordCounts = null) {
   let isMatch = false;
 
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
@@ -32,7 +33,21 @@ export function isWordArrayMatch(word, contextId) {
         if (typeof occurrence_ === 'string' && occurrence_.length === 0) {
           occurrence_ = 1;
         }
-        foundMatch = (occurrence_ === wordItem.occurrence) || (occurrence_ === -1);
+
+        if (occurrence_ === -1) {
+          foundMatch = true;
+        } else {
+          let previousCount = 0;
+
+          if (verseWordCounts) {
+            const verseCnt = wordItem.verseCnt || 0;
+
+            if (verseCnt) {
+              previousCount = verseWordCounts[verseCnt - 1]?.[wordItem.content] || 0;
+            }
+          }
+          foundMatch = (occurrence_ === wordItem.occurrence + previousCount);
+        }
       }
       return foundMatch;
     });
@@ -129,10 +144,18 @@ export function isWordMatch(word, contextId, words, index) {
   }
 }
 
-export function getWordHighlightedDetails(contextId, previousWord, word) {
-  const isHighlightedWord = isWordArrayMatch(word, contextId);
+/**
+ * determine highlighting for word and previous white space
+ * @param {Object} contextId
+ * @param {Object} previousWord
+ * @param {Object} word
+ * @param {array} verseWordCounts - array of word counts for multi-verse
+ * @returns {{isHighlightedWord: boolean, isBetweenHighlightedWord: boolean}}
+ */
+export function getWordHighlightedDetails(contextId, previousWord, word, verseWordCounts = null) {
+  const isHighlightedWord = isWordArrayMatch(word, contextId, verseWordCounts);
   const isBetweenHighlightedWord = isHighlightedWord && previousWord && !isEqual(previousWord, word)
-      && isWordArrayMatch(previousWord, contextId);
+      && isWordArrayMatch(previousWord, contextId, verseWordCounts);
   return {
     isHighlightedWord,
     isBetweenHighlightedWord,
