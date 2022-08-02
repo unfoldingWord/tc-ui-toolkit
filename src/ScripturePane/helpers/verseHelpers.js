@@ -458,6 +458,13 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
         if (verseObjects) {
           countOriginalWords(verseObjects, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts, verseWordCounts);
           Array.prototype.push.apply(verseSpanData, data.verseObjects);
+          const words = Object.keys(previousVerseWordCounts);
+
+          for (const word of words) { // update current verse with counts from previous verse
+            if (!currentVerseCounts[word]) {
+              currentVerseCounts[word] = previousVerseWordCounts[word];
+            }
+          }
         }
       }
 
