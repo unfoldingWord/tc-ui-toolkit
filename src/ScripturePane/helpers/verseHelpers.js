@@ -380,26 +380,25 @@ export function isVerseInSpan(verseLabel, verse) {
  * @param {number} verseCnt
  * @param {boolean} multiVerse
  * @param {object} previousVerseWordCounts
- * @param {object} verseWordCounts
+ * @param {object} currentVerseCounts
  */
-function countOriginalWords(verseObjects, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts) {
+function countOriginalWords(verseObjects, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts) {
   if (verseObjects) {
     for (const vo of verseObjects) {
-      vo.verseCnt = verseCnt;
-
       if (multiVerse && (vo?.tag === 'zaln')) {
+        vo.verseCnt = verseCnt;
         const origWord = vo?.content;
 
         if (origWord) {
           const previousCount = previousVerseWordCounts[origWord] || 0;
-          const currentCount = verseWordCounts[origWord] || 0;
+          const currentCount = currentVerseCounts[origWord] || 0;
 
           if (!currentCount) {
-            verseWordCounts[origWord] = vo.occurrences + previousCount;
+            currentVerseCounts[origWord] = vo.occurrences + previousCount;
           }
 
           if (vo.children) {
-            countOriginalWords(vo.children, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts);
+            countOriginalWords(vo.children, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts);
           }
         }
       }
@@ -457,7 +456,7 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
         const verseObjects = data?.verseObjects;
 
         if (verseObjects) {
-          countOriginalWords(verseObjects, verseCnt, multiVerse, previousVerseWordCounts, verseWordCounts);
+          countOriginalWords(verseObjects, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts, verseWordCounts);
           Array.prototype.push.apply(verseSpanData, data.verseObjects);
         }
       }
