@@ -188,7 +188,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass));
         }
       } else if (isNestedMilestone(object)) { // if nested milestone
-        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(object, contextId, index, previousWord, wordSpacing, fontClass);
+        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(object, contextId, index, previousWord, wordSpacing, fontClass, verseWordCounts);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[j];
@@ -421,7 +421,7 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   const refs = getVerses(bookData, `${chapter}:${verseList}`);
   let verseSpanData = [];
   const history = []; // to guard against duplicate verses
-  const verseWordCounts = [];
+  let verseWordCounts = [];
   const multiVerse = refs.length > 1;
 
   if (refs && refs.length) {
@@ -473,6 +473,10 @@ export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
         verseLabel = label.toString();
       }
     }
+  }
+
+  if (!multiVerse) {
+    verseWordCounts = null;
   }
 
   const verseData = { verseObjects: verseSpanData };

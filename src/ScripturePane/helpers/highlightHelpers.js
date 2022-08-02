@@ -43,7 +43,8 @@ export function isWordArrayMatch(word, contextId, verseWordCounts = null) {
             const verseCnt = wordItem.verseCnt || 0;
 
             if (verseCnt) {
-              previousCount = verseWordCounts[verseCnt - 1]?.[wordItem.content] || 0;
+              const previousVerseCounts = verseWordCounts[verseCnt - 1];
+              previousCount = previousVerseCounts?.[wordItem.content] || 0;
             }
           }
           foundMatch = (occurrence_ === wordItem.occurrence + previousCount);
@@ -162,7 +163,7 @@ export function getWordHighlightedDetails(contextId, previousWord, word, verseWo
   };
 }
 
-export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass) {
+export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass, verseWordCounts) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) {
     nestedWords = getDeepNestedWords(nestedWords);
@@ -194,6 +195,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
         contextId,
         nestedPreviousWord,
         nestedWord,
+        verseWordCounts,
       );
       isHighlightedWord = highlightedDetails.isHighlightedWord;
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
@@ -214,7 +216,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
       const text = removeMarker(nestedWord.text);
 
-      if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
+      if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId, verseWordCounts)) {
         wordSpans.push(
           <span key={nestedWordSpanIndex} className={fontClass} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {text}
@@ -273,9 +275,10 @@ export function getDeepNestedWords(nestedWords) {
  * @param {object} contextId
  * @param {array} words
  * @param {number} index
+ * @param {array} verseWordCounts - array of word counts for multi-verse
  * @returns {bool} true or false. highlighted or not highlighted.
  */
-export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index) {
+export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index, verseWordCounts = null) {
   // handle nested previous words
   if (previousWord && Array.isArray(previousWord[0])) {
     const nestedPreviousWord = getDeepNestedWords(previousWord);
@@ -292,9 +295,9 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
   }
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
-    isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1);
+    isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1, verseWordCounts);
   const isNextWordMatch = nextWord && nextWord.content ?
-    isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index + 1);
+    isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index + 1, verseWordCounts);
 
   if (previousWord && nextWord) {
     return isPreviousWordMatch && isNextWordMatch;
