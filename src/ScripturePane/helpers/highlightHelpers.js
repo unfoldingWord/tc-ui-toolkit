@@ -5,7 +5,7 @@ import { isWord, punctuationWordSpacing } from './stringHelpers';
 import { removeMarker } from './usfmHelpers';
 
 /**
- * check if occurrence is correct match.  Correct occurrence based on previous verse count
+ * check if occurrence is correct match.  Corrects occurrence by adding word count from previous verse
  * @param {number|string} occurrence
  * @param {array} verseWordCounts
  * @param {object} wordItem
