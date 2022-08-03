@@ -4,7 +4,14 @@ import isEqual from 'lodash/isEqual';
 import { isWord, punctuationWordSpacing } from './stringHelpers';
 import { removeMarker } from './usfmHelpers';
 
-export function isWordArrayMatch(word, contextId) {
+/**
+ * check if word is part of quote
+ * @param {object} word
+ * @param {object} contextId
+ * @param {array} verseWordCounts - array of word counts for multi-verse
+ * @returns {boolean}
+ */
+export function isWordArrayMatch(word, contextId, verseWordCounts = null) {
   let isMatch = false;
 
   if (word && word.content && Array.isArray(word.content) && contextId && contextId.quote) {
@@ -21,12 +28,27 @@ export function isWordArrayMatch(word, contextId) {
           }
         }
       } else if (contextId.quote.split(' ').includes(wordItem.content)) {
-        let stringOccurrence = contextId.occurrence;
+        let occurrence_ = contextId.occurrence;
 
-        if (typeof stringOccurrence === 'string' && stringOccurrence.length === 0) {
-          stringOccurrence = 1;
+        if (typeof occurrence_ === 'string' && occurrence_.length === 0) {
+          occurrence_ = 1;
         }
-        foundMatch = (stringOccurrence === wordItem.occurrence);
+
+        if (occurrence_ === -1) {
+          foundMatch = true;
+        } else {
+          let previousCount = 0;
+
+          if (verseWordCounts) {
+            const verseCnt = wordItem.verseCnt || 0;
+
+            if (verseCnt) {
+              const previousVerseCounts = verseWordCounts[verseCnt - 1];
+              previousCount = previousVerseCounts?.[wordItem.content] || 0;
+            }
+          }
+          foundMatch = (occurrence_ === wordItem.occurrence + previousCount);
+        }
       }
       return foundMatch;
     });
@@ -35,14 +57,14 @@ export function isWordArrayMatch(word, contextId) {
 }
 
 /**
- * search word list to find occurrence of word
- * @param {number} index - position of word
+ * search word list to match occurrence of word. Counts occurrences current word and makes sure it matches occurrence
+ * @param {number} index - position of word to stop at
  * @param {Array} words - list of word objects to search
  * @param {String} wordText - text to match
  * @param {number} occurrence - to match (if -1, then match all occurrences)
  * @return {Boolean} - true if same occurrence
  */
-function getOccurrenceOfWord(index, words, wordText, occurrence) {
+function matchOccurrenceOfWord(index, words, wordText, occurrence) {
 // get occurrence of word
   let _occurrence = 0;
 
@@ -77,7 +99,7 @@ export function isWordMatch(word, contextId, words, index) {
           const quote = contextId.quote[i];
 
           if (quote.word === word.text) {
-            isMatch = getOccurrenceOfWord(index, words, word.text, quote.occurrence);
+            isMatch = matchOccurrenceOfWord(index, words, word.text, quote.occurrence);
 
             if (isMatch) {
               break;
@@ -98,7 +120,7 @@ export function isWordMatch(word, contextId, words, index) {
               wordsWithoutApostrophe.push(wordItem);
             }
 
-            isMatch = getOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
+            isMatch = matchOccurrenceOfWord(index, wordsWithoutApostrophe, wordText, quote.occurrence);
 
             if (isMatch) {
               break;
@@ -112,7 +134,7 @@ export function isWordMatch(word, contextId, words, index) {
           const quote = quotes[i];
 
           if (quote === word.text) {
-            isMatch = getOccurrenceOfWord(index, words, quote, contextId.occurrence);
+            isMatch = matchOccurrenceOfWord(index, words, quote, contextId.occurrence);
           }
         }
       }
@@ -123,17 +145,25 @@ export function isWordMatch(word, contextId, words, index) {
   }
 }
 
-export function getWordHighlightedDetails(contextId, previousWord, word) {
-  const isHighlightedWord = isWordArrayMatch(word, contextId);
+/**
+ * determine highlighting for word and previous white space
+ * @param {Object} contextId
+ * @param {Object} previousWord
+ * @param {Object} word
+ * @param {array} verseWordCounts - array of word counts for multi-verse
+ * @returns {{isHighlightedWord: boolean, isBetweenHighlightedWord: boolean}}
+ */
+export function getWordHighlightedDetails(contextId, previousWord, word, verseWordCounts = null) {
+  const isHighlightedWord = isWordArrayMatch(word, contextId, verseWordCounts);
   const isBetweenHighlightedWord = isHighlightedWord && previousWord && !isEqual(previousWord, word)
-      && isWordArrayMatch(previousWord, contextId);
+      && isWordArrayMatch(previousWord, contextId, verseWordCounts);
   return {
     isHighlightedWord,
     isBetweenHighlightedWord,
   };
 }
 
-export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass) {
+export function getWordsFromNestedMilestone(nestedWords, contextId, index, previousWord, wordSpacing, fontClass, verseWordCounts) {
   // if its an array of an array thus get deep nested words array.
   if (Array.isArray(nestedWords[0])) {
     nestedWords = getDeepNestedWords(nestedWords);
@@ -165,6 +195,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
         contextId,
         nestedPreviousWord,
         nestedWord,
+        verseWordCounts,
       );
       isHighlightedWord = highlightedDetails.isHighlightedWord;
       isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
@@ -185,7 +216,7 @@ export function getWordsFromNestedMilestone(nestedWords, contextId, index, previ
       nestedWordSpacing = punctuationWordSpacing(nestedWord); // spacing before words
       const text = removeMarker(nestedWord.text);
 
-      if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId)) {
+      if (isPunctuationHighlighted(nestedPreviousWord, nestedNextWord, contextId, verseWordCounts)) {
         wordSpans.push(
           <span key={nestedWordSpanIndex} className={fontClass} style={{ backgroundColor: 'var(--highlight-color)' }}>
             {text}
@@ -242,9 +273,12 @@ export function getDeepNestedWords(nestedWords) {
  * @param {object} previousWord
  * @param {object} nextWord
  * @param {object} contextId
+ * @param {array} words
+ * @param {number} index
+ * @param {array} verseWordCounts - array of word counts for multi-verse
  * @returns {bool} true or false. highlighted or not highlighted.
  */
-export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index) {
+export function isPunctuationHighlighted(previousWord, nextWord, contextId, words, index, verseWordCounts = null) {
   // handle nested previous words
   if (previousWord && Array.isArray(previousWord[0])) {
     const nestedPreviousWord = getDeepNestedWords(previousWord);
@@ -261,9 +295,9 @@ export function isPunctuationHighlighted(previousWord, nextWord, contextId, word
   }
 
   const isPreviousWordMatch = previousWord && previousWord.content ?
-    isWordArrayMatch(previousWord, contextId) : isWordMatch(previousWord, contextId, words, index - 1);
+    isWordArrayMatch(previousWord, contextId, verseWordCounts) : isWordMatch(previousWord, contextId, words, index - 1);
   const isNextWordMatch = nextWord && nextWord.content ?
-    isWordArrayMatch(nextWord, contextId) : isWordMatch(nextWord, contextId, words, index + 1);
+    isWordArrayMatch(nextWord, contextId, verseWordCounts) : isWordMatch(nextWord, contextId, words, index + 1);
 
   if (previousWord && nextWord) {
     return isPreviousWordMatch && isNextWordMatch;
