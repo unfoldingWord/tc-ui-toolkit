@@ -5,6 +5,35 @@ import { isWord, punctuationWordSpacing } from './stringHelpers';
 import { removeMarker } from './usfmHelpers';
 
 /**
+ * check if occurrence is correct match.  Corrects occurrence by adding word count from previous verse
+ * @param {number|string} occurrence
+ * @param {array} verseWordCounts
+ * @param {object} wordItem
+ * @returns {boolean}
+ */
+function doesOccurrenceMatch(occurrence, verseWordCounts, wordItem) {
+  if (typeof occurrence === 'string' && occurrence.length === 0) {
+    occurrence = 1;
+  }
+
+  if (occurrence === -1) {
+    return true;
+  } else {
+    let previousCount = 0;
+
+    if (verseWordCounts) {
+      const verseCnt = wordItem.verseCnt || 0;
+
+      if (verseCnt) {
+        const previousVerseCounts = verseWordCounts[verseCnt - 1];
+        previousCount = previousVerseCounts?.[wordItem.content] || 0;
+      }
+    }
+    return (occurrence === wordItem.occurrence + previousCount);
+  }
+}
+
+/**
  * check if word is part of quote
  * @param {object} word
  * @param {object} contextId
@@ -22,33 +51,16 @@ export function isWordArrayMatch(word, contextId, verseWordCounts = null) {
         for (let i = 0, l = contextId.quote.length; i < l; i++) {
           const quote = contextId.quote[i];
 
-          if ((quote.word === wordItem.content) && (quote.occurrence === wordItem.occurrence)) {
-            foundMatch = true;
-            break;
+          if (quote.word === wordItem.content) {
+            foundMatch = doesOccurrenceMatch(quote.occurrence, verseWordCounts, wordItem);
+
+            if (foundMatch) {
+              break;
+            }
           }
         }
       } else if (contextId.quote.split(' ').includes(wordItem.content)) {
-        let occurrence_ = contextId.occurrence;
-
-        if (typeof occurrence_ === 'string' && occurrence_.length === 0) {
-          occurrence_ = 1;
-        }
-
-        if (occurrence_ === -1) {
-          foundMatch = true;
-        } else {
-          let previousCount = 0;
-
-          if (verseWordCounts) {
-            const verseCnt = wordItem.verseCnt || 0;
-
-            if (verseCnt) {
-              const previousVerseCounts = verseWordCounts[verseCnt - 1];
-              previousCount = previousVerseCounts?.[wordItem.content] || 0;
-            }
-          }
-          foundMatch = (occurrence_ === wordItem.occurrence + previousCount);
-        }
+        foundMatch = doesOccurrenceMatch(contextId.occurrence, verseWordCounts, wordItem);
       }
       return foundMatch;
     });
