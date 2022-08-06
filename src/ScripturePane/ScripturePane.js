@@ -148,9 +148,9 @@ function ScripturePane({
 
   if (bibles && projectManifest?.view_url) { // check for additional url to show
     for (const lang of Object.keys(bibles)) {
-      const languageId = 'url_';
+      const languageId = 'url'; // to match
 
-      if (lang.substring(0, 4) === languageId) {
+      if (lang.split('_')[0] === languageId) {
         const langBibles = bibles[lang];
 
         for (const bibleId of Object.keys(langBibles)) {
