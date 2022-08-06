@@ -166,6 +166,7 @@ function ScripturePane({
                   languageId,
                   owner: lang.substring(4),
                   description: view_url,
+                  actualLanguage: bible?.manifest?.language_id,
                 });
               }
             }
