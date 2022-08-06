@@ -143,9 +143,37 @@ function ScripturePane({
     }
   }
 
-
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
+
+  if (bibles && projectManifest?.view_url) { // check for additional url to show
+    for (const lang of Object.keys(bibles)) {
+      const languageId = 'url';
+
+      if (lang.substring(0, 4) === languageId) {
+        const langBibles = bibles[lang];
+
+        for (const bibleId of Object.keys(langBibles)) {
+          if (bibleId === 'viewUrl') {
+            const bible = langBibles[bibleId];
+            const view_url = bible?.manifest?.view_url;
+
+            if (view_url && (view_url === projectManifest?.view_url)) { // found bible with matching url
+              if (bible?.[1]) { // have content
+                // paneSetting.languageId, paneSetting.bibleId, paneSetting.owner
+                currentPaneSettings.push({
+                  bibleId,
+                  languageId,
+                  owner: lang.substring(4),
+                  description: view_url,
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
