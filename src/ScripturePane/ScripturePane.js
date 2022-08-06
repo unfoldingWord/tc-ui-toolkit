@@ -146,6 +146,9 @@ function ScripturePane({
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
 
+  // make sure not a viewUrl pane
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => (paneSetting.bibleId !== 'viewURL'));
+
   if (bibles && projectManifest?.view_url) { // check for additional url to show
     for (const lang of Object.keys(bibles)) {
       const languageId = 'url'; // to match
