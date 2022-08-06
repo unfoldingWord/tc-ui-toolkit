@@ -154,7 +154,7 @@ function ScripturePane({
         const langBibles = bibles[lang];
 
         for (const bibleId of Object.keys(langBibles)) {
-          if (bibleId === 'viewUrl') {
+          if (bibleId === 'viewURL') {
             const bible = langBibles[bibleId];
             const view_url = bible?.manifest?.view_url;
 
