@@ -152,8 +152,19 @@ function ScripturePane({
     if (paneSetting.bibleId === 'viewURL') {
       if (!foundViewUrl) {
         if (paneSetting.description === projectManifest?.view_url) {
-          foundViewUrl = true;
-          return true;
+          const bibleId = Object.keys(bibles).find(langId => {
+            if (langId.split('_')[0] === 'url') {
+              if (bibles[langId]?.viewURL?.manifest) {
+                return true;
+              }
+            }
+            return false;
+          });
+
+          if (bibleId) {
+            foundViewUrl = true;
+            return true;
+          }
         }
       }
       return false;
