@@ -41,6 +41,7 @@ function Panes({
         fontSize,
         languageId,
         owner,
+        actualLanguage,
       } = paneSettings;
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const { manifest } = bible;
@@ -70,10 +71,17 @@ function Panes({
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
       } else {
-        const languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
+        let languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
+
+        if (actualLanguage) {
+          languageId_ = actualLanguage;
+        }
+
         fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
 
-        if (owner) {
+        if (manifest?.view_url) {
+          fullTitle += ` (${manifest?.view_url})`;
+        } else if (owner) {
           fullTitle += ` (${owner})`;
         }
 
