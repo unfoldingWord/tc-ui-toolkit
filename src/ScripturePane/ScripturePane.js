@@ -145,11 +145,23 @@ function ScripturePane({
 
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
+  let foundViewUrl = false;
 
   // make sure not a viewUrl pane
-  currentPaneSettings = currentPaneSettings.filter((paneSetting) => (paneSetting.bibleId !== 'viewURL'));
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
+    if (paneSetting.bibleId === 'viewURL') {
+      if (!foundViewUrl) {
+        if (paneSetting.description === projectManifest?.view_url) {
+          foundViewUrl = true;
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  });
 
-  if (bibles && projectManifest?.view_url) { // check for additional url to show
+  if (bibles && !foundViewUrl && projectManifest?.view_url) { // check for additional url to show
     for (const lang of Object.keys(bibles)) {
       const languageId = 'url'; // to match
 
