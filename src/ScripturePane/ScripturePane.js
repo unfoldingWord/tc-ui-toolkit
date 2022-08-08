@@ -153,12 +153,14 @@ function ScripturePane({
       if (!foundViewUrl) {
         if (paneSetting.description === projectManifest?.view_url) {
           const bibleId = Object.keys(bibles).find(langId => {
+            let found = false;
+
             if (langId.split('_')[0] === 'url') {
               if (bibles[langId]?.viewURL?.manifest) {
-                return true;
+                found = true;
               }
             }
-            return false;
+            return found;
           });
 
           if (bibleId) {
