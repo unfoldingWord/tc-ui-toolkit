@@ -41,6 +41,7 @@ function Panes({
         fontSize,
         languageId,
         owner,
+        isPreRelease,
       } = paneSettings;
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const { manifest } = bible;
@@ -75,6 +76,10 @@ function Panes({
 
         if (owner) {
           fullTitle += ` (${owner})`;
+        }
+
+        if (isPreRelease) {
+          fullTitle = `[${fullTitle}] - ${isPreRelease}`;
         }
 
         if (font) {
