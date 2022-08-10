@@ -118,6 +118,7 @@ function Panes({
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
           fullTitle={fullTitle}
+          preRelease={isPreRelease}
         />,
       );
     } catch (err) {
