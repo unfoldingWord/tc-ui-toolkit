@@ -92,9 +92,9 @@ const AddPaneModal = ({
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
 
-    const isPreRelease = resource?.isPreRelease;
+    const stage = resource?.manifest?.stage;
 
-    if (isPreRelease) {
+    if (stage !== 'prod') {
       displayText = `[${displayText}] - Pre-Release`; // TODO add to locale strings of tools
     }
 
