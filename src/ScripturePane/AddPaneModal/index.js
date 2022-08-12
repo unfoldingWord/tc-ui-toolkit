@@ -92,6 +92,12 @@ const AddPaneModal = ({
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
 
+    const preRelease = resource?.isPreRelease;
+
+    if (preRelease) {
+      displayText = `[${displayText}] - ${preRelease}`;
+    }
+
     const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
 
     panes.push(
