@@ -158,7 +158,8 @@ const Pane = ({
   preRelease,
 }) => {
   const isLTR_ = isLTR(direction);
-  const headingText = bibleId !== 'targetBible' ?
+  const headingText = (bibleId !== 'targetBible')
+    && (bibleId !== 'viewURL') ?
     getTitleWithId(languageName, bibleId, undefined, preRelease)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
