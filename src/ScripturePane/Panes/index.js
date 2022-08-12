@@ -52,7 +52,7 @@ function Panes({
 
       let verseElements = [];
 
-      if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
+      if (actualLanguage || ((languageId === 'targetLanguage') && (bibleId === 'targetBible'))) { // if target bible/language, pull up actual name
         language_name = getTitleWithId(manifest.language_name, manifest.language_id);
       }
 
