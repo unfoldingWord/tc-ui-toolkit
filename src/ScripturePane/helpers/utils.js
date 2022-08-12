@@ -35,13 +35,23 @@ export function getTranslation(translate, text, deflt) {
  * @param {string} languageName
  * @param {string} identifier
  * @param {boolean|string} direction
+ * @param {string} preRelease - pre-release string to add
  * @return {string}
  */
-export function getTitleWithId(languageName, identifier, direction = defaultDirection) {
+export function getTitleWithId(languageName, identifier, direction = defaultDirection, preRelease = '') {
+  let title;
+
   if (isLTR(direction)) {
-    return `${languageName} (${identifier.toUpperCase()})`;
+    title = `${languageName} (${identifier.toUpperCase()})`;
+  } else {
+    title = `(${identifier.toUpperCase()}) ${languageName}`;
   }
-  return `(${identifier.toUpperCase()}) ${languageName}`;
+
+  if (preRelease) {
+    title = `[${title}] - ${preRelease}`;
+  }
+
+  return title;
 }
 
 /**

@@ -155,11 +155,12 @@ const Pane = ({
   clickToRemoveResourceLabel,
   addObjectPropertyToManifest,
   fullTitle,
+  preRelease,
 }) => {
   const isLTR_ = isLTR(direction);
   const headingText = (bibleId !== 'targetBible')
     && (bibleId !== 'viewURL') ?
-    getTitleWithId(languageName, bibleId)
+    getTitleWithId(languageName, bibleId, undefined, preRelease)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
   const verseContainerStyle = fontSize ? { fontSize: `${fontSize}%` } : {};
@@ -231,6 +232,7 @@ Pane.propTypes = {
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
+  preRelease: PropTypes.string,
 };
 
 Pane.defaultProps = { verseElements: [] };

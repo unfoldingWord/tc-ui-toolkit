@@ -42,6 +42,7 @@ function Panes({
         languageId,
         owner,
         actualLanguage,
+        isPreRelease,
       } = paneSettings;
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const { manifest } = bible;
@@ -85,6 +86,10 @@ function Panes({
           fullTitle += ` (${owner})`;
         }
 
+        if (isPreRelease) {
+          fullTitle = `[${fullTitle}] - ${isPreRelease}`;
+        }
+
         if (font) {
           fontClass = getFontClassName(font);
         }
@@ -121,6 +126,7 @@ function Panes({
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
           fullTitle={fullTitle}
+          preRelease={isPreRelease}
         />,
       );
     } catch (err) {
