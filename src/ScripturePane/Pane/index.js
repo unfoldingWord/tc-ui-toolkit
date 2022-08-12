@@ -157,7 +157,8 @@ const Pane = ({
   fullTitle,
 }) => {
   const isLTR_ = isLTR(direction);
-  const headingText = bibleId !== 'targetBible' ?
+  const headingText = (bibleId !== 'targetBible')
+    && (bibleId !== 'viewURL') ?
     getTitleWithId(languageName, bibleId)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
