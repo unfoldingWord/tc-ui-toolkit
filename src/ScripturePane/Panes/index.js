@@ -74,7 +74,7 @@ function Panes({
         let languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
 
         if (actualLanguage) {
-          fullTitle = `${actualLanguage})\n(${manifest.resource_title || ''})`;
+          fullTitle = `${language_name})\n(${manifest.resource_title || ''})`;
         } else {
           fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
         }
