@@ -70,12 +70,20 @@ function ScripturePane({
 
   function selectSourceLanguage(value) {
     const parts = value.split('_');
-    const [ languageId, bibleId] = parts;
+    let [ languageId, bibleId] = parts;
+    let isPreRelease = false;
+
+    if (languageId.substring(0,1) === '*') {
+      languageId = languageId.substring(1);
+      isPreRelease = 'Pre-Release';
+    }
+
     const owner = parts.slice(2).join('_'); // remainder is owner
     const selectedBibleId = {
       languageId,
       bibleId,
       owner,
+      isPreRelease,
     };
 
     setSelectedPane(() => value ? selectedBibleId : {});
