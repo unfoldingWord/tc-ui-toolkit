@@ -80,6 +80,7 @@ const AddPaneModal = ({
     } = resource.manifest;
     let displayText = '';
     const owner = resource.owner || '';
+    let key = `${i}${resource.languageId}_${resource.bibleId}_${owner}`;
 
     if (resource.bibleId !== 'targetBible') {
       const languageId = (resource.languageId !== 'originalLanguage') ? resource.languageId : translate('pane.original_language');
@@ -93,6 +94,7 @@ const AddPaneModal = ({
 
       if ((owner !== 'Door43-Catalog') && (stage !== 'prod')) {
         displayText = `[${displayText}] - Pre-Release`; // TODO add to locale strings of tools
+        key = `*${key}`;
       }
     } else {
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
@@ -102,7 +104,7 @@ const AddPaneModal = ({
 
     panes.push(
       <option
-        key={`${i}${resource.languageId}_${resource.bibleId}_${owner}`}
+        key={key}
         value={`${resource.languageId}_${resource.bibleId}_${owner}`}
         disabled={foundInCurrentPaneSettings}
       >
