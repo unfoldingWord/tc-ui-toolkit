@@ -100,7 +100,10 @@ const AddPaneModal = ({
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
 
-    const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
+    const foundInCurrentPaneSettings = currentPaneSettings.findIndex(
+      (paneSetting) => paneSetting.bibleId === resource.bibleId &&
+        paneSetting.languageId === resource.languageId &&
+        paneSetting.owner === resource.owner) >= 0;
 
     panes.push(
       <option
