@@ -3,6 +3,7 @@ import React from 'react';
 import isEqual from 'deep-equal';
 import * as stringTokenizer from 'string-punctuation-tokenizer';
 import { VerseObjectUtils } from 'word-aligner';
+import { getVerses } from 'bible-reference-range';
 // helpers
 import * as highlightHelpers from './highlightHelpers';
 import {
@@ -110,9 +111,10 @@ export const verseString = (verseText, selections, translate, fontStyle = null, 
  * @param {Function} translate
  * @param {Object} fontStyle - font specific styling
  * @param {String} fontClass - font class name
+ * @param {array} verseWordCounts - array of word counts for multi-verse
  * @return {Array} - verse elements to display
  */
-export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass) {
+export function verseArray(verseText = [], bibleId, contextId, getLexiconData, showPopover, translate, fontStyle = null, fontClass, verseWordCounts = null) {
   let verseObjects = VerseObjectUtils.getWordListForVerse(verseText);
   let wordSpacing = '';
   let previousWord = null;
@@ -149,7 +151,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           isBetweenHighlightedWord = previousWord && !isEqual(previousWord, object) &&
             highlightHelpers.isWordMatch(previousWord, contextId, verseObjects, index - 1) && isHighlightedWord;
         } else if (contextId.quote && object.content) {
-          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, object);
+          const highlightedDetails = highlightHelpers.getWordHighlightedDetails(contextId, previousWord, object, verseWordCounts);
           isHighlightedWord = highlightedDetails.isHighlightedWord;
           isBetweenHighlightedWord = highlightedDetails.isBetweenHighlightedWord;
         }
@@ -186,7 +188,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
           verseSpan.push(createNonClickableSpan(index, paddingSpanStyle, padding, isHighlightedWord, text, fontClass));
         }
       } else if (isNestedMilestone(object)) { // if nested milestone
-        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(object, contextId, index, previousWord, wordSpacing, fontClass);
+        const nestedMilestone = highlightHelpers.getWordsFromNestedMilestone(object, contextId, index, previousWord, wordSpacing, fontClass, verseWordCounts);
 
         for (let j = 0, nLen = nestedMilestone.wordSpans.length; j < nLen; j++) {
           const nestedWordSpan = nestedMilestone.wordSpans[j];
@@ -215,7 +217,7 @@ export function verseArray(verseText = [], bibleId, contextId, getLexiconData, s
         }
         wordSpacing = punctuationWordSpacing(object); // spacing before words
 
-        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, verseObjects, index)) {
+        if (highlightHelpers.isPunctuationHighlighted(previousWord, nextWord, contextId, verseObjects, index, verseWordCounts)) {
           verseSpan.push(createHighlightedSpan(index, text, fontClass));
         } else {
           verseSpan.push(createTextSpan(index, text, fontClass));
@@ -374,80 +376,116 @@ export function isVerseInSpan(verseLabel, verse) {
 }
 
 /**
+ * count original words in verseObjects - it is nested so this is recursive
+ * @param {array} verseObjects
+ * @param {number} verseCnt
+ * @param {boolean} multiVerse
+ * @param {object} previousVerseWordCounts
+ * @param {object} currentVerseCounts
+ */
+function countOriginalWords(verseObjects, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts) {
+  if (verseObjects) {
+    for (const vo of verseObjects) {
+      if (multiVerse && (vo?.tag === 'zaln')) {
+        vo.verseCnt = verseCnt;
+        const origWord = vo?.content;
+
+        if (origWord) {
+          const previousCount = previousVerseWordCounts[origWord] || 0;
+          const currentCount = currentVerseCounts[origWord] || 0;
+
+          if (!currentCount) {
+            currentVerseCounts[origWord] = vo.occurrences + previousCount;
+          }
+
+          if (vo.children) {
+            countOriginalWords(vo.children, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * gets verse data for verseList
- * @param {object} bibleData
+ * @param {object} bookData
  * @param {number|string} chapter
  * @param {string} verseList - can be a single verse, comma separated list of verses or verse range
  * @param {function} createVerseMarker - to create a verse marker
  * @returns {{verseData: {verseObjects: *[]}, verseLabel: string}}
  */
-export function getVerseData(bibleData, chapter, verseList, createVerseMarker) {
+export function getVerseData(bookData, chapter, verseList, createVerseMarker) {
   let verseLabel = '';
-  const chapterData = bibleData[chapter];
-  const verses = getVerseList(verseList);
+  let initialChapter;
+  const refs = getVerses(bookData, `${chapter}:${verseList}`);
   let verseSpanData = [];
   const history = []; // to guard against duplicate verses
+  let verseWordCounts = [];
+  const multiVerse = refs.length > 1;
 
-  for (const verse of verses) {
-    if (isVerseSpan(verse) && (!chapterData[verse])) { // see if we need to combine verses together to create verse span
-      const { low, high } = getVerseSpanRange(verse);
+  if (refs && refs.length) {
+    initialChapter = refs[0].chapter;
+  }
 
-      for (let i = low; i <= high; i++) {
-        const response = getVerseDataFromBible(bibleData, chapter, i);
-        let data = response.verseData;
-        let label = response.verseLabel;
+  for (let verseCnt = 0; verseCnt < refs.length; verseCnt++) {
+    const previousVerseWordCounts = verseCnt > 0 ? verseWordCounts[verseCnt-1] : {};
+    const currentVerseCounts = {};
+    verseWordCounts.push(currentVerseCounts);
+    const ref = refs[verseCnt];
+    const chapter = ref.chapter;
+    const data = ref.verseData;
+    let label = ref.verse;
 
-        if (data && !history.includes(label)) {
-          if (!verseLabel) {
-            verseLabel = label.toString();
-          }
-          history.push(label + '');
+    if (chapter !== initialChapter) {
+      label = `${chapter}:${label}`;
+    }
 
-          if (verseSpanData.length) {
-            verseSpanData.push(createVerseMarker(label));
-          }
+    if (data && !history.includes(label)) { // skip over duplicates
+      history.push(label + '');
 
-          if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
-            data = {
-              verseObjects: [{
-                type: 'text',
-                text: data,
-              }],
-            };
-          }
+      if (verseSpanData.length) {
+        verseSpanData.push(createVerseMarker(label));
+      }
+
+      if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
+        verseSpanData.push({
+          type: 'text',
+          text: data,
+        });
+      } else { // get cumulative word counts for each verse
+        const verseObjects = data?.verseObjects;
+
+        if (verseObjects) {
+          countOriginalWords(verseObjects, verseCnt, multiVerse, currentVerseCounts, previousVerseWordCounts, verseWordCounts);
           Array.prototype.push.apply(verseSpanData, data.verseObjects);
+          const words = Object.keys(previousVerseWordCounts);
+
+          for (const word of words) { // update current verse with counts from previous verse
+            if (!currentVerseCounts[word]) {
+              currentVerseCounts[word] = previousVerseWordCounts[word];
+            }
+          }
         }
       }
-    } else {
-      const response = getVerseDataFromBible(bibleData, chapter, verse);
-      let data = response.verseData;
-      let label = response.verseLabel;
 
-      if (data && !history.includes(label)) {
-        history.push(label + '');
-
-        if (verseSpanData.length) {
-          verseSpanData.push(createVerseMarker(label));
-        }
-
-        if (typeof data === 'string') { // if data is stringtype , we need to wrap as a text verse object
-          verseSpanData.push({
-            type: 'text',
-            text: data,
-          });
-        } else {
-          Array.prototype.push.apply(verseSpanData, data?.verseObjects);
-        }
-
-        if (!verseLabel) {
-          verseLabel = label.toString();
-        }
+      if (!verseLabel) {
+        verseLabel = label.toString();
       }
     }
   }
 
+  if (!multiVerse) {
+    verseWordCounts = null;
+  }
+
   const verseData = { verseObjects: verseSpanData };
-  return { verseData, verseLabel };
+  return {
+    verseData,
+    verseLabel,
+    multiVerse,
+    verseWordCounts,
+  };
 }
 
 
