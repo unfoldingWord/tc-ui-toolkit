@@ -79,6 +79,7 @@ const AddPaneModal = ({
       resource_title, language_name, language_id,
     } = resource.manifest;
     let displayText = '';
+    let prefix = '';
     const owner = resource.owner || '';
 
     if (resource.bibleId !== 'targetBible') {
@@ -88,16 +89,26 @@ const AddPaneModal = ({
       if (owner) {
         displayText += ` (${owner})`;
       }
+
+      const stage = resource?.manifest?.stage;
+
+      if ((owner !== 'Door43-Catalog') && (stage !== 'prod')) {
+        displayText = `[${displayText}] - Pre-Release`; // TODO add to locale strings of tools
+        prefix = '*';
+      }
     } else {
       displayText = `${language_name} (${language_id})  (${translate('pane.target_language')}) (${translate('pane.current_project')})`;
     }
 
-    const foundInCurrentPaneSettings = currentPaneSettings.findIndex((paneSetting) => paneSetting.bibleId === resource.bibleId && paneSetting.languageId === resource.languageId) >= 0;
+    const foundInCurrentPaneSettings = currentPaneSettings.findIndex(
+      (paneSetting) => paneSetting.bibleId === resource.bibleId &&
+        paneSetting.languageId === resource.languageId &&
+        paneSetting.owner === resource.owner) >= 0;
 
     panes.push(
       <option
         key={`${i}${resource.languageId}_${resource.bibleId}_${owner}`}
-        value={`${resource.languageId}_${resource.bibleId}_${owner}`}
+        value={`${prefix}${resource.languageId}_${resource.bibleId}_${owner}`}
         disabled={foundInCurrentPaneSettings}
       >
         {displayText}
@@ -105,7 +116,7 @@ const AddPaneModal = ({
     );
   }
 
-  const isLoadButtonDisabled = Object.keys(selectedPane).length > 0 ? false : true;
+  const isLoadButtonDisabled = Object.keys(selectedPane).length <= 0;
 
   return (
     <Dialog open={show} onClose={onHide} fullWidth maxWidth='md'>

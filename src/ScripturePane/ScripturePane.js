@@ -70,12 +70,20 @@ function ScripturePane({
 
   function selectSourceLanguage(value) {
     const parts = value.split('_');
-    const [ languageId, bibleId] = parts;
+    let [ languageId, bibleId] = parts;
+    let isPreRelease = false;
+
+    if (languageId.substring(0,1) === '*') {
+      languageId = languageId.substring(1);
+      isPreRelease = 'Pre-Release';
+    }
+
     const owner = parts.slice(2).join('_'); // remainder is owner
     const selectedBibleId = {
       languageId,
       bibleId,
       owner,
+      isPreRelease,
     };
 
     setSelectedPane(() => value ? selectedBibleId : {});
@@ -143,9 +151,66 @@ function ScripturePane({
     }
   }
 
-
   const { manifest: projectManifest } = projectDetailsReducer;
   const targetLanguageFont = projectManifest.projectFont || '';
+  let foundViewUrl = false;
+
+  // make sure not a viewUrl pane
+  currentPaneSettings = currentPaneSettings.filter((paneSetting) => {
+    if (paneSetting.bibleId === 'viewURL') {
+      if (!foundViewUrl) {
+        if (paneSetting.description === projectManifest?.view_url) {
+          const bibleId = Object.keys(bibles).find(langId => {
+            let found = false;
+
+            if (langId.split('_')[0] === 'url') {
+              if (bibles[langId]?.viewURL?.manifest) {
+                found = true;
+              }
+            }
+            return found;
+          });
+
+          if (bibleId) {
+            foundViewUrl = true;
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    return true;
+  });
+
+  if (bibles && !foundViewUrl && projectManifest?.view_url) { // check for additional url to show
+    for (const lang of Object.keys(bibles)) {
+      const languageId = 'url'; // to match
+
+      if (lang.split('_')[0] === languageId) {
+        const langBibles = bibles[lang];
+
+        for (const bibleId of Object.keys(langBibles)) {
+          if (bibleId === 'viewURL') {
+            const bible = langBibles[bibleId];
+            const view_url = bible?.manifest?.view_url;
+
+            if (view_url && (view_url === projectManifest?.view_url)) { // found bible with matching url
+              if (bible?.[1]) { // have content
+                // paneSetting.languageId, paneSetting.bibleId, paneSetting.owner
+                currentPaneSettings.push({
+                  bibleId,
+                  languageId,
+                  owner: lang.substring(4),
+                  description: view_url,
+                  actualLanguage: bible?.manifest?.language_id,
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   // make sure bibles in currentPaneSettings are found in the bibles object in the resourcesReducer
   currentPaneSettings = currentPaneSettings.filter((paneSetting) => {

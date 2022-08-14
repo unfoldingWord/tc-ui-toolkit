@@ -41,6 +41,8 @@ function Panes({
         fontSize,
         languageId,
         owner,
+        actualLanguage,
+        isPreRelease,
       } = paneSettings;
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const { manifest } = bible;
@@ -55,7 +57,7 @@ function Panes({
 
       let verseElements = [];
 
-      if ((languageId === 'targetLanguage') && (bibleId === 'targetBible')) { // if target bible/language, pull up actual name
+      if (actualLanguage || ((languageId === 'targetLanguage') && (bibleId === 'targetBible'))) { // if target bible/language, pull up actual name
         language_name = getTitleWithId(manifest.language_name, manifest.language_id);
       }
 
@@ -74,11 +76,22 @@ function Panes({
         font = targetLanguageFont;
         fontClass = getFontClassName(targetLanguageFont);
       } else {
-        const languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
-        fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
+        let languageId_ = (languageId !== 'originalLanguage') ? languageId : translate('pane.original_language');
 
-        if (owner) {
+        if (actualLanguage) {
+          fullTitle = language_name;
+        } else {
+          fullTitle = `${language_name} (${languageId_})\n(${manifest.resource_title || ''})`;
+        }
+
+        if (manifest?.view_url) {
+          fullTitle += ` (${manifest?.view_url})`;
+        } else if (owner) {
           fullTitle += ` (${owner})`;
+        }
+
+        if (isPreRelease) {
+          fullTitle = `[${fullTitle}] - ${isPreRelease}`;
         }
 
         if (font) {
@@ -117,6 +130,7 @@ function Panes({
           removeResourceLabel={translate('pane.remove_resource_label')}
           clickToRemoveResourceLabel={translate('pane.remove_resource')}
           fullTitle={fullTitle}
+          preRelease={isPreRelease}
         />,
       );
     } catch (err) {
