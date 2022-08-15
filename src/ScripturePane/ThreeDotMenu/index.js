@@ -22,6 +22,7 @@ function ThreeDotMenu({
   removeResourceLabel,
   clickToRemoveResourceLabel,
   addObjectPropertyToManifest,
+  viewURL,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -49,7 +50,7 @@ function ThreeDotMenu({
         transformOrigin={transformOrigin}
         style={{ margin: '-15px 0px 0px' }}
       >
-        <MenuItem
+        {!viewURL && <MenuItem
           divider
           onClick={() => {
             removePane(index);
@@ -64,7 +65,7 @@ function ThreeDotMenu({
           <div style={{ margin: '0px 10px', color: '#000000' }}>
             {removeResourceLabel}
           </div>
-        </MenuItem>
+        </MenuItem>}
         <MenuItem disableOnClick divider>
           <FontSizeSlider value={fontSize} onChange={handleFontSizeChange}/>
         </MenuItem>
@@ -111,6 +112,7 @@ ThreeDotMenu.propTypes = {
   removeResourceLabel: PropTypes.string.isRequired,
   addObjectPropertyToManifest: PropTypes.func.isRequired,
   clickToRemoveResourceLabel: PropTypes.string.isRequired,
+  viewURL: PropTypes.bool,
 };
 
 export default ThreeDotMenu;

@@ -82,6 +82,7 @@ function TitleContainer({
   clickToRemoveResourceLabel,
   addObjectPropertyToManifest,
   fullTitle,
+  viewURL,
 }) {
   if (isLTR) {
     return <>
@@ -108,6 +109,7 @@ function TitleContainer({
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         addObjectPropertyToManifest={addObjectPropertyToManifest}
+        viewURL={viewURL}
       />
     </>;
   } else { // arrange rtl
@@ -126,6 +128,7 @@ function TitleContainer({
         removeResourceLabel={removeResourceLabel}
         clickToRemoveResourceLabel={clickToRemoveResourceLabel}
         addObjectPropertyToManifest={addObjectPropertyToManifest}
+        viewURL={viewURL}
       />
       {getTitleContainerContent(isLTR, headingText, localizedDescription, fontClass, fullTitle)}
     </>;
@@ -158,8 +161,8 @@ const Pane = ({
   preRelease,
 }) => {
   const isLTR_ = isLTR(direction);
-  const headingText = (bibleId !== 'targetBible')
-    && (bibleId !== 'viewURL') ?
+  const viewURL = bibleId === 'viewURL';
+  const headingText = (bibleId !== 'targetBible') && !viewURL ?
     getTitleWithId(languageName, bibleId, undefined, preRelease)
     : (languageName || '');
   const localizedDescription = getTranslation(translate, `pane.${description}`, description);
@@ -188,6 +191,7 @@ const Pane = ({
           clickToRemoveResourceLabel={clickToRemoveResourceLabel}
           addObjectPropertyToManifest={addObjectPropertyToManifest}
           fullTitle={fullTitle}
+          viewURL={viewURL}
         />
       </div>
       <div className={isLTR_ ? 'verse-content-container-ltr' : 'verse-content-container-rtl'} style={verseContainerStyle}>
@@ -233,6 +237,7 @@ Pane.propTypes = {
     PropTypes.array,
   ]).isRequired,
   preRelease: PropTypes.string,
+  viewURL: PropTypes.bool,
 };
 
 Pane.defaultProps = { verseElements: [] };
