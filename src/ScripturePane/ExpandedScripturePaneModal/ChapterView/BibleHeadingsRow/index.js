@@ -26,6 +26,8 @@ class BibleHeadingsRow extends Component {
         languageId,
         bibleId,
         owner,
+        isPreRelease,
+        description,
       } = currentPaneSettings[i];
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const index = i;
@@ -34,9 +36,17 @@ class BibleHeadingsRow extends Component {
         direction,
       } = bible?.manifest || {};
 
-      const resourceText = bibleId !== 'targetBible' ? ' (' + bibleId.toUpperCase() + ')' : '' ;
-      const headingText = language_name + resourceText;
+      const resourceText = bibleId !== 'targetBible' ? ` (${bibleId.toUpperCase()}) (${owner})` : '' ;
+      let headingText = language_name + resourceText;
       let dir = direction;
+
+      if (bibleId === 'viewURL') {
+        headingText = `${language_name} (${description})`;
+      }
+
+      if (isPreRelease) {
+        headingText = `[${headingText}] - ${isPreRelease}`;
+      }
 
       if (!dir) {
         dir = projectDetailsReducer?.manifest?.target_language?.direction || 'ltr';
@@ -46,6 +56,7 @@ class BibleHeadingsRow extends Component {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
         color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
         borderBottom: '3px solid var(--border-color)', direction: dir,
+        overflowX: 'hidden', overflowY: 'auto',
       };
 
       bibleHeadings.push(
