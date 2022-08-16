@@ -93,7 +93,7 @@ const AddPaneModal = ({
       const stage = resource?.manifest?.stage;
 
       if ((owner !== 'Door43-Catalog') && (stage !== 'prod')) {
-        displayText = `[${displayText}] - Pre-Release`; // TODO add to locale strings of tools
+        displayText = `[${displayText}] - ${translate('pre-release')}`;
         prefix = '*';
       }
     } else {

@@ -75,7 +75,7 @@ function ScripturePane({
 
     if (languageId.substring(0,1) === '*') {
       languageId = languageId.substring(1);
-      isPreRelease = 'Pre-Release';
+      isPreRelease = translate('pre-release');
     }
 
     const owner = parts.slice(2).join('_'); // remainder is owner
