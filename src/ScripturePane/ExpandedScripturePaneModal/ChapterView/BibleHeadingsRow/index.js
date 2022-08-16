@@ -18,6 +18,7 @@ class BibleHeadingsRow extends Component {
       currentPaneSettings,
       projectDetailsReducer,
       bibles,
+      translate,
     } = this.props;
     const bibleHeadings = [];
 
@@ -26,6 +27,7 @@ class BibleHeadingsRow extends Component {
         languageId,
         bibleId,
         owner,
+        isPreRelease,
       } = currentPaneSettings[i];
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const index = i;
@@ -35,8 +37,12 @@ class BibleHeadingsRow extends Component {
       } = bible?.manifest || {};
 
       const resourceText = bibleId !== 'targetBible' ? ' (' + bibleId.toUpperCase() + ')' : '' ;
-      const headingText = language_name + resourceText;
+      let headingText = language_name + resourceText;
       let dir = direction;
+
+      if (isPreRelease) {
+        headingText = `[${headingText}] - ${translate('pre-release')}`;
+      }
 
       if (!dir) {
         dir = projectDetailsReducer?.manifest?.target_language?.direction || 'ltr';
@@ -67,6 +73,7 @@ BibleHeadingsRow.propTypes = {
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   bibles: PropTypes.object.isRequired,
+  translate: PropTypes.func.isRequired,
 };
 
 export default BibleHeadingsRow;

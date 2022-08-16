@@ -175,7 +175,9 @@ function ExpandedScripturePaneModal({
         <BibleHeadingsRow
           bibles={bibles}
           currentPaneSettings={currentPaneSettings}
-          projectDetailsReducer={projectDetailsReducer} />
+          projectDetailsReducer={projectDetailsReducer}
+          translate={translate}
+        />
         <ChapterView
           bibles={bibles}
           contextId={contextId}
