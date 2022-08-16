@@ -48,7 +48,9 @@ describe('verseHelpers.getVerseData', () => {
       } = test;
       const results = verseHelpers.getVerseData(bibleData, chapter, verse, createMarker);
 
-      if (!isEqual(results, expected)) {
+      const results_ = { verseData: results.verseData, verseLabel: results.verseLabel };
+
+      if (!isEqual(results_, expected)) {
         console.log(`compare failed for ${chapter}:${verse}`);
         expect(results).toEqual(expected);
       }
@@ -99,7 +101,9 @@ describe('verseHelpers.getVerseData', () => {
       } = test;
       const results = verseHelpers.getVerseData(bibleData, chapter, verse, createMarker);
 
-      if (!isEqual(results, expected)) {
+      const results_ = { verseData: results.verseData, verseLabel: results.verseLabel };
+
+      if (!isEqual(results_, expected)) {
         console.log(`compare failed for ${chapter}:${verse}`);
         expect(results).toEqual(expected);
       }

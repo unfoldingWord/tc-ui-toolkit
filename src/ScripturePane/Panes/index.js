@@ -49,7 +49,11 @@ function Panes({
       let language_name = manifest.language_name;
       const targetLanguageFont = projectManifest.projectFont || '';
       const { chapter, verse } = contextId.reference;
-      let { verseData, verseLabel } = getVerseData(bible, chapter, verse, createVerseMarker);
+      let {
+        verseData,
+        verseLabel,
+        verseWordCounts,
+      } = getVerseData(bible, chapter, verse, createVerseMarker);
 
       let verseElements = [];
 
@@ -98,7 +102,7 @@ function Panes({
       if (typeof verseData === 'string') { // if the verse content is string.
         verseElements = verseString(verseData, selections, translate, {}, isTargetBible, fontClass);
       } else if (verseData) { // else the verse content is an array of verse objects.
-        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass);
+        verseElements = verseArray(verseData, bibleId, contextId, getLexiconData, showPopover, translate, {}, fontClass, verseWordCounts);
       }
 
       panes.push(
