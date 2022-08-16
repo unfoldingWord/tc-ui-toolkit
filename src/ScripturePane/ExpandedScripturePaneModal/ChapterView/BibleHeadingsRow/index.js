@@ -18,7 +18,6 @@ class BibleHeadingsRow extends Component {
       currentPaneSettings,
       projectDetailsReducer,
       bibles,
-      translate,
     } = this.props;
     const bibleHeadings = [];
 
@@ -79,7 +78,6 @@ BibleHeadingsRow.propTypes = {
   currentPaneSettings: PropTypes.array.isRequired,
   projectDetailsReducer: PropTypes.object.isRequired,
   bibles: PropTypes.object.isRequired,
-  translate: PropTypes.func.isRequired,
 };
 
 export default BibleHeadingsRow;
