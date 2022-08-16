@@ -28,6 +28,7 @@ class BibleHeadingsRow extends Component {
         bibleId,
         owner,
         isPreRelease,
+        description,
       } = currentPaneSettings[i];
       const bible = getBibleElement(bibles, languageId, bibleId, owner);
       const index = i;
@@ -36,12 +37,16 @@ class BibleHeadingsRow extends Component {
         direction,
       } = bible?.manifest || {};
 
-      const resourceText = bibleId !== 'targetBible' ? ' (' + bibleId.toUpperCase() + ')' : '' ;
+      const resourceText = bibleId !== 'targetBible' ? ` (${bibleId.toUpperCase()}) (${owner})` : '' ;
       let headingText = language_name + resourceText;
       let dir = direction;
 
+      if (bibleId === 'viewURL') {
+        headingText = `${language_name} (${description})`;
+      }
+
       if (isPreRelease) {
-        headingText = `[${headingText}] - ${translate('pre-release')}`;
+        headingText = `[${headingText}] - ${isPreRelease}`;
       }
 
       if (!dir) {
