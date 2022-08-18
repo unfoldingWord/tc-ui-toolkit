@@ -48,13 +48,15 @@ function ScripturePane({
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
     handleModalOpen(true);
-    onExpandedScripturePaneShow(true);
+    // eslint-disable-next-line no-unused-expressions
+    onExpandedScripturePaneShow && onExpandedScripturePaneShow(true);
   }
 
   function closeExpandedScripturePane() {
     toggleExpandedScripturePane(false);
     handleModalOpen(false);
-    onExpandedScripturePaneShow(false);
+    // eslint-disable-next-line no-unused-expressions
+    onExpandedScripturePaneShow && onExpandedScripturePaneShow(false);
   }
 
   function showAddBibleModal() {
@@ -292,7 +294,6 @@ function ScripturePane({
             selectSourceLanguage={selectSourceLanguage}
             selectLanguageLabel={translate('pane.select_language')}
             getAvailableScripturePaneSelections={getAvailableScripturePaneSelections}
-            onExpandedScripturePaneShow={onExpandedScripturePaneShow}
           />
           :
           <div/>
@@ -305,6 +306,7 @@ ScripturePane.defaultProps = {
   handleModalOpen: () => {
     console.info('handleModalOpen prop was not passed.');
   },
+  onExpandedScripturePaneShow: null,
 };
 
 ScripturePane.propTypes = {
@@ -324,7 +326,7 @@ ScripturePane.propTypes = {
   makeSureBiblesLoadedForTool: PropTypes.func.isRequired,
   expandedScripturePaneTitle: PropTypes.string.isRequired,
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
-  onExpandedScripturePaneShow: PropTypes.func.isRequired, // called when expanded Scripture Pane as shown or hidden
+  onExpandedScripturePaneShow: PropTypes.func, // called when expanded Scripture Pane as shown or hidden
   editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
 };
 

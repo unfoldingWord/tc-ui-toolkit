@@ -56,7 +56,7 @@ class BibleHeadingsRow extends Component {
         minWidth: '240px', alignItems: 'stretch', padding: '10px', fontSize: '16px', fontWeight: 'bold',
         color: 'var(--text-color-dark)', borderRight: '1px solid var(--border-color)',
         borderBottom: '3px solid var(--border-color)', direction: dir,
-        overflowX: 'hidden', overflowY: 'auto',
+        overflowX: 'hidden', overflowY: 'auto', overflowWrap: 'break-word',
       };
 
       bibleHeadings.push(
