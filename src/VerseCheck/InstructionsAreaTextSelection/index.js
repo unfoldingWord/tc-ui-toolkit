@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as windowSelectionHelpers from '../helpers/windowSelectionHelpers';
 import { getFontClassName } from '../../common/fontUtils';
 
-const ELLIPSIS = '…';
+const BREAK_CHAR = '&';
 
 export const SelectedText = ({ children }) => <strong style={{ color: 'var(--accent-color)' }}>{children}</strong>;
 
@@ -38,12 +38,12 @@ const InstructionsAreaTextSelection = ({
 }) => {
   const fontClass = getFontClassName(targetLanguageFont);
 
-  if (windowSelectionHelpers.shouldRenderEllipsis(selections, verseText)) {
+  if (windowSelectionHelpers.shouldRenderBreak(selections, verseText)) {
     return (
       <div style={{ color: 'var(--accent-color)', direction: languageDirection }}>
         <span className={fontClass}>{selections[0].text.trim()}</span>
         <strong className={fontClass} style={{ color: 'var(--accent-color)' }}>
-          {` ${ELLIPSIS} `}
+          {` ${BREAK_CHAR} `}
         </strong>
         <span className={fontClass}>{selections[selections.length - 1].text.trim()}</span>
       </div>

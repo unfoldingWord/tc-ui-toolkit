@@ -1,4 +1,4 @@
-const ELLIPSIS = '…';
+const BREAK_CHAR = '&';
 const DEFAULT_SEPARATOR = ' ';
 
 /**
@@ -45,7 +45,7 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
 
   const wordsToMatch = getQuoteAsArray(quote, occurrenceToMatch);
   let separator = DEFAULT_SEPARATOR;
-  let needsEllipsis = false;
+  let needsBreak = false;
 
   for (let i = 0, l = verseObjects.length; i < l; i++) {
     const verseObject = verseObjects[i];
@@ -57,10 +57,10 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
         lastMatch = true;
 
         // We have a match (or previously had a match in the parent) so we want to include all text that we find,
-        if (needsEllipsis) {
+        if (needsBreak) {
           // Need to add an ellipsis to the separator since a previous match but not one right next to this one
-          separator += ELLIPSIS+DEFAULT_SEPARATOR;
-          needsEllipsis = false;
+          separator += BREAK_CHAR+DEFAULT_SEPARATOR;
+          needsBreak = false;
         }
 
         if (text) {
@@ -87,14 +87,14 @@ export const getAlignedText = (verseObjects, quote, occurrenceToMatch, isMatch=f
         if (childText) {
           lastMatch = true;
 
-          if (needsEllipsis) {
-            separator += ELLIPSIS+DEFAULT_SEPARATOR;
-            needsEllipsis = false;
+          if (needsBreak) {
+            separator += BREAK_CHAR+DEFAULT_SEPARATOR;
+            needsBreak = false;
           }
           text += (text?separator:'') + childText;
           separator = DEFAULT_SEPARATOR;
         } else if (text) {
-          needsEllipsis = true;
+          needsBreak = true;
         }
       }
     }
