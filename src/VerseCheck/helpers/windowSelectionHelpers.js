@@ -150,7 +150,7 @@ export const getPrecedingTextFromElementSiblings = (element, windowSelection) =>
  * between the selected words or not.
  * @param {Array} selections - Array of word objects that the user selected
  * @param {string} verseText - The entire verse string from the current check
- * @returns {boolean} - Whether the View should display an ellipsis
+ * @returns {boolean} - Whether the View should display a break
  */
 export function shouldRenderBreak(selections, verseText) {
   /** Need to get the words and occurrence of the selected edge words */
@@ -167,5 +167,6 @@ export function shouldRenderBreak(selections, verseText) {
   /** Checking the text in between selected words for a non-space character */
   const textBetweenSelection = verseText.substring(indexOfBeginningSelection + beginningSelectedWord.length, indexOfEndSelection);
   /** If the end index is the same as the beginning then it is the first word */
-  return (indexOfEndSelection !== indexOfBeginningSelection) && textBetweenSelection.match(/\S/);
+  const showBreak = (indexOfEndSelection !== indexOfBeginningSelection) && textBetweenSelection.match(/\S/);
+  return showBreak;
 }
