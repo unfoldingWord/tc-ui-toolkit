@@ -115,7 +115,11 @@ function generateMenuByRef(data, index, direction, onProcessItem, menu, progress
           refs[refStr] = children;
         }
 
-        children.push(item);
+        const newItem = {
+          ...item,
+          organizeByRef: refStr,
+        };
+        children.push(newItem);
       }
     }
   }
@@ -139,6 +143,7 @@ function generateMenuByRef(data, index, direction, onProcessItem, menu, progress
       progress: calculateProgress(children, progressKey, progressKey2),
       id: ref,
       children,
+      organizeByRef: ref,
     });
   }
 }
@@ -181,9 +186,15 @@ export function generateMenuData(
  * @param {object} contextId - a context id or group data entry.
  * @param {string} direction - layout direction - default 'ltr'
  * @param {function} [onProcessItem=null] - an optional preprocessor
+ * @param {boolean} organizeByRef - optional, if true then group by references
  * @returns {object}
  */
-export function generateMenuItem(contextId, direction = 'ltr', onProcessItem = null) {
+export function generateMenuItem(
+  contextId,
+  direction = 'ltr',
+  onProcessItem = null,
+  organizeByRef = false,
+) {
   // TRICKY: determine if this is a contextId or group data entry.
   let item;
 
@@ -193,6 +204,15 @@ export function generateMenuItem(contextId, direction = 'ltr', onProcessItem = n
     item = { contextId };
   }
   item.direction = direction;
+
+  if (organizeByRef) {
+    const ref = item?.contextId?.reference;
+
+    if (ref) {
+      const refStr = `${ref.chapter}:${ref.verse}`;
+      item.organizeByRef = refStr;
+    }
+  }
 
   // perform pre-processing
   if (typeof onProcessItem === 'function') {

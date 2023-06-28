@@ -93,13 +93,31 @@ class Menu extends React.Component {
     const { active, autoSelect } = props;
 
     if (active && autoSelect) {
-      autoOpen = active.groupId;
+      autoOpen = this.getGroupIdForItem(active);
     }
 
     this.state = {
       opened: autoOpen,
       active: null,
     };
+  }
+
+  /**
+   * if organizeByRef is set, used it.  Otherwise we use the groupId
+   * @param item
+   * @return {string|*}
+   */
+  getGroupIdForItem(item) {
+    return item?.organizeByRef || item?.groupId;
+  }
+
+  /**
+   * if organizeByRef is set, used it.  Otherwise we use the Id
+   * @param group
+   * @return {string|*}
+   */
+  getGroupIdForGroup(group) {
+    return group?.organizeByRef || group?.id;
   }
 
   componentDidMount() {
@@ -126,15 +144,16 @@ class Menu extends React.Component {
     const { autoScroll } = this.props;
     const prevActive = prevProps.active ? prevProps.active : prevState.active;
     const active = this.getActive();
+    const activeGroupId = this.getGroupIdForItem(active);
 
     if (
       active &&
       prevActive &&
-      prevActive.groupId !== active.groupId &&
-      active.groupId !== opened
+      this.getGroupIdForItem(prevActive) !== activeGroupId &&
+      activeGroupId !== opened
     ) {
       // open the active group if it was changed externally
-      this.setState({ opened: active.groupId });
+      this.setState({ opened: activeGroupId });
     } else if (autoScroll && this.state.opened) {
       // scroll to the current selection
       this.scrollToSelectedItem();
@@ -214,11 +233,12 @@ class Menu extends React.Component {
    */
   handleOpen = group => () => {
     const { autoSelect } = this.props;
+    const groupId = this.getGroupIdForGroup(group);
 
-    if (this.state.opened === group.id) {
+    if (this.state.opened === groupId) {
       this.setState({ opened: -1 });
     } else {
-      this.setState({ opened: group.id });
+      this.setState({ opened: groupId });
 
       // auto select newly opened groups if not controlled elsewhere
       const firstChild = group.children[0];
@@ -253,7 +273,7 @@ class Menu extends React.Component {
    * @param {object} group - the menu group
    * @returns {boolean}
    */
-  isGroupOpen = group => this.state.opened === group.id;
+  isGroupOpen = group => this.state.opened === this.getGroupIdForGroup(group);
 
   /**
    * Checks if a group is selected
@@ -262,7 +282,12 @@ class Menu extends React.Component {
    */
   isGroupSelected = group => {
     const active = this.getActive();
-    return active && group.id === active.groupId;
+
+    const selected = active && (
+      (group.organizeByRef && group.organizeByRef === active.organizeByRef)
+      || (group.id === active.groupId)
+    );
+    return selected;
   };
 
   /**
@@ -276,11 +301,10 @@ class Menu extends React.Component {
       groupId,
       itemId,
     } = item;
-    return (
-      activeItem &&
+    const selected = activeItem &&
       activeItem.groupId === groupId &&
-      activeItem.itemId === itemId
-    );
+      activeItem.itemId === itemId;
+    return selected;
   };
 
   /**
@@ -292,7 +316,7 @@ class Menu extends React.Component {
 
   /**
    * Collects the react ref to the group.
-   * This determines if the group is selected and stores it's ref
+   * This determines if the group is selected and stores its ref
    * @param {object} group - the menu group
    */
   handleGroupRef = group => ref => {
