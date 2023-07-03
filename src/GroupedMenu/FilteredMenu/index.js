@@ -42,6 +42,8 @@ class FilteredMenu extends React.Component {
     }
 
     this.setState({ selectedFilters: newChecked });
+    // eslint-disable-next-line no-unused-expressions
+    this.props.onFiltersChanged && this.props.onFiltersChanged(newChecked);
   };
 
   /**
@@ -79,13 +81,15 @@ class FilteredMenu extends React.Component {
 
     // filter children
     groups.map(group => {
+      const _filters = filters.filter(filter => (!filter.nonFilter)); // skip over any entries that are not true filters (such as config options)
+
       group.children = group.children.filter(entry => {
-        for (let i = 0, len = filters.length; i < len; i++) {
-          if (Boolean(entry[filters[i].key]) === filters[i].value) {
+        for (let i = 0, len = _filters.length; i < len; i++) {
+          if (Boolean(entry[_filters[i].key]) === _filters[i].value) {
             return true;
           }
         }
-        return filters.length === 0;
+        return _filters.length === 0;
       });
       return group;
     });
@@ -156,6 +160,7 @@ FilteredMenu.propTypes = {
   emptyNotice: PropTypes.string,
   targetLanguageFont: PropTypes.string,
   statusIcons: PropTypes.arrayOf(PropTypes.object),
+  onFiltersChanged: PropTypes.func, // optional callback for filter change events
 };
 
 FilteredMenu.defaultProps = { emptyNotice: 'No results found' };

@@ -1,24 +1,62 @@
 import { getReferenceStr, getTitleStr } from '..';
 
 /**
- * Helper utility to generate data for the menu.
+ * zero fill string to make minimum length
+ * @param text
+ * @param len
+ * @returns {*}
+ */
+function zeroAdjustLength(text, len) {
+  let parts = text.split('-');
+  text = parts[0];
+
+  while (text.length < len) {
+    text = '0' + text;
+  }
+  parts[0] = text;
+  return parts.join('-');
+}
+
+function splitChapterVerse(ref_) {
+  const [chapter, verse] = ref_.split(':');
+  return { chapter, verse };
+}
+
+/**
+ * create a reference where chapter and verse is zero filled to be same width
+ * @param ref
+ * @returns {null|string}
+ */
+function normalizeRef(ref) {
+  let { chapter, verse } = splitChapterVerse(ref);
+
+  if (chapter && verse) {
+    chapter = zeroAdjustLength(chapter, 3);
+    verse = zeroAdjustLength(verse, 3);
+    return `${chapter}_${verse}`;
+  }
+
+  return null;
+}
+
+export function bibleRefSort(a, b) { // sorts by numerical chapter/verse order
+  const akey = normalizeRef(a);
+  const bkey = normalizeRef(b);
+  // eslint-disable-next-line no-nested-ternary
+  return akey < bkey ? -1 : akey > bkey ? 1 : 0;
+}
+
+/**
+ * Helper utility to generate data for the menu organized by group.
  * @param {[]} index - the group index
  * @param {object} data - the group data
  * @param {string} direction - layout direction - default 'ltr'
  * @param {string} progressKey - the key by which the group progress will be measured
  * @param {function} [onProcessItem=null] - an optional callback to perform additional processing on a menu item. This is executed before the `progressKey` is evaluated.
+ * @param {[]} menu - returns the nested menu
  * @param {string} progressKey2 - the secondary key by which the group progress will be measured
- * @returns {[]} the menu data
  */
-export function generateMenuData(
-  index,
-  data,
-  progressKey,
-  direction = 'ltr',
-  onProcessItem = null,
-  progressKey2 = null,
-) {
-  const menu = [];
+function generateMenuByGroup(data, index, direction, onProcessItem, menu, progressKey, progressKey2) {
   const dataKeys = Object.keys(data);
 
   for (let i = 0, len = index.length; i < len; i++) {
@@ -43,7 +81,100 @@ export function generateMenuData(
       });
     }
   }
+}
 
+/**
+ * Helper utility to generate data for the menu organized by reference.
+ * @param {[]} index - the group index
+ * @param {object} data - the group data
+ * @param {string} direction - layout direction - default 'ltr'
+ * @param {string} progressKey - the key by which the group progress will be measured
+ * @param {function} [onProcessItem=null] - an optional callback to perform additional processing on a menu item. This is executed before the `progressKey` is evaluated.
+ * @param {[]} menu - returns the nested menu
+ * @param {string} progressKey2 - the secondary key by which the group progress will be measured
+ */
+function generateMenuByRef(data, index, direction, onProcessItem, menu, progressKey, progressKey2) {
+  let refs = {};
+  let groups = {};
+
+  for (let i = 0, len = index.length; i < len; i++) {
+    const entry = index[i];
+    const id = entry?.id;
+    groups[id] = entry?.name || '';
+    const dataItems = data[id] || [];
+
+    for (const item of dataItems) {
+      const ref = item?.contextId?.reference;
+
+      if (ref) {
+        const refStr = `${ref.chapter}:${ref.verse}`;
+        let children = refs[refStr];
+
+        if (!children) {
+          children = [];
+          refs[refStr] = children;
+        }
+
+        const newItem = {
+          ...item,
+          organizeByRef: refStr,
+        };
+        children.push(newItem);
+      }
+    }
+  }
+
+  const sortedRefs = Object.keys(refs).sort(bibleRefSort);
+
+  for (const ref of sortedRefs) {
+    const children = refs[ref];
+
+    for (let i = 0, len = children.length; i < len; i++) {
+      const entry = children[i];
+      const item = processMenuItem(entry);
+      item.direction = direction;
+      item.groupName = groups[item.groupId] || item.groupId;
+      let processed = onProcessItem ? onProcessItem(item, true) : item;
+      children[i] = processed;
+    }
+
+    menu.push({
+      title: ref,
+      progress: calculateProgress(children, progressKey, progressKey2),
+      id: ref,
+      children,
+      organizeByRef: ref,
+    });
+  }
+}
+
+/**
+ * Helper utility to generate data for the menu.
+ * @param {[]} index - the group index
+ * @param {object} data - the group data
+ * @param {string} direction - layout direction - default 'ltr'
+ * @param {string} progressKey - the key by which the group progress will be measured
+ * @param {function} [onProcessItem=null] - an optional callback to perform additional processing on a menu item. This is executed before the `progressKey` is evaluated.
+ * @param {string} progressKey2 - the secondary key by which the group progress will be measured
+ * @param {boolean} organizeByRef - optional, if true then group by references
+ * @returns {[]} the menu data
+ */
+export function generateMenuData(
+  index,
+  data,
+  progressKey,
+  direction = 'ltr',
+  onProcessItem = null,
+  progressKey2 = null,
+  organizeByRef = false,
+) {
+  const menu = [];
+
+  if (organizeByRef) {
+    generateMenuByRef(data, index, direction, onProcessItem, menu, progressKey, progressKey2);
+  } else {
+    generateMenuByGroup(data, index, direction, onProcessItem, menu, progressKey, progressKey2);
+  }
   return menu;
 }
 
@@ -55,9 +186,15 @@ export function generateMenuData(
  * @param {object} contextId - a context id or group data entry.
  * @param {string} direction - layout direction - default 'ltr'
  * @param {function} [onProcessItem=null] - an optional preprocessor
+ * @param {boolean} organizeByRef - optional, if true then group by references
  * @returns {object}
  */
-export function generateMenuItem(contextId, direction = 'ltr', onProcessItem = null) {
+export function generateMenuItem(
+  contextId,
+  direction = 'ltr',
+  onProcessItem = null,
+  organizeByRef = false,
+) {
   // TRICKY: determine if this is a contextId or group data entry.
   let item;
 
@@ -67,6 +204,15 @@ export function generateMenuItem(contextId, direction = 'ltr', onProcessItem = n
     item = { contextId };
   }
   item.direction = direction;
+
+  if (organizeByRef) {
+    const ref = item?.contextId?.reference;
+
+    if (ref) {
+      const refStr = `${ref.chapter}:${ref.verse}`;
+      item.organizeByRef = refStr;
+    }
+  }
 
   // perform pre-processing
   if (typeof onProcessItem === 'function') {
