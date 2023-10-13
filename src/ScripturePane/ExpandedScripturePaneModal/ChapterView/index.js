@@ -68,7 +68,7 @@ class ChapterView extends Component {
     if (verseNumbers.length > 0) {
       const frontIdx = verseNumbers.indexOf('front');
 
-      if (showTargetUsfm && (frontIdx > 0)) { // move front to top if not there
+      if (frontIdx > 0) { // move front to top of verse list if not there
         const front = verseNumbers[frontIdx];
         verseNumbers.splice(frontIdx);
         verseNumbers.unshift(front);
