@@ -29,10 +29,11 @@ const TranslationHelps = ({
   isShowHelpsExpanded, // is the expanded Translation Helps modal displayed?
   modalTitle, // Title for the expanded helps modal
   translate,
+  direction, // language direction
 }) => {
   if (isShowHelpsSidebar) {
     return (
-      <div className="helps-sash-container">
+      <div className="helps-sash-container" style={{ direction }}>
         <div className="helps-sash-closed" onClick={sidebarToggle}>
           <Glyphicon
             glyph="chevron-right"
@@ -53,12 +54,14 @@ const TranslationHelps = ({
           show={isShowHelpsExpanded}
           onHide={openExpandedHelpsModal}
           title={modalTitle}
-          article={modalArticle || article} />
+          article={modalArticle || article}
+          direction={direction}
+        />
       </div>
     );
   } else {
     return (
-      <div className="helps-sash-closed" onClick={sidebarToggle}>
+      <div className="helps-sash-closed" style={{ direction }} onClick={sidebarToggle}>
         <Glyphicon
           glyph="chevron-left"
           style={{ cursor: 'pointer' }}
@@ -78,12 +81,14 @@ TranslationHelps.propTypes = {
   sidebarToggle: PropTypes.func.isRequired,
   isShowHelpsExpanded: PropTypes.bool.isRequired,
   translate: PropTypes.func.isRequired,
+  direction: PropTypes.oneOf(['ltr', 'rtl']),
 };
 
 TranslationHelps.defaultProps = {
   modalTitle: 'translationHelps',
   article: '',
   modalArticle: '',
+  direction: 'ltr',
 };
 
 export default TranslationHelps;
