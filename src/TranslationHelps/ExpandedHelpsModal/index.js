@@ -41,9 +41,11 @@ const ExpandedHelpsModal = ({
   article,
   classes,
   translate,
+  direction,
 }) => (
   <Dialog
     classes={{ paper: classes.paper }}
+    dir={direction}
     open={show}
     onClose={onHide}
     maxWidth='md'
@@ -59,7 +61,10 @@ const ExpandedHelpsModal = ({
         <Glyphicon glyph="remove" />
       </IconButton>
     </Toolbar>
-    <DialogContent className="dialog-content">
+    <DialogContent
+      className="dialog-content"
+      dir={direction}
+    >
       <div dangerouslySetInnerHTML={{ __html: marked(article) }} />
     </DialogContent>
     <DialogActions disableSpacing className="dialog-actions">
@@ -78,6 +83,9 @@ ExpandedHelpsModal.propTypes = {
   article: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
+  direction: PropTypes.oneOf(['ltr', 'rtl']),
 };
+
+ExpandedHelpsModal.defaultProps = { direction: 'ltr' };
 
 export default withStyles(styles)(ExpandedHelpsModal);
