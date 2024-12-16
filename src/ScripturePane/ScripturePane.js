@@ -34,16 +34,25 @@ function ScripturePane({
   getAvailableScripturePaneSelections,
   onExpandedScripturePaneShow,
   editVerseRef,
+  autoOpenExpandedScripturePane,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
   const [selectedPane, setSelectedPane] = useState({});
+  const [currentAutoOpenExpSpCounter, setCurrentAutoOpenExpSpCounter] = useState(autoOpenExpandedScripturePane);
 
   useEffect(() => {
     if (editVerseRef) { // if verse is to be edited
       openExpandedScripturePane();
     }
   }, [editVerseRef]);
+
+  useEffect(() => {
+    if (currentAutoOpenExpSpCounter && currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
+      openExpandedScripturePane();
+      setCurrentAutoOpenExpSpCounter(autoOpenExpandedScripturePane);
+    }
+  }, [autoOpenExpandedScripturePane]);
 
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
@@ -328,6 +337,7 @@ ScripturePane.propTypes = {
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   onExpandedScripturePaneShow: PropTypes.func, // called when expanded Scripture Pane as shown or hidden
   editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
+  autoOpenExpandedScripturePane: PropTypes.number, // expanded SP is openned if this changes value
 };
 
 /**
