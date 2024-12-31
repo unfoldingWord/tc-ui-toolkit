@@ -48,8 +48,10 @@ function ScripturePane({
   }, [editVerseRef]);
 
   useEffect(() => {
-    if (autoOpenExpandedScripturePane && currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
-      openExpandedScripturePane();
+    if (currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
+      if (autoOpenExpandedScripturePane) { // only show expanded scripture pane if counter is non-zero
+        openExpandedScripturePane();
+      }
       setCurrentAutoOpenExpSpCounter(autoOpenExpandedScripturePane);
     }
   }, [autoOpenExpandedScripturePane]);
