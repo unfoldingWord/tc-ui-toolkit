@@ -48,7 +48,7 @@ function ScripturePane({
   }, [editVerseRef]);
 
   useEffect(() => {
-    if (currentAutoOpenExpSpCounter && currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
+    if (autoOpenExpandedScripturePane && currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
       openExpandedScripturePane();
       setCurrentAutoOpenExpSpCounter(autoOpenExpandedScripturePane);
     }
@@ -247,6 +247,7 @@ function ScripturePane({
         </div>
         <div className="panes-container">
           <Panes
+            autoOpenExpandedScripturePane={autoOpenExpandedScripturePane}
             bibles={bibles}
             contextId={contextId}
             translate={translate}
@@ -357,7 +358,8 @@ function areEqual(prevProps, nextProps) {
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
     deepEqual(prevProps.selections, nextProps.selections) &&
-    (prevProps.editVerseRef === nextProps.editVerseRef);
+    (prevProps.editVerseRef === nextProps.editVerseRef) &&
+    (prevProps.autoOpenExpandedScripturePane === nextProps.autoOpenExpandedScripturePane);
 }
 
 // using React.memo to boost performance by memoizing the result
