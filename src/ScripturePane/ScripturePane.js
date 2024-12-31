@@ -48,7 +48,7 @@ function ScripturePane({
   }, [editVerseRef]);
 
   useEffect(() => {
-    if (currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if verse is to be edited
+    if (currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if changed
       if (autoOpenExpandedScripturePane) { // only show expanded scripture pane if counter is non-zero
         openExpandedScripturePane();
       }
@@ -249,7 +249,6 @@ function ScripturePane({
         </div>
         <div className="panes-container">
           <Panes
-            autoOpenExpandedScripturePane={autoOpenExpandedScripturePane}
             bibles={bibles}
             contextId={contextId}
             translate={translate}
