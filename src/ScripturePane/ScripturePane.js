@@ -34,16 +34,27 @@ function ScripturePane({
   getAvailableScripturePaneSelections,
   onExpandedScripturePaneShow,
   editVerseRef,
+  autoOpenExpandedScripturePane,
 }) {
   const [showExpandedScripturePane, toggleExpandedScripturePane] = useState(false);
   const [showAddPaneModal, toggleAddPaneModal] = useState(false);
   const [selectedPane, setSelectedPane] = useState({});
+  const [currentAutoOpenExpSpCounter, setCurrentAutoOpenExpSpCounter] = useState(autoOpenExpandedScripturePane);
 
   useEffect(() => {
     if (editVerseRef) { // if verse is to be edited
       openExpandedScripturePane();
     }
   }, [editVerseRef]);
+
+  useEffect(() => {
+    if (currentAutoOpenExpSpCounter !== autoOpenExpandedScripturePane) { // if changed
+      if (autoOpenExpandedScripturePane) { // only show expanded scripture pane if counter is non-zero
+        openExpandedScripturePane();
+      }
+      setCurrentAutoOpenExpSpCounter(autoOpenExpandedScripturePane);
+    }
+  }, [autoOpenExpandedScripturePane]);
 
   function openExpandedScripturePane() {
     toggleExpandedScripturePane(true);
@@ -328,6 +339,7 @@ ScripturePane.propTypes = {
   getAvailableScripturePaneSelections: PropTypes.func.isRequired,
   onExpandedScripturePaneShow: PropTypes.func, // called when expanded Scripture Pane as shown or hidden
   editVerseRef: PropTypes.string, // if given then open verse for edit (single verse)
+  autoOpenExpandedScripturePane: PropTypes.number, // expanded SP is openned if this changes value
 };
 
 /**
@@ -347,7 +359,8 @@ function areEqual(prevProps, nextProps) {
     deepEqual(prevProps.projectDetailsReducer, nextProps.projectDetailsReducer) &&
     prevProps.expandedScripturePaneTitle === prevProps.expandedScripturePaneTitle &&
     deepEqual(prevProps.selections, nextProps.selections) &&
-    (prevProps.editVerseRef === nextProps.editVerseRef);
+    (prevProps.editVerseRef === nextProps.editVerseRef) &&
+    (prevProps.autoOpenExpandedScripturePane === nextProps.autoOpenExpandedScripturePane);
 }
 
 // using React.memo to boost performance by memoizing the result
