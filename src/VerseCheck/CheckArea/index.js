@@ -1,3 +1,4 @@
+import isEqual from 'deep-equal';
 import React from 'react';
 import PropTypes from 'prop-types';
 // components
@@ -39,10 +40,34 @@ const CheckArea = ({
   changeSelectionsInLocalState,
   getSuggestions, // if defined will call to get suggestions
 }) => {
+  const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
-  const suggestions = getSuggestions && getSuggestions(contextId);
-  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestions`, suggestions);
+  const bestSuggestions = suggestionsEnabled && getSuggestions && getSuggestions({
+    bookDetails,
+    contextId,
+    targetLanguageDetails,
+    verseText,
+  });
+  const bestSuggestion = bestSuggestions && bestSuggestions.length && bestSuggestions[0] || false;
+
+  if (mode === 'select' && bestSuggestion && bestSuggestion.confidence && bestSuggestion.selections && bestSuggestion.selections.length) {
+    if (newSelections && newSelections.length === 0) {
+      if (!isEqual(bestSuggestion.selections, newSelections)) {
+        changeSelectionsInLocalState(bestSuggestion.selections);
+      }
+    }
+  }
+
+  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, { bestSuggestions, newSelections });
+
+  function handleSuggestionsCheckbox(e) {
+    const checked = !!e.target.checked;
+
+    if (suggestionsEnabled !== checked) {
+      setSuggestionsEnabled(checked);
+    }
+  }
 
   switch (mode) {
   case 'edit':
@@ -155,13 +180,29 @@ const CheckArea = ({
         />
       }
       <div style={{
-        borderLeft: '1px solid var(--border-color)', flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
+        borderLeft: '1px solid var(--border-color)',
+        flex: 1,
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-        {suggestions &&
-          <>
-            <div>'Suggestions'</div>
-            <div>{suggestions}</div>
-          </>
+        {getSuggestions &&
+          <div>
+            <label>
+              <input
+                type='checkbox'
+                checked={suggestionsEnabled}
+                onChange={handleSuggestionsCheckbox}
+              />
+              {' Enable Suggestions'}
+            </label>
+
+            {bestSuggestion &&
+              <div>{'Received Suggestions: ' + JSON.stringify(bestSuggestion)}</div>
+            }
+          </div>
         }
         {modeArea}
       </div>
@@ -199,6 +240,8 @@ CheckArea.propTypes = {
   targetLanguageDetails: PropTypes.object.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   getSuggestions: PropTypes.func,
+  suggestionsEnabled: PropTypes.bool.isRequired,
+  setSuggestionsEnabled: PropTypes.func.isRequired,
 };
 
 export default CheckArea;
