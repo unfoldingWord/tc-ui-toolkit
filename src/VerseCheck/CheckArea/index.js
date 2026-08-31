@@ -37,9 +37,12 @@ const CheckArea = ({
   checkIfCommentChanged,
   targetLanguageDetails,
   changeSelectionsInLocalState,
+  getSuggestions, // if defined will call to get suggestions
 }) => {
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
+  const suggestions = getSuggestions && getSuggestions(contextId);
+  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestions`, suggestions);
 
   switch (mode) {
   case 'edit':
@@ -154,6 +157,12 @@ const CheckArea = ({
       <div style={{
         borderLeft: '1px solid var(--border-color)', flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center',
       }}>
+        {suggestions &&
+          <>
+            <div>'Suggestions'</div>
+            <div>{suggestions}</div>
+          </>
+        }
         {modeArea}
       </div>
     </div>
@@ -189,6 +198,7 @@ CheckArea.propTypes = {
   checkIfCommentChanged: PropTypes.func.isRequired,
   targetLanguageDetails: PropTypes.object.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
+  getSuggestions: PropTypes.func,
 };
 
 export default CheckArea;

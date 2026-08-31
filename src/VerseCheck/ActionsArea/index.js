@@ -234,7 +234,9 @@ const ConfirmSelectionArea = ({
     <div className='selection-actions-area'>
       <div className='flex-row'>
         <FormControlLabel
+          // Positions the label/control pair using Material-UI's radio-group style value.
           value="end"
+          // Renders the checkbox that controls the "no selection needed" state.
           control={
             <Checkbox
               checked={localNothingToSelect}
@@ -250,7 +252,9 @@ const ConfirmSelectionArea = ({
               checkedIcon={<CheckBoxIcon style={{ fontSize: '24px' }}/>}
             />
           }
+          // Displays the translated text next to the checkbox.
           label={translate('no_selection_needed')}
+          // Applies custom styles to the wrapper and label text.
           classes={{
             root: classes.formControl,
             label: classes.label,

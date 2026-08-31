@@ -60,7 +60,10 @@ class VerseCheck extends Component {
       checkIfCommentChanged,
       validateSelections,
       manifest,
+      getSuggestions, // if defined will call to get suggestions
     } = this.props;
+    console.log(`VerseCheck: getSuggestions=${getSuggestions}`);
+
     const targetLanguageFont = manifest && manifest.projectFont || '';
     let titleText;
     let saveArea;
@@ -137,6 +140,7 @@ class VerseCheck extends Component {
               targetLanguageDetails={targetLanguageDetails}
               checkIfCommentChanged={checkIfCommentChanged}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
+              getSuggestions={getSuggestions}
             />
             <ActionsArea
               mode={mode}
@@ -222,6 +226,7 @@ VerseCheck.propTypes = {
   handleTagsCheckbox: PropTypes.func.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   manifest: PropTypes.object,
+  getSuggestions: PropTypes.func,
 };
 
 VerseCheck.defaultProps = {
