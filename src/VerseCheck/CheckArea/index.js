@@ -43,23 +43,24 @@ const CheckArea = ({
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
-  const bestSuggestions = suggestionsEnabled && getSuggestions && getSuggestions({
+  const _suggestions = suggestionsEnabled && getSuggestions?.({
     bookDetails,
     contextId,
     targetLanguageDetails,
     verseText,
   });
-  const bestSuggestion = bestSuggestions && bestSuggestions.length && bestSuggestions[0] || false;
+  // TRICKY - expects the _suggestions to be sorted with the best first
+  const bestSuggestion = _suggestions?.length && _suggestions[0] || false;
 
-  if (mode === 'select' && bestSuggestion && bestSuggestion.confidence && bestSuggestion.selections && bestSuggestion.selections.length) {
-    if (newSelections && newSelections.length === 0) {
+  if (mode === 'select' && bestSuggestion?.confidence && bestSuggestion?.selections?.length) {
+    if (newSelections?.length === 0) {
       if (!isEqual(bestSuggestion.selections, newSelections)) {
         changeSelectionsInLocalState(bestSuggestion.selections);
       }
     }
   }
 
-  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, { bestSuggestions, newSelections });
+  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, { bestSuggestions: _suggestions, newSelections });
 
   function handleSuggestionsCheckbox(e) {
     const checked = !!e.target.checked;
