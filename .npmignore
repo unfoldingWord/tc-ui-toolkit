@@ -5,3 +5,7 @@ testSetUp
 tc-ui-toolkit-test
 src
 .vscode
+coverage
+dist
+.git
+*.tgz

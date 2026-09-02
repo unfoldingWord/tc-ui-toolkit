@@ -46,9 +46,9 @@ const CheckArea = ({
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
   React.useEffect(() => {
-    const noNewSelections = !newSelections?.length;
+    const haveNewSelections = newSelections && newSelections.length;
 
-    if (suggestionsEnabled && noNewSelections && getSuggestions) {
+    if (suggestionsEnabled && !haveNewSelections && getSuggestions) {
       getSuggestions({
         alignedGLText,
         bookDetails,
