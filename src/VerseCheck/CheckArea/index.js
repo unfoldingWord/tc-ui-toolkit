@@ -9,6 +9,44 @@ import EditVerseArea from '../EditVerseArea';
 import CommentArea from '../CommentArea';
 import './CheckArea.styles.css';
 
+let counter = 0;
+
+/**
+ * Renders the check area for a verse: the selection/default area plus the mode-specific
+ * area (edit, comment, select, or default instructions), and an optional suggestions panel
+ * when `getSuggestions` is provided.
+ * @param {object} props
+ * @param {string} props.mode - current check mode ('edit', 'comment', 'select', or 'default')
+ * @param {array} props.tags
+ * @param {string} props.comment
+ * @param {string} props.verseText
+ * @param {function} props.translate
+ * @param {object} props.contextId
+ * @param {array} props.selections
+ * @param {boolean} props.invalidated
+ * @param {object} props.targetBible
+ * @param {object} props.bookDetails
+ * @param {array} props.newSelections
+ * @param {string} props.alignedGLText
+ * @param {function} props.handleComment
+ * @param {object} props.toolsSettings
+ * @param {boolean} props.isVerseChanged
+ * @param {boolean} props.nothingToSelect
+ * @param {function} props.openAlertDialog
+ * @param {function} props.handleEditVerse
+ * @param {function} props.setToolSettings
+ * @param {number} props.maximumSelections
+ * @param {function} props.handleTagsCheckbox
+ * @param {function} props.validateSelections
+ * @param {string} props.targetLanguageFont
+ * @param {string} props.unfilteredVerseText
+ * @param {function} props.checkIfVerseChanged
+ * @param {function} props.checkIfCommentChanged
+ * @param {object} props.targetLanguageDetails
+ * @param {function} props.changeSelectionsInLocalState
+ * @param {function} [props.getSuggestions] - if defined, called to fetch selection suggestions
+ * @returns {JSX.Element}
+ */
 const CheckArea = ({
   mode,
   tags,
@@ -46,6 +84,12 @@ const CheckArea = ({
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
   React.useEffect(() => {
+    setBestSuggestion(null);
+  }, [
+    contextId,
+  ]);
+
+  React.useEffect(() => {
     const haveNewSelections = newSelections && newSelections.length;
 
     if (suggestionsEnabled && !haveNewSelections && getSuggestions) {
@@ -80,6 +124,10 @@ const CheckArea = ({
     newSelections,
   ]);
 
+  /**
+   * Updates suggestionsEnabled state from the "Enable Suggestions" checkbox.
+   * @param {object} e - checkbox change event
+   */
   function handleSuggestionsCheckbox(e) {
     const checked = !!e.target.checked;
 
@@ -219,7 +267,7 @@ const CheckArea = ({
             </label>
 
             {bestSuggestion &&
-              <div>{'Received Suggestions: ' + JSON.stringify(bestSuggestion)}</div>
+              <div>{`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}</div>
             }
           </div>
         }
