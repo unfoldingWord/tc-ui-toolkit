@@ -41,26 +41,44 @@ const CheckArea = ({
   getSuggestions, // if defined will call to get suggestions
 }) => {
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
+  const [bestSuggestion, setBestSuggestion] = React.useState(false);
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
-  const _suggestions = suggestionsEnabled && getSuggestions?.({
-    bookDetails,
-    contextId,
-    targetLanguageDetails,
-    verseText,
-  });
-  // TRICKY - expects the _suggestions to be sorted with the best first
-  const bestSuggestion = _suggestions?.length && _suggestions[0] || false;
 
-  if (mode === 'select' && bestSuggestion?.confidence && bestSuggestion?.selections?.length) {
-    if (newSelections?.length === 0) {
-      if (!isEqual(bestSuggestion.selections, newSelections)) {
-        changeSelectionsInLocalState(bestSuggestion.selections);
-      }
+  React.useEffect(() => {
+    const noNewSelections = !newSelections?.length;
+
+    if (suggestionsEnabled && noNewSelections && getSuggestions) {
+      getSuggestions({
+        alignedGLText,
+        bookDetails,
+        contextId,
+        targetLanguageDetails,
+        verseText,
+      }).then(_suggestions => {
+        // TRICKY - expects the _suggestions to be sorted with the best first
+        const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
+        setBestSuggestion(_bestSuggestion);
+
+        if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+          if (newSelections?.length === 0) {
+            if (!isEqual(_bestSuggestion.selections, newSelections)) {
+              changeSelectionsInLocalState(_bestSuggestion.selections);
+            }
+          }
+        }
+
+        console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+          bestSuggestions: _suggestions,
+          newSelections,
+        });
+      });
     }
-  }
-
-  console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, { bestSuggestions: _suggestions, newSelections });
+  }, [
+    contextId,
+    suggestionsEnabled,
+    newSelections,
+  ]);
 
   function handleSuggestionsCheckbox(e) {
     const checked = !!e.target.checked;
