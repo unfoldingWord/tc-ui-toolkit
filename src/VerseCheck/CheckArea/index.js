@@ -80,6 +80,9 @@ const CheckArea = ({
 }) => {
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [bestSuggestion, setBestSuggestion] = React.useState(false);
+  const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
+  const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
+
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
@@ -97,6 +100,8 @@ const CheckArea = ({
         alignedGLText,
         bookDetails,
         contextId,
+        llmSuggestionsEnabled,
+        llmQueryUrl,
         targetLanguageDetails,
         verseText,
       }).then(_suggestions => {
@@ -134,6 +139,26 @@ const CheckArea = ({
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
     }
+  }
+
+  /**
+   * Updates llmSuggestionsEnabled state from the "LLM Suggestions" checkbox.
+   * @param {object} e - checkbox change event
+   */
+  function handleLlmSuggestionsCheckbox(e) {
+    const checked = !!e.target.checked;
+
+    if (llmSuggestionsEnabled !== checked) {
+      setLlmSuggestionsEnabled(checked);
+    }
+  }
+
+  /**
+   * Updates llmQueryUrl state from the LLM query URL input.
+   * @param {object} e - input change event
+   */
+  function handleLlmQueryUrlChange(e) {
+    setLlmQueryUrl(e.target.value);
   }
 
   switch (mode) {
@@ -256,7 +281,12 @@ const CheckArea = ({
         alignItems: 'center',
       }}>
         {getSuggestions &&
-          <div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '12px',
+          }}>
             <label>
               <input
                 type='checkbox'
@@ -266,8 +296,26 @@ const CheckArea = ({
               {' Enable Suggestions'}
             </label>
 
+            <label>
+              <input
+                type='checkbox'
+                checked={llmSuggestionsEnabled}
+                onChange={handleLlmSuggestionsCheckbox}
+              />
+              {' LLM Suggestions'}
+            </label>
+
+            <input
+              type='text'
+              value={llmQueryUrl}
+              onChange={handleLlmQueryUrlChange}
+              placeholder='LLM query URL'
+            />
+
             {bestSuggestion &&
-              <div>{`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}</div>
+              <div style={{ flexBasis: '100%' }}>
+                {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
+              </div>
             }
           </div>
         }

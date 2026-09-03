@@ -62,7 +62,6 @@ class VerseCheck extends Component {
       manifest,
       getSuggestions, // if defined will call to get suggestions
     } = this.props;
-    // console.log(`VerseCheck: getSuggestions=${getSuggestions}`);
 
     const targetLanguageFont = manifest && manifest.projectFont || '';
     let titleText;
