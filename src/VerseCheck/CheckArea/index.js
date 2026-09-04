@@ -77,14 +77,34 @@ const CheckArea = ({
   targetLanguageDetails,
   changeSelectionsInLocalState,
   getSuggestions, // if defined will call to get suggestions
+  saveSattingsForChecking, // if defined will call save latest settings
+  readSettingsForChecking, // if defined will get latest settings
 }) => {
-  const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [bestSuggestion, setBestSuggestion] = React.useState(false);
+  const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
+  const [suggestionsInit, setSuggestionsInit] = React.useState(false);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
+
+  React.useEffect(() => {
+    if (!suggestionsInit) {
+      const data = readSettingsForChecking?.();
+      console.log(data);
+
+      if (data) {
+        console.log('restoring original settings', data);
+        setSuggestionsEnabled(data.suggestionsEnabled);
+        setLlmSuggestionsEnabled(data.llmSuggestionsEnabled);
+        setLlmQueryUrl(data.llmQueryUrl);
+      }
+      setSuggestionsInit(true);
+    }
+  }, [
+    suggestionsInit,
+  ]);
 
   React.useEffect(() => {
     setBestSuggestion(null);
@@ -92,36 +112,52 @@ const CheckArea = ({
     contextId,
   ]);
 
+  function saveSattingsForChecking_(newData = {}) {
+    const data = {
+      suggestionsEnabled,
+      llmSuggestionsEnabled,
+      llmQueryUrl,
+      ...newData,
+    };
+
+    // eslint-disable-next-line no-unused-expressions
+    saveSattingsForChecking?.(data);
+  }
+
+  function fetchSelectionSuggestions() {
+    getSuggestions({
+      alignedGLText,
+      bookDetails,
+      contextId,
+      llmSuggestionsEnabled,
+      llmQueryUrl,
+      targetLanguageDetails,
+      verseText,
+    }).then(_suggestions => {
+      // TRICKY - expects the _suggestions to be sorted with the best first
+      const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
+      setBestSuggestion(_bestSuggestion);
+
+      if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+        if (newSelections?.length === 0) {
+          if (!isEqual(_bestSuggestion.selections, newSelections)) {
+            changeSelectionsInLocalState(_bestSuggestion.selections);
+          }
+        }
+      }
+
+      console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+        bestSuggestions: _suggestions,
+        newSelections,
+      });
+    });
+  }
+
   React.useEffect(() => {
     const haveNewSelections = newSelections && newSelections.length;
 
     if (suggestionsEnabled && !haveNewSelections && getSuggestions) {
-      getSuggestions({
-        alignedGLText,
-        bookDetails,
-        contextId,
-        llmSuggestionsEnabled,
-        llmQueryUrl,
-        targetLanguageDetails,
-        verseText,
-      }).then(_suggestions => {
-        // TRICKY - expects the _suggestions to be sorted with the best first
-        const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
-        setBestSuggestion(_bestSuggestion);
-
-        if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-          if (newSelections?.length === 0) {
-            if (!isEqual(_bestSuggestion.selections, newSelections)) {
-              changeSelectionsInLocalState(_bestSuggestion.selections);
-            }
-          }
-        }
-
-        console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
-          bestSuggestions: _suggestions,
-          newSelections,
-        });
-      });
+      fetchSelectionSuggestions();
     }
   }, [
     contextId,
@@ -138,6 +174,7 @@ const CheckArea = ({
 
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
+      saveSattingsForChecking_({ suggestionsEnabled: checked });
     }
   }
 
@@ -150,6 +187,7 @@ const CheckArea = ({
 
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
+      saveSattingsForChecking_({ llmSuggestionsEnabled: checked });
     }
   }
 
@@ -158,7 +196,12 @@ const CheckArea = ({
    * @param {object} e - input change event
    */
   function handleLlmQueryUrlChange(e) {
-    setLlmQueryUrl(e.target.value);
+    const value = e.target.value;
+
+    if (value !== llmQueryUrl) {
+      setLlmQueryUrl(value);
+      saveSattingsForChecking_({ llmQueryUrl: value });
+    }
   }
 
   switch (mode) {
@@ -357,6 +400,8 @@ CheckArea.propTypes = {
   getSuggestions: PropTypes.func,
   suggestionsEnabled: PropTypes.bool.isRequired,
   setSuggestionsEnabled: PropTypes.func.isRequired,
+  saveSattingsForChecking: PropTypes.func,
+  readSettingsForChecking: PropTypes.func,
 };
 
 export default CheckArea;

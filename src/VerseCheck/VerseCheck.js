@@ -61,6 +61,8 @@ class VerseCheck extends Component {
       validateSelections,
       manifest,
       getSuggestions, // if defined will call to get suggestions
+      saveSattingsForChecking, // if defined will call save latest settings
+      readSettingsForChecking, // if defined will get latest settings
     } = this.props;
 
     const targetLanguageFont = manifest && manifest.projectFont || '';
@@ -140,6 +142,8 @@ class VerseCheck extends Component {
               checkIfCommentChanged={checkIfCommentChanged}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
               getSuggestions={getSuggestions}
+              saveSattingsForChecking={saveSattingsForChecking}
+              readSettingsForChecking={readSettingsForChecking}
             />
             <ActionsArea
               mode={mode}
@@ -226,6 +230,8 @@ VerseCheck.propTypes = {
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   manifest: PropTypes.object,
   getSuggestions: PropTypes.func,
+  saveSattingsForChecking: PropTypes.func,
+  readSettingsForChecking: PropTypes.func,
 };
 
 VerseCheck.defaultProps = {
