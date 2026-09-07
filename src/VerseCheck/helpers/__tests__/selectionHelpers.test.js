@@ -273,6 +273,25 @@ describe('selectionHelpers.optimizeSelections', () => {
     // then
     expect(selections).toEqual(expectedSelections);
   });
+
+  // Supongan que yo tengo el don de la profecía y entiendo todas las verdades escondidas y el conocimiento, y que yo tengo toda la fe como para remover montañas. Pero si yo no tengo amor, no soy nada.
+  it('should handle embedded words', () => {
+    // given
+    const string = 'Supongan que yo tengo el don de la profecía y entiendo todas las verdades escondidas y el conocimiento, y que yo tengo toda la fe como para remover montañas. Pero si yo no tengo amor, no soy nada.';
+    const selections_ = [
+      { text: 'fe', occurrence: 1, occurrences: 1 },
+    ];
+    const expectedSelections = [
+      { text: 'fe', occurrence: 1, occurrences: 1 },
+    ];
+
+    // when
+    const selections = optimizeSelections(string, _.cloneDeep(selections_));
+
+    // then
+    expect(selections).toEqual(expectedSelections);
+  });
+
 });
 
 describe('selectionHelpers.unicodeTrim', () => {
