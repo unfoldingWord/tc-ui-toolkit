@@ -144,9 +144,11 @@ exports[`VerseCheck component: Integrated View test - edit mode 1`] = `
         <div
           style={
             Object {
+              "alignItems": "center",
               "borderLeft": "1px solid var(--border-color)",
               "display": "flex",
               "flex": 1,
+              "flexDirection": "column",
               "justifyContent": "center",
               "overflowY": "auto",
             }
@@ -772,9 +774,11 @@ exports[`VerseCheck component: Integrated View test 1`] = `
         <div
           style={
             Object {
+              "alignItems": "center",
               "borderLeft": "1px solid var(--border-color)",
               "display": "flex",
               "flex": 1,
+              "flexDirection": "column",
               "justifyContent": "center",
               "overflowY": "auto",
             }
@@ -1149,9 +1153,11 @@ exports[`VerseCheck component: Integrated View test with default and invalidated
         <div
           style={
             Object {
+              "alignItems": "center",
               "borderLeft": "1px solid var(--border-color)",
               "display": "flex",
               "flex": 1,
+              "flexDirection": "column",
               "justifyContent": "center",
               "overflowY": "auto",
             }
@@ -1524,9 +1530,11 @@ exports[`VerseCheck component: Integrated View test with invalidated 1`] = `
         <div
           style={
             Object {
+              "alignItems": "center",
               "borderLeft": "1px solid var(--border-color)",
               "display": "flex",
               "flex": 1,
+              "flexDirection": "column",
               "justifyContent": "center",
               "overflowY": "auto",
             }
@@ -1900,9 +1908,11 @@ exports[`VerseCheck component: Integrated View test with verseEdit 1`] = `
         <div
           style={
             Object {
+              "alignItems": "center",
               "borderLeft": "1px solid var(--border-color)",
               "display": "flex",
               "flex": 1,
+              "flexDirection": "column",
               "justifyContent": "center",
               "overflowY": "auto",
             }

@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import xRegExp from 'xregexp';
+
 /**
  * @description Function that count occurrences of a substring in a string
  * @param {String} string - The string to search in
@@ -25,6 +27,63 @@ export const occurrencesInString = (string, subString) => {
   }
   return occurrences;
 };
+
+/**
+ * @description Function that checks if a character is a word character (letter, number, mark, or underscore)
+ * @param {String} character - The character to test
+ * @returns {Boolean} - true if the character is a word character, false otherwise
+ */
+const isWordCharacter = character => xRegExp('^[\\p{L}\\p{N}\\p{M}_]$').test(character);
+
+/**
+ * @description Function that checks if a substring match at a given index is a complete word match
+ * @param {String} text - The text to search in
+ * @param {String} word - The word to check for complete match
+ * @param {Number} index - The index position where the word was found
+ * @returns {Boolean} - true if the match is a complete word (not part of a larger word), false otherwise
+ */
+export const isCompleteWordMatch = (text, word, index) => {
+  const characterBefore = text[index - 1];
+  const characterAfter = text[index + word.length];
+
+  return (!characterBefore || !isWordCharacter(characterBefore)) &&
+    (!characterAfter || !isWordCharacter(characterAfter));
+};
+
+/**
+ * @description Function that counts occurrences of a complete word in a string
+ * @param {String} string - The string to search in
+ * @param {String} subString - The substring to search for as a complete word
+ * @param {Boolean} fallback - If true, falls back to counting all occurrences (not just complete words)
+ * @returns {Number} - The count of complete word occurrences
+ */
+export const occurrencesOfWordInString = (string, subString, fallback = false) => {
+  if (subString.length <= 0) {
+    return 0;
+  }
+
+  var occurrences = 0, position = 0, step = subString.length;
+
+  while (position < string.length) {
+    position = string.indexOf(subString, position);
+
+    if (position === -1) {
+      break;
+    }
+
+    if (!isCompleteWordMatch(string, subString, position)) {
+      position += subString.length;
+      continue;
+    }
+
+    ++occurrences;
+    position += step;
+  }
+
+  return occurrences;
+};
+
+
 /**
  * @description - Function that normalizes a string including whitespace
  * @param {String} string - the string to normalize

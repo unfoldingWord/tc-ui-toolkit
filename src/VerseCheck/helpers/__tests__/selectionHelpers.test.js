@@ -32,8 +32,7 @@ describe('selectionHelpers.optimizeSelections', () => {
       { text: '  random quote', occurrence: 1, occurrences: 1 },
     ];
     const expectedSelections = [
-      { text: 'is a', occurrence: 1, occurrences: 1 },
-      { text: 'random quote', occurrence: 2, occurrences: 2 },
+      { text: 'is a random quote', occurrence: 1, occurrences: 1 },
     ];
 
     // when
@@ -124,7 +123,7 @@ describe('selectionHelpers.optimizeSelections', () => {
       { text: ' a ', occurrence: 1, occurrences: 1 },
     ];
     const expectedSelections = [
-      { text: 'a', occurrence: 2, occurrences: 5 },
+      { text: 'a', occurrence: 1, occurrences: 1 },
     ];
 
     // when
@@ -141,7 +140,7 @@ describe('selectionHelpers.optimizeSelections', () => {
       { text: ' a', occurrence: 1, occurrences: 1 },
     ];
     const expectedSelections = [
-      { text: 'a', occurrence: 2, occurrences: 5 },
+      { text: 'a', occurrence: 1, occurrences: 1 },
     ];
 
     // when
@@ -155,10 +154,10 @@ describe('selectionHelpers.optimizeSelections', () => {
     // given
     const string = 'And everyone who speaka a word against the Son of Man, it will be forgiven him, ';
     const selections_ = [
-      { text: 'a ', occurrence: 2, occurrences: 2 },
+      { text: 'a ', occurrence: 1, occurrences: 2 },
     ];
     const expectedSelections = [
-      { text: 'a', occurrence: 3, occurrences: 6 },
+      { text: 'a', occurrence: 1, occurrences: 1 },
     ];
 
     // when
@@ -173,10 +172,10 @@ describe('selectionHelpers.optimizeSelections', () => {
     const SPACES = ZERO_WIDTH_JOINER + ZERO_WIDTH_SPACE + ZERO_WIDTH_NO_BREAK_SPACE + ' ';
     const string = 'And everyone who speaka' + SPACES + 'a' + SPACES + 'word against the Son of Man, it will be forgiven him, ';
     const selections_ = [
-      { text: 'a' + SPACES, occurrence: 2, occurrences: 2 },
+      { text: 'a' + SPACES, occurrence: 1, occurrences: 2 },
     ];
     const expectedSelections = [
-      { text: 'a', occurrence: 3, occurrences: 6 },
+      { text: 'a', occurrence: 1, occurrences: 1 },
     ];
 
     // when
@@ -194,7 +193,7 @@ describe('selectionHelpers.optimizeSelections', () => {
       { text: SPACES + 'a' + SPACES, occurrence: 1, occurrences: 2 },
     ];
     const expectedSelections = [
-      { text: 'a', occurrence: 3, occurrences: 6 },
+      { text: 'a', occurrence: 1, occurrences: 1 },
     ];
 
     // when

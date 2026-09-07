@@ -58,15 +58,40 @@ export const selectionsToRanges = (string, selections) => {
   var ranges = []; // response
 
   selections.forEach( selection => {
-    if (string && string.includes(selection.text)) { // conditions to prevent errors
-      const splitArray = string.split(selection.text); // split the string to get the text between occurrences
-      const beforeSelection = splitArray.slice(0,selection.occurrence).join(selection.text); // get the text before the selection to handle multiple occurrences
-      const start = beforeSelection.length; // the start position happens at the length of the string that comes before it
-      const end = start + selection.text.length - 1; // the end position happens at the end of the selection text, but length doesn't account for 0 based position start
-      const range = [start,end]; // new range
-      ranges.push(range); // add the new range
+    const trimmedText = unicodeTrim(selection.text);
+
+    if (string && string.includes(trimmedText)) { // conditions to prevent errors
+      let occurrence = 0;
+      let start = string.indexOf(trimmedText);
+      let found = false;
+
+      while (start !== -1) {
+        if (stringHelpers.isCompleteWordMatch(string, trimmedText, start)) {
+          occurrence++;
+
+          if (occurrence === selection.occurrence) {
+            const end = start + trimmedText.length - 1; // the end position happens at the end of the selection text, but length doesn't account for 0 based position start
+            const range = [start, end]; // new range
+            ranges.push(range); // add the new range
+            found = true;
+            break;
+          }
+        }
+
+        start = string.indexOf(trimmedText, start + trimmedText.length);
+      }
+
+      if (!found) { // TRICKY -- if whole word match not found, fall back to incomplete matching
+        const splitArray = string.split(trimmedText); // split the string to get the text between occurrences
+        const beforeSelection = splitArray.slice(0, selection.occurrence).join(trimmedText); // get the text before the selection to handle multiple occurrences
+        start = beforeSelection.length; // the start position happens at the length of the string that comes before it
+        const end = start + trimmedText.length - 1; // the end position happens at the end of the selection text, but length doesn't account for 0 based position start
+        const range = [start, end]; // new range
+        ranges.push(range); // add the new range
+      }
     }
   });
+
   return ranges;
 };
 
@@ -143,9 +168,16 @@ export const rangesToSelections = (string, ranges) => {
     const length = end - start + 1; // get the length of the sub string
     const subString = string.substr(start, length); // get text of the sub string
     const beforeText = string.substr(0, start); // get the string prior to the range
-    const beforeMatches = stringHelpers.occurrencesInString(beforeText, subString); // get occurrences prior to range
-    const occurrence = beforeMatches + 1; // get number of this occurrence
-    const occurrences = stringHelpers.occurrencesInString(string, subString); // get occurrences in string
+    let beforeMatches = stringHelpers.occurrencesOfWordInString(beforeText, subString); // get occurrences prior to range
+    let occurrence = beforeMatches + 1; // get number of this occurrence
+    let occurrences = stringHelpers.occurrencesOfWordInString(string, subString); // get occurrences in string
+
+    if (!occurrences) {
+      beforeMatches = stringHelpers.occurrencesInString(beforeText, subString); // get occurrences prior to range
+      occurrence = beforeMatches + 1; // get number of this occurrence
+      occurrences = stringHelpers.occurrencesInString(string, subString); // get occurrences in string
+    }
+
     const selection = {
       text: subString,
       occurrence: occurrence,
