@@ -89,6 +89,7 @@ const CheckArea = ({
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
+  // do initialization of settings
   React.useEffect(() => {
     if (!suggestionsInit) {
       const data = readSettingsForChecking?.();
@@ -112,6 +113,10 @@ const CheckArea = ({
     contextId,
   ]);
 
+  /**
+   * Saves the current checking settings (suggestions and LLM configuration).
+   * @param {object} newData - Optional partial settings to merge with current state
+   */
   function saveSattingsForChecking_(newData = {}) {
     const data = {
       suggestionsEnabled,
@@ -124,44 +129,49 @@ const CheckArea = ({
     saveSattingsForChecking?.(data);
   }
 
+  /**
+   * Fetches selection suggestions from the getSuggestions API and updates the best suggestion.
+   * If in 'select' mode with no current selections, automatically applies the best suggestion.
+   */
   function fetchSelectionSuggestions() {
-    getSuggestions({
-      alignedGLText,
-      bookDetails,
-      contextId,
-      llmSuggestionsEnabled,
-      llmQueryUrl,
-      targetLanguageDetails,
-      verseText,
-    }).then(_suggestions => {
-      // TRICKY - expects the _suggestions to be sorted with the best first
-      const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
-      setBestSuggestion(_bestSuggestion);
+    const alreadyHaveNewSelections = newSelections && newSelections.length;
 
-      if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-        if (newSelections?.length === 0) {
-          if (!isEqual(_bestSuggestion.selections, newSelections)) {
-            changeSelectionsInLocalState(_bestSuggestion.selections);
+    if (suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
+      getSuggestions({
+        alignedGLText,
+        bookDetails,
+        contextId,
+        llmSuggestionsEnabled,
+        llmQueryUrl,
+        targetLanguageDetails,
+        verseText,
+      }).then(_suggestions => {
+        // TRICKY - expects the _suggestions to be sorted with the best first
+        const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
+        setBestSuggestion(_bestSuggestion);
+
+        if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+          if (newSelections?.length === 0) {
+            if (!isEqual(_bestSuggestion.selections, newSelections)) {
+              changeSelectionsInLocalState(_bestSuggestion.selections);
+            }
           }
         }
-      }
 
-      console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
-        bestSuggestions: _suggestions,
-        newSelections,
+        console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+          bestSuggestions: _suggestions,
+          newSelections,
+        });
       });
-    });
+    }
   }
 
   React.useEffect(() => {
-    const haveNewSelections = newSelections && newSelections.length;
-
-    if (suggestionsEnabled && !haveNewSelections && getSuggestions) {
-      fetchSelectionSuggestions();
-    }
+    fetchSelectionSuggestions();
   }, [
     contextId,
     suggestionsEnabled,
+    llmSuggestionsEnabled,
     newSelections,
   ]);
 
