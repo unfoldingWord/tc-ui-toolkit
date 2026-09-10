@@ -79,12 +79,15 @@ const CheckArea = ({
   getSuggestions, // if defined will call to get suggestions
   saveSattingsForChecking, // if defined will call save latest settings
   readSettingsForChecking, // if defined will get latest settings
+  getModelsForChecking, // if defined will fetch available models
 }) => {
   const [bestSuggestion, setBestSuggestion] = React.useState(false);
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
+  const [availableModels, setAvailableModels] = React.useState(null);
+  const [currentModel, setCurrentModel] = React.useState(null);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
@@ -100,8 +103,26 @@ const CheckArea = ({
         setSuggestionsEnabled(data.suggestionsEnabled);
         setLlmSuggestionsEnabled(data.llmSuggestionsEnabled);
         setLlmQueryUrl(data.llmQueryUrl);
+        setCurrentModel(data.currentModel || '');
       }
-      setSuggestionsInit(true);
+
+      if (getModelsForChecking) {
+        getModelsForChecking().then(models => {
+          const _availableModels = models || [];
+
+          setAvailableModels(_availableModels);
+
+          if (!currentModel && _availableModels.length) {
+            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0];
+
+            setCurrentModel(defaultModel);
+            saveSattingsForChecking_({ currentModel: defaultModel });
+            setSuggestionsInit(true);
+          }
+        });
+      } else {
+        setSuggestionsInit(true);
+      }
     }
   }, [
     suggestionsInit,
@@ -122,6 +143,7 @@ const CheckArea = ({
       suggestionsEnabled,
       llmSuggestionsEnabled,
       llmQueryUrl,
+      currentModel,
       ...newData,
     };
 
@@ -136,11 +158,12 @@ const CheckArea = ({
   function fetchSelectionSuggestions() {
     const alreadyHaveNewSelections = newSelections && newSelections.length;
 
-    if (suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
+    if (suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
       getSuggestions({
         alignedGLText,
         bookDetails,
         contextId,
+        currentModel,
         llmSuggestionsEnabled,
         llmQueryUrl,
         targetLanguageDetails,
@@ -172,6 +195,8 @@ const CheckArea = ({
     contextId,
     suggestionsEnabled,
     llmSuggestionsEnabled,
+    currentModel,
+    suggestionsInit,
     newSelections,
   ]);
 
@@ -211,6 +236,19 @@ const CheckArea = ({
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
       saveSattingsForChecking_({ llmQueryUrl: value });
+    }
+  }
+
+  /**
+   * Updates currentModel state from the available models selector.
+   * @param {object} e - select change event
+   */
+  function handleCurrentModelChange(e) {
+    const value = e.target.value;
+
+    if (value !== currentModel) {
+      setCurrentModel(value);
+      saveSattingsForChecking_({ currentModel: value });
     }
   }
 
@@ -365,6 +403,24 @@ const CheckArea = ({
               placeholder='LLM query URL'
             />
 
+            {availableModels && availableModels.length > 0 &&
+              <select
+                value={currentModel}
+                onChange={handleCurrentModelChange}
+              >
+                {availableModels.map(model => {
+                  const value = model.id || model.name || model;
+                  const label = model.label || model.name || model.id || model;
+
+                  return (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  );
+                })}
+              </select>
+            }
+
             {bestSuggestion &&
               <div style={{ flexBasis: '100%' }}>
                 {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
@@ -412,6 +468,7 @@ CheckArea.propTypes = {
   setSuggestionsEnabled: PropTypes.func.isRequired,
   saveSattingsForChecking: PropTypes.func,
   readSettingsForChecking: PropTypes.func,
+  getModelsForChecking: PropTypes.func,
 };
 
 export default CheckArea;
