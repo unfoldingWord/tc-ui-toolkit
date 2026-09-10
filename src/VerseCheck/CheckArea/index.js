@@ -92,35 +92,65 @@ const CheckArea = ({
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
-  // do initialization of settings
+  /**
+   * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
+   * are enabled. Sets the default model if none is currently selected and marks initialization complete.
+   * @param {boolean} llmSuggestionsEnabled - whether LLM suggestions are enabled
+   * @param {string} llmQueryUrl - the URL for LLM queries
+   * @param {string} currentModel - the currently selected model ID
+   */
+  function initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel) {
+    if (llmSuggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
+      getModelsForChecking({ baseUrl: llmQueryUrl }).then(results => {
+        const { models, error } = results;
+
+        if (!error) {
+          const _availableModels = models || [];
+
+          setAvailableModels(_availableModels);
+          const modelNotValid = !currentModel || !_availableModels.includes(currentModel);
+
+          if (modelNotValid && _availableModels.length) {
+            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0];
+            setCurrentModel(defaultModel);
+            saveSattingsForChecking_({ currentModel: defaultModel });
+          }
+          setSuggestionsInit(true);
+        } else {
+          console.log(`Error fetching models`, error);
+          setAvailableModels(null);
+          setCurrentModel(null);
+          saveSattingsForChecking_({ currentModel: null });
+          setSuggestionsInit(true);
+        }
+      });
+    } else {
+      setSuggestionsInit(true);
+    }
+  }
+
+// do initialization of settings
   React.useEffect(() => {
     if (!suggestionsInit) {
       const data = readSettingsForChecking?.();
       console.log(data);
 
+      const {
+        currentModel = '',
+        llmSuggestionsEnabled = false,
+        llmQueryUrl = null,
+        suggestionsEnabled = false,
+      } = data || {};
+      console.log('restoring original settings', data);
+      setSuggestionsEnabled(suggestionsEnabled);
+      setLlmSuggestionsEnabled(llmSuggestionsEnabled);
+      setLlmQueryUrl(llmQueryUrl);
+      setCurrentModel(currentModel);
+
       if (data) {
-        console.log('restoring original settings', data);
-        setSuggestionsEnabled(data.suggestionsEnabled);
-        setLlmSuggestionsEnabled(data.llmSuggestionsEnabled);
-        setLlmQueryUrl(data.llmQueryUrl);
-        setCurrentModel(data.currentModel || '');
-      }
-
-      if (getModelsForChecking) {
-        getModelsForChecking().then(models => {
-          const _availableModels = models || [];
-
-          setAvailableModels(_availableModels);
-
-          if (!currentModel && _availableModels.length) {
-            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0];
-
-            setCurrentModel(defaultModel);
-            saveSattingsForChecking_({ currentModel: defaultModel });
-            setSuggestionsInit(true);
-          }
-        });
+        initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel);
       } else {
+        console.log('Error fetching settings');
         setSuggestionsInit(true);
       }
     }
@@ -210,6 +240,10 @@ const CheckArea = ({
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
       saveSattingsForChecking_({ suggestionsEnabled: checked });
+
+      if (checked) {
+        initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel);
+      }
     }
   }
 
@@ -223,6 +257,10 @@ const CheckArea = ({
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
       saveSattingsForChecking_({ llmSuggestionsEnabled: checked });
+
+      if (suggestionsEnabled && checked) {
+        initializeModels(checked, llmQueryUrl, currentModel);
+      }
     }
   }
 
@@ -236,6 +274,10 @@ const CheckArea = ({
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
       saveSattingsForChecking_({ llmQueryUrl: value });
+
+      if (suggestionsEnabled && value) {
+        initializeModels(llmSuggestionsEnabled, value, currentModel);
+      }
     }
   }
 
