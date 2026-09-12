@@ -198,10 +198,22 @@ const CheckArea = ({
         llmQueryUrl,
         targetLanguageDetails,
         verseText,
-      }).then(_suggestions => {
+      }).then(results => {
+        const {
+          error,
+          bestSelections: _suggestions,
+          elapsedStr,
+          model,
+        } = results;
+
         // TRICKY - expects the _suggestions to be sorted with the best first
-        const _bestSuggestion = _suggestions?.length && _suggestions[0] || false;
-        setBestSuggestion(_bestSuggestion);
+        const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
+
+        setBestSuggestion({
+          ..._bestSuggestion,
+          elapsedStr,
+          model,
+        });
 
         if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
           if (newSelections?.length === 0) {
@@ -464,7 +476,15 @@ const CheckArea = ({
             }
 
             {bestSuggestion &&
-              <div style={{ flexBasis: '100%' }}>
+              <div
+                style={{
+                  flexBasis: '100%',
+                  maxWidth: '100%',
+                  overflowWrap: 'anywhere',
+                  wordBreak: 'break-word',
+                  whiteSpace: 'normal',
+                }}
+              >
                 {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
               </div>
             }
