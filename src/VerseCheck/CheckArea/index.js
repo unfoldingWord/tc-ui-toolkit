@@ -88,6 +88,7 @@ const CheckArea = ({
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
+  const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
@@ -129,7 +130,7 @@ const CheckArea = ({
     }
   }
 
-// do initialization of settings
+  // do initialization of settings
   React.useEffect(() => {
     if (!suggestionsInit) {
       const data = readSettingsForChecking?.();
@@ -430,63 +431,81 @@ const CheckArea = ({
             display: 'flex',
             alignItems: 'center',
             flexWrap: 'wrap',
+            flexDirection: 'column',
             gap: '12px',
           }}>
-            <label>
-              <input
-                type='checkbox'
-                checked={suggestionsEnabled}
-                onChange={handleSuggestionsCheckbox}
-              />
-              {' Enable Suggestions'}
-            </label>
+            <button
+              type='button'
+              onClick={() => setSuggestionsExpanded(!suggestionsExpanded)}
+              style={{ cursor: 'pointer' }}
+            >
+              {suggestionsExpanded ? 'Hide Suggestion Settings' : 'Show Suggestion Settingss'}
+            </button>
 
-            <label>
-              <input
-                type='checkbox'
-                checked={llmSuggestionsEnabled}
-                onChange={handleLlmSuggestionsCheckbox}
-              />
-              {' LLM Suggestions'}
-            </label>
+            {suggestionsExpanded &&
+              <React.Fragment>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={suggestionsEnabled}
+                    onChange={handleSuggestionsCheckbox}
+                  />
+                  {' Enable Suggestions'}
+                </label>
 
-            <input
-              type='text'
-              value={llmQueryUrl}
-              onChange={handleLlmQueryUrlChange}
-              placeholder='LLM query URL'
-            />
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={llmSuggestionsEnabled}
+                    onChange={handleLlmSuggestionsCheckbox}
+                  />
+                  {' LLM Suggestions'}
+                </label>
 
-            {availableModels && availableModels.length > 0 &&
-              <select
-                value={currentModel}
-                onChange={handleCurrentModelChange}
-              >
-                {availableModels.map(model => {
-                  const value = model.id || model.name || model;
-                  const label = model.label || model.name || model.id || model;
+                <input
+                  type='text'
+                  value={llmQueryUrl}
+                  onChange={handleLlmQueryUrlChange}
+                  placeholder='LLM query URL'
+                />
 
-                  return (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  );
-                })}
-              </select>
-            }
+                {availableModels && availableModels.length > 0 &&
+                  <select
+                    value={currentModel}
+                    onChange={handleCurrentModelChange}
+                  >
+                    {availableModels.map(model => {
+                      const value = model.id || model.name || model;
+                      const label = model.label || model.name || model.id || model;
 
-            {bestSuggestion &&
-              <div
-                style={{
-                  flexBasis: '100%',
-                  maxWidth: '100%',
-                  overflowWrap: 'anywhere',
-                  wordBreak: 'break-word',
-                  whiteSpace: 'normal',
-                }}
-              >
-                {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
-              </div>
+                      return (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      );
+                    })}
+                  </select>
+                }
+
+                {bestSuggestion &&
+                  <div style={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingLeft: '16px',
+                    paddingRight: '16px',
+                    boxSizing: 'border-box',
+                    overflowWrap: 'anywhere',
+                    wordBreak: 'break-word',
+                    whiteSpace: 'normal',
+                  }}>
+                    {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
+                  </div>
+                }
+              </React.Fragment>
             }
           </div>
         }
