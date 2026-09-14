@@ -100,8 +100,8 @@ const CheckArea = ({
    * @param {string} llmQueryUrl - the URL for LLM queries
    * @param {string} currentModel - the currently selected model ID
    */
-  function initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel) {
-    if (llmSuggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
+  function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel) {
+    if (suggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
       getModelsForChecking({ baseUrl: llmQueryUrl }).then(results => {
         const { models, error } = results;
 
@@ -141,15 +141,17 @@ const CheckArea = ({
         llmSuggestionsEnabled = false,
         llmQueryUrl = null,
         suggestionsEnabled = false,
+        suggestionsExpanded = true,
       } = data || {};
       console.log('restoring original settings', data);
       setSuggestionsEnabled(suggestionsEnabled);
       setLlmSuggestionsEnabled(llmSuggestionsEnabled);
       setLlmQueryUrl(llmQueryUrl);
       setCurrentModel(currentModel);
+      setSuggestionsExpanded(suggestionsExpanded);
 
       if (data) {
-        initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel);
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel);
       } else {
         console.log('Error fetching settings');
         setSuggestionsInit(true);
@@ -175,6 +177,7 @@ const CheckArea = ({
       llmSuggestionsEnabled,
       llmQueryUrl,
       currentModel,
+      suggestionsExpanded,
       ...newData,
     };
 
@@ -253,11 +256,8 @@ const CheckArea = ({
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
       saveSattingsForChecking_({ suggestionsEnabled: checked });
-
-      if (checked) {
-        initializeModels(llmSuggestionsEnabled, llmQueryUrl, currentModel);
-      }
     }
+    initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel);
   }
 
   /**
@@ -270,11 +270,8 @@ const CheckArea = ({
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
       saveSattingsForChecking_({ llmSuggestionsEnabled: checked });
-
-      if (suggestionsEnabled && checked) {
-        initializeModels(checked, llmQueryUrl, currentModel);
-      }
     }
+    initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel);
   }
 
   /**
@@ -287,10 +284,18 @@ const CheckArea = ({
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
       saveSattingsForChecking_({ llmQueryUrl: value });
+    }
+    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel);
+  }
 
-      if (suggestionsEnabled && value) {
-        initializeModels(llmSuggestionsEnabled, value, currentModel);
-      }
+  /**
+   * Toggles the expanded/collapsed state of the suggestions settings panel.
+   * @param {boolean} enable - true to expand the panel, false to collapse it
+   */
+  function handleSuggestionsExpanded(enable) {
+    if (enable !== suggestionsExpanded) {
+      setSuggestionsExpanded(enable);
+      saveSattingsForChecking_({suggestionsExpanded: enable});
     }
   }
 
@@ -305,6 +310,7 @@ const CheckArea = ({
       setCurrentModel(value);
       saveSattingsForChecking_({ currentModel: value });
     }
+    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value);
   }
 
   switch (mode) {
@@ -436,7 +442,7 @@ const CheckArea = ({
           }}>
             <button
               type='button'
-              onClick={() => setSuggestionsExpanded(!suggestionsExpanded)}
+              onClick={() => handleSuggestionsExpanded(!suggestionsExpanded)}
               style={{ cursor: 'pointer' }}
             >
               {suggestionsExpanded ? 'Hide Suggestion Settings' : 'Show Suggestion Settingss'}
