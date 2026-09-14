@@ -8,6 +8,7 @@ import InstructionsArea from '../InstructionsArea';
 import EditVerseArea from '../EditVerseArea';
 import CommentArea from '../CommentArea';
 import './CheckArea.styles.css';
+import { delay } from '../../ScripturePane/helpers/utils';
 
 let counter = 0;
 
@@ -90,9 +91,22 @@ const CheckArea = ({
   const [currentModel, setCurrentModel] = React.useState(null);
   const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
   const [fetching, setFetching] = React.useState(false);
+  const [alreadyFetched, setAlreadyFetched] = React.useState(false);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
+
+  /**
+   * Resets the alreadyFetched flag and triggers a fresh fetch of selection suggestions
+   * after a short delay. Used to force a refresh of suggestions when requested by the user.
+   */
+  function refreshSuggestions() {
+    setAlreadyFetched(false);
+
+    delay(10).then(() => {
+      fetchSelectionSuggestions(true);
+    });
+  }
 
   /**
    * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
@@ -163,6 +177,7 @@ const CheckArea = ({
   ]);
 
   React.useEffect(() => {
+    setAlreadyFetched(false);
     setBestSuggestion(null);
   }, [
     contextId,
@@ -189,64 +204,72 @@ const CheckArea = ({
   /**
    * Fetches selection suggestions from the getSuggestions API and updates the best suggestion.
    * If in 'select' mode with no current selections, automatically applies the best suggestion.
+   * @param {boolean} force - if true, ignores existing selections and fetches suggestions regardless
    */
-  function fetchSelectionSuggestions() {
-    setFetching(true);
-    const alreadyHaveNewSelections = newSelections && newSelections.length;
+  function fetchSelectionSuggestions(force = false) {
+    // if force is true, we ignore if we already have selections
+    const alreadyHaveNewSelections = force ? false : (newSelections && newSelections.length);
 
     if (suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
-      getSuggestions({
-        alignedGLText,
-        bookDetails,
-        contextId,
-        currentModel,
-        llmSuggestionsEnabled,
-        llmQueryUrl,
-        targetLanguageDetails,
-        verseText,
-      }).then(results => {
-        const {
-          error,
-          bestSelections: _suggestions,
-          elapsedStr,
-          model,
-        } = results;
+      setFetching(true);
 
-        // TRICKY - expects the _suggestions to be sorted with the best first
-        const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
+      try {
+        getSuggestions({
+          alignedGLText,
+          bookDetails,
+          contextId,
+          currentModel,
+          llmSuggestionsEnabled,
+          llmQueryUrl,
+          targetLanguageDetails,
+          verseText,
+        }).then(results => {
+          const {
+            error,
+            bestSelections: _suggestions,
+            elapsedStr,
+            model,
+          } = results;
 
-        setBestSuggestion({
-          ..._bestSuggestion,
-          elapsedStr,
-          model,
-        });
+          // TRICKY - expects the _suggestions to be sorted with the best first
+          const _bestSuggestion = _suggestions?.length && _suggestions[0] || {selections: false};
 
-        if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-          if (newSelections?.length === 0) {
-            if (!isEqual(_bestSuggestion.selections, newSelections)) {
-              changeSelectionsInLocalState(_bestSuggestion.selections);
+          setBestSuggestion({
+            ..._bestSuggestion,
+            elapsedStr,
+            model,
+          });
+
+          if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+            if (force || newSelections?.length === 0) {
+              if (!isEqual(_bestSuggestion.selections, newSelections)) {
+                changeSelectionsInLocalState(_bestSuggestion.selections);
+              }
+              setAlreadyFetched(true);
             }
           }
-        }
 
-        console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
-          bestSuggestions: _suggestions,
-          newSelections,
+          console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+            bestSuggestions: _suggestions,
+            newSelections,
+          });
+          setFetching(false);
         });
+      } catch (e) {
+        console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
         setFetching(false);
-      });
+      }
     }
   }
 
   React.useEffect(() => {
-    fetchSelectionSuggestions();
+    if (!alreadyFetched) {
+      fetchSelectionSuggestions();
+    }
   }, [
     contextId,
-    suggestionsEnabled,
-    llmSuggestionsEnabled,
-    currentModel,
-    suggestionsInit,
     newSelections,
+    suggestionsInit,
   ]);
 
   /**
@@ -499,6 +522,14 @@ const CheckArea = ({
                 { fetching &&
                   <div>{'Fetch in process...'}</div>
                 }
+
+                <button
+                  type='button'
+                  onClick={() => refreshSuggestions()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {'Refresh Suggestions'}
+                </button>
 
                 {bestSuggestion &&
                   <div style={{
