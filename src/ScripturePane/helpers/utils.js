@@ -22,7 +22,12 @@ export function getTranslation(translate, text, deflt) {
   let key = text.toLowerCase();
   key = key.replace(' ', '_');
   let translation;
-  translation = translate(key);
+
+  try {
+    translation = translate(key);
+  } catch (e) {
+    console.log(`Error getting translation for ${key}`, e);
+  }
 
   if (!translation || (translation.indexOf('Missing translation key') >= 0)) { // if not translated, return original text
     translation = deflt;

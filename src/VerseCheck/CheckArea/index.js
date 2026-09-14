@@ -89,6 +89,7 @@ const CheckArea = ({
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
   const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
+  const [fetching, setFetching] = React.useState(false);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
@@ -190,6 +191,7 @@ const CheckArea = ({
    * If in 'select' mode with no current selections, automatically applies the best suggestion.
    */
   function fetchSelectionSuggestions() {
+    setFetching(true);
     const alreadyHaveNewSelections = newSelections && newSelections.length;
 
     if (suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
@@ -231,6 +233,7 @@ const CheckArea = ({
           bestSuggestions: _suggestions,
           newSelections,
         });
+        setFetching(false);
       });
     }
   }
@@ -491,6 +494,10 @@ const CheckArea = ({
                       );
                     })}
                   </select>
+                }
+
+                { fetching &&
+                  <div>{'Fetch in process...'}</div>
                 }
 
                 {bestSuggestion &&
