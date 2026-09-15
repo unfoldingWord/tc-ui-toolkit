@@ -97,18 +97,6 @@ const CheckArea = ({
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
 
   /**
-   * Resets the alreadyFetched flag and triggers a fresh fetch of selection suggestions
-   * after a short delay. Used to force a refresh of suggestions when requested by the user.
-   */
-  function refreshSuggestions() {
-    setAlreadyFetched(false);
-
-    delay(10).then(() => {
-      fetchSelectionSuggestions(true);
-    });
-  }
-
-  /**
    * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
    * are enabled. Sets the default model if none is currently selected and marks initialization complete.
    * @param {boolean} llmSuggestionsEnabled - whether LLM suggestions are enabled
@@ -201,6 +189,48 @@ const CheckArea = ({
     saveSattingsForChecking?.(data);
   }
 
+  const isInSelectMode = mode === 'select';
+
+  async function applySuggestions(results, force) {
+    const {
+      error,
+      bestSelections: _suggestions,
+      elapsedStr,
+      model,
+    } = results;
+
+    // TRICKY - expects the _suggestions to be sorted with the best first
+    const _bestSuggestion = _suggestions?.length && _suggestions[0] || {selections: false};
+
+    setBestSuggestion({
+      ..._bestSuggestion,
+      elapsedStr,
+      model,
+    });
+
+    if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+      const isSame = isEqual(_bestSuggestion.selections, newSelections);
+
+      if (force) {
+        setAlreadyFetched(false);
+        await delay(10);
+        changeSelectionsInLocalState(_bestSuggestion.selections);
+      } else if (newSelections?.length === 0) {
+        if (!isSame) {
+          changeSelectionsInLocalState(_bestSuggestion.selections);
+        }
+      }
+      await delay(10);
+      setAlreadyFetched(true);
+    }
+
+    console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+      bestSuggestions: _suggestions,
+      newSelections,
+    });
+    setFetching(false);
+  }
+
   /**
    * Fetches selection suggestions from the getSuggestions API and updates the best suggestion.
    * If in 'select' mode with no current selections, automatically applies the best suggestion.
@@ -224,36 +254,7 @@ const CheckArea = ({
           targetLanguageDetails,
           verseText,
         }).then(results => {
-          const {
-            error,
-            bestSelections: _suggestions,
-            elapsedStr,
-            model,
-          } = results;
-
-          // TRICKY - expects the _suggestions to be sorted with the best first
-          const _bestSuggestion = _suggestions?.length && _suggestions[0] || {selections: false};
-
-          setBestSuggestion({
-            ..._bestSuggestion,
-            elapsedStr,
-            model,
-          });
-
-          if (mode === 'select' && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-            if (force || newSelections?.length === 0) {
-              if (!isEqual(_bestSuggestion.selections, newSelections)) {
-                changeSelectionsInLocalState(_bestSuggestion.selections);
-              }
-              setAlreadyFetched(true);
-            }
-          }
-
-          console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
-            bestSuggestions: _suggestions,
-            newSelections,
-          });
-          setFetching(false);
+          applySuggestions(results, force);
         });
       } catch (e) {
         console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
@@ -415,6 +416,7 @@ const CheckArea = ({
     };
   }
 
+  const expandSuggestionsDetails = suggestionsExpanded && isInSelectMode;
   return (
     <div className='check-area'>
       {mode === 'select' ?
@@ -466,15 +468,17 @@ const CheckArea = ({
             flexDirection: 'column',
             gap: '12px',
           }}>
-            <button
-              type='button'
-              onClick={() => handleSuggestionsExpanded(!suggestionsExpanded)}
-              style={{ cursor: 'pointer' }}
-            >
-              {suggestionsExpanded ? 'Hide Suggestion Settings' : 'Show Suggestion Settingss'}
-            </button>
+            {isInSelectMode &&
+              <button
+                type='button'
+                onClick={() => handleSuggestionsExpanded(!suggestionsExpanded)}
+                style={{ cursor: 'pointer' }}
+              >
+                {suggestionsExpanded ? 'Hide Suggestion Settings' : 'Show Suggestion Settings'}
+              </button>
+            }
 
-            {suggestionsExpanded &&
+            {expandSuggestionsDetails &&
               <React.Fragment>
                 <label>
                   <input
@@ -525,7 +529,7 @@ const CheckArea = ({
 
                 <button
                   type='button'
-                  onClick={() => refreshSuggestions()}
+                  onClick={() => fetchSelectionSuggestions(true)}
                   style={{ cursor: 'pointer' }}
                 >
                   {'Refresh Suggestions'}
