@@ -54,10 +54,9 @@ export const isCompleteWordMatch = (text, word, index) => {
  * @description Function that counts occurrences of a complete word in a string
  * @param {String} string - The string to search in
  * @param {String} subString - The substring to search for as a complete word
- * @param {Boolean} fallback - If true, falls back to counting all occurrences (not just complete words)
  * @returns {Number} - The count of complete word occurrences
  */
-export const occurrencesOfWordInString = (string, subString, fallback = false) => {
+export const occurrencesOfWordInString = (string, subString) => {
   if (subString.length <= 0) {
     return 0;
   }

@@ -189,18 +189,16 @@ const CheckArea = ({
     saveSattingsForChecking?.(data);
   }
 
-  const isInSelectMode = mode === 'select';
-
   async function applySuggestions(results, force) {
     const {
-      error,
       bestSelections: _suggestions,
       elapsedStr,
       model,
     } = results;
 
     // TRICKY - expects the _suggestions to be sorted with the best first
-    const _bestSuggestion = _suggestions?.length && _suggestions[0] || {selections: false};
+    const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
+    const isInSelectMode = mode === 'select';
 
     setBestSuggestion({
       ..._bestSuggestion,
@@ -209,15 +207,18 @@ const CheckArea = ({
     });
 
     if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-      const isSame = isEqual(_bestSuggestion.selections, newSelections);
+      const isSelectionCurrentlyEmpty = newSelections?.length === 0;
+      const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
 
       if (force) {
         setAlreadyFetched(false);
         await delay(10);
         changeSelectionsInLocalState(_bestSuggestion.selections);
-      } else if (newSelections?.length === 0) {
-        if (!isSame) {
-          changeSelectionsInLocalState(_bestSuggestion.selections);
+      } else {
+        if (isSelectionCurrentlyEmpty) {
+          if (!isSuggestionSame) {
+            changeSelectionsInLocalState(_bestSuggestion.selections);
+          }
         }
       }
       await delay(10);
@@ -322,7 +323,7 @@ const CheckArea = ({
   function handleSuggestionsExpanded(enable) {
     if (enable !== suggestionsExpanded) {
       setSuggestionsExpanded(enable);
-      saveSattingsForChecking_({suggestionsExpanded: enable});
+      saveSattingsForChecking_({ suggestionsExpanded: enable });
     }
   }
 
@@ -416,6 +417,7 @@ const CheckArea = ({
     };
   }
 
+  const isInSelectMode = mode === 'select';
   const expandSuggestionsDetails = suggestionsExpanded && isInSelectMode;
   return (
     <div className='check-area'>
@@ -495,32 +497,38 @@ const CheckArea = ({
                     checked={llmSuggestionsEnabled}
                     onChange={handleLlmSuggestionsCheckbox}
                   />
-                  {' LLM Suggestions'}
+                  {' AI Suggestions'}
                 </label>
 
-                <input
-                  type='text'
-                  value={llmQueryUrl}
-                  onChange={handleLlmQueryUrlChange}
-                  placeholder='LLM query URL'
-                />
+                <label>
+                  {' ' + 'AI query URL:' + ' '}
+                  <input
+                    type='text'
+                    value={llmQueryUrl}
+                    onChange={handleLlmQueryUrlChange}
+                    placeholder='AI query URL'
+                  />
+                </label>
 
                 {availableModels && availableModels.length > 0 &&
-                  <select
-                    value={currentModel}
-                    onChange={handleCurrentModelChange}
-                  >
-                    {availableModels.map(model => {
-                      const value = model.id || model.name || model;
-                      const label = model.label || model.name || model.id || model;
+                  <label>
+                    {' ' + 'AI Model Selection:' + ' '}
+                    <select
+                      value={currentModel}
+                      onChange={handleCurrentModelChange}
+                    >
+                      {availableModels.map(model => {
+                        const value = model.id || model.name || model;
+                        const label = model.label || model.name || model.id || model;
 
-                      return (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      );
-                    })}
-                  </select>
+                        return (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </label>
                 }
 
                 { fetching &&

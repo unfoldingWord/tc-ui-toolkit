@@ -291,7 +291,6 @@ describe('selectionHelpers.optimizeSelections', () => {
     // then
     expect(selections).toEqual(expectedSelections);
   });
-
 });
 
 describe('selectionHelpers.unicodeTrim', () => {
