@@ -473,6 +473,7 @@ const CheckArea = ({
             {isInSelectMode &&
               <button
                 type='button'
+                title={suggestionsExpanded ? 'Hide suggestion settings and details' : 'Show suggestion settings and details'}
                 onClick={() => handleSuggestionsExpanded(!suggestionsExpanded)}
                 style={{ cursor: 'pointer' }}
               >
@@ -482,7 +483,7 @@ const CheckArea = ({
 
             {expandSuggestionsDetails &&
               <React.Fragment>
-                <label>
+                <label title='Enable or disable automatic selection suggestions'>
                   <input
                     type='checkbox'
                     checked={suggestionsEnabled}
@@ -491,17 +492,17 @@ const CheckArea = ({
                   {' Enable Suggestions'}
                 </label>
 
-                <label>
+                <label title='Use AI-powered suggestions from the configured AI server. This will run slower and may be too creative.  If this is turned off the suggestions will only be based on previous selections and will run very quickly.'>
                   <input
                     type='checkbox'
                     checked={llmSuggestionsEnabled}
                     onChange={handleLlmSuggestionsCheckbox}
                   />
-                  {' AI Suggestions'}
+                  {' Use AI Suggestions'}
                 </label>
 
-                <label>
-                  {' ' + 'AI query URL:' + ' '}
+                <label title='Enter the base URL for the AI suggestion server.'>
+                  {' ' + 'URL for AI server:' + ' '}
                   <input
                     type='text'
                     value={llmQueryUrl}
@@ -511,7 +512,7 @@ const CheckArea = ({
                 </label>
 
                 {availableModels && availableModels.length > 0 &&
-                  <label>
+                  <label title='Select the AI model to use for suggestions.  This list is from the models available on the server.'>
                     {' ' + 'AI Model Selection:' + ' '}
                     <select
                       value={currentModel}
@@ -537,6 +538,7 @@ const CheckArea = ({
 
                 <button
                   type='button'
+                  title='Fetch fresh selection suggestions now'
                   onClick={() => fetchSelectionSuggestions(true)}
                   style={{ cursor: 'pointer' }}
                 >
@@ -558,7 +560,18 @@ const CheckArea = ({
                     wordBreak: 'break-word',
                     whiteSpace: 'normal',
                   }}>
-                    {`${++counter} - Received Suggestions: ` + JSON.stringify(bestSuggestion)}
+                    <div>{`${++counter} - Received Suggestions:`}</div>
+                    <div>
+                      {'Suggested Words: '}
+                      {bestSuggestion.selections && bestSuggestion.selections.length
+                        ? bestSuggestion.selections
+                          .map(selection => `"${selection.text}" occurrence ${selection.occurrence}`)
+                          .join(', ')
+                        : 'No suggestions'}
+                    </div>
+                    <div>{`Confidence: ${bestSuggestion.confidence || 0}%`}</div>
+                    <div>{`Elapsed: ${bestSuggestion.elapsedStr || '0'} seconds`}</div>
+                    <div>{`Model: ${bestSuggestion.model || 'Unknown'}`}</div>
                   </div>
                 }
               </React.Fragment>
