@@ -86,6 +86,7 @@ const CheckArea = ({
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
+  const [llmTemperature, setLlmTemperature] = React.useState(0.7);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
@@ -143,6 +144,7 @@ const CheckArea = ({
         currentModel = '',
         llmSuggestionsEnabled = false,
         llmQueryUrl = null,
+        llmTemperature = 0.7,
         suggestionsEnabled = false,
         suggestionsExpanded = true,
       } = data || {};
@@ -150,6 +152,7 @@ const CheckArea = ({
       setSuggestionsEnabled(suggestionsEnabled);
       setLlmSuggestionsEnabled(llmSuggestionsEnabled);
       setLlmQueryUrl(llmQueryUrl);
+      setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
 
@@ -180,6 +183,7 @@ const CheckArea = ({
       suggestionsEnabled,
       llmSuggestionsEnabled,
       llmQueryUrl,
+      llmTemperature,
       currentModel,
       suggestionsExpanded,
       ...newData,
@@ -252,6 +256,7 @@ const CheckArea = ({
           currentModel,
           llmSuggestionsEnabled,
           llmQueryUrl,
+          llmTemperature,
           targetLanguageDetails,
           verseText,
         }).then(results => {
@@ -314,6 +319,20 @@ const CheckArea = ({
       saveSattingsForChecking_({ llmQueryUrl: value });
     }
     initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel);
+  }
+
+  /**
+   * Updates llmTemperature state from the LLM temperature input.
+   * @param {object} e - input change event
+   */
+  function handleLlmTemperatureChange(e) {
+    const value = Number(e.target.value);
+    const normalizedValue = Math.min(1, Math.max(0, value));
+
+    if (Number.isFinite(value) && normalizedValue !== llmTemperature) {
+      setLlmTemperature(normalizedValue);
+      saveSattingsForChecking_({ llmTemperature: normalizedValue });
+    }
   }
 
   /**
@@ -508,6 +527,18 @@ const CheckArea = ({
                     value={llmQueryUrl}
                     onChange={handleLlmQueryUrlChange}
                     placeholder='AI query URL'
+                  />
+                </label>
+
+                <label title='Set the AI temperature from 0.0 to 1.0. Lower values are more consistent; higher values are more creative. 0.7 is default'>
+                  {' ' + 'AI Temperature:' + ' '}
+                  <input
+                    type='number'
+                    min='0'
+                    max='1'
+                    step='0.1'
+                    value={llmTemperature}
+                    onChange={handleLlmTemperatureChange}
                   />
                 </label>
 
