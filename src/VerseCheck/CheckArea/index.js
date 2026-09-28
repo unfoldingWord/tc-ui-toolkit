@@ -198,35 +198,38 @@ const CheckArea = ({
       bestSelections: _suggestions,
       elapsedStr,
       model,
+      contextId: _contextId,
     } = results;
 
     // TRICKY - expects the _suggestions to be sorted with the best first
     const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
     const isInSelectMode = mode === 'select';
 
-    setBestSuggestion({
-      ..._bestSuggestion,
-      elapsedStr,
-      model,
-    });
+    if (isEqual(contextId, _contextId)) { // in case this is an older response
+      setBestSuggestion({
+        ..._bestSuggestion,
+        elapsedStr,
+        model,
+      });
 
-    if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-      const isSelectionCurrentlyEmpty = newSelections?.length === 0;
-      const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
+      if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
+        const isSelectionCurrentlyEmpty = newSelections?.length === 0;
+        const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
 
-      if (force) {
-        setAlreadyFetched(false);
-        await delay(10);
-        changeSelectionsInLocalState(_bestSuggestion.selections);
-      } else {
-        if (isSelectionCurrentlyEmpty) {
-          if (!isSuggestionSame) {
-            changeSelectionsInLocalState(_bestSuggestion.selections);
+        if (force) {
+          setAlreadyFetched(false);
+          await delay(10);
+          changeSelectionsInLocalState(_bestSuggestion.selections);
+        } else {
+          if (isSelectionCurrentlyEmpty) {
+            if (!isSuggestionSame) {
+              changeSelectionsInLocalState(_bestSuggestion.selections);
+            }
           }
         }
+        await delay(10);
+        setAlreadyFetched(true);
       }
-      await delay(10);
-      setAlreadyFetched(true);
     }
 
     console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
@@ -487,7 +490,7 @@ const CheckArea = ({
             alignItems: 'center',
             flexWrap: 'wrap',
             flexDirection: 'column',
-            gap: '12px',
+            gap: 0,
           }}>
             {isInSelectMode &&
               <button
@@ -571,7 +574,7 @@ const CheckArea = ({
                   type='button'
                   title='Fetch fresh selection suggestions now'
                   onClick={() => fetchSelectionSuggestions(true)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', margin: '10px' }}
                 >
                   {'Refresh Suggestions'}
                 </button>
