@@ -199,6 +199,7 @@ const CheckArea = ({
       elapsedStr,
       model,
       contextId: _contextId,
+      cached,
     } = results;
 
     // TRICKY - expects the _suggestions to be sorted with the best first
@@ -210,6 +211,7 @@ const CheckArea = ({
         ..._bestSuggestion,
         elapsedStr,
         model,
+        cached,
       });
 
       if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
@@ -605,7 +607,10 @@ const CheckArea = ({
                         : 'No suggestions'}
                     </div>
                     <div>{`Confidence: ${bestSuggestion.confidence || 0}%`}</div>
-                    <div>{`Elapsed: ${bestSuggestion.elapsedStr || '0'} seconds`}</div>
+                    <div>
+                      {`Elapsed: ${bestSuggestion.elapsedStr || '0'} seconds`}
+                      {bestSuggestion.cached && ` <= Cached Suggestion`}
+                    </div>
                     <div>{`Model: ${bestSuggestion.model || 'Unknown'}`}</div>
                   </div>
                 }
