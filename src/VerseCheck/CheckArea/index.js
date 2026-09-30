@@ -257,6 +257,7 @@ const CheckArea = ({
           bookDetails,
           contextId,
           currentModel,
+          force,
           llmSuggestionsEnabled,
           llmQueryUrl,
           llmTemperature,
