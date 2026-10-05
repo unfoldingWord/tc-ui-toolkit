@@ -134,7 +134,7 @@ const CheckArea = ({
     }
   }
 
-  // do initialization of settings
+  // Initialize suggestions settings on mount by reading saved configuration
   React.useEffect(() => {
     if (!suggestionsInit) {
       const data = readSettingsForChecking?.();
@@ -167,8 +167,10 @@ const CheckArea = ({
     suggestionsInit,
   ]);
 
+  // Reset suggestion state when context changes to a new verse
   React.useEffect(() => {
     setAlreadyFetched(false);
+    setFetching(false);
     setBestSuggestion(null);
   }, [
     contextId,
@@ -251,7 +253,7 @@ const CheckArea = ({
     const alreadyHaveNewSelections = force ? false : (newSelections && newSelections.length);
 
     if (suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
-      setFetching(true);
+      setFetching({ ...contextId });
 
       try {
         getSuggestions({
@@ -275,8 +277,23 @@ const CheckArea = ({
     }
   }
 
+  /**
+   * Automatically fetches selection suggestions when the context changes or initialization completes.
+   * Triggers fetchSelectionSuggestions if:
+   * - Suggestions have not already been fetched for this context
+   * - No existing selections are present
+   * - Not currently fetching suggestions for this context
+   *
+   * Dependencies:
+   * - contextId: triggers when verse context changes
+   * - newSelections: re-evaluates when user makes new selections
+   * - suggestionsInit: waits for initialization to complete before fetching
+   */
   React.useEffect(() => {
-    if (!alreadyFetched) {
+    const alreadyHaveSelections = selections?.length > 0;
+    const alreadyFetchingCurrentContext = isEqual(contextId, fetching);
+
+    if (!alreadyFetched && !alreadyHaveSelections && !alreadyFetchingCurrentContext) {
       fetchSelectionSuggestions();
     }
   }, [
