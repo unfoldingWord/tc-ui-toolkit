@@ -78,7 +78,7 @@ const CheckArea = ({
   targetLanguageDetails,
   changeSelectionsInLocalState,
   getSuggestions, // if defined will call to get suggestions
-  saveSattingsForChecking, // if defined will call save latest settings
+  saveSettingsForChecking, // if defined will call save latest settings
   readSettingsForChecking, // if defined will get latest settings
   getModelsForChecking, // if defined will fetch available models
 }) => {
@@ -106,9 +106,9 @@ const CheckArea = ({
    * @param {string} llmQueryUrl - the URL for LLM queries
    * @param {string} currentModel - the currently selected model ID
    */
-  function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel) {
+  function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken ) {
     if (suggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
-      getModelsForChecking({ baseUrl: llmQueryUrl }).then(results => {
+      getModelsForChecking({ baseUrl: llmQueryUrl, apiToken: llmApiToken }).then(results => {
         const { models, error } = results;
 
         if (!error) {
@@ -118,16 +118,15 @@ const CheckArea = ({
           const modelNotValid = !currentModel || !_availableModels.includes(currentModel);
 
           if (modelNotValid && _availableModels.length) {
-            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0];
+            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0] || 'local-model';
             setCurrentModel(defaultModel);
-            saveSattingsForChecking_({ currentModel: defaultModel });
           }
           setSuggestionsInit(true);
         } else {
           console.log(`Error fetching models`, error);
           setAvailableModels(null);
-          setCurrentModel(null);
-          saveSattingsForChecking_({ currentModel: null });
+          setCurrentModel('local-model');
+          // saveSettingsForChecking_({ currentModel: null });
           setSuggestionsInit(true);
         }
       });
@@ -163,7 +162,7 @@ const CheckArea = ({
       setSuggestionsExpanded(suggestionsExpanded);
 
       if (data) {
-        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel);
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
       } else {
         console.log('Error fetching settings');
         setSuggestionsInit(true);
@@ -186,7 +185,7 @@ const CheckArea = ({
    * Saves the current checking settings (suggestions and LLM configuration).
    * @param {object} newData - Optional partial settings to merge with current state
    */
-  function saveSattingsForChecking_(newData = {}, noRestart = false) {
+  function saveSettingsForChecking_(newData = {}, noRestart = false) {
     const data = {
       suggestionsEnabled,
       llmSuggestionsEnabled,
@@ -200,7 +199,7 @@ const CheckArea = ({
     };
 
     // eslint-disable-next-line no-unused-expressions
-    saveSattingsForChecking?.(data, noRestart);
+    saveSettingsForChecking?.(data, noRestart);
   }
 
   async function applySuggestions(results, force) {
@@ -326,9 +325,9 @@ const CheckArea = ({
 
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
-      saveSattingsForChecking_({ suggestionsEnabled: checked });
+      saveSettingsForChecking_({ suggestionsEnabled: checked });
     }
-    initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel);
+    initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
   }
 
   /**
@@ -340,9 +339,9 @@ const CheckArea = ({
 
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
-      saveSattingsForChecking_({ llmSuggestionsEnabled: checked });
+      saveSettingsForChecking_({ llmSuggestionsEnabled: checked });
     }
-    initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel);
+    initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
   }
 
   /**
@@ -354,9 +353,9 @@ const CheckArea = ({
 
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
-      saveSattingsForChecking_({ llmQueryUrl: value }, true);
+      saveSettingsForChecking_({ llmQueryUrl: value }, true);
     }
-    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel);
+    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
   }
 
   /**
@@ -368,7 +367,7 @@ const CheckArea = ({
 
     if (value !== llmApiToken) {
       setLlmApiToken(value);
-      saveSattingsForChecking_({ llmApiToken: value }, true);
+      saveSettingsForChecking_({ llmApiToken: value }, true);
     }
   }
 
@@ -381,7 +380,7 @@ const CheckArea = ({
 
     if (llmMaximizeRequests !== checked) {
       setLlmMaximizeRequests(checked);
-      saveSattingsForChecking_({ llmMaximizeRequests: checked });
+      saveSettingsForChecking_({ llmMaximizeRequests: checked });
     }
   }
 
@@ -395,7 +394,7 @@ const CheckArea = ({
 
     if (Number.isFinite(value) && normalizedValue !== llmTemperature) {
       setLlmTemperature(normalizedValue);
-      saveSattingsForChecking_({ llmTemperature: normalizedValue });
+      saveSettingsForChecking_({ llmTemperature: normalizedValue });
     }
   }
 
@@ -406,7 +405,7 @@ const CheckArea = ({
   function handleSuggestionsExpanded(enable) {
     if (enable !== suggestionsExpanded) {
       setSuggestionsExpanded(enable);
-      saveSattingsForChecking_({ suggestionsExpanded: enable });
+      saveSettingsForChecking_({ suggestionsExpanded: enable });
     }
   }
 
@@ -418,10 +417,10 @@ const CheckArea = ({
     const value = e.target.value;
 
     if (value !== currentModel) {
-      setCurrentModel(value);
-      saveSattingsForChecking_({ currentModel: value });
+      setCurrentModel(value || 'local-model');
+      saveSettingsForChecking_({ currentModel: value });
     }
-    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value);
+    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
   }
 
   switch (mode) {
@@ -737,7 +736,7 @@ CheckArea.propTypes = {
   getSuggestions: PropTypes.func,
   suggestionsEnabled: PropTypes.bool.isRequired,
   setSuggestionsEnabled: PropTypes.func.isRequired,
-  saveSattingsForChecking: PropTypes.func,
+  saveSettingsForChecking: PropTypes.func,
   readSettingsForChecking: PropTypes.func,
   getModelsForChecking: PropTypes.func,
 };

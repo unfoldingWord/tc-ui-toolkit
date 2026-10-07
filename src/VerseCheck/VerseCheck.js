@@ -61,7 +61,7 @@ class VerseCheck extends Component {
       validateSelections,
       manifest,
       getSuggestions, // if defined will call to get suggestions
-      saveSattingsForChecking, // if defined will call save latest settings
+      saveSettingsForChecking, // if defined will call save latest settings
       readSettingsForChecking, // if defined will get latest settings
       getModelsForChecking, // if defined will fetch available models
     } = this.props;
@@ -143,7 +143,7 @@ class VerseCheck extends Component {
               checkIfCommentChanged={checkIfCommentChanged}
               changeSelectionsInLocalState={changeSelectionsInLocalState}
               getSuggestions={getSuggestions}
-              saveSattingsForChecking={saveSattingsForChecking}
+              saveSettingsForChecking={saveSettingsForChecking}
               readSettingsForChecking={readSettingsForChecking}
               getModelsForChecking={getModelsForChecking}
             />
@@ -232,7 +232,7 @@ VerseCheck.propTypes = {
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   manifest: PropTypes.object,
   getSuggestions: PropTypes.func,
-  saveSattingsForChecking: PropTypes.func,
+  saveSettingsForChecking: PropTypes.func,
   readSettingsForChecking: PropTypes.func,
   getModelsForChecking: PropTypes.func,
 };
