@@ -86,6 +86,8 @@ const CheckArea = ({
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
+  const [llmApiToken, setLlmApiToken] = React.useState('');
+  const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   const [llmTemperature, setLlmTemperature] = React.useState(0.7);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
@@ -144,6 +146,8 @@ const CheckArea = ({
         currentModel = '',
         llmSuggestionsEnabled = false,
         llmQueryUrl = null,
+        llmApiToken = '',
+        llmMaximizeRequests = false,
         llmTemperature = 0.7,
         suggestionsEnabled = false,
         suggestionsExpanded = true,
@@ -152,6 +156,8 @@ const CheckArea = ({
       setSuggestionsEnabled(suggestionsEnabled);
       setLlmSuggestionsEnabled(llmSuggestionsEnabled);
       setLlmQueryUrl(llmQueryUrl);
+      setLlmApiToken(llmApiToken);
+      setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
@@ -180,11 +186,13 @@ const CheckArea = ({
    * Saves the current checking settings (suggestions and LLM configuration).
    * @param {object} newData - Optional partial settings to merge with current state
    */
-  function saveSattingsForChecking_(newData = {}) {
+  function saveSattingsForChecking_(newData = {}, noRestart = false) {
     const data = {
       suggestionsEnabled,
       llmSuggestionsEnabled,
       llmQueryUrl,
+      llmApiToken,
+      llmMaximizeRequests,
       llmTemperature,
       currentModel,
       suggestionsExpanded,
@@ -192,16 +200,19 @@ const CheckArea = ({
     };
 
     // eslint-disable-next-line no-unused-expressions
-    saveSattingsForChecking?.(data);
+    saveSattingsForChecking?.(data, noRestart);
   }
 
   async function applySuggestions(results, force) {
     const {
+      algorithmFallback,
       bestSelections: _suggestions,
-      elapsedStr,
-      model,
-      contextId: _contextId,
       cached,
+      contextId: _contextId,
+      elapsedStr,
+      error,
+      llmError,
+      model,
     } = results;
 
     // TRICKY - expects the _suggestions to be sorted with the best first
@@ -211,9 +222,11 @@ const CheckArea = ({
     if (isEqual(contextId, _contextId)) { // in case this is an older response
       setBestSuggestion({
         ..._bestSuggestion,
-        elapsedStr,
-        model,
+        algorithmFallback,
         cached,
+        elapsedStr,
+        error: error || llmError,
+        model,
       });
 
       if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
@@ -262,9 +275,11 @@ const CheckArea = ({
           contextId,
           currentModel,
           force,
+          llmApiToken,
           llmSuggestionsEnabled,
           llmQueryUrl,
           llmTemperature,
+          llmMaximizeRequests,
           targetLanguageDetails,
           verseText,
         }).then(results => {
@@ -339,9 +354,35 @@ const CheckArea = ({
 
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
-      saveSattingsForChecking_({ llmQueryUrl: value });
+      saveSattingsForChecking_({ llmQueryUrl: value }, true);
     }
     initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel);
+  }
+
+  /**
+   * Updates llmApiToken state from the AI API token input.
+   * @param {object} e - input change event
+   */
+  function handleLlmApiTokenChange(e) {
+    const value = e.target.value;
+
+    if (value !== llmApiToken) {
+      setLlmApiToken(value);
+      saveSattingsForChecking_({ llmApiToken: value }, true);
+    }
+  }
+
+  /**
+   * Updates llmMaximizeRequests state from the maximum AI requests checkbox.
+   * @param {object} e - checkbox change event
+   */
+  function handleMaximumAiRequestsCheckbox(e) {
+    const checked = !!e.target.checked;
+
+    if (llmMaximizeRequests !== checked) {
+      setLlmMaximizeRequests(checked);
+      saveSattingsForChecking_({ llmMaximizeRequests: checked });
+    }
   }
 
   /**
@@ -553,6 +594,25 @@ const CheckArea = ({
                   />
                 </label>
 
+                <label title='If enabled AI requests will be made in background to get suggestions for all empty checks.  Otherwise it will only be done for current group.'>
+                  <input
+                    type='checkbox'
+                    checked={llmMaximizeRequests}
+                    onChange={handleMaximumAiRequestsCheckbox}
+                  />
+                  {' Maximum AI requests'}
+                </label>
+
+                <label title='Enter the AI API token used by the suggestion server.'>
+                  {' ' + 'AI API Token:' + ' '}
+                  <input
+                    type='password'
+                    value={llmApiToken}
+                    onChange={handleLlmApiTokenChange}
+                    placeholder='AI API token'
+                  />
+                </label>
+
                 <label title='Set the AI temperature from 0.0 to 1.0. Lower values are more consistent; higher values are more creative. 0.7 is default'>
                   {' ' + 'AI Temperature:' + ' '}
                   <input
@@ -623,7 +683,11 @@ const CheckArea = ({
                           .join(', ')
                         : 'No suggestions'}
                     </div>
-                    <div>{`Confidence: ${bestSuggestion.confidence || 0}%`}</div>
+                    <div>
+                      {`Confidence: ${bestSuggestion.confidence || 0}%`}
+                      {bestSuggestion.error ? ' <AI ERROR>' : ''}
+                      {bestSuggestion.algorithmFallback ? ' no results, so fell back to algorithm' : ''}
+                    </div>
                     <div>
                       {`Elapsed: ${bestSuggestion.elapsedStr || '0'} seconds`}
                       {bestSuggestion.cached && ` <= Cached Suggestion`}
