@@ -95,6 +95,13 @@ const CheckArea = ({
   const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
   const [fetching, setFetching] = React.useState(false);
   const [alreadyFetched, setAlreadyFetched] = React.useState(false);
+  const currentModelChangeTimeoutRef = React.useRef(null);
+
+  React.useEffect(() => () => {
+    if (currentModelChangeTimeoutRef.current) {
+      clearTimeout(currentModelChangeTimeoutRef.current);
+    }
+  }, []);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
@@ -416,11 +423,24 @@ const CheckArea = ({
   function handleCurrentModelChange(e) {
     const value = e.target.value;
 
+    const applyChange = () => {
+      saveSettingsForChecking_({ currentModel: value });
+      initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
+    };
+
+    if (currentModelChangeTimeoutRef.current) {
+      clearTimeout(currentModelChangeTimeoutRef.current);
+    }
+
     if (value !== currentModel) {
       setCurrentModel(value || 'local-model');
-      saveSettingsForChecking_({ currentModel: value });
     }
-    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
+
+    if (e.target.tagName === 'SELECT') {
+      applyChange();
+    } else {
+      currentModelChangeTimeoutRef.current = setTimeout(applyChange, 5000);
+    }
   }
 
   switch (mode) {
@@ -624,26 +644,29 @@ const CheckArea = ({
                   />
                 </label>
 
-                {availableModels && availableModels.length > 0 &&
-                  <label title='Select the AI model to use for suggestions.  This list is from the models available on the server.'>
-                    {' ' + 'AI Model Selection:' + ' '}
+                <label title='Select or enter the AI model to use for suggestions.'>
+                  {' ' + 'AI Model:' + ' '}
+                  <input
+                    type='text'
+                    value={currentModel || ''}
+                    onChange={handleCurrentModelChange}
+                    placeholder='AI model'
+                  />
+                  {availableModels && availableModels.length > 0 &&
                     <select
-                      value={currentModel}
+                      value={availableModels.includes(currentModel) ? currentModel : ''}
                       onChange={handleCurrentModelChange}
+                      title='Choose from available AI models'
                     >
-                      {availableModels.map(model => {
-                        const value = model.id || model.name || model;
-                        const label = model.label || model.name || model.id || model;
-
-                        return (
-                          <option key={value} value={value}>
-                            {label}
-                          </option>
-                        );
-                      })}
+                      <option value=''>{'Available models'}</option>
+                      {availableModels.map(model => (
+                        <option key={model} value={model}>
+                          {model}
+                        </option>
+                      ))}
                     </select>
-                  </label>
-                }
+                  }
+                </label>
 
                 { fetching &&
                   <div>{'Fetch in process...'}</div>
