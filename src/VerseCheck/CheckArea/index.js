@@ -96,15 +96,52 @@ const CheckArea = ({
   const [fetching, setFetching] = React.useState(false);
   const [alreadyFetched, setAlreadyFetched] = React.useState(false);
   const currentModelChangeTimeoutRef = React.useRef(null);
+  const suggestionsChangeTimeoutRef = React.useRef(null);
+  const llmSuggestionsChangeTimeoutRef = React.useRef(null);
+  const llmQueryUrlChangeTimeoutRef = React.useRef(null);
+  const llmApiTokenChangeTimeoutRef = React.useRef(null);
+  const maximumAiRequestsChangeTimeoutRef = React.useRef(null);
+  const llmTemperatureChangeTimeoutRef = React.useRef(null);
 
   React.useEffect(() => () => {
-    if (currentModelChangeTimeoutRef.current) {
-      clearTimeout(currentModelChangeTimeoutRef.current);
-    }
+    [
+      currentModelChangeTimeoutRef,
+      suggestionsChangeTimeoutRef,
+      llmSuggestionsChangeTimeoutRef,
+      llmQueryUrlChangeTimeoutRef,
+      llmApiTokenChangeTimeoutRef,
+      maximumAiRequestsChangeTimeoutRef,
+      llmTemperatureChangeTimeoutRef,
+    ].forEach(timeoutRef => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    });
   }, []);
 
   let modeArea;
   const { direction: targetLanguageDirection = 'ltr' } = targetLanguageDetails || {};
+
+  /**
+   * Debounces a checking settings update.
+   * @param {object} timeoutRef - React ref that stores the timeout ID
+   * @param {object} newData - partial settings to save
+   * @param {boolean} noRestart - true to save without restarting checks
+   * @param {function} callback - optional function to run after saving
+   */
+  function debounceSettingsChange(timeoutRef, newData = {}, noRestart = false, callback) {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      saveSettingsForChecking_(newData, noRestart);
+
+      if (callback) {
+        callback();
+      }
+    }, 500);
+  }
 
   /**
    * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
@@ -122,15 +159,16 @@ const CheckArea = ({
           const _availableModels = models || [];
 
           setAvailableModels(_availableModels);
-          const modelNotValid = !currentModel || !_availableModels.includes(currentModel);
+          const modelNotValid = !currentModel;
 
           if (modelNotValid && _availableModels.length) {
             const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0] || 'local-model';
+            console.log(`initializeModels - Error fetching models, setting to`, defaultModel);
             setCurrentModel(defaultModel);
           }
           setSuggestionsInit(true);
         } else {
-          console.log(`Error fetching models`, error);
+          console.log(`initializeModels - Error fetching models`, error);
           setAvailableModels(null);
           setCurrentModel('local-model');
           // saveSettingsForChecking_({ currentModel: null });
@@ -332,9 +370,14 @@ const CheckArea = ({
 
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
-      saveSettingsForChecking_({ suggestionsEnabled: checked });
+      debounceSettingsChange(suggestionsChangeTimeoutRef, { suggestionsEnabled: checked }, false, () => {
+        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
+      });
+    } else {
+      debounceSettingsChange(suggestionsChangeTimeoutRef, {}, false, () => {
+        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
+      });
     }
-    initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
   }
 
   /**
@@ -346,9 +389,14 @@ const CheckArea = ({
 
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
-      saveSettingsForChecking_({ llmSuggestionsEnabled: checked });
+      debounceSettingsChange(llmSuggestionsChangeTimeoutRef, { llmSuggestionsEnabled: checked }, false, () => {
+        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
+      });
+    } else {
+      debounceSettingsChange(llmSuggestionsChangeTimeoutRef, {}, false, () => {
+        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
+      });
     }
-    initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
   }
 
   /**
@@ -360,9 +408,14 @@ const CheckArea = ({
 
     if (value !== llmQueryUrl) {
       setLlmQueryUrl(value);
-      saveSettingsForChecking_({ llmQueryUrl: value }, true);
+      debounceSettingsChange(llmQueryUrlChangeTimeoutRef, { llmQueryUrl: value }, true, () => {
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
+      });
+    } else {
+      debounceSettingsChange(llmQueryUrlChangeTimeoutRef, {}, true, () => {
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
+      });
     }
-    initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
   }
 
   /**
@@ -374,7 +427,7 @@ const CheckArea = ({
 
     if (value !== llmApiToken) {
       setLlmApiToken(value);
-      saveSettingsForChecking_({ llmApiToken: value }, true);
+      debounceSettingsChange(llmApiTokenChangeTimeoutRef, { llmApiToken: value }, true);
     }
   }
 
@@ -387,7 +440,7 @@ const CheckArea = ({
 
     if (llmMaximizeRequests !== checked) {
       setLlmMaximizeRequests(checked);
-      saveSettingsForChecking_({ llmMaximizeRequests: checked });
+      debounceSettingsChange(maximumAiRequestsChangeTimeoutRef, { llmMaximizeRequests: checked });
     }
   }
 
@@ -401,7 +454,7 @@ const CheckArea = ({
 
     if (Number.isFinite(value) && normalizedValue !== llmTemperature) {
       setLlmTemperature(normalizedValue);
-      saveSettingsForChecking_({ llmTemperature: normalizedValue });
+      debounceSettingsChange(llmTemperatureChangeTimeoutRef, { llmTemperature: normalizedValue });
     }
   }
 
@@ -425,7 +478,7 @@ const CheckArea = ({
 
     const applyChange = () => {
       saveSettingsForChecking_({ currentModel: value });
-      initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
+      // initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
     };
 
     if (currentModelChangeTimeoutRef.current) {
@@ -571,6 +624,7 @@ const CheckArea = ({
             flexWrap: 'wrap',
             flexDirection: 'column',
             gap: 0,
+            flexShrink: 0,
           }}>
             {isInSelectMode &&
               <button
@@ -644,29 +698,33 @@ const CheckArea = ({
                   />
                 </label>
 
-                <label title='Select or enter the AI model to use for suggestions.'>
-                  {' ' + 'AI Model:' + ' '}
-                  <input
-                    type='text'
-                    value={currentModel || ''}
-                    onChange={handleCurrentModelChange}
-                    placeholder='AI model'
-                  />
-                  {availableModels && availableModels.length > 0 &&
-                    <select
-                      value={availableModels.includes(currentModel) ? currentModel : ''}
+                <div
+                  style={{ marginLeft: '50px' }}
+                >
+                  <label title='Select or enter the AI model to use for suggestions.'>
+                    {' ' + 'AI Model:' + ' '}
+                    <input
+                      type='text'
+                      value={currentModel || ''}
                       onChange={handleCurrentModelChange}
-                      title='Choose from available AI models'
-                    >
-                      <option value=''>{'Available models'}</option>
-                      {availableModels.map(model => (
-                        <option key={model} value={model}>
-                          {model}
-                        </option>
-                      ))}
-                    </select>
-                  }
-                </label>
+                      placeholder='AI model'
+                    />
+                    {availableModels && availableModels.length > 0 &&
+                      <select
+                        value={availableModels.includes(currentModel) ? currentModel : ''}
+                        onChange={handleCurrentModelChange}
+                        title='Choose from available AI models'
+                      >
+                        <option value=''>{'Available models'}</option>
+                        {availableModels.map(model => (
+                          <option key={model} value={model}>
+                            {model}
+                          </option>
+                        ))}
+                      </select>
+                    }
+                  </label>
+                </div>
 
                 { fetching &&
                   <div>{'Fetch in process...'}</div>
