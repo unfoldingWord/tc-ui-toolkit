@@ -1,6 +1,10 @@
 import isEqual from 'deep-equal';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // components
 import DefaultArea from '../DefaultArea';
 import SelectionArea from '../SelectionArea';
@@ -46,6 +50,9 @@ let counter = 0;
  * @param {object} props.targetLanguageDetails
  * @param {function} props.changeSelectionsInLocalState
  * @param {function} [props.getSuggestions] - if defined, called to fetch selection suggestions
+ * @param {function} [props.saveSettingsForChecking] - if defined, saves suggestion and AI configuration
+ * @param {function} [props.readSettingsForChecking] - if defined, reads saved suggestion and AI configuration
+ * @param {function} [props.getModelsForChecking] - if defined, fetches available AI models for suggestions
  * @returns {JSX.Element}
  */
 const CheckArea = ({
@@ -93,25 +100,23 @@ const CheckArea = ({
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
   const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
+  const [aiDialogOpen, setAiDialogOpen] = React.useState(false);
+  const [draftLlmQueryUrl, setDraftLlmQueryUrl] = React.useState('');
+  const [draftLlmApiToken, setDraftLlmApiToken] = React.useState('');
+  const [draftLlmMaximizeRequests, setDraftLlmMaximizeRequests] = React.useState(false);
+  const [draftLlmTemperature, setDraftLlmTemperature] = React.useState(0.7);
+  const [draftCurrentModel, setDraftCurrentModel] = React.useState('');
+  const [draftAvailableModels, setDraftAvailableModels] = React.useState(null);
+  const [fetchingModels, setFetchingModels] = React.useState(false);
   const [fetching, setFetching] = React.useState(false);
   const [alreadyFetched, setAlreadyFetched] = React.useState(false);
-  const currentModelChangeTimeoutRef = React.useRef(null);
   const suggestionsChangeTimeoutRef = React.useRef(null);
   const llmSuggestionsChangeTimeoutRef = React.useRef(null);
-  const llmQueryUrlChangeTimeoutRef = React.useRef(null);
-  const llmApiTokenChangeTimeoutRef = React.useRef(null);
-  const maximumAiRequestsChangeTimeoutRef = React.useRef(null);
-  const llmTemperatureChangeTimeoutRef = React.useRef(null);
 
   React.useEffect(() => () => {
     [
-      currentModelChangeTimeoutRef,
       suggestionsChangeTimeoutRef,
       llmSuggestionsChangeTimeoutRef,
-      llmQueryUrlChangeTimeoutRef,
-      llmApiTokenChangeTimeoutRef,
-      maximumAiRequestsChangeTimeoutRef,
-      llmTemperatureChangeTimeoutRef,
     ].forEach(timeoutRef => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -144,11 +149,72 @@ const CheckArea = ({
   }
 
   /**
+   * Returns the stable identifier for an AI model option.
+   * @param {object|string} model - model object or model identifier
+   * @returns {string|*} model ID, model name, or the original model value
+   */
+  function getModelId(model) {
+    return model && (model.id || model.name) || model;
+  }
+
+  /**
+   * Converts model response data into a list of non-empty model identifiers.
+   * @param {Array<object|string>} models - model objects or model identifiers
+   * @returns {string[]} normalized model identifiers
+   */
+  function normalizeModels(models = []) {
+    return models
+      .map(getModelId)
+      .filter(model => !!model);
+  }
+
+  /**
+   * Fetches available AI models for the configure AI dialog.
+   * Updates the draft model list and selects the first returned model when the current
+   * draft/current model is not available.
+   * @param {string} baseUrl - base URL for the AI suggestion server
+   * @param {string} apiToken - API token used by the AI suggestion server
+   * @returns {Promise<void>}
+   */
+  async function fetchAvailableModels(baseUrl = llmQueryUrl, apiToken = llmApiToken) {
+    if (!getModelsForChecking || !baseUrl) {
+      return;
+    }
+
+    setFetchingModels(true);
+
+    try {
+      const results = await getModelsForChecking({ baseUrl, apiToken });
+      const { models, error } = results || {};
+
+      if (error) {
+        console.log('fetchAvailableModels - Error fetching models', error);
+        setDraftAvailableModels(null);
+      } else {
+        const _availableModels = normalizeModels(models);
+
+        setDraftAvailableModels(_availableModels);
+
+        if (_availableModels.length && !_availableModels.includes(draftCurrentModel || currentModel)) {
+          setDraftCurrentModel(_availableModels[0]);
+        }
+      }
+    } catch (e) {
+      console.warn('fetchAvailableModels - error calling getModelsForChecking', e);
+      setDraftAvailableModels(null);
+    } finally {
+      setFetchingModels(false);
+    }
+  }
+
+  /**
    * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
    * are enabled. Sets the default model if none is currently selected and marks initialization complete.
+   * @param {boolean} suggestionsEnabled - whether suggestions are enabled
    * @param {boolean} llmSuggestionsEnabled - whether LLM suggestions are enabled
    * @param {string} llmQueryUrl - the URL for LLM queries
    * @param {string} currentModel - the currently selected model ID
+   * @param {string} llmApiToken - the API token for LLM queries
    */
   function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken ) {
     if (suggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
@@ -156,14 +222,14 @@ const CheckArea = ({
         const { models, error } = results;
 
         if (!error) {
-          const _availableModels = models || [];
+          const _availableModels = normalizeModels(models);
 
           setAvailableModels(_availableModels);
-          const modelNotValid = !currentModel;
+          const modelNotValid = !currentModel || !_availableModels.includes(currentModel);
 
           if (modelNotValid && _availableModels.length) {
-            const defaultModel = _availableModels[0].id || _availableModels[0].name || _availableModels[0] || 'local-model';
-            console.log(`initializeModels - Error fetching models, setting to`, defaultModel);
+            const defaultModel = _availableModels[0] || 'local-model';
+            console.log(`initializeModels - setting model to`, defaultModel);
             setCurrentModel(defaultModel);
           }
           setSuggestionsInit(true);
@@ -229,6 +295,7 @@ const CheckArea = ({
   /**
    * Saves the current checking settings (suggestions and LLM configuration).
    * @param {object} newData - Optional partial settings to merge with current state
+   * @param {boolean} noRestart - true to save without restarting checks
    */
   function saveSettingsForChecking_(newData = {}, noRestart = false) {
     const data = {
@@ -247,6 +314,14 @@ const CheckArea = ({
     saveSettingsForChecking?.(data, noRestart);
   }
 
+  /**
+   * Applies suggestion results to component state.
+   * If the result still matches the active context and the component is in select mode,
+   * optionally applies the best suggestion to local selection state.
+   * @param {object} results - suggestion response returned by getSuggestions
+   * @param {boolean} force - true to replace current selections with the best suggestion
+   * @returns {Promise<void>}
+   */
   async function applySuggestions(results, force) {
     const {
       algorithmFallback,
@@ -404,18 +479,7 @@ const CheckArea = ({
    * @param {object} e - input change event
    */
   function handleLlmQueryUrlChange(e) {
-    const value = e.target.value;
-
-    if (value !== llmQueryUrl) {
-      setLlmQueryUrl(value);
-      debounceSettingsChange(llmQueryUrlChangeTimeoutRef, { llmQueryUrl: value }, true, () => {
-        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
-      });
-    } else {
-      debounceSettingsChange(llmQueryUrlChangeTimeoutRef, {}, true, () => {
-        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, value, currentModel, llmApiToken);
-      });
-    }
+    setDraftLlmQueryUrl(e.target.value);
   }
 
   /**
@@ -423,12 +487,7 @@ const CheckArea = ({
    * @param {object} e - input change event
    */
   function handleLlmApiTokenChange(e) {
-    const value = e.target.value;
-
-    if (value !== llmApiToken) {
-      setLlmApiToken(value);
-      debounceSettingsChange(llmApiTokenChangeTimeoutRef, { llmApiToken: value }, true);
-    }
+    setDraftLlmApiToken(e.target.value);
   }
 
   /**
@@ -436,12 +495,7 @@ const CheckArea = ({
    * @param {object} e - checkbox change event
    */
   function handleMaximumAiRequestsCheckbox(e) {
-    const checked = !!e.target.checked;
-
-    if (llmMaximizeRequests !== checked) {
-      setLlmMaximizeRequests(checked);
-      debounceSettingsChange(maximumAiRequestsChangeTimeoutRef, { llmMaximizeRequests: checked });
-    }
+    setDraftLlmMaximizeRequests(!!e.target.checked);
   }
 
   /**
@@ -452,9 +506,8 @@ const CheckArea = ({
     const value = Number(e.target.value);
     const normalizedValue = Math.min(1, Math.max(0, value));
 
-    if (Number.isFinite(value) && normalizedValue !== llmTemperature) {
-      setLlmTemperature(normalizedValue);
-      debounceSettingsChange(llmTemperatureChangeTimeoutRef, { llmTemperature: normalizedValue });
+    if (Number.isFinite(value)) {
+      setDraftLlmTemperature(normalizedValue);
     }
   }
 
@@ -474,26 +527,7 @@ const CheckArea = ({
    * @param {object} e - select change event
    */
   function handleCurrentModelChange(e) {
-    const value = e.target.value;
-
-    const applyChange = () => {
-      saveSettingsForChecking_({ currentModel: value });
-      // initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, value, llmApiToken);
-    };
-
-    if (currentModelChangeTimeoutRef.current) {
-      clearTimeout(currentModelChangeTimeoutRef.current);
-    }
-
-    if (value !== currentModel) {
-      setCurrentModel(value || 'local-model');
-    }
-
-    if (e.target.tagName === 'SELECT') {
-      applyChange();
-    } else {
-      currentModelChangeTimeoutRef.current = setTimeout(applyChange, 5000);
-    }
+    setDraftCurrentModel(e.target.value || 'local-model');
   }
 
   switch (mode) {
@@ -574,6 +608,60 @@ const CheckArea = ({
 
   const isInSelectMode = mode === 'select';
   const expandSuggestionsDetails = suggestionsExpanded && isInSelectMode;
+
+  /**
+   * Opens the AI configuration dialog and copies saved AI settings into draft state.
+   */
+  function openAiDialog() {
+    setDraftLlmQueryUrl(llmQueryUrl || '');
+    setDraftLlmApiToken(llmApiToken || '');
+    setDraftLlmMaximizeRequests(llmMaximizeRequests);
+    setDraftLlmTemperature(llmTemperature);
+    setDraftCurrentModel(currentModel || '');
+    setAiDialogOpen(true);
+    setDraftAvailableModels(availableModels);
+  }
+
+  /**
+   * Closes the AI configuration dialog without saving draft changes.
+   */
+  function cancelAiDialog() {
+    setAiDialogOpen(false);
+  }
+
+  /**
+   * Saves draft AI configuration to component state and persisted checking settings.
+   * Reinitializes available models with the saved AI server configuration.
+   */
+  function saveAiDialog() {
+    const normalizedModel = draftCurrentModel || 'local-model';
+
+    setLlmQueryUrl(draftLlmQueryUrl);
+    setLlmApiToken(draftLlmApiToken);
+    setLlmMaximizeRequests(draftLlmMaximizeRequests);
+    setLlmTemperature(draftLlmTemperature);
+    setCurrentModel(normalizedModel);
+    setAvailableModels(draftAvailableModels);
+
+    saveSettingsForChecking_({
+      llmQueryUrl: draftLlmQueryUrl,
+      llmApiToken: draftLlmApiToken,
+      llmMaximizeRequests: draftLlmMaximizeRequests,
+      llmTemperature: draftLlmTemperature,
+      currentModel: normalizedModel,
+    }, true);
+
+    initializeModels(
+      suggestionsEnabled,
+      llmSuggestionsEnabled,
+      draftLlmQueryUrl,
+      normalizedModel,
+      draftLlmApiToken,
+    );
+
+    setAiDialogOpen(false);
+  }
+
   return (
     <div className='check-area'>
       {mode === 'select' ?
@@ -657,74 +745,124 @@ const CheckArea = ({
                   {' Use AI Suggestions'}
                 </label>
 
-                <label title='Enter the base URL for the AI suggestion server.'>
-                  {' ' + 'URL for AI server:' + ' '}
-                  <input
-                    type='text'
-                    value={llmQueryUrl}
-                    onChange={handleLlmQueryUrlChange}
-                    placeholder='AI query URL'
-                  />
-                </label>
-
-                <label title='If enabled AI requests will be made in background to get suggestions for all empty checks.  Otherwise it will only be done for current group.'>
-                  <input
-                    type='checkbox'
-                    checked={llmMaximizeRequests}
-                    onChange={handleMaximumAiRequestsCheckbox}
-                  />
-                  {' Maximum AI requests'}
-                </label>
-
-                <label title='Enter the AI API token used by the suggestion server.'>
-                  {' ' + 'AI API Token:' + ' '}
-                  <input
-                    type='password'
-                    value={llmApiToken}
-                    onChange={handleLlmApiTokenChange}
-                    placeholder='AI API token'
-                  />
-                </label>
-
-                <label title='Set the AI temperature from 0.0 to 1.0. Lower values are more consistent; higher values are more creative. 0.7 is default'>
-                  {' ' + 'AI Temperature:' + ' '}
-                  <input
-                    type='number'
-                    min='0'
-                    max='1'
-                    step='0.1'
-                    value={llmTemperature}
-                    onChange={handleLlmTemperatureChange}
-                  />
-                </label>
-
-                <div
-                  style={{ marginLeft: '50px' }}
+                <button
+                  type='button'
+                  title='Configure AI suggestion server settings'
+                  onClick={openAiDialog}
+                  style={{ cursor: 'pointer', margin: '10px' }}
                 >
-                  <label title='Select or enter the AI model to use for suggestions.'>
-                    {' ' + 'AI Model:' + ' '}
-                    <input
-                      type='text'
-                      value={currentModel || ''}
-                      onChange={handleCurrentModelChange}
-                      placeholder='AI model'
-                    />
-                    {availableModels && availableModels.length > 0 &&
-                      <select
-                        value={availableModels.includes(currentModel) ? currentModel : ''}
-                        onChange={handleCurrentModelChange}
-                        title='Choose from available AI models'
+                  {'Configure AI'}
+                </button>
+
+                <Dialog
+                  open={aiDialogOpen}
+                  onClose={cancelAiDialog}
+                  fullWidth
+                >
+                  <DialogTitle>{'Configure AI'}</DialogTitle>
+                  <DialogContent>
+                    <div style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px',
+                    }}>
+                      <label title='Enter the base URL for the AI suggestion server.'>
+                        {' ' + 'URL for AI server:' + ' '}
+                        <input
+                          type='text'
+                          value={draftLlmQueryUrl}
+                          onChange={handleLlmQueryUrlChange}
+                          placeholder='AI query URL'
+                        />
+                      </label>
+
+                      <label title='If enabled AI requests will be made in background to get suggestions for all empty checks.  Otherwise it will only be done for current group.'>
+                        <input
+                          type='checkbox'
+                          checked={draftLlmMaximizeRequests}
+                          onChange={handleMaximumAiRequestsCheckbox}
+                        />
+                        {' Maximum AI requests'}
+                      </label>
+
+                      <label title='Enter the AI API token used by the suggestion server.'>
+                        {' ' + 'AI API Token:' + ' '}
+                        <input
+                          type='password'
+                          value={draftLlmApiToken}
+                          onChange={handleLlmApiTokenChange}
+                          placeholder='AI API token'
+                        />
+                      </label>
+
+                      <label title='Set the AI temperature from 0.0 to 1.0. Lower values are more consistent; higher values are more creative. 0.7 is default'>
+                        {' ' + 'AI Temperature:' + ' '}
+                        <input
+                          type='number'
+                          min='0'
+                          max='1'
+                          step='0.1'
+                          value={draftLlmTemperature}
+                          onChange={handleLlmTemperatureChange}
+                        />
+                      </label>
+
+                      <div
+                        style={{ marginLeft: '50px' }}
                       >
-                        <option value=''>{'Available models'}</option>
-                        {availableModels.map(model => (
-                          <option key={model} value={model}>
-                            {model}
-                          </option>
-                        ))}
-                      </select>
-                    }
-                  </label>
-                </div>
+                        <label title='Select or enter the AI model to use for suggestions.'>
+                          {' ' + 'AI Model:' + ' '}
+                          <input
+                            type='text'
+                            value={draftCurrentModel || ''}
+                            onChange={handleCurrentModelChange}
+                            placeholder='AI model'
+                          />
+                          {draftAvailableModels && draftAvailableModels.length > 0 &&
+                            <select
+                              value={draftAvailableModels.includes(draftCurrentModel) ? draftCurrentModel : ''}
+                              onChange={handleCurrentModelChange}
+                              title='Choose from available AI models'
+                            >
+                              <option value=''>{'Available models'}</option>
+                              {draftAvailableModels.map(model => (
+                                <option key={model} value={model}>
+                                  {model}
+                                </option>
+                              ))}
+                            </select>
+                          }
+                        </label>
+
+                        <button
+                          type='button'
+                          title='Get the list of AI models from the configured AI server'
+                          onClick={() => fetchAvailableModels(draftLlmQueryUrl, draftLlmApiToken)}
+                          disabled={fetchingModels || !draftLlmQueryUrl || !getModelsForChecking}
+                          style={{ cursor: fetchingModels ? 'default' : 'pointer' }}
+                        >
+                          {fetchingModels ? 'Getting AI Models...' : 'Get AI Models'}
+                        </button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                  <DialogActions>
+                    <button
+                      type='button'
+                      className='btn-second'
+                      onClick={() => cancelAiDialog()}
+                    >
+                      {'Cancel'}
+                    </button>
+                    <button
+                      type='button'
+                      className='btn-prime'
+                      onClick={() => saveAiDialog()}
+                    >
+                      {'Save'}
+                    </button>
+                  </DialogActions>
+                </Dialog>
 
                 { fetching &&
                   <div>{'Fetch in process...'}</div>
