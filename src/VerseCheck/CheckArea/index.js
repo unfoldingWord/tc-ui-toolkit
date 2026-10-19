@@ -13,6 +13,7 @@ import EditVerseArea from '../EditVerseArea';
 import CommentArea from '../CommentArea';
 import './CheckArea.styles.css';
 import { delay } from '../../ScripturePane/helpers/utils';
+import * as selectionHelpers from '../helpers/selectionHelpers';
 
 let counter = 0;
 
@@ -339,6 +340,16 @@ const CheckArea = ({
     const isInSelectMode = mode === 'select';
 
     if (isEqual(contextId, _contextId)) { // in case this is an older response
+      if (_bestSuggestion?.selections?.length > 1) {
+        // group adjacent suggestions
+        let _selections = [];
+
+        for (const selection of _bestSuggestion.selections) {
+          _selections = selectionHelpers.addSelectionToSelections(selection, _selections, verseText);
+        }
+        _bestSuggestion.selections = _selections;
+      }
+
       setBestSuggestion({
         ..._bestSuggestion,
         algorithmFallback,

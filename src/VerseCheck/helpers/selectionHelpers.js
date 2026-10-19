@@ -352,7 +352,7 @@ export const removeSelectionFromSelections = (selection, selections, string) => 
 
 /**
  * @description - Adds a selection if found in the array of selections
- * @param {Object} selection - the selection to remove
+ * @param {Object} selection - the selection to add
  * @param {Array}  selections - array of selection objects [Obj,...]
  * @param {string} string - the text selections are found in
  * @returns {Array} - array of selection objects
