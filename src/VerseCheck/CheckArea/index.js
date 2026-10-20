@@ -329,7 +329,7 @@ const CheckArea = ({
    * @param {boolean} force - true to replace current selections with the best suggestion
    * @returns {Promise<void>}
    */
-  async function applySuggestions(results, force) {
+  async function applySuggestions(contextId, results, force) {
     const {
       algorithmFallback,
       bestSelections: _suggestions,
@@ -344,6 +344,7 @@ const CheckArea = ({
     // TRICKY - expects the _suggestions to be sorted with the best first
     const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
     const isInSelectMode = mode === 'select';
+    await delay(1);
 
     if (isEqual(contextId, _contextId)) { // in case this is an older response
       if (_bestSuggestion?.selections?.length > 1) {
@@ -365,28 +366,39 @@ const CheckArea = ({
         model,
       });
 
+      // console.log(`applySuggestions - same context - isInSelectMode=${isInSelectMode} confidence=${_bestSuggestion?.confidence} newSelections=`, { contextId, selections: _bestSuggestion?.selections });
+
       if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
         const isSelectionCurrentlyEmpty = newSelections?.length === 0;
         const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
 
-        if (force) {
-          await delay(10);
+        const apply = force || (isSelectionCurrentlyEmpty && !isSuggestionSame);
+
+        // console.log('applySuggestions - continuing =', {
+        //   force, isSelectionCurrentlyEmpty, isSuggestionSame, apply,
+        // });
+
+        if (apply) {
+          await delay(1);
           changeSelectionsInLocalState(_bestSuggestion.selections);
         } else {
-          if (isSelectionCurrentlyEmpty) {
-            if (!isSuggestionSame) {
-              changeSelectionsInLocalState(_bestSuggestion.selections);
-            }
-          }
+          console.log('applySuggestions - not applying =', {
+            force, isSelectionCurrentlyEmpty, isSuggestionSame, apply,
+          });
         }
-        await delay(10);
+
+        await delay(1);
+      } else {
+        console.log('applySuggestions - selections not applicable');
       }
+    } else {
+      console.log('applySuggestions - not using result - context changed from', { from: contextId, to: _contextId });
     }
 
-    console.log(`CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
-      bestSuggestions: _suggestions,
-      newSelections,
-    });
+    // console.log(`applySuggestions - CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
+    //   bestSuggestions: _suggestions,
+    //   newSelections,
+    // });
     setFetching(false);
   }
 
@@ -399,7 +411,9 @@ const CheckArea = ({
     // if force is true, we ignore if we already have selections
     const alreadyHaveNewSelections = force ? false : (newSelections && newSelections.length);
 
-    if (!fetching && suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
+    const isReadyForFetch = force || !fetching;
+
+    if (isReadyForFetch && suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
       setFetching({ ...contextId });
 
       delay(1).then(() => { // delay so that state is updated
@@ -419,7 +433,7 @@ const CheckArea = ({
             targetLanguageDetails,
             verseText,
           }).then(results => {
-            applySuggestions(results, force);
+            applySuggestions(contextId, results, force);
           });
         } catch (e) {
           console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
