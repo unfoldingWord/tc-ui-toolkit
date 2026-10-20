@@ -18,6 +18,16 @@ import * as selectionHelpers from '../helpers/selectionHelpers';
 let counter = 0;
 
 /**
+ * Normalizes an LLM grouping value to an integer from 1 to 10, defaulting to 1 if invalid.
+ * @param {number|string} value
+ * @returns {number}
+ */
+function normalizeLlmGrouping(value) {
+  const number = Math.round(Number(value));
+  return Number.isFinite(number) ? Math.min(10, Math.max(1, number)) : 1;
+}
+
+/**
  * Renders the check area for a verse: the selection/default area plus the mode-specific
  * area (edit, comment, select, or default instructions), and an optional suggestions panel
  * when `getSuggestions` is provided.
@@ -97,6 +107,7 @@ const CheckArea = ({
   const [llmApiToken, setLlmApiToken] = React.useState('');
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   const [llmTemperature, setLlmTemperature] = React.useState(0.7);
+  const [llmGrouping, setLlmGrouping] = React.useState(1);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
@@ -106,11 +117,11 @@ const CheckArea = ({
   const [draftLlmApiToken, setDraftLlmApiToken] = React.useState('');
   const [draftLlmMaximizeRequests, setDraftLlmMaximizeRequests] = React.useState(false);
   const [draftLlmTemperature, setDraftLlmTemperature] = React.useState(0.7);
+  const [draftLlmGrouping, setDraftLlmGrouping] = React.useState(1);
   const [draftCurrentModel, setDraftCurrentModel] = React.useState('');
   const [draftAvailableModels, setDraftAvailableModels] = React.useState(null);
   const [fetchingModels, setFetchingModels] = React.useState(false);
   const [fetching, setFetching] = React.useState(false);
-  const [alreadyFetched, setAlreadyFetched] = React.useState(false);
   const suggestionsChangeTimeoutRef = React.useRef(null);
   const llmSuggestionsChangeTimeoutRef = React.useRef(null);
 
@@ -185,6 +196,7 @@ const CheckArea = ({
     setFetchingModels(true);
 
     try {
+      await delay(1);
       const results = await getModelsForChecking({ baseUrl, apiToken });
       const { models, error } = results || {};
 
@@ -260,6 +272,7 @@ const CheckArea = ({
         llmApiToken = '',
         llmMaximizeRequests = false,
         llmTemperature = 0.7,
+        llmGrouping = 1,
         suggestionsEnabled = false,
         suggestionsExpanded = true,
       } = data || {};
@@ -270,6 +283,7 @@ const CheckArea = ({
       setLlmApiToken(llmApiToken);
       setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
+      setLlmGrouping(normalizeLlmGrouping(llmGrouping));
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
 
@@ -282,15 +296,6 @@ const CheckArea = ({
     }
   }, [
     suggestionsInit,
-  ]);
-
-  // Reset suggestion state when context changes to a new verse
-  React.useEffect(() => {
-    setAlreadyFetched(false);
-    setFetching(false);
-    setBestSuggestion(null);
-  }, [
-    contextId,
   ]);
 
   /**
@@ -306,6 +311,7 @@ const CheckArea = ({
       llmApiToken,
       llmMaximizeRequests,
       llmTemperature,
+      llmGrouping,
       currentModel,
       suggestionsExpanded,
       ...newData,
@@ -364,7 +370,6 @@ const CheckArea = ({
         const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
 
         if (force) {
-          setAlreadyFetched(false);
           await delay(10);
           changeSelectionsInLocalState(_bestSuggestion.selections);
         } else {
@@ -375,7 +380,6 @@ const CheckArea = ({
           }
         }
         await delay(10);
-        setAlreadyFetched(true);
       }
     }
 
@@ -395,35 +399,50 @@ const CheckArea = ({
     // if force is true, we ignore if we already have selections
     const alreadyHaveNewSelections = force ? false : (newSelections && newSelections.length);
 
-    if (suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
+    if (!fetching && suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
       setFetching({ ...contextId });
 
-      try {
-        getSuggestions({
-          alignedGLText,
-          bookDetails,
-          contextId,
-          currentModel,
-          force,
-          llmApiToken,
-          llmSuggestionsEnabled,
-          llmQueryUrl,
-          llmTemperature,
-          llmMaximizeRequests,
-          targetLanguageDetails,
-          verseText,
-        }).then(results => {
-          applySuggestions(results, force);
-        });
-      } catch (e) {
-        console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
-        setFetching(false);
+      delay(1).then(() => { // delay so that state is updated
+        try {
+          getSuggestions({
+            alignedGLText,
+            bookDetails,
+            contextId,
+            currentModel,
+            force,
+            llmApiToken,
+            llmSuggestionsEnabled,
+            llmQueryUrl,
+            llmTemperature,
+            llmGrouping,
+            llmMaximizeRequests,
+            targetLanguageDetails,
+            verseText,
+          }).then(results => {
+            applySuggestions(results, force);
+          });
+        } catch (e) {
+          console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
+          setFetching(false);
+        }
+      });
+    }
+  }
+
+  function initiateSuggestions() {
+    if (suggestionsInit) {
+      const alreadyHaveSelections = selections?.length > 0;
+      const alreadyFetchingCurrentContext = isEqual(contextId, fetching);
+
+      if (!alreadyHaveSelections && !alreadyFetchingCurrentContext) {
+        fetchSelectionSuggestions();
       }
     }
   }
 
   /**
    * Automatically fetches selection suggestions when the context changes or initialization completes.
+   * Reset suggestion state when context changes to a new verse
    * Triggers fetchSelectionSuggestions if:
    * - Suggestions have not already been fetched for this context
    * - No existing selections are present
@@ -431,21 +450,38 @@ const CheckArea = ({
    *
    * Dependencies:
    * - contextId: triggers when verse context changes
-   * - newSelections: re-evaluates when user makes new selections
    * - suggestionsInit: waits for initialization to complete before fetching
    */
   React.useEffect(() => {
-    const alreadyHaveSelections = selections?.length > 0;
-    const alreadyFetchingCurrentContext = isEqual(contextId, fetching);
+    setBestSuggestion(null);
 
-    if (!alreadyFetched && !alreadyHaveSelections && !alreadyFetchingCurrentContext) {
-      fetchSelectionSuggestions();
+    if (suggestionsInit) {
+      initiateSuggestions();
+    } else {
+      setFetching(false);
     }
   }, [
     contextId,
-    newSelections,
+  ]);
+
+  React.useEffect(() => {
+    if (suggestionsInit) {
+      initiateSuggestions();
+    }
+  }, [
     suggestionsInit,
   ]);
+
+  React.useEffect(() => {
+    const haveAlreadyMadeSelections = newSelections?.length > 0;
+
+    if (suggestionsInit && !haveAlreadyMadeSelections) {
+      initiateSuggestions();
+    }
+  }, [
+    newSelections,
+  ]);
+
 
   /**
    * Updates suggestionsEnabled state from the "Enable Suggestions" checkbox.
@@ -519,6 +555,18 @@ const CheckArea = ({
 
     if (Number.isFinite(value)) {
       setDraftLlmTemperature(normalizedValue);
+    }
+  }
+
+  /**
+   * Updates draftLlmGrouping state from the LLM grouping input.
+   * @param {object} e - input change event
+   */
+  function handleLlmGroupingChange(e) {
+    const value = Number(e.target.value);
+
+    if (Number.isFinite(value)) {
+      setDraftLlmGrouping(normalizeLlmGrouping(value));
     }
   }
 
@@ -628,6 +676,7 @@ const CheckArea = ({
     setDraftLlmApiToken(llmApiToken || '');
     setDraftLlmMaximizeRequests(llmMaximizeRequests);
     setDraftLlmTemperature(llmTemperature);
+    setDraftLlmGrouping(llmGrouping);
     setDraftCurrentModel(currentModel || '');
     setAiDialogOpen(true);
     setDraftAvailableModels(availableModels);
@@ -651,6 +700,7 @@ const CheckArea = ({
     setLlmApiToken(draftLlmApiToken);
     setLlmMaximizeRequests(draftLlmMaximizeRequests);
     setLlmTemperature(draftLlmTemperature);
+    setLlmGrouping(draftLlmGrouping);
     setCurrentModel(normalizedModel);
     setAvailableModels(draftAvailableModels);
 
@@ -659,6 +709,7 @@ const CheckArea = ({
       llmApiToken: draftLlmApiToken,
       llmMaximizeRequests: draftLlmMaximizeRequests,
       llmTemperature: draftLlmTemperature,
+      llmGrouping: draftLlmGrouping,
       currentModel: normalizedModel,
     }, true);
 
@@ -815,6 +866,18 @@ const CheckArea = ({
                           step='0.1'
                           value={draftLlmTemperature}
                           onChange={handleLlmTemperatureChange}
+                        />
+                      </label>
+
+                      <label title='Set Number of Suggestion requests to group together. Range is from 1 to 10. 1 is default.  This is how many suggestion requests that will be sent at the same time. Only large models can only handle more than 1'>
+                        {' ' + 'Suggestion Request group size:' + ' '}
+                        <input
+                          type='number'
+                          min='1'
+                          max='10'
+                          step='1'
+                          value={draftLlmGrouping}
+                          onChange={handleLlmGroupingChange}
                         />
                       </label>
 
