@@ -125,6 +125,7 @@ const CheckArea = ({
   const suggestionsChangeTimeoutRef = React.useRef(null);
   const llmSuggestionsChangeTimeoutRef = React.useRef(null);
 
+  // On unmount, clear any pending debounced settings saves so they don't fire after the component is gone
   React.useEffect(() => () => {
     [
       suggestionsChangeTimeoutRef,
@@ -144,7 +145,7 @@ const CheckArea = ({
    * @param {object} timeoutRef - React ref that stores the timeout ID
    * @param {object} newData - partial settings to save
    * @param {boolean} noRestart - true to save without restarting checks
-   * @param {function} callback - optional function to run after saving
+   * @param {function} [callback] - optional function to run after saving
    */
   function debounceSettingsChange(timeoutRef, newData = {}, noRestart = false, callback) {
     if (timeoutRef.current) {
@@ -259,7 +260,8 @@ const CheckArea = ({
     }
   }
 
-  // Initialize suggestions settings on mount by reading saved configuration
+  // If suggestions are not initialized (i.e. on mount), read the saved checking settings, restore them
+  // into state, then initialize the available models (which marks suggestionsInit complete).
   React.useEffect(() => {
     if (!suggestionsInit) {
       const data = readSettingsForChecking?.();
@@ -323,8 +325,12 @@ const CheckArea = ({
 
   /**
    * Applies suggestion results to component state.
-   * If the result still matches the active context and the component is in select mode,
-   * optionally applies the best suggestion to local selection state.
+   * Ignores the results if they are for a different context than the one requested (stale response).
+   * Otherwise, groups adjacent selections in the best suggestion and stores it as bestSuggestion.
+   * If in select mode and the suggestion has confidence and selections, applies it to local selection
+   * state when forced, or when there are no current selections and the suggestion differs.
+   * Always clears the fetching state when done.
+   * @param {object} contextId - context the suggestions were requested for
    * @param {object} results - suggestion response returned by getSuggestions
    * @param {boolean} force - true to replace current selections with the best suggestion
    * @returns {Promise<void>}
@@ -403,9 +409,11 @@ const CheckArea = ({
   }
 
   /**
-   * Fetches selection suggestions from the getSuggestions API and updates the best suggestion.
-   * If in 'select' mode with no current selections, automatically applies the best suggestion.
-   * @param {boolean} force - if true, ignores existing selections and fetches suggestions regardless
+   * Fetches selection suggestions for the current context by calling getSuggestions with the
+   * current suggestion and LLM settings, then passes the results to applySuggestions.
+   * Does nothing unless suggestions are initialized and enabled and getSuggestions is defined.
+   * Unless forced, also skips if a fetch is already in progress or there are already new selections.
+   * @param {boolean} force - if true, fetches even if there are existing selections or a fetch in progress
    */
   function fetchSelectionSuggestions(force = false) {
     // if force is true, we ignore if we already have selections
@@ -443,6 +451,10 @@ const CheckArea = ({
     }
   }
 
+  /**
+   * Starts a suggestion fetch if suggestions are initialized, the check has no saved selections,
+   * and suggestions are not already being fetched for the current context.
+   */
   function initiateSuggestions() {
     if (suggestionsInit) {
       const alreadyHaveSelections = selections?.length > 0;
@@ -454,18 +466,8 @@ const CheckArea = ({
     }
   }
 
-  /**
-   * Automatically fetches selection suggestions when the context changes or initialization completes.
-   * Reset suggestion state when context changes to a new verse
-   * Triggers fetchSelectionSuggestions if:
-   * - Suggestions have not already been fetched for this context
-   * - No existing selections are present
-   * - Not currently fetching suggestions for this context
-   *
-   * Dependencies:
-   * - contextId: triggers when verse context changes
-   * - suggestionsInit: waits for initialization to complete before fetching
-   */
+  // When the context changes to a new check, clear the previous best suggestion. If suggestions are
+  // initialized, try to fetch suggestions for the new context; otherwise just clear the fetching state.
   React.useEffect(() => {
     setBestSuggestion(null);
 
@@ -478,6 +480,7 @@ const CheckArea = ({
     contextId,
   ]);
 
+  // Once suggestions initialization completes, try to fetch suggestions for the current context
   React.useEffect(() => {
     if (suggestionsInit) {
       initiateSuggestions();
@@ -486,6 +489,7 @@ const CheckArea = ({
     suggestionsInit,
   ]);
 
+  // When the user's new selections are cleared (or change to empty), try to fetch suggestions again
   React.useEffect(() => {
     const haveAlreadyMadeSelections = newSelections?.length > 0;
 
@@ -498,7 +502,8 @@ const CheckArea = ({
 
 
   /**
-   * Updates suggestionsEnabled state from the "Enable Suggestions" checkbox.
+   * Updates suggestionsEnabled state from the "Enable Suggestions" checkbox, then debounces
+   * saving the settings and reinitializing the available models.
    * @param {object} e - checkbox change event
    */
   function handleSuggestionsCheckbox(e) {
@@ -517,7 +522,8 @@ const CheckArea = ({
   }
 
   /**
-   * Updates llmSuggestionsEnabled state from the "LLM Suggestions" checkbox.
+   * Updates llmSuggestionsEnabled state from the "Use AI Suggestions" checkbox, then debounces
+   * saving the settings and reinitializing the available models.
    * @param {object} e - checkbox change event
    */
   function handleLlmSuggestionsCheckbox(e) {
@@ -536,7 +542,7 @@ const CheckArea = ({
   }
 
   /**
-   * Updates llmQueryUrl state from the LLM query URL input.
+   * Updates draftLlmQueryUrl state from the AI server URL input in the configure AI dialog.
    * @param {object} e - input change event
    */
   function handleLlmQueryUrlChange(e) {
@@ -544,7 +550,7 @@ const CheckArea = ({
   }
 
   /**
-   * Updates llmApiToken state from the AI API token input.
+   * Updates draftLlmApiToken state from the AI API token input in the configure AI dialog.
    * @param {object} e - input change event
    */
   function handleLlmApiTokenChange(e) {
@@ -552,7 +558,7 @@ const CheckArea = ({
   }
 
   /**
-   * Updates llmMaximizeRequests state from the maximum AI requests checkbox.
+   * Updates draftLlmMaximizeRequests state from the maximum AI requests checkbox in the configure AI dialog.
    * @param {object} e - checkbox change event
    */
   function handleMaximumAiRequestsCheckbox(e) {
@@ -560,7 +566,8 @@ const CheckArea = ({
   }
 
   /**
-   * Updates llmTemperature state from the LLM temperature input.
+   * Updates draftLlmTemperature state from the AI temperature input in the configure AI dialog,
+   * clamped to the range 0 to 1. Non-numeric input is ignored.
    * @param {object} e - input change event
    */
   function handleLlmTemperatureChange(e) {
@@ -573,7 +580,8 @@ const CheckArea = ({
   }
 
   /**
-   * Updates draftLlmGrouping state from the LLM grouping input.
+   * Updates draftLlmGrouping state from the suggestion request group size input in the configure AI
+   * dialog, normalized to an integer from 1 to 10. Non-numeric input is ignored.
    * @param {object} e - input change event
    */
   function handleLlmGroupingChange(e) {
@@ -585,7 +593,7 @@ const CheckArea = ({
   }
 
   /**
-   * Toggles the expanded/collapsed state of the suggestions settings panel.
+   * Toggles the expanded/collapsed state of the suggestions settings panel and saves it to settings.
    * @param {boolean} enable - true to expand the panel, false to collapse it
    */
   function handleSuggestionsExpanded(enable) {
@@ -596,8 +604,9 @@ const CheckArea = ({
   }
 
   /**
-   * Updates currentModel state from the available models selector.
-   * @param {object} e - select change event
+   * Updates draftCurrentModel state from the AI model text input or available models selector
+   * in the configure AI dialog. Falls back to 'local-model' if empty.
+   * @param {object} e - input or select change event
    */
   function handleCurrentModelChange(e) {
     setDraftCurrentModel(e.target.value || 'local-model');
@@ -704,8 +713,9 @@ const CheckArea = ({
   }
 
   /**
-   * Saves draft AI configuration to component state and persisted checking settings.
-   * Reinitializes available models with the saved AI server configuration.
+   * Saves draft AI configuration (URL, API token, maximize requests, temperature, grouping, and model)
+   * to component state and persisted checking settings (without restarting checks).
+   * Reinitializes available models with the saved AI server configuration and closes the dialog.
    */
   function saveAiDialog() {
     const normalizedModel = draftCurrentModel || 'local-model';
