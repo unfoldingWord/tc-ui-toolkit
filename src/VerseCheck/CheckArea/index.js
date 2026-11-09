@@ -130,6 +130,13 @@ const CheckArea = ({
   // context in which the user removed all their selections (Clear, or deselecting every word);
   // suggestions are still fetched and listed there but not auto-applied over the user's choice
   const userClearedContextRef = React.useRef(null);
+  // latest props, read when an async suggestion fetch finishes so its result is checked against the
+  // check shown now rather than the values captured when the fetch started
+  const latestRef = React.useRef({});
+
+  latestRef.current = {
+    contextId, mode, newSelections,
+  };
 
   // On unmount, clear any pending debounced settings saves so they don't fire after the component is gone
   React.useEffect(() => () => {
@@ -330,18 +337,44 @@ const CheckArea = ({
   }
 
   /**
-   * Applies suggestion results to component state.
-   * Ignores the results if they are for a different context than the one requested (stale response).
+   * Applies suggestion results to component state (see {@link applySuggestionsForCurrentContext}).
+   * Ignores the results if they are not for the check shown now (the user moved on while fetching).
    * Otherwise, groups adjacent selections in the best suggestion and stores all suggestions in bestSuggestions.
    * If in select mode and the suggestion has confidence and selections, applies it to local selection
-   * state when forced, or when there are no current selections and the suggestion differs.
-   * Always clears the fetching state when done.
+   * state when forced, or when there are no current selections, the suggestion differs, and the user
+   * hasn't cleared their selections for this check.
+   * When done, even on error, clears the fetching state if it is still for `contextId`.
    * @param {object} contextId - context the suggestions were requested for
    * @param {object} results - suggestion response returned by getSuggestions
    * @param {boolean} force - true to replace current selections with the best suggestion
    * @returns {Promise<void>}
    */
   async function applySuggestions(contextId, results, force) {
+    try {
+      await applySuggestionsForCurrentContext(results, force);
+    } finally {
+      clearFetchingFor(contextId);
+    }
+  }
+
+  /**
+   * Clears the fetching state if it is still for `contextId`, so a fetch that finishes for a check
+   * the user has left doesn't clear the fetching state of the check now shown.
+   * @param {object} contextId - context the finished fetch was for
+   */
+  function clearFetchingFor(contextId) {
+    setFetching(prevFetching => (isEqual(prevFetching, contextId) ? false : prevFetching));
+  }
+
+  /**
+   * Shows the suggestion results and, when appropriate, applies the best one, but only if they are
+   * for the check shown now. Uses the latest `mode` and `newSelections`, since they may have changed
+   * while the suggestions were being fetched.
+   * @param {object} results - suggestion response returned by getSuggestions
+   * @param {boolean} force - true to replace current selections with the best suggestion
+   * @returns {Promise<void>}
+   */
+  async function applySuggestionsForCurrentContext(results, force) {
     const {
       algorithmFallback,
       bestSelections: _suggestions,
@@ -351,14 +384,20 @@ const CheckArea = ({
       error,
       llmError,
       model,
-    } = results;
+    } = results || {};
 
     // TRICKY - expects the _suggestions to be sorted with the best first
     const _bestSuggestion = _suggestions?.length && _suggestions[0] || { selections: false };
-    const isInSelectMode = mode === 'select';
     await delay(1);
 
-    if (isEqual(contextId, _contextId)) { // in case this is an older response
+    const {
+      contextId: currentContextId,
+      mode: currentMode,
+      newSelections: currentNewSelections,
+    } = latestRef.current;
+    const isInSelectMode = currentMode === 'select';
+
+    if (isEqual(currentContextId, _contextId)) { // ignore a response for a check the user has left
       if (_bestSuggestion?.selections?.length > 1) {
         // group adjacent suggestions
         let _selections = [];
@@ -382,9 +421,9 @@ const CheckArea = ({
       // console.log(`applySuggestions - same context - isInSelectMode=${isInSelectMode} confidence=${_bestSuggestion?.confidence} newSelections=`, { contextId, selections: _bestSuggestion?.selections });
 
       if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
-        const isSelectionCurrentlyEmpty = newSelections?.length === 0;
-        const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
-        const userClearedSelections = isEqual(userClearedContextRef.current, contextId);
+        const isSelectionCurrentlyEmpty = currentNewSelections?.length === 0;
+        const isSuggestionSame = isEqual(_bestSuggestion.selections, currentNewSelections);
+        const userClearedSelections = isEqual(userClearedContextRef.current, currentContextId);
 
         const apply = force || (isSelectionCurrentlyEmpty && !isSuggestionSame && !userClearedSelections);
 
@@ -406,14 +445,13 @@ const CheckArea = ({
         console.log('applySuggestions - selections not applicable');
       }
     } else {
-      console.log('applySuggestions - not using result - context changed from', { from: contextId, to: _contextId });
+      console.log('applySuggestions - not using result - context changed', { result: _contextId, current: currentContextId });
     }
 
     // console.log(`applySuggestions - CheckArea getSuggestions=${!!getSuggestions} suggestionsEnabled=${suggestionsEnabled} suggestions`, {
     //   bestSuggestions: _suggestions,
     //   newSelections,
     // });
-    setFetching(false);
   }
 
   /**
@@ -427,7 +465,8 @@ const CheckArea = ({
     // if force is true, we ignore if we already have selections
     const alreadyHaveNewSelections = force ? false : (newSelections && newSelections.length);
 
-    const isReadyForFetch = force || !fetching;
+    // a fetch still running for a check the user has left must not block this one
+    const isReadyForFetch = force || !isEqual(fetching, contextId);
 
     if (isReadyForFetch && suggestionsInit && suggestionsEnabled && !alreadyHaveNewSelections && getSuggestions) {
       setFetching({ ...contextId });
@@ -448,12 +487,14 @@ const CheckArea = ({
             llmMaximizeRequests,
             targetLanguageDetails,
             verseText,
-          }).then(results => {
-            applySuggestions(contextId, results, force);
-          });
+          }).then(results => applySuggestions(contextId, results, force))
+            .catch(e => {
+              console.warn(`fetchSelectionSuggestions - error getting suggestions`, e);
+              clearFetchingFor(contextId);
+            });
         } catch (e) {
           console.warn(`fetchSelectionSuggestions - error calling getSuggestions`, e);
-          setFetching(false);
+          clearFetchingFor(contextId);
         }
       });
     }
@@ -1047,7 +1088,7 @@ const CheckArea = ({
                   </DialogActions>
                 </Dialog>
 
-                { fetching &&
+                { isEqual(fetching, contextId) &&
                   <div>{'Fetch in process...'}</div>
                 }
 
