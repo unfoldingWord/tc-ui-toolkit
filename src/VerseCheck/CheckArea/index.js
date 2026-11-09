@@ -124,6 +124,12 @@ const CheckArea = ({
   const [fetching, setFetching] = React.useState(false);
   const suggestionsChangeTimeoutRef = React.useRef(null);
   const llmSuggestionsChangeTimeoutRef = React.useRef(null);
+  // last `newSelections` seen for the current context; null right after a context change, so the
+  // selections loading for the new check aren't mistaken for the user clearing them
+  const prevNewSelectionsRef = React.useRef(null);
+  // context in which the user removed all their selections (Clear, or deselecting every word);
+  // suggestions are still fetched and listed there but not auto-applied over the user's choice
+  const userClearedContextRef = React.useRef(null);
 
   // On unmount, clear any pending debounced settings saves so they don't fire after the component is gone
   React.useEffect(() => () => {
@@ -378,8 +384,9 @@ const CheckArea = ({
       if (isInSelectMode && _bestSuggestion?.confidence && _bestSuggestion?.selections?.length) {
         const isSelectionCurrentlyEmpty = newSelections?.length === 0;
         const isSuggestionSame = isEqual(_bestSuggestion.selections, newSelections);
+        const userClearedSelections = isEqual(userClearedContextRef.current, contextId);
 
-        const apply = force || (isSelectionCurrentlyEmpty && !isSuggestionSame);
+        const apply = force || (isSelectionCurrentlyEmpty && !isSuggestionSame && !userClearedSelections);
 
         // console.log('applySuggestions - continuing =', {
         //   force, isSelectionCurrentlyEmpty, isSuggestionSame, apply,
@@ -471,6 +478,8 @@ const CheckArea = ({
   // initialized, try to fetch suggestions for the new context; otherwise just clear the fetching state.
   React.useEffect(() => {
     setBestSuggestions(null);
+    prevNewSelectionsRef.current = null;
+    userClearedContextRef.current = null;
 
     if (suggestionsInit) {
       initiateSuggestions();
@@ -490,9 +499,17 @@ const CheckArea = ({
     suggestionsInit,
   ]);
 
-  // When the user's new selections are cleared (or change to empty), try to fetch suggestions again
+  // When the user's new selections are cleared (or change to empty), try to fetch suggestions again.
+  // If the user emptied them in select mode for this same check, remember that so the fetched
+  // suggestion is listed but not applied straight back over what they just cleared.
   React.useEffect(() => {
     const haveAlreadyMadeSelections = newSelections?.length > 0;
+    const hadSelections = prevNewSelectionsRef.current?.length > 0;
+
+    if (mode === 'select' && hadSelections && !haveAlreadyMadeSelections) {
+      userClearedContextRef.current = { ...contextId };
+    }
+    prevNewSelectionsRef.current = newSelections;
 
     if (suggestionsInit && !haveAlreadyMadeSelections) {
       initiateSuggestions();
