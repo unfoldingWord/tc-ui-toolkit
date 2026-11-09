@@ -100,7 +100,7 @@ const CheckArea = ({
   readSettingsForChecking, // if defined will get latest settings
   getModelsForChecking, // if defined will fetch available models
 }) => {
-  const [bestSuggestion, setBestSuggestion] = React.useState(false);
+  const [bestSuggestions, setBestSuggestions] = React.useState(null);
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
@@ -326,7 +326,7 @@ const CheckArea = ({
   /**
    * Applies suggestion results to component state.
    * Ignores the results if they are for a different context than the one requested (stale response).
-   * Otherwise, groups adjacent selections in the best suggestion and stores it as bestSuggestion.
+   * Otherwise, groups adjacent selections in the best suggestion and stores all suggestions in bestSuggestions.
    * If in select mode and the suggestion has confidence and selections, applies it to local selection
    * state when forced, or when there are no current selections and the suggestion differs.
    * Always clears the fetching state when done.
@@ -363,8 +363,9 @@ const CheckArea = ({
         _bestSuggestion.selections = _selections;
       }
 
-      setBestSuggestion({
-        ..._bestSuggestion,
+      // keep all suggestions
+      setBestSuggestions({
+        suggestions: _suggestions,
         algorithmFallback,
         cached,
         elapsedStr,
@@ -466,10 +467,10 @@ const CheckArea = ({
     }
   }
 
-  // When the context changes to a new check, clear the previous best suggestion. If suggestions are
+  // When the context changes to a new check, clear the previous suggestions. If suggestions are
   // initialized, try to fetch suggestions for the new context; otherwise just clear the fetching state.
   React.useEffect(() => {
-    setBestSuggestion(null);
+    setBestSuggestions(null);
 
     if (suggestionsInit) {
       initiateSuggestions();
@@ -748,6 +749,73 @@ const CheckArea = ({
     setAiDialogOpen(false);
   }
 
+  /**
+   * Renders one suggestion as a numbered line listing its selected text and confidence.
+   * @param {object} suggestion - a suggestion from bestSuggestions.suggestions
+   * @param {object[]} [suggestion.selections] - suggested selections, each with a `text` property
+   * @param {number} [suggestion.confidence] - confidence percentage (0-100)
+   * @param {number} index - position of the suggestion in the list; also used as the React key
+   * @returns {JSX.Element}
+   */
+  function showSuggestion(suggestion, index) {
+    const hasSelections = !!suggestion?.selections?.length;
+
+    return <div key={index}>
+      {hasSelections
+        ? `${index + 1}: ${suggestion.selections.map(selection => selection.text).join(', ')} - Confidence: ${suggestion.confidence || 0}%`
+        : `${index + 1}: No selections`}
+      {hasSelections &&
+        <button
+          type='button'
+          title='Replace the current selections with this suggestion'
+          onClick={() => applySuggestion(suggestion)}
+          style={{ cursor: 'pointer', marginLeft: '8px' }}
+        >
+          {'Apply'}
+        </button>
+      }
+    </div>;
+  }
+
+  /**
+   * Replaces the current selections with the selections from a suggestion. Adjacent and
+   * overlapping selections are merged first, the same way the best suggestion is grouped.
+   * @param {object} suggestion - a suggestion from bestSuggestions.suggestions
+   * @param {object[]} suggestion.selections - suggested selections to apply
+   */
+  function applySuggestion(suggestion) {
+    const selections = selectionHelpers.optimizeSelections(verseText, suggestion.selections);
+    changeSelectionsInLocalState(selections);
+  }
+
+  /**
+   * Renders every suggestion in bestSuggestions, followed by the response details: error or
+   * algorithm-fallback notice, elapsed time, whether the result was cached, and the model used.
+   * Shows 'No suggestions' when the list is empty.
+   * @returns {JSX.Element}
+   */
+  function showSuggestions() {
+    const suggestions = bestSuggestions?.suggestions || [];
+
+    return <>
+      {suggestions.length
+        ? suggestions.map((suggestion, index) => showSuggestion(suggestion, index))
+        : <div>{'No suggestions'}</div>
+      }
+      { (bestSuggestions?.error || bestSuggestions?.algorithmFallback) &&
+        <div>
+          {bestSuggestions.error && ' <AI ERROR>'}
+          {bestSuggestions.algorithmFallback && ' no results, so fell back to algorithm'}
+        </div>
+      }
+      <div>
+        {`Elapsed: ${bestSuggestions?.elapsedStr || '0'} seconds`}
+        {bestSuggestions?.cached && ` <= Cached Suggestion`}
+      </div>
+      <div>{`Model: ${bestSuggestions?.model || 'Unknown'}`}</div>
+    </>;
+  }
+
   return (
     <div className='check-area'>
       {mode === 'select' ?
@@ -975,7 +1043,7 @@ const CheckArea = ({
                   {'Refresh Suggestions'}
                 </button>
 
-                {bestSuggestion &&
+                {bestSuggestions &&
                   <div style={{
                     flex: 1,
                     overflowY: 'auto',
@@ -991,24 +1059,7 @@ const CheckArea = ({
                     whiteSpace: 'normal',
                   }}>
                     <div>{`${++counter} - Received Suggestions:`}</div>
-                    <div>
-                      {'Suggested Words: '}
-                      {bestSuggestion.selections && bestSuggestion.selections.length
-                        ? bestSuggestion.selections
-                          .map(selection => `"${selection.text}" occurrence ${selection.occurrence}`)
-                          .join(', ')
-                        : 'No suggestions'}
-                    </div>
-                    <div>
-                      {`Confidence: ${bestSuggestion.confidence || 0}%`}
-                      {bestSuggestion.error ? ' <AI ERROR>' : ''}
-                      {bestSuggestion.algorithmFallback ? ' no results, so fell back to algorithm' : ''}
-                    </div>
-                    <div>
-                      {`Elapsed: ${bestSuggestion.elapsedStr || '0'} seconds`}
-                      {bestSuggestion.cached && ` <= Cached Suggestion`}
-                    </div>
-                    <div>{`Model: ${bestSuggestion.model || 'Unknown'}`}</div>
+                    {showSuggestions()}
                   </div>
                 }
               </React.Fragment>
