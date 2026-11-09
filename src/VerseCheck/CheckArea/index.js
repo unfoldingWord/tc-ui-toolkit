@@ -15,7 +15,7 @@ import './CheckArea.styles.css';
 import { delay } from '../../ScripturePane/helpers/utils';
 import * as selectionHelpers from '../helpers/selectionHelpers';
 
-let counter = 0;
+// let counter = 0;
 
 /**
  * Normalizes an LLM grouping value to an integer from 1 to 10, defaulting to 1 if invalid.
@@ -1058,7 +1058,7 @@ const CheckArea = ({
                     wordBreak: 'break-word',
                     whiteSpace: 'normal',
                   }}>
-                    <div>{`${++counter} - Received Suggestions:`}</div>
+                    <div><strong>{`Received Suggestions:`}</strong></div>
                     {showSuggestions()}
                   </div>
                 }
