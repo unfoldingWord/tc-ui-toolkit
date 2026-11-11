@@ -15,7 +15,7 @@
     "prebuild": "rm -rf ./lib",
     "webpack:w": "webpack --watch",
     "webpack:d": "webpack -d",
-    "build": "NODE_ENV=production babel ./src -d ./lib --copy-files --no-copy-ignored",
+    "build": "cross-env NODE_ENV=production babel ./src -d ./lib --copy-files --no-copy-ignored",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build",
     "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"
@@ -36,7 +36,8 @@
   },
   "homepage": "https://github.com/unfoldingWord/tc-ui-toolkit#readme",
   "engines": {
-    "node": ">=6.11.0"
+    "node": ">=16.14.0 <21",
+    "npm": ">=7.18.1"
   },
   "jest": {
     "setupFiles": [
@@ -100,6 +101,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-jest-hoist": "^24.9.0",
     "bible-reference-range": "^1.0.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^3.4.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -127,9 +129,5 @@
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "word-aligner": "1.0.0"
-  },
-  "engines": {
-    "node": ">=16.14.0 <21",
-    "npm": ">=7.18.1"
   }
 }

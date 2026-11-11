@@ -466,8 +466,9 @@ const CheckArea = ({
    * Fetches selection suggestions for the current context by calling getSuggestions with the
    * current suggestion and LLM settings, then passes the results to applySuggestions.
    * Does nothing unless suggestions are initialized and enabled and getSuggestions is defined.
-   * Unless forced, also skips if a fetch is already in progress or there are already new selections.
-   * @param {boolean} force - if true, fetches even if there are existing selections or a fetch in progress
+   * Unless forced, also skips if a fetch is already in progress for the current context or there are
+   * already new selections. A fetch still running for a different context does not block this one.
+   * @param {boolean} [force=false] - if true, fetches even if there are existing selections or a fetch in progress
    */
   function fetchSelectionSuggestions(force = false) {
     // if force is true, we ignore if we already have selections
@@ -856,16 +857,15 @@ const CheckArea = ({
   }
 
   /**
-   * Returns a label for the source of the current suggestions, for the suggestions heading.
-   * Suggestions from the '_ALGORITHM_' pseudo-model came from the selection-history algorithm
-   * rather than an AI model, so they are labeled 'Previous Selections'.
-   * @returns {string} 'Previous Selections', or the quoted model name followed by 'Model'
-   *   ('Unknown' if no model was reported)
+   * Returns a label for the source of the current suggestions, used in the suggestions heading.
+   * Results from the selection-history algorithm (model '_ALGORITHM_') are labeled 'Previous Selections';
+   * otherwise the model name is quoted and followed by ' Model' ('Unknown' if no model was reported).
+   * @returns {string} display label for the suggestion source
    */
   function showSuggestionModel() {
     let model = bestSuggestions?.model || 'Unknown';
 
-    if (model === '_ALGORITHM_') { // this actually did not come from a model, but algorithm using selection history
+    if (model === '_ALGORITHM_') { // this actually did not come from a model, but algorithm on selection history
       return 'Previous Selections';
     }
     return `'${model}' Model`;
@@ -873,8 +873,7 @@ const CheckArea = ({
 
   /**
    * Renders every suggestion in bestSuggestions, followed by the response details: error or
-   * algorithm-fallback notice, elapsed time, and whether the result was cached. (The model used
-   * is shown in the heading, from {@link showSuggestionModel}.)
+   * algorithm-fallback notice, elapsed time, whether the result was cached, and the model used.
    * Shows 'No suggestions' when the list is empty.
    * @returns {JSX.Element}
    */
