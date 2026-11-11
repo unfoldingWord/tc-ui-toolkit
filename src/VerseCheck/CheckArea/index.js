@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import isEqual from 'deep-equal';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -235,8 +236,10 @@ const CheckArea = ({
   }
 
   /**
-   * Initializes available models by fetching them from getModelsForChecking if LLM suggestions
-   * are enabled. Sets the default model if none is currently selected and marks initialization complete.
+   * Initializes available models by fetching them from getModelsForChecking if suggestions and LLM
+   * suggestions are enabled and a query URL is set. Switches to the first available model if the
+   * current model is missing or not in the list; if fetching fails, clears the list and falls back
+   * to 'local-model'. Always marks initialization complete (once the fetch, if any, returns).
    * @param {boolean} suggestionsEnabled - whether suggestions are enabled
    * @param {boolean} llmSuggestionsEnabled - whether LLM suggestions are enabled
    * @param {string} llmQueryUrl - the URL for LLM queries
@@ -288,7 +291,7 @@ const CheckArea = ({
         llmMaximizeRequests = false,
         llmTemperature = 0.1,
         llmGrouping = 1,
-        suggestionsEnabled = false,
+        suggestionsEnabled = true,
         suggestionsExpanded = true,
       } = data || {};
       console.log('restoring original settings', data);
@@ -847,8 +850,25 @@ const CheckArea = ({
   }
 
   /**
+   * Returns a label for the source of the current suggestions, for the suggestions heading.
+   * Suggestions from the '_ALGORITHM_' pseudo-model came from the selection-history algorithm
+   * rather than an AI model, so they are labeled 'Previous Selections'.
+   * @returns {string} 'Previous Selections', or the quoted model name followed by 'Model'
+   *   ('Unknown' if no model was reported)
+   */
+  function showSuggestionModel() {
+    let model = bestSuggestions?.model || 'Unknown';
+
+    if (model === '_ALGORITHM_') { // this actually did not come from a model, but algorithm using selection history
+      return 'Previous Selections';
+    }
+    return `'${model}' Model`;
+  }
+
+  /**
    * Renders every suggestion in bestSuggestions, followed by the response details: error or
-   * algorithm-fallback notice, elapsed time, whether the result was cached, and the model used.
+   * algorithm-fallback notice, elapsed time, and whether the result was cached. (The model used
+   * is shown in the heading, from {@link showSuggestionModel}.)
    * Shows 'No suggestions' when the list is empty.
    * @returns {JSX.Element}
    */
@@ -870,9 +890,10 @@ const CheckArea = ({
         {`Elapsed: ${bestSuggestions?.elapsedStr || '0'} seconds`}
         {bestSuggestions?.cached && ` <= Cached Suggestion`}
       </div>
-      <div>{`Model: ${bestSuggestions?.model || 'Unknown'}`}</div>
     </>;
   }
+
+  const modelText = showSuggestionModel();
 
   return (
     <div className='check-area'>
@@ -1116,7 +1137,7 @@ const CheckArea = ({
                     wordBreak: 'break-word',
                     whiteSpace: 'normal',
                   }}>
-                    <div><strong>{`Received Suggestions:`}</strong></div>
+                    <div><strong>{`Received Suggestions From ${modelText}:`}</strong></div>
                     {showSuggestions()}
                   </div>
                 }
@@ -1160,8 +1181,6 @@ CheckArea.propTypes = {
   targetLanguageDetails: PropTypes.object.isRequired,
   changeSelectionsInLocalState: PropTypes.func.isRequired,
   getSuggestions: PropTypes.func,
-  suggestionsEnabled: PropTypes.bool.isRequired,
-  setSuggestionsEnabled: PropTypes.func.isRequired,
   saveSettingsForChecking: PropTypes.func,
   readSettingsForChecking: PropTypes.func,
   getModelsForChecking: PropTypes.func,

@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "6.2.11-beta.144",
+  "version": "6.2.11-beta.147",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "lib/index.js",
   "display": "library",
@@ -127,5 +127,9 @@
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "word-aligner": "1.0.0"
+  },
+  "engines": {
+    "node": ">=16.14.0 <21",
+    "npm": ">=7.18.1"
   }
 }
