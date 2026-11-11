@@ -35,11 +35,11 @@ class App extends Component {
 - Run `npm run setup`
 
   or
-- `npm i`
+- `npm i --legacy-peer-deps`
 - `npm run build`
 - `npm link` or `sudo npm link`
 - `cd tc-ui-toolkit-test`
-- `npm i`
+- `npm i --legacy-peer-deps`
 - `npm link tc-ui-toolkit`
 
 ## Git Branch Management
@@ -72,7 +72,7 @@ Note:
 4. run `git pull`
 5. Bump package version number
    - Usually will usually be a minor version check for me https://docs.npmjs.com/cli/version
-6. `npm i`
+6. `npm i --legacy-peer-deps`
 7. `npm publish`
 8. `git push`
 

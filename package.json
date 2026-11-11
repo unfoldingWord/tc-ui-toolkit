@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "6.2.11-beta.149",
+  "version": "6.2.11-beta.150",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "lib/index.js",
   "display": "library",
@@ -12,7 +12,7 @@
     "start": "npm run render-ui",
     "render-ui": "webpack && cd tc-ui-toolkit-test && npm start",
     "setup": "npm ci && webpack && npm link && cd tc-ui-toolkit-test && npm ci && npm link tc-ui-toolkit",
-    "prebuild": "rm -rf ./lib",
+    "prebuild": "node -e \"require('fs').rmSync('lib', { recursive: true, force: true })\"",
     "webpack:w": "webpack --watch",
     "webpack:d": "webpack -d",
     "build": "cross-env NODE_ENV=production babel ./src -d ./lib --copy-files --no-copy-ignored",
