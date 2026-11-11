@@ -109,6 +109,8 @@ const CheckArea = ({
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   const [llmTemperature, setLlmTemperature] = React.useState(0.7);
   const [llmGrouping, setLlmGrouping] = React.useState(1);
+  // extra chat-completion request fields (e.g. { seed: 42 }); no UI - set by editing the settings file
+  const [llmExtraParams, setLlmExtraParams] = React.useState(undefined);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
@@ -291,6 +293,7 @@ const CheckArea = ({
         llmMaximizeRequests = false,
         llmTemperature = 0.1,
         llmGrouping = 1,
+        llmExtraParams: savedLlmExtraParams,
         suggestionsEnabled = true,
         suggestionsExpanded = true,
       } = data || {};
@@ -302,6 +305,7 @@ const CheckArea = ({
       setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setLlmGrouping(normalizeLlmGrouping(llmGrouping));
+      setLlmExtraParams(savedLlmExtraParams);
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
 
@@ -330,6 +334,7 @@ const CheckArea = ({
       llmMaximizeRequests,
       llmTemperature,
       llmGrouping,
+      llmExtraParams, // kept so saving the other settings doesn't drop it
       currentModel,
       suggestionsExpanded,
       ...newData,
@@ -487,6 +492,7 @@ const CheckArea = ({
             llmQueryUrl,
             llmTemperature,
             llmGrouping,
+            llmExtraParams,
             llmMaximizeRequests,
             targetLanguageDetails,
             verseText,
