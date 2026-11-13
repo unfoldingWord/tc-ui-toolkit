@@ -1,6 +1,6 @@
 {
   "name": "tc-ui-toolkit",
-  "version": "6.2.11-beta.151",
+  "version": "6.2.11-beta.153",
   "description": "React components used to develop tools for the desktop app translationCore",
   "main": "lib/index.js",
   "display": "library",
@@ -16,6 +16,7 @@
     "webpack:w": "webpack --watch",
     "webpack:d": "webpack -d",
     "build": "cross-env NODE_ENV=production babel ./src -d ./lib --copy-files --no-copy-ignored",
+    "bump:beta": "npm version prerelease --preid=beta --no-git-tag-version",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build",
     "postpublish": "git tag v$npm_package_version && git push origin v$npm_package_version"

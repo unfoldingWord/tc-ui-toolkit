@@ -1156,26 +1156,27 @@ const CheckArea = ({
                   {translate('suggestions.refresh')}
                 </button>
 
-                {bestSuggestions &&
-                  <div style={{
-                    flex: 1,
-                    overflowY: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    paddingLeft: '16px',
-                    paddingRight: '16px',
-                    boxSizing: 'border-box',
-                    overflowWrap: 'anywhere',
-                    wordBreak: 'break-word',
-                    whiteSpace: 'normal',
-                  }}>
-                    {showHeading()}
-                    {showSuggestions()}
-                  </div>
-                }
               </React.Fragment>
+            }
+
+            {bestSuggestions &&
+              <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: '16px',
+                paddingRight: '16px',
+                boxSizing: 'border-box',
+                overflowWrap: 'anywhere',
+                wordBreak: 'break-word',
+                whiteSpace: 'normal',
+              }}>
+                {showHeading()}
+                {showSuggestions()}
+              </div>
             }
           </div>
         }
