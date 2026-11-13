@@ -830,16 +830,20 @@ const CheckArea = ({
 
     return <div key={index}>
       {hasSelections
-        ? `${index + 1}: ${suggestion.selections.map(selection => selection.text).join(', ')} - Confidence: ${suggestion.confidence || 0}%`
-        : `${index + 1}: No selections`}
+        ? translate('suggestions.suggestion_item', {
+          number: index + 1,
+          selections: suggestion.selections.map(selection => selection.text).join(', '),
+          confidence: suggestion.confidence || 0,
+        })
+        : translate('suggestions.no_selections_item', { number: index + 1 })}
       {hasSelections &&
         <button
           type='button'
-          title='Replace the current selections with this suggestion'
+          title={translate('suggestions.apply_tooltip')}
           onClick={() => applySuggestion(suggestion)}
           style={{ cursor: 'pointer', marginLeft: '8px' }}
         >
-          {'Apply'}
+          {translate('suggestions.apply')}
         </button>
       }
     </div>;
@@ -857,18 +861,30 @@ const CheckArea = ({
   }
 
   /**
+   * Gets the model reported for the current suggestions and whether they came from the
+   * selection-history algorithm (model '_ALGORITHM_') rather than an AI model.
+   * @returns {{model: string, isAlgorithmSuggestion: boolean}} the model name (localized 'Unknown' if
+   *   none was reported), and true if the suggestions came from the algorithm
+   */
+  function checkIfAlgorithm() {
+    let model = bestSuggestions?.model || translate('suggestions.unknown_model');
+    const isAlgorithmSuggestion = model === '_ALGORITHM_';
+    return { model, isAlgorithmSuggestion };
+  }
+
+  /**
    * Returns a label for the source of the current suggestions, used in the suggestions heading.
    * Results from the selection-history algorithm (model '_ALGORITHM_') are labeled 'Previous Selections';
    * otherwise the model name is quoted and followed by ' Model' ('Unknown' if no model was reported).
    * @returns {string} display label for the suggestion source
    */
   function showSuggestionModel() {
-    let model = bestSuggestions?.model || 'Unknown';
+    const { model, isAlgorithmSuggestion } = checkIfAlgorithm();
 
-    if (model === '_ALGORITHM_') { // this actually did not come from a model, but algorithm on selection history
-      return 'Previous Selections';
+    if (isAlgorithmSuggestion) { // this actually did not come from a model, but algorithm on selection history
+      return translate('suggestions.previous_selections');
     }
-    return `'${model}' Model`;
+    return translate('suggestions.model_name', { model });
   }
 
   /**
@@ -883,22 +899,35 @@ const CheckArea = ({
     return <>
       {suggestions.length
         ? suggestions.map((suggestion, index) => showSuggestion(suggestion, index))
-        : <div>{'No suggestions'}</div>
+        : <div>{translate('suggestions.no_suggestions')}</div>
       }
       { (bestSuggestions?.error || bestSuggestions?.algorithmFallback) &&
         <div>
-          {bestSuggestions.error && ' <AI ERROR>'}
-          {bestSuggestions.algorithmFallback && ' no results, so fell back to algorithm'}
+          {bestSuggestions.error && ' ' + translate('suggestions.ai_error')}
+          {bestSuggestions.algorithmFallback && ' ' + translate('suggestions.algorithm_fallback')}
         </div>
       }
       <div>
-        {`Elapsed: ${bestSuggestions?.elapsedStr || '0'} seconds`}
-        {bestSuggestions?.cached && ` <= Cached Suggestion`}
+        {translate('suggestions.elapsed', { seconds: bestSuggestions?.elapsedStr || '0' })}
+        {bestSuggestions?.cached && ' ' + translate('suggestions.cached')}
       </div>
     </>;
   }
 
   const modelText = showSuggestionModel();
+
+  /**
+   * Renders the bold heading above the suggestions list, naming where the suggestions came from:
+   * 'Suggestions from Previous Selections:' for algorithm results, otherwise 'Suggestions From <model>:'.
+   * @returns {JSX.Element}
+   */
+  function showHeading() {
+    const { isAlgorithmSuggestion } = checkIfAlgorithm();
+    const messageText = isAlgorithmSuggestion ?
+      translate('suggestions.heading_previous_selections') :
+      translate('suggestions.heading_model', { source: modelText });
+    return <div><strong>{messageText}</strong></div>;
+  }
 
   return (
     <div className='check-area'>
@@ -955,41 +984,41 @@ const CheckArea = ({
             {isInSelectMode &&
               <button
                 type='button'
-                title={suggestionsExpanded ? 'Hide suggestion settings and details' : 'Show suggestion settings and details'}
+                title={suggestionsExpanded ? translate('suggestions.hide_settings_tooltip') : translate('suggestions.show_settings_tooltip')}
                 onClick={() => handleSuggestionsExpanded(!suggestionsExpanded)}
                 style={{ cursor: 'pointer' }}
               >
-                {suggestionsExpanded ? 'Hide Suggestion Settings' : 'Show Suggestion Settings'}
+                {suggestionsExpanded ? translate('suggestions.hide_settings') : translate('suggestions.show_settings')}
               </button>
             }
 
             {expandSuggestionsDetails &&
               <React.Fragment>
-                <label title='Enable or disable automatic selection suggestions'>
+                <label title={translate('suggestions.enable_suggestions_tooltip')}>
                   <input
                     type='checkbox'
                     checked={suggestionsEnabled}
                     onChange={handleSuggestionsCheckbox}
                   />
-                  {' Enable Suggestions'}
+                  {' ' + translate('suggestions.enable_suggestions')}
                 </label>
 
-                <label title='Use AI-powered suggestions from the configured AI server. This will run slower and may be too creative.  If this is turned off the suggestions will only be based on previous selections and will run very quickly.'>
+                <label title={translate('suggestions.use_ai_tooltip')}>
                   <input
                     type='checkbox'
                     checked={llmSuggestionsEnabled}
                     onChange={handleLlmSuggestionsCheckbox}
                   />
-                  {' Use AI Suggestions'}
+                  {' ' + translate('suggestions.use_ai')}
                 </label>
 
                 <button
                   type='button'
-                  title='Configure AI suggestion server settings'
+                  title={translate('suggestions.configure_ai_tooltip')}
                   onClick={openAiDialog}
                   style={{ cursor: 'pointer', margin: '10px' }}
                 >
-                  {'Configure AI'}
+                  {translate('suggestions.configure_ai')}
                 </button>
 
                 <Dialog
@@ -997,44 +1026,44 @@ const CheckArea = ({
                   onClose={cancelAiDialog}
                   fullWidth
                 >
-                  <DialogTitle>{'Configure AI'}</DialogTitle>
+                  <DialogTitle>{translate('suggestions.configure_ai')}</DialogTitle>
                   <DialogContent>
                     <div style={{
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '10px',
                     }}>
-                      <label title='Enter the base URL for the AI suggestion server.'>
-                        {' ' + 'URL for AI server:' + ' '}
+                      <label title={translate('suggestions.ai_server_url_tooltip')}>
+                        {' ' + translate('suggestions.ai_server_url') + ' '}
                         <input
                           type='text'
                           value={draftLlmQueryUrl}
                           onChange={handleLlmQueryUrlChange}
-                          placeholder='AI query URL'
+                          placeholder={translate('suggestions.ai_server_url_placeholder')}
                         />
                       </label>
 
-                      <label title='If enabled AI requests will be made in background to get suggestions for all empty checks.  Otherwise it will only be done for current group.'>
+                      <label title={translate('suggestions.maximize_requests_tooltip')}>
                         <input
                           type='checkbox'
                           checked={draftLlmMaximizeRequests}
                           onChange={handleMaximumAiRequestsCheckbox}
                         />
-                        {' Maximum AI requests'}
+                        {' ' + translate('suggestions.maximize_requests')}
                       </label>
 
-                      <label title='Enter the AI API token used by the suggestion server.'>
-                        {' ' + 'AI API Token:' + ' '}
+                      <label title={translate('suggestions.api_token_tooltip')}>
+                        {' ' + translate('suggestions.api_token') + ' '}
                         <input
                           type='password'
                           value={draftLlmApiToken}
                           onChange={handleLlmApiTokenChange}
-                          placeholder='AI API token'
+                          placeholder={translate('suggestions.api_token_placeholder')}
                         />
                       </label>
 
-                      <label title='Set the AI temperature from 0.0 to 1.0. Lower values are more consistent; higher values are more creative. 0.7 is default'>
-                        {' ' + 'AI Temperature:' + ' '}
+                      <label title={translate('suggestions.temperature_tooltip')}>
+                        {' ' + translate('suggestions.temperature') + ' '}
                         <input
                           type='number'
                           min='0'
@@ -1045,8 +1074,8 @@ const CheckArea = ({
                         />
                       </label>
 
-                      <label title='Set Number of Suggestion requests to group together. Range is from 1 to 10. 1 is default.  This is how many suggestion requests that will be sent at the same time. Only large models can only handle more than 1'>
-                        {' ' + 'Suggestion Request group size:' + ' '}
+                      <label title={translate('suggestions.group_size_tooltip')}>
+                        {' ' + translate('suggestions.group_size') + ' '}
                         <input
                           type='number'
                           min='1'
@@ -1060,21 +1089,21 @@ const CheckArea = ({
                       <div
                         style={{ marginLeft: '50px' }}
                       >
-                        <label title='Select or enter the AI model to use for suggestions.'>
-                          {' ' + 'AI Model:' + ' '}
+                        <label title={translate('suggestions.ai_model_tooltip')}>
+                          {' ' + translate('suggestions.ai_model') + ' '}
                           <input
                             type='text'
                             value={draftCurrentModel || ''}
                             onChange={handleCurrentModelChange}
-                            placeholder='AI model'
+                            placeholder={translate('suggestions.ai_model_placeholder')}
                           />
                           {draftAvailableModels && draftAvailableModels.length > 0 &&
                             <select
                               value={draftAvailableModels.includes(draftCurrentModel) ? draftCurrentModel : ''}
                               onChange={handleCurrentModelChange}
-                              title='Choose from available AI models'
+                              title={translate('suggestions.available_models_tooltip')}
                             >
-                              <option value=''>{'Available models'}</option>
+                              <option value=''>{translate('suggestions.available_models')}</option>
                               {draftAvailableModels.map(model => (
                                 <option key={model} value={model}>
                                   {model}
@@ -1086,12 +1115,12 @@ const CheckArea = ({
 
                         <button
                           type='button'
-                          title='Get the list of AI models from the configured AI server'
+                          title={translate('suggestions.get_models_tooltip')}
                           onClick={() => fetchAvailableModels(draftLlmQueryUrl, draftLlmApiToken)}
                           disabled={fetchingModels || !draftLlmQueryUrl || !getModelsForChecking}
                           style={{ cursor: fetchingModels ? 'default' : 'pointer' }}
                         >
-                          {fetchingModels ? 'Getting AI Models...' : 'Get AI Models'}
+                          {fetchingModels ? translate('suggestions.getting_models') : translate('suggestions.get_models')}
                         </button>
                       </div>
                     </div>
@@ -1102,29 +1131,29 @@ const CheckArea = ({
                       className='btn-second'
                       onClick={() => cancelAiDialog()}
                     >
-                      {'Cancel'}
+                      {translate('suggestions.cancel')}
                     </button>
                     <button
                       type='button'
                       className='btn-prime'
                       onClick={() => saveAiDialog()}
                     >
-                      {'Save'}
+                      {translate('suggestions.save')}
                     </button>
                   </DialogActions>
                 </Dialog>
 
                 { isEqual(fetching, contextId) &&
-                  <div>{'Fetch in process...'}</div>
+                  <div>{translate('suggestions.fetching')}</div>
                 }
 
                 <button
                   type='button'
-                  title='Fetch fresh selection suggestions now'
+                  title={translate('suggestions.refresh_tooltip')}
                   onClick={() => fetchSelectionSuggestions(true)}
                   style={{ cursor: 'pointer', margin: '10px' }}
                 >
-                  {'Refresh Suggestions'}
+                  {translate('suggestions.refresh')}
                 </button>
 
                 {bestSuggestions &&
@@ -1142,7 +1171,7 @@ const CheckArea = ({
                     wordBreak: 'break-word',
                     whiteSpace: 'normal',
                   }}>
-                    <div><strong>{`Received Suggestions From ${modelText}:`}</strong></div>
+                    {showHeading()}
                     {showSuggestions()}
                   </div>
                 }
