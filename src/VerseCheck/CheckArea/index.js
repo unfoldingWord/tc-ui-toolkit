@@ -872,13 +872,19 @@ const CheckArea = ({
   function showSuggestion(suggestion, index) {
     const hasSelections = !!suggestion?.selections?.length;
 
+    function generateSuggestionLine() {
+      const suggestionItem = translate('suggestions.suggestion_item', {
+        number: index + 1,
+        selections: suggestion.selections.map(selection => selection.text).join(', '),
+        confidence: suggestion.confidence || 0,
+      });
+      const suggestionLine = suggestionItem + ' ' + (suggestion.isAlgorithmSuggestion ? 'APP' : 'AI');
+      return suggestionLine;
+    }
+
     return <div key={index}>
       {hasSelections
-        ? translate('suggestions.suggestion_item', {
-          number: index + 1,
-          selections: suggestion.selections.map(selection => selection.text).join(', '),
-          confidence: suggestion.confidence || 0,
-        })
+        ? generateSuggestionLine()
         : translate('suggestions.no_selections_item', { number: index + 1 })}
       {hasSelections &&
         <button
