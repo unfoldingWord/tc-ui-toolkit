@@ -29,6 +29,21 @@ function normalizeLlmGrouping(value) {
 }
 
 /**
+ * Normalizes an algorithm certain confidence value to a percentage from 0 to 100.
+ * Returns undefined for empty or invalid values, so the consuming app's default is used.
+ * @param {number|string} value
+ * @returns {number|undefined}
+ */
+function normalizeAlgorithmCertainConfidence(value) {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.min(100, Math.max(0, number)) : undefined;
+}
+
+/**
  * Renders the check area for a verse: the selection/default area plus the mode-specific
  * area (edit, comment, select, or default instructions), and an optional suggestions panel
  * when `getSuggestions` is provided.
@@ -111,8 +126,8 @@ const CheckArea = ({
   const [llmGrouping, setLlmGrouping] = React.useState(1);
   // extra chat-completion request fields (e.g. { seed: 42 }); no UI - set by editing the settings file
   const [llmExtraParams, setLlmExtraParams] = React.useState(undefined);
-  // confidence at or above which an algorithm (previous selections) suggestion is treated as certain;
-  // no UI - set by editing the settings file
+  // confidence (0-100) at or above which an algorithm (previous selections) suggestion is treated as
+  // certain; undefined uses the consuming app's default
   const [algorithmCertainConfidence, setAlgorithmCertainConfidence] = React.useState(undefined);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
@@ -124,6 +139,7 @@ const CheckArea = ({
   const [draftLlmMaximizeRequests, setDraftLlmMaximizeRequests] = React.useState(false);
   const [draftLlmTemperature, setDraftLlmTemperature] = React.useState(0.7);
   const [draftLlmGrouping, setDraftLlmGrouping] = React.useState(1);
+  const [draftAlgorithmCertainConfidence, setDraftAlgorithmCertainConfidence] = React.useState('');
   const [draftCurrentModel, setDraftCurrentModel] = React.useState('');
   const [draftAvailableModels, setDraftAvailableModels] = React.useState(null);
   const [fetchingModels, setFetchingModels] = React.useState(false);
@@ -310,7 +326,7 @@ const CheckArea = ({
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setLlmGrouping(normalizeLlmGrouping(llmGrouping));
       setLlmExtraParams(savedLlmExtraParams);
-      setAlgorithmCertainConfidence(savedAlgorithmCertainConfidence);
+      setAlgorithmCertainConfidence(normalizeAlgorithmCertainConfidence(savedAlgorithmCertainConfidence));
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
 
@@ -340,7 +356,7 @@ const CheckArea = ({
       llmTemperature,
       llmGrouping,
       llmExtraParams, // kept so saving the other settings doesn't drop it
-      algorithmCertainConfidence, // kept so saving the other settings doesn't drop it
+      algorithmCertainConfidence,
       currentModel,
       suggestionsExpanded,
       ...newData,
@@ -669,6 +685,22 @@ const CheckArea = ({
   }
 
   /**
+   * Updates draftAlgorithmCertainConfidence state from the algorithm certain confidence input in the
+   * configure AI dialog. Empty input is kept (meaning use the default); other values are clamped to
+   * 0 to 100, and non-numeric input is ignored.
+   * @param {object} e - input change event
+   */
+  function handleAlgorithmCertainConfidenceChange(e) {
+    const { value } = e.target;
+
+    if (value === '') {
+      setDraftAlgorithmCertainConfidence('');
+    } else if (Number.isFinite(Number(value))) {
+      setDraftAlgorithmCertainConfidence(normalizeAlgorithmCertainConfidence(value));
+    }
+  }
+
+  /**
    * Toggles the expanded/collapsed state of the suggestions settings panel and saves it to settings.
    * @param {boolean} enable - true to expand the panel, false to collapse it
    */
@@ -776,6 +808,7 @@ const CheckArea = ({
     setDraftLlmMaximizeRequests(llmMaximizeRequests);
     setDraftLlmTemperature(llmTemperature);
     setDraftLlmGrouping(llmGrouping);
+    setDraftAlgorithmCertainConfidence(algorithmCertainConfidence ?? '');
     setDraftCurrentModel(currentModel || '');
     setAiDialogOpen(true);
     setDraftAvailableModels(availableModels);
@@ -789,18 +822,21 @@ const CheckArea = ({
   }
 
   /**
-   * Saves draft AI configuration (URL, API token, maximize requests, temperature, grouping, and model)
+   * Saves draft AI configuration (URL, API token, maximize requests, temperature, grouping,
+   * algorithm certain confidence, and model)
    * to component state and persisted checking settings (without restarting checks).
    * Reinitializes available models with the saved AI server configuration and closes the dialog.
    */
   function saveAiDialog() {
     const normalizedModel = draftCurrentModel || 'local-model';
+    const normalizedCertainConfidence = normalizeAlgorithmCertainConfidence(draftAlgorithmCertainConfidence);
 
     setLlmQueryUrl(draftLlmQueryUrl);
     setLlmApiToken(draftLlmApiToken);
     setLlmMaximizeRequests(draftLlmMaximizeRequests);
     setLlmTemperature(draftLlmTemperature);
     setLlmGrouping(draftLlmGrouping);
+    setAlgorithmCertainConfidence(normalizedCertainConfidence);
     setCurrentModel(normalizedModel);
     setAvailableModels(draftAvailableModels);
 
@@ -810,6 +846,7 @@ const CheckArea = ({
       llmMaximizeRequests: draftLlmMaximizeRequests,
       llmTemperature: draftLlmTemperature,
       llmGrouping: draftLlmGrouping,
+      algorithmCertainConfidence: normalizedCertainConfidence,
       currentModel: normalizedModel,
     }, true);
 
@@ -1090,6 +1127,19 @@ const CheckArea = ({
                           step='1'
                           value={draftLlmGrouping}
                           onChange={handleLlmGroupingChange}
+                        />
+                      </label>
+
+                      <label title={translate('suggestions.algorithm_certain_confidence_tooltip')}>
+                        {' ' + translate('suggestions.algorithm_certain_confidence') + ' '}
+                        <input
+                          type='number'
+                          min='0'
+                          max='100'
+                          step='1'
+                          value={draftAlgorithmCertainConfidence}
+                          onChange={handleAlgorithmCertainConfidenceChange}
+                          placeholder={translate('suggestions.algorithm_certain_confidence_placeholder')}
                         />
                       </label>
 
