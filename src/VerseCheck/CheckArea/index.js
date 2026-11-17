@@ -111,6 +111,9 @@ const CheckArea = ({
   const [llmGrouping, setLlmGrouping] = React.useState(1);
   // extra chat-completion request fields (e.g. { seed: 42 }); no UI - set by editing the settings file
   const [llmExtraParams, setLlmExtraParams] = React.useState(undefined);
+  // confidence at or above which an algorithm (previous selections) suggestion is treated as certain;
+  // no UI - set by editing the settings file
+  const [algorithmCertainConfidence, setAlgorithmCertainConfidence] = React.useState(undefined);
   const [suggestionsInit, setSuggestionsInit] = React.useState(false);
   const [availableModels, setAvailableModels] = React.useState(null);
   const [currentModel, setCurrentModel] = React.useState(null);
@@ -294,6 +297,7 @@ const CheckArea = ({
         llmTemperature = 0.1,
         llmGrouping = 1,
         llmExtraParams: savedLlmExtraParams,
+        algorithmCertainConfidence: savedAlgorithmCertainConfidence,
         suggestionsEnabled = true,
         suggestionsExpanded = true,
       } = data || {};
@@ -306,6 +310,7 @@ const CheckArea = ({
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setLlmGrouping(normalizeLlmGrouping(llmGrouping));
       setLlmExtraParams(savedLlmExtraParams);
+      setAlgorithmCertainConfidence(savedAlgorithmCertainConfidence);
       setCurrentModel(currentModel);
       setSuggestionsExpanded(suggestionsExpanded);
 
@@ -335,6 +340,7 @@ const CheckArea = ({
       llmTemperature,
       llmGrouping,
       llmExtraParams, // kept so saving the other settings doesn't drop it
+      algorithmCertainConfidence, // kept so saving the other settings doesn't drop it
       currentModel,
       suggestionsExpanded,
       ...newData,
@@ -495,6 +501,7 @@ const CheckArea = ({
             llmGrouping,
             llmExtraParams,
             llmMaximizeRequests,
+            algorithmCertainConfidence,
             targetLanguageDetails,
             verseText,
           }).then(results => applySuggestions(contextId, results, force))
