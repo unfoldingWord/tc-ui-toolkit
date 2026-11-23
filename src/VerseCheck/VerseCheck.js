@@ -64,6 +64,7 @@ class VerseCheck extends Component {
       saveSettingsForChecking, // if defined will call save latest settings
       readSettingsForChecking, // if defined will get latest settings
       getModelsForChecking, // if defined will fetch available models
+      getLocalServerStatus, // if defined will report whether the local AI server is usable
     } = this.props;
 
     const targetLanguageFont = manifest && manifest.projectFont || '';
@@ -146,6 +147,7 @@ class VerseCheck extends Component {
               saveSettingsForChecking={saveSettingsForChecking}
               readSettingsForChecking={readSettingsForChecking}
               getModelsForChecking={getModelsForChecking}
+              getLocalServerStatus={getLocalServerStatus}
             />
             <ActionsArea
               mode={mode}
@@ -235,6 +237,7 @@ VerseCheck.propTypes = {
   saveSettingsForChecking: PropTypes.func,
   readSettingsForChecking: PropTypes.func,
   getModelsForChecking: PropTypes.func,
+  getLocalServerStatus: PropTypes.func,
 };
 
 VerseCheck.defaultProps = {
