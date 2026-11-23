@@ -120,6 +120,8 @@ const CheckArea = ({
   const [suggestionsEnabled, setSuggestionsEnabled] = React.useState(false);
   const [llmSuggestionsEnabled, setLlmSuggestionsEnabled] = React.useState(false);
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
+  // when true the consuming app uses its local AI server, so llmQueryUrl is not used
+  const [llmUseLocalServer, setLlmUseLocalServer] = React.useState(false);
   const [llmApiToken, setLlmApiToken] = React.useState('');
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   const [llmTemperature, setLlmTemperature] = React.useState(0.7);
@@ -135,6 +137,7 @@ const CheckArea = ({
   const [suggestionsExpanded, setSuggestionsExpanded] = React.useState(true);
   const [aiDialogOpen, setAiDialogOpen] = React.useState(false);
   const [draftLlmQueryUrl, setDraftLlmQueryUrl] = React.useState('');
+  const [draftLlmUseLocalServer, setDraftLlmUseLocalServer] = React.useState(false);
   const [draftLlmApiToken, setDraftLlmApiToken] = React.useState('');
   const [draftLlmMaximizeRequests, setDraftLlmMaximizeRequests] = React.useState(false);
   const [draftLlmTemperature, setDraftLlmTemperature] = React.useState(0.7);
@@ -222,10 +225,11 @@ const CheckArea = ({
    * draft/current model is not available.
    * @param {string} baseUrl - base URL for the AI suggestion server
    * @param {string} apiToken - API token used by the AI suggestion server
+   * @param {boolean} useLocalServer - true to use the consuming app's local AI server (baseUrl not needed)
    * @returns {Promise<void>}
    */
-  async function fetchAvailableModels(baseUrl = llmQueryUrl, apiToken = llmApiToken) {
-    if (!getModelsForChecking || !baseUrl) {
+  async function fetchAvailableModels(baseUrl = llmQueryUrl, apiToken = llmApiToken, useLocalServer = llmUseLocalServer) {
+    if (!getModelsForChecking || !(baseUrl || useLocalServer)) {
       return;
     }
 
@@ -233,7 +237,7 @@ const CheckArea = ({
 
     try {
       await delay(1);
-      const results = await getModelsForChecking({ baseUrl, apiToken });
+      const results = await getModelsForChecking(getModelsOptions(baseUrl, apiToken, useLocalServer));
       const { models, error } = results || {};
 
       if (error) {
@@ -257,8 +261,19 @@ const CheckArea = ({
   }
 
   /**
+   * Builds the options for getModelsForChecking.
+   * @param {string} baseUrl - base URL for the AI suggestion server
+   * @param {string} apiToken - API token used by the AI suggestion server
+   * @param {boolean} useLocalServer - true to use the consuming app's local AI server
+   * @returns {object} - with `localServer: true` (and no URL or token) when using the local server
+   */
+  function getModelsOptions(baseUrl, apiToken, useLocalServer) {
+    return useLocalServer ? { localServer: true } : { baseUrl, apiToken };
+  }
+
+  /**
    * Initializes available models by fetching them from getModelsForChecking if suggestions and LLM
-   * suggestions are enabled and a query URL is set. Switches to the first available model if the
+   * suggestions are enabled and a query URL is set (or the local AI server is used). Switches to the first available model if the
    * current model is missing or not in the list; if fetching fails, clears the list and falls back
    * to 'local-model'. Always marks initialization complete (once the fetch, if any, returns).
    * @param {boolean} suggestionsEnabled - whether suggestions are enabled
@@ -266,10 +281,11 @@ const CheckArea = ({
    * @param {string} llmQueryUrl - the URL for LLM queries
    * @param {string} currentModel - the currently selected model ID
    * @param {string} llmApiToken - the API token for LLM queries
+   * @param {boolean} useLocalServer - true to use the consuming app's local AI server in place of llmQueryUrl
    */
-  function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken ) {
-    if (suggestionsEnabled && llmSuggestionsEnabled && llmQueryUrl && getModelsForChecking) {
-      getModelsForChecking({ baseUrl: llmQueryUrl, apiToken: llmApiToken }).then(results => {
+  function initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, useLocalServer) {
+    if (suggestionsEnabled && llmSuggestionsEnabled && (llmQueryUrl || useLocalServer) && getModelsForChecking) {
+      getModelsForChecking(getModelsOptions(llmQueryUrl, llmApiToken, useLocalServer)).then(results => {
         const { models, error } = results;
 
         if (!error) {
@@ -308,6 +324,7 @@ const CheckArea = ({
         currentModel = '',
         llmSuggestionsEnabled = false,
         llmQueryUrl = null,
+        llmUseLocalServer = false,
         llmApiToken = '',
         llmMaximizeRequests = false,
         llmTemperature = 0.1,
@@ -321,6 +338,7 @@ const CheckArea = ({
       setSuggestionsEnabled(suggestionsEnabled);
       setLlmSuggestionsEnabled(llmSuggestionsEnabled);
       setLlmQueryUrl(llmQueryUrl);
+      setLlmUseLocalServer(!!llmUseLocalServer);
       setLlmApiToken(llmApiToken);
       setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
@@ -331,7 +349,7 @@ const CheckArea = ({
       setSuggestionsExpanded(suggestionsExpanded);
 
       if (data) {
-        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, !!llmUseLocalServer);
       } else {
         console.log('Error fetching settings');
         setSuggestionsInit(true);
@@ -351,6 +369,7 @@ const CheckArea = ({
       suggestionsEnabled,
       llmSuggestionsEnabled,
       llmQueryUrl,
+      llmUseLocalServer,
       llmApiToken,
       llmMaximizeRequests,
       llmTemperature,
@@ -513,6 +532,7 @@ const CheckArea = ({
             llmApiToken,
             llmSuggestionsEnabled,
             llmQueryUrl,
+            llmUseLocalServer,
             llmTemperature,
             llmGrouping,
             llmExtraParams,
@@ -604,11 +624,11 @@ const CheckArea = ({
     if (suggestionsEnabled !== checked) {
       setSuggestionsEnabled(checked);
       debounceSettingsChange(suggestionsChangeTimeoutRef, { suggestionsEnabled: checked }, false, () => {
-        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
+        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, llmUseLocalServer);
       });
     } else {
       debounceSettingsChange(suggestionsChangeTimeoutRef, {}, false, () => {
-        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken);
+        initializeModels(checked, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, llmUseLocalServer);
       });
     }
   }
@@ -624,11 +644,11 @@ const CheckArea = ({
     if (llmSuggestionsEnabled !== checked) {
       setLlmSuggestionsEnabled(checked);
       debounceSettingsChange(llmSuggestionsChangeTimeoutRef, { llmSuggestionsEnabled: checked }, false, () => {
-        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
+        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken, llmUseLocalServer);
       });
     } else {
       debounceSettingsChange(llmSuggestionsChangeTimeoutRef, {}, false, () => {
-        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken);
+        initializeModels(suggestionsEnabled, checked, llmQueryUrl, currentModel, llmApiToken, llmUseLocalServer);
       });
     }
   }
@@ -639,6 +659,14 @@ const CheckArea = ({
    */
   function handleLlmQueryUrlChange(e) {
     setDraftLlmQueryUrl(e.target.value);
+  }
+
+  /**
+   * Updates draftLlmUseLocalServer state from the "use local server" checkbox in the configure AI dialog.
+   * @param {object} e - checkbox change event
+   */
+  function handleLlmUseLocalServerCheckbox(e) {
+    setDraftLlmUseLocalServer(!!e.target.checked);
   }
 
   /**
@@ -804,6 +832,7 @@ const CheckArea = ({
    */
   function openAiDialog() {
     setDraftLlmQueryUrl(llmQueryUrl || '');
+    setDraftLlmUseLocalServer(llmUseLocalServer);
     setDraftLlmApiToken(llmApiToken || '');
     setDraftLlmMaximizeRequests(llmMaximizeRequests);
     setDraftLlmTemperature(llmTemperature);
@@ -822,7 +851,7 @@ const CheckArea = ({
   }
 
   /**
-   * Saves draft AI configuration (URL, API token, maximize requests, temperature, grouping,
+   * Saves draft AI configuration (URL, use local server, API token, maximize requests, temperature, grouping,
    * algorithm certain confidence, and model)
    * to component state and persisted checking settings (without restarting checks).
    * Reinitializes available models with the saved AI server configuration and closes the dialog.
@@ -832,6 +861,7 @@ const CheckArea = ({
     const normalizedCertainConfidence = normalizeAlgorithmCertainConfidence(draftAlgorithmCertainConfidence);
 
     setLlmQueryUrl(draftLlmQueryUrl);
+    setLlmUseLocalServer(draftLlmUseLocalServer);
     setLlmApiToken(draftLlmApiToken);
     setLlmMaximizeRequests(draftLlmMaximizeRequests);
     setLlmTemperature(draftLlmTemperature);
@@ -842,6 +872,7 @@ const CheckArea = ({
 
     saveSettingsForChecking_({
       llmQueryUrl: draftLlmQueryUrl,
+      llmUseLocalServer: draftLlmUseLocalServer,
       llmApiToken: draftLlmApiToken,
       llmMaximizeRequests: draftLlmMaximizeRequests,
       llmTemperature: draftLlmTemperature,
@@ -856,6 +887,7 @@ const CheckArea = ({
       draftLlmQueryUrl,
       normalizedModel,
       draftLlmApiToken,
+      draftLlmUseLocalServer,
     );
 
     setAiDialogOpen(false);
@@ -1083,12 +1115,22 @@ const CheckArea = ({
                       flexDirection: 'column',
                       gap: '10px',
                     }}>
+                      <label title={translate('suggestions.use_local_server_tooltip')}>
+                        <input
+                          type='checkbox'
+                          checked={draftLlmUseLocalServer}
+                          onChange={handleLlmUseLocalServerCheckbox}
+                        />
+                        {' ' + translate('suggestions.use_local_server')}
+                      </label>
+
                       <label title={translate('suggestions.ai_server_url_tooltip')}>
                         {' ' + translate('suggestions.ai_server_url') + ' '}
                         <input
                           type='text'
                           value={draftLlmQueryUrl}
                           onChange={handleLlmQueryUrlChange}
+                          disabled={draftLlmUseLocalServer}
                           placeholder={translate('suggestions.ai_server_url_placeholder')}
                         />
                       </label>
@@ -1179,8 +1221,8 @@ const CheckArea = ({
                         <button
                           type='button'
                           title={translate('suggestions.get_models_tooltip')}
-                          onClick={() => fetchAvailableModels(draftLlmQueryUrl, draftLlmApiToken)}
-                          disabled={fetchingModels || !draftLlmQueryUrl || !getModelsForChecking}
+                          onClick={() => fetchAvailableModels(draftLlmQueryUrl, draftLlmApiToken, draftLlmUseLocalServer)}
+                          disabled={fetchingModels || !(draftLlmQueryUrl || draftLlmUseLocalServer) || !getModelsForChecking}
                           style={{ cursor: fetchingModels ? 'default' : 'pointer' }}
                         >
                           {fetchingModels ? translate('suggestions.getting_models') : translate('suggestions.get_models')}
