@@ -90,6 +90,18 @@ const DISABLED_INPUT_STYLE = {
   cursor: 'not-allowed',
 };
 
+/**
+ * Formats a size in bytes as gigabytes, e.g. '4.7G'.
+ * @param {number} bytes - size in bytes
+ * @returns {string} - '' when the size isn't known
+ */
+function formatSizeInG(bytes) {
+  if (!Number.isFinite(bytes) || bytes <= 0) {
+    return '';
+  }
+  return `${(bytes / (1024 ** 3)).toFixed(1)}G`;
+}
+
 const CheckArea = ({
   mode,
   tags,
@@ -133,6 +145,10 @@ const CheckArea = ({
   const [llmUseLocalServer, setLlmUseLocalServer] = React.useState(false);
   // whether the consuming app's local AI server can be used (bundled, with at least one model)
   const [localServerAvailable, setLocalServerAvailable] = React.useState(false);
+  // local AI server model sizes in bytes, by model id
+  const [localModelSizes, setLocalModelSizes] = React.useState({});
+  // model sizes in bytes, by model id, from the model data getModelsForChecking returns
+  const [modelSizes, setModelSizes] = React.useState({});
   const [llmApiToken, setLlmApiToken] = React.useState('');
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   // when true the AI is asked to reason before answering (slower)
@@ -223,14 +239,55 @@ const CheckArea = ({
   }
 
   /**
-   * Converts model response data into a list of non-empty model identifiers.
+   * Whether an entry from getModelsForChecking is a model: a model identifier, or an object with an id
+   * that is typed as a model (`object: 'model'`, OpenAI/LM Studio format) or has no type.
+   * @param {object|string} model - model object or model identifier
+   * @returns {boolean}
+   */
+  function isModelEntry(model) {
+    if (typeof model === 'string') {
+      return !!model;
+    }
+    return !!getModelId(model) && (!model.object || model.object === 'model');
+  }
+
+  /**
+   * Converts model response data into a sorted list of non-empty model identifiers.
    * @param {Array<object|string>} models - model objects or model identifiers
-   * @returns {string[]} normalized model identifiers
+   * @returns {string[]} normalized model identifiers, sorted alphabetically
    */
   function normalizeModels(models = []) {
-    return models
+    return (Array.isArray(models) ? models : [])
+      .filter(isModelEntry)
       .map(getModelId)
-      .filter(model => !!model);
+      .sort();
+  }
+
+  /**
+   * Gets the size of each model that has one (e.g. the local AI server's models).
+   * @param {Array<object|string>} models - model objects or model identifiers
+   * @returns {Object<string, number>} - size in bytes, by model id
+   */
+  function getModelSizes(models = []) {
+    const sizes = {};
+
+    for (const model of (Array.isArray(models) ? models : [])) {
+      if (isModelEntry(model) && Number.isFinite(model?.size)) {
+        sizes[getModelId(model)] = model.size;
+      }
+    }
+    return sizes;
+  }
+
+  /**
+   * Gets the size of a model for the model selector, from the model data, or else (when using the local
+   * server) from the local server status.
+   * @param {string} model - model id
+   * @param {boolean} useLocalServer - whether the local AI server is selected
+   * @returns {number|undefined} - size in bytes, if known
+   */
+  function getModelSize(model, useLocalServer) {
+    return modelSizes[model] ?? (useLocalServer ? localModelSizes[model] : undefined);
   }
 
   /**
@@ -260,6 +317,7 @@ const CheckArea = ({
       } else {
         const _availableModels = normalizeModels(models);
 
+        setModelSizes(sizes => ({ ...sizes, ...getModelSizes(models) }));
         setDraftAvailableModels(_availableModels);
 
         if (_availableModels.length && !_availableModels.includes(draftCurrentModel || currentModel)) {
@@ -305,6 +363,7 @@ const CheckArea = ({
         if (!error) {
           const _availableModels = normalizeModels(models);
 
+          setModelSizes(sizes => ({ ...sizes, ...getModelSizes(models) }));
           setAvailableModels(_availableModels);
           const modelNotValid = !currentModel || !_availableModels.includes(currentModel);
 
@@ -329,7 +388,7 @@ const CheckArea = ({
 
   /**
    * Whether the consuming app's local AI server can be used: it reports the server is available and has at
-   * least one model.
+   * least one model. Also stores the local model sizes (localModelSizes) for the model selector.
    * @returns {Promise<boolean>}
    */
   async function isLocalServerUsable() {
@@ -338,7 +397,10 @@ const CheckArea = ({
     }
 
     try {
-      const { available, modelCount } = (await getLocalServerStatus()) || {};
+      const {
+        available, modelCount, modelSizes,
+      } = (await getLocalServerStatus()) || {};
+      setLocalModelSizes(modelSizes || {});
       return !!available && modelCount > 0;
     } catch (e) {
       console.warn('isLocalServerUsable - error calling getLocalServerStatus', e);
@@ -1307,11 +1369,14 @@ const CheckArea = ({
                               title={translate('suggestions.available_models_tooltip')}
                             >
                               <option value=''>{translate('suggestions.available_models')}</option>
-                              {draftAvailableModels.map(model => (
-                                <option key={model} value={model}>
-                                  {model}
-                                </option>
-                              ))}
+                              {draftAvailableModels.map(model => {
+                                const size = formatSizeInG(getModelSize(model, draftLlmUseLocalServer));
+                                return (
+                                  <option key={model} value={model}>
+                                    {size ? `${size} ${model}` : model}
+                                  </option>
+                                );
+                              })}
                             </select>
                           }
                         </label>
