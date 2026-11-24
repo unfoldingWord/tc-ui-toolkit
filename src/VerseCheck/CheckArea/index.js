@@ -82,6 +82,14 @@ function normalizeAlgorithmCertainConfidence(value) {
  * @param {function} [props.getModelsForChecking] - if defined, fetches available AI models for suggestions
  * @returns {JSX.Element}
  */
+// text color for labels and inputs that are disabled
+const DISABLED_TEXT_STYLE = { color: '#9e9e9e' };
+const DISABLED_INPUT_STYLE = {
+  ...DISABLED_TEXT_STYLE,
+  backgroundColor: '#e0e0e0',
+  cursor: 'not-allowed',
+};
+
 const CheckArea = ({
   mode,
   tags,
@@ -123,6 +131,8 @@ const CheckArea = ({
   const [llmQueryUrl, setLlmQueryUrl] = React.useState('');
   // when true the consuming app uses its local AI server, so llmQueryUrl is not used
   const [llmUseLocalServer, setLlmUseLocalServer] = React.useState(false);
+  // whether the consuming app's local AI server can be used (bundled, with at least one model)
+  const [localServerAvailable, setLocalServerAvailable] = React.useState(false);
   const [llmApiToken, setLlmApiToken] = React.useState('');
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   // when true the AI is asked to reason before answering (slower)
@@ -318,11 +328,11 @@ const CheckArea = ({
   }
 
   /**
-   * Default for llmUseLocalServer when it hasn't been saved yet: true when the consuming app reports that its
-   * local AI server is available and has at least one model.
+   * Whether the consuming app's local AI server can be used: it reports the server is available and has at
+   * least one model.
    * @returns {Promise<boolean>}
    */
-  async function getDefaultUseLocalServer() {
+  async function isLocalServerUsable() {
     if (!getLocalServerStatus) {
       return false;
     }
@@ -331,7 +341,7 @@ const CheckArea = ({
       const { available, modelCount } = (await getLocalServerStatus()) || {};
       return !!available && modelCount > 0;
     } catch (e) {
-      console.warn('getDefaultUseLocalServer - error calling getLocalServerStatus', e);
+      console.warn('isLocalServerUsable - error calling getLocalServerStatus', e);
       return false;
     }
   }
@@ -345,15 +355,16 @@ const CheckArea = ({
       const data = readSettingsForChecking?.();
       console.log(data);
 
-      // only look for the local server when the setting has never been saved
-      const defaultUseLocalServer = data?.llmUseLocalServer === undefined ?
-        await getDefaultUseLocalServer() : false;
+      const localServerUsable = await isLocalServerUsable();
 
       if (unmounted) {
         return;
       }
 
-      console.log(`getDefaultUseLocalServer() returned ${defaultUseLocalServer}`);
+      console.log(`isLocalServerUsable() returned ${localServerUsable}`);
+      setLocalServerAvailable(localServerUsable);
+      // when the setting has never been saved, use the local server if it can be used
+      const defaultUseLocalServer = localServerUsable;
 
       const {
         currentModel = '',
@@ -374,7 +385,9 @@ const CheckArea = ({
       setSuggestionsEnabled(suggestionsEnabled);
       setLlmSuggestionsEnabled(llmSuggestionsEnabled);
       setLlmQueryUrl(llmQueryUrl);
-      setLlmUseLocalServer(!!llmUseLocalServer);
+      // forced off when the local server can't be used
+      const useLocalServer = localServerUsable && !!llmUseLocalServer;
+      setLlmUseLocalServer(useLocalServer);
       setLlmApiToken(llmApiToken);
       setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmEnableThinking(!!llmEnableThinking);
@@ -386,7 +399,7 @@ const CheckArea = ({
       setSuggestionsExpanded(suggestionsExpanded);
 
       if (data) {
-        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, !!llmUseLocalServer);
+        initializeModels(suggestionsEnabled, llmSuggestionsEnabled, llmQueryUrl, currentModel, llmApiToken, useLocalServer);
       } else {
         console.log('Error fetching settings');
         setSuggestionsInit(true);
@@ -888,6 +901,14 @@ const CheckArea = ({
   function openAiDialog() {
     setDraftLlmQueryUrl(llmQueryUrl || '');
     setDraftLlmUseLocalServer(llmUseLocalServer);
+    // models may have been added or removed since mount, so check again
+    isLocalServerUsable().then(usable => {
+      setLocalServerAvailable(usable);
+
+      if (!usable) {
+        setDraftLlmUseLocalServer(false);
+      }
+    });
     setDraftLlmApiToken(llmApiToken || '');
     setDraftLlmMaximizeRequests(llmMaximizeRequests);
     setDraftLlmEnableThinking(llmEnableThinking);
@@ -1174,22 +1195,31 @@ const CheckArea = ({
                       flexDirection: 'column',
                       gap: '10px',
                     }}>
-                      <label title={translate('suggestions.use_local_server_tooltip')}>
+                      <label
+                        title={translate('suggestions.use_local_server_tooltip')}
+                        style={localServerAvailable ? undefined : DISABLED_TEXT_STYLE}
+                      >
                         <input
                           type='checkbox'
-                          checked={draftLlmUseLocalServer}
+                          checked={localServerAvailable && draftLlmUseLocalServer}
                           onChange={handleLlmUseLocalServerCheckbox}
+                          disabled={!localServerAvailable}
+                          style={localServerAvailable ? undefined : { cursor: 'not-allowed' }}
                         />
                         {' ' + translate('suggestions.use_local_server')}
                       </label>
 
-                      <label title={translate('suggestions.ai_server_url_tooltip')}>
+                      <label
+                        title={translate('suggestions.ai_server_url_tooltip')}
+                        style={draftLlmUseLocalServer ? DISABLED_TEXT_STYLE : undefined}
+                      >
                         {' ' + translate('suggestions.ai_server_url') + ' '}
                         <input
                           type='text'
                           value={draftLlmQueryUrl}
                           onChange={handleLlmQueryUrlChange}
                           disabled={draftLlmUseLocalServer}
+                          style={draftLlmUseLocalServer ? DISABLED_INPUT_STYLE : undefined}
                           placeholder={translate('suggestions.ai_server_url_placeholder')}
                         />
                       </label>
