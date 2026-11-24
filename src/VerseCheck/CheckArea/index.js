@@ -1153,6 +1153,42 @@ const CheckArea = ({
     return <div><strong>{messageText}</strong></div>;
   }
 
+  /**
+   * Renders the model selector options, labeled with the model size when known, sorted by size (smallest
+   * first) and then by name. Models with no known size come last, sorted by name.
+   * @returns {JSX.Element[]}
+   */
+  function getAvailableModelOptions() {
+    const models = draftAvailableModels.map(model => ({
+      model,
+      bytes: getModelSize(model, draftLlmUseLocalServer),
+    }));
+    const hasSize = bytes => Number.isFinite(bytes) && bytes > 0; // same test as formatSizeInG
+
+    models.sort((a, b) => {
+      const aHasSize = hasSize(a.bytes);
+      const bHasSize = hasSize(b.bytes);
+
+      if (aHasSize !== bHasSize) {
+        return aHasSize ? -1 : 1;
+      }
+
+      if (aHasSize && a.bytes !== b.bytes) {
+        return a.bytes - b.bytes;
+      }
+      return a.model.localeCompare(b.model, undefined, { sensitivity: 'base' });
+    });
+
+    return models.map(({ model, bytes }) => {
+      const size = formatSizeInG(bytes);
+      return (
+        <option key={model} value={model}>
+          {size ? `${size} - ${model}` : model}
+        </option>
+      );
+    });
+  }
+
   return (
     <div className='check-area'>
       {mode === 'select' ?
@@ -1369,14 +1405,7 @@ const CheckArea = ({
                               title={translate('suggestions.available_models_tooltip')}
                             >
                               <option value=''>{translate('suggestions.available_models')}</option>
-                              {draftAvailableModels.map(model => {
-                                const size = formatSizeInG(getModelSize(model, draftLlmUseLocalServer));
-                                return (
-                                  <option key={model} value={model}>
-                                    {size ? `${size} ${model}` : model}
-                                  </option>
-                                );
-                              })}
+                              {getAvailableModelOptions()}
                             </select>
                           }
                         </label>
