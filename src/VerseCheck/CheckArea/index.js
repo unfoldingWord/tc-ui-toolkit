@@ -153,6 +153,9 @@ const CheckArea = ({
   const [llmMaximizeRequests, setLlmMaximizeRequests] = React.useState(false);
   // when true the AI is asked to reason before answering (slower)
   const [llmEnableThinking, setLlmEnableThinking] = React.useState(false);
+  // when true the consuming app adds word alignments (of this and similar projects) to the history
+  // suggestions are made from
+  const [llmUseAlignmentHistory, setLlmUseAlignmentHistory] = React.useState(false);
   const [llmTemperature, setLlmTemperature] = React.useState(0.7);
   const [llmGrouping, setLlmGrouping] = React.useState(1);
   // extra chat-completion request fields (e.g. { seed: 42 }); no UI - set by editing the settings file
@@ -170,6 +173,7 @@ const CheckArea = ({
   const [draftLlmApiToken, setDraftLlmApiToken] = React.useState('');
   const [draftLlmMaximizeRequests, setDraftLlmMaximizeRequests] = React.useState(false);
   const [draftLlmEnableThinking, setDraftLlmEnableThinking] = React.useState(false);
+  const [draftLlmUseAlignmentHistory, setDraftLlmUseAlignmentHistory] = React.useState(false);
   const [draftLlmTemperature, setDraftLlmTemperature] = React.useState(0.7);
   const [draftLlmGrouping, setDraftLlmGrouping] = React.useState(1);
   const [draftAlgorithmCertainConfidence, setDraftAlgorithmCertainConfidence] = React.useState('');
@@ -436,6 +440,7 @@ const CheckArea = ({
         llmApiToken = '',
         llmMaximizeRequests = false,
         llmEnableThinking = false,
+        llmUseAlignmentHistory = false,
         llmTemperature = 0.1,
         llmGrouping = 1,
         llmExtraParams: savedLlmExtraParams,
@@ -453,6 +458,7 @@ const CheckArea = ({
       setLlmApiToken(llmApiToken);
       setLlmMaximizeRequests(llmMaximizeRequests);
       setLlmEnableThinking(!!llmEnableThinking);
+      setLlmUseAlignmentHistory(!!llmUseAlignmentHistory);
       setLlmTemperature(Number.isFinite(Number(llmTemperature)) ? Number(llmTemperature) : 0.7);
       setLlmGrouping(normalizeLlmGrouping(llmGrouping));
       setLlmExtraParams(savedLlmExtraParams);
@@ -493,6 +499,7 @@ const CheckArea = ({
       llmApiToken,
       llmMaximizeRequests,
       llmEnableThinking,
+      llmUseAlignmentHistory,
       llmTemperature,
       llmGrouping,
       llmExtraParams, // kept so saving the other settings doesn't drop it
@@ -792,6 +799,14 @@ const CheckArea = ({
   }
 
   /**
+   * Updates draftLlmUseAlignmentHistory state from the "use word alignments" checkbox in the configure AI dialog.
+   * @param {object} e - checkbox change event
+   */
+  function handleLlmUseAlignmentHistoryCheckbox(e) {
+    setDraftLlmUseAlignmentHistory(!!e.target.checked);
+  }
+
+  /**
    * Updates draftLlmUseLocalServer state from the "use local server" checkbox in the configure AI dialog.
    * @param {object} e - checkbox change event
    */
@@ -974,6 +989,7 @@ const CheckArea = ({
     setDraftLlmApiToken(llmApiToken || '');
     setDraftLlmMaximizeRequests(llmMaximizeRequests);
     setDraftLlmEnableThinking(llmEnableThinking);
+    setDraftLlmUseAlignmentHistory(llmUseAlignmentHistory);
     setDraftLlmTemperature(llmTemperature);
     setDraftLlmGrouping(llmGrouping);
     setDraftAlgorithmCertainConfidence(algorithmCertainConfidence ?? '');
@@ -991,7 +1007,7 @@ const CheckArea = ({
 
   /**
    * Saves draft AI configuration (URL, use local server, API token, maximize requests, enable thinking,
-   * temperature, grouping,
+   * use word alignments, temperature, grouping,
    * algorithm certain confidence, and model)
    * to component state and persisted checking settings (without restarting checks).
    * Reinitializes available models with the saved AI server configuration and closes the dialog.
@@ -1005,6 +1021,7 @@ const CheckArea = ({
     setLlmApiToken(draftLlmApiToken);
     setLlmMaximizeRequests(draftLlmMaximizeRequests);
     setLlmEnableThinking(draftLlmEnableThinking);
+    setLlmUseAlignmentHistory(draftLlmUseAlignmentHistory);
     setLlmTemperature(draftLlmTemperature);
     setLlmGrouping(draftLlmGrouping);
     setAlgorithmCertainConfidence(normalizedCertainConfidence);
@@ -1017,6 +1034,7 @@ const CheckArea = ({
       llmApiToken: draftLlmApiToken,
       llmMaximizeRequests: draftLlmMaximizeRequests,
       llmEnableThinking: draftLlmEnableThinking,
+      llmUseAlignmentHistory: draftLlmUseAlignmentHistory,
       llmTemperature: draftLlmTemperature,
       llmGrouping: draftLlmGrouping,
       algorithmCertainConfidence: normalizedCertainConfidence,
@@ -1338,6 +1356,15 @@ const CheckArea = ({
                           onChange={handleLlmEnableThinkingCheckbox}
                         />
                         {' ' + translate('suggestions.enable_thinking')}
+                      </label>
+
+                      <label title={translate('suggestions.use_alignment_history_tooltip')}>
+                        <input
+                          type='checkbox'
+                          checked={draftLlmUseAlignmentHistory}
+                          onChange={handleLlmUseAlignmentHistoryCheckbox}
+                        />
+                        {' ' + translate('suggestions.use_alignment_history')}
                       </label>
 
                       <label title={translate('suggestions.api_token_tooltip')}>
